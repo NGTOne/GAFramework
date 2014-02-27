@@ -18,5 +18,5 @@ class MutationOperation {
 
 	MutationOperation(int newMutationRate unsigned newSeed) : mutationRate(newMutationRate), seed(newSeed) {}
 
-	int[] mutate(int initialGenome[]);
+	int[] mutate(int initialGenome[], int[] largestPossibleValues);
 }
