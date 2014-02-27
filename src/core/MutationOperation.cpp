@@ -1,24 +1,22 @@
 //Abstract class for mutation operators. Lets us define any mutation operation we like.
 
+#include <random>
+#include <chrono>
+
 class MutationOperation {
 	private:
 
 	protected:
-	int nonRandomSeed;
-        boolean overrideRandom = false;
-	int mutationRate;
+	unsigned seed;
+        int mutationRate;
 
 	public:
 
-	MutationOperation(int newMutationRate) {
-		mutationRate = newMutationRate;
+	MutationOperation(int newMutationRate) : mutationRate(newMutationRate) {
+		seed = chrono::system_clock::now().time_since_epoch().count();
 	}
 
-	MutationOperation(int newMutationRate, boolean randomStatus, int overriddenSeed) {
-                mutationRate = newMutationRate;
-		overrideRandom = randomStatus;
-                nonRandomSeed = overriddenSeed;
-        }
+	MutationOperation(int newMutationRate unsigned newSeed) : mutationRate(newMutationRate), seed(newSeed) {}
 
 	int[] mutate(int initialGenome[]);
 }
