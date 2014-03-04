@@ -10,14 +10,15 @@ class SelectionStrategy {
 
 	protected:
 	unsigned seed;
+	double crossoverRate;
 
 	public:
 
-	SelectionStrategy() {
-		seed = chrono::system_clock::now().time_since_epoch().count(); 
+	SelectionStrategy(double newCrossoverRate) : crossoverRate(newCrossoverRate) {
+		seed = chrono::system_clock::now().time_since_epoch().count();
 	}
 
-	SelectionStrategy(unsigned newSeed) : seed(newSeed) {}
+	SelectionStrategy(unsigned newSeed, double newCrossoverRate) : seed(newSeed), crossoverRate(newCrossoverRate) {}
 
 	Individual[] breedMutateSelect(Individual initialPopulation[], int populationFitnesses[], int populationSize);
 }
