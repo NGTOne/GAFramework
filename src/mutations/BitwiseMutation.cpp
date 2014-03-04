@@ -5,7 +5,7 @@ class BitwiseMutation : MutationOperation {
 
 	public:
 
-	int[] mutate(int[] initialGenome, int[] largestPossibleValues) {
+	int[] mutate(int initialGenome[], int largestPossibleValues[]) {
 		int genomeLength = sizeof(initialGenome)/sizeof(int);
 		int randomNumber;
 		int newGenome[genomeLength];
