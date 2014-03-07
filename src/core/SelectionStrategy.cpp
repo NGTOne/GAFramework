@@ -20,5 +20,6 @@ class SelectionStrategy {
 
 	SelectionStrategy(unsigned newSeed, double newCrossoverRate) : seed(newSeed), crossoverRate(newCrossoverRate) {}
 
+	int getParent(int populationFitnesses[], int populationSize);
 	Individual[] breedMutateSelect(Individual initialPopulation[], int populationFitnesses[], int populationSize);
 }

@@ -23,7 +23,7 @@ class Individual {
 	FitnessFunction myFunction;
 
 	public:
-	Individual crossoverOperation(Individual otherParent);
+	Individual[] crossoverOperation(Individual otherParent);
 	Individual mutationOperation();
 	int checkFitness();
 	boolean sameSpecies (Individual otherIndividual);
@@ -85,12 +85,12 @@ class Individual {
 	}
 
 	//Exactly what it says on the tin - wraps around the CrossoverOperation
-	//and spits out one offspring (which is a new instance of Individual)
+	//and spits out two offspring (which are new instances of Individual)
 	//Returns NULL if the two parents have different gene pools
-	Individual crossoverOperation(Individual otherParent) {
+	Individual[] crossoverOperation(Individual otherParent) {
 		int otherGuysGenome[];
-		int kidsGenome[];
-		Individual kid;
+		int kidsGenome[][];
+		Individual[2] kids;
 
 		if (sameSpecies(otherIndividual) == false) {
 			return NULL;
@@ -99,8 +99,9 @@ class Individual {
 		otherGuysGenome = otherParent.getGenome();
 
 		kidsGenome = myCrossover.crossOver(genome, otherGuysGenome);
-		kid = new Individual(myGenePools, myCrossover, myMutation, myFunction, kidsGenome);
-		return kid;
+		kids[0] = new Individual(myGenePools, myCrossover, myMutation, myFunction, kidsGenome[0]);
+		kids[1] = new Individual(myGenePools, myCrossover, myMutation, myFunction, kidsGenome[1]);
+		return kids;
 	}
 
 	//Wraps around the MutationOperation object and spits out a mutant
