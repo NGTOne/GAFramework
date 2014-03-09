@@ -5,6 +5,9 @@ class TournamentSelection : SelectionStrategy {
 
 	public:
 
+
+	//Picks two random indices, gets their fitnesses, then compares them
+	//and returns the index with the higher fitness
 	int getParent(int populationFitnesses[], int populationSize) {
 		int firstFitness = 0;
 		int secondFitness = 0;
@@ -50,6 +53,8 @@ class TournamentSelection : SelectionStrategy {
 		Individual mutantChildren[populationSize];
 		Individual crossoverChildren[populationSize];
 		Individual finalPopulation[populationSize];
+		Individual overallPopulation[populationSize*3];
+		int newPopulationFitnesses[populationSize*3];
 
 		Individual firstParent;
 		Individual secondParent;
@@ -77,6 +82,21 @@ class TournamentSelection : SelectionStrategy {
 			crossoverChildren[i] = children[0];
 			crossoverChildren[i+1] = children[1];
 		}
-		
+
+		//OK, now we have all the results of our breeding and mutation
+		//Time to pick the ones that will move on to the next
+		//generation
+		//First, we lump them all together into one big population
+		for (int i = 0; i < populationSize; i++) {
+			overallPopulation[i] = originalPopulation[i];
+			newPopulationFitnesses[i] = originalFitnesses[i];
+			overallPopulation[i+populationSize] = mutantChildren[i];
+			newPopulationFitnesses[i+populationSize] = mutantChildren[i].checkFitness();
+			overallPopulation[i+(populationSize*2)] = crossoverChildren[i];
+			newPopulationFitnesses[i+(populationSize*2)] = crossoverChildren[i].checkFitness();
+		}
+
+		//Now, of course, we sort them
+		overallPopulation = sortPopulation(overallPopulation);
 	}
 }
