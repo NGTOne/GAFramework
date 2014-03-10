@@ -55,6 +55,8 @@ class TournamentSelection : SelectionStrategy {
 		Individual finalPopulation[populationSize];
 		Individual overallPopulation[populationSize*3];
 		int newPopulationFitnesses[populationSize*3];
+		int eliteLocations[populationSize];
+		int newEliteLocations[populationSize*3];
 
 		Individual firstParent;
 		Individual secondParent;
@@ -62,6 +64,15 @@ class TournamentSelection : SelectionStrategy {
 
 		int firstIndex;
 		int secondIndex;
+
+		for (int i = 0; i < populationSize; i++) {
+			eliteLocations[i] = 0;
+		}
+
+		for (int i = 0; i < populationSize*3; i++) {
+			newPopulationFitnesses[i] = 0;
+			newEliteLocations[i] = 0;
+		}
 
 		//Each individual produces one mutant
 		for (int = 0; i < populationSize; i++) {
@@ -71,7 +82,7 @@ class TournamentSelection : SelectionStrategy {
 		//Each pair of individuals produces two children
 		//We mess with the population size to prevent array size
 		//overruns
-		for (int i = 0; i < ((populationSize/2)*2)+1; i+=2) {
+		for (int i = 0; i < ((populationSize/2)*2); i+=2) {
 			firstIndex = getParent(populationFitnesses, populationSize);
 			secondIndex = getParent(populationFitnesses, populationSize);
 			firstParent = initialPopulation[firstIndex];
@@ -83,6 +94,15 @@ class TournamentSelection : SelectionStrategy {
 			crossoverChildren[i+1] = children[1];
 		}
 
+		//Pick the elites - we can assume that the initial list has been sorted
+		//during the last generation
+		//If the number of elites is equal to or greater than the population size,
+		//we just mark the entire population as elite and call it a day
+		for (int i = 0; i < numElites && i < populationSize; i++) {
+			eliteLocations[i] = 1;
+		}
+
+
 		//OK, now we have all the results of our breeding and mutation
 		//Time to pick the ones that will move on to the next
 		//generation
@@ -90,6 +110,7 @@ class TournamentSelection : SelectionStrategy {
 		for (int i = 0; i < populationSize; i++) {
 			overallPopulation[i] = originalPopulation[i];
 			newPopulationFitnesses[i] = originalFitnesses[i];
+			newEliteLocations[i] = eliteLocations[i];
 			overallPopulation[i+populationSize] = mutantChildren[i];
 			newPopulationFitnesses[i+populationSize] = mutantChildren[i].checkFitness();
 			overallPopulation[i+(populationSize*2)] = crossoverChildren[i];
@@ -97,6 +118,8 @@ class TournamentSelection : SelectionStrategy {
 		}
 
 		//Now, of course, we sort them
-		overallPopulation = sortPopulation(overallPopulation);
+		overallPopulation = sortPopulation(overallPopulation, newPopulationFitnesses, newEliteLocations, populationSize*3);
+
+		
 	}
 }
