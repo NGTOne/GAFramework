@@ -8,4 +8,5 @@ class FitnessFunction {
 
 	public:
 	int checkFitness(GenePool[] pools, int[] indexes);
+	string toString(GenePool[] pools, int[] indexes);
 }

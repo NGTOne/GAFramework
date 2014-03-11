@@ -155,6 +155,12 @@ class Individual {
 		return genome;
 	}
 
+	void runHierarchicalGenerations() {
+		for (int i = 0; i < genomeLength; i++) {
+			GenePools[i].runGenerations();
+		}
+	}
+
 	//In a hierarchical GA, it's important to know whether or not two individuals
 	//are from the same part of the hierarchy before attempting to breed them
 	//Comparing which gene pools they draw from provides an easy way to do this
@@ -177,5 +183,9 @@ class Individual {
 		}
 
 		return true;
+	}
+
+	string toString() {
+		return myFitness.toString(myGenePools, genome);
 	}
 }

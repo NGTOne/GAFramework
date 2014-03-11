@@ -108,6 +108,10 @@ class HierarchicalGenePool : public GenePool {
 		Individual newPopulation[];
 
 		if (currentGeneration < maxGenerations && (knownOptimum == false || (optimumFound != true && knownOptimum == true))) {
+			//Run the hierarchical component first - we're evolving
+			//from the bottom up
+			myPopulation[0].runHierarchicalGenerations();
+
 			newPopulation = myStrategy.breedMutateSelect(myPopulation, populationFitnesses, populationSize);
 
 	                currentGeneration += 1;
