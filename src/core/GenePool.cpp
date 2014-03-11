@@ -1,43 +1,37 @@
 #include <cstdlib>
 #include <random>
 #include <chrono>
+#include "GenePool.h"
 
-//This is a base class for both hierarchical and non-hierarchical gene pools
-//For hierarchical pools, each individual is an instance of the Individual
-//class. For non-hierarchical pools, each "individual" is some literal, for
-//instance the letters A-Z or the binary digits 0,1.
-//A "standard" GA would be implemented like this:
-//HierarchicalPool -> Individual -> (NonHierarchicalPool, NonHierarchicalPool)
-class GenePool {
-	private:
+using namespace std;
 
-	protected:
-	int populationSize;	
-	unsigned seed;
+GenePool::GenePool() {
+	seed = chrono::system_clock::now().time_since_epoch().count();
+}
 
-	public:
-	int chooseRandomMember();
-	void runGenerations();
-	int getPopulationSize();
-	void * getIndex(int index);
-	Individual getFittestMember();
+GenePool::GenePool(unsigned overriddenSeed) : seed(overriddenSeed) {}
 
-	GenePool() {
-		seed = chrono::system_clock::now().time_since_epoch().count();
-	}
+int GenePool::getPopulationSize() {
+	return populationSize;
+}
 
-	GenePool(unsigned overriddenSeed) : seed(overriddenSeed) {}
+int GenePool::chooseRandomMember() {
+	mt19937 generator(seed);
+	uniform_int_distribution<int> selectionDistribution(0, populationSize-1);
 
-	int getPopulationSize() {
-		return populationSize;
-	}
+	int randomMember = selectionDistribution(generator);
 
-	int chooseRandomMember() {
-		mt19937 generator(seed);
-		uniform_int_distribution selectionDistribution(0, populationSize-1);
+	return randomMember;
+}
 
-		int randomMember = selectionDistribution(generator);
+int GenePool::getSeed() {
+	return seed;
+}
 
-		return randomMember;
+bool GenePool::equals(GenePool otherPool) {
+	if (seed == otherPool.getSeed() && populationSize == otherPool.getPopulationSize()) {
+		return true;
+	} else {
+		return false;
 	}
 }

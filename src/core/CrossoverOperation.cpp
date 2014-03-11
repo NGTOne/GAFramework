@@ -3,20 +3,11 @@
 
 #include <random>
 #include <chrono>
+#include "CrossoverOperation.h"
 using namespace std;
 
-class CrossoverOperation {
-	private:
-
-	protected:
-	unsigned seed;
-
-	public:
-	CrossoverOperation() {
-		seed = chrono::system_clock::now().time_since_epoch().count();
-	}
-	
-	CrossoverOperation(int newSeed, int newCrossoverRate) : seed(newSeed) {}
-
-	int[][] crossOver(int genomeOne[], int genomeTwo[]);
+CrossoverOperation::CrossoverOperation() {
+	seed = chrono::system_clock::now().time_since_epoch().count();
 }
+
+CrossoverOperation::CrossoverOperation(int newSeed, int newCrossoverRate) : seed(newSeed) {}

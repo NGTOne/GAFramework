@@ -9,7 +9,7 @@ class TwoPointCrossover : CrossoverOperation {
 	
 	public:
 	
-	int[][] crossOver(int firstGenome[], int secondGenome[]) {
+	int ** crossOver(int firstGenome[], int secondGenome[]) {
 		int firstGenomeLength = sizeof(firstGenome)/sizeof(int);
 		int secondGenomeLength = sizeof(secondGenome)/sizeof(int);
 		int firstPoint = firstGenomeLength + 1;

@@ -2,21 +2,17 @@
 
 #include <random>
 #include <chrono>
+#include "MutationOperation.h"
 
-class MutationOperation {
-	private:
+using namespace std;
 
-	protected:
-	unsigned seed;
-        int mutationRate;
-
-	public:
-
-	MutationOperation(int newMutationRate) : mutationRate(newMutationRate) {
-		seed = chrono::system_clock::now().time_since_epoch().count();
-	}
-
-	MutationOperation(int newMutationRate unsigned newSeed) : mutationRate(newMutationRate), seed(newSeed) {}
-
-	int[] mutate(int initialGenome[], int largestPossibleValues[]);
+MutationOperation::MutationOperation() {
+	mutationRate = 0;
+	seed = chrono::system_clock::now().time_since_epoch().count();
 }
+
+MutationOperation::MutationOperation(int newMutationRate) : mutationRate(newMutationRate) {
+	seed = chrono::system_clock::now().time_since_epoch().count();
+}
+
+MutationOperation::MutationOperation(int newMutationRate, unsigned newSeed) : mutationRate(newMutationRate), seed(newSeed) {}

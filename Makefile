@@ -11,19 +11,25 @@ info:
 examples: core selections mutations crossovers
 
 core:
-	g++ -c -g src/core/*.cpp obj/core
+	g++ -c -g -Iinclude -std=gnu++0x src/core/CrossoverOperation.cpp obj/core
+	g++ -c -g -Iinclude -std=gnu++0x src/core/MutationOperation.cpp obj/core
+	g++ -c -g -Iinclude -std=gnu++0x src/core/Individual.cpp obj/core
+	g++ -c -g -Iinclude -std=gnu++0x src/core/GenePool.cpp obj/core
+	g++ -c -g -Iinclude -std=gnu++0x src/core/NonHierarchicalGenePool.cpp obj/core
+	g++ -c -g -Iinclude -std=gnu++0x src/core/SelectionStrategy.cpp obj/core
+	g++ -c -g -Iinclude -std=gnu++0x src/core/HierarchicalGenePool.cpp obj/core
 
-selections: core tournamentSelection
+selections: tournamentSelection
 
-mutations: core bitwiseMutation
+mutations: bitwiseMutation
 
-crossovers: core twoPointCrossover
+crossovers: twoPointCrossover
 
-tournamentSelection: core
+tournamentSelection:
 	g++ -c -g src/selections/TournamentSelection.cpp obj/selections
 
-bitwiseMutation: core
+bitwiseMutation:
 	g++ -c -g src/mutations/BitwiseMutation.cpp obj/mutations
 
-twoPointCrossover: core
+twoPointCrossover:
 	g++ -c -g src/crossovers/TwoPointCrossover.cpp obj/crossovers
