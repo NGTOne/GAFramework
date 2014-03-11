@@ -34,6 +34,8 @@ class HierarchicalGenePool : public GenePool {
 	void evaluateFitnesses();
 	void nextGeneration();
 	Individual getIndex(int index);
+	Individual[] sortPopulation(Individual initialPopulation[], int initialFitnesses[], int populationSize);
+	
 
 	//If we don't know the optimum
 	HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations = 1) {
@@ -48,6 +50,8 @@ class HierarchicalGenePool : public GenePool {
 		numIterationsPerGeneration = numIterations;
 
 		evaluateFitnesses();
+
+		sortPopulation(myPopulation, populationFitnesses, populationSize);
 	}
 
 	//If we do know the optimum
@@ -69,6 +73,8 @@ class HierarchicalGenePool : public GenePool {
 		optimumFitness = optimumIndividual.checkFitness();
 
 		evaluateFitnesses();
+
+		sortPopulation(myPopulation, populationFitnesses, populationSize);
 	}
 
 	//Evaluates the fitnesses of the population of this particular
@@ -106,9 +112,6 @@ class HierarchicalGenePool : public GenePool {
 
 	                currentGeneration += 1;
 
-        	        evaluateFitnesses();
-
-
 			if (knownOptimum == true) {
                         	for (int i = 0; i < populationSize && optimumFound == false; i++) {
                                 	//TODO: make this more approximate
@@ -117,6 +120,8 @@ class HierarchicalGenePool : public GenePool {
                                 	}
                         	}
 			}
+			//The new generation replaces the old
+			myPopulation = newPopulation;
 		}
 	}
 
@@ -130,4 +135,27 @@ class HierarchicalGenePool : public GenePool {
 			nextGeneration();
 		}
 	}
+
+	Individual[] sortPopulation(Individual initialPopulation[], int initialFitnesses[], int populationSize) {
+		//TODO: Make more efficient
+		Individual tempIndividual;
+		int temp;
+
+		for (int i = 0; i < populationSize; i++) {
+			for (int k = 0; k < populationSize; k++) {
+				if (initialFitnesses[k] > initialFitnesses[i]) {
+					tempIndividual = initialPopulation[i];
+					temp = initialFitnesses[i];
+
+					initialPopulation[i] = initialPopulation[k];
+					initialFitnesses[i] = initialFitnesses[k];
+
+					initialPopulation[k] = tempIndividual;
+					initialFitnesses[i] = temp;
+				}
+			}
+		}
+	}
+
+	return initialPopulation;
 }
