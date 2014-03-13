@@ -7,6 +7,6 @@ class FitnessFunction {
 	protected:
 
 	public:
-	int checkFitness(GenePool[] pools, int[] indexes);
-	string toString(GenePool[] pools, int[] indexes);
+	int checkFitness(GenePool pools[], int indexes[], int genomeLength);
+	string toString(GenePool pools[], int indexes[], int genomeLength);
 }

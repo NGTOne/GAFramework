@@ -186,6 +186,6 @@ class Individual {
 	}
 
 	string toString() {
-		return myFitness.toString(myGenePools, genome);
+		return myFitness.toString(myGenePools, genome, genomeLength);
 	}
 }
