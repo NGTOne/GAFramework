@@ -1,6 +1,7 @@
 info:
 	@echo "Usage:"
 	@echo "make examples: Produces a series of example GAs and HGAs using the framework"
+	@echo "make library: Rebuilds the library from scratch"
 	@echo "make core: Produces the object files for the \"core\" components"
 	@echo "make selections: Produces the object files for the selection strategies"
 	@echo "make mutations: Produces the object files for the mutation operators"
@@ -8,7 +9,9 @@ info:
 	@echo ""
 	@echo "Any GA/HGA needs at least core, and one component from each of selections, mutations, and crossovers in order to function."
 
-examples: core selections mutations crossovers
+examples: library
+
+library: core selections mutations crossovers
 
 core:
 	g++ -c -g -Iinclude -std=gnu++0x src/core/CrossoverOperation.cpp obj/core

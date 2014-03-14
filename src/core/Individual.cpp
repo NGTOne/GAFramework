@@ -3,6 +3,9 @@
 
 using namespace std;
 
+//Empty constructor
+Individual::Individual() {}
+
 //Basic constructor - lets us have a completely generic Individualthat doesn't
 //know what the heck is going on inside it
 Individual::Individual(GenePool * newGenePools, CrossoverOperation newCrossover, MutationOperation newMutation, FitnessFunction newFitness) {
@@ -60,7 +63,7 @@ Individual::Individual(GenePool * newGenePools, CrossoverOperation newCrossover,
 Individual * Individual::crossoverOperation(Individual otherParent) {
 	int * otherGuysGenome;
 	int ** kidsGenome;
-	Individual * kids;
+	Individual * kids = (Individual*)malloc(sizeof(Individual)*2);
 
 	if (sameSpecies(otherParent) == false) {
 		return NULL;

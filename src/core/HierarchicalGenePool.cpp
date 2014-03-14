@@ -6,16 +6,9 @@
 #include "HierarchicalGenePool.h"
 
 using namespace std;
-using namespace HierarchicalGenePool;
-
-void evaluateFitnesses();
-void nextGeneration();
-Individual getIndex(int index);
-Individual[] sortPopulation(Individual initialPopulation[], int initialFitnesses[], int populationSize);
-	
 
 //If we don't know the optimum
-HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations = 1) {
+HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations = 1, SelectionStrategy newStrategy) : myStrategy(newStrategy) {
 	myPopulation = new Individual[populationSize];
 
 	for (int i = 0; i < populationSize; i++) {
@@ -32,7 +25,7 @@ HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMa
 }
 
 //If we do know the optimum
-HierarchicalGenePool(int populationSize, Individual templateIndividual, int maxGenerations, int numIterations = 1, int[] optimalGenome) {
+HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templateIndividual, int maxGenerations, int numIterations = 1, SelectionStrategy newStrategy, int optimalGenome[]) : myStrategy(newStrategy) {
 	myPopulation = new Individual[populationSize];
 
 	for (int i = 0; i < populationSize; i++) {
@@ -56,7 +49,7 @@ HierarchicalGenePool(int populationSize, Individual templateIndividual, int maxG
 
 //Evaluates the fitnesses of the population of this particular GenePoo
 //Basically a convenience thing
-void evaluateFitnesses() {
+void HierarchicalGenePool::evaluateFitnesses() {
 	for (int i = 0; i < populationSize; i++) {
 		populationFitnesses[i] = myPopulation[i].checkFitness();
 	}
@@ -64,7 +57,7 @@ void evaluateFitnesses() {
 
 //Evaluates the fitnesses of a given population of individuals
 //Doesn't care what their genetic makeup is - uses their fitness functions
-int[] evaluateFitnesses(Individual[] populationToEval, int populationToEvalSize) {
+int * HierarchicalGenePool::evaluateFitnesses(Individual populationToEval[], int populationToEvalSize) {
 	int populationToEvalFitnesses[] = new int[populationToEvalSize];
 
 	for (int i = 0; i < populationToEvalSize; i++) {
@@ -75,13 +68,13 @@ int[] evaluateFitnesses(Individual[] populationToEval, int populationToEvalSize)
 }
 
 //When we need a specific individual
-void * getIndex(int index) {
+void * HierarchicalGenePool::getIndex(int index) {
 	return (void *)myPopulation[index];
 }
 
 //Run one generation
-void nextGeneration() {
-	Individual newPopulation[];
+void HierarchicalGenePool::nextGeneration() {
+	Individual * newPopulation;
 
 	if (currentGeneration < maxGenerations && (knownOptimum == false || (optimumFound != true && knownOptimum == true))) {
 		//Run the hierarchical component first - we're evolving
@@ -100,23 +93,26 @@ void nextGeneration() {
                                	}
                        	}
 		}
+		
 		//The new generation replaces the old
-		myPopulation = newPopulation;
+		for (int i = 0; i < populationSize; i++) {
+			myPopulation[i] = newPopulation[i];
+		}
 	}
 }
 
 //For HGAs - if we want to run multiple generations of a lower-level gene pool
 //for every one of a higher-level one, this is how
 //Basically a loop wrapped around nextGeneration()
-void runGenerations() {
-	int target = numGenerations + numIterationsPerGeneration;
+void HierarchicalGenePool::runGenerations() {
+	int target = currentGeneration + numIterationsPerGeneration;
 
-	for (int i = numGenerations; i <= target && i <= maxGenerations && optimumFound == false; i++) {
+	for (int i = currentGeneration; i <= target && i <= maxGenerations && optimumFound == false; i++) {
 		nextGeneration();
 	}
 }
 
-Individual[] sortPopulation(Individual initialPopulation[], int initialFitnesses[], int populationSize) {
+Individual * HierarchicalGenePool::sortPopulation(Individual initialPopulation[], int initialFitnesses[], int populationSize) {
 	//TODO: Make more efficient
 	Individual tempIndividual;
 	int temp;

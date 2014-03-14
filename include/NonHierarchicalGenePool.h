@@ -2,15 +2,16 @@
 //elements - lets us build "classical" GAs
 //It has no generational mechanics, selection strategy, or fitness evaluations,
 //which means it's distinct from the HierarchicalGenePool
+#include "GenePool.h"
+
 template <class T>
-class NonHierarchicalGenePool : public GenePool {
+class NonHierarchicalGenePool: public GenePool {
 	private:
 
 	protected:
 	T myPopulation[];
 
 	public:
-	T getIndex(int index);
 	
 	NonHierarchicalGenePool(T population[], int newPopulationSize);
 

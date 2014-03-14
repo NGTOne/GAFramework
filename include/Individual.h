@@ -27,6 +27,9 @@ class Individual {
 	FitnessFunction myFunction;
 
 	public:
+	//Doesn't actually do anything - DO NOT USE
+	Individual();
+
 	//Basic constructor - lets us have a completely generic Individual
 	//that doesn't know what the heck is going on inside it
 	Individual(GenePool newGenePools[], CrossoverOperation newCrossover, MutationOperation newMutation, FitnessFunction newFitness);

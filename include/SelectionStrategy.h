@@ -1,5 +1,6 @@
 //This abstract class serves as a general base for all selection strategies,
 //allowing any HierarchicalGenePool to use any strategy you might want
+#include "Individual.h"
 
 class SelectionStrategy {
 	private:
@@ -15,9 +16,9 @@ class SelectionStrategy {
 
 	SelectionStrategy(unsigned newSeed, double newCrossoverRate, int newNumElites);
 
-	Individual[] sortPopulation(Individual initialPopulation[], int initialFitnesses[], int eliteLocations[], int populationSize);
+	void sortPopulation(Individual initialPopulation[], int initialFitnesses[], int eliteLocations[], int populationSize);
 
 	int getParent(int populationFitnesses[], int populationSize);
 
-	Individual[] breedMutateSelect(Individual initialPopulation[], int populationFitnesses[], int populationSize);
+	Individual * breedMutateSelect(Individual initialPopulation[], int populationFitnesses[], int populationSize);
 };
