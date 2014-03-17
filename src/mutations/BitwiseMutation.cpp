@@ -1,12 +1,8 @@
-class BitwiseMutation : MutationOperation {
-	private:
+#include "BitwiseMutation.h"
+#include <chrono>
+#include <random>
 
-	protected:
-
-	public:
-
-	int[] mutate(int initialGenome[], int largestPossibleValues[]) {
-		int genomeLength = sizeof(initialGenome)/sizeof(int);
+int * BitwiseMutation::mutate(int initialGenome[], int largestPossibleValues[], int genomeLength) {
 		int randomNumber;
 		int newGenome[genomeLength];
 

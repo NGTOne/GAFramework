@@ -1,3 +1,7 @@
+#include "SelectionStrategy.h"
+#include <random>
+#include <chrono>
+
 class TournamentSelection : SelectionStrategy {
 	private:
 
