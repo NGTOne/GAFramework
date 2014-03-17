@@ -64,14 +64,16 @@ Individual * Individual::crossoverOperation(Individual otherParent) {
 	int * otherGuysGenome;
 	int ** kidsGenome;
 	Individual * kids = (Individual*)malloc(sizeof(Individual)*2);
+	int otherGuysLength;
 
 	if (sameSpecies(otherParent) == false) {
 		return NULL;
 	}
 
 	otherGuysGenome = otherParent.getGenome();
+	otherGuysLength = otherParent.getGenomeLength();
 
-	kidsGenome = myCrossover.crossOver(genome, otherGuysGenome);
+	kidsGenome = myCrossover.crossOver(genome, otherGuysGenome, genomeLength, otherGuysLength);
 	
 	Individual firstKid(myGenePools, myCrossover, myMutation, myFunction, kidsGenome[0]);
 	Individual secondKid(myGenePools, myCrossover, myMutation, myFunction, kidsGenome[1]);
@@ -164,7 +166,7 @@ bool Individual::sameSpecies(Individual otherIndividual) {
 }
 
 int Individual::getGenomeLength() {
-
+	return genomeLength;
 }
 
 string Individual::toString() {

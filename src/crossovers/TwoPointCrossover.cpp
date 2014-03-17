@@ -1,17 +1,10 @@
 #include <random>
 #include <chrono>
+#include "CrossoverOperation.h"
+
 using namespace std;
 
-class TwoPointCrossover : CrossoverOperation {
-	private:
-
-	protected:
-	
-	public:
-	
-	int ** crossOver(int firstGenome[], int secondGenome[]) {
-		int firstGenomeLength = sizeof(firstGenome)/sizeof(int);
-		int secondGenomeLength = sizeof(secondGenome)/sizeof(int);
+int ** TwoPointCrossover::crossOver(int firstGenome[], int secondGenome[], int firstGenomeLength, int secondGenomeLength) {
 		int firstPoint = firstGenomeLength + 1;
 		int secondPoint = 0;
 
