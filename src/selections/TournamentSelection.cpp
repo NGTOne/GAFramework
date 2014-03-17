@@ -16,31 +16,34 @@ class TournamentSelection : SelectionStrategy {
 		int secondFitness = 0;
 		int firstIndex;
 		int secondIndex;
+		bool pickedTwo = false;
 
                 mt19937 generator(seed);
                 uniform_real_distribution selectionDistribution(0,1);
 
-		for (int k = 0; k < populationSize; k++) {
-                        secondFitness = 0;
+		while (pickedTwo == false) {		
+			for (int k = 0; k < populationSize; k++) {
+        	                secondFitness = 0;
 
-                        if (selectionDistribution(generator) < crossoverRate) {
-                                firstFitness = fitnesses[k];
-				firstIndex = k;
+	                        if (selectionDistribution(generator) < crossoverRate) {
+                        	        firstFitness = fitnesses[k];
+					firstIndex = k;
 
+        	                        for (int c = 0; c < populationSize; c++) {
+	                                        if (selectionDistribution(generator) < crossoverRate) {
+                                        	        secondFitness = fitnesses[c];
+							secondIndex = c;
 
-                                for (int c = 0; c < populationSize; c++) {
-                                        if (selectionDistribution(generator) < crossoverRate) {
-                                                secondFitness = fitnesses[c];
-						secondIndex = c;
+                        	                	c = populationSize + 1;
+							pickedTwo = true;
+                	                	}
+        	                        }
 
-                                        	c = populationSize + 1;
-                                	}
-                                }
-
-                                if (c == populationSize + 1) {
-                                	k = populationSize + 1;
-                        	}
-                	}
+	                                if (c == populationSize + 1) {
+                                		k = populationSize + 1;
+                        		}
+                		}
+			}
 		}
 
 		if (firstFitness >= secondFitness) {
