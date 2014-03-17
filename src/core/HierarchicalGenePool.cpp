@@ -8,13 +8,15 @@
 using namespace std;
 
 //If we don't know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations = 1, SelectionStrategy newStrategy) : myStrategy(newStrategy) {
-	myPopulation = new Individual[populationSize];
+HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy newStrategy) : myStrategy(newStrategy) {
+	myPopulation = (Individual*)malloc(sizeof(Individual)*populationSize);;
+	currentGeneration = 0;
 
 	for (int i = 0; i < populationSize; i++) {
 		myPopulation[i] = templateIndividual.makeRandomCopy();
 	}
-
+	
+	optimumFound = false;
 	knownOptimum = false;
 	maxGenerations = myMaxGenerations;
 	numIterationsPerGeneration = numIterations;
@@ -25,18 +27,20 @@ HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templa
 }
 
 //If we do know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templateIndividual, int maxGenerations, int numIterations = 1, SelectionStrategy newStrategy, int optimalGenome[]) : myStrategy(newStrategy) {
-	myPopulation = new Individual[populationSize];
+HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy newStrategy, int optimalGenome[]) : myStrategy(newStrategy) {
+	myPopulation = (Individual*)malloc(sizeof(Individual)*populationSize);
+	currentGeneration = 0;
 
 	for (int i = 0; i < populationSize; i++) {
                 myPopulation[i] = templateIndividual.makeRandomCopy();
         }
 
+	optimumFound = false;
         knownOptimum = true;
         maxGenerations = myMaxGenerations;
         numIterationsPerGeneration = numIterations;
 
-	optimum = optimalGenome;
+	optimumGenome = optimalGenome;
 
 	Individual optimumIndividual = templateIndividual.makeSpecifiedCopy(optimalGenome);
 
@@ -58,7 +62,7 @@ void HierarchicalGenePool::evaluateFitnesses() {
 //Evaluates the fitnesses of a given population of individuals
 //Doesn't care what their genetic makeup is - uses their fitness functions
 int * HierarchicalGenePool::evaluateFitnesses(Individual populationToEval[], int populationToEvalSize) {
-	int populationToEvalFitnesses[] = new int[populationToEvalSize];
+	int * populationToEvalFitnesses = (int*)malloc(sizeof(int)*populationToEvalSize);
 
 	for (int i = 0; i < populationToEvalSize; i++) {
 		populationToEvalFitnesses[i] = populationToEval[i].checkFitness();
@@ -69,7 +73,11 @@ int * HierarchicalGenePool::evaluateFitnesses(Individual populationToEval[], int
 
 //When we need a specific individual
 void * HierarchicalGenePool::getIndex(int index) {
-	return (void *)myPopulation[index];
+	void * returnValue;
+
+	returnValue = (void*)&myPopulation[index];
+
+	return returnValue;
 }
 
 //Run one generation

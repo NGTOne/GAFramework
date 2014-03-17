@@ -14,13 +14,15 @@ examples: library
 library: core selections mutations crossovers
 
 core:
-	g++ -c -g -Iinclude -std=gnu++0x src/core/CrossoverOperation.cpp obj/core
-	g++ -c -g -Iinclude -std=gnu++0x src/core/MutationOperation.cpp obj/core
-	g++ -c -g -Iinclude -std=gnu++0x src/core/Individual.cpp obj/core
-	g++ -c -g -Iinclude -std=gnu++0x src/core/GenePool.cpp obj/core
-	g++ -c -g -Iinclude -std=gnu++0x src/core/NonHierarchicalGenePool.cpp obj/core
-	g++ -c -g -Iinclude -std=gnu++0x src/core/SelectionStrategy.cpp obj/core
-	g++ -c -g -Iinclude -std=gnu++0x src/core/HierarchicalGenePool.cpp obj/core
+	mkdir -p obj
+	mkdir -p obj/core
+	g++ -c -g -Iinclude/core -std=gnu++0x src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
+	g++ -c -g -Iinclude/core -std=gnu++0x src/core/MutationOperation.cpp -o obj/core/MutationOperation.o
+	g++ -c -g -Iinclude/core -std=gnu++0x src/core/Individual.cpp -o obj/core/Individual.o
+	g++ -c -g -Iinclude/core -std=gnu++0x src/core/GenePool.cpp obj/core -o obj/core/GenePool.o
+	g++ -c -g -Iinclude/core -std=gnu++0x src/core/NonHierarchicalGenePool.cpp -o obj/core/NonHierarchicalGenePool.o
+	g++ -c -g -Iinclude/core -std=gnu++0x src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
+	g++ -c -g -Iinclude/core -std=gnu++0x src/core/HierarchicalGenePool.cpp -o obj/core/HierarchicalGenePool.o
 
 selections: tournamentSelection
 
@@ -36,3 +38,6 @@ bitwiseMutation:
 
 twoPointCrossover:
 	g++ -c -g src/crossovers/TwoPointCrossover.cpp obj/crossovers
+
+clean:
+	rm -f obj/*/*

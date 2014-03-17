@@ -2,28 +2,27 @@
 //GA, and also as a gene pool for individuals in hierarchical GAs
 //Since these functions are, by and large, very similar, they can be
 //combined together into one class
-#include "Individual.h"
-#include "GenePool.h"
+#include "SelectionStrategy.h"
 
 class HierarchicalGenePool : public GenePool {
 	private:
 
 	protected:
-	Individual myPopulation[];
+	Individual * myPopulation;
 
 	int populationFitnesses[];
 
 	int maxGenerations;
-	int currentGeneration = 0;
+	int currentGeneration;
 
 	//In case we already know the optimum - needs to be specified for
 	//every level of the hierarchy in an HGA, or it effectively becomes
 	//meaningless
 	bool knownOptimum;
-	int optimumGenome[];
+	int * optimumGenome;
 	int optimumFitness;
 	double epsilon;
-	bool optimumFound = false;
+	bool optimumFound;
 
 	//Specifies how many generations should pass by "silently"
 	//every time nextGeneration() is called - might be a useful parameter
@@ -34,15 +33,13 @@ class HierarchicalGenePool : public GenePool {
 
 	public:
 
-	Individual getIndex(int index);
 	Individual * sortPopulation(Individual initialPopulation[], int initialFitnesses[], int populationSize);
-	
 
 	//If we don't know the optimum
-	HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations = 1, SelectionStrategy newStrategy);
+	HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy newStrategy);
 
 	//If we do know the optimum
-	HierarchicalGenePool(int populationSize, Individual templateIndividual, int maxGenerations, int numIterations = 1, SelectionStrategy newStrategy, int optimalGenome[]);
+	HierarchicalGenePool(int populationSize, Individual templateIndividual, int maxGenerations, int numIterations, SelectionStrategy newStrategy, int optimalGenome[]);
 
 	//Evaluates the fitnesses of the population of this particular
 	//GenePool - basically a convenience thing
