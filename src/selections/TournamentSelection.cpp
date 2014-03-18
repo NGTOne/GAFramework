@@ -2,6 +2,8 @@
 #include <random>
 #include <chrono>
 
+using namespace std;
+
 class TournamentSelection : SelectionStrategy {
 	private:
 
@@ -19,19 +21,19 @@ class TournamentSelection : SelectionStrategy {
 		bool pickedTwo = false;
 
                 mt19937 generator(seed);
-                uniform_real_distribution selectionDistribution(0,1);
+                uniform_real_distribution<double> selectionDistribution(0,1);
 
 		while (pickedTwo == false) {		
 			for (int k = 0; k < populationSize; k++) {
         	                secondFitness = 0;
 
 	                        if (selectionDistribution(generator) < crossoverRate) {
-                        	        firstFitness = fitnesses[k];
+                        	        firstFitness = populationFitnesses[k];
 					firstIndex = k;
 
         	                        for (int c = 0; c < populationSize; c++) {
 	                                        if (selectionDistribution(generator) < crossoverRate) {
-                                        	        secondFitness = fitnesses[c];
+                                        	        secondFitness = populationFitnesses[c];
 							secondIndex = c;
 
                         	                	c = populationSize + 1;
@@ -39,7 +41,7 @@ class TournamentSelection : SelectionStrategy {
                 	                	}
         	                        }
 
-	                                if (c == populationSize + 1) {
+	                                if (pickedTwo == true) {
                                 		k = populationSize + 1;
                         		}
                 		}
@@ -53,4 +55,4 @@ class TournamentSelection : SelectionStrategy {
 		}
 
 	}
-}
+};

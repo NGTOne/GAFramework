@@ -1,3 +1,6 @@
+CPPC = g++
+CPPFLAGS = -c -g -std=gnu++0x
+
 info:
 	@echo "Usage:"
 	@echo "make examples: Produces a series of example GAs and HGAs using the framework"
@@ -16,28 +19,34 @@ library: core selections mutations crossovers
 core:
 	mkdir -p obj
 	mkdir -p obj/core
-	g++ -c -g -Iinclude/core -std=gnu++0x src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
-	g++ -c -g -Iinclude/core -std=gnu++0x src/core/MutationOperation.cpp -o obj/core/MutationOperation.o
-	g++ -c -g -Iinclude/core -std=gnu++0x src/core/Individual.cpp -o obj/core/Individual.o
-	g++ -c -g -Iinclude/core -std=gnu++0x src/core/GenePool.cpp obj/core -o obj/core/GenePool.o
-	g++ -c -g -Iinclude/core -std=gnu++0x src/core/NonHierarchicalGenePool.cpp -o obj/core/NonHierarchicalGenePool.o
-	g++ -c -g -Iinclude/core -std=gnu++0x src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
-	g++ -c -g -Iinclude/core -std=gnu++0x src/core/HierarchicalGenePool.cpp -o obj/core/HierarchicalGenePool.o
+	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
+	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/MutationOperation.cpp -o obj/core/MutationOperation.o
+	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/Individual.cpp -o obj/core/Individual.o
+	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/GenePool.cpp obj/core -o obj/core/GenePool.o
+	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/NonHierarchicalGenePool.cpp -o obj/core/NonHierarchicalGenePool.o
+	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
+	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/HierarchicalGenePool.cpp -o obj/core/HierarchicalGenePool.o
 
-selections: tournamentSelection
+selections:
+	mkdir -p obj/selections
+	make tournamentSelection
 
-mutations: bitwiseMutation
+mutations:
+	mkdir -p obj/mutations
+	make bitwiseMutation
 
-crossovers: twoPointCrossover
+crossovers:
+	mkdir -p obj/crossovers
+	make twoPointCrossover
 
 tournamentSelection:
-	g++ -c -g src/selections/TournamentSelection.cpp obj/selections
+	$(CPPC) $(CPPFLAGS) -Iinclude/core src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
 
 bitwiseMutation:
-	g++ -c -g src/mutations/BitwiseMutation.cpp obj/mutations
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/mutations src/mutations/BitwiseMutation.cpp -o obj/mutations/BitwiseMutation.o
 
 twoPointCrossover:
-	g++ -c -g src/crossovers/TwoPointCrossover.cpp obj/crossovers
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/crossovers src/crossovers/TwoPointCrossover.cpp -o obj/crossovers/TwoPointCrossover.o
 
 clean:
 	rm -f obj/*/*
