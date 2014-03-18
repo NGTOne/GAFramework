@@ -14,5 +14,5 @@ class MutationOperation {
 	MutationOperation(int newMutationRate);
 	MutationOperation(int newMutationRate, unsigned newSeed);
 
-	int * mutate(int initialGenome[], int largestPossibleValues[]);
+	virtual int * mutate(int initialGenome[], int largestPossibleValues[])=0;
 };

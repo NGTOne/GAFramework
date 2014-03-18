@@ -20,11 +20,11 @@ class Individual {
 	//A gene pool is a collection of any elements that can be used as genome
 	//components - for instance, it can be the English alphabet, a set
 	//of digits, or a population of individuals for a hierarchical GA
-	GenePool * myGenePools;
+	GenePool ** myGenePools;
 
-	CrossoverOperation myCrossover;
-	MutationOperation myMutation;
-	FitnessFunction myFunction;
+	CrossoverOperation * myCrossover;
+	MutationOperation * myMutation;
+	FitnessFunction * myFunction;
 
 	public:
 	//Doesn't actually do anything - DO NOT USE
@@ -32,11 +32,11 @@ class Individual {
 
 	//Basic constructor - lets us have a completely generic Individual
 	//that doesn't know what the heck is going on inside it
-	Individual(GenePool newGenePools[], CrossoverOperation newCrossover, MutationOperation newMutation, FitnessFunction newFitness);
+	Individual(GenePool ** newGenePools, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness);
 
 	//Constructor that lets us create an Individual with a fully specified
 	//genome - necessary for crossover/mutation
-	Individual(GenePool newGenePools[], CrossoverOperation newCrossover, MutationOperation newMutation, FitnessFunction newFitness, int newGenome[]);
+	Individual(GenePool ** newGenePools, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, int newGenome[]);
 
 	//Exactly what it says on the tin - wraps around the CrossoverOperation
 	//and spits out two offspring (which are new instances of Individual)
@@ -61,7 +61,7 @@ class Individual {
 	Individual makeSpecifiedCopy(int newGenome[]);
 
 	//Necessary for species verification
-	GenePool * getGenePoolList();
+	GenePool ** getGenePoolList();
 
 	//Necessary for crossover
 	int * getGenome();

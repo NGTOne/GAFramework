@@ -14,7 +14,7 @@ class GenePool {
 	unsigned seed;
 
 	public:
-	void runGenerations();
+	virtual void runGenerations()=0;
 	void * getIndex(int index);
 
 	GenePool();
@@ -24,5 +24,5 @@ class GenePool {
 	int chooseRandomMember();
 	int getSeed();
 
-	bool equals(GenePool otherPool);
+	bool equals(GenePool * otherPool);
 };

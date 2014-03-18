@@ -8,7 +8,7 @@ Individual::Individual() {}
 
 //Basic constructor - lets us have a completely generic Individualthat doesn't
 //know what the heck is going on inside it
-Individual::Individual(GenePool * newGenePools, CrossoverOperation newCrossover, MutationOperation newMutation, FitnessFunction newFitness) {
+Individual::Individual(GenePool ** newGenePools, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness) {
 	int genomeLength = 0;
 		
 	if (newGenePools != NULL) {
@@ -21,7 +21,7 @@ Individual::Individual(GenePool * newGenePools, CrossoverOperation newCrossover,
 			//This way, we don't actually need to know how many
 			//genes are in each pool - it can be 2 or 2000
 			for (int i = 0; i < genomeLength; i++) {
-				genome[i] = myGenePools[i].chooseRandomMember();
+				genome[i] = myGenePools[i]->chooseRandomMember();
 			}
 		}
 	}
@@ -33,7 +33,7 @@ Individual::Individual(GenePool * newGenePools, CrossoverOperation newCrossover,
 
 //Constructor that lets us create an Individual with a fully specified genome
 //Necessary for crossover/mutation
-Individual::Individual(GenePool * newGenePools, CrossoverOperation newCrossover, MutationOperation newMutation, FitnessFunction newFitness, int newGenome[]) {
+Individual::Individual(GenePool ** newGenePools, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, int newGenome[]) {
 	int genomeLength = 0;
 
         if (newGenePools != NULL) {
@@ -73,7 +73,7 @@ Individual * Individual::crossoverOperation(Individual otherParent) {
 	otherGuysGenome = otherParent.getGenome();
 	otherGuysLength = otherParent.getGenomeLength();
 
-	kidsGenome = myCrossover.crossOver(genome, otherGuysGenome, genomeLength, otherGuysLength);
+	kidsGenome = myCrossover->crossOver(genome, otherGuysGenome, genomeLength, otherGuysLength);
 	
 	Individual firstKid(myGenePools, myCrossover, myMutation, myFunction, kidsGenome[0]);
 	Individual secondKid(myGenePools, myCrossover, myMutation, myFunction, kidsGenome[1]);
@@ -91,10 +91,10 @@ Individual Individual::mutationOperation() {
 	int maxValues[genomeLength];
 
 	for (int i = 0; i < genomeLength; i++) {
-		maxValues[i] = myGenePools[i].getPopulationSize()-1;
+		maxValues[i] = myGenePools[i]->getPopulationSize()-1;
 	}
 
-	mutantGenome = myMutation.mutate(genome, maxValues);
+	mutantGenome = myMutation->mutate(genome, maxValues);
 	Individual mutant(myGenePools, myCrossover, myMutation, myFunction, mutantGenome);
 
 	return mutant;
@@ -103,7 +103,7 @@ Individual Individual::mutationOperation() {
 int Individual::checkFitness() {
 	int myFitness;
 
-	myFitness = myFunction.checkFitness(myGenePools, genome, genomeLength);
+	myFitness = myFunction->checkFitness(myGenePools, genome, genomeLength);
 
 	return myFitness;
 }
@@ -128,7 +128,7 @@ Individual Individual::makeSpecifiedCopy(int newGenome[]) {
 }
 
 //Necessary for species verification
-GenePool * Individual::getGenePoolList() {
+GenePool ** Individual::getGenePoolList() {
 	return myGenePools;
 }
 
@@ -139,7 +139,7 @@ int * Individual::getGenome() {
 
 void Individual::runHierarchicalGenerations() {
 	for (int i = 0; i < genomeLength; i++) {
-		myGenePools[i].runGenerations();
+		myGenePools[i]->runGenerations();
 	}
 }
 
@@ -148,7 +148,7 @@ void Individual::runHierarchicalGenerations() {
 //Comparing which gene pools they draw from provides an easy way to do this
 bool Individual::sameSpecies(Individual otherIndividual) {
 	int otherGuysLength = otherIndividual.getGenomeLength();
-	GenePool * otherGuysPools = otherIndividual.getGenePoolList();
+	GenePool ** otherGuysPools = otherIndividual.getGenePoolList();
 
 	//First, a rough check
 	if (otherGuysLength != genomeLength) {
@@ -157,7 +157,7 @@ bool Individual::sameSpecies(Individual otherIndividual) {
 
 	//Now, more detailed inspection
 	for (int i = 0; i < genomeLength; i++) {
-		if (myGenePools[i].equals(otherGuysPools[i]) == false) {
+		if (myGenePools[i]->equals(otherGuysPools[i]) == false) {
 			return false;
 		}
 	}
@@ -170,5 +170,5 @@ int Individual::getGenomeLength() {
 }
 
 string Individual::toString() {
-	return myFunction.toString(myGenePools, genome, genomeLength);
+	return myFunction->toString(myGenePools, genome, genomeLength);
 }

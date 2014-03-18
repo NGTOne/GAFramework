@@ -28,8 +28,8 @@ int GenePool::getSeed() {
 	return seed;
 }
 
-bool GenePool::equals(GenePool otherPool) {
-	if (seed == otherPool.getSeed() && populationSize == otherPool.getPopulationSize()) {
+bool GenePool::equals(GenePool * otherPool) {
+	if (seed == otherPool->getSeed() && populationSize == otherPool->getPopulationSize()) {
 		return true;
 	} else {
 		return false;

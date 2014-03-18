@@ -20,7 +20,7 @@ class SelectionStrategy {
 
 	void sortPopulation(Individual initialPopulation[], int initialFitnesses[], int eliteLocations[], int populationSize);
 
-	int getParent(int populationFitnesses[], int populationSize);
+	virtual int getParent(int populationFitnesses[], int populationSize)=0;
 
 	Individual * breedMutateSelect(Individual initialPopulation[], int populationFitnesses[], int populationSize);
 };

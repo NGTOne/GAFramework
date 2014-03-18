@@ -30,17 +30,17 @@ class HierarchicalGenePool : public GenePool {
 	//for HGAs (to accelerate growth at the lower levels)
 	int numIterationsPerGeneration;
 
-	SelectionStrategy myStrategy;
+	SelectionStrategy * myStrategy;
 
 	public:
 
 	Individual * sortPopulation(Individual initialPopulation[], int initialFitnesses[], int populationSize);
 
 	//If we don't know the optimum
-	HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy newStrategy);
+	HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy);
 
 	//If we do know the optimum
-	HierarchicalGenePool(int populationSize, Individual templateIndividual, int maxGenerations, int numIterations, SelectionStrategy newStrategy, int optimalGenome[]);
+	HierarchicalGenePool(int populationSize, Individual templateIndividual, int maxGenerations, int numIterations, SelectionStrategy * newStrategy, int optimalGenome[]);
 
 	//Evaluates the fitnesses of the population of this particular
 	//GenePool - basically a convenience thing

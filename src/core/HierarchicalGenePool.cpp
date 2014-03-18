@@ -8,7 +8,7 @@
 using namespace std;
 
 //If we don't know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy newStrategy) : myStrategy(newStrategy) {
+HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy) : myStrategy(newStrategy) {
 	myPopulation = (Individual*)malloc(sizeof(Individual)*populationSize);;
 	currentGeneration = 0;
 
@@ -27,7 +27,7 @@ HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templa
 }
 
 //If we do know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy newStrategy, int optimalGenome[]) : myStrategy(newStrategy) {
+HierarchicalGenePool::HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy, int optimalGenome[]) : myStrategy(newStrategy) {
 	myPopulation = (Individual*)malloc(sizeof(Individual)*populationSize);
 	currentGeneration = 0;
 
@@ -89,7 +89,7 @@ void HierarchicalGenePool::nextGeneration() {
 		//from the bottom up
 		myPopulation[0].runHierarchicalGenerations();
 
-		newPopulation = myStrategy.breedMutateSelect(myPopulation, populationFitnesses, populationSize);
+		newPopulation = myStrategy->breedMutateSelect(myPopulation, populationFitnesses, populationSize);
 
                 currentGeneration += 1;
 

@@ -16,7 +16,7 @@ examples: library 1-max
 
 library: core selections mutations crossovers
 	$(CPPC) -shared -W1,-soname,libGAFramework.so -o libGAFramework.so obj/*/*.o
-	mv *.so libs
+#	mv *.so libs
 
 core:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
@@ -43,8 +43,9 @@ twoPointCrossover:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/crossovers src/crossovers/TwoPointCrossover.cpp -o obj/crossovers/TwoPointCrossover.o
 
 1-max:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o -L./libs -lGAFramework
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections -Iinclude/crossovers -Iinclude/mutations -Isrc/examples/1max src/examples/1max/1max.cpp -o obj/examples/1max/1max.o -L./libs -lGAFramework
+	$(CPPC) $(CPPFLAGS) -Iinclude/core src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o -lGAFramework
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections -Iinclude/crossovers -Iinclude/mutations -Isrc/examples/1max src/examples/1max/1max.cpp -o obj/examples/1max/1max.o -lGAFramework
+	$(CPPC) -o 1max obj/examples/1max/*.o -L. -lGAFramework
 
 clean:
 	rm -f obj/*/*
