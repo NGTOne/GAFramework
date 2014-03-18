@@ -1,6 +1,7 @@
 #include "CrossoverOperation.h"
+#pragma once
 
-class TwoPointCrossover : CrossoverOperation {
+class TwoPointCrossover : public CrossoverOperation {
 	private:
 
 	protected:

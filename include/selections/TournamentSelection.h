@@ -1,10 +1,11 @@
 #include "SelectionStrategy.h"
 #include <random>
 #include <chrono>
+#pragma once
 
 using namespace std;
 
-class TournamentSelection : SelectionStrategy {
+class TournamentSelection : public SelectionStrategy {
 	private:
 
 	protected:

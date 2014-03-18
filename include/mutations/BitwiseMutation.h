@@ -1,6 +1,7 @@
 #include "MutationOperation.h"
+#pragma once
 
-class BitwiseMutation : MutationOperation {
+class BitwiseMutation : public MutationOperation {
 	private:
 
 	protected:

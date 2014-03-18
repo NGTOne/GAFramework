@@ -2,6 +2,7 @@
 #include "MutationOperation.h"
 #include "FitnessFunction.h"
 #include <string>
+#pragma once
 
 class Individual {
 	private:

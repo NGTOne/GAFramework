@@ -3,6 +3,7 @@
 
 #include <string>
 #include "GenePool.h"
+#pragma once
 
 class FitnessFunction {
 	private:

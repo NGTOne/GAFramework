@@ -1,4 +1,5 @@
 //Abstract class for mutation operators. Lets us define any mutation operation we like.
+#pragma once
 
 class MutationOperation {
 	private:

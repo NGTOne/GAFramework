@@ -1,7 +1,8 @@
 #include "FitnessFunction.h"
 #include <string>
+#pragma once
 
-class OneMaxFitness : FitnessFunction {
+class OneMaxFitness : public FitnessFunction {
 	private:
 
 	protected:

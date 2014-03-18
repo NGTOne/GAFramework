@@ -1,6 +1,7 @@
 //This abstract class serves as a general base for all selection strategies,
 //allowing any HierarchicalGenePool to use any strategy you might want
 #include "Individual.h"
+#pragma once
 
 class SelectionStrategy {
 	private:
@@ -12,6 +13,7 @@ class SelectionStrategy {
 
 	public:
 
+	SelectionStrategy();
 	SelectionStrategy(double newCrossoverRate, int newNumElites);
 
 	SelectionStrategy(unsigned newSeed, double newCrossoverRate, int newNumElites);

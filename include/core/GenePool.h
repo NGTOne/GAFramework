@@ -4,6 +4,8 @@
 //instance the letters A-Z or the binary digits 0,1.
 //A "standard" GA would be implemented like this:
 //HierarchicalPool -> Individual -> (NonHierarchicalPool, NonHierarchicalPool)
+#pragma once
+
 class GenePool {
 	private:
 

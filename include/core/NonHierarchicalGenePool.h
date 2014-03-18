@@ -3,6 +3,7 @@
 //It has no generational mechanics, selection strategy, or fitness evaluations,
 //which means it's distinct from the HierarchicalGenePool
 #include "GenePool.h"
+#pragma once
 
 template <class T>
 class NonHierarchicalGenePool: public GenePool {

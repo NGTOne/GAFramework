@@ -3,6 +3,7 @@
 //Since these functions are, by and large, very similar, they can be
 //combined together into one class
 #include "SelectionStrategy.h"
+#pragma once
 
 class HierarchicalGenePool : public GenePool {
 	private:
