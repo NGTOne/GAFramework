@@ -12,10 +12,12 @@ info:
 	@echo ""
 	@echo "Any GA/HGA needs at least core, and one component from each of selections, mutations, and crossovers in order to function."
 
-examples: library
+examples: library 1-max
 
 library: core selections mutations crossovers
-	ld -G obj/*/*.o -o libs/libGAFramework.so
+	$(CPPC) -shared -W1,-soname,libGAFramework.so -o libGAFramework.so obj/*/*.o
+	mv *.so libs
+
 core:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/MutationOperation.cpp -o obj/core/MutationOperation.o
@@ -32,13 +34,17 @@ mutations: bitwiseMutation
 crossovers: twoPointCrossover
 
 tournamentSelection:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
 
 bitwiseMutation:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/mutations src/mutations/BitwiseMutation.cpp -o obj/mutations/BitwiseMutation.o
 
 twoPointCrossover:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/crossovers src/crossovers/TwoPointCrossover.cpp -o obj/crossovers/TwoPointCrossover.o
+
+1-max:
+	$(CPPC) $(CPPFLAGS) -Iinclude/core src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o -L./libs -lGAFramework
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections -Iinclude/crossovers -Iinclude/mutations -Isrc/examples/1max src/examples/1max/1max.cpp -o obj/examples/1max/1max.o -L./libs -lGAFramework
 
 clean:
 	rm -f obj/*/*

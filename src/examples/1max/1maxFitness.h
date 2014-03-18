@@ -1,15 +1,13 @@
-//This is an abstract class for fitness functions - should be extended as
-//necessary, with one subclass per "species" of individual
-
+#include "FitnessFunction.h"
 #include <string>
-#include "GenePool.h"
 
-class FitnessFunction {
+class OneMaxFitness : FitnessFunction {
 	private:
 
 	protected:
 
 	public:
 	int checkFitness(GenePool pools[], int indexes[], int genomeLength);
+
 	std::string toString(GenePool pools[], int indexes[], int genomeLength);
 };

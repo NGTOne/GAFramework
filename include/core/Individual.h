@@ -1,4 +1,3 @@
-#include "GenePool.h"
 #include "CrossoverOperation.h"
 #include "MutationOperation.h"
 #include "FitnessFunction.h"

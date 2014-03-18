@@ -12,7 +12,8 @@ class NonHierarchicalGenePool: public GenePool {
 	T myPopulation[];
 
 	public:
-	
+
+	NonHierarchicalGenePool();	
 	NonHierarchicalGenePool(T population[], int newPopulationSize);
 
 	void * getIndex(int index);

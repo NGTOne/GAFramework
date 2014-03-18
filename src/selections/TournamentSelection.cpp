@@ -1,58 +1,49 @@
-#include "SelectionStrategy.h"
+#include "TournamentSelection.h"
 #include <random>
 #include <chrono>
 
 using namespace std;
 
-class TournamentSelection : SelectionStrategy {
-	private:
+//Picks two random indices, gets their fitnesses, then compares them
+//and returns the index with the higher fitness
+int TournamentSelection::getParent(int populationFitnesses[], int populationSize) {
+	int firstFitness = 0;
+	int secondFitness = 0;
+	int firstIndex;
+	int secondIndex;
+	bool pickedTwo = false;
 
-	protected:
+	mt19937 generator(seed);
+        uniform_real_distribution<double> selectionDistribution(0,1);
 
-	public:
+	while (pickedTwo == false) {		
+		for (int k = 0; k < populationSize; k++) {
+                        secondFitness = 0;
 
-	//Picks two random indices, gets their fitnesses, then compares them
-	//and returns the index with the higher fitness
-	int getParent(int populationFitnesses[], int populationSize) {
-		int firstFitness = 0;
-		int secondFitness = 0;
-		int firstIndex;
-		int secondIndex;
-		bool pickedTwo = false;
+			if (selectionDistribution(generator) < crossoverRate) {
+                                firstFitness = populationFitnesses[k];
+				firstIndex = k;
 
-                mt19937 generator(seed);
-                uniform_real_distribution<double> selectionDistribution(0,1);
+				for (int c = 0; c < populationSize; c++) {
+					if (selectionDistribution(generator) < crossoverRate) {
+						secondFitness = populationFitnesses[c];
+						secondIndex = c;
 
-		while (pickedTwo == false) {		
-			for (int k = 0; k < populationSize; k++) {
-        	                secondFitness = 0;
+                        	                c = populationSize + 1;
+						pickedTwo = true;
+                	                }
+				}
 
-	                        if (selectionDistribution(generator) < crossoverRate) {
-                        	        firstFitness = populationFitnesses[k];
-					firstIndex = k;
-
-        	                        for (int c = 0; c < populationSize; c++) {
-	                                        if (selectionDistribution(generator) < crossoverRate) {
-                                        	        secondFitness = populationFitnesses[c];
-							secondIndex = c;
-
-                        	                	c = populationSize + 1;
-							pickedTwo = true;
-                	                	}
-        	                        }
-
-	                                if (pickedTwo == true) {
-                                		k = populationSize + 1;
-                        		}
-                		}
-			}
+				if (pickedTwo == true) {
+                                	k = populationSize + 1;
+                        	}
+                	}
 		}
-
-		if (firstFitness >= secondFitness) {
-			return firstIndex;
-		} else {
-			return secondIndex;
-		}
-
 	}
-};
+
+	if (firstFitness >= secondFitness) {
+		return firstIndex;
+	} else {
+		return secondIndex;
+	}
+}

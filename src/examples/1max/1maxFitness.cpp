@@ -1,32 +1,28 @@
 #include <sstream>
+#include <string>
+#include "1maxFitness.h"
 
-class OneMaxFitness : FitnessFunction {
-	private:
+using namespace std;
 
-	protected:
+int OneMaxFitness::checkFitness(GenePool pools[], int indexes[], int genomeLength) {
+	int total = 0;
 
-	public:
-	int checkFitness(GenePool pools[], int indexes[], int genomeLength) {
-		int total = 0;
-
-		for (int i = 0; i < genomeLength; i++) {
-			total += (int)pools[i].getIndex(indexes[i]);
-		}
-
-		return total;
+	for (int i = 0; i < genomeLength; i++) {
+		total += (int)pools[i].getIndex(indexes[i]);
 	}
 
-	string toString(GenePool pools[], int indexes[], int genomeLength) {
-		string returnString = "";
-		stringstream ss;
+	return total;
+}
 
+string OneMaxFitness::toString(GenePool pools[], int indexes[], int genomeLength) {
+	string returnString = "";
+	stringstream ss;
 
-		for (int i = 0; i < genomeLength; i++) {
-			ss << (int)pools[i].getIndex(indexes[i]);
-		}
-
-		returnString = ss.str();
-
-		return returnString;
+	for (int i = 0; i < genomeLength; i++) {
+		ss << (int)pools[i].getIndex(indexes[i]);
 	}
+
+	returnString = ss.str();
+
+	return returnString;
 }

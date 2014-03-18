@@ -7,6 +7,9 @@ using namespace std;
 
 #include "NonHierarchicalGenePool.h"
 
+//EMPTY CONSTRUCTOR, DO NOT USE EVER
+template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool() {}
+
 template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool(T population[], int newPopulationSize) {
 	myPopulation = population;
 	populationSize = newPopulationSize;
