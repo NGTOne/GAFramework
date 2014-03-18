@@ -9,4 +9,4 @@ class BitwiseMutation : MutationOperation {
 
 	int * mutate(int initialGenome[], int largestPossibleValues[], int genomeLength);
 
-}
+};
