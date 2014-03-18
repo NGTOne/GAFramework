@@ -1,6 +1,7 @@
 #include <sstream>
 #include <string>
 #include "1maxFitness.h"
+#include "NonHierarchicalGenePool.h"
 
 using namespace std;
 

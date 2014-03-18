@@ -94,7 +94,7 @@ Individual Individual::mutationOperation() {
 		maxValues[i] = myGenePools[i]->getPopulationSize()-1;
 	}
 
-	mutantGenome = myMutation->mutate(genome, maxValues);
+	mutantGenome = myMutation->mutate(genome, maxValues, genomeLength);
 	Individual mutant(myGenePools, myCrossover, myMutation, myFunction, mutantGenome);
 
 	return mutant;

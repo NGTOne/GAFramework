@@ -11,6 +11,11 @@ GenePool::GenePool() {
 
 GenePool::GenePool(unsigned overriddenSeed) : seed(overriddenSeed) {}
 
+//DO NOT USE EVER
+void * GenePool::getIndex(int index) {
+	return NULL;
+}
+
 int GenePool::getPopulationSize() {
 	return populationSize;
 }

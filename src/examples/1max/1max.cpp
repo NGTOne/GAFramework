@@ -15,15 +15,15 @@ int main(void) {
 
 	int binaryDigits[] = {0,1};
 
-	NonHierarchicalGenePool<int> baseGenes[32];
+	GenePool ** baseGenes = (GenePool**)malloc(sizeof(GenePool*)*32);
 
 	for (int i = 0; i < 32; i++) {
-		baseGenes[i] =  NonHierarchicalGenePool<int>(binaryDigits, 2);
+		baseGenes[i] = new NonHierarchicalGenePool<int>(binaryDigits, 2);
 	}
 
-	Individual templateIndividual(baseGenes, *myCrossover, *myMutation, *myFunction);
+	Individual templateIndividual(baseGenes, myCrossover, myMutation, myFunction);
 
-	HierarchicalGenePool topLevelPool(64, templateIndividual, 100, 1, *myStrategy);
+	HierarchicalGenePool topLevelPool(64, templateIndividual, 100, 1, myStrategy);
 
 	for (int i = 0; i < 1000; i++) {
 		topLevelPool.runGenerations();
