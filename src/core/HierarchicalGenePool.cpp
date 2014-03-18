@@ -4,6 +4,7 @@
 //combined together into one class
 
 #include "HierarchicalGenePool.h"
+#include <sstream>
 
 using namespace std;
 
@@ -141,4 +142,17 @@ Individual * HierarchicalGenePool::sortPopulation(Individual initialPopulation[]
 	}
 
 	return initialPopulation;
+}
+
+string HierarchicalGenePool::toString() {
+	string returnString = "";
+	stringstream ss;
+
+	for (int i = 0; i < populationSize; i++) {
+		ss << myPopulation[i].toString() << " ";
+	}
+
+	returnString = ss.str();
+
+	return returnString;
 }

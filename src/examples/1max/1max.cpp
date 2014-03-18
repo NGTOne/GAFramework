@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <iostream>
 #include "NonHierarchicalGenePool.h"
 #include "HierarchicalGenePool.h"
 #include "BitwiseMutation.h"

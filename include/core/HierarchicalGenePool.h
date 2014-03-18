@@ -3,6 +3,7 @@
 //Since these functions are, by and large, very similar, they can be
 //combined together into one class
 #include "SelectionStrategy.h"
+#include <string>
 #pragma once
 
 class HierarchicalGenePool : public GenePool {
@@ -61,4 +62,6 @@ class HierarchicalGenePool : public GenePool {
 	//gene pool for every one of a higher-level one, this is how
 	//Basically a loop wrapped around nextGeneration()
 	void runGenerations();
+
+	std::string toString();
 };

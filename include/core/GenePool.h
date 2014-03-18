@@ -6,6 +6,8 @@
 //HierarchicalPool -> Individual -> (NonHierarchicalPool, NonHierarchicalPool)
 #pragma once
 
+#include <string>
+
 class GenePool {
 	private:
 
@@ -25,4 +27,6 @@ class GenePool {
 	int getSeed();
 
 	bool equals(GenePool * otherPool);
+
+	virtual std::string toString()=0;
 };

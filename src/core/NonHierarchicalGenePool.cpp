@@ -5,12 +5,19 @@
 
 using namespace std;
 
+#include <sstream>
+#include <string>
 #include "NonHierarchicalGenePool.h"
 
 //EMPTY CONSTRUCTOR, DO NOT USE EVER
 template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool() {}
 
-template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool(T population[], int newPopulationSize) {
+template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool(T * population, int newPopulationSize) {
+	myPopulation = population;
+	populationSize = newPopulationSize;
+}
+
+template <> NonHierarchicalGenePool<int>::NonHierarchicalGenePool(int * population, int newPopulationSize) {
 	myPopulation = population;
 	populationSize = newPopulationSize;
 }
@@ -22,3 +29,30 @@ template <class T> void * NonHierarchicalGenePool<T>::getIndex(int index) {
 //Empty, to maintain compatibility with the GenePool abstract class (an
 //Individual doesn't care what's going on in here, so this works)
 template <class T> void NonHierarchicalGenePool<T>::runGenerations() {}
+
+template <class T> string NonHierarchicalGenePool<T>::toString() {
+        string returnString = "";
+        stringstream ss;
+
+        for (int i = 0; i < populationSize; i++) {
+                ss << myPopulation[i].toString() << " ";
+        }
+
+        returnString = ss.str();
+
+        return returnString;
+
+}
+
+template <> string NonHierarchicalGenePool<int>::toString() {
+	string returnString = "";
+	stringstream ss;
+
+	for (int i = 0; i < populationSize; i++) {
+		ss << myPopulation[i] << " ";
+	}
+
+	returnString = ss.str();
+
+	return returnString;
+}
