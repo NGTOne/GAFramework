@@ -26,3 +26,6 @@ class NonHierarchicalGenePool: public GenePool {
 	
 	std::string toString();
 };
+
+template <> NonHierarchicalGenePool<int>::NonHierarchicalGenePool(int * population, int newPopulationSize);
+template <> void * NonHierarchicalGenePool<int>::getIndex(int index);

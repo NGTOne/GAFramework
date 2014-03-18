@@ -4,6 +4,11 @@
 
 using namespace std;
 
+	TournamentSelection::TournamentSelection(double newCrossoverRate, int newNumElites) : SelectionStrategy(newCrossoverRate, newNumElites) {}
+
+        TournamentSelection::TournamentSelection(unsigned newSeed, double newCrossoverRate, int newNumElites) : SelectionStrategy(newSeed, newCrossoverRate, newNumElites) {}
+
+
 //Picks two random indices, gets their fitnesses, then compares them
 //and returns the index with the higher fitness
 int TournamentSelection::getParent(int populationFitnesses[], int populationSize) {
@@ -16,7 +21,7 @@ int TournamentSelection::getParent(int populationFitnesses[], int populationSize
 	mt19937 generator(seed);
         uniform_real_distribution<double> selectionDistribution(0,1);
 
-	while (pickedTwo == false) {		
+	while (pickedTwo == false) {
 		for (int k = 0; k < populationSize; k++) {
                         secondFitness = 0;
 

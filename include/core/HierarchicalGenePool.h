@@ -10,12 +10,14 @@ class HierarchicalGenePool : public GenePool {
 	private:
 
 	protected:
-	Individual * myPopulation;
+	Individual ** myPopulation;
 
-	int populationFitnesses[];
+	int * populationFitnesses;
 
 	int maxGenerations;
 	int currentGeneration;
+
+	int populationSize;
 
 	//In case we already know the optimum - needs to be specified for
 	//every level of the hierarchy in an HGA, or it effectively becomes
@@ -35,13 +37,13 @@ class HierarchicalGenePool : public GenePool {
 
 	public:
 
-	Individual * sortPopulation(Individual initialPopulation[], int initialFitnesses[], int populationSize);
+	Individual ** sortPopulation(Individual ** initialPopulation, int initialFitnesses[], int populationSize);
 
 	//If we don't know the optimum
-	HierarchicalGenePool(int populationSize, Individual templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy);
+	HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy);
 
 	//If we do know the optimum
-	HierarchicalGenePool(int populationSize, Individual templateIndividual, int maxGenerations, int numIterations, SelectionStrategy * newStrategy, int optimalGenome[]);
+	HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy, int optimalGenome[]);
 
 	//Evaluates the fitnesses of the population of this particular
 	//GenePool - basically a convenience thing
@@ -50,7 +52,7 @@ class HierarchicalGenePool : public GenePool {
 	//Evaluates the fitnesses of a given population of individuals
 	//Doesn't care what their genetic makeup is - uses their fitness
 	//functions
-	int * evaluateFitnesses(Individual populationToEval[], int populationToEvalSize);
+	int * evaluateFitnesses(Individual ** populationToEval, int populationToEvalSize);
 
 	//When we need a specific individual
 	void * getIndex(int index);

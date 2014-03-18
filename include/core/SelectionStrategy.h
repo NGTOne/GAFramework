@@ -18,9 +18,9 @@ class SelectionStrategy {
 
 	SelectionStrategy(unsigned newSeed, double newCrossoverRate, int newNumElites);
 
-	void sortPopulation(Individual initialPopulation[], int initialFitnesses[], int eliteLocations[], int populationSize);
+	void sortPopulation(Individual ** initialPopulation, int initialFitnesses[], int eliteLocations[], int populationSize);
 
 	virtual int getParent(int populationFitnesses[], int populationSize)=0;
 
-	Individual * breedMutateSelect(Individual initialPopulation[], int populationFitnesses[], int populationSize);
+	Individual ** breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize);
 };

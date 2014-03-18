@@ -53,4 +53,4 @@ clean:
 	rm -f libs/*
 	rm -f *.so*
 	rm -f *.a*
-	rm -f 1max
+	cd examples; ls | xargs rm -f

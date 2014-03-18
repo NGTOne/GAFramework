@@ -16,12 +16,12 @@ SelectionStrategy::SelectionStrategy(double newCrossoverRate, int newNumElites) 
 
 SelectionStrategy::SelectionStrategy(unsigned newSeed, double newCrossoverRate, int newNumElites) : seed(newSeed), crossoverRate(newCrossoverRate), numElites(newNumElites) {}
 
-void SelectionStrategy::sortPopulation(Individual initialPopulation[], int initialFitnesses[], int eliteLocations[], int populationSize) {
+void SelectionStrategy::sortPopulation(Individual ** initialPopulation, int initialFitnesses[], int eliteLocations[], int populationSize) {
 	//Since we're unlikely to be dealing with gigantic populations, a
 	//simple sort that's O(n^2) or better and easy to implement will
 	//suffice here.
 	//TODO: Make it more efficient
-	Individual tempIndividual;
+	Individual * tempIndividual;
 	int temp;
 	int tempBool;
 
@@ -44,25 +44,38 @@ void SelectionStrategy::sortPopulation(Individual initialPopulation[], int initi
 	}
 }
 
-Individual * SelectionStrategy::breedMutateSelect(Individual initialPopulation[], int populationFitnesses[], int populationSize) {
-	Individual mutantChildren[populationSize];
-	Individual crossoverChildren[populationSize];
-	Individual * finalPopulation;
-	Individual overallPopulation[populationSize*3];
+Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
+	Individual ** mutantChildren;
+	Individual ** crossoverChildren;
+	Individual ** finalPopulation;
+	Individual ** overallPopulation;
 	int newPopulationFitnesses[populationSize*3];
 	int finalPopulationFitnesses[populationSize];
 	int eliteLocations[populationSize];
 	int newEliteLocations[populationSize*3];
 
-	Individual firstParent;
-	Individual secondParent;
-	Individual * children;
+	Individual * firstParent;
+	Individual * secondParent;
+	Individual ** children;
 
 	int firstIndex;
 	int secondIndex;
 
-	finalPopulation = (Individual*)malloc(sizeof(Individual)*populationSize);
-	children = (Individual*)malloc(sizeof(Individual)*2);
+        crossoverChildren = (Individual**)malloc(sizeof(Individual*)*populationSize);
+        mutantChildren = (Individual**)malloc(sizeof(Individual*)*populationSize);
+	finalPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);
+	children = (Individual**)malloc(sizeof(Individual*)*2);
+        overallPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize*3);
+
+	for (int i = 0; i < populationSize; i++) {
+		crossoverChildren[i] = (Individual*)malloc(sizeof(Individual));
+		mutantChildren[i] = (Individual*)malloc(sizeof(Individual));
+		finalPopulation[i] = (Individual*)malloc(sizeof(Individual));
+	}
+
+	for (int i = 0; i < populationSize*3; i++) {
+		overallPopulation[i] = (Individual*)malloc(sizeof(Individual));
+	}
 
 	for (int i = 0; i < populationSize; i++) {
 		eliteLocations[i] = 0;
@@ -76,7 +89,7 @@ Individual * SelectionStrategy::breedMutateSelect(Individual initialPopulation[]
 
 	//Each individual produces one mutant
 	for (int i = 0; i < populationSize; i++) {
-		mutantChildren[i] = initialPopulation[i].mutationOperation();
+		mutantChildren[i] = initialPopulation[i]->mutationOperation();
 	}
 
 	//Each pair of individuals produces two children 
@@ -87,7 +100,7 @@ Individual * SelectionStrategy::breedMutateSelect(Individual initialPopulation[]
 		firstParent = initialPopulation[firstIndex];
        	        secondParent = initialPopulation[secondIndex];
 
-               	children = firstParent.crossoverOperation(secondParent);
+               	children = firstParent->crossoverOperation(secondParent);
 
 		crossoverChildren[i] = children[0];
 		crossoverChildren[i+1] = children[1];
@@ -111,9 +124,9 @@ Individual * SelectionStrategy::breedMutateSelect(Individual initialPopulation[]
 		newPopulationFitnesses[i] = populationFitnesses[i];
 		newEliteLocations[i] = eliteLocations[i];
 		overallPopulation[i+populationSize] = mutantChildren[i];
-		newPopulationFitnesses[i+populationSize] = mutantChildren[i].checkFitness();
+		newPopulationFitnesses[i+populationSize] = mutantChildren[i]->checkFitness();
 		overallPopulation[i+(populationSize*2)] = crossoverChildren[i];
-		newPopulationFitnesses[i+(populationSize*2)] = crossoverChildren[i].checkFitness();
+		newPopulationFitnesses[i+(populationSize*2)] = crossoverChildren[i]->checkFitness();
 	}
 
 	//Now, of course, we sort them

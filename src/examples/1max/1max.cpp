@@ -8,7 +8,7 @@
 #include "1maxFitness.h"
 
 int main(void) {
-	SelectionStrategy * myStrategy = new TournamentSelection();
+	SelectionStrategy * myStrategy = new TournamentSelection(0.5, 2);
 
 	FitnessFunction * myFunction = new OneMaxFitness();
 	CrossoverOperation * myCrossover = new TwoPointCrossover();
@@ -22,11 +22,11 @@ int main(void) {
 		baseGenes[i] = new NonHierarchicalGenePool<int>(binaryDigits, 2);
 	}
 
-	Individual templateIndividual(baseGenes, myCrossover, myMutation, myFunction);
+	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction);
 
-	HierarchicalGenePool topLevelPool(64, templateIndividual, 100, 1, myStrategy);
+	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, myStrategy);
 
-	for (int i = 0; i < 1000; i++) {
-		topLevelPool.runGenerations();
+	for (int i = 0; i < 120; i++) {
+		topLevelPool->runGenerations();
 	}
 }

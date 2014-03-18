@@ -6,13 +6,11 @@ using namespace std;
 //Empty constructor
 Individual::Individual() {}
 
-//Basic constructor - lets us have a completely generic Individualthat doesn't
+//Basic constructor - lets us have a completely generic Individual that doesn't
 //know what the heck is going on inside it
-Individual::Individual(GenePool ** newGenePools, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness) {
-	int genomeLength = 0;
-		
+Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness) {
 	if (newGenePools != NULL) {
-		genomeLength = sizeof(newGenePools)/sizeof(GenePool);
+		genomeLength = newGenomeLength;
 
 		if (genomeLength >= 2) {
 			myGenePools = newGenePools;
@@ -33,11 +31,9 @@ Individual::Individual(GenePool ** newGenePools, CrossoverOperation * newCrossov
 
 //Constructor that lets us create an Individual with a fully specified genome
 //Necessary for crossover/mutation
-Individual::Individual(GenePool ** newGenePools, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, int newGenome[]) {
-	int genomeLength = 0;
-
+Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, int newGenome[]) {
         if (newGenePools != NULL) {
-		genomeLength = sizeof(newGenePools)/sizeof(GenePool);
+		genomeLength = newGenomeLength;
 
                 if (genomeLength >= 2) {
 			myGenePools = newGenePools;
@@ -60,33 +56,33 @@ Individual::Individual(GenePool ** newGenePools, CrossoverOperation * newCrossov
 //Exactly what it says on the tin - wraps around the CrossoverOperation
 //and spits out two offspring (which are new instances of Individual)
 //Returns NULL if the two parents have different gene pools
-Individual * Individual::crossoverOperation(Individual otherParent) {
+Individual ** Individual::crossoverOperation(Individual * otherParent) {
 	int * otherGuysGenome;
 	int ** kidsGenome;
-	Individual * kids = (Individual*)malloc(sizeof(Individual)*2);
+	Individual ** kids = (Individual**)malloc(sizeof(Individual*)*2);
 	int otherGuysLength;
 
 	if (sameSpecies(otherParent) == false) {
 		return NULL;
 	}
 
-	otherGuysGenome = otherParent.getGenome();
-	otherGuysLength = otherParent.getGenomeLength();
+	otherGuysGenome = otherParent->getGenome();
+	otherGuysLength = otherParent->getGenomeLength();
 
 	kidsGenome = myCrossover->crossOver(genome, otherGuysGenome, genomeLength, otherGuysLength);
 	
-	Individual firstKid(myGenePools, myCrossover, myMutation, myFunction, kidsGenome[0]);
-	Individual secondKid(myGenePools, myCrossover, myMutation, myFunction, kidsGenome[1]);
+	kids[0] = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, kidsGenome[0]);
+	kids[1] = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, kidsGenome[1]);
 	
-	kids[0] = firstKid;
-	kids[1] = secondKid;
+	//kids[0] = firstKid;
+	//kids[1] = secondKid;
 
 	return kids;
 }
 
 //Wraps around the MutationOperation object and spits out a mutant
 //version of this Individual (which is a new instance of Individual)
-Individual Individual::mutationOperation() {
+Individual * Individual::mutationOperation() {
 	int * mutantGenome;
 	int maxValues[genomeLength];
 
@@ -95,7 +91,7 @@ Individual Individual::mutationOperation() {
 	}
 
 	mutantGenome = myMutation->mutate(genome, maxValues, genomeLength);
-	Individual mutant(myGenePools, myCrossover, myMutation, myFunction, mutantGenome);
+	Individual * mutant = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, mutantGenome);
 
 	return mutant;
 }
@@ -110,8 +106,8 @@ int Individual::checkFitness() {
 
 //For populating HierarchicalGenePools - basically, use this Individual as a
 //template, just generate a new genome for it
-Individual Individual::makeRandomCopy() {
-	Individual myCopy(myGenePools, myCrossover, myMutation, myFunction);
+Individual * Individual::makeRandomCopy() {
+	Individual * myCopy = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction);
 
 	return myCopy;
 }
@@ -121,8 +117,8 @@ Individual Individual::makeRandomCopy() {
 //WARNING - THIS IS VERY DANGEROUS IF DONE MANUALLY
 //If the chromosomes in newGenome are out of range for their gene pools, bad
 //things will happen
-Individual Individual::makeSpecifiedCopy(int newGenome[]) {
-	Individual myCopy(myGenePools, myCrossover, myMutation, myFunction, newGenome);
+Individual * Individual::makeSpecifiedCopy(int newGenome[]) {
+	Individual * myCopy = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, newGenome);
 
 	return myCopy;
 }
@@ -146,9 +142,9 @@ void Individual::runHierarchicalGenerations() {
 //In a hierarchical GA, it's important to know whether or not two individuals
 //are from the same part of the hierarchy before attempting to breed them
 //Comparing which gene pools they draw from provides an easy way to do this
-bool Individual::sameSpecies(Individual otherIndividual) {
-	int otherGuysLength = otherIndividual.getGenomeLength();
-	GenePool ** otherGuysPools = otherIndividual.getGenePoolList();
+bool Individual::sameSpecies(Individual * otherIndividual) {
+	int otherGuysLength = otherIndividual->getGenomeLength();
+	GenePool ** otherGuysPools = otherIndividual->getGenePoolList();
 
 	//First, a rough check
 	if (otherGuysLength != genomeLength) {
