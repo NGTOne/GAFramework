@@ -1,18 +1,22 @@
 //Abstract class for mutation operators. Lets us define any mutation operation we like.
 #pragma once
+#include <random>
 
 class MutationOperation {
 	private:
 
 	protected:
 	unsigned seed;
-        int mutationRate;
+        double mutationRate;
+	std::mt19937 generator;
 
 	public:
 
 	MutationOperation();
-	MutationOperation(int newMutationRate);
-	MutationOperation(int newMutationRate, unsigned newSeed);
+	MutationOperation(double newMutationRate);
+	MutationOperation(double newMutationRate, unsigned newSeed);
 
-	virtual int * mutate(int initialGenome[], int largestPossibleValues[], int genomeLength)=0;
+	virtual int * mutate(int * initialGenome, int * largestPossibleValues, int genomeLength)=0;
+
+	void init(double newMutationRate, unsigned newSeed);
 };

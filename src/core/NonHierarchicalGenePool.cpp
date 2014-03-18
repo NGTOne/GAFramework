@@ -10,14 +10,14 @@ using namespace std;
 #include "NonHierarchicalGenePool.h"
 
 //EMPTY CONSTRUCTOR, DO NOT USE EVER
-template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool() {}
+template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool() : GenePool() {}
 
-template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool(T * population, int newPopulationSize) {
+template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool(T * population, int newPopulationSize) : GenePool() {
 	myPopulation = population;
 	populationSize = newPopulationSize;
 }
 
-template <> NonHierarchicalGenePool<int>::NonHierarchicalGenePool(int * population, int newPopulationSize) {
+template <> NonHierarchicalGenePool<int>::NonHierarchicalGenePool(int * population, int newPopulationSize) : GenePool() {
 	myPopulation = population;
 	populationSize = newPopulationSize;
 }
@@ -27,7 +27,9 @@ template <class T> void * NonHierarchicalGenePool<T>::getIndex(int index) {
 }
 
 template <> void * NonHierarchicalGenePool<int>::getIndex(int index) {
-	return (void*)myPopulation[index];
+	int * returnValue = &myPopulation[index];
+
+	return (void*)returnValue;
 }
 
 //Empty, to maintain compatibility with the GenePool abstract class (an

@@ -12,7 +12,7 @@ int main(void) {
 
 	FitnessFunction * myFunction = new OneMaxFitness();
 	CrossoverOperation * myCrossover = new TwoPointCrossover();
-	MutationOperation * myMutation = new BitwiseMutation();
+	MutationOperation * myMutation = new BitwiseMutation(0.5);
 
 	int binaryDigits[] = {0,1};
 
@@ -26,7 +26,10 @@ int main(void) {
 
 	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, myStrategy);
 
+	//cout << topLevelPool->toString() << "\n";
+
 	for (int i = 0; i < 120; i++) {
 		topLevelPool->runGenerations();
 	}
 }
+

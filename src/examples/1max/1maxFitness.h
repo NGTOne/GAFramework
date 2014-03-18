@@ -8,7 +8,8 @@ class OneMaxFitness : public FitnessFunction {
 	protected:
 
 	public:
-	int checkFitness(GenePool ** pools, int indexes[], int genomeLength);
+	OneMaxFitness();
+	int checkFitness(GenePool ** pools, int * indexes, int genomeLength);
 
-	std::string toString(GenePool ** pools, int indexes[], int genomeLength);
+	std::string toString(GenePool ** pools, int * indexes, int genomeLength);
 };

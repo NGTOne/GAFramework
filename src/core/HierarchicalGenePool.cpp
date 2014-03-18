@@ -5,40 +5,25 @@
 
 #include "HierarchicalGenePool.h"
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
 //If we don't know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy) : myStrategy(newStrategy), populationSize(newPopulationSize), maxGenerations(myMaxGenerations), numIterationsPerGeneration(numIterations) {
-	myPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);;
-	populationFitnesses = (int*)malloc(sizeof(int)*populationSize);
-	
-	currentGeneration = 0;
-
-	for (int i = 0; i < populationSize; i++) {
-		myPopulation[i] = templateIndividual->makeRandomCopy();
-	}
-	
-	optimumFound = false;
-	knownOptimum = false;
-
-	evaluateFitnesses();
-
-	sortPopulation(myPopulation, populationFitnesses, populationSize);
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy) : GenePool() {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newStrategy);
 }
 
+//Unknown optimum, overridden seed
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, SelectionStrategy * newStrategy) : GenePool(newSeed) {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newStrategy);
+}
+
+
 //If we do know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy, int optimalGenome[]) : myStrategy(newStrategy), populationSize(newPopulationSize), maxGenerations(myMaxGenerations), numIterationsPerGeneration(numIterations) {
-	myPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);
-	populationFitnesses = (int*)malloc(sizeof(int)*populationSize);
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy, int optimalGenome[]) : GenePool() {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newStrategy);
 
-	currentGeneration = 0;
-
-	for (int i = 0; i < populationSize; i++) {
-                myPopulation[i] = templateIndividual->makeRandomCopy();
-        }
-
-	optimumFound = false;
         knownOptimum = true;
 
 	optimumGenome = optimalGenome;
@@ -46,10 +31,38 @@ HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * t
 	Individual * optimumIndividual = templateIndividual->makeSpecifiedCopy(optimalGenome);
 
 	optimumFitness = optimumIndividual->checkFitness();
+}
 
-	evaluateFitnesses();
+//Known optimum, known seed
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, SelectionStrategy * newStrategy, int optimalGenome[]) : GenePool(newSeed) {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newStrategy);
 
-	sortPopulation(myPopulation, populationFitnesses, populationSize);
+	knownOptimum = true;
+
+        optimumGenome = optimalGenome;
+
+        Individual * optimumIndividual = templateIndividual->makeSpecifiedCopy(optimalGenome);
+
+        optimumFitness = optimumIndividual->checkFitness();
+
+}
+
+void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy) {
+	myPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);;
+        populationFitnesses = (int*)malloc(sizeof(int)*populationSize);
+
+        currentGeneration = 0;
+
+        for (int i = 0; i < populationSize; i++) {
+                myPopulation[i] = templateIndividual->makeRandomCopy();
+        }
+
+        optimumFound = false;
+        knownOptimum = false;
+
+        evaluateFitnesses();
+
+        sortPopulation(myPopulation, populationFitnesses, populationSize);
 }
 
 //Evaluates the fitnesses of the population of this particular GenePool
@@ -149,7 +162,7 @@ string HierarchicalGenePool::toString() {
 	stringstream ss;
 
 	for (int i = 0; i < populationSize; i++) {
-		ss << myPopulation[i]->toString() << " ";
+		ss << "Member " << i << ": " << myPopulation[i]->toString() << "\n";
 	}
 
 	returnString = ss.str();

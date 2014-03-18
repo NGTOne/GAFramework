@@ -20,7 +20,6 @@ int ** TwoPointCrossover::crossOver(int firstGenome[], int secondGenome[], int f
 	children[0] = (int*)malloc(sizeof(int)*firstGenomeLength);
 	children[1] = (int*)malloc(sizeof(int)*secondGenomeLength);
 
-	mt19937 generator(seed);
 	uniform_int_distribution<int> distribution(0, firstGenomeLength);
 
 	//There's not much point in creating two clones of the parents, is

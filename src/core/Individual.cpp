@@ -1,5 +1,6 @@
 #include "Individual.h"
 #include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
@@ -9,44 +10,34 @@ Individual::Individual() {}
 //Basic constructor - lets us have a completely generic Individual that doesn't
 //know what the heck is going on inside it
 Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness) {
-	if (newGenePools != NULL) {
-		genomeLength = newGenomeLength;
-
-		if (genomeLength >= 2) {
-			myGenePools = newGenePools;
-			genome = new int[genomeLength];
-
-			//This way, we don't actually need to know how many
-			//genes are in each pool - it can be 2 or 2000
-			for (int i = 0; i < genomeLength; i++) {
-				genome[i] = myGenePools[i]->chooseRandomMember();
-			}
-		}
-	}
-
-	myCrossover = newCrossover;
-	myMutation = newMutation;
-	myFunction = newFitness;
+	init(newGenePools, newGenomeLength, newCrossover, newMutation, newFitness);
 }
-
 //Constructor that lets us create an Individual with a fully specified genome
 //Necessary for crossover/mutation
 Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, int newGenome[]) {
-        if (newGenePools != NULL) {
-		genomeLength = newGenomeLength;
+	init(newGenePools, newGenomeLength, newCrossover, newMutation, newFitness);
+
+	for (int i = 0; i < genomeLength; i++) {
+		genome[i] = newGenome[i];
+        }
+}
+
+void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness) {
+	if (newGenePools != NULL) {
+                genomeLength = newGenomeLength;
 
                 if (genomeLength >= 2) {
-			myGenePools = newGenePools;
-                        genome = new int[genomeLength];
+                        myGenePools = newGenePools;
+                        genome = (int*)malloc(sizeof(int)*genomeLength);
 
-                        //This way, we don't actually need to know how
-                        //many genes are in each pool - it can be 2
-                        //or 2000
+                        //This way, we don't actually need to know how many
+                        //genes are in each pool - it can be 2 or 2000
                         for (int i = 0; i < genomeLength; i++) {
-				genome[i] = newGenome[i];
+                                genome[i] = myGenePools[i]->chooseRandomMember();
                         }
+                        printf("\n");
                 }
-	}
+        }
 
         myCrossover = newCrossover;
         myMutation = newMutation;
@@ -108,6 +99,9 @@ int Individual::checkFitness() {
 //template, just generate a new genome for it
 Individual * Individual::makeRandomCopy() {
 	Individual * myCopy = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction);
+
+	cout << "Original: " << toString() << "\n";
+	cout << "Copy:     " << myCopy->toString() << "\n";
 
 	return myCopy;
 }

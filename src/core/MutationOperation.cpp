@@ -7,12 +7,22 @@
 using namespace std;
 
 MutationOperation::MutationOperation() {
-	mutationRate = 0;
 	seed = chrono::system_clock::now().time_since_epoch().count();
+	init(0, seed);
 }
 
-MutationOperation::MutationOperation(int newMutationRate) : mutationRate(newMutationRate) {
+MutationOperation::MutationOperation(double newMutationRate) {
 	seed = chrono::system_clock::now().time_since_epoch().count();
+	init(newMutationRate, seed);
 }
 
-MutationOperation::MutationOperation(int newMutationRate, unsigned newSeed) : mutationRate(newMutationRate), seed(newSeed) {}
+MutationOperation::MutationOperation(double newMutationRate, unsigned newSeed) {
+	init(newMutationRate, newSeed);
+}
+
+void MutationOperation::init(double newMutationRate, unsigned newSeed) {
+	mutationRate = newMutationRate;
+	seed = newSeed;
+	mt19937 newGenerator(seed);
+	generator = newGenerator;
+}

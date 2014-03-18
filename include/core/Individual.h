@@ -38,6 +38,8 @@ class Individual {
 	//genome - necessary for crossover/mutation
 	Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, int newGenome[]);
 
+	void init(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness);
+
 	//Exactly what it says on the tin - wraps around the CrossoverOperation
 	//and spits out two offspring (which are new instances of Individual)
 	//Returns NULL if the two parents have different gene pools

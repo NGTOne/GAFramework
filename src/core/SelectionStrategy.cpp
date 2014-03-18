@@ -12,9 +12,20 @@ SelectionStrategy::SelectionStrategy() {};
 
 SelectionStrategy::SelectionStrategy(double newCrossoverRate, int newNumElites) : crossoverRate(newCrossoverRate), numElites(newNumElites) {
 	seed = chrono::system_clock::now().time_since_epoch().count();
+	init(newCrossoverRate, seed, newNumElites);
 }
 
-SelectionStrategy::SelectionStrategy(unsigned newSeed, double newCrossoverRate, int newNumElites) : seed(newSeed), crossoverRate(newCrossoverRate), numElites(newNumElites) {}
+SelectionStrategy::SelectionStrategy(unsigned newSeed, double newCrossoverRate, int newNumElites)  {
+	init(newCrossoverRate, newSeed, newNumElites);
+}
+
+void SelectionStrategy::init(double newCrossoverRate, int newNumElites, unsigned newSeed) {
+	seed = newSeed;
+	numElites = newNumElites;
+	crossoverRate = newCrossoverRate;
+	mt19937 newGenerator(seed);
+	generator = newGenerator;
+}
 
 void SelectionStrategy::sortPopulation(Individual ** initialPopulation, int initialFitnesses[], int eliteLocations[], int populationSize) {
 	//Since we're unlikely to be dealing with gigantic populations, a

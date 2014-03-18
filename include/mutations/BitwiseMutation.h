@@ -8,6 +8,10 @@ class BitwiseMutation : public MutationOperation {
 
 	public:
 
+	BitwiseMutation();
+	BitwiseMutation(double newMutationRate);
+	BitwiseMutation(double newMutationRate, unsigned newSeed);
+
 	int * mutate(int initialGenome[], int largestPossibleValues[], int genomeLength);
 
 };

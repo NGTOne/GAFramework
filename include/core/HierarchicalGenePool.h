@@ -42,8 +42,14 @@ class HierarchicalGenePool : public GenePool {
 	//If we don't know the optimum
 	HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy);
 
+        HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, SelectionStrategy * newStrategy);
+
 	//If we do know the optimum
 	HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy, int optimalGenome[]);
+
+        HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, SelectionStrategy * newStrategy, int optimalGenome[]);
+
+	void init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy);
 
 	//Evaluates the fitnesses of the population of this particular
 	//GenePool - basically a convenience thing

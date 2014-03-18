@@ -7,13 +7,16 @@ using namespace std;
 
 GenePool::GenePool() {
 	seed = chrono::system_clock::now().time_since_epoch().count();
+	init(seed);
 }
 
-GenePool::GenePool(unsigned overriddenSeed) : seed(overriddenSeed) {}
+GenePool::GenePool(unsigned overriddenSeed) {
+	init(overriddenSeed);
+}
 
-//DO NOT USE EVER
-void * GenePool::getIndex(int index) {
-	return NULL;
+void GenePool::init(unsigned newSeed) {
+	mt19937 newGenerator(newSeed);
+	generator = newGenerator;
 }
 
 int GenePool::getPopulationSize() {
@@ -21,10 +24,11 @@ int GenePool::getPopulationSize() {
 }
 
 int GenePool::chooseRandomMember() {
-	mt19937 generator(seed);
 	uniform_int_distribution<int> selectionDistribution(0, populationSize-1);
 
 	int randomMember = selectionDistribution(generator);
+
+	printf("%d", randomMember);
 
 	return randomMember;
 }

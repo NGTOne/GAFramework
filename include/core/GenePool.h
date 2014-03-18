@@ -7,6 +7,7 @@
 #pragma once
 
 #include <string>
+#include <random>
 
 class GenePool {
 	private:
@@ -14,10 +15,13 @@ class GenePool {
 	protected:
 	int populationSize;	
 	unsigned seed;
+	std::mt19937 generator;
 
 	public:
 	virtual void runGenerations()=0;
-	void * getIndex(int index);
+	virtual void * getIndex(int index) = 0;
+
+	void init(unsigned newSeed);
 
 	GenePool();
 	GenePool(unsigned overriddenSeed);

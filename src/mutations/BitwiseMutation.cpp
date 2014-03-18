@@ -4,12 +4,16 @@
 
 using namespace std;
 
-int * BitwiseMutation::mutate(int initialGenome[], int largestPossibleValues[], int genomeLength) {
-	int randomNumber;
+BitwiseMutation::BitwiseMutation() : MutationOperation() {}
+BitwiseMutation::BitwiseMutation(double newMutationRate) : MutationOperation(newMutationRate) {}
+BitwiseMutation::BitwiseMutation(double newMutationRate, unsigned newSeed) : MutationOperation(newMutationRate, newSeed) {}
+
+
+int * BitwiseMutation::mutate(int * initialGenome, int * largestPossibleValues, int genomeLength) {
+	double randomNumber;
 	int * newGenome = (int*)malloc(sizeof(int)*genomeLength);
 
-	mt19937 generator(seed);
-	uniform_real_distribution<double> mutationChanceDistribution(0, 1);
+	uniform_real_distribution<double> mutationChanceDistribution(0.0, 1.0);
 
 	for (int i = 0; i < genomeLength; i++) {
 		randomNumber = mutationChanceDistribution(generator);
