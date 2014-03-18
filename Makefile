@@ -1,5 +1,5 @@
 CPPC = g++
-CPPFLAGS = -c -g -std=gnu++0x
+CPPFLAGS = -c -g -std=gnu++0x -fPIC
 
 info:
 	@echo "Usage:"
@@ -15,10 +15,8 @@ info:
 examples: library
 
 library: core selections mutations crossovers
-
+	ld -G obj/*/*.o -o libs/libGAFramework.so
 core:
-	mkdir -p obj
-	mkdir -p obj/core
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/MutationOperation.cpp -o obj/core/MutationOperation.o
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/Individual.cpp -o obj/core/Individual.o
@@ -27,17 +25,11 @@ core:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/HierarchicalGenePool.cpp -o obj/core/HierarchicalGenePool.o
 
-selections:
-	mkdir -p obj/selections
-	make tournamentSelection
+selections: tournamentSelection
 
-mutations:
-	mkdir -p obj/mutations
-	make bitwiseMutation
+mutations: bitwiseMutation
 
-crossovers:
-	mkdir -p obj/crossovers
-	make twoPointCrossover
+crossovers: twoPointCrossover
 
 tournamentSelection:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
@@ -50,3 +42,4 @@ twoPointCrossover:
 
 clean:
 	rm -f obj/*/*
+	rm -rf libs
