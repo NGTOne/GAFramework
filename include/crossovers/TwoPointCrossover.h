@@ -1,6 +1,5 @@
 #include "CrossoverOperation.h"
 
-
 class TwoPointCrossover : CrossoverOperation {
 	private:
 
@@ -10,4 +9,4 @@ class TwoPointCrossover : CrossoverOperation {
 	
 	int ** crossOver(int firstGenome[], int secondGenome[], int firstGenomeLength, int secondGenomeLength);
 
-}
+};
