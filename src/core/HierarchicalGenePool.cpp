@@ -48,10 +48,15 @@ HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * t
 }
 
 void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy) {
-	myPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);;
-        populationFitnesses = (int*)malloc(sizeof(int)*populationSize);
+	myPopulation = (Individual**)malloc(sizeof(Individual*)*newPopulationSize);;
+        populationFitnesses = (int*)malloc(sizeof(int)*newPopulationSize);
 
+	populationSize = newPopulationSize;
         currentGeneration = 0;
+
+	maxGenerations = myMaxGenerations;
+	numIterationsPerGeneration = numIterations;
+	myStrategy = newStrategy;
 
         for (int i = 0; i < populationSize; i++) {
                 myPopulation[i] = templateIndividual->makeRandomCopy();

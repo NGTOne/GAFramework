@@ -10,7 +10,7 @@ using namespace std;
 //EMPTY CONSTRUCTOR - DO NOT USE EVER
 SelectionStrategy::SelectionStrategy() {};
 
-SelectionStrategy::SelectionStrategy(double newCrossoverRate, int newNumElites) : crossoverRate(newCrossoverRate), numElites(newNumElites) {
+SelectionStrategy::SelectionStrategy(double newCrossoverRate, int newNumElites) {
 	seed = chrono::system_clock::now().time_since_epoch().count();
 	init(newCrossoverRate, seed, newNumElites);
 }

@@ -35,7 +35,6 @@ void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOp
                         for (int i = 0; i < genomeLength; i++) {
                                 genome[i] = myGenePools[i]->chooseRandomMember();
                         }
-                        printf("\n");
                 }
         }
 
@@ -99,9 +98,6 @@ int Individual::checkFitness() {
 //template, just generate a new genome for it
 Individual * Individual::makeRandomCopy() {
 	Individual * myCopy = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction);
-
-	cout << "Original: " << toString() << "\n";
-	cout << "Copy:     " << myCopy->toString() << "\n";
 
 	return myCopy;
 }

@@ -46,7 +46,7 @@ twoPointCrossover:
 1-max:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o libGAFramework.a
 	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections -Iinclude/crossovers -Iinclude/mutations -Isrc/examples/1max src/examples/1max/1max.cpp -o obj/examples/1max/1max.o libGAFramework.a
-	$(CPPC) -o 1max obj/examples/1max/*.o libGAFramework.a
+	$(CPPC) -o examples/1max obj/examples/1max/*.o libGAFramework.a
 
 clean:
 	find obj -name *.o | xargs rm -f

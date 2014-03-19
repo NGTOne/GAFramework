@@ -25,11 +25,17 @@ int main(void) {
 	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction);
 
 	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, myStrategy);
-
-	//cout << topLevelPool->toString() << "\n";
+	
+	//printf("Initial:\n");
+	//cout << topLevelPool->toString();
 
 	for (int i = 0; i < 120; i++) {
+		//printf("-----------------------------------------------------------------\n");
 		topLevelPool->runGenerations();
+		//printf("After generation %d:\n", i);
+		//cout << topLevelPool->toString();
 	}
+
+	//cout << topLevelPool->toString() << "\n";
 }
 

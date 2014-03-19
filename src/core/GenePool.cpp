@@ -28,8 +28,6 @@ int GenePool::chooseRandomMember() {
 
 	int randomMember = selectionDistribution(generator);
 
-	printf("%d", randomMember);
-
 	return randomMember;
 }
 
