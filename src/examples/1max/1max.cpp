@@ -26,16 +26,16 @@ int main(void) {
 
 	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, myStrategy);
 	
-	printf("Before\n:\n");
+	printf("Before:\n");
 	cout << topLevelPool->toString();
-	cout << "------------------------------------------------------------------------------\nAfter:\n";
 	for (int i = 0; i < 120; i++) {
-		//printf("-----------------------------------------------------------------\n");
+		cout << "-----------------------------------------------------------------\n";
 		topLevelPool->runGenerations();
-		//printf("After generation %d:\n", i);
-		//cout << topLevelPool->toString();
+		cout << "After generation " << i << ":\n";
+		cout << topLevelPool->toString();
 	}
 
-	cout << topLevelPool->toString() << "\n";
+	cout << "--------------------------------------------------------------------------\nAfter:\n";
+	cout << topLevelPool->toString();
 }
 
