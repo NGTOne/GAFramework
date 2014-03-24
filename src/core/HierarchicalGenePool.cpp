@@ -139,7 +139,7 @@ void HierarchicalGenePool::runGenerations() {
 	}
 }
 
-Individual ** HierarchicalGenePool::sortPopulation(Individual ** initialPopulation, int initialFitnesses[], int populationSize) {
+Individual ** HierarchicalGenePool::sortPopulation(Individual ** initialPopulation, int * initialFitnesses, int populationSize) {
 	//TODO: Make more efficient
 	Individual * tempIndividual;
 	int temp;

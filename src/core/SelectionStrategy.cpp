@@ -27,7 +27,7 @@ void SelectionStrategy::init(double newCrossoverRate, int newNumElites, unsigned
 	generator = newGenerator;
 }
 
-void SelectionStrategy::sortPopulation(Individual ** initialPopulation, int initialFitnesses[], int eliteLocations[], int populationSize) {
+void SelectionStrategy::sortPopulation(Individual ** initialPopulation, int * initialFitnesses, int * eliteLocations, int populationSize) {
 	//Since we're unlikely to be dealing with gigantic populations, a
 	//simple sort that's O(n^2) or better and easy to implement will
 	//suffice here.
@@ -162,6 +162,8 @@ Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulati
 	}
 
 	//Return the new population and fitness values
-	populationFitnesses = finalPopulationFitnesses;
+	for (int i = 0; i < populationSize; i++) {
+		populationFitnesses[i] = finalPopulationFitnesses[i];
+	}
 	return finalPopulation;
 }
