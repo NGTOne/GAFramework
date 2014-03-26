@@ -18,6 +18,8 @@ class NonHierarchicalGenePool: public GenePool {
 	NonHierarchicalGenePool();	
 	NonHierarchicalGenePool(T * population, int newPopulationSize);
 
+	~NonHierarchicalGenePool();
+
 	void * getIndex(int index);
 
 	//Empty, to maintain compatibility with the GenePool abstract class

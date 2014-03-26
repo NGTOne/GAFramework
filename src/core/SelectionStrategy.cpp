@@ -149,6 +149,7 @@ Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulati
 	//on to the next generation)
 	for (int i = 0; i < numElites; i++) {
 		if (populationFitnesses[i] > finalPopulationFitnesses[(populationSize-1)-i]) {
+			delete(finalPopulation[(populationSize-1)-i]);
 			finalPopulation[(populationSize-1)-i] = initialPopulation[i]->deepCopy();
 			finalPopulationFitnesses[(populationSize-1)-i] = populationFitnesses[i];
 		}

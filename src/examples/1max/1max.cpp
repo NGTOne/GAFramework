@@ -25,6 +25,8 @@ int main(void) {
 	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction);
 
 	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, myStrategy);
+
+	delete(templateIndividual);
 	
 	printf("Before:\n");
 	cout << topLevelPool->toString();
@@ -37,5 +39,12 @@ int main(void) {
 
 	cout << "--------------------------------------------------------------------------\nAfter:\n";
 	cout << topLevelPool->toString();
+
+	delete(topLevelPool);
+	for (int i = 0; i < 32; i++) {
+		delete(baseGenes[i]);
+	}
+
+	free(baseGenes);
 }
 

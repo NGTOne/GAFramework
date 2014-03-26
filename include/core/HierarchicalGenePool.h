@@ -52,6 +52,8 @@ class HierarchicalGenePool : public GenePool {
 
         HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, SelectionStrategy * newStrategy, int optimalGenome[]);
 
+	~HierarchicalGenePool();
+
 	void init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy);
 
 	//Evaluates the fitnesses of the population of this particular

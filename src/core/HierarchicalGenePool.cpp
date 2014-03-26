@@ -31,6 +31,8 @@ HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * t
 	Individual * optimumIndividual = templateIndividual->makeSpecifiedCopy(optimalGenome);
 
 	optimumFitness = optimumIndividual->checkFitness();
+
+	delete(optimumIndividual);
 }
 
 //Known optimum, known seed
@@ -45,6 +47,20 @@ HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * t
 
         optimumFitness = optimumIndividual->checkFitness();
 
+	delete(optimumIndividual);
+}
+
+HierarchicalGenePool::~HierarchicalGenePool() {
+	for (int i = 0; i < populationSize; i++) {
+		delete(myPopulation[i]);
+	}
+
+	free(myPopulation);
+	free(populationFitnesses);
+
+	if (optimumGenome != NULL) {
+		free(optimumGenome);
+	}
 }
 
 void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy) {
@@ -55,6 +71,8 @@ void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndi
 	populationSize = newPopulationSize;
         currentGeneration = 0;
 	readOnce = false;
+
+	optimumGenome = NULL;
 
 	maxGenerations = myMaxGenerations;
 	numIterationsPerGeneration = numIterations;
@@ -125,8 +143,11 @@ void HierarchicalGenePool::nextGeneration() {
 		
 		//The new generation replaces the old
 		for (int i = 0; i < populationSize; i++) {
-			myPopulation[i] = newPopulation[i];
+			myPopulation[i] = newPopulation[i]->deepCopy();
+			delete(newPopulation[i]);
 		}
+
+		free(newPopulation);
 	}
 }
 
