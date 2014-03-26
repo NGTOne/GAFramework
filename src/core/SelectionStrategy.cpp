@@ -81,16 +81,6 @@ Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulati
         overallPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize*3);
 
 	for (int i = 0; i < populationSize; i++) {
-		crossoverChildren[i] = (Individual*)malloc(sizeof(Individual));
-		mutantChildren[i] = (Individual*)malloc(sizeof(Individual));
-		finalPopulation[i] = (Individual*)malloc(sizeof(Individual));
-	}
-
-	for (int i = 0; i < populationSize*3; i++) {
-		overallPopulation[i] = (Individual*)malloc(sizeof(Individual));
-	}
-
-	for (int i = 0; i < populationSize; i++) {
 		eliteLocations[i] = 0;
 		finalPopulationFitnesses[i] = 0;
 	}
@@ -162,6 +152,10 @@ Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulati
 			finalPopulationFitnesses[(populationSize-1)-i] = populationFitnesses[i];
 		}
 	}
+
+	free(mutantChildren);
+	free(crossoverChildren);
+	free(overallPopulation);
 
 	//Return the new population and fitness values
 	for (int i = 0; i < populationSize; i++) {
