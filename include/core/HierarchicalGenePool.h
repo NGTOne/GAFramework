@@ -35,6 +35,9 @@ class HierarchicalGenePool : public GenePool {
 
 	SelectionStrategy * myStrategy;
 
+	//Used to decrease unnecessary verbosity in toString()
+	bool readOnce;
+
 	public:
 
 	void sortPopulation();

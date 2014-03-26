@@ -157,11 +157,15 @@ int Individual::getGenomeLength() {
 	return genomeLength;
 }
 
+string Individual::toGenomeString() {
+	return myFunction->toString(myGenePools, genome, genomeLength);
+}
+
 string Individual::toString() {
 	string returnString;
 	stringstream ss;
 
-	ss << "Genome: " << myFunction->toString(myGenePools, genome, genomeLength) << "\nCrossover information:\n" << myCrossover->toString() << "Mutation information:\n" << myMutation->toString() << "";
+	ss << "Genome: " << toGenomeString() << "\nCrossover information:\n" << myCrossover->toString() << "Mutation information:\n" << myMutation->toString() << "";
 
 	returnString = ss.str();
 

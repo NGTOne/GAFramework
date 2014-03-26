@@ -79,5 +79,6 @@ class Individual {
 
 	int getGenomeLength();
 
+	std::string toGenomeString();
 	std::string toString();
 };

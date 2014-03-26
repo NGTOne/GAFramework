@@ -54,6 +54,7 @@ void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndi
 
 	populationSize = newPopulationSize;
         currentGeneration = 0;
+	readOnce = false;
 
 	maxGenerations = myMaxGenerations;
 	numIterationsPerGeneration = numIterations;
@@ -164,14 +165,24 @@ void HierarchicalGenePool::sortPopulation() {
 string HierarchicalGenePool::toString() {
 	string returnString = "";
 	stringstream ss;
+	string populationString;
 
 	for (int i = 0; i < populationSize; i++) {
-		ss << "Member " << i << ": " << myPopulation[i]->toString() << "Fitness: " << populationFitnesses[i] << "\n";
+		if (readOnce == false) {
+			populationString = myPopulation[i]->toString();
+		} else {
+			populationString = myPopulation[i]->toGenomeString();
+		}
+
+		ss << "Member " << i << ": " << populationString << "Fitness: " << populationFitnesses[i] << "\n";
 	}
 
-	ss << "Seed: " << seed << "\n";
-	ss << "Selection Strategy Info:\n" << myStrategy->toString();
+	if (readOnce == false) {
+        	ss << "Seed: " << seed << "\n";
+	        ss << "Selection Strategy Info:\n" << myStrategy->toString();
+	}
 
+	readOnce = true;
 
 	returnString = ss.str();
 
