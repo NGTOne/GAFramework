@@ -1,6 +1,7 @@
 //Abstract class for mutation operators. Lets us define any mutation operation we like.
 #pragma once
 #include <random>
+#include <string>
 
 class MutationOperation {
 	private:
@@ -19,4 +20,6 @@ class MutationOperation {
 	virtual int * mutate(int * initialGenome, int * largestPossibleValues, int genomeLength)=0;
 
 	void init(double newMutationRate, unsigned newSeed);
+
+	std::string toString();
 };

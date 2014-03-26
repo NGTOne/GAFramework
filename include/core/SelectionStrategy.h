@@ -2,6 +2,7 @@
 //allowing any HierarchicalGenePool to use any strategy you might want
 #include "Individual.h"
 #include <random>
+#include <string>
 #pragma once
 
 class SelectionStrategy {
@@ -27,4 +28,6 @@ class SelectionStrategy {
 	virtual int getParent(int populationFitnesses[], int populationSize)=0;
 
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
+
+	std::string toString();
 };

@@ -2,6 +2,8 @@
 
 #include <random>
 #include <chrono>
+#include <string>
+#include <sstream>
 #include "MutationOperation.h"
 
 using namespace std;
@@ -25,4 +27,16 @@ void MutationOperation::init(double newMutationRate, unsigned newSeed) {
 	seed = newSeed;
 	mt19937 newGenerator(seed);
 	generator = newGenerator;
+}
+
+string MutationOperation::toString() {
+	string returnString = "";
+	stringstream ss;
+
+	ss << "Random seed: " << seed << "\nMutation rate: " << mutationRate << "\n";
+
+	returnString = ss.str();
+
+	return returnString;
+
 }

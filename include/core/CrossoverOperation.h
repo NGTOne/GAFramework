@@ -1,5 +1,6 @@
 #pragma once
 #include <random>
+#include <string>
 
 class CrossoverOperation {
         private:
@@ -13,5 +14,6 @@ class CrossoverOperation {
         CrossoverOperation();        
         CrossoverOperation(unsigned newSeed);
         virtual int ** crossOver(int genomeOne[], int genomeTwo[], int firstGenomeLength, int secondGenomeLength)=0;
+	std::string toString();
 };
 

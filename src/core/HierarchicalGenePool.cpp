@@ -166,8 +166,12 @@ string HierarchicalGenePool::toString() {
 	stringstream ss;
 
 	for (int i = 0; i < populationSize; i++) {
-		ss << "Member " << i << ": " << myPopulation[i]->toString() << " Fitness: " << populationFitnesses[i] << "\n";
+		ss << "Member " << i << ": " << myPopulation[i]->toString() << "Fitness: " << populationFitnesses[i] << "\n";
 	}
+
+	ss << "Seed: " << seed << "\n";
+	ss << "Selection Strategy Info:\n" << myStrategy->toString();
+
 
 	returnString = ss.str();
 

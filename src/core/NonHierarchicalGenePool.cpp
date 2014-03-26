@@ -44,6 +44,8 @@ template <class T> string NonHierarchicalGenePool<T>::toString() {
                 ss << myPopulation[i].toString() << " ";
         }
 
+	ss << "\nRandom Seed: " << seed << "\n";
+
         returnString = ss.str();
 
         return returnString;

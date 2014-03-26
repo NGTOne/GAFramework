@@ -3,6 +3,8 @@
 
 #include <random>
 #include <chrono>
+#include <string>
+#include <sstream>
 #include "SelectionStrategy.h"
 
 using namespace std;
@@ -166,4 +168,15 @@ Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulati
 		populationFitnesses[i] = finalPopulationFitnesses[i];
 	}
 	return finalPopulation;
+}
+
+string SelectionStrategy::toString() {
+	string returnString = "";
+        stringstream ss;
+	
+	ss << "Random seed: " << seed << "\nCrossover rate: " << crossoverRate << "\nNumber of elites: " << numElites << "\n";
+
+	returnString = ss.str();
+
+	return returnString;
 }

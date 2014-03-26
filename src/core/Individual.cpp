@@ -1,6 +1,8 @@
 #include "Individual.h"
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -156,5 +158,12 @@ int Individual::getGenomeLength() {
 }
 
 string Individual::toString() {
-	return myFunction->toString(myGenePools, genome, genomeLength);
+	string returnString;
+	stringstream ss;
+
+	ss << "Genome: " << myFunction->toString(myGenePools, genome, genomeLength) << "\nCrossover information:\n" << myCrossover->toString() << "Mutation information:\n" << myMutation->toString() << "";
+
+	returnString = ss.str();
+
+	return returnString;
 }
