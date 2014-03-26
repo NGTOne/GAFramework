@@ -48,8 +48,9 @@ HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * t
 }
 
 void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy) {
-	myPopulation = (Individual**)malloc(sizeof(Individual*)*newPopulationSize);;
-        populationFitnesses = (int*)malloc(sizeof(int)*newPopulationSize);
+	myPopulation = (Individual**)malloc(sizeof(Individual*)*newPopulationSize);
+
+	populationFitnesses = (int*)malloc(sizeof(int)*newPopulationSize);
 
 	populationSize = newPopulationSize;
         currentGeneration = 0;
@@ -67,7 +68,7 @@ void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndi
 
         evaluateFitnesses();
 
-        sortPopulation(myPopulation, populationFitnesses, populationSize);
+        sortPopulation();
 }
 
 //Evaluates the fitnesses of the population of this particular GenePool
@@ -139,27 +140,25 @@ void HierarchicalGenePool::runGenerations() {
 	}
 }
 
-Individual ** HierarchicalGenePool::sortPopulation(Individual ** initialPopulation, int * initialFitnesses, int populationSize) {
+void HierarchicalGenePool::sortPopulation() {
 	//TODO: Make more efficient
 	Individual * tempIndividual;
 	int temp;
 
 	for (int i = 0; i < populationSize; i++) {
 		for (int k = 0; k < populationSize; k++) {
-			if (initialFitnesses[k] > initialFitnesses[i]) {
-				tempIndividual = initialPopulation[i];
-				temp = initialFitnesses[i];
+			if (populationFitnesses[i] > populationFitnesses[k]) {
+				tempIndividual = myPopulation[i];
+				temp = populationFitnesses[i];
 
-				initialPopulation[i] = initialPopulation[k];
-				initialFitnesses[i] = initialFitnesses[k];
+				myPopulation[i] = myPopulation[k];
+				populationFitnesses[i] = populationFitnesses[k];
 
-				initialPopulation[k] = tempIndividual;
-				initialFitnesses[i] = temp;
+				myPopulation[k] = tempIndividual;
+				populationFitnesses[k] = temp;
 			}
 		}
 	}
-
-	return initialPopulation;
 }
 
 string HierarchicalGenePool::toString() {

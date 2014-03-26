@@ -37,7 +37,7 @@ class HierarchicalGenePool : public GenePool {
 
 	public:
 
-	Individual ** sortPopulation(Individual ** initialPopulation, int * initialFitnesses, int populationSize);
+	void sortPopulation();
 
 	//If we don't know the optimum
 	HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy);
