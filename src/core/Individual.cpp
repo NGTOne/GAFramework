@@ -24,6 +24,10 @@ Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverO
         }
 }
 
+Individual::~Individual() {
+	free(genome);
+}
+
 void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness) {
 	if (newGenePools != NULL) {
                 genomeLength = newGenomeLength;
@@ -66,8 +70,9 @@ Individual ** Individual::crossoverOperation(Individual * otherParent) {
 	kids[0] = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, kidsGenome[0]);
 	kids[1] = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, kidsGenome[1]);
 	
-	//kids[0] = firstKid;
-	//kids[1] = secondKid;
+	free(kidsGenome[0]);
+	free(kidsGenome[1]);
+	free(kidsGenome);
 
 	return kids;
 }
@@ -85,6 +90,8 @@ Individual * Individual::mutationOperation() {
 	mutantGenome = myMutation->mutate(genome, maxValues, genomeLength);
 	Individual * mutant = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, mutantGenome);
 
+	free(mutantGenome);
+
 	return mutant;
 }
 
@@ -94,6 +101,12 @@ int Individual::checkFitness() {
 	myFitness = myFunction->checkFitness(myGenePools, genome, genomeLength);
 
 	return myFitness;
+}
+
+Individual * Individual::deepCopy() {
+	Individual * myCopy = makeSpecifiedCopy(genome);
+
+	return myCopy;
 }
 
 //For populating HierarchicalGenePools - basically, use this Individual as a

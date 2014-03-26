@@ -77,7 +77,6 @@ Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulati
         crossoverChildren = (Individual**)malloc(sizeof(Individual*)*populationSize);
         mutantChildren = (Individual**)malloc(sizeof(Individual*)*populationSize);
 	finalPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);
-	children = (Individual**)malloc(sizeof(Individual*)*2);
         overallPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize*3);
 
 	for (int i = 0; i < populationSize; i++) {
@@ -107,6 +106,8 @@ Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulati
 
 		crossoverChildren[i] = children[0];
 		crossoverChildren[i+1] = children[1];
+
+		free(children);
 	}
 
 	//Pick the elites - we can assume that the initial list has been sorted
@@ -138,7 +139,7 @@ Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulati
 	//Since they're sorted, the best of the new generation can simply be
 	//pulled from the top of the list
 	for (int i = 0; i < populationSize; i++) {
-		finalPopulation[i] = overallPopulation[i];
+		finalPopulation[i] = overallPopulation[i]->deepCopy();
 		finalPopulationFitnesses[i] = newPopulationFitnesses[i];
 	}
 
@@ -148,9 +149,13 @@ Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulati
 	//on to the next generation)
 	for (int i = 0; i < numElites; i++) {
 		if (populationFitnesses[i] > finalPopulationFitnesses[(populationSize-1)-i]) {
-			finalPopulation[(populationSize-1)-i] = initialPopulation[i];
+			finalPopulation[(populationSize-1)-i] = initialPopulation[i]->deepCopy();
 			finalPopulationFitnesses[(populationSize-1)-i] = populationFitnesses[i];
 		}
+	}
+
+	for (int i = 0; i < populationSize*3; i++) {
+		delete(overallPopulation[i]);
 	}
 
 	free(mutantChildren);

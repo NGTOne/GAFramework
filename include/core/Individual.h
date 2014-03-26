@@ -38,6 +38,8 @@ class Individual {
 	//genome - necessary for crossover/mutation
 	Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, int newGenome[]);
 
+	~Individual();
+
 	void init(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness);
 
 	//Exactly what it says on the tin - wraps around the CrossoverOperation
@@ -50,6 +52,8 @@ class Individual {
 	Individual * mutationOperation();
 
 	int checkFitness();
+
+	Individual * deepCopy();
 
 	//For populating HierarchicalGenePools - basically, use this Individual
 	//as a template, just generate a new genome for it
