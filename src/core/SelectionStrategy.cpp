@@ -12,11 +12,11 @@ SelectionStrategy::SelectionStrategy() {};
 
 SelectionStrategy::SelectionStrategy(double newCrossoverRate, int newNumElites) {
 	seed = chrono::system_clock::now().time_since_epoch().count();
-	init(newCrossoverRate, seed, newNumElites);
+	init(newCrossoverRate, newNumElites, seed);
 }
 
 SelectionStrategy::SelectionStrategy(unsigned newSeed, double newCrossoverRate, int newNumElites)  {
-	init(newCrossoverRate, newSeed, newNumElites);
+	init(newCrossoverRate, newNumElites, newSeed);
 }
 
 void SelectionStrategy::init(double newCrossoverRate, int newNumElites, unsigned newSeed) {
