@@ -20,6 +20,7 @@ class GenePool {
 	public:
 	virtual void runGenerations()=0;
 	virtual void * getIndex(int index) = 0;
+	virtual void * getFittest() = 0;
 
 	void init(unsigned newSeed);
 
@@ -29,6 +30,8 @@ class GenePool {
 	int getPopulationSize();
 	int chooseRandomMember();
 	int getSeed();
+
+	virtual int getHighestFitness() = 0;
 
 	bool equals(GenePool * otherPool);
 

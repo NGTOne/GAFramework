@@ -21,6 +21,9 @@ class NonHierarchicalGenePool: public GenePool {
 	~NonHierarchicalGenePool();
 
 	void * getIndex(int index);
+	void * getFittest();
+
+	int getHighestFitness();
 
 	//Empty, to maintain compatibility with the GenePool abstract class
 	//(an Individual doesn't care what's going on in here, so this works)

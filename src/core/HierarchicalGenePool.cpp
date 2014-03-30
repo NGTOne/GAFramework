@@ -114,9 +114,13 @@ int * HierarchicalGenePool::evaluateFitnesses(Individual ** populationToEval, in
 void * HierarchicalGenePool::getIndex(int index) {
 	void * returnValue;
 
-	returnValue = (void*)&myPopulation[index];
+	returnValue = (void*)myPopulation[index];
 
 	return returnValue;
+}
+
+void * HierarchicalGenePool::getFittest() {
+	return getIndex(0);
 }
 
 //Run one generation
@@ -183,10 +187,16 @@ void HierarchicalGenePool::sortPopulation() {
 	}
 }
 
+int HierarchicalGenePool::getHighestFitness() {
+	return populationFitnesses[0];
+}
+
 string HierarchicalGenePool::toString() {
 	string returnString = "";
 	stringstream ss;
 	string populationString;
+
+	ss << "Population size: " << populationSize << "\n";
 
 	for (int i = 0; i < populationSize; i++) {
 		if (readOnce == false) {

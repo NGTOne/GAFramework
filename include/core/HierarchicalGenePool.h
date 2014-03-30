@@ -17,8 +17,6 @@ class HierarchicalGenePool : public GenePool {
 	int maxGenerations;
 	int currentGeneration;
 
-	int populationSize;
-
 	//In case we already know the optimum - needs to be specified for
 	//every level of the hierarchy in an HGA, or it effectively becomes
 	//meaningless
@@ -65,8 +63,12 @@ class HierarchicalGenePool : public GenePool {
 	//functions
 	int * evaluateFitnesses(Individual ** populationToEval, int populationToEvalSize);
 
+	int getHighestFitness();
+
 	//When we need a specific individual
 	void * getIndex(int index);
+
+	void * getFittest();
 
 	//Run one generation
 	void nextGeneration();
