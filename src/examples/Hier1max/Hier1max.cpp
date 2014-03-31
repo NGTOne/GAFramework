@@ -54,7 +54,7 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(32, templateIndividual, 100, 32, topLevelStrategy);
+	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(32, templateIndividual, 100, 1, topLevelStrategy);
 
 	printf("Before:\n");
 	cout << topLevelPool->toString();
