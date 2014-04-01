@@ -57,89 +57,68 @@ void SelectionStrategy::sortPopulation(Individual ** initialPopulation, int * in
 //TODO: Make a separate class for replacement strategies
 //It's ugly, but good enough for now
 
-//This strategy uses the GA (Genetic Algorithm) approach - 1:1 replacement of
-//parents by offspring, with some elites that don't change
-Individual ** SelectionStrategy::GAReplace(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
+//This strategy uses the SSGA (Steady State Genetic Algorithm) approach - 1:1
+//replacement of parents by offspring, using local elitism
+Individual ** SelectionStrategy::SSGAReplace(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
 	Individual * firstParent;
 	Individual * secondParent;
 	Individual ** children;
-	int eliteLocations[populationSize];
-	Individual ** newPopulation;
+	Individual ** newPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);
+	int firstFitness;
+	int secondFitness;
 
 	int firstIndex;
 	int secondIndex;
 
-	int bestFitness = 0;
-	int bestFitnessIndex;
-
-	newPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);
-
 	for (int i = 0; i < populationSize; i++) {
-		eliteLocations[i] = 0;
 		newPopulation[i] = NULL;
 	}
 
-	//Deciding which ones are elite
-	for (int i = 0; i < numElites; i++) {
-		bestFitness = 0;
-		for (int k = 0; k < populationSize; k++) {
-			if (populationFitnesses[k] > bestFitness && eliteLocations[k] == 0) {
-				bestFitness = populationFitnesses[k];
-				bestFitnessIndex = k;
-			}
-		}
-		eliteLocations[bestFitnessIndex] = 1;
+	firstIndex = getParent(populationFitnesses, populationSize);
+	secondIndex = getParent(populationFitnesses, populationSize);
+
+	firstParent = initialPopulation[firstIndex];
+	secondParent = initialPopulation[secondIndex];
+
+	children = firstParent->crossoverOperation(secondParent);
+
+	//delete(firstParent);
+	//delete(secondParent);
+
+	firstParent = children[0]->mutationOperation();
+	secondParent = children[1]->mutationOperation();
+
+	delete(children[0]);
+	delete(children[1]);
+	free(children);
+
+	firstFitness = firstParent->checkFitness();
+	secondFitness = secondParent->checkFitness();
+
+	if (firstFitness > populationFitnesses[firstIndex]) {
+		//delete(initialPopulation[firstIndex]);
+
+		newPopulation[firstIndex] = firstParent;
+		populationFitnesses[firstIndex] = firstFitness;
+	} else {
+		delete(firstParent);
 	}
 
-	//Doing the crossovers - we try for crossover n/2 times
-	for (int i = 0; i < populationSize/2; i++) {
-		firstIndex = getParent(populationFitnesses, populationSize);
-		secondIndex = getParent(populationFitnesses, populationSize);
+	if (secondFitness > populationFitnesses[secondIndex]) {
+		//delete(initialPopulation[secondIndex]);
 
-		firstParent = initialPopulation[firstIndex];
-		secondParent = initialPopulation[secondIndex];
-
-		children = firstParent->crossoverOperation(secondParent);
-
-		firstParent = children[0]->mutationOperation();
-		secondParent = children[1]->mutationOperation();
-
-		if (eliteLocations[firstIndex] == 0 && firstParent->checkFitness() > populationFitnesses[firstIndex]) {
-			newPopulation[firstIndex] = firstParent;
-			populationFitnesses[firstIndex] = firstParent->checkFitness();
-		}
-
-		if (eliteLocations[secondIndex] == 0 && secondParent->checkFitness() > populationFitnesses[secondIndex]) {
-			newPopulation[secondIndex] = secondParent;
-			populationFitnesses[secondIndex] = secondParent->checkFitness();
-		}
-		//newPopulation[firstIndex] = children[0];
-		//newPopulation[secondIndex] = children[1];
-
-		//delete(firstParent);
-		//delete(secondParent);
-		free(children);
+		newPopulation[secondIndex] = secondParent;
+		populationFitnesses[secondIndex] = secondFitness;
+	} else {
+		delete(secondParent);
 	}
 
-	//Each individual, new or old, mutates itself
 	for (int i = 0; i < populationSize; i++) {
-		if (eliteLocations[i] == 0) {
-			
-			firstParent = initialPopulation[i]->mutationOperation();
-			
-			int mutantFitness = firstParent->checkFitness();
-
-			if (mutantFitness > populationFitnesses[i]) {
-				newPopulation[i] = firstParent;
-				populationFitnesses[i] = mutantFitness;
-			}
-			//delete(firstParent);
-		}
-
 		if (newPopulation[i] == NULL) {
-			newPopulation[i] = initialPopulation[i];
+			newPopulation[i] = initialPopulation[i]->deepCopy();
 			populationFitnesses[i] = initialPopulation[i]->checkFitness();
 		}
+		delete(initialPopulation[i]);
 	}
 
 	return newPopulation;
@@ -234,16 +213,25 @@ Individual ** SelectionStrategy::ESReplace(Individual ** initialPopulation, int 
 }
 
 //TODO: Implement other replacement strategies
-Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
-	if (replaceMode == 'g') {
-		return GAReplace(initialPopulation, populationFitnesses, populationSize);
-	} else if (replaceMode == 'e') {
-		return ESReplace(initialPopulation, populationFitnesses, populationSize);
+Individual ** SelectionStrategy::breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize) {
+	int * newFitnesses = (int*)malloc(sizeof(int)*populationSize);
+	Individual ** newPopulation = NULL;
+
+	for (int i = 0; i < populationSize; i++) {
+		newFitnesses[i] = populationFitnesses[i];
 	}
 
-	//Should not happen EVER - something has gone VERY wrong somewhere if
-	//it does
-	return NULL;
+	if (replaceMode == 's') {
+		newPopulation = SSGAReplace(initialPopulation, newFitnesses, populationSize);
+	} else if (replaceMode == 'e') {
+		newPopulation = ESReplace(initialPopulation, newFitnesses, populationSize);
+	}
+
+	for (int i = 0; i < populationSize; i++) {
+		populationFitnesses[i] = newFitnesses[i];
+	}
+	
+	return newPopulation;
 }
 
 string SelectionStrategy::toString() {
@@ -252,8 +240,8 @@ string SelectionStrategy::toString() {
 	
 	ss << "Random seed: " << seed << "\nCrossover rate: " << crossoverRate << "\nNumber of elites: " << numElites << "\nReplacement mode: ";
 
-	if (replaceMode == 'g') {
-		ss << "GA";
+	if (replaceMode == 's') {
+		ss << "SSGA";
 	} else if (replaceMode == 'e') {
 		ss << "ES";
 	}

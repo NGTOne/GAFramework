@@ -19,7 +19,7 @@ int main(void) {
 	MutationOperation ** bottomLevelMutations = (MutationOperation**)malloc(sizeof(MutationOperation*)*4);
 
 	for (int i = 0; i < 4; i++) {
-		bottomLevelStrategies[i] = new TournamentSelection(0.5, 2, 'g');
+		bottomLevelStrategies[i] = new TournamentSelection(0.5, 2, 's');
 		bottomLevelFunctions[i] = new OneMaxFitness();
 		bottomLevelCrossovers[i] = new TwoPointCrossover();
 		bottomLevelMutations[i] = new BitwiseMutation(0.2);
@@ -50,7 +50,7 @@ int main(void) {
 	CrossoverOperation * topLevelCrossover = new TwoPointCrossover();
 	MutationOperation * topLevelMutation = new BitwiseMutation(0.2);
 	FitnessFunction * topLevelFunction = new HierOneMaxFitness();
-	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5, 2, 'g');
+	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5, 2, 's');
 
 	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction);
 
