@@ -130,6 +130,10 @@ void HierarchicalGenePool::nextGeneration() {
 		//from the bottom up
 		myPopulation[0]->runHierarchicalGenerations();
 
+		//Re-evaluate the fitnesses to take the lower GenePools
+		//running their generations into account
+		evaluateFitnesses();
+
 		newPopulation = myStrategy->breedMutateSelect(myPopulation, populationFitnesses, populationSize);
 
                 currentGeneration += 1;
