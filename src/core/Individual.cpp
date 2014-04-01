@@ -13,6 +13,8 @@ Individual::Individual() {}
 //know what the heck is going on inside it
 Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness) {
 	init(newGenePools, newGenomeLength, newCrossover, newMutation, newFitness);
+
+	checkFitness();
 }
 //Constructor that lets us create an Individual with a fully specified genome
 //Necessary for crossover/mutation
@@ -22,6 +24,8 @@ Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverO
 	for (int i = 0; i < genomeLength; i++) {
 		genome[i] = newGenome[i];
         }
+
+	checkFitness();
 }
 
 Individual::~Individual() {
@@ -53,8 +57,6 @@ void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOp
         myCrossover = newCrossover;
         myMutation = newMutation;
         myFunction = newFitness;
-
-	properties = myFunction->checkFitness(myGenePools, genome, genomeLength);
 }
 
 //Exactly what it says on the tin - wraps around the CrossoverOperation
