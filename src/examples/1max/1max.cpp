@@ -8,11 +8,11 @@
 #include "1maxFitness.h"
 
 int main(void) {
-	SelectionStrategy * myStrategy = new TournamentSelection(0.5, 2);
+	SelectionStrategy * myStrategy = new TournamentSelection(0.5, 2, 'g');
 
 	FitnessFunction * myFunction = new OneMaxFitness();
 	CrossoverOperation * myCrossover = new TwoPointCrossover();
-	MutationOperation * myMutation = new BitwiseMutation(0.5);
+	MutationOperation * myMutation = new BitwiseMutation(0.2);
 
 	int binaryDigits[] = {0,1};
 

@@ -14,9 +14,9 @@ class TournamentSelection : public SelectionStrategy {
 
 	TournamentSelection();
 
-	TournamentSelection(double newCrossoverRate, int newNumElites);
+	TournamentSelection(double newCrossoverRate, int newNumElites, char newReplaceMode);
 
-        TournamentSelection(unsigned newSeed, double newCrossoverRate, int newNumElites);
+        TournamentSelection(unsigned newSeed, double newCrossoverRate, int newNumElites, char newReplaceMode);
         
 	//Picks two random indices, gets their fitnesses, then compares them
 	//and returns the index with the higher fitness

@@ -4,9 +4,9 @@
 
 using namespace std;
 
-	TournamentSelection::TournamentSelection(double newCrossoverRate, int newNumElites) : SelectionStrategy(newCrossoverRate, newNumElites) {}
+	TournamentSelection::TournamentSelection(double newCrossoverRate, int newNumElites, char newReplaceMode) : SelectionStrategy(newCrossoverRate, newNumElites, newReplaceMode) {}
 
-        TournamentSelection::TournamentSelection(unsigned newSeed, double newCrossoverRate, int newNumElites) : SelectionStrategy(newSeed, newCrossoverRate, newNumElites) {}
+        TournamentSelection::TournamentSelection(unsigned newSeed, double newCrossoverRate, int newNumElites, char newReplaceMode) : SelectionStrategy(newSeed, newCrossoverRate, newNumElites, newReplaceMode) {}
 
 //Picks two random indices, gets their fitnesses, then compares them
 //and returns the index with the higher fitness
