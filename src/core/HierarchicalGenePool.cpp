@@ -86,8 +86,6 @@ void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndi
         knownOptimum = false;
 
         evaluateFitnesses();
-
-        sortPopulation();
 }
 
 //Evaluates the fitnesses of the population of this particular GenePool

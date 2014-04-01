@@ -17,6 +17,14 @@ class Individual {
 	// draws from
 	int * genome;
 
+	//An Individual's "properties" are a series of quantitative
+	//phenotypic measurements - they are determined during the fitness
+	//evaluation, and are meant to be used by the higher levels of a
+	//hierarchical GA - the first value is ALWAYS the length of the list,
+	//and the second one should be the fitness
+	//TODO: Make it more accepting of other types, not just ints
+	int * properties;
+
 	//A gene pool is a collection of any elements that can be used as genome
 	//components - for instance, it can be the English alphabet, a set
 	//of digits, or a population of individuals for a hierarchical GA
@@ -52,6 +60,8 @@ class Individual {
 	Individual * mutationOperation();
 
 	int checkFitness();
+
+	int * getProperties();
 
 	Individual * deepCopy();
 

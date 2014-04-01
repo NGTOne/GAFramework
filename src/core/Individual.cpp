@@ -26,11 +26,17 @@ Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverO
 
 Individual::~Individual() {
 	free(genome);
+
+	if (properties != NULL) {
+		free(properties);
+	}
 }
 
 void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness) {
 	if (newGenePools != NULL) {
                 genomeLength = newGenomeLength;
+
+		properties = NULL;
 
                 if (genomeLength >= 2) {
                         myGenePools = newGenePools;
@@ -47,6 +53,8 @@ void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOp
         myCrossover = newCrossover;
         myMutation = newMutation;
         myFunction = newFitness;
+
+	properties = myFunction->checkFitness(myGenePools, genome, genomeLength);
 }
 
 //Exactly what it says on the tin - wraps around the CrossoverOperation
@@ -96,11 +104,21 @@ Individual * Individual::mutationOperation() {
 }
 
 int Individual::checkFitness() {
-	int myFitness;
+	int * newProperties;
 
-	myFitness = myFunction->checkFitness(myGenePools, genome, genomeLength);
+	newProperties = myFunction->checkFitness(myGenePools, genome, genomeLength);
 
-	return myFitness;
+	if (properties != NULL) {
+		free(properties);
+	}
+
+	properties = newProperties;
+
+	return newProperties[1];
+}
+
+int * Individual::getProperties() {
+	return properties;
 }
 
 Individual * Individual::deepCopy() {

@@ -96,8 +96,6 @@ Individual ** SelectionStrategy::GAReplace(Individual ** initialPopulation, int 
 		firstIndex = getParent(populationFitnesses, populationSize);
 		secondIndex = getParent(populationFitnesses, populationSize);
 
-		//Now we've guaranteed that the elites won't get replaced or
-		//tampered with
 		firstParent = initialPopulation[firstIndex];
 		secondParent = initialPopulation[secondIndex];
 
@@ -108,10 +106,12 @@ Individual ** SelectionStrategy::GAReplace(Individual ** initialPopulation, int 
 
 		if (eliteLocations[firstIndex] == 0 && firstParent->checkFitness() > populationFitnesses[firstIndex]) {
 			newPopulation[firstIndex] = firstParent;
+			populationFitnesses[firstIndex] = firstParent->checkFitness();
 		}
 
 		if (eliteLocations[secondIndex] == 0 && secondParent->checkFitness() > populationFitnesses[secondIndex]) {
 			newPopulation[secondIndex] = secondParent;
+			populationFitnesses[secondIndex] = secondParent->checkFitness();
 		}
 		//newPopulation[firstIndex] = children[0];
 		//newPopulation[secondIndex] = children[1];

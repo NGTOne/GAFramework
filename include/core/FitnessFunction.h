@@ -11,6 +11,6 @@ class FitnessFunction {
 	protected:
 
 	public:
-	virtual int checkFitness(GenePool ** pools, int * indexes, int genomeLength)=0;
+	virtual int * checkFitness(GenePool ** pools, int * indexes, int genomeLength)=0;
 	virtual std::string toString(GenePool ** pools, int * indexes, int genomeLength)=0;
 };

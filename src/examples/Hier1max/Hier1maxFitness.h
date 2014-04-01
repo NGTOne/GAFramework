@@ -9,7 +9,7 @@ class HierOneMaxFitness : public FitnessFunction {
 
 	public:
 	HierOneMaxFitness();
-	int checkFitness(GenePool ** pools, int * indexes, int genomeLength);
+	int * checkFitness(GenePool ** pools, int * indexes, int genomeLength);
 
 	std::string toString(GenePool ** pools, int * indexes, int genomeLength);
 };
