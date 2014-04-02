@@ -25,7 +25,7 @@ int * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int g
 	int currentTempPath = 0;
 	int lowGenomeLength;
 
-	int numPaths = 1;
+	int numPaths = 0;
 	int numPathsListed = 0;
 
 	for (int i = 0; i < genomeLength; i++) {
@@ -96,12 +96,7 @@ int * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int g
 	newPathIndexes = (int*)realloc(newPathIndexes, sizeof(int)*(numConsolidatedPaths+1));
 	newPathLengths[numConsolidatedPaths] = currentPathLength;               
 	newPathIndexes[numConsolidatedPaths] = currentPathIndex;
-
-
-	//TODO: Add all new paths to properties list and calculate fitness
-
-	//returnProperties[0] = 3;
-	//returnProperties[1] = total;
+	numConsolidatedPaths++;
 
 	int longestPathLength = 0;
 
@@ -123,6 +118,19 @@ int * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int g
                 returnProperties[i++] = newPathLengths[currentProperty];
                 returnProperties[i++] = newPathIndexes[currentProperty++];
         }
+
+	free(newPathLengths);
+	free(newPathIndexes);
+
+	for (int i = 0; i < genomeLength; i++) {
+		free(allPathLengths[i]);
+		free(allPathIndexes[i]);
+	}
+
+	free(allPathLengths);
+	free(allPathIndexes);
+	free(tempPathLengths);
+	free(tempPathIndexes);
 
 	return returnProperties;
 }
