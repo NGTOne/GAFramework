@@ -8,7 +8,7 @@
 #include "1maxFitness.h"
 
 int main(void) {
-	SelectionStrategy * myStrategy = new TournamentSelection(0.5, 2, 's');
+	SelectionStrategy * myStrategy = new TournamentSelection(0.5, 2, 'g');
 
 	FitnessFunction * myFunction = new OneMaxFitness();
 	CrossoverOperation * myCrossover = new TwoPointCrossover();

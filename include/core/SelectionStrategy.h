@@ -32,6 +32,8 @@ class SelectionStrategy {
 
 	Individual ** SSGAReplace(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 
+	Individual ** GAReplace(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
+
 	Individual ** ESReplace(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 	std::string toString();
 };
