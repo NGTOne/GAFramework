@@ -12,7 +12,7 @@ info:
 	@echo ""
 	@echo "Any GA/HGA needs at least core, and one component from each of selections, mutations, and crossovers in order to function."
 
-examples: library 1-max hier1-max royalroad hierroyalroad
+examples: library 1-max hier1-max royalroad hierroyalroad hier3royalroad
 
 library: core selections mutations crossovers
 	#$(CPPC) -shared -W1,-soname,libGAFramework.so -o libGAFramework.so obj/*/*.o
@@ -64,6 +64,13 @@ hierroyalroad:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoadFitness.o libGAFramework.a
 	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections -Iinclude/crossovers -Iinclude/mutations -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoad.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoad.o libGAFramework.a
 	$(CPPC) -o examples/HierRoyalRoad obj/examples/HierRoyalRoad/*.o libGAFramework.a
+
+hier3royalroad:
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/RoyalRoadFitness.o libGAFramework.a
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoadFitness.o libGAFramework.a
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections -Iinclude/crossovers -Iinclude/mutations -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoad.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoad.o libGAFramework.a
+	$(CPPC) -o examples/Hier3RoyalRoad obj/examples/Hier3RoyalRoad/*.o libGAFramework.a
+
 
 clean:
 	find obj -name *.o | xargs rm -f
