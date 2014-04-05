@@ -207,7 +207,7 @@ string HierarchicalGenePool::toString() {
 			populationString = myPopulation[i]->toGenomeString();
 		}
 
-		ss << "Member " << i << ": " << populationString << "Fitness: " << populationFitnesses[i] << "\n";
+		ss << "Member " << i << ": " << populationString << " Fitness: " << populationFitnesses[i] << "\n";
 	}
 
 	if (readOnce == false) {
