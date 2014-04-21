@@ -15,7 +15,6 @@ class NonHierarchicalGenePool: public GenePool {
 
 	public:
 
-	NonHierarchicalGenePool();	
 	NonHierarchicalGenePool(T * population, int newPopulationSize);
 
 	~NonHierarchicalGenePool();

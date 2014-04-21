@@ -17,7 +17,6 @@ class SelectionStrategy {
 
 	public:
 
-	SelectionStrategy();
 	SelectionStrategy(double newCrossoverRate, int newNumElites, char newReplaceMode);
 
 	SelectionStrategy(unsigned newSeed, double newCrossoverRate, int newNumElites, char newReplaceMode);

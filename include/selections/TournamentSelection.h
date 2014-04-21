@@ -12,8 +12,6 @@ class TournamentSelection : public SelectionStrategy {
 
 	public:
 
-	TournamentSelection();
-
 	TournamentSelection(double newCrossoverRate, int newNumElites, char newReplaceMode);
 
         TournamentSelection(unsigned newSeed, double newCrossoverRate, int newNumElites, char newReplaceMode);

@@ -6,9 +6,6 @@
 
 using namespace std;
 
-//Empty constructor
-Individual::Individual() {}
-
 //Basic constructor - lets us have a completely generic Individual that doesn't
 //know what the heck is going on inside it
 Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness) {

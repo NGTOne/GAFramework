@@ -9,9 +9,6 @@
 
 using namespace std;
 
-//EMPTY CONSTRUCTOR - DO NOT USE EVER
-SelectionStrategy::SelectionStrategy() {};
-
 SelectionStrategy::SelectionStrategy(double newCrossoverRate, int newNumElites, char newReplaceMode) {
 	seed = chrono::system_clock::now().time_since_epoch().count();
 	init(newCrossoverRate, newNumElites, seed, newReplaceMode);
