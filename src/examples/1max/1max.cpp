@@ -2,7 +2,7 @@
 #include <iostream>
 #include "NonHierarchicalGenePool.h"
 #include "HierarchicalGenePool.h"
-#include "BitwiseMutation.h"
+#include "UniformMutation.h"
 #include "TwoPointCrossover.h"
 #include "TournamentSelection.h"
 #include "1maxFitness.h"
@@ -12,7 +12,7 @@ int main(void) {
 
 	FitnessFunction * myFunction = new OneMaxFitness();
 	CrossoverOperation * myCrossover = new TwoPointCrossover();
-	MutationOperation * myMutation = new BitwiseMutation(0.2);
+	MutationOperation * myMutation = new UniformMutation(0.2);
 
 	int binaryDigits[] = {0,1};
 

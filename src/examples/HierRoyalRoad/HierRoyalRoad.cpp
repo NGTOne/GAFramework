@@ -2,7 +2,7 @@
 #include <iostream>
 #include "NonHierarchicalGenePool.h"
 #include "HierarchicalGenePool.h"
-#include "BitwiseMutation.h"
+#include "UniformMutation.h"
 #include "TwoPointCrossover.h"
 #include "TournamentSelection.h"
 #include "RoyalRoadFitness.h"
@@ -22,7 +22,7 @@ int main(void) {
 		bottomLevelStrategies[i] = new TournamentSelection(0.5, 2, 'g');
 		bottomLevelFunctions[i] = new RoyalRoadFitness();
 		bottomLevelCrossovers[i] = new TwoPointCrossover();
-		bottomLevelMutations[i] = new BitwiseMutation(0.2);
+		bottomLevelMutations[i] = new UniformMutation(0.2);
 	}
 
 	int binaryDigits[] = {0,1};
@@ -48,7 +48,7 @@ int main(void) {
 	}
 
 	CrossoverOperation * topLevelCrossover = new TwoPointCrossover();
-	MutationOperation * topLevelMutation = new BitwiseMutation(0.2);
+	MutationOperation * topLevelMutation = new UniformMutation(0.2);
 	FitnessFunction * topLevelFunction = new HierRoyalRoadFitness();
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5, 2, 'g');
 

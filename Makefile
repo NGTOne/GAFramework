@@ -30,15 +30,15 @@ core:
 
 selections: tournamentSelection
 
-mutations: bitwiseMutation
+mutations: uniformMutation
 
 crossovers: twoPointCrossover
 
 tournamentSelection:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
 
-bitwiseMutation:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/mutations src/mutations/BitwiseMutation.cpp -o obj/mutations/BitwiseMutation.o
+uniformMutation:
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/mutations src/mutations/UniformMutation.cpp -o obj/mutations/UniformMutation.o
 
 twoPointCrossover:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/crossovers src/crossovers/TwoPointCrossover.cpp -o obj/crossovers/TwoPointCrossover.o

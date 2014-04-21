@@ -1,15 +1,15 @@
-#include "BitwiseMutation.h"
+#include "UniformMutation.h"
 #include <chrono>
 #include <random>
 
 using namespace std;
 
-BitwiseMutation::BitwiseMutation() : MutationOperation() {}
-BitwiseMutation::BitwiseMutation(double newMutationRate) : MutationOperation(newMutationRate) {}
-BitwiseMutation::BitwiseMutation(double newMutationRate, unsigned newSeed) : MutationOperation(newMutationRate, newSeed) {}
+UniformMutation::UniformMutation() : MutationOperation() {}
+UniformMutation::UniformMutation(double newMutationRate) : MutationOperation(newMutationRate) {}
+UniformMutation::UniformMutation(double newMutationRate, unsigned newSeed) : MutationOperation(newMutationRate, newSeed) {}
 
 
-int * BitwiseMutation::mutate(int * initialGenome, int * largestPossibleValues, int genomeLength) {
+int * UniformMutation::mutate(int * initialGenome, int * largestPossibleValues, int genomeLength) {
 	double randomNumber;
 	int * newGenome = (int*)malloc(sizeof(int)*genomeLength);
 

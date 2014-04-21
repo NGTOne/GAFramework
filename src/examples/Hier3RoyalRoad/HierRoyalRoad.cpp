@@ -2,7 +2,7 @@
 #include <iostream>
 #include "NonHierarchicalGenePool.h"
 #include "HierarchicalGenePool.h"
-#include "BitwiseMutation.h"
+#include "UniformMutation.h"
 #include "TwoPointCrossover.h"
 #include "TournamentSelection.h"
 #include "RoyalRoadFitness.h"
@@ -32,7 +32,7 @@ int main(void) {
 			bottomLevelStrategies[i][k] = new TournamentSelection(0.5, 2, 'g');
 			bottomLevelFunctions[i][k] = new RoyalRoadFitness();
 			bottomLevelCrossovers[i][k] = new TwoPointCrossover();
-			bottomLevelMutations[i][k] = new BitwiseMutation(0.2);
+			bottomLevelMutations[i][k] = new UniformMutation(0.2);
 		}
 	}
 
@@ -81,7 +81,7 @@ int main(void) {
 		secondLevelStrategies[i] = new TournamentSelection(0.5, 2, 'g');
 		secondLevelFunctions[i] = new HierRoyalRoadFitness();
 		secondLevelCrossovers[i] = new TwoPointCrossover();
-		secondLevelMutations[i] = new BitwiseMutation(0.2);
+		secondLevelMutations[i] = new UniformMutation(0.2);
 	}
 
 	GenePool ** secondLevelPools = (GenePool**)malloc(sizeof(GenePool*)*4);
@@ -95,7 +95,7 @@ int main(void) {
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5, 2, 'g');
 	FitnessFunction * topLevelFunction = new HierRoyalRoadFitness();
 	CrossoverOperation * topLevelCrossover = new TwoPointCrossover();
-	MutationOperation * topLevelMutation = new BitwiseMutation(0.2);
+	MutationOperation * topLevelMutation = new UniformMutation(0.2);
 
 	templateIndividual = new Individual(secondLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction);
 
