@@ -30,7 +30,7 @@ core:
 
 selections: tournamentSelection
 
-mutations: uniformMutation
+mutations: uniformMutation boundaryMutation
 
 crossovers: twoPointCrossover
 
@@ -39,6 +39,9 @@ tournamentSelection:
 
 uniformMutation:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/mutations src/mutations/UniformMutation.cpp -o obj/mutations/UniformMutation.o
+
+boundaryMutation:
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/mutations src/mutations/BoundaryMutation.cpp -o obj/mutations/BoundaryMutation.o
 
 twoPointCrossover:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/crossovers src/crossovers/TwoPointCrossover.cpp -o obj/crossovers/TwoPointCrossover.o
