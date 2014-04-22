@@ -12,9 +12,9 @@ class GAGeneration : GenerationModel {
 
 	public:
 
-	GAGeneration(double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy);
+	GAGeneration(int newNumElites, SelectionStrategy * newStrategy);
 
-	GAGeneration(unsigned newSeed, double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy);
+	GAGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
 
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize)=0;
 };

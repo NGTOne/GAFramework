@@ -6,9 +6,9 @@
 
 using namespace std;
 
-SSGAGeneration::SSGAGeneration(double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newCrossoverRate, newNumElites, newStrategy) {}
+SSGAGeneration::SSGAGeneration(int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newNumElites, newStrategy) {}
 
-SSGAGeneration::SSGAGeneration(unsigned newSeed, double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newCrossoverRate, newNumElites, newStrategy) {}
+SSGAGeneration::SSGAGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newNumElites, newStrategy) {}
 
 //This strategy uses the SSGA (Steady State Genetic Algorithm) approach - 1:1
 //replacement of parents by offspring, using local elitism

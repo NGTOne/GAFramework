@@ -10,19 +10,18 @@
 
 using namespace std;
 
-GenerationModel::GenerationModel(double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy) {
+GenerationModel::GenerationModel(int newNumElites, SelectionStrategy * newStrategy) {
 	seed = chrono::system_clock::now().time_since_epoch().count();
-	init(newCrossoverRate, newNumElites, seed, newStrategy);
+	init(newNumElites, seed, newStrategy);
 }
 
-GenerationModel::GenerationModel(unsigned newSeed, double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy) {
-	init(newCrossoverRate, newNumElites, newSeed, newStrategy);
+GenerationModel::GenerationModel(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) {
+	init(newNumElites, newSeed, newStrategy);
 }
 
-void GenerationModel::init(double newCrossoverRate, int newNumElites, unsigned newSeed, SelectionStrategy * newStrategy) {
+void GenerationModel::init(int newNumElites, unsigned newSeed, SelectionStrategy * newStrategy) {
 	seed = newSeed;
 	numElites = newNumElites;
-	crossoverRate = newCrossoverRate;
 	mt19937 newGenerator(seed);
 	generator = newGenerator;
 	myStrategy = newStrategy;
@@ -60,7 +59,7 @@ string GenerationModel::toString() {
 	string returnString = "";
         stringstream ss;
 	
-	ss << "Random seed: " << seed << "\nCrossover rate: " << crossoverRate << "\nNumber of elites: " << numElites << "\nSelection Strategy: ";
+	ss << "Random seed: " << seed << "\nNumber of elites: " << numElites << "\nSelection Strategy: ";
 
 	ss << myStrategy->toString();
 

@@ -6,9 +6,9 @@
 
 using namespace std;
 
-GAGeneration::GAGeneration(double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newCrossoverRate, newNumElites, newStrategy) {}
+GAGeneration::GAGeneration(int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newNumElites, newStrategy) {}
 
-GenerationModel::GenerationModel(unsigned newSeed, double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newCrossoverRate, newNumElites, newStrategy) {}
+GenerationModel::GenerationModel(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newNumElites, newStrategy) {}
 
 //This strategy uses the GA (Genetic Algorithms) approach - pick a few elites,
 //then fill the rest of the population in with new individuals

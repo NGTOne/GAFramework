@@ -12,9 +12,9 @@ class SSGAGeneration : GenerationModel {
 
 	public:
 
-	SSGAGeneration(double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy);
+	SSGAGeneration(int newNumElites, SelectionStrategy * newStrategy);
 
-	SSGAGeneration(unsigned newSeed, double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy);
+	SSGAGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
 
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize)=0;
 };

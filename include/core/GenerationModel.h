@@ -11,19 +11,17 @@ class GenerationModel {
 
 	protected:
 	unsigned seed;
-	double crossoverRate;
 	int numElites;
 	std::mt19937 generator;
-	char replaceMode;
 	SelectionStrategy * myStrategy;
 
 	public:
 
-	GenerationModel(double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy);
+	GenerationModel(int newNumElites, SelectionStrategy * newStrategy);
 
-	GenerationModel(unsigned newSeed, double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy);
+	GenerationModel(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
 
-	void init(double newCrossoverRate, int newNumElites, unsigned newSeed, SelectionStrategy * newStrategy);
+	void init(int newNumElites, unsigned newSeed, SelectionStrategy * newStrategy);
 
 	void sortPopulation(Individual ** initialPopulation, int * initialFitnesses, int populationSize);
 

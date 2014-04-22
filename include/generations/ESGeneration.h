@@ -12,9 +12,9 @@ class ESGeneration : GenerationModel {
 
 	public:
 
-	ESGeneration(double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy);
+	ESGeneration(int newNumElites, SelectionStrategy * newStrategy);
 
-	ESGeneration(unsigned newSeed, double newCrossoverRate, int newNumElites, SelectionStrategy * newStrategy);
+	ESGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
 
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize)=0;
 };
