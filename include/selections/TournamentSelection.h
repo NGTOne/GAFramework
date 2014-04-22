@@ -12,9 +12,9 @@ class TournamentSelection : public SelectionStrategy {
 
 	public:
 
-	TournamentSelection(double newCrossoverRate, int newNumElites, char newReplaceMode);
+	TournamentSelection(double newCrossoverRate);
 
-        TournamentSelection(unsigned newSeed, double newCrossoverRate, int newNumElites, char newReplaceMode);
+        TournamentSelection(unsigned newSeed, double newCrossoverRate);
         
 	//Picks two random indices, gets their fitnesses, then compares them
 	//and returns the index with the higher fitness

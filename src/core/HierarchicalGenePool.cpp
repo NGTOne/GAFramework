@@ -10,19 +10,19 @@
 using namespace std;
 
 //If we don't know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy) : GenePool() {
-	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newStrategy);
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel) : GenePool() {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel);
 }
 
 //Unknown optimum, overridden seed
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, SelectionStrategy * newStrategy) : GenePool(newSeed) {
-	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newStrategy);
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel) : GenePool(newSeed) {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel);
 }
 
 
 //If we do know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy, int optimalGenome[]) : GenePool() {
-	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newStrategy);
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, int optimalGenome[]) : GenePool() {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel);
 
         knownOptimum = true;
 
@@ -36,8 +36,8 @@ HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * t
 }
 
 //Known optimum, known seed
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, SelectionStrategy * newStrategy, int optimalGenome[]) : GenePool(newSeed) {
-	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newStrategy);
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, int optimalGenome[]) : GenePool(newSeed) {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel);
 
 	knownOptimum = true;
 
@@ -63,7 +63,7 @@ HierarchicalGenePool::~HierarchicalGenePool() {
 	}
 }
 
-void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, SelectionStrategy * newStrategy) {
+void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel) {
 	myPopulation = (Individual**)malloc(sizeof(Individual*)*newPopulationSize);
 
 	populationFitnesses = (int*)malloc(sizeof(int)*newPopulationSize);
@@ -76,7 +76,7 @@ void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndi
 
 	maxGenerations = myMaxGenerations;
 	numIterationsPerGeneration = numIterations;
-	myStrategy = newStrategy;
+	myModel = newModel;
 
         for (int i = 0; i < populationSize; i++) {
                 myPopulation[i] = templateIndividual->makeRandomCopy();
@@ -134,7 +134,7 @@ void HierarchicalGenePool::nextGeneration() {
 		//running their generations into account
 		evaluateFitnesses();
 
-		newPopulation = myStrategy->breedMutateSelect(myPopulation, populationFitnesses, populationSize);
+		newPopulation = myModel->breedMutateSelect(myPopulation, populationFitnesses, populationSize);
 
                 currentGeneration += 1;
 
@@ -212,7 +212,7 @@ string HierarchicalGenePool::toString() {
 
 	if (readOnce == false) {
         	ss << "Seed: " << seed << "\n";
-	        ss << "Selection Strategy Info:\n" << myStrategy->toString();
+	        ss << "Selection Info:\n" << myModel->toString();
 	}
 
 	readOnce = true;

@@ -14,7 +14,7 @@ info:
 
 examples: library 1-max hier1-max royalroad hierroyalroad hier3royalroad
 
-library: core selections mutations crossovers
+library: core selections mutations crossovers generations
 	#$(CPPC) -shared -W1,-soname,libGAFramework.so -o libGAFramework.so obj/*/*.o
 #	mv *.so libs
 	ar -cvq libGAFramework.a obj/*/*.o
@@ -26,6 +26,7 @@ core:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/GenePool.cpp obj/core -o obj/core/GenePool.o
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/NonHierarchicalGenePool.cpp -o obj/core/NonHierarchicalGenePool.o
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
+	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/GenerationModel.cpp -o obj/core/GenerationModel.o
 	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/HierarchicalGenePool.cpp -o obj/core/HierarchicalGenePool.o
 
 selections: tournamentSelection
@@ -33,6 +34,17 @@ selections: tournamentSelection
 mutations: uniformMutation boundaryMutation
 
 crossovers: twoPointCrossover
+
+generations: ga es ssga
+
+ga:
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/generations src/generations/GAGeneration.cpp -o obj/generations/GAGeneration.o
+
+es:
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/generations src/generations/ESGeneration.cpp -o obj/generations/ESGeneration.o
+
+ssga:
+	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/generations src/generations/SSGAGeneration.cpp -o obj/generations/SSGAGeneration.o
 
 tournamentSelection:
 	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
