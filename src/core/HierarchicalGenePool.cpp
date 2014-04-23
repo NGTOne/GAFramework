@@ -118,7 +118,17 @@ void * HierarchicalGenePool::getIndex(int index) {
 }
 
 void * HierarchicalGenePool::getFittest() {
-	return getIndex(0);
+	int fittestIndex;
+	int fittestIndexFitness = 0;
+
+	for (int i = 0; i < populationSize; i++) {
+		if (populationFitnesses[i] > fittestIndexFitness) {
+			fittestIndex = i;
+			fittestIndexFitness = populationFitnesses[i];
+		}
+	}
+
+	return (void*)myPopulation[fittestIndex];
 }
 
 //Run one generation
