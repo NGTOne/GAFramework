@@ -39,7 +39,7 @@ selections: tournamentSelection
 
 mutations: uniformMutation boundaryMutation
 
-crossovers: twoPointCrossover
+crossovers: twoPointCrossover uniformCrossover
 
 generations: ga es ssga
 
@@ -63,6 +63,9 @@ boundaryMutation:
 
 twoPointCrossover:
 	$(CPPC) $(CPPFLAGS) $(CORE) $(CROSS) src/crossovers/TwoPointCrossover.cpp -o obj/crossovers/TwoPointCrossover.o
+
+uniformCrossover:
+	$(CPPC) $(CPPFLAGS) $(CORE) $(CROSS) src/crossovers/UniformCrossover.cpp -o obj/crossovers/UniformCrossovers.o
 
 1-max:
 	$(CPPC) $(CPPFLAGS) $(CORE) src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o
