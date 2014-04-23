@@ -5,6 +5,7 @@
 #include "UniformMutation.h"
 #include "TwoPointCrossover.h"
 #include "TournamentSelection.h"
+#include "GAGeneration.h"
 #include "RoyalRoadFitness.h"
 #include "HierRoyalRoadFitness.h"
 
@@ -12,6 +13,8 @@ int main(void) {
 
 	SelectionStrategy ** bottomLevelStrategies = (SelectionStrategy**)malloc(sizeof(SelectionStrategy*)*4);
 	
+	GenerationModel ** bottomLevelModels = (GenerationModel**)malloc(sizeof(GenerationModel*)*4);
+
 	FitnessFunction ** bottomLevelFunctions = (FitnessFunction**)malloc(sizeof(FitnessFunction*)*4);
 
 	CrossoverOperation ** bottomLevelCrossovers = (CrossoverOperation**)malloc(sizeof(CrossoverOperation*)*4);
@@ -19,7 +22,8 @@ int main(void) {
 	MutationOperation ** bottomLevelMutations = (MutationOperation**)malloc(sizeof(MutationOperation*)*4);
 
 	for (int i = 0; i < 4; i++) {
-		bottomLevelStrategies[i] = new TournamentSelection(0.5, 2, 'g');
+		bottomLevelStrategies[i] = new TournamentSelection(0.5);
+		bottomLevelModels[i] = new GAGeneration(2, bottomLevelStrategies[i]);
 		bottomLevelFunctions[i] = new RoyalRoadFitness();
 		bottomLevelCrossovers[i] = new TwoPointCrossover();
 		bottomLevelMutations[i] = new UniformMutation(0.2);
@@ -44,17 +48,18 @@ int main(void) {
 
 		Individual * bottomLevelTemplateIndividual = new Individual(baseGenes[i], 8, bottomLevelCrossovers[i], bottomLevelMutations[i], bottomLevelFunctions[i]);
 
-		bottomLevelPools[i] = new HierarchicalGenePool(8, bottomLevelTemplateIndividual, 100, 1, bottomLevelStrategies[i]);
+		bottomLevelPools[i] = new HierarchicalGenePool(8, bottomLevelTemplateIndividual, 100, 1, bottomLevelModels[i]);
 	}
 
 	CrossoverOperation * topLevelCrossover = new TwoPointCrossover();
 	MutationOperation * topLevelMutation = new UniformMutation(0.2);
 	FitnessFunction * topLevelFunction = new HierRoyalRoadFitness();
-	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5, 2, 'g');
+	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
+	GenerationModel * topLevelModel = new GAGeneration(2, topLevelStrategy);
 
 	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(32, templateIndividual, 100, 1, topLevelStrategy);
+	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(32, templateIndividual, 100, 1, topLevelModel);
 
 	printf("Before:\n");
 	cout << topLevelPool->toString();

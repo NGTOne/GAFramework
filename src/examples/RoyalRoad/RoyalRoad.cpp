@@ -5,10 +5,13 @@
 #include "UniformMutation.h"
 #include "TwoPointCrossover.h"
 #include "TournamentSelection.h"
+#include "GAGeneration.h"
 #include "RoyalRoadFitness.h"
 
 int main(void) {
-	SelectionStrategy * myStrategy = new TournamentSelection(0.5, 2, 's');
+	SelectionStrategy * myStrategy = new TournamentSelection(0.5);
+
+	GenerationModel * myModel = new GAGeneration(2, myStrategy);
 
 	FitnessFunction * myFunction = new RoyalRoadFitness();
 	CrossoverOperation * myCrossover = new TwoPointCrossover();
@@ -24,7 +27,7 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(baseGenes, 64, myCrossover, myMutation, myFunction);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(128, templateIndividual, 100, 1, myStrategy);
+	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(128, templateIndividual, 100, 1, myModel);
 
 	delete(templateIndividual);
 	
