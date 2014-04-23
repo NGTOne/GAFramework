@@ -69,7 +69,6 @@ Individual ** SSGAGeneration::breedMutateSelect(Individual ** initialPopulation,
 	for (int i = 0; i < populationSize; i++) {
 		if (newPopulation[i] == NULL) {
 			newPopulation[i] = initialPopulation[i]->deepCopy();
-			populationFitnesses[i] = initialPopulation[i]->checkFitness();
 		}
 		delete(initialPopulation[i]);
 	}
