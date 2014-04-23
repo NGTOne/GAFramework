@@ -5,7 +5,7 @@
 #include <string>
 #pragma once
 
-class SSGAGeneration : GenerationModel {
+class SSGAGeneration : public GenerationModel {
 	private:
 
 	protected:
@@ -16,5 +16,5 @@ class SSGAGeneration : GenerationModel {
 
 	SSGAGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
 
-	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize)=0;
+	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 };

@@ -5,7 +5,7 @@
 #include <string>
 #pragma once
 
-class GAGeneration : GenerationModel {
+class GAGeneration : public GenerationModel {
 	private:
 
 	protected:
@@ -16,5 +16,5 @@ class GAGeneration : GenerationModel {
 
 	GAGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
 
-	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize)=0;
+	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 };

@@ -59,11 +59,9 @@ string GenerationModel::toString() {
 	string returnString = "";
         stringstream ss;
 	
-	ss << "Random seed: " << seed << "\nNumber of elites: " << numElites << "\nSelection Strategy: ";
+	ss << "Random seed: " << seed << "\nNumber of elites: " << numElites << "\nSelection Strategy Info:\n";
 
 	ss << myStrategy->toString();
-
-	ss << "\n";
 
 	returnString = ss.str();
 

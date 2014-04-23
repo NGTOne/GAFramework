@@ -5,7 +5,7 @@
 #include <string>
 #pragma once
 
-class ESGeneration : GenerationModel {
+class ESGeneration : public GenerationModel {
 	private:
 
 	protected:
@@ -16,5 +16,5 @@ class ESGeneration : GenerationModel {
 
 	ESGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
 
-	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize)=0;
+	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 };

@@ -11,14 +11,17 @@ class SelectionStrategy {
 	protected:
 	unsigned seed;
 	std::mt19937 generator;
-	int crossoverRate;
+	double crossoverRate;
+	std::string name;
+
+	SelectionStrategy(unsigned newSeed, double newCrossoverRate, std::string newName);
 
 	public:
 
 	SelectionStrategy(double newCrossoverRate);
 	SelectionStrategy(unsigned newSeed, double newCrossoverRate);
 
-	void init(double newCrossoverRate, unsigned newSeed);
+	void init(double newCrossoverRate, unsigned newSeed, std::string newName);
 
 	virtual int getParent(int populationFitnesses[], int populationSize)=0;
 

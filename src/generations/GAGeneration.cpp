@@ -8,7 +8,7 @@ using namespace std;
 
 GAGeneration::GAGeneration(int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newNumElites, newStrategy) {}
 
-GenerationModel::GenerationModel(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newNumElites, newStrategy) {}
+GAGeneration::GAGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newNumElites, newStrategy) {}
 
 //This strategy uses the GA (Genetic Algorithms) approach - pick a few elites,
 //then fill the rest of the population in with new individuals
