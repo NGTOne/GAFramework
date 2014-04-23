@@ -1,5 +1,11 @@
 CPPC = g++
 CPPFLAGS = -c -g -std=gnu++0x -fPIC
+CORE = -Iinclude/core
+SELS = -Iinclude/selections
+CROSS = -Iinclude/crossovers
+MUTS = -Iinclude/mutations
+GENS = -Iinclude/generations
+ALLINCLUDES = $(CORE) $(SELS) $(CROSS) $(MUTS) $(GENS) 
 
 info:
 	@echo "Usage:"
@@ -20,14 +26,14 @@ library: core selections mutations crossovers generations
 	ar -cvq libGAFramework.a obj/*/*.o
 
 core:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/MutationOperation.cpp -o obj/core/MutationOperation.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/Individual.cpp -o obj/core/Individual.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/GenePool.cpp -o obj/core/GenePool.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/NonHierarchicalGenePool.cpp -o obj/core/NonHierarchicalGenePool.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/GenerationModel.cpp -o obj/core/GenerationModel.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/core/HierarchicalGenePool.cpp -o obj/core/HierarchicalGenePool.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/core/MutationOperation.cpp -o obj/core/MutationOperation.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/core/Individual.cpp -o obj/core/Individual.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/core/GenePool.cpp -o obj/core/GenePool.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/core/NonHierarchicalGenePool.cpp -o obj/core/NonHierarchicalGenePool.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/core/GenerationModel.cpp -o obj/core/GenerationModel.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/core/HierarchicalGenePool.cpp -o obj/core/HierarchicalGenePool.o
 
 selections: tournamentSelection
 
@@ -38,52 +44,52 @@ crossovers: twoPointCrossover
 generations: ga es ssga
 
 ga:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/generations src/generations/GAGeneration.cpp -o obj/generations/GAGeneration.o
+	$(CPPC) $(CPPFLAGS) $(CORE) $(GENS) src/generations/GAGeneration.cpp -o obj/generations/GAGeneration.o
 
 es:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/generations src/generations/ESGeneration.cpp -o obj/generations/ESGeneration.o
+	$(CPPC) $(CPPFLAGS) $(CORE) $(GENS) src/generations/ESGeneration.cpp -o obj/generations/ESGeneration.o
 
 ssga:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/generations src/generations/SSGAGeneration.cpp -o obj/generations/SSGAGeneration.o
+	$(CPPC) $(CPPFLAGS) $(CORE) $(GENS) src/generations/SSGAGeneration.cpp -o obj/generations/SSGAGeneration.o
 
 tournamentSelection:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
+	$(CPPC) $(CPPFLAGS) $(CORE) $(SELS) src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
 
 uniformMutation:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/mutations src/mutations/UniformMutation.cpp -o obj/mutations/UniformMutation.o
+	$(CPPC) $(CPPFLAGS) $(CORE) $(MUTS) src/mutations/UniformMutation.cpp -o obj/mutations/UniformMutation.o
 
 boundaryMutation:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/mutations src/mutations/BoundaryMutation.cpp -o obj/mutations/BoundaryMutation.o
+	$(CPPC) $(CPPFLAGS) $(CORE) $(MUTS) src/mutations/BoundaryMutation.cpp -o obj/mutations/BoundaryMutation.o
 
 twoPointCrossover:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/crossovers src/crossovers/TwoPointCrossover.cpp -o obj/crossovers/TwoPointCrossover.o
+	$(CPPC) $(CPPFLAGS) $(CORE) $(CROSS) src/crossovers/TwoPointCrossover.cpp -o obj/crossovers/TwoPointCrossover.o
 
 1-max:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections -Iinclude/crossovers -Iinclude/mutations -Iinclude/generations -Isrc/examples/1max src/examples/1max/1max.cpp -o obj/examples/1max/1max.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o
+	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/1max src/examples/1max/1max.cpp -o obj/examples/1max/1max.o
 	$(CPPC) -o examples/1max obj/examples/1max/*.o libGAFramework.a
 
 hier1-max:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/examples/Hier1max/1maxFitness.cpp -o obj/examples/Hier1max/1maxFitness.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/examples/Hier1max/Hier1maxFitness.cpp -o obj/examples/Hier1max/Hier1maxFitness.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections -Iinclude/crossovers -Iinclude/mutations -Iinclude/generations -Isrc/examples/Hier1max src/examples/Hier1max/Hier1max.cpp -o obj/examples/Hier1max/Hier1max.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/examples/Hier1max/1maxFitness.cpp -o obj/examples/Hier1max/1maxFitness.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/examples/Hier1max/Hier1maxFitness.cpp -o obj/examples/Hier1max/Hier1maxFitness.o
+	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/Hier1max src/examples/Hier1max/Hier1max.cpp -o obj/examples/Hier1max/Hier1max.o
 	$(CPPC) -o examples/Hier1max obj/examples/Hier1max/*.o libGAFramework.a
 
 royalroad:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core src/examples/RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/RoyalRoad/RoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections -Iinclude/crossovers -Iinclude/mutations -Iinclude/generations -Isrc/examples/RoyalRoad src/examples/RoyalRoad/RoyalRoad.cpp -o obj/examples/RoyalRoad/RoyalRoad.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/examples/RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/RoyalRoad/RoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/RoyalRoad src/examples/RoyalRoad/RoyalRoad.cpp -o obj/examples/RoyalRoad/RoyalRoad.o
 	$(CPPC) -o examples/RoyalRoad obj/examples/RoyalRoad/*.o libGAFramework.a
 
 hierroyalroad:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/RoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/RoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections -Iinclude/crossovers -Iinclude/mutations -Iinclude/generations -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoad.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoad.o
+	$(CPPC) $(CPPFLAGS) $(CORE) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/RoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/RoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) $(CORE) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoad.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoad.o
 	$(CPPC) -o examples/HierRoyalRoad obj/examples/HierRoyalRoad/*.o libGAFramework.a
 
 hier3royalroad:
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/RoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Iinclude/core -Iinclude/selections -Iinclude/crossovers -Iinclude/mutations -Iinclude/generations -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoad.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoad.o
+	$(CPPC) $(CPPFLAGS) $(CORE) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/RoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) $(CORE) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoad.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoad.o
 	$(CPPC) -o examples/Hier3RoyalRoad obj/examples/Hier3RoyalRoad/*.o libGAFramework.a
 
 
