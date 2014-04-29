@@ -21,14 +21,3 @@ void CrossoverOperation::init(unsigned newSeed) {
 	mt19937 newGenerator(newSeed);
 	generator = newGenerator;
 }
-
-string CrossoverOperation::toString() {
-	string returnString = "";
-	stringstream ss;
-
-	ss << "Random seed: " << seed << "\n";
-
-	returnString = ss.str();
-
-	return returnString;
-}
