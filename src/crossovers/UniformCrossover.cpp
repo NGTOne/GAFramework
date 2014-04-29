@@ -1,5 +1,6 @@
 #include <random>
 #include <chrono>
+#include <sstream>
 #include "UniformCrossover.h"
 
 using namespace std;
@@ -39,4 +40,15 @@ int ** UniformCrossover::crossOver(int firstGenome[], int secondGenome[], int fi
 	}
 
 	return children;
+}
+
+string UniformCrossover::toString() {
+	string returnString = "";
+	stringstream ss;
+
+	ss << "Type: Uniform Crossover\nRandom Seed: " << seed << "\nCrossover Rate: " << crossoverRate << "\n";
+
+	returnString = ss.str();
+
+	return returnString;
 }

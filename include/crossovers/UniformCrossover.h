@@ -15,4 +15,5 @@ class UniformCrossover : public CrossoverOperation {
 
 	int ** crossOver(int firstGenome[], int secondGenome[], int firstGenomeLength, int secondGenomeLength);
 
+	std::string toString();
 };
