@@ -3,7 +3,7 @@
 #include "NonHierarchicalGenePool.h"
 #include "HierarchicalGenePool.h"
 #include "UniformMutation.h"
-#include "TwoPointCrossover.h"
+#include "NPointCrossover.h"
 #include "TournamentSelection.h"
 #include "GAGeneration.h"
 #include "RoyalRoadFitness.h"
@@ -36,7 +36,7 @@ int main(void) {
 			bottomLevelStrategies[i][k] = new TournamentSelection(0.5);
 			bottomLevelModels[i][k] = new GAGeneration(2, bottomLevelStrategies[i][k]);
 			bottomLevelFunctions[i][k] = new RoyalRoadFitness();
-			bottomLevelCrossovers[i][k] = new TwoPointCrossover();
+			bottomLevelCrossovers[i][k] = new NPointCrossover(2);
 			bottomLevelMutations[i][k] = new UniformMutation(0.2);
 		}
 	}
@@ -87,7 +87,7 @@ int main(void) {
 		secondLevelStrategies[i] = new TournamentSelection(0.5);
 		secondLevelModels[i] = new GAGeneration(2, secondLevelStrategies[i]);
 		secondLevelFunctions[i] = new HierRoyalRoadFitness();
-		secondLevelCrossovers[i] = new TwoPointCrossover();
+		secondLevelCrossovers[i] = new NPointCrossover(2);
 		secondLevelMutations[i] = new UniformMutation(0.2);
 	}
 
@@ -102,7 +102,7 @@ int main(void) {
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
 	GenerationModel * topLevelModel = new GAGeneration(2, topLevelStrategy);
 	FitnessFunction * topLevelFunction = new HierRoyalRoadFitness();
-	CrossoverOperation * topLevelCrossover = new TwoPointCrossover();
+	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);
 	MutationOperation * topLevelMutation = new UniformMutation(0.2);
 
 	templateIndividual = new Individual(secondLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction);

@@ -3,7 +3,7 @@
 #include "NonHierarchicalGenePool.h"
 #include "HierarchicalGenePool.h"
 #include "UniformMutation.h"
-#include "TwoPointCrossover.h"
+#include "NPointCrossover.h"
 #include "TournamentSelection.h"
 #include "GAGeneration.h"
 #include "1maxFitness.h"
@@ -25,7 +25,7 @@ int main(void) {
 		bottomLevelStrategies[i] = new TournamentSelection(0.5);
 		bottomLevelModels[i] = new GAGeneration(2, bottomLevelStrategies[i]);
 		bottomLevelFunctions[i] = new OneMaxFitness();
-		bottomLevelCrossovers[i] = new TwoPointCrossover();
+		bottomLevelCrossovers[i] = new NPointCrossover(2);
 		bottomLevelMutations[i] = new UniformMutation(0.2);
 	}
 
@@ -51,7 +51,7 @@ int main(void) {
 		bottomLevelPools[i] = new HierarchicalGenePool(8, bottomLevelTemplateIndividual, 100, 1, bottomLevelModels[i]);
 	}
 
-	CrossoverOperation * topLevelCrossover = new TwoPointCrossover();
+	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);
 	MutationOperation * topLevelMutation = new UniformMutation(0.2);
 	FitnessFunction * topLevelFunction = new HierOneMaxFitness();
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);

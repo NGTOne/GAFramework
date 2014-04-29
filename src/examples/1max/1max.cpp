@@ -3,7 +3,7 @@
 #include "NonHierarchicalGenePool.h"
 #include "HierarchicalGenePool.h"
 #include "UniformMutation.h"
-#include "TwoPointCrossover.h"
+#include "NPointCrossover.h"
 #include "TournamentSelection.h"
 #include "GAGeneration.h"
 #include "1maxFitness.h"
@@ -14,7 +14,7 @@ int main(void) {
 	GenerationModel * myGenerationModel = new GAGeneration(2, myStrategy);
 
 	FitnessFunction * myFunction = new OneMaxFitness();
-	CrossoverOperation * myCrossover = new TwoPointCrossover();
+	CrossoverOperation * myCrossover = new NPointCrossover(2);
 	MutationOperation * myMutation = new UniformMutation(0.2);
 
 	int binaryDigits[] = {0,1};
