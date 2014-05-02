@@ -55,11 +55,13 @@ int ** NPointCrossover::crossOver(int firstGenome[], int secondGenome[], int fir
 	bool firstOrSecond = false; //false = first, true = second
 
 	for (int i = 0; i < shortestGenome; i++) {
-		if (i == points[currentPoint]) {
-			firstOrSecond = !firstOrSecond;
-			currentPoint += 1;
-		} else {
-			for (; points[currentPoint] == -1; currentPoint++);
+		if (currentPoint < numPoints) {
+			if (i == points[currentPoint]) {
+				firstOrSecond = !firstOrSecond;
+				currentPoint += 1;
+			} else {
+				for (; currentPoint < numPoints && points[currentPoint] == -1; currentPoint++);
+			}
 		}
 
 		if (firstOrSecond == true) {
