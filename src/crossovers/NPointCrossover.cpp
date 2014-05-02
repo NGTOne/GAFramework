@@ -14,7 +14,7 @@ NPointCrossover::NPointCrossover(int newNumPoints, unsigned newSeed) : Crossover
 	numPoints = newNumPoints;
 }
 
-int ** NPointCrossover::crossOver(int firstGenome[], int secondGenome[], int firstGenomeLength, int secondGenomeLength) {
+Genome ** NPointCrossover::crossOver(int firstGenome[], int secondGenome[], int firstGenomeLength, int secondGenomeLength) {
 	int points[numPoints];
 	int shortestGenome;
 
@@ -73,7 +73,14 @@ int ** NPointCrossover::crossOver(int firstGenome[], int secondGenome[], int fir
 		}
 	}
 
-	return children;
+	Genome ** returnChildren = (Genome**)malloc(sizeof(Genome*)*2);
+
+	returnChildren[0] = new Genome(children[0], shortestGenome);
+	returnChildren[1] = new Genome(children[1], shortestGenome);
+
+	free(children);
+
+	return returnChildren;
 }
 
 string NPointCrossover::toString() {

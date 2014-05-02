@@ -1,4 +1,5 @@
 #include "Individual.h"
+#include "Genome.h"
 #include <cstdlib>
 #include <chrono>
 #include <iostream>
@@ -73,8 +74,9 @@ void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOp
 //and spits out two offspring (which are new instances of Individual)
 //Returns NULL if the two parents have different gene pools
 Individual ** Individual::crossoverOperation(Individual * otherParent) {
+	int firstKidsLength, secondKidsLength;
 	int * otherGuysGenome;
-	int ** kidsGenome;
+	Genome ** kidsGenome;
 	Individual ** kids = (Individual**)malloc(sizeof(Individual*)*2);
 	int otherGuysLength;
 
@@ -86,12 +88,16 @@ Individual ** Individual::crossoverOperation(Individual * otherParent) {
 	otherGuysLength = otherParent->getGenomeLength();
 
 	kidsGenome = myCrossover->crossOver(genome, otherGuysGenome, genomeLength, otherGuysLength);
+
+	//Our offspring may not have the same genome length that we do
+	firstKidsLength = kidsGenome[0]->getGenomeLength();
+	secondKidsLength = kidsGenome[1]->getGenomeLength();
+
+	kids[0] = new Individual(myGenePools, firstKidsLength, myCrossover, myMutation, myFunction, kidsGenome[0]->getGenome(), speciesID);
+	kids[1] = new Individual(myGenePools, secondKidsLength, myCrossover, myMutation, myFunction, kidsGenome[1]->getGenome(), speciesID);
 	
-	kids[0] = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, kidsGenome[0], speciesID);
-	kids[1] = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, kidsGenome[1], speciesID);
-	
-	free(kidsGenome[0]);
-	free(kidsGenome[1]);
+	delete(kidsGenome[0]);
+	delete(kidsGenome[1]);
 	free(kidsGenome);
 
 	return kids;

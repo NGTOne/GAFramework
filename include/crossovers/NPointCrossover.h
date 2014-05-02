@@ -13,7 +13,7 @@ class NPointCrossover : public CrossoverOperation {
 	NPointCrossover(int newNumPoints);
 	NPointCrossover(int newNumPoints, unsigned newSeed);
 	
-	int ** crossOver(int firstGenome[], int secondGenome[], int firstGenomeLength, int secondGenomeLength);
+	Genome ** crossOver(int firstGenome[], int secondGenome[], int firstGenomeLength, int secondGenomeLength);
 
 	std::string toString();
 

@@ -28,6 +28,7 @@ library: core selections mutations crossovers generations
 core:
 	$(CPPC) $(CPPFLAGS) $(CORE) src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
 	$(CPPC) $(CPPFLAGS) $(CORE) src/core/MutationOperation.cpp -o obj/core/MutationOperation.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/core/Genome.cpp -o obj/core/Genome.o
 	$(CPPC) $(CPPFLAGS) $(CORE) src/core/Individual.cpp -o obj/core/Individual.o
 	$(CPPC) $(CPPFLAGS) $(CORE) src/core/GenePool.cpp -o obj/core/GenePool.o
 	$(CPPC) $(CPPFLAGS) $(CORE) src/core/NonHierarchicalGenePool.cpp -o obj/core/NonHierarchicalGenePool.o
