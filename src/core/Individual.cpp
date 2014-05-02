@@ -1,5 +1,6 @@
 #include "Individual.h"
 #include <cstdlib>
+#include <chrono>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -9,14 +10,25 @@ using namespace std;
 //Basic constructor - lets us have a completely generic Individual that doesn't
 //know what the heck is going on inside it
 Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness) {
-	init(newGenePools, newGenomeLength, newCrossover, newMutation, newFitness);
+	//The system time that the first individual of that species was
+	//created makes an acceptable species ID
+	unsigned newSpeciesID = chrono::system_clock::now().time_since_epoch().count();
+
+	init(newGenePools, newGenomeLength, newCrossover, newMutation, newFitness, newSpeciesID);
 
 	checkFitness();
 }
+
+Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID) {
+	init(newGenePools, newGenomeLength, newCrossover, newMutation, newFitness, newSpeciesID);
+
+	checkFitness();
+}
+
 //Constructor that lets us create an Individual with a fully specified genome
 //Necessary for crossover/mutation
-Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, int newGenome[]) {
-	init(newGenePools, newGenomeLength, newCrossover, newMutation, newFitness);
+Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, int newGenome[], unsigned newSpeciesID) {
+	init(newGenePools, newGenomeLength, newCrossover, newMutation, newFitness, newSpeciesID);
 
 	for (int i = 0; i < genomeLength; i++) {
 		genome[i] = newGenome[i];
@@ -33,7 +45,7 @@ Individual::~Individual() {
 	}
 }
 
-void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness) {
+void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID) {
 	if (newGenePools != NULL) {
                 genomeLength = newGenomeLength;
 
@@ -54,6 +66,7 @@ void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOp
         myCrossover = newCrossover;
         myMutation = newMutation;
         myFunction = newFitness;
+	speciesID = newSpeciesID;
 }
 
 //Exactly what it says on the tin - wraps around the CrossoverOperation
@@ -74,8 +87,8 @@ Individual ** Individual::crossoverOperation(Individual * otherParent) {
 
 	kidsGenome = myCrossover->crossOver(genome, otherGuysGenome, genomeLength, otherGuysLength);
 	
-	kids[0] = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, kidsGenome[0]);
-	kids[1] = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, kidsGenome[1]);
+	kids[0] = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, kidsGenome[0], speciesID);
+	kids[1] = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, kidsGenome[1], speciesID);
 	
 	free(kidsGenome[0]);
 	free(kidsGenome[1]);
@@ -95,7 +108,7 @@ Individual * Individual::mutationOperation() {
 	}
 
 	mutantGenome = myMutation->mutate(genome, maxValues, genomeLength);
-	Individual * mutant = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, mutantGenome);
+	Individual * mutant = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, mutantGenome, speciesID);
 
 	free(mutantGenome);
 
@@ -120,6 +133,12 @@ int * Individual::getProperties() {
 	return properties;
 }
 
+//Necessary for verifying whether or not two Individuals are of the same
+//species
+unsigned Individual::getSpeciesID() {
+	return speciesID;
+}
+
 Individual * Individual::deepCopy() {
 	Individual * myCopy = makeSpecifiedCopy(genome);
 
@@ -129,7 +148,7 @@ Individual * Individual::deepCopy() {
 //For populating HierarchicalGenePools - basically, use this Individual as a
 //template, just generate a new genome for it
 Individual * Individual::makeRandomCopy() {
-	Individual * myCopy = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction);
+	Individual * myCopy = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, speciesID);
 
 	return myCopy;
 }
@@ -140,12 +159,11 @@ Individual * Individual::makeRandomCopy() {
 //If the chromosomes in newGenome are out of range for their gene pools, bad
 //things will happen
 Individual * Individual::makeSpecifiedCopy(int newGenome[]) {
-	Individual * myCopy = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, newGenome);
+	Individual * myCopy = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, newGenome, speciesID);
 
 	return myCopy;
 }
 
-//Necessary for species verification
 GenePool ** Individual::getGenePoolList() {
 	return myGenePools;
 }
@@ -165,22 +183,15 @@ void Individual::runHierarchicalGenerations() {
 //are from the same part of the hierarchy before attempting to breed them
 //Comparing which gene pools they draw from provides an easy way to do this
 bool Individual::sameSpecies(Individual * otherIndividual) {
-	int otherGuysLength = otherIndividual->getGenomeLength();
-	GenePool ** otherGuysPools = otherIndividual->getGenePoolList();
+	unsigned otherGuysID;
 
-	//First, a rough check
-	if (otherGuysLength != genomeLength) {
+	otherGuysID = otherIndividual->getSpeciesID();
+
+	if (speciesID == otherGuysID) {
+		return true;
+	} else {
 		return false;
 	}
-
-	//Now, more detailed inspection
-	for (int i = 0; i < genomeLength; i++) {
-		if (myGenePools[i]->equals(otherGuysPools[i]) == false) {
-			return false;
-		}
-	}
-
-	return true;
 }
 
 int Individual::getGenomeLength() {
@@ -195,7 +206,7 @@ string Individual::toString() {
 	string returnString;
 	stringstream ss;
 
-	ss << "Genome: " << toGenomeString() << "\nCrossover information:\n" << myCrossover->toString() << "Mutation information:\n" << myMutation->toString() << "";
+	ss << "Genome: " << toGenomeString() << "\nCrossover information:\n" << myCrossover->toString() << "Mutation information:\n" << myMutation->toString() << "Species ID: " << speciesID << "\n";
 
 	returnString = ss.str();
 
