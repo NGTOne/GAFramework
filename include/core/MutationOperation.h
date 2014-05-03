@@ -18,7 +18,7 @@ class MutationOperation {
 	MutationOperation(double newMutationRate);
 	MutationOperation(double newMutationRate, unsigned newSeed);
 
-	virtual Genome * mutate(int * initialGenome, int * largestPossibleValues, int genomeLength)=0;
+	virtual Genome * mutate(Genome * initialGenome, int * largestPossibleValues)=0;
 
 	void init(double newMutationRate, unsigned newSeed);
 

@@ -112,7 +112,7 @@ Individual * Individual::mutationOperation() {
 		maxValues[i] = myGenePools[i]->getPopulationSize()-1;
 	}
 
-	mutantGenome = myMutation->mutate(genome->getGenome(), maxValues, genome->getGenomeLength());
+	mutantGenome = myMutation->mutate(genome, maxValues);
 	Individual * mutant = new Individual(myGenePools, mutantGenome, myCrossover, myMutation, myFunction, speciesID);
 
 	delete(mutantGenome);

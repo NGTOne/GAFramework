@@ -9,7 +9,10 @@ UniformMutation::UniformMutation(double newMutationRate) : MutationOperation(new
 UniformMutation::UniformMutation(double newMutationRate, unsigned newSeed) : MutationOperation(newMutationRate, newSeed) {}
 
 
-Genome * UniformMutation::mutate(int * initialGenome, int * largestPossibleValues, int genomeLength) {
+Genome * UniformMutation::mutate(Genome * initialGenome, int * largestPossibleValues) {
+	int genomeLength = initialGenome->getGenomeLength();
+	int * originalGenome = initialGenome->getGenome();
+
 	double randomNumber;
 	int * newGenome = (int*)malloc(sizeof(int)*genomeLength);
 
@@ -26,7 +29,7 @@ Genome * UniformMutation::mutate(int * initialGenome, int * largestPossibleValue
 
 			newGenome[i] = newValueDistribution(generator);
 		} else {
-			newGenome[i] = initialGenome[i];
+			newGenome[i] = originalGenome[i];
 		}
 	}
 

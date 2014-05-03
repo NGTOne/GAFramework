@@ -9,7 +9,10 @@ BoundaryMutation::BoundaryMutation(double newMutationRate) : MutationOperation(n
 BoundaryMutation::BoundaryMutation(double newMutationRate, unsigned newSeed) : MutationOperation(newMutationRate, newSeed) {}
 
 
-Genome * BoundaryMutation::mutate(int * initialGenome, int * largestPossibleValues, int genomeLength) {
+Genome * BoundaryMutation::mutate(Genome * initialGenome, int * largestPossibleValues) {
+	int genomeLength = initialGenome->getGenomeLength();
+	int * originalGenome = initialGenome->getGenome();
+
 	double randomNumber;
 	int * newGenome = (int*)malloc(sizeof(int)*genomeLength);
 
@@ -28,7 +31,7 @@ Genome * BoundaryMutation::mutate(int * initialGenome, int * largestPossibleValu
 				newGenome[i] = largestPossibleValues[i];
 			}
 		} else {
-			newGenome[i] = initialGenome[i];
+			newGenome[i] = originalGenome[i];
 		}
 	}
 

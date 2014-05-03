@@ -12,6 +12,6 @@ class UniformMutation : public MutationOperation {
 	UniformMutation(double newMutationRate);
 	UniformMutation(double newMutationRate, unsigned newSeed);
 
-	Genome * mutate(int initialGenome[], int largestPossibleValues[], int genomeLength);
+	Genome * mutate(Genome * initialGenome, int largestPossibleValues[]);
 
 };
