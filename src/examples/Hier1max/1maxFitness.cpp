@@ -16,7 +16,7 @@ int * OneMaxFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLe
 	
 	int * returnProperties = (int*)malloc(sizeof(int)*2);
 
-	returnProperties[0] = 1;
+	returnProperties[0] = 2;
 	returnProperties[1] = total;
 
 	return returnProperties;

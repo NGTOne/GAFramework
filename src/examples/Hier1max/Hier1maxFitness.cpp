@@ -21,7 +21,7 @@ int * HierOneMaxFitness::checkFitness(GenePool ** pools, int * indexes, int geno
 		total += tempProperties[1];
 	}
 
-	returnProperties[0] = 1;
+	returnProperties[0] = 2;
 	returnProperties[1] = total;
 
 	return returnProperties;
