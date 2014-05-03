@@ -14,7 +14,7 @@ class CrossoverOperation {
 	void init(unsigned newSeed);
         CrossoverOperation();        
         CrossoverOperation(unsigned newSeed);
-        virtual Genome ** crossOver(int genomeOne[], int genomeTwo[], int firstGenomeLength, int secondGenomeLength)=0;
+        virtual Genome ** crossOver(Genome * genomeOne, Genome * genomeTwo)=0;
 	virtual std::string toString()=0;
 };
 

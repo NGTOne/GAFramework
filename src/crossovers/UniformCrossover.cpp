@@ -13,8 +13,14 @@ UniformCrossover::UniformCrossover(double crossoverChance, unsigned newSeed) : C
 	crossoverRate = crossoverChance;
 }
 
-Genome ** UniformCrossover::crossOver(int firstGenome[], int secondGenome[], int firstGenomeLength, int secondGenomeLength) {
+Genome ** UniformCrossover::crossOver(Genome * firstGenome, Genome * secondGenome) {
 	int shortestGenome;
+
+	int firstGenomeLength = firstGenome->getGenomeLength();
+	int secondGenomeLength = secondGenome->getGenomeLength();
+
+	int * genomeOne = firstGenome->getGenome();
+	int * genomeTwo = secondGenome->getGenome();
 
 	if (firstGenomeLength > secondGenomeLength) {
 		shortestGenome = secondGenomeLength;
@@ -33,11 +39,11 @@ Genome ** UniformCrossover::crossOver(int firstGenome[], int secondGenome[], int
 
 	for (int i = 0; i < shortestGenome; i++) {
 		if (distribution(generator) <= crossoverRate) {
-			children[0][i] = secondGenome[i];
-			children[1][i] = firstGenome[i];
+			children[0][i] = genomeTwo[i];
+			children[1][i] = genomeOne[i];
 		} else {
-			children[0][i] = firstGenome[i];
-			children[1][i] = secondGenome[i];
+			children[0][i] = genomeTwo[i];
+			children[1][i] = genomeOne[i];
 		}
 	}
 

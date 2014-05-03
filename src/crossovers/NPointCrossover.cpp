@@ -14,9 +14,15 @@ NPointCrossover::NPointCrossover(int newNumPoints, unsigned newSeed) : Crossover
 	numPoints = newNumPoints;
 }
 
-Genome ** NPointCrossover::crossOver(int firstGenome[], int secondGenome[], int firstGenomeLength, int secondGenomeLength) {
+Genome ** NPointCrossover::crossOver(Genome * firstGenome, Genome * secondGenome) {
 	int points[numPoints];
 	int shortestGenome;
+
+	int firstGenomeLength = firstGenome->getGenomeLength();
+	int secondGenomeLength = secondGenome->getGenomeLength();
+
+	int * genomeOne = firstGenome->getGenome();
+	int * genomeTwo = secondGenome->getGenome();
 
 	if (firstGenomeLength > secondGenomeLength) {
 		shortestGenome = secondGenomeLength;
@@ -24,7 +30,7 @@ Genome ** NPointCrossover::crossOver(int firstGenome[], int secondGenome[], int 
 		shortestGenome = firstGenomeLength;
 	}
 
-	//We're generating two children - each one uses the same crossover
+	//We're generating two children - each one sees the same crossover
 	//points, but draws from the parents in a different order
 	int ** children = (int**)malloc(sizeof(int*)*2);
 
@@ -65,11 +71,11 @@ Genome ** NPointCrossover::crossOver(int firstGenome[], int secondGenome[], int 
 		}
 
 		if (firstOrSecond == true) {
-			children[0][i] = firstGenome[i];
-			children[1][i] = secondGenome[i];
+			children[0][i] = genomeOne[i];
+			children[1][i] = genomeTwo[i];
 		} else {
-			children[1][i] = firstGenome[i];
-			children[0][i] = secondGenome[i];
+			children[1][i] = genomeOne[i];
+			children[0][i] = genomeTwo[i];
 		}
 	}
 

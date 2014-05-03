@@ -85,9 +85,8 @@ Individual ** Individual::crossoverOperation(Individual * otherParent) {
 	}
 
 	otherGuysGenome = otherParent->getGenome();
-	otherGuysLength = otherParent->getGenomeLength();
 
-	kidsGenome = myCrossover->crossOver(genome->getGenome(), otherGuysGenome->getGenome(), genome->getGenomeLength(), otherGuysLength);
+	kidsGenome = myCrossover->crossOver(genome, otherGuysGenome);
 
 	//Our offspring may not have the same genome length that we do
 	firstKidsLength = kidsGenome[0]->getGenomeLength();

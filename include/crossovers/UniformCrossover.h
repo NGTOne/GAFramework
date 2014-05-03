@@ -13,7 +13,7 @@ class UniformCrossover : public CrossoverOperation {
 	UniformCrossover(double crossoverChance);
 	UniformCrossover(double crossoverChance, unsigned newSeed);
 
-	Genome ** crossOver(int firstGenome[], int secondGenome[], int firstGenomeLength, int secondGenomeLength);
+	Genome ** crossOver(Genome * firstGenome, Genome * secondGenome);
 
 	std::string toString();
 };
