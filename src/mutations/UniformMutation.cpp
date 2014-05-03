@@ -33,7 +33,7 @@ Genome * UniformMutation::mutate(Genome * initialGenome, int * largestPossibleVa
 		}
 	}
 
-	Genome * newGene = new Genome(newGenome, genomeLength);
+	Genome * newGene = new Genome(newGenome, genomeLength, initialGenome->getGenePools());
 
 	free(newGenome);
 

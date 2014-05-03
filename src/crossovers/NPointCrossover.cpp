@@ -81,8 +81,8 @@ Genome ** NPointCrossover::crossOver(Genome * firstGenome, Genome * secondGenome
 
 	Genome ** returnChildren = (Genome**)malloc(sizeof(Genome*)*2);
 
-	returnChildren[0] = new Genome(children[0], shortestGenome);
-	returnChildren[1] = new Genome(children[1], shortestGenome);
+	returnChildren[0] = new Genome(children[0], shortestGenome, firstGenome->getGenePools());
+	returnChildren[1] = new Genome(children[1], shortestGenome, secondGenome->getGenePools());
 
 	free(children[0]);
 	free(children[1]);

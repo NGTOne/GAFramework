@@ -35,7 +35,7 @@ Genome * BoundaryMutation::mutate(Genome * initialGenome, int * largestPossibleV
 		}
 	}
 
-	Genome * newGene = new Genome(newGenome, genomeLength);
+	Genome * newGene = new Genome(newGenome, genomeLength, initialGenome->getGenePools());
 
 	free(newGenome);
 

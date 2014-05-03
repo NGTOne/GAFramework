@@ -18,6 +18,9 @@ Genome ** CutAndSpliceCrossover::crossOver(Genome * firstGenome, Genome * second
 	int * genomeOne = firstGenome->getGenome();
 	int * genomeTwo = secondGenome->getGenome();
 
+	GenePool ** firstGenePools = firstGenome->getGenePools();
+	GenePool ** secondGenePools = secondGenome->getGenePools();
+
 	if (firstGenomeLength > secondGenomeLength) {
 		shortestGenome = secondGenomeLength;
 	} else {
@@ -39,13 +42,22 @@ Genome ** CutAndSpliceCrossover::crossOver(Genome * firstGenome, Genome * second
 	children[0] = (int*)malloc(sizeof(int)*firstChildLength);
 	children[1] = (int*)malloc(sizeof(int)*secondChildLength);
 
+	GenePool *** childPools = (GenePool***)malloc(sizeof(GenePool**)*2);
+
+	childPools[0] = (GenePool**)malloc(sizeof(GenePool*)*firstChildLength);
+	childPools[1] = (GenePool**)malloc(sizeof(GenePool*)*secondChildLength);
+
+	printf("%d %d\n", firstChildLength, secondChildLength);
+
 	//Create the first child
 	for (int i = 0; i < firstChildLength; i++) {
 		if (i < firstSplicePoint) {
 			children[0][i] = genomeOne[i];
+			childPools[0][i] = firstGenePools[i];
 		} else {
 			for (int k = 0; k+i < firstChildLength; k++) {
 				children[0][k+i] = genomeTwo[secondSplicePoint+k];
+				childPools[0][k+i] = secondGenePools[secondSplicePoint+k];
 			}
 
 			i = firstChildLength;
@@ -54,18 +66,20 @@ Genome ** CutAndSpliceCrossover::crossOver(Genome * firstGenome, Genome * second
 
 	for (int i = 0; i < secondChildLength; i++) {
 		if (i < secondSplicePoint) {
-			children[0][i] = genomeTwo[i];
+			children[1][i] = genomeTwo[i];
+			childPools[1][i] = secondGenePools[i];
 		} else {
 			for (int k = 0; k+i < secondChildLength; k++) {
 				children[1][k+i] = genomeOne[firstSplicePoint+k];
+				childPools[1][k+i] = firstGenePools[firstSplicePoint+k];
 			}
 		}
 	}
 
 	Genome ** returnChildren = (Genome**)malloc(sizeof(Genome*)*2);
 
-	returnChildren[0] = new Genome(children[0], shortestGenome);
-	returnChildren[1] = new Genome(children[1], shortestGenome);
+	returnChildren[0] = new Genome(children[0], firstChildLength, childPools[0]);
+	returnChildren[1] = new Genome(children[1], secondChildLength, childPools[1]);
 
 	free(children[0]);
 	free(children[1]);

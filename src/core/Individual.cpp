@@ -28,13 +28,13 @@ Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverO
 
 //Constructor that lets us create an Individual with a fully specified genome
 //Necessary for crossover/mutation
-Individual::Individual(GenePool ** newGenePools, Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID) {
-	init(newGenePools, newGenome->getGenomeLength(), newCrossover, newMutation, newFitness, newSpeciesID);
+Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID) {
+	init(newGenome->getGenePools(), newGenome->getGenomeLength(), newCrossover, newMutation, newFitness, newSpeciesID);
 
 	//Throw out the random genome we just created
 	delete(genome);
 
-	genome = new Genome(newGenome->getGenome(), newGenome->getGenomeLength());
+	genome = new Genome(newGenome->getGenome(), newGenome->getGenomeLength(), newGenome->getGenePools());
 
 	checkFitness();
 }
@@ -52,15 +52,13 @@ void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOp
 
 	properties = NULL;
 
-	myGenePools = newGenePools;
-
 	//This way, we don't actually need to know how many genes are in
 	//each pool - it can be 2 or 2000
 	for (int i = 0; i < newGenomeLength; i++) {
-		newGenome[i] = myGenePools[i]->chooseRandomMember();
+		newGenome[i] = newGenePools[i]->chooseRandomMember();
 	}
 
-	genome = new Genome(newGenome, newGenomeLength);
+	genome = new Genome(newGenome, newGenomeLength, newGenePools);
 
 	free(newGenome);
 
@@ -88,12 +86,8 @@ Individual ** Individual::crossoverOperation(Individual * otherParent) {
 
 	kidsGenome = myCrossover->crossOver(genome, otherGuysGenome);
 
-	//Our offspring may not have the same genome length that we do
-	firstKidsLength = kidsGenome[0]->getGenomeLength();
-	secondKidsLength = kidsGenome[1]->getGenomeLength();
-
-	kids[0] = new Individual(myGenePools, kidsGenome[0], myCrossover, myMutation, myFunction, speciesID);
-	kids[1] = new Individual(myGenePools, kidsGenome[1], myCrossover, myMutation, myFunction, speciesID);
+	kids[0] = new Individual(kidsGenome[0], myCrossover, myMutation, myFunction, speciesID);
+	kids[1] = new Individual(kidsGenome[1], myCrossover, myMutation, myFunction, speciesID);
 	
 	delete(kidsGenome[0]);
 	delete(kidsGenome[1]);
@@ -108,12 +102,14 @@ Individual * Individual::mutationOperation() {
 	Genome * mutantGenome;
 	int maxValues[genome->getGenomeLength()];
 
+	GenePool ** myGenePools = genome->getGenePools();
+
 	for (int i = 0; i < genome->getGenomeLength(); i++) {
 		maxValues[i] = myGenePools[i]->getPopulationSize()-1;
 	}
 
 	mutantGenome = myMutation->mutate(genome, maxValues);
-	Individual * mutant = new Individual(myGenePools, mutantGenome, myCrossover, myMutation, myFunction, speciesID);
+	Individual * mutant = new Individual(mutantGenome, myCrossover, myMutation, myFunction, speciesID);
 
 	delete(mutantGenome);
 
@@ -123,7 +119,7 @@ Individual * Individual::mutationOperation() {
 int Individual::checkFitness() {
 	int * newProperties;
 
-	newProperties = myFunction->checkFitness(myGenePools, genome->getGenome(), genome->getGenomeLength());
+	newProperties = myFunction->checkFitness(genome->getGenePools(), genome->getGenome(), genome->getGenomeLength());
 
 	if (properties != NULL) {
 		free(properties);
@@ -153,7 +149,7 @@ Individual * Individual::deepCopy() {
 //For populating HierarchicalGenePools - basically, use this Individual as a
 //template, just generate a new genome for it
 Individual * Individual::makeRandomCopy() {
-	Individual * myCopy = new Individual(myGenePools, genome->getGenomeLength(), myCrossover, myMutation, myFunction, speciesID);
+	Individual * myCopy = new Individual(genome->getGenePools(), genome->getGenomeLength(), myCrossover, myMutation, myFunction, speciesID);
 
 	return myCopy;
 }
@@ -164,9 +160,9 @@ Individual * Individual::makeRandomCopy() {
 //If the chromosomes in newGenome are out of range for their gene pools, bad
 //things will happen
 Individual * Individual::makeSpecifiedCopy(int newGenome[]) {
-	Genome * tempGenome = new Genome(newGenome, genome->getGenomeLength());
+	Genome * tempGenome = new Genome(newGenome, genome->getGenomeLength(), genome->getGenePools());
 
-	Individual * myCopy = new Individual(myGenePools, tempGenome, myCrossover, myMutation, myFunction, speciesID);
+	Individual * myCopy = new Individual(tempGenome, myCrossover, myMutation, myFunction, speciesID);
 
 	delete(tempGenome);
 
@@ -183,6 +179,8 @@ Genome * Individual::getGenome() {
 }
 
 void Individual::runHierarchicalGenerations() {
+	GenePool ** myGenePools = genome->getGenePools();
+
 	for (int i = 0; i < genome->getGenomeLength(); i++) {
 		myGenePools[i]->runGenerations();
 	}
@@ -208,7 +206,7 @@ int Individual::getGenomeLength() {
 }
 
 string Individual::toGenomeString() {
-	return myFunction->toString(myGenePools, genome->getGenome(), genome->getGenomeLength());
+	return myFunction->toString(genome->getGenePools(), genome->getGenome(), genome->getGenomeLength());
 }
 
 string Individual::toString() {

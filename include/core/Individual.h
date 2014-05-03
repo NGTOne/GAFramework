@@ -48,7 +48,7 @@ class Individual {
 
 	//Constructor that lets us create an Individual with a fully specified
 	//genome - necessary for crossover/mutation
-	Individual(GenePool ** newGenePools, Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID);
+	Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID);
 
 	~Individual();
 
