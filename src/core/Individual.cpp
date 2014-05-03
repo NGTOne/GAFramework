@@ -39,6 +39,18 @@ Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, Mu
 	checkFitness();
 }
 
+//For TRUE deep copying - lets us create an Individual with every aspect
+//specified
+Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, int * newProperties) {
+	init(newGenome->getGenePools(), newGenome->getGenomeLength(), newCrossover, newMutation, newFitness, newSpeciesID);
+
+	delete(genome);
+
+	genome = new Genome(newGenome->getGenome(), newGenome->getGenomeLength(), newGenome->getGenePools());
+
+	properties = newProperties;
+}
+
 Individual::~Individual() {
 	delete(genome);
 
@@ -162,7 +174,13 @@ Individual * Individual::makeRandomCopy() {
 Individual * Individual::makeSpecifiedCopy(int newGenome[]) {
 	Genome * tempGenome = new Genome(newGenome, genome->getGenomeLength(), genome->getGenePools());
 
-	Individual * myCopy = new Individual(tempGenome, myCrossover, myMutation, myFunction, speciesID);
+	int * newProperties = (int*)malloc(sizeof(int)*properties[0]);
+
+	for (int i = 0; i < properties[0]; i++) {
+		newProperties[i] = properties[i];
+	}
+
+	Individual * myCopy = new Individual(tempGenome, myCrossover, myMutation, myFunction, speciesID, newProperties);
 
 	delete(tempGenome);
 

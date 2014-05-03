@@ -37,6 +37,10 @@ class Individual {
 	MutationOperation * myMutation;
 	FitnessFunction * myFunction;
 
+	//For TRUE deep copying - this way, we can create an Individual with
+	//a fully specified everything
+	Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, int * newProperties);
+
 	public:
 	//Basic constructor - lets us have a completely generic Individual
 	//that doesn't know what the heck is going on inside it
