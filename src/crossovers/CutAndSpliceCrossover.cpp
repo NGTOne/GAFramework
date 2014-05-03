@@ -9,6 +9,8 @@ CutAndSpliceCrossover::CutAndSpliceCrossover() : CrossoverOperation() {}
 
 CutAndSpliceCrossover::CutAndSpliceCrossover(unsigned newSeed) : CrossoverOperation(newSeed) {}
 
+//TODO: Figure out how to stop "runaway splicing", where the longest genomes
+//just keep making longer and longer children
 Genome ** CutAndSpliceCrossover::crossOver(Genome * firstGenome, Genome * secondGenome) {
 	int shortestGenome;
 
@@ -46,8 +48,6 @@ Genome ** CutAndSpliceCrossover::crossOver(Genome * firstGenome, Genome * second
 
 	childPools[0] = (GenePool**)malloc(sizeof(GenePool*)*firstChildLength);
 	childPools[1] = (GenePool**)malloc(sizeof(GenePool*)*secondChildLength);
-
-	printf("%d %d\n", firstChildLength, secondChildLength);
 
 	//Create the first child
 	for (int i = 0; i < firstChildLength; i++) {
