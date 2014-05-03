@@ -32,5 +32,7 @@ Genome * UniformMutation::mutate(int * initialGenome, int * largestPossibleValue
 
 	Genome * newGene = new Genome(newGenome, genomeLength);
 
+	free(newGenome);
+
 	return newGene;
 }

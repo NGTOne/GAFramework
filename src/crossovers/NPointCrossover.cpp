@@ -78,6 +78,8 @@ Genome ** NPointCrossover::crossOver(int firstGenome[], int secondGenome[], int 
 	returnChildren[0] = new Genome(children[0], shortestGenome);
 	returnChildren[1] = new Genome(children[1], shortestGenome);
 
+	free(children[0]);
+	free(children[1]);
 	free(children);
 
 	return returnChildren;

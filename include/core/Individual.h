@@ -1,6 +1,7 @@
 #include "CrossoverOperation.h"
 #include "MutationOperation.h"
 #include "FitnessFunction.h"
+#include "Genome.h"
 #include <string>
 #pragma once
 
@@ -8,8 +9,6 @@ class Individual {
 	private:
 
 	protected:
-	int genomeLength;
-
 	//The Individual's species ID - used for checking whether or not two
 	//Individuals are of the same species for crossover
 	unsigned speciesID;
@@ -19,7 +18,7 @@ class Individual {
 	// from reliance on a specific gene type, and lets us mix hierarchical
 	//and non-hierarchical genes freely by varying which gene pools it
 	// draws from
-	int * genome;
+	Genome * genome;
 
 	//An Individual's "properties" are a series of quantitative
 	//phenotypic measurements - they are determined during the fitness
@@ -49,7 +48,7 @@ class Individual {
 
 	//Constructor that lets us create an Individual with a fully specified
 	//genome - necessary for crossover/mutation
-	Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, int newGenome[], unsigned newSpeciesID);
+	Individual(GenePool ** newGenePools, Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID);
 
 	~Individual();
 
@@ -87,7 +86,7 @@ class Individual {
 	GenePool ** getGenePoolList();
 
 	//Necessary for crossover
-	int * getGenome();
+	Genome * getGenome();
 
 	void runHierarchicalGenerations();
 

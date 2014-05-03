@@ -34,5 +34,7 @@ Genome * BoundaryMutation::mutate(int * initialGenome, int * largestPossibleValu
 
 	Genome * newGene = new Genome(newGenome, genomeLength);
 
+	free(newGenome);
+
 	return newGene;
 }
