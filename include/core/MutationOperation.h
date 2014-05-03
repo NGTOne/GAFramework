@@ -1,5 +1,6 @@
 //Abstract class for mutation operators. Lets us define any mutation operation we like.
 #pragma once
+#include "Genome.h"
 #include <random>
 #include <string>
 
@@ -17,7 +18,7 @@ class MutationOperation {
 	MutationOperation(double newMutationRate);
 	MutationOperation(double newMutationRate, unsigned newSeed);
 
-	virtual int * mutate(int * initialGenome, int * largestPossibleValues, int genomeLength)=0;
+	virtual Genome * mutate(int * initialGenome, int * largestPossibleValues, int genomeLength)=0;
 
 	void init(double newMutationRate, unsigned newSeed);
 

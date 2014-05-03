@@ -12,6 +12,6 @@ class BoundaryMutation : public MutationOperation {
 	BoundaryMutation(double newMutationRate);
 	BoundaryMutation(double newMutationRate, unsigned newSeed);
 
-	int * mutate(int initialGenome[], int largestPossibleValues[], int genomeLength);
+	Genome * mutate(int initialGenome[], int largestPossibleValues[], int genomeLength);
 
 };

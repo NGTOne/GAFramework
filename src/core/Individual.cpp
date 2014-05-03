@@ -106,7 +106,7 @@ Individual ** Individual::crossoverOperation(Individual * otherParent) {
 //Wraps around the MutationOperation object and spits out a mutant
 //version of this Individual (which is a new instance of Individual)
 Individual * Individual::mutationOperation() {
-	int * mutantGenome;
+	Genome * mutantGenome;
 	int maxValues[genomeLength];
 
 	for (int i = 0; i < genomeLength; i++) {
@@ -114,9 +114,9 @@ Individual * Individual::mutationOperation() {
 	}
 
 	mutantGenome = myMutation->mutate(genome, maxValues, genomeLength);
-	Individual * mutant = new Individual(myGenePools, genomeLength, myCrossover, myMutation, myFunction, mutantGenome, speciesID);
+	Individual * mutant = new Individual(myGenePools, mutantGenome->getGenomeLength(), myCrossover, myMutation, myFunction, mutantGenome->getGenome(), speciesID);
 
-	free(mutantGenome);
+	delete(mutantGenome);
 
 	return mutant;
 }
