@@ -68,9 +68,9 @@ Individual ** ESGeneration::breedMutateSelect(Individual ** initialPopulation, i
                 overallPopulation[i] = initialPopulation[i];
                 newPopulationFitnesses[i] = populationFitnesses[i];
                 overallPopulation[i+populationSize] = mutantChildren[i];
-                newPopulationFitnesses[i+populationSize] = mutantChildren[i]->checkFitness();
+                newPopulationFitnesses[i+populationSize] = mutantChildren[i]->getFitness();
                 overallPopulation[i+(populationSize*2)] = crossoverChildren[i];
-                newPopulationFitnesses[i+(populationSize*2)] = crossoverChildren[i]->checkFitness();
+                newPopulationFitnesses[i+(populationSize*2)] = crossoverChildren[i]->getFitness();
         }
 
         //Now, of course, we sort them

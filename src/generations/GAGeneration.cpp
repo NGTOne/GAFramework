@@ -66,11 +66,11 @@ Individual ** GAGeneration::breedMutateSelect(Individual ** initialPopulation, i
 		free(children);
 
 		newPopulation[numOffspring] = firstParent;
-		newFitnesses[numOffspring++] = firstParent->checkFitness();
+		newFitnesses[numOffspring++] = firstParent->getFitness();
 
 		if (numOffspring < populationSize) {
 			newPopulation[numOffspring] = secondParent;
-			newFitnesses[numOffspring++] = secondParent->checkFitness();
+			newFitnesses[numOffspring++] = secondParent->getFitness();
 		}
 	}
 

@@ -142,6 +142,10 @@ int Individual::checkFitness() {
 	return newProperties[1];
 }
 
+int Individual::getFitness() {
+	return properties[1];
+}
+
 int * Individual::getProperties() {
 	return properties;
 }

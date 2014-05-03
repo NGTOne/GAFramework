@@ -45,8 +45,8 @@ Individual ** SSGAGeneration::breedMutateSelect(Individual ** initialPopulation,
 	delete(children[1]);
 	free(children);
 
-	firstFitness = firstParent->checkFitness();
-	secondFitness = secondParent->checkFitness();
+	firstFitness = firstParent->getFitness();
+	secondFitness = secondParent->getFitness();
 
 	if (firstFitness > populationFitnesses[firstIndex]) {
 		//delete(initialPopulation[firstIndex]);

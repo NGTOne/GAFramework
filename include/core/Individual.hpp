@@ -70,6 +70,7 @@ class Individual {
 	int checkFitness();
 
 	int * getProperties();
+	int getFitness();
 
 	unsigned getSpeciesID();
 
