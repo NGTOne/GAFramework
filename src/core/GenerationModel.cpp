@@ -28,26 +28,64 @@ void GenerationModel::init(int newNumElites, unsigned newSeed, SelectionStrategy
 }
 
 void GenerationModel::sortPopulation(Individual ** initialPopulation, int * initialFitnesses, int populationSize) {
-	//Since we're unlikely to be dealing with gigantic populations, a
-	//simple sort that's O(n^2) or better and easy to implement will
-	//suffice here.
-	//TODO: Make it more efficient
-	Individual * tempIndividual;
-	int temp;
+	int topIndex = populationSize-1;
+	int splitIndex;
+	Individual ** leftPopulation;
+	Individual ** rightPopulation;
+	int * leftFitnesses;
+	int * rightFitnesses;
 
-	for (int i = 0; i < populationSize; i++) {
-		for (int k = 0; k < populationSize; k++) {
-			if (initialFitnesses[i] > initialFitnesses[k]) {
-				tempIndividual = initialPopulation[i];
-				temp = initialFitnesses[i];
+	if (populationSize > 1) {
+		splitIndex = topIndex/2;
+		leftPopulation = (Individual**)malloc(sizeof(Individual*)*(splitIndex+1));
+		rightPopulation = (Individual**)malloc(sizeof(Individual*)*(topIndex-splitIndex));
 
-				initialPopulation[i] = initialPopulation[k];
-				initialFitnesses[i] = initialFitnesses[k];
+		leftFitnesses = (int*)malloc(sizeof(int)*(splitIndex+1));
+		rightFitnesses = (int*)malloc(sizeof(int)*(topIndex-splitIndex));
 
-				initialPopulation[k] = tempIndividual;
-				initialFitnesses[k] = temp;
+		for (int i = 0; i <= splitIndex; i++) {
+			leftPopulation[i] = initialPopulation[i];
+			leftFitnesses[i] = initialFitnesses[i];
+		}
+
+		for (int i = 0; i < topIndex-splitIndex; i++) {
+			rightPopulation[i] = initialPopulation[splitIndex+i+1];
+			rightFitnesses[i] = initialFitnesses[splitIndex+i+1];
+		}
+
+		sortPopulation(leftPopulation, leftFitnesses, splitIndex+1);
+		sortPopulation(rightPopulation, rightFitnesses, (topIndex-splitIndex));
+
+		int leftIndex = 0;
+		int rightIndex = 0;
+		int overallIndex = 0;
+
+		while (leftIndex <= splitIndex || rightIndex < topIndex-splitIndex) {
+			if (leftIndex <= splitIndex && rightIndex < topIndex-splitIndex) {
+				if (leftFitnesses[leftIndex] > rightFitnesses[rightIndex]) {
+					initialPopulation[overallIndex] = leftPopulation[leftIndex];
+					initialFitnesses[overallIndex++] = leftFitnesses[leftIndex++];
+				} else {
+					initialPopulation[overallIndex] = rightPopulation[rightIndex];
+					initialFitnesses[overallIndex++] = rightFitnesses[rightIndex++];
+				}
+			} else {
+				if (leftIndex <= splitIndex) {
+					initialPopulation[overallIndex] = leftPopulation[leftIndex];
+					initialFitnesses[overallIndex++] = leftFitnesses[leftIndex++];
+				}
+
+				if (rightIndex < topIndex-splitIndex) {
+					initialPopulation[overallIndex] = rightPopulation[rightIndex];
+					initialFitnesses[overallIndex++] = rightFitnesses[rightIndex++];
+				}
 			}
 		}
+
+		free(leftPopulation);
+		free(rightPopulation);
+		free(leftFitnesses);
+		free(rightFitnesses);
 	}
 }
 
