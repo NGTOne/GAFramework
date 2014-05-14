@@ -179,24 +179,7 @@ void HierarchicalGenePool::runGenerations() {
 }
 
 void HierarchicalGenePool::sortPopulation() {
-	//TODO: Make more efficient
-	Individual * tempIndividual;
-	int temp;
-
-	for (int i = 0; i < populationSize; i++) {
-		for (int k = 0; k < populationSize; k++) {
-			if (populationFitnesses[i] > populationFitnesses[k]) {
-				tempIndividual = myPopulation[i];
-				temp = populationFitnesses[i];
-
-				myPopulation[i] = myPopulation[k];
-				populationFitnesses[i] = populationFitnesses[k];
-
-				myPopulation[k] = tempIndividual;
-				populationFitnesses[k] = temp;
-			}
-		}
-	}
+	myModel->sortPopulation(myPopulation, populationFitnesses, populationSize);
 }
 
 int HierarchicalGenePool::getHighestFitness() {
