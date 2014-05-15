@@ -3,6 +3,7 @@
 //Since these functions are, by and large, very similar, they can be
 //combined together into one class
 #include "GenerationModel.hpp"
+#include "EndCondition.hpp"
 #include <string>
 #pragma once
 
@@ -17,13 +18,6 @@ class HierarchicalGenePool : public GenePool {
 	int maxGenerations;
 	int currentGeneration;
 
-	//In case we already know the optimum - needs to be specified for
-	//every level of the hierarchy in an HGA, or it effectively becomes
-	//meaningless
-	bool knownOptimum;
-	int * optimumGenome;
-	int optimumFitness;
-	double epsilon;
 	bool optimumFound;
 
 	//Specifies how many generations should pass by "silently"
@@ -33,6 +27,10 @@ class HierarchicalGenePool : public GenePool {
 
 	GenerationModel * myModel;
 
+	//Allows us to specify different "evaluation" end conditions, rather
+	//than simply being bound to fitness evaluations
+	EndCondition * myCondition;
+
 	//Used to decrease unnecessary verbosity in toString()
 	bool readOnce;
 
@@ -40,19 +38,13 @@ class HierarchicalGenePool : public GenePool {
 
 	void sortPopulation();
 
-	//If we don't know the optimum
-	HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel);
+	HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition);
 
-        HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel);
-
-	//If we do know the optimum
-	HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, int optimalGenome[]);
-
-        HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, int optimalGenome[]);
+        HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition);
 
 	~HierarchicalGenePool();
 
-	void init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel);
+	void init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition);
 
 	//Evaluates the fitnesses of the population of this particular
 	//GenePool - basically a convenience thing

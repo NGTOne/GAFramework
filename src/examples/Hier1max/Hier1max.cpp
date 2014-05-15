@@ -6,6 +6,7 @@
 #include "NPointCrossover.hpp"
 #include "TournamentSelection.hpp"
 #include "GAGeneration.hpp"
+#include "FitnessMatchEnd.hpp"
 #include "1maxFitness.hpp"
 #include "Hier1maxFitness.hpp"
 
@@ -48,7 +49,7 @@ int main(void) {
 
 		Individual * bottomLevelTemplateIndividual = new Individual(baseGenes[i], 8, bottomLevelCrossovers[i], bottomLevelMutations[i], bottomLevelFunctions[i]);
 
-		bottomLevelPools[i] = new HierarchicalGenePool(8, bottomLevelTemplateIndividual, 100, 1, bottomLevelModels[i]);
+		bottomLevelPools[i] = new HierarchicalGenePool(8, bottomLevelTemplateIndividual, 100, 1, bottomLevelModels[i], NULL);
 	}
 
 	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);
@@ -56,10 +57,11 @@ int main(void) {
 	FitnessFunction * topLevelFunction = new HierOneMaxFitness();
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
 	GenerationModel * topLevelModel = new GAGeneration(2, topLevelStrategy);
+	EndCondition * topLevelCondition = new FitnessMatchEnd(32);
 
 	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(32, templateIndividual, 100, 1, topLevelModel);
+	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(32, templateIndividual, 100, 1, topLevelModel, topLevelCondition);
 
 	printf("Before:\n");
 	cout << topLevelPool->toString();

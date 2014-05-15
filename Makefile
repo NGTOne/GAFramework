@@ -5,7 +5,8 @@ SELS = -Iinclude/selections
 CROSS = -Iinclude/crossovers
 MUTS = -Iinclude/mutations
 GENS = -Iinclude/generations
-ALLINCLUDES = $(CORE) $(SELS) $(CROSS) $(MUTS) $(GENS) 
+ENDS = -Iinclude/endconditions
+ALLINCLUDES = $(CORE) $(SELS) $(CROSS) $(MUTS) $(GENS) $(ENDS)
 
 info:
 	@echo "Usage:"
@@ -20,7 +21,7 @@ info:
 
 examples: library 1-max hier1-max royalroad hierroyalroad hier3royalroad
 
-library: core selections mutations crossovers generations
+library: core selections mutations crossovers generations endconditions
 	#$(CPPC) -shared -W1,-soname,libGAFramework.so -o libGAFramework.so obj/*/*.o
 #	mv *.so libs
 	ar -cvq libGAFramework.a obj/*/*.o
@@ -34,6 +35,7 @@ core:
 	$(CPPC) $(CPPFLAGS) $(CORE) src/core/NonHierarchicalGenePool.cpp -o obj/core/NonHierarchicalGenePool.o
 	$(CPPC) $(CPPFLAGS) $(CORE) src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
 	$(CPPC) $(CPPFLAGS) $(CORE) src/core/GenerationModel.cpp -o obj/core/GenerationModel.o
+	$(CPPC) $(CPPFLAGS) $(CORE) src/core/EndCondition.cpp -o obj/core/EndCondition.o
 	$(CPPC) $(CPPFLAGS) $(CORE) src/core/HierarchicalGenePool.cpp -o obj/core/HierarchicalGenePool.o
 
 selections: tournamentSelection
@@ -43,6 +45,8 @@ mutations: uniformMutation boundaryMutation
 crossovers: nPointCrossover uniformCrossover cutAndSpliceCrossover
 
 generations: ga es ssga
+
+endconditions: fitnessMatch
 
 ga:
 	$(CPPC) $(CPPFLAGS) $(CORE) $(GENS) src/generations/GAGeneration.cpp -o obj/generations/GAGeneration.o
@@ -70,6 +74,9 @@ uniformCrossover:
 
 cutAndSpliceCrossover:
 	$(CPPC) $(CPPFLAGS) $(CORE) $(CROSS) src/crossovers/CutAndSpliceCrossover.cpp -o obj/crossovers/CutAndSpliceCrossover.o
+
+fitnessMatch:
+	$(CPPC) $(CPPFLAGS) $(CORE) $(ENDS) src/endconditions/FitnessMatchEnd.cpp -o obj/endconditions/FitnessMatchEnd.o
 
 1-max:
 	$(CPPC) $(CPPFLAGS) $(CORE) src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o

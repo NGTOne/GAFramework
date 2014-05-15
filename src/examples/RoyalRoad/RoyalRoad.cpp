@@ -6,6 +6,7 @@
 #include "NPointCrossover.hpp"
 #include "TournamentSelection.hpp"
 #include "GAGeneration.hpp"
+#include "FitnessMatchEnd.hpp"
 #include "RoyalRoadFitness.hpp"
 
 int main(void) {
@@ -17,6 +18,8 @@ int main(void) {
 	CrossoverOperation * myCrossover = new NPointCrossover(2);
 	MutationOperation * myMutation = new UniformMutation(0.2);
 
+	EndCondition * myCondition = new FitnessMatchEnd(32);
+
 	int binaryDigits[] = {0,1};
 
 	GenePool ** baseGenes = (GenePool**)malloc(sizeof(GenePool*)*64);
@@ -27,7 +30,7 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(baseGenes, 64, myCrossover, myMutation, myFunction);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(128, templateIndividual, 100, 1, myModel);
+	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(128, templateIndividual, 100, 1, myModel, myCondition);
 
 	delete(templateIndividual);
 	

@@ -10,44 +10,13 @@
 using namespace std;
 
 //If we don't know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel) : GenePool() {
-	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel);
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition) : GenePool() {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel, newCondition);
 }
 
 //Unknown optimum, overridden seed
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel) : GenePool(newSeed) {
-	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel);
-}
-
-
-//If we do know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, int optimalGenome[]) : GenePool() {
-	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel);
-
-        knownOptimum = true;
-
-	optimumGenome = optimalGenome;
-
-	Individual * optimumIndividual = templateIndividual->makeSpecifiedCopy(optimalGenome);
-
-	optimumFitness = optimumIndividual->checkFitness();
-
-	delete(optimumIndividual);
-}
-
-//Known optimum, known seed
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, int optimalGenome[]) : GenePool(newSeed) {
-	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel);
-
-	knownOptimum = true;
-
-        optimumGenome = optimalGenome;
-
-        Individual * optimumIndividual = templateIndividual->makeSpecifiedCopy(optimalGenome);
-
-        optimumFitness = optimumIndividual->checkFitness();
-
-	delete(optimumIndividual);
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition) : GenePool(newSeed) {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel, newCondition);
 }
 
 HierarchicalGenePool::~HierarchicalGenePool() {
@@ -57,13 +26,9 @@ HierarchicalGenePool::~HierarchicalGenePool() {
 
 	free(myPopulation);
 	free(populationFitnesses);
-
-	if (optimumGenome != NULL) {
-		free(optimumGenome);
-	}
 }
 
-void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel) {
+void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition) {
 	myPopulation = (Individual**)malloc(sizeof(Individual*)*newPopulationSize);
 
 	populationFitnesses = (int*)malloc(sizeof(int)*newPopulationSize);
@@ -72,18 +37,16 @@ void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndi
         currentGeneration = 0;
 	readOnce = false;
 
-	optimumGenome = NULL;
-
 	maxGenerations = myMaxGenerations;
 	numIterationsPerGeneration = numIterations;
 	myModel = newModel;
+	myCondition = newCondition;
 
         for (int i = 0; i < populationSize; i++) {
                 myPopulation[i] = templateIndividual->makeRandomCopy();
         }
 
         optimumFound = false;
-        knownOptimum = false;
 
         evaluateFitnesses();
 }
@@ -148,12 +111,9 @@ void HierarchicalGenePool::nextGeneration() {
 
                 currentGeneration += 1;
 
-		if (knownOptimum == true) {
+		if (myCondition != NULL) {
                        	for (int i = 0; i < populationSize && optimumFound == false; i++) {
-                               	//TODO: make this more approximate
-                               	if (populationFitnesses[i] == optimumFitness) {
-                                       	optimumFound = true;
-                               	}
+				optimumFound = myCondition->checkCondition(myPopulation[i]);
                        	}
 		}
 		

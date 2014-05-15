@@ -6,12 +6,15 @@
 #include "NPointCrossover.hpp"
 #include "TournamentSelection.hpp"
 #include "GAGeneration.hpp"
+#include "FitnessMatchEnd.hpp"
 #include "1maxFitness.hpp"
 
 int main(void) {
 	SelectionStrategy * myStrategy = new TournamentSelection(0.5);
 
 	GenerationModel * myGenerationModel = new GAGeneration(2, myStrategy);
+
+	EndCondition * myEndCondition = new FitnessMatchEnd(32);
 
 	FitnessFunction * myFunction = new OneMaxFitness();
 	CrossoverOperation * myCrossover = new NPointCrossover(2);
@@ -27,7 +30,7 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, myGenerationModel);
+	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, myGenerationModel, myEndCondition);
 
 	delete(templateIndividual);
 	
