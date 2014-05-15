@@ -53,6 +53,14 @@ int * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int g
 		numPathsPerGenome[i] = currentTempPath;
 	}
 
+	if (numPaths == 0) {
+	        returnProperties[0] = 3;
+	        returnProperties[1] = 0;
+        	returnProperties[2] = genomeLength*lowGenomeLength;
+
+		return returnProperties;
+	}
+
 	tempPathLengths = (int*)malloc(sizeof(int)*numPaths);
 	tempPathIndexes = (int*)malloc(sizeof(int)*numPaths);
 
