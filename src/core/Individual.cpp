@@ -1,5 +1,5 @@
-#include "Individual.h"
-#include "Genome.h"
+#include "Individual.hpp"
+#include "Genome.hpp"
 #include <cstdlib>
 #include <chrono>
 #include <iostream>

@@ -2,7 +2,7 @@
 //necessary, with one subclass per "species" of individual
 
 #include <string>
-#include "GenePool.h"
+#include "GenePool.hpp"
 #pragma once
 
 class FitnessFunction {

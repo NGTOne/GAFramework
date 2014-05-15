@@ -1,13 +1,13 @@
 #include <cstdio>
 #include <iostream>
-#include "NonHierarchicalGenePool.h"
-#include "HierarchicalGenePool.h"
-#include "UniformMutation.h"
-#include "NPointCrossover.h"
-#include "TournamentSelection.h"
-#include "GAGeneration.h"
-#include "RoyalRoadFitness.h"
-#include "HierRoyalRoadFitness.h"
+#include "NonHierarchicalGenePool.hpp"
+#include "HierarchicalGenePool.hpp"
+#include "UniformMutation.hpp"
+#include "NPointCrossover.hpp"
+#include "TournamentSelection.hpp"
+#include "GAGeneration.hpp"
+#include "RoyalRoadFitness.hpp"
+#include "HierRoyalRoadFitness.hpp"
 
 int main(void) {
 

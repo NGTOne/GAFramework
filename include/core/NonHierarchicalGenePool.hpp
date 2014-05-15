@@ -2,7 +2,7 @@
 //elements - lets us build "classical" GAs
 //It has no generational mechanics, selection strategy, or fitness evaluations,
 //which means it's distinct from the HierarchicalGenePool
-#include "GenePool.h"
+#include "GenePool.hpp"
 #include <string>
 #pragma once
 

@@ -1,6 +1,6 @@
-#include "Individual.h"
-#include "SelectionStrategy.h"
-#include "GenerationModel.h"
+#include "Individual.hpp"
+#include "SelectionStrategy.hpp"
+#include "GenerationModel.hpp"
 #include <random>
 #include <string>
 #pragma once

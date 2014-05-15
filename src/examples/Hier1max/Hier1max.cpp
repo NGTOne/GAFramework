@@ -1,13 +1,13 @@
 #include <cstdio>
 #include <iostream>
-#include "NonHierarchicalGenePool.h"
-#include "HierarchicalGenePool.h"
-#include "UniformMutation.h"
-#include "NPointCrossover.h"
-#include "TournamentSelection.h"
-#include "GAGeneration.h"
-#include "1maxFitness.h"
-#include "Hier1maxFitness.h"
+#include "NonHierarchicalGenePool.hpp"
+#include "HierarchicalGenePool.hpp"
+#include "UniformMutation.hpp"
+#include "NPointCrossover.hpp"
+#include "TournamentSelection.hpp"
+#include "GAGeneration.hpp"
+#include "1maxFitness.hpp"
+#include "Hier1maxFitness.hpp"
 
 int main(void) {
 

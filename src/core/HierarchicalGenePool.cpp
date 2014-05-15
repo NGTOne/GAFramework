@@ -3,7 +3,7 @@
 //Since these functions are, by and large, very similar, they can be
 //combined together into one class
 
-#include "HierarchicalGenePool.h"
+#include "HierarchicalGenePool.hpp"
 #include <sstream>
 #include <iostream>
 

@@ -1,14 +1,14 @@
-#include "FitnessFunction.h"
+#include "FitnessFunction.hpp"
 #include <string>
 #pragma once
 
-class OneMaxFitness : public FitnessFunction {
+class RoyalRoadFitness : public FitnessFunction {
 	private:
 
 	protected:
 
 	public:
-	OneMaxFitness();
+	RoyalRoadFitness();
 	int * checkFitness(GenePool ** pools, int * indexes, int genomeLength);
 
 	std::string toString(GenePool ** pools, int * indexes, int genomeLength);

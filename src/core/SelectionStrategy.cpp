@@ -5,7 +5,7 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "SelectionStrategy.h"
+#include "SelectionStrategy.hpp"
 
 using namespace std;
 

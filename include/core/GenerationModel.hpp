@@ -1,7 +1,7 @@
 //This abstract class serves as a general base for all generational models,
 //allowing any HierarchicalGenePool to use any model you might want
-#include "Individual.h"
-#include "SelectionStrategy.h"
+#include "Individual.hpp"
+#include "SelectionStrategy.hpp"
 #include <random>
 #include <string>
 #pragma once

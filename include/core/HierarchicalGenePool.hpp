@@ -2,7 +2,7 @@
 //GA, and also as a gene pool for individuals in hierarchical GAs
 //Since these functions are, by and large, very similar, they can be
 //combined together into one class
-#include "GenerationModel.h"
+#include "GenerationModel.hpp"
 #include <string>
 #pragma once
 

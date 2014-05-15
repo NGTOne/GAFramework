@@ -1,7 +1,7 @@
 #include <sstream>
 #include <string>
-#include "RoyalRoadFitness.h"
-#include "NonHierarchicalGenePool.h"
+#include "RoyalRoadFitness.hpp"
+#include "NonHierarchicalGenePool.hpp"
 
 using namespace std;
 

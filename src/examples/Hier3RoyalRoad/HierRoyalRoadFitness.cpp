@@ -1,8 +1,8 @@
 #include <sstream>
 #include <string>
-#include "HierRoyalRoadFitness.h"
-#include "NonHierarchicalGenePool.h"
-#include "Individual.h"
+#include "HierRoyalRoadFitness.hpp"
+#include "NonHierarchicalGenePool.hpp"
+#include "Individual.hpp"
 
 using namespace std;
 

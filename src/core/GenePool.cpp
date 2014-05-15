@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <random>
 #include <chrono>
-#include "GenePool.h"
+#include "GenePool.hpp"
 
 using namespace std;
 

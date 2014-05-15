@@ -1,4 +1,4 @@
-#include "FitnessFunction.h"
+#include "FitnessFunction.hpp"
 #include <string>
 #pragma once
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "GenePool.h"
+#include "GenePool.hpp"
 
 class Genome {
 	private:

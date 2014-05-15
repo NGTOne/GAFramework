@@ -1,6 +1,6 @@
 //Separating the selection strategy from the generational model affords us
 //significant flexibility in creating different GAs/hierarchical GAs
-#include "Individual.h"
+#include "Individual.hpp"
 #include <random>
 #include <string>
 #pragma once

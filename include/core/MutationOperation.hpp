@@ -1,6 +1,6 @@
 //Abstract class for mutation operators. Lets us define any mutation operation we like.
 #pragma once
-#include "Genome.h"
+#include "Genome.hpp"
 #include <random>
 #include <string>
 

@@ -1,7 +1,7 @@
-#include "CrossoverOperation.h"
-#include "MutationOperation.h"
-#include "FitnessFunction.h"
-#include "Genome.h"
+#include "CrossoverOperation.hpp"
+#include "MutationOperation.hpp"
+#include "FitnessFunction.hpp"
+#include "Genome.hpp"
 #include <string>
 #pragma once
 
