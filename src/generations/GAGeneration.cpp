@@ -25,7 +25,7 @@ Individual ** GAGeneration::breedMutateSelect(Individual ** initialPopulation, i
 	Individual ** children;
 
 	int bestFitness = 0;
-	int bestFitnessLocation;
+	int bestFitnessLocation = 0;
 
 	newPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);
 	newFitnesses = (int*)malloc(sizeof(int)*populationSize);
