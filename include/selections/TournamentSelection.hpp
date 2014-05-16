@@ -1,4 +1,4 @@
-#include "SelectionStrategy.hpp"
+#include "../core/SelectionStrategy.hpp"
 #include <random>
 #include <chrono>
 #pragma once

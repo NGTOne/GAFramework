@@ -1,4 +1,4 @@
-#include "Genome.hpp"
+#include "core/Genome.hpp"
 #include <cstdlib>
 
 using namespace std;

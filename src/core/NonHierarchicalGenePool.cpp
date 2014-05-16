@@ -7,7 +7,7 @@ using namespace std;
 
 #include <sstream>
 #include <string>
-#include "NonHierarchicalGenePool.hpp"
+#include "core/NonHierarchicalGenePool.hpp"
 
 template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool(T * population, int newPopulationSize) : GenePool() {
 	myPopulation = population;

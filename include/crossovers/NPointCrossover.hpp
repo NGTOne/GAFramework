@@ -1,4 +1,4 @@
-#include "CrossoverOperation.hpp"
+#include "../core/CrossoverOperation.hpp"
 #pragma once
 
 class NPointCrossover : public CrossoverOperation {

@@ -1,4 +1,4 @@
-#include "EndCondition.hpp"
+#include "core/EndCondition.hpp"
 
 EndCondition::EndCondition() {}
 

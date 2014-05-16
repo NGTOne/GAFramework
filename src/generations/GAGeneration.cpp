@@ -2,7 +2,7 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "GAGeneration.hpp"
+#include "generations/GAGeneration.hpp"
 
 using namespace std;
 

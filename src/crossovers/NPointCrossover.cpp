@@ -2,7 +2,7 @@
 #include <chrono>
 #include <algorithm>
 #include <sstream>
-#include "NPointCrossover.hpp"
+#include "crossovers/NPointCrossover.hpp"
 
 using namespace std;
 

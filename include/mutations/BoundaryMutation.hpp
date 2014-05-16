@@ -1,4 +1,4 @@
-#include "MutationOperation.hpp"
+#include "../core/MutationOperation.hpp"
 #pragma once
 
 class BoundaryMutation : public MutationOperation {

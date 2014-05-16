@@ -5,8 +5,8 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "SelectionStrategy.hpp"
-#include "GenerationModel.hpp"
+#include "core/SelectionStrategy.hpp"
+#include "core/GenerationModel.hpp"
 
 using namespace std;
 

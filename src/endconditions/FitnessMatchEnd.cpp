@@ -1,4 +1,4 @@
-#include "FitnessMatchEnd.hpp"
+#include "endconditions/FitnessMatchEnd.hpp"
 
 FitnessMatchEnd::FitnessMatchEnd(int newMinimumFitness) {
 	minimumFitness = newMinimumFitness;

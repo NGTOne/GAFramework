@@ -1,4 +1,4 @@
-#include "EndCondition.hpp"
+#include "../core/EndCondition.hpp"
 #pragma once
 
 class FitnessMatchEnd : public EndCondition {
