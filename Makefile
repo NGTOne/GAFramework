@@ -1,12 +1,6 @@
 CPPC = g++
 CPPFLAGS = -c -g -std=gnu++0x -fPIC
 INCLUDE = -Iinclude
-SELS = -Iinclude/selections
-CROSS = -Iinclude/crossovers
-MUTS = -Iinclude/mutations
-GENS = -Iinclude/generations
-ENDS = -Iinclude/endconditions
-ALLINCLUDES = $(INCLUDE) $(SELS) $(CROSS) $(MUTS) $(GENS) $(ENDS)
 STATICLIB = libs/libGAFramework.a
 MAJORVERSION = 1
 MINORVERSION = 0
@@ -17,8 +11,11 @@ SHAREDLIB = -lGAFramework
 
 info:
 	@echo "Usage:"
-	@echo "make examples: Produces a series of example GAs and HGAs using the framework"
 	@echo "make library: Rebuilds the library from scratch"
+	@echo "make install: Installs the compiled library and header files into /usr"
+	@echo "make examples: Produces a series of examples GAs and hierarchical GAs using the shared library. Requires make install to be run first."
+	@echo "make uninstall: Uninstalls the library and header files"
+	@echo "make clean: Cleans up all compiled binaries and object files"
 	@echo "make core: Produces the object files for the \"core\" components"
 	@echo "make selections: Produces the object files for the selection strategies"
 	@echo "make mutations: Produces the object files for the mutation operators"
