@@ -40,7 +40,7 @@ uninstall:
 	sudo rm -r /usr/include/*libGAFramework*
 	sudo ldconfig
 
-examples: install 1-max hier1-max royalroad hierroyalroad hier3royalroad
+examples: 1-max hier1-max royalroad hierroyalroad hier3royalroad
 
 library: core selections mutations crossovers generations endconditions
 	g++ -shared -o libs/$(LIBNAME) obj/*/*.o
@@ -99,32 +99,32 @@ fitnessMatch:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/endconditions/FitnessMatchEnd.cpp -o obj/endconditions/FitnessMatchEnd.o
 
 1-max:
-	$(CPPC) $(CPPFLAGS) -IlibGAFramework src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/1max src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/1max src/examples/1max/1max.cpp -o obj/examples/1max/1max.o
 	$(CPPC) -o examples/1max obj/examples/1max/*.o $(SHAREDLIB)
 
 hier1-max:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/examples/Hier1max/1maxFitness.cpp -o obj/examples/Hier1max/1maxFitness.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/examples/Hier1max/Hier1maxFitness.cpp -o obj/examples/Hier1max/Hier1maxFitness.o
-	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/Hier1max src/examples/Hier1max/Hier1max.cpp -o obj/examples/Hier1max/Hier1max.o
-	$(CPPC) -o examples/Hier1max obj/examples/Hier1max/*.o $(STATICLIB)
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier1max src/examples/Hier1max/1maxFitness.cpp -o obj/examples/Hier1max/1maxFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier1max src/examples/Hier1max/Hier1maxFitness.cpp -o obj/examples/Hier1max/Hier1maxFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier1max src/examples/Hier1max/Hier1max.cpp -o obj/examples/Hier1max/Hier1max.o
+	$(CPPC) -o examples/Hier1max obj/examples/Hier1max/*.o $(SHAREDLIB)
 
 royalroad:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/examples/RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/RoyalRoad/RoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/RoyalRoad src/examples/RoyalRoad/RoyalRoad.cpp -o obj/examples/RoyalRoad/RoyalRoad.o
-	$(CPPC) -o examples/RoyalRoad obj/examples/RoyalRoad/*.o $(STATICLIB)
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/RoyalRoad src/examples/RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/RoyalRoad/RoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/RoyalRoad src/examples/RoyalRoad/RoyalRoad.cpp -o obj/examples/RoyalRoad/RoyalRoad.o
+	$(CPPC) -o examples/RoyalRoad obj/examples/RoyalRoad/*.o $(SHAREDLIB)
 
 hierroyalroad:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/RoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/RoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoad.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoad.o
-	$(CPPC) -o examples/HierRoyalRoad obj/examples/HierRoyalRoad/*.o $(STATICLIB)
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/RoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/RoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoad.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoad.o
+	$(CPPC) -o examples/HierRoyalRoad obj/examples/HierRoyalRoad/*.o $(SHAREDLIB)
 
 hier3royalroad:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/RoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoad.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoad.o
-	$(CPPC) -o examples/Hier3RoyalRoad obj/examples/Hier3RoyalRoad/*.o $(STATICLIB)
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/RoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoad.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoad.o
+	$(CPPC) -o examples/Hier3RoyalRoad obj/examples/Hier3RoyalRoad/*.o $(SHAREDLIB)
 
 
 clean:

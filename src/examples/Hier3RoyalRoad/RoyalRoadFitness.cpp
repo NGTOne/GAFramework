@@ -1,7 +1,7 @@
 #include <sstream>
 #include <string>
+#include <libGAFramework/GAFramework.hpp>
 #include "RoyalRoadFitness.hpp"
-#include "NonHierarchicalGenePool.hpp"
 
 using namespace std;
 

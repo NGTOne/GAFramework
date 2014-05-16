@@ -1,4 +1,4 @@
-#include "FitnessFunction.hpp"
+#include <libGAFramework/GAFramework.hpp>
 #include <string>
 #pragma once
 

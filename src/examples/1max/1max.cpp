@@ -1,12 +1,6 @@
 #include <cstdio>
 #include <iostream>
-#include "NonHierarchicalGenePool.hpp"
-#include "HierarchicalGenePool.hpp"
-#include "UniformMutation.hpp"
-#include "NPointCrossover.hpp"
-#include "TournamentSelection.hpp"
-#include "GAGeneration.hpp"
-#include "FitnessMatchEnd.hpp"
+#include <libGAFramework/GAFramework.hpp>
 #include "1maxFitness.hpp"
 
 int main(void) {

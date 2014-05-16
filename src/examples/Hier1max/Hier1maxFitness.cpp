@@ -1,8 +1,7 @@
 #include <sstream>
 #include <string>
+#include <libGAFramework/GAFramework.hpp>
 #include "Hier1maxFitness.hpp"
-#include "NonHierarchicalGenePool.hpp"
-#include "Individual.hpp"
 
 using namespace std;
 
