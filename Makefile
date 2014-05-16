@@ -7,6 +7,13 @@ MUTS = -Iinclude/mutations
 GENS = -Iinclude/generations
 ENDS = -Iinclude/endconditions
 ALLINCLUDES = $(CORE) $(SELS) $(CROSS) $(MUTS) $(GENS) $(ENDS)
+STATICLIB = libs/libGAFramework.a
+MAJORVERSION = 1
+MINORVERSION = 0
+LIBNAME = libGAFramework.so
+DYNAMICLIB = $(LIBNAME).$(MAJORVERSION).$(MINORVERSION)
+
+SHAREDLIB = -lGAFramework -IGAFramework
 
 info:
 	@echo "Usage:"
@@ -19,12 +26,25 @@ info:
 	@echo ""
 	@echo "Any GA/HGA needs at least core, and one component from each of selections, mutations, and crossovers in order to function."
 
+all: examples
+
+install:
+	sudo cp libs/$(LIBNAME) /usr/lib
+	sudo chmod 0755 /usr/lib/$(LIBNAME)
+	sudo mkdir /usr/include/libGAFramework
+	sudo cp -r include/* /usr/include/libGAFramework
+	sudo ldconfig
+
+uninstall:
+	sudo rm /usr/lib/*libGAFramework*
+	sudo rm -r /usr/include/*libGAFramework*
+	sudo ldconfig
+
 examples: library 1-max hier1-max royalroad hierroyalroad hier3royalroad
 
 library: core selections mutations crossovers generations endconditions
-	#$(CPPC) -shared -W1,-soname,libGAFramework.so -o libGAFramework.so obj/*/*.o
-#	mv *.so libs
-	ar -cvq libGAFramework.a obj/*/*.o
+	g++ -shared -o libs/$(LIBNAME) obj/*/*.o
+	ar -cvq $(STATICLIB) obj/*/*.o
 
 core:
 	$(CPPC) $(CPPFLAGS) $(CORE) src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
@@ -79,37 +99,36 @@ fitnessMatch:
 	$(CPPC) $(CPPFLAGS) $(CORE) $(ENDS) src/endconditions/FitnessMatchEnd.cpp -o obj/endconditions/FitnessMatchEnd.o
 
 1-max:
-	$(CPPC) $(CPPFLAGS) $(CORE) src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o
-	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/1max src/examples/1max/1max.cpp -o obj/examples/1max/1max.o
-	$(CPPC) -o examples/1max obj/examples/1max/*.o libGAFramework.a
+	$(CPPC) $(CPPFLAGS) src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/1max src/examples/1max/1max.cpp -o obj/examples/1max/1max.o
+	$(CPPC) -o examples/1max obj/examples/1max/*.o
 
 hier1-max:
 	$(CPPC) $(CPPFLAGS) $(CORE) src/examples/Hier1max/1maxFitness.cpp -o obj/examples/Hier1max/1maxFitness.o
 	$(CPPC) $(CPPFLAGS) $(CORE) src/examples/Hier1max/Hier1maxFitness.cpp -o obj/examples/Hier1max/Hier1maxFitness.o
 	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/Hier1max src/examples/Hier1max/Hier1max.cpp -o obj/examples/Hier1max/Hier1max.o
-	$(CPPC) -o examples/Hier1max obj/examples/Hier1max/*.o libGAFramework.a
+	$(CPPC) -o examples/Hier1max obj/examples/Hier1max/*.o $(STATICLIB)
 
 royalroad:
 	$(CPPC) $(CPPFLAGS) $(CORE) src/examples/RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/RoyalRoad/RoyalRoadFitness.o
 	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/RoyalRoad src/examples/RoyalRoad/RoyalRoad.cpp -o obj/examples/RoyalRoad/RoyalRoad.o
-	$(CPPC) -o examples/RoyalRoad obj/examples/RoyalRoad/*.o libGAFramework.a
+	$(CPPC) -o examples/RoyalRoad obj/examples/RoyalRoad/*.o $(STATICLIB)
 
 hierroyalroad:
 	$(CPPC) $(CPPFLAGS) $(CORE) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/RoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/RoyalRoadFitness.o
 	$(CPPC) $(CPPFLAGS) $(CORE) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoadFitness.o
 	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoad.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoad.o
-	$(CPPC) -o examples/HierRoyalRoad obj/examples/HierRoyalRoad/*.o libGAFramework.a
+	$(CPPC) -o examples/HierRoyalRoad obj/examples/HierRoyalRoad/*.o $(STATICLIB)
 
 hier3royalroad:
 	$(CPPC) $(CPPFLAGS) $(CORE) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/RoyalRoadFitness.o
 	$(CPPC) $(CPPFLAGS) $(CORE) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoadFitness.o
 	$(CPPC) $(CPPFLAGS) $(ALLINCLUDES) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoad.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoad.o
-	$(CPPC) -o examples/Hier3RoyalRoad obj/examples/Hier3RoyalRoad/*.o libGAFramework.a
+	$(CPPC) -o examples/Hier3RoyalRoad obj/examples/Hier3RoyalRoad/*.o $(STATICLIB)
 
 
 clean:
 	find obj -name *.o | xargs rm -f
 	rm -f libs/*
-	rm -f *.so*
-	rm -f *.a*
 	cd examples; ls | xargs rm -f
+	rm -f /usr/libs/libGAFramework.so*
