@@ -7,6 +7,7 @@ class GAGeneration : public GenerationModel {
 	private:
 
 	protected:
+	int numElites;
 
 	public:
 

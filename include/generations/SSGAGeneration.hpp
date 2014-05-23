@@ -10,9 +10,9 @@ class SSGAGeneration : public GenerationModel {
 
 	public:
 
-	SSGAGeneration(int newNumElites, SelectionStrategy * newStrategy);
+	SSGAGeneration(SelectionStrategy * newStrategy);
 
-	SSGAGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
+	SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy);
 
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 };

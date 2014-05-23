@@ -10,9 +10,9 @@ class ESGeneration : public GenerationModel {
 
 	public:
 
-	ESGeneration(int newNumElites, SelectionStrategy * newStrategy);
+	ESGeneration(SelectionStrategy * newStrategy);
 
-	ESGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
+	ESGeneration(unsigned newSeed, SelectionStrategy * newStrategy);
 
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 };

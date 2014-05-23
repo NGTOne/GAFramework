@@ -10,18 +10,17 @@
 
 using namespace std;
 
-GenerationModel::GenerationModel(int newNumElites, SelectionStrategy * newStrategy) {
+GenerationModel::GenerationModel(SelectionStrategy * newStrategy) {
 	seed = chrono::system_clock::now().time_since_epoch().count();
-	init(newNumElites, seed, newStrategy);
+	init(seed, newStrategy);
 }
 
-GenerationModel::GenerationModel(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) {
-	init(newNumElites, newSeed, newStrategy);
+GenerationModel::GenerationModel(unsigned newSeed, SelectionStrategy * newStrategy) {
+	init(newSeed, newStrategy);
 }
 
-void GenerationModel::init(int newNumElites, unsigned newSeed, SelectionStrategy * newStrategy) {
+void GenerationModel::init(unsigned newSeed, SelectionStrategy * newStrategy) {
 	seed = newSeed;
-	numElites = newNumElites;
 	mt19937 newGenerator(seed);
 	generator = newGenerator;
 	myStrategy = newStrategy;
@@ -97,7 +96,7 @@ string GenerationModel::toString() {
 	string returnString = "";
         stringstream ss;
 	
-	ss << "Random seed: " << seed << "\nNumber of elites: " << numElites << "\nSelection Strategy Info:\n";
+	ss << "Random seed: " << seed << "\nSelection Strategy Info:\n";
 
 	ss << myStrategy->toString();
 

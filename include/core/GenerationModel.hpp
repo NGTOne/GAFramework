@@ -11,17 +11,16 @@ class GenerationModel {
 
 	protected:
 	unsigned seed;
-	int numElites;
 	std::mt19937 generator;
 	SelectionStrategy * myStrategy;
 
 	public:
 
-	GenerationModel(int newNumElites, SelectionStrategy * newStrategy);
+	GenerationModel(SelectionStrategy * newStrategy);
 
-	GenerationModel(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
+	GenerationModel(unsigned newSeed, SelectionStrategy * newStrategy);
 
-	void init(int newNumElites, unsigned newSeed, SelectionStrategy * newStrategy);
+	void init(unsigned newSeed, SelectionStrategy * newStrategy);
 
 	void sortPopulation(Individual ** initialPopulation, int * initialFitnesses, int populationSize);
 

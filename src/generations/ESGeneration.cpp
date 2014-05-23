@@ -6,9 +6,9 @@
 
 using namespace std;
 
-ESGeneration::ESGeneration(int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newNumElites, newStrategy) {}
+ESGeneration::ESGeneration(SelectionStrategy * newStrategy) : GenerationModel(newStrategy) {}
 
-ESGeneration::ESGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newNumElites, newStrategy) {}
+ESGeneration::ESGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newStrategy) {}
 
 //This strategy uses the ES (Evolutionary Strategies) approach - generate all
 //the offspring, concatenate them together, sort them by fitness, and then
