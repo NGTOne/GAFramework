@@ -178,13 +178,7 @@ Individual * Individual::makeRandomCopy() {
 Individual * Individual::makeSpecifiedCopy(int newGenome[]) {
 	Genome * tempGenome = new Genome(newGenome, genome->getGenomeLength(), genome->getGenePools());
 
-	int * newProperties = (int*)malloc(sizeof(int)*properties[0]);
-
-	for (int i = 0; i < properties[0]; i++) {
-		newProperties[i] = properties[i];
-	}
-
-	Individual * myCopy = new Individual(tempGenome, myCrossover, myMutation, myFunction, speciesID, newProperties);
+	Individual * myCopy = new Individual(tempGenome, myCrossover, myMutation, myFunction, speciesID);
 
 	delete(tempGenome);
 
