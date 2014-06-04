@@ -2,6 +2,7 @@
 #include "MutationOperation.hpp"
 #include "FitnessFunction.hpp"
 #include "Genome.hpp"
+#include "PropertiesList.hpp"
 #include <string>
 #pragma once
 
@@ -23,10 +24,8 @@ class Individual {
 	//An Individual's "properties" are a series of quantitative
 	//phenotypic measurements - they are determined during the fitness
 	//evaluation, and are meant to be used by the higher levels of a
-	//hierarchical GA - the first value is ALWAYS the length of the list,
-	//and the second one should be the fitness
-	//TODO: Make it more accepting of other types, not just ints
-	int * properties;
+	//hierarchical GA
+	PropertiesList * properties;
 
 	//A gene pool is a collection of any elements that can be used as genome
 	//components - for instance, it can be the English alphabet, a set
@@ -39,7 +38,7 @@ class Individual {
 
 	//For TRUE deep copying - this way, we can create an Individual with
 	//a fully specified everything
-	Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, int * newProperties);
+	Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, PropertiesList * newProperties);
 
 	public:
 	//Basic constructor - lets us have a completely generic Individual
@@ -69,7 +68,7 @@ class Individual {
 
 	int checkFitness();
 
-	int * getProperties();
+	PropertiesList * getProperties();
 	int getFitness();
 
 	unsigned getSpeciesID();
