@@ -3,6 +3,7 @@
 
 #include <string>
 #include "GenePool.hpp"
+#include "PropertiesList.hpp"
 #pragma once
 
 class FitnessFunction {
@@ -11,6 +12,6 @@ class FitnessFunction {
 	protected:
 
 	public:
-	virtual int * checkFitness(GenePool ** pools, int * indexes, int genomeLength)=0;
+	virtual PropertiesList * checkFitness(GenePool ** pools, int * indexes, int genomeLength)=0;
 	virtual std::string toString(GenePool ** pools, int * indexes, int genomeLength)=0;
 };
