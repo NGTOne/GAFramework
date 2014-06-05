@@ -44,6 +44,8 @@ library: core selections mutations crossovers generations endconditions
 	ar -cvq $(STATICLIB) obj/*/*.o
 
 core:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Property.cpp -o obj/core/Property.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PropertiesList.cpp -o obj/core/PropertiesList.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/MutationOperation.cpp -o obj/core/MutationOperation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Genome.cpp -o obj/core/Genome.o
