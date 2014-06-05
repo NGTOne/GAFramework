@@ -9,6 +9,8 @@
 #include "core/MutationOperation.hpp"
 #include "core/NonHierarchicalGenePool.hpp"
 #include "core/SelectionStrategy.hpp"
+#include "core/PropertiesList.hpp"
+#include "core/Property.hpp"
 #include "crossovers/CutAndSpliceCrossover.hpp"
 #include "crossovers/NPointCrossover.hpp"
 #include "crossovers/UniformCrossover.hpp"

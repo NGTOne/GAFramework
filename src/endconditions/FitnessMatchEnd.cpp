@@ -5,8 +5,8 @@ FitnessMatchEnd::FitnessMatchEnd(int newMinimumFitness) {
 }
 
 bool FitnessMatchEnd::checkCondition(Individual * individualToCheck) {
-	int * individualsProperties = individualToCheck->getProperties();
-	int individualsFitness = individualsProperties[1];
+	PropertiesList * properties = individualToCheck->getProperties();
+	int individualsFitness = properties->getFitness();
 
 	if (individualsFitness >= minimumFitness) {
 		return true;

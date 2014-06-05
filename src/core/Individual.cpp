@@ -41,7 +41,7 @@ Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, Mu
 
 //For TRUE deep copying - lets us create an Individual with every aspect
 //specified
-Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, int * newProperties) {
+Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, PropertiesList * newProperties) {
 	genome = newGenome;
         myCrossover = newCrossover;
         myMutation = newMutation;
@@ -54,7 +54,7 @@ Individual::~Individual() {
 	delete(genome);
 
 	if (properties != NULL) {
-		free(properties);
+		delete(properties);
 	}
 }
 
@@ -128,24 +128,24 @@ Individual * Individual::mutationOperation() {
 }
 
 int Individual::checkFitness() {
-	int * newProperties;
+	PropertiesList * newProperties;
 
 	newProperties = myFunction->checkFitness(genome->getGenePools(), genome->getGenome(), genome->getGenomeLength());
 
 	if (properties != NULL) {
-		free(properties);
+		delete(properties);
 	}
 
 	properties = newProperties;
 
-	return newProperties[1];
+	return newProperties->getFitness();
 }
 
 int Individual::getFitness() {
-	return properties[1];
+	return properties->getFitness();
 }
 
-int * Individual::getProperties() {
+PropertiesList * Individual::getProperties() {
 	return properties;
 }
 
@@ -156,12 +156,17 @@ unsigned Individual::getSpeciesID() {
 }
 
 Individual * Individual::deepCopy() {
-	int * newPropertiesList = (int*)malloc(sizeof(int)*properties[0]);
+	PropertiesList * newPropertiesList = new PropertiesList();
 	Genome * newGenome = new Genome(genome->getGenome(), genome->getGenomeLength(), genome->getGenePools());
 
-	for (int i = 0; i < properties[0]; i++) {
-		newPropertiesList[i] = properties[i];
+	PropertyBase ** myProperties = properties->getProperties();
+	int numProperties = properties->getNumProperties();
+
+	for (int i = 0; i < numProperties; i++) {
+		newPropertiesList->addProperty(myProperties[i]);
 	}
+
+	newPropertiesList->setFitness(properties->getFitness());
 
 	Individual * myCopy = new Individual(newGenome, myCrossover, myMutation, myFunction, speciesID, newPropertiesList);
 

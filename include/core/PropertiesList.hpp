@@ -24,5 +24,5 @@ class PropertiesList {
 	PropertyBase ** getProperties();
 	int getNumProperties();
 	int getFitness();
-	int setFitness();
+	void setFitness(int newFitness);
 };
