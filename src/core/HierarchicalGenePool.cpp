@@ -111,12 +111,6 @@ void HierarchicalGenePool::nextGeneration() {
 
                 currentGeneration += 1;
 
-		if (myCondition != NULL) {
-                       	for (int i = 0; i < populationSize && optimumFound == false; i++) {
-				optimumFound = myCondition->checkCondition(myPopulation[i]);
-                       	}
-		}
-		
 		//The new generation replaces the old
 		for (int i = 0; i < populationSize; i++) {
 			myPopulation[i] = newPopulation[i]->deepCopy();
@@ -124,6 +118,12 @@ void HierarchicalGenePool::nextGeneration() {
 		}
 
 		free(newPopulation);
+
+		if (myCondition != NULL) {
+			for (int i = 0; i < populationSize && optimumFound == false; i++) {
+				optimumFound = myCondition->checkCondition(myPopulation[i]);
+			}
+		}
 	}
 }
 
