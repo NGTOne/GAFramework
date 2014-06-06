@@ -46,3 +46,20 @@ template <> void Property<int>::setProperty(int * newProperty) {
 template <class T> T * Property<T>::getProperty() {
 	return myProperty;
 }
+
+template <class T> Property<T> * Property<T>::makeCopy() {
+	T * newValue = new T(myProperty);
+
+	Property<T> * newProperty = new Property<T>(newValue);
+
+	return newProperty;
+}
+
+template <> Property<int> * Property<int>::makeCopy() {
+	int newValue;
+	newValue = *myProperty;
+
+	Property<int> * newProperty = new Property<int>(&newValue);
+
+	return newProperty;
+}

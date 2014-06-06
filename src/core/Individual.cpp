@@ -163,7 +163,8 @@ Individual * Individual::deepCopy() {
 	int numProperties = properties->getNumProperties();
 
 	for (int i = 0; i < numProperties; i++) {
-		newPropertiesList->addProperty(myProperties[i]);
+		PropertyBase * propertyCopy = myProperties[i]->makeCopy();
+		newPropertiesList->addProperty(propertyCopy);
 	}
 
 	newPropertiesList->setFitness(properties->getFitness());

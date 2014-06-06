@@ -2,7 +2,14 @@
 //destructors when we don't need them
 #pragma once
 
-class PropertyBase {}; //So we can group them
+class PropertyBase {
+	private:
+
+	protected:
+
+	public:
+	virtual PropertyBase * makeCopy()=0;
+}; //So we can group them
 
 template <class T>
 class Property : public PropertyBase {
@@ -19,4 +26,6 @@ class Property : public PropertyBase {
 
 	void setProperty(T * newProperty);
 	T * getProperty();
+	
+	Property<T> * makeCopy();
 };
