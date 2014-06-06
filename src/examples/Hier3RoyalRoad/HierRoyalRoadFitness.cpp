@@ -7,10 +7,11 @@ using namespace std;
 
 HierRoyalRoadFitness::HierRoyalRoadFitness() : FitnessFunction() {}
 
-int * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
+PropertiesList * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
 	Individual * tempIndividual;
-	int * returnProperties = (int*)malloc(sizeof(int)*3);
-	int * tempProperties;
+	PropertiesList * returnProperties = new PropertiesList(0);
+	PropertiesList * tempProperties;
+	Property<int> ** tempPropertiesList;
 
 	int ** allPathLengths = (int**)malloc(sizeof(int*)*genomeLength);
 	int ** allPathIndexes = (int**)malloc(sizeof(int*)*genomeLength);
@@ -32,18 +33,19 @@ int * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int g
 		
 		tempProperties = tempIndividual->getProperties();
 
-		tempPropertiesLength = tempProperties[0];
+		tempPropertiesLength = tempProperties->getNumProperties();
+		tempPropertiesList = (Property<int>**)tempProperties->getProperties();
 
-		lowGenomeLength = tempProperties[2];
+		lowGenomeLength = *(tempPropertiesList[0]->getProperty());
 
-		tempPathLengths = (int*)malloc(sizeof(int)*((tempPropertiesLength-3)/2));
-		tempPathIndexes = (int*)malloc(sizeof(int)*((tempPropertiesLength-3)/2));
+		tempPathLengths = (int*)malloc(sizeof(int)*((tempPropertiesLength)/2));
+		tempPathIndexes = (int*)malloc(sizeof(int)*((tempPropertiesLength)/2));
 
 		//Read the list of paths out of the property list
 		currentTempPath = 0;
-		for (int k = 3; k < tempPropertiesLength;) {
-			tempPathLengths[currentTempPath] = tempProperties[k++];
-			tempPathIndexes[currentTempPath++] = tempProperties[k++];
+		for (int k = 1; k < tempPropertiesLength;) {
+			tempPathLengths[currentTempPath] = *(tempPropertiesList[k++]->getProperty());
+			tempPathIndexes[currentTempPath++] = *(tempPropertiesList[k++]->getProperty());
 			numPaths++;
 		}
 
@@ -53,9 +55,11 @@ int * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int g
 	}
 
 	if (numPaths == 0) {
-	        returnProperties[0] = 3;
-	        returnProperties[1] = 0;
-        	returnProperties[2] = genomeLength*lowGenomeLength;
+		returnProperties->setFitness(0);
+		
+		int newLength = genomeLength*lowGenomeLength;
+		PropertyBase * newProperty = new Property<int>(&newLength);
+		returnProperties->addProperty(newProperty);
 
 		return returnProperties;
 	}
@@ -113,17 +117,21 @@ int * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int g
 		}
 	}
 
-        returnProperties[0] = 3 + numConsolidatedPaths*2;
-        returnProperties[1] = longestPathLength;
-        returnProperties[2] = genomeLength*lowGenomeLength;
+	returnProperties->setFitness(longestPathLength);
+	
+	int newLength = genomeLength*lowGenomeLength;
 
-        returnProperties = (int*)realloc(returnProperties, sizeof(int)*(3+(numConsolidatedPaths*2)));
+	PropertyBase * newProperty = new Property<int>(&newLength);
+        returnProperties->addProperty(newProperty);
 
 	int currentProperty = 0;
 
-        for (int i = 3; i < 3 + numConsolidatedPaths*2;) {
-                returnProperties[i++] = newPathLengths[currentProperty];
-                returnProperties[i++] = newPathIndexes[currentProperty++];
+        for (int i = 0; i < numConsolidatedPaths; i++) {
+		newProperty = new Property<int>(&newPathLengths[currentProperty]);
+		returnProperties->addProperty(newProperty);
+
+		newProperty = new Property<int>(&newPathIndexes[currentProperty++]);
+		returnProperties->addProperty(newProperty);
         }
 
 	free(newPathLengths);

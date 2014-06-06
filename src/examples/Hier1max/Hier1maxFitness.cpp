@@ -7,22 +7,21 @@ using namespace std;
 
 HierOneMaxFitness::HierOneMaxFitness() : FitnessFunction() {}
 
-int * HierOneMaxFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
+PropertiesList * HierOneMaxFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
 	int total = 0;
 	Individual * tempIndividual;
-	int * returnProperties = (int*)malloc(sizeof(int)*2);
-	int * tempProperties;
+	PropertiesList * returnProperties = new PropertiesList();
+	PropertiesList * tempProperties;
 
 	for (int i = 0; i < genomeLength; i++) {
 		tempIndividual = (Individual*)pools[i]->getIndex(indexes[i]);
 		
 		tempProperties = tempIndividual->getProperties();
 
-		total += tempProperties[1];
+		total += tempProperties->getFitness();
 	}
 
-	returnProperties[0] = 2;
-	returnProperties[1] = total;
+	returnProperties->setFitness(total);
 
 	return returnProperties;
 }

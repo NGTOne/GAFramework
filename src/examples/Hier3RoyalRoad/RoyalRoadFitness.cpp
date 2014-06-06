@@ -9,12 +9,12 @@ RoyalRoadFitness::RoyalRoadFitness() : FitnessFunction() {}
 
 //Slightly more complex than the base RR fitness - returns the location of
 //EVERY path, not just the longest one
-int * RoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
+PropertiesList * RoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
 	int longestPathLength = 0;
 	int currentPathLength = 0;
 	int currentPathIndex;
 	int currentDigit;
-	int * returnProperties = (int*)malloc(sizeof(int)*3);
+	PropertiesList * returnProperties = new PropertiesList();
 	int pathLengths[genomeLength/2];
 	int pathIndexes[genomeLength/2];
 	int currentPath = 0;
@@ -50,15 +50,19 @@ int * RoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int genom
 		}
 	}
 
-	returnProperties[0] = 3 + currentPath*2;
-	returnProperties[1] = longestPathLength;
-	returnProperties[2] = genomeLength;
+	//returnProperties[0] = 3 + currentPath*2;
+	returnProperties->setFitness(longestPathLength);
+	//returnProperties[1] = longestPathLength;
+	//returnProperties[2] = genomeLength;
+	PropertyBase * newProperty = new Property<int>(&genomeLength);
 
-	returnProperties = (int*)realloc(returnProperties, sizeof(int)*(3+(currentPath*2)));
+	returnProperties->addProperty(newProperty);
 
-	for (int i = 3; i < 3 + currentPath*2;) {
-		returnProperties[i++] = pathLengths[currentProperty];
-		returnProperties[i++] = pathIndexes[currentProperty++];
+	for (int i = 0; i < currentPath; i++) {
+		newProperty = new Property<int>(&pathLengths[currentProperty]);
+		returnProperties->addProperty(newProperty);
+		newProperty = new Property<int>(&pathIndexes[currentProperty++]);
+		returnProperties->addProperty(newProperty);
 	}
 
 	return returnProperties;

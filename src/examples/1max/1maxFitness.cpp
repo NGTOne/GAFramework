@@ -6,18 +6,16 @@
 using namespace std;
 
 OneMaxFitness::OneMaxFitness() : FitnessFunction() {}
-
-int * OneMaxFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
+PropertiesList * OneMaxFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
 	int total = 0;
 
 	for (int i = 0; i < genomeLength; i++) {
 		total += *(int*)pools[i]->getIndex(indexes[i]);
 	}
 
-	int * returnProperties = (int*)malloc(sizeof(int)*2);
+	PropertiesList * returnProperties = new PropertiesList();
 
-	returnProperties[0] = 2;
-	returnProperties[1] = total;
+	returnProperties->setFitness(total);
 
 	return returnProperties;
 }

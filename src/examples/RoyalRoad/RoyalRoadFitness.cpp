@@ -7,13 +7,13 @@ using namespace std;
 
 RoyalRoadFitness::RoyalRoadFitness() : FitnessFunction() {}
 
-int * RoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
+PropertiesList * RoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
 	int longestPathLength = 0;
 	int currentPathLength = 0;
 	int currentPathIndex;
 	int longestPathIndex;
 	int currentDigit;
-	int * returnProperties = (int*)malloc(sizeof(int)*3);
+	PropertiesList * returnProperties = new PropertiesList();
 
 	for (int i = 0; i < genomeLength; i++) {
 		currentDigit = *(int*)pools[i]->getIndex(indexes[i]);
@@ -35,9 +35,10 @@ int * RoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int genom
 		longestPathIndex = currentPathIndex;
 	}
 
-	returnProperties[0] = 2;
-	returnProperties[1] = longestPathLength;
-	returnProperties[2] = longestPathIndex;
+	Property<int> * storedProperty = new Property<int>(&longestPathIndex);
+
+	returnProperties->setFitness(longestPathLength);
+	returnProperties->addProperty(storedProperty);
 
 	return returnProperties;
 }
