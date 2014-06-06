@@ -3,8 +3,14 @@
 
 using namespace std;
 
+PropertyBase::~PropertyBase() {}
+
 template <class T> Property<T>::Property() {
 	myProperty = NULL;
+}
+
+template <> Property<int>::Property() {
+	myProperty=NULL;
 }
 
 template <class T> Property<T>::Property(T * newProperty) {
@@ -38,6 +44,10 @@ template <class T> void Property<T>::setProperty(T * newProperty) {
 }
 
 template <> void Property<int>::setProperty(int * newProperty) {
+	if (myProperty == NULL) {
+		myProperty = (int*)malloc(sizeof(int));
+	}
+
 	*myProperty = *newProperty;
 }
 

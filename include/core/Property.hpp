@@ -8,6 +8,8 @@ class PropertyBase {
 	protected:
 
 	public:
+	virtual ~PropertyBase()=0;
+
 	virtual PropertyBase * makeCopy()=0;
 	virtual void * getProperty()=0;
 }; //So we can group them
