@@ -36,9 +36,13 @@ class Individual {
 	MutationOperation * myMutation;
 	FitnessFunction * myFunction;
 
+	//This allows us to do some interesting things with fitness propagation
+	//without causing problems with the fitness function
+	bool fitnessOverridden;
+
 	//For TRUE deep copying - this way, we can create an Individual with
 	//a fully specified everything
-	Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, PropertiesList * newProperties);
+	Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, PropertiesList * newProperties, bool artificiality);
 
 	public:
 	//Basic constructor - lets us have a completely generic Individual
@@ -93,6 +97,9 @@ class Individual {
 	Genome * getGenome();
 
 	void runHierarchicalGenerations();
+
+	void setFitness(int newFitness);
+	void setArtificiality(bool newArtificiality);
 
 	//In a hierarchical GA, it's important to know whether or not two
 	//individuals are from the same part of the hierarchy before attempting

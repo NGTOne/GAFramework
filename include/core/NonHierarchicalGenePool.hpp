@@ -27,6 +27,7 @@ class NonHierarchicalGenePool: public GenePool {
 	//Empty, to maintain compatibility with the GenePool abstract class
 	//(an Individual doesn't care what's going on in here, so this works)
 	void runGenerations();
+	void setFitnessAtIndex(int index, int newFitness);
 	
 	std::string toString();
 };

@@ -41,13 +41,14 @@ Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, Mu
 
 //For TRUE deep copying - lets us create an Individual with every aspect
 //specified
-Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, PropertiesList * newProperties) {
+Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, PropertiesList * newProperties, bool artificiality) {
 	genome = newGenome;
         myCrossover = newCrossover;
         myMutation = newMutation;
         myFunction = newFitness;
         speciesID = newSpeciesID;
 	properties = newProperties;
+	fitnessOverridden = artificiality;
 }
 
 Individual::~Individual() {
@@ -77,6 +78,13 @@ void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOp
         myMutation = newMutation;
         myFunction = newFitness;
 	speciesID = newSpeciesID;
+
+	if (myFunction == NULL) {
+		fitnessOverridden = true;
+		properties = new PropertiesList(); //Fitness of 0
+	} else {
+		fitnessOverridden = false;
+	}
 }
 
 //Exactly what it says on the tin - wraps around the CrossoverOperation
@@ -130,15 +138,18 @@ Individual * Individual::mutationOperation() {
 int Individual::checkFitness() {
 	PropertiesList * newProperties;
 
-	newProperties = myFunction->checkFitness(genome->getGenePools(), genome->getGenome(), genome->getGenomeLength());
+	if (fitnessOverridden == false) {
+		newProperties = myFunction->checkFitness(genome->getGenePools(), genome->getGenome(), genome->getGenomeLength());
 
-	if (properties != NULL) {
-		delete(properties);
+		if (properties != NULL) {
+			delete(properties);
+		}
+
+		properties = newProperties;
+		return newProperties->getFitness();
+	} else {
+		return getFitness();
 	}
-
-	properties = newProperties;
-
-	return newProperties->getFitness();
 }
 
 int Individual::getFitness() {
@@ -169,7 +180,7 @@ Individual * Individual::deepCopy() {
 
 	newPropertiesList->setFitness(properties->getFitness());
 
-	Individual * myCopy = new Individual(newGenome, myCrossover, myMutation, myFunction, speciesID, newPropertiesList);
+	Individual * myCopy = new Individual(newGenome, myCrossover, myMutation, myFunction, speciesID, newPropertiesList, fitnessOverridden);
 
 	return myCopy;
 }
@@ -212,6 +223,16 @@ void Individual::runHierarchicalGenerations() {
 	for (int i = 0; i < genome->getGenomeLength(); i++) {
 		myGenePools[i]->runGenerations();
 	}
+}
+
+void Individual::setFitness(int newFitness) {
+	fitnessOverridden = true;
+
+	properties->setFitness(newFitness);
+}
+
+void Individual::setArtificiality(bool newArtificiality) {
+	fitnessOverridden = newArtificiality;
 }
 
 //In a hierarchical GA, it's important to know whether or not two individuals

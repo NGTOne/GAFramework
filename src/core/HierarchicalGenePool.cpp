@@ -127,6 +127,10 @@ void HierarchicalGenePool::nextGeneration() {
 	}
 }
 
+void HierarchicalGenePool::propagateFitnesses() {
+	myPropagator->propagateFitnesses(myPopulation, populationSize);
+}
+
 //For HGAs - if we want to run multiple generations of a lower-level gene pool
 //for every one of a higher-level one, this is how
 //Basically a loop wrapped around nextGeneration()
@@ -144,6 +148,10 @@ void HierarchicalGenePool::sortPopulation() {
 
 int HierarchicalGenePool::getHighestFitness() {
 	return populationFitnesses[0];
+}
+
+void HierarchicalGenePool::setFitnessAtIndex(int index, int newFitness) {
+	myPopulation[index]->setFitness(newFitness);
 }
 
 string HierarchicalGenePool::toString() {

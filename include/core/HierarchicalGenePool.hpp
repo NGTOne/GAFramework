@@ -37,6 +37,7 @@ class HierarchicalGenePool : public GenePool {
 	public:
 
 	void sortPopulation();
+	void setFitnessAtIndex(int index, int newFitness);
 
 	HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition);
 

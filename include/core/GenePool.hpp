@@ -23,6 +23,7 @@ class GenePool {
 	virtual void * getFittest() = 0;
 
 	void init(unsigned newSeed);
+	virtual void setFitnessAtIndex(int index, int newFitness) = 0;
 
 	GenePool();
 	GenePool(unsigned overriddenSeed);

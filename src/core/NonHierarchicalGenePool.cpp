@@ -37,6 +37,12 @@ template <class T> void * NonHierarchicalGenePool<T>::getFittest() {}
 
 template <class T> int NonHierarchicalGenePool<T>::getHighestFitness() {}
 
+template <class T> void NonHierarchicalGenePool<T>::setFitnessAtIndex(int index, int newFitness) {}
+
+template <class T> int NonHierarchicalGenePool<T>::getFitnessAtIndex(int index) {
+	return 0;
+}
+
 //Empty, to maintain compatibility with the GenePool abstract class (an
 //Individual doesn't care what's going on in here, so this works)
 template <class T> void NonHierarchicalGenePool<T>::runGenerations() {}
