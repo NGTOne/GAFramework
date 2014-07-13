@@ -10,13 +10,13 @@
 using namespace std;
 
 //If we don't know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition) : GenePool() {
-	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel, newCondition);
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) : GenePool() {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel, newCondition, newPropagator);
 }
 
 //Unknown optimum, overridden seed
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition) : GenePool(newSeed) {
-	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel, newCondition);
+HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) : GenePool(newSeed) {
+	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel, newCondition, newPropagator);
 }
 
 HierarchicalGenePool::~HierarchicalGenePool() {
@@ -28,7 +28,7 @@ HierarchicalGenePool::~HierarchicalGenePool() {
 	free(populationFitnesses);
 }
 
-void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition) {
+void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) {
 	myPopulation = (Individual**)malloc(sizeof(Individual*)*newPopulationSize);
 
 	populationFitnesses = (int*)malloc(sizeof(int)*newPopulationSize);
@@ -41,6 +41,7 @@ void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndi
 	numIterationsPerGeneration = numIterations;
 	myModel = newModel;
 	myCondition = newCondition;
+	myPropagator = newPropagator;
 
         for (int i = 0; i < populationSize; i++) {
                 myPopulation[i] = templateIndividual->makeRandomCopy();
@@ -106,6 +107,11 @@ void HierarchicalGenePool::nextGeneration() {
 		//Re-evaluate the fitnesses to take the lower GenePools
 		//running their generations into account
 		evaluateFitnesses();
+
+		//We propagate after evaluating because we want the lower
+		//levels that DON'T get propagated to (if they exist) to
+		//act like normal
+		propagateFitnesses();
 
 		newPopulation = myModel->breedMutateSelect(myPopulation, populationFitnesses, populationSize);
 
