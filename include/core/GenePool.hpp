@@ -25,6 +25,10 @@ class GenePool {
 	void init(unsigned newSeed);
 	virtual void setFitnessAtIndex(int index, int newFitness) = 0;
 
+	virtual int getFitnessAtIndex(int index) = 0;
+
+	virtual void propagateFitnesses() = 0;
+
 	GenePool();
 	GenePool(unsigned overriddenSeed);
 

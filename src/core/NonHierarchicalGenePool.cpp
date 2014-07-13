@@ -46,6 +46,7 @@ template <class T> int NonHierarchicalGenePool<T>::getFitnessAtIndex(int index) 
 //Empty, to maintain compatibility with the GenePool abstract class (an
 //Individual doesn't care what's going on in here, so this works)
 template <class T> void NonHierarchicalGenePool<T>::runGenerations() {}
+template <class T> void NonHierarchicalGenePool<T>::propagateFitnesses() {}
 
 template <class T> string NonHierarchicalGenePool<T>::toString() {
         string returnString = "";

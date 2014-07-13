@@ -154,6 +154,10 @@ void HierarchicalGenePool::setFitnessAtIndex(int index, int newFitness) {
 	myPopulation[index]->setFitness(newFitness);
 }
 
+int HierarchicalGenePool::getFitnessAtIndex(int index) {
+	return populationFitnesses[index];
+}
+
 string HierarchicalGenePool::toString() {
 	string returnString = "";
 	stringstream ss;

@@ -4,6 +4,7 @@
 //combined together into one class
 #include "GenerationModel.hpp"
 #include "EndCondition.hpp"
+#include "FitnessPropagator.hpp"
 #include <string>
 #pragma once
 
@@ -27,6 +28,8 @@ class HierarchicalGenePool : public GenePool {
 
 	GenerationModel * myModel;
 
+	FitnessPropagator * myPropagator;
+
 	//Allows us to specify different "evaluation" end conditions, rather
 	//than simply being bound to fitness evaluations
 	EndCondition * myCondition;
@@ -39,6 +42,8 @@ class HierarchicalGenePool : public GenePool {
 	void sortPopulation();
 	void setFitnessAtIndex(int index, int newFitness);
 
+	int getFitnessAtIndex(int index);
+
 	HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition);
 
         HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition);
@@ -50,6 +55,10 @@ class HierarchicalGenePool : public GenePool {
 	//Evaluates the fitnesses of the population of this particular
 	//GenePool - basically a convenience thing
 	void evaluateFitnesses();
+
+	//Wraps around the fitness propagator and allows us to call it
+	//recursively
+	void propagateFitnesses();
 
 	//Evaluates the fitnesses of a given population of individuals
 	//Doesn't care what their genetic makeup is - uses their fitness

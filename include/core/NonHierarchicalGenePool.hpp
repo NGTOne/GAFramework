@@ -28,6 +28,9 @@ class NonHierarchicalGenePool: public GenePool {
 	//(an Individual doesn't care what's going on in here, so this works)
 	void runGenerations();
 	void setFitnessAtIndex(int index, int newFitness);
+	void propagateFitnesses();
+
+	int getFitnessAtIndex(int index);
 	
 	std::string toString();
 };

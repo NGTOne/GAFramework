@@ -11,6 +11,7 @@
 #include "core/SelectionStrategy.hpp"
 #include "core/PropertiesList.hpp"
 #include "core/Property.hpp"
+#include "core/FitnessPropagator.hpp"
 #include "crossovers/CutAndSpliceCrossover.hpp"
 #include "crossovers/NPointCrossover.hpp"
 #include "crossovers/UniformCrossover.hpp"
@@ -21,4 +22,6 @@
 #include "mutations/BoundaryMutation.hpp"
 #include "mutations/UniformMutation.hpp"
 #include "selections/TournamentSelection.hpp"
+#include "propagators/NonPropagator.hpp"
+#include "propagators/DownPropagator.hpp"
 #pragma once

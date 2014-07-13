@@ -39,7 +39,7 @@ uninstall:
 
 examples: 1-max hier1-max royalroad hierroyalroad hier3royalroad
 
-library: core selections mutations crossovers generations endconditions
+library: core selections mutations crossovers generations endconditions propagators
 	g++ -shared -o libs/$(LIBNAME) obj/*/*.o
 	ar -cvq $(STATICLIB) obj/*/*.o
 
@@ -66,6 +66,8 @@ crossovers: nPointCrossover uniformCrossover cutAndSpliceCrossover
 generations: ga es ssga
 
 endconditions: fitnessMatch
+
+propagators: nonPropagator downPropagator
 
 ga:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/GAGeneration.cpp -o obj/generations/GAGeneration.o
@@ -96,6 +98,12 @@ cutAndSpliceCrossover:
 
 fitnessMatch:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/endconditions/FitnessMatchEnd.cpp -o obj/endconditions/FitnessMatchEnd.o
+
+nonPropagator:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/NonPropagator.cpp -o obj/propagators/NonPropagator.o
+
+downPropagator:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/DownPropagator.cpp -o obj/propagators/DownPropagator.o
 
 1-max:
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/1max src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o
