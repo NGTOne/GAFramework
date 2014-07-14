@@ -1,7 +1,7 @@
-//Lets us create whatever properties we like, and use their built-in
-//destructors when we don't need them
 #pragma once
 
+//Lets us create whatever properties we like, and use their built-in
+//destructors when we don't need them.
 class PropertyBase {
 	private:
 

@@ -1,9 +1,10 @@
-//Abstract class for mutation operators. Lets us define any mutation operation we like.
 #pragma once
 #include "Genome.hpp"
 #include <random>
 #include <string>
 
+//The MutationOperation abstract class allows us to define any GA mutation
+//operators that we please.
 class MutationOperation {
 	private:
 

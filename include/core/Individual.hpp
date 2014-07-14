@@ -6,6 +6,8 @@
 #include <string>
 #pragma once
 
+//Exactly what it says on the tin: the Individual class represents one
+//complete individual in the population.
 class Individual {
 	private:
 

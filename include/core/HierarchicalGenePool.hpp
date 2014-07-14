@@ -1,13 +1,13 @@
-//This is a dual-purpose class for gene pools - it serves as a "base"
-//GA, and also as a gene pool for individuals in hierarchical GAs
-//Since these functions are, by and large, very similar, they can be
-//combined together into one class
 #include "GenerationModel.hpp"
 #include "EndCondition.hpp"
 #include "FitnessPropagator.hpp"
 #include <string>
 #pragma once
 
+//This is a dual-purpose class for gene pools - it serves as a "base"
+//GA, and also as a gene pool for individuals in hierarchical GAs.
+//Since these functions are, by and large, very similar, they can be
+//combined together into one class.
 class HierarchicalGenePool : public GenePool {
 	private:
 

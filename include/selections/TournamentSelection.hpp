@@ -5,6 +5,10 @@
 
 using namespace std;
 
+//Tournament selection is a selection strategy that pits prospective parents
+//against each other.Two parents are selected at random, and have their
+//fitnesses compared. The parent with the higher fitness is selected for
+//crossover, whereas the other is not.
 class TournamentSelection : public SelectionStrategy {
 	private:
 
@@ -16,7 +20,5 @@ class TournamentSelection : public SelectionStrategy {
 
         TournamentSelection(unsigned newSeed, double newCrossoverRate);
         
-	//Picks two random indices, gets their fitnesses, then compares them
-	//and returns the index with the higher fitness
 	int getParent(int populationFitnesses[], int populationSize);
 };

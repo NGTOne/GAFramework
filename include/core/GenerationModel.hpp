@@ -1,11 +1,12 @@
-//This abstract class serves as a general base for all generational models,
-//allowing any HierarchicalGenePool to use any model you might want
 #include "Individual.hpp"
 #include "SelectionStrategy.hpp"
 #include <random>
 #include <string>
 #pragma once
 
+//This abstract class allows us to define different "generation models" - i.e.
+//how a GA behaves during each generation. Examples of generation models
+//include GA and ES.
 class GenerationModel {
 	private:
 

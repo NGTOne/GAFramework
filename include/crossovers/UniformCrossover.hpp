@@ -1,6 +1,9 @@
 #include "../core/CrossoverOperation.hpp"
 #pragma once
 
+//Uniform crossover is, in effect, a "bitwise" crossover operator. Each gene
+//in the genome decides randomly whether it will be swapped with its
+//correspondent gene in the other parent.
 class UniformCrossover : public CrossoverOperation {
 	private:
 

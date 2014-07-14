@@ -1,11 +1,13 @@
-//This is a gene pool type that takes basic "literal" types for its genome
-//elements - lets us build "classical" GAs
-//It has no generational mechanics, selection strategy, or fitness evaluations,
-//which means it's distinct from the HierarchicalGenePool
 #include "GenePool.hpp"
 #include <string>
 #pragma once
 
+//This is a gene pool type that takes basic "literal" types for its genome
+//elements - lets us build "classical" GAs.
+//It has no generational mechanics, selection strategy, or fitness evaluations,
+//which means it's distinct from the HierarchicalGenePool.
+//It is not limited to simple atomic types, either - as a template class, it
+//can be used with whatever massive data structures are desired.
 template <class T>
 class NonHierarchicalGenePool: public GenePool {
 	private:
