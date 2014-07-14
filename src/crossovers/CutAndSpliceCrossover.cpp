@@ -9,8 +9,6 @@ CutAndSpliceCrossover::CutAndSpliceCrossover() : CrossoverOperation() {}
 
 CutAndSpliceCrossover::CutAndSpliceCrossover(unsigned newSeed) : CrossoverOperation(newSeed) {}
 
-//TODO: Figure out how to stop "runaway splicing", where the longest genomes
-//just keep making longer and longer children
 Genome ** CutAndSpliceCrossover::crossOver(Genome * firstGenome, Genome * secondGenome) {
 	int shortestGenome;
 
