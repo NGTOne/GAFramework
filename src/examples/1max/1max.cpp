@@ -14,6 +14,8 @@ int main(void) {
 	CrossoverOperation * myCrossover = new NPointCrossover(2);
 	MutationOperation * myMutation = new UniformMutation(0.2);
 
+	FitnessPropagator * myPropagator = new NonPropagator();
+
 	int binaryDigits[] = {0,1};
 
 	GenePool ** baseGenes = (GenePool**)malloc(sizeof(GenePool*)*32);
@@ -24,7 +26,7 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, myGenerationModel, myEndCondition);
+	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, myGenerationModel, myEndCondition, myPropagator);
 
 	delete(templateIndividual);
 	

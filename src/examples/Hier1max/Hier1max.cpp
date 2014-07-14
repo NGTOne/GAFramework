@@ -16,6 +16,8 @@ int main(void) {
 
 	MutationOperation ** bottomLevelMutations = (MutationOperation**)malloc(sizeof(MutationOperation*)*4);
 
+	FitnessPropagator * myPropagator = new NonPropagator();
+
 	for (int i = 0; i < 4; i++) {
 		bottomLevelStrategies[i] = new TournamentSelection(0.5);
 		bottomLevelModels[i] = new GAGeneration(2, bottomLevelStrategies[i]);
@@ -43,7 +45,7 @@ int main(void) {
 
 		Individual * bottomLevelTemplateIndividual = new Individual(baseGenes[i], 8, bottomLevelCrossovers[i], bottomLevelMutations[i], bottomLevelFunctions[i]);
 
-		bottomLevelPools[i] = new HierarchicalGenePool(8, bottomLevelTemplateIndividual, 100, 1, bottomLevelModels[i], NULL);
+		bottomLevelPools[i] = new HierarchicalGenePool(8, bottomLevelTemplateIndividual, 100, 1, bottomLevelModels[i], NULL, myPropagator);
 	}
 
 	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);
@@ -55,7 +57,7 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(32, templateIndividual, 100, 1, topLevelModel, topLevelCondition);
+	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(32, templateIndividual, 100, 1, topLevelModel, topLevelCondition, myPropagator);
 
 	printf("Before:\n");
 	cout << topLevelPool->toString();

@@ -19,6 +19,8 @@ int main(void) {
 
 	MutationOperation *** bottomLevelMutations = (MutationOperation***)malloc(sizeof(MutationOperation**)*4);
 
+	FitnessPropagator * myPropagator = new NonPropagator();
+
 	for (int i = 0; i < 4; i++) {
 
 		bottomLevelStrategies[i] = (SelectionStrategy**)malloc(sizeof(SelectionStrategy*)*4);
@@ -67,7 +69,7 @@ int main(void) {
 
 		for (int k = 0; k < 4; k++) {
 			templateIndividual = new Individual(baseGenes[i][k], 2, bottomLevelCrossovers[i][k], bottomLevelMutations[i][k], bottomLevelFunctions[i][k]);
-			firstLevelPools[i][k] = new HierarchicalGenePool(4, templateIndividual, 100, 1, bottomLevelModels[i][k], NULL);
+			firstLevelPools[i][k] = new HierarchicalGenePool(4, templateIndividual, 100, 1, bottomLevelModels[i][k], NULL, myPropagator);
 		}
 	}
 
@@ -90,7 +92,7 @@ int main(void) {
 
 	for (int i = 0; i < 4; i++) {
 		templateIndividual = new Individual(firstLevelPools[i], 4, secondLevelCrossovers[i], secondLevelMutations[i], secondLevelFunctions[i]);
-		secondLevelPools[i] = new HierarchicalGenePool(8, templateIndividual, 100, 1, secondLevelModels[i], NULL);
+		secondLevelPools[i] = new HierarchicalGenePool(8, templateIndividual, 100, 1, secondLevelModels[i], NULL, myPropagator);
 	}
 
 	//Setting up the top level (bitstring length = 32, genome length = 4)
@@ -102,7 +104,7 @@ int main(void) {
 
 	templateIndividual = new Individual(secondLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction);
 
-	GenePool * topLevelPool = new HierarchicalGenePool(8, templateIndividual, 100, 1, topLevelModel, NULL);
+	GenePool * topLevelPool = new HierarchicalGenePool(8, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
 
 	printf("Before:\n");
 	cout << topLevelPool->toString();

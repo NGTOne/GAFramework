@@ -14,6 +14,8 @@ int main(void) {
 
 	EndCondition * myCondition = new FitnessMatchEnd(32);
 
+	FitnessPropagator * myPropagator = new NonPropagator();
+
 	int binaryDigits[] = {0,1};
 
 	GenePool ** baseGenes = (GenePool**)malloc(sizeof(GenePool*)*64);
@@ -24,7 +26,7 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(baseGenes, 64, myCrossover, myMutation, myFunction);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(128, templateIndividual, 100, 1, myModel, myCondition);
+	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(128, templateIndividual, 100, 1, myModel, myCondition, myPropagator);
 
 	delete(templateIndividual);
 	
