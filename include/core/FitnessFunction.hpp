@@ -14,5 +14,4 @@ class FitnessFunction {
 
 	public:
 	virtual PropertiesList * checkFitness(GenePool ** pools, int * indexes, int genomeLength)=0;
-	virtual std::string toString(GenePool ** pools, int * indexes, int genomeLength)=0;
 };
