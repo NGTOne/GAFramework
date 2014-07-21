@@ -11,6 +11,7 @@ int main(void) {
 	EndCondition * myEndCondition = new FitnessMatchEnd(32);
 
 	FitnessFunction * myFunction = new OneMaxFitness();
+	ToStringFunction * myToString = new OneMaxToString();
 	CrossoverOperation * myCrossover = new NPointCrossover(2);
 	MutationOperation * myMutation = new UniformMutation(0.2);
 
@@ -24,7 +25,7 @@ int main(void) {
 		baseGenes[i] = new NonHierarchicalGenePool<int>(binaryDigits, 2);
 	}
 
-	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction);
+	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction, myToString);
 
 	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, myGenerationModel, myEndCondition, myPropagator);
 

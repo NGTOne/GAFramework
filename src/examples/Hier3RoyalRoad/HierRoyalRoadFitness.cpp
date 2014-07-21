@@ -150,7 +150,7 @@ PropertiesList * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * ind
 	return returnProperties;
 }
 
-string HierRoyalRoadFitness::toString(GenePool ** pools, int * indexes, int genomeLength) {
+string HierRoyalRoadToString::toString(GenePool ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

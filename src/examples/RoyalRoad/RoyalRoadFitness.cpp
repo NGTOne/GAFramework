@@ -43,7 +43,7 @@ PropertiesList * RoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes
 	return returnProperties;
 }
 
-string RoyalRoadFitness::toString(GenePool ** pools, int * indexes, int genomeLength) {
+string RoyalRoadToString::toString(GenePool ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

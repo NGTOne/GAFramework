@@ -17,6 +17,7 @@ int main(void) {
 	MutationOperation ** bottomLevelMutations = (MutationOperation**)malloc(sizeof(MutationOperation*)*4);
 
 	FitnessPropagator * myPropagator = new NonPropagator();
+	ToStringFunction * bottomLevelToString = new OneMaxToString();
 
 	for (int i = 0; i < 4; i++) {
 		bottomLevelStrategies[i] = new TournamentSelection(0.5);
@@ -43,7 +44,7 @@ int main(void) {
 			baseGenes[i][k] = new NonHierarchicalGenePool<int>(binaryDigits, 2);
 		}
 
-		Individual * bottomLevelTemplateIndividual = new Individual(baseGenes[i], 8, bottomLevelCrossovers[i], bottomLevelMutations[i], bottomLevelFunctions[i]);
+		Individual * bottomLevelTemplateIndividual = new Individual(baseGenes[i], 8, bottomLevelCrossovers[i], bottomLevelMutations[i], bottomLevelFunctions[i], bottomLevelToString);
 
 		bottomLevelPools[i] = new HierarchicalGenePool(8, bottomLevelTemplateIndividual, 100, 1, bottomLevelModels[i], NULL, myPropagator);
 	}
@@ -51,11 +52,12 @@ int main(void) {
 	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);
 	MutationOperation * topLevelMutation = new UniformMutation(0.2);
 	FitnessFunction * topLevelFunction = new HierOneMaxFitness();
+	ToStringFunction * topLevelToString = new HierOneMaxToString();
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
 	GenerationModel * topLevelModel = new GAGeneration(2, topLevelStrategy);
 	EndCondition * topLevelCondition = new FitnessMatchEnd(32);
 
-	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction);
+	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);
 
 	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(32, templateIndividual, 100, 1, topLevelModel, topLevelCondition, myPropagator);
 

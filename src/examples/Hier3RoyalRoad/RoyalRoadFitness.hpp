@@ -10,6 +10,13 @@ class RoyalRoadFitness : public FitnessFunction {
 	public:
 	RoyalRoadFitness();
 	PropertiesList * checkFitness(GenePool ** pools, int * indexes, int genomeLength);
+};
 
+class RoyalRoadToString : public ToStringFunction {
+	private:
+
+	protected:
+
+	public:
 	std::string toString(GenePool ** pools, int * indexes, int genomeLength);
 };

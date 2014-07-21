@@ -9,6 +9,7 @@ int main(void) {
 	GenerationModel * myModel = new GAGeneration(2, myStrategy);
 
 	FitnessFunction * myFunction = new RoyalRoadFitness();
+	ToStringFunction * myToString = new RoyalRoadToString();
 	CrossoverOperation * myCrossover = new NPointCrossover(2);
 	MutationOperation * myMutation = new UniformMutation(0.2);
 
@@ -24,7 +25,7 @@ int main(void) {
 		baseGenes[i] = new NonHierarchicalGenePool<int>(binaryDigits, 2);
 	}
 
-	Individual * templateIndividual = new Individual(baseGenes, 64, myCrossover, myMutation, myFunction);
+	Individual * templateIndividual = new Individual(baseGenes, 64, myCrossover, myMutation, myFunction, myToString);
 
 	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(128, templateIndividual, 100, 1, myModel, myCondition, myPropagator);
 

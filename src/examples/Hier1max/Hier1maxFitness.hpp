@@ -10,6 +10,13 @@ class HierOneMaxFitness : public FitnessFunction {
 	public:
 	HierOneMaxFitness();
 	PropertiesList * checkFitness(GenePool ** pools, int * indexes, int genomeLength);
+};
 
+class HierOneMaxToString : public ToStringFunction {
+	private:
+
+	protected:
+
+	public:
 	std::string toString(GenePool ** pools, int * indexes, int genomeLength);
 };

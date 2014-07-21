@@ -26,7 +26,7 @@ PropertiesList * HierOneMaxFitness::checkFitness(GenePool ** pools, int * indexe
 	return returnProperties;
 }
 
-string HierOneMaxFitness::toString(GenePool ** pools, int * indexes, int genomeLength) {
+string HierOneMaxToString::toString(GenePool ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

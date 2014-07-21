@@ -20,7 +20,7 @@ PropertiesList * OneMaxFitness::checkFitness(GenePool ** pools, int * indexes, i
 	return returnProperties;
 }
 
-string OneMaxFitness::toString(GenePool ** pools, int * indexes, int genomeLength) {
+string OneMaxToString::toString(GenePool ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

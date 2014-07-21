@@ -19,6 +19,8 @@ int main(void) {
 
 	MutationOperation *** bottomLevelMutations = (MutationOperation***)malloc(sizeof(MutationOperation**)*4);
 
+	ToStringFunction * bottomLevelToString = new RoyalRoadToString();
+
 	FitnessPropagator * myPropagator = new NonPropagator();
 
 	for (int i = 0; i < 4; i++) {
@@ -68,7 +70,7 @@ int main(void) {
 		firstLevelPools[i] = (GenePool**)malloc(sizeof(GenePool*)*4);
 
 		for (int k = 0; k < 4; k++) {
-			templateIndividual = new Individual(baseGenes[i][k], 2, bottomLevelCrossovers[i][k], bottomLevelMutations[i][k], bottomLevelFunctions[i][k]);
+			templateIndividual = new Individual(baseGenes[i][k], 2, bottomLevelCrossovers[i][k], bottomLevelMutations[i][k], bottomLevelFunctions[i][k], bottomLevelToString);
 			firstLevelPools[i][k] = new HierarchicalGenePool(4, templateIndividual, 100, 1, bottomLevelModels[i][k], NULL, myPropagator);
 		}
 	}
@@ -79,6 +81,8 @@ int main(void) {
 	FitnessFunction ** secondLevelFunctions = (FitnessFunction**)malloc(sizeof(FitnessFunction*)*4);
 	CrossoverOperation ** secondLevelCrossovers = (CrossoverOperation**)malloc(sizeof(CrossoverOperation*)*4);
 	MutationOperation ** secondLevelMutations = (MutationOperation**)malloc(sizeof(MutationOperation*)*4);
+
+	ToStringFunction * secondLevelToString = new HierRoyalRoadToString();
 
 	for (int i = 0; i < 4; i++) {
 		secondLevelStrategies[i] = new TournamentSelection(0.5);
@@ -91,7 +95,7 @@ int main(void) {
 	GenePool ** secondLevelPools = (GenePool**)malloc(sizeof(GenePool*)*4);
 
 	for (int i = 0; i < 4; i++) {
-		templateIndividual = new Individual(firstLevelPools[i], 4, secondLevelCrossovers[i], secondLevelMutations[i], secondLevelFunctions[i]);
+		templateIndividual = new Individual(firstLevelPools[i], 4, secondLevelCrossovers[i], secondLevelMutations[i], secondLevelFunctions[i], secondLevelToString);
 		secondLevelPools[i] = new HierarchicalGenePool(8, templateIndividual, 100, 1, secondLevelModels[i], NULL, myPropagator);
 	}
 
@@ -99,10 +103,11 @@ int main(void) {
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
 	GenerationModel * topLevelModel = new GAGeneration(2, topLevelStrategy);
 	FitnessFunction * topLevelFunction = new HierRoyalRoadFitness();
+	ToStringFunction * topLevelToString = new HierRoyalRoadToString();
 	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);
 	MutationOperation * topLevelMutation = new UniformMutation(0.2);
 
-	templateIndividual = new Individual(secondLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction);
+	templateIndividual = new Individual(secondLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);
 
 	GenePool * topLevelPool = new HierarchicalGenePool(8, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
 
