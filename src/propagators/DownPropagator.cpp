@@ -5,6 +5,7 @@ void DownPropagator::propagateFitnesses(Individual ** population, int population
 	Genome * tempGenome;
 	GenePool ** tempPools;
 	int tempGenomeLength;
+	int * tempIndexes;
 
 	for (int i = 0; i < populationSize; i++) {
 		tempFitness = population[i]->getFitness();
@@ -12,12 +13,15 @@ void DownPropagator::propagateFitnesses(Individual ** population, int population
 		tempGenome = population[i]->getGenome();
 		tempPools = tempGenome->getGenePools();
 		tempGenomeLength = tempGenome->getGenomeLength();
-		
+		tempIndexes = tempGenome->getGenome();		
+
 		for (int k = 0; k < tempGenomeLength; k++) {
-			if (tempPools[k]->getFitnessAtIndex(i) < population[i]->getFitness()) {
-				tempPools[k]->setFitnessAtIndex(i, population[i]->getFitness());
+			if (tempPools[k]->getFitnessAtIndex(tempIndexes[k]) < tempFitness) {
+				tempPools[k]->setFitnessAtIndex(tempIndexes[k], tempFitness);
 			}
 
+			//TODO: Find a more efficient (read: not n^2) way to do
+			//this
 			tempPools[k]->propagateFitnesses();
 		}
 	}
