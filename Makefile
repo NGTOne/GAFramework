@@ -37,7 +37,7 @@ uninstall:
 	sudo rm -r /usr/include/*libGAFramework*
 	sudo ldconfig
 
-examples: 1-max hier1-max royalroad hierroyalroad hier3royalroad
+examples: 1-max hier1-max royalroad hierroyalroad hier3royalroad hier3proprr
 
 library: core selections mutations crossovers generations endconditions propagators
 	g++ -shared -o libs/$(LIBNAME) obj/*/*.o
@@ -133,6 +133,11 @@ hier3royalroad:
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoad.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoad.o
 	$(CPPC) -o examples/Hier3RoyalRoad obj/examples/Hier3RoyalRoad/*.o $(SHAREDLIB)
 
+hier3proprr:
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3PropRR src/examples/Hier3PropRR/RoyalRoadFitness.cpp -o obj/examples/Hier3PropRR/RoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3PropRR src/examples/Hier3PropRR/HierRoyalRoadFitness.cpp -o obj/examples/Hier3PropRR/HierRoyalRoadFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3PropRR src/examples/Hier3PropRR/HierRoyalRoad.cpp -o obj/examples/Hier3PropRR/HierRoyalRoad.o
+	$(CPPC) -o examples/Hier3PropRR obj/examples/Hier3PropRR/*.o $(SHAREDLIB)
 
 clean:
 	find obj -name *.o | xargs rm -f
