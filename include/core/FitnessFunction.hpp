@@ -3,10 +3,13 @@
 #include "PropertiesList.hpp"
 #pragma once
 
-//This is an abstract class for fitness functions - as this tends to be the
-//only differentiating factor between individuals, it should be extended as
-//necessary. The general rule of thumb is "one FitnessFunction per
-//HierarchicalGenePool".
+/*
+* This abstract class allows us to specify whatever fitness function we like.
+* This allows us to create completely generic Individuals, as the "meaning" of
+* their genomes lives in an extension of this class rather than within
+* themselves.
+*/
+
 class FitnessFunction {
 	private:
 

@@ -1,9 +1,12 @@
 #include "Property.hpp"
 #pragma once
 
-//This class lets us use any objects we might want as properties, whether
-//they're basic types or massive structures. This approach gives
-//hierarchical GAs significantly more flexibility.
+/*
+* This class allows the use of any data structure or object type as a
+* property - a quantitative measurement of an individual. Using this approach
+* gives hierarchical GAs significantly more flexibility.
+*/
+
 class PropertiesList {
 	private:
 	int numProperties;

@@ -4,9 +4,13 @@
 #include <string>
 #pragma once
 
-//This abstract class allows us to define different "generation models" - i.e.
-//how a GA behaves during each generation. Examples of generation models
-//include GA and ES.
+/*
+* By extending this abstract class, we are able to have
+* generation-over-generation population replacement handled in a variety of
+* different ways - essentially allowing us to build entirely different
+* evolutionary systems within the same framework.
+*/
+
 class GenerationModel {
 	private:
 

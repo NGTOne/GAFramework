@@ -1,9 +1,12 @@
 #include "../core/MutationOperation.hpp"
 #pragma once
 
-//Boundary mutation is a bitwise-type of mutation, which randomly determines
-//whether or not each gene will mutate. If a gene is selected for mutation,
-//it is set randomly to either its lowest or highest possible value.
+/*
+* The boundary mutation operator randomly decides whether or not to mutate
+* a given allele along the genome, and then randomly sets it to either its
+* maximum or minimum value.
+*/
+
 class BoundaryMutation : public MutationOperation {
 	private:
 

@@ -1,8 +1,12 @@
 #include "../core/FitnessPropagator.hpp"
 #pragma once
 
-//This subclass of FitnessPropagator does nothing at all - it serves merely
-//to provide a way NOT to propagate fitness through the tree.
+/*
+* This subclass of FitnessPropagator simply does nothing - it does NOT
+* propagate fitnesses anywhere, and allows us to stop propagations from going
+* further.
+*/
+
 class NonPropagator : public FitnessPropagator {
 	private:
 

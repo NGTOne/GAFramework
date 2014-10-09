@@ -1,9 +1,11 @@
 #include "../core/EndCondition.hpp"
 #pragma once
 
-//This end condition verifies whether or not the MAXIMUM fitness of the
-//population is greater than or equal to the specified fitness, and ends
-//the GA if it is.
+/*
+* The fitness matching end condition returns true if the individual presented
+* to it has a fitness greater than or equal to a specified minimum fitness.
+*/
+
 class FitnessMatchEnd : public EndCondition {
 	private:
 

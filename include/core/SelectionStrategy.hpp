@@ -3,8 +3,16 @@
 #include <string>
 #pragma once
 
-//Separating the selection strategy from the generational model affords us
-//significant flexibility in creating different GAs/hierarchical GAs.
+/*
+* The SelectionStrategy abstract class allows selection for breeding to occur
+* in a variety of different ways, so that various different strategies can
+* simply by "plugged into" a genetic algorithm to observe the results. By
+* separating it from the generation model, we can create a wide variety of
+* different combinations, with varying effects. This class also allows us to
+* use various different selection strategies (as appropriate) at different
+* levels of a hierarchical GA.
+*/
+
 class SelectionStrategy {
 	private:
 

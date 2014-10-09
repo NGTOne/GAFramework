@@ -3,9 +3,13 @@
 #include "PropertiesList.hpp"
 #pragma once
 
-//This is an abstract class for toString() functions - it is meant to be used
-//to prepare a string containing an Individual's genome in some human-readable
-//format
+/*
+* The ToString abstract class serves a similar function to the FitnessFunction
+* class - by separating an Individual's ToString from its base functionality,
+* the Individual can be left completely generic (with no knowledge of what
+* goes on inside of itself).
+*/
+
 class ToStringFunction {
 	private:
 

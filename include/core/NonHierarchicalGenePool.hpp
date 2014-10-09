@@ -2,12 +2,19 @@
 #include <string>
 #pragma once
 
-//This is a gene pool type that takes basic "literal" types for its genome
-//elements - lets us build "classical" GAs.
-//It has no generational mechanics, selection strategy, or fitness evaluations,
-//which means it's distinct from the HierarchicalGenePool.
-//It is not limited to simple atomic types, either - as a template class, it
-//can be used with whatever massive data structures are desired.
+/*
+* The NonHierarchicalGenePool class is a template class that allows the
+* creation of gene pools of fixed, discrete objects. This allows it to serve
+* as a "base case" for hierarchical GAs (the individuals at the bottom of the
+* hierarchy draw exclusively from NonHierarchicalGenePools), and as a source
+* of genetic information for any GA.
+*
+* Though it is a subclass of GenePool, it has no generational mechanics,
+* selection strategy, or fitness evaluations (those functions are empty,
+* to maintain compatibility with the superclass), which means that it is
+* entirely passive, doing nothing more than providing information.
+*/
+
 template <class T>
 class NonHierarchicalGenePool: public GenePool {
 	private:

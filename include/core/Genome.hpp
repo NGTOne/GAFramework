@@ -1,8 +1,12 @@
 #pragma once
 #include "GenePool.hpp"
 
-//This simple class allows for encapsulation of an individual's genetic
-//information, and for keeping the genome and its gene pools together.
+/*
+* This simple class encapsulates all of an Individual's genetic information,
+* including the gene pools it uses, with the goal of easing the sharing of
+* this information between classes.
+*/
+
 class Genome {
 	private:
 

@@ -3,11 +3,16 @@
 #include <string>
 #pragma once
 
-//This generation model is a standard genetic algorithm (GA), which works by
-//generating a population of offspring, separate from the parents, and
-//discarding the parents afterwards (with the possible exception of a few
-//elites). For odd-numbered populations, the final member is the offspring
-//of two parents as normal, with its sibling being discarded.
+/*
+* The GAGeneration model reflects the "classic" GA, as popularized by the work
+* of John Holland in the 1970s.
+*
+* In this model, a few elites (the best of the previous generation) are
+* selected and allowed to survive to the next generation. The remainder of
+* the next generation is filled in with new offspring that are created by a
+* combination of crossover and mutation.
+*/
+
 class GAGeneration : public GenerationModel {
 	private:
 

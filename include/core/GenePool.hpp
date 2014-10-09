@@ -1,13 +1,16 @@
 #pragma once
+
 #include <string>
 #include <random>
 
-//This is a base class for both hierarchical and non-hierarchical gene pools
-//For hierarchical pools, each individual is an instance of the Individual
-//class. For non-hierarchical pools, each "individual" is some literal, for
-//instance the letters A-Z or the binary digits 0,1.
-//A "standard" GA would be implemented like this:
-//HierarchicalPool -> Individual -> (NonHierarchicalPool, NonHierarchicalPool)
+/*
+* This class allows us to create pools of genetic information that can be
+* recombined. GenePool itself is an abstract class, and is NEVER meant to be
+* implemented or used by itself. By extending GenePool, we can create
+* different types of gene pools, for vastly different types of genetic
+* information.
+*/
+
 class GenePool {
 	private:
 

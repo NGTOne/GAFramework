@@ -3,10 +3,16 @@
 #include <random>
 #include <string>
 
-//The CrossoverOperation abstract class is exactly what it says on the
-//tin - it serves as a base class for all manner of possible GA crossover
-//operators.
-//TODO: Make n-parent crossovers possible
+/*
+* This class serves as an abstract base for crossover operators, allowing
+* us to create whatever crossover operators we need to.
+*/
+
+/*
+* TODO: Rework it to allow n-parent crossover, rather than being limited to
+*       two parents
+*/
+
 class CrossoverOperation {
         private:
 

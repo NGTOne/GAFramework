@@ -1,9 +1,12 @@
 #include "../core/FitnessPropagator.hpp"
 #pragma once
 
-//This subclass of FitnessPropagator does exactly what it says on the tin
-//It sends the current level's fitnesses down to the next level, and calls
-//that level's propagator (to continue the cycle)
+/*
+* The DownPropagator subclass of FitnessPropagator sends the current level's
+* fitnesses down to the next level. This allows the higher-level individuals
+* to define the fitness of their various sub-components.
+*/
+
 class DownPropagator : public FitnessPropagator {
 	private:
 

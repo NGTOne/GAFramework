@@ -1,7 +1,14 @@
 #pragma once
 
-//Lets us create whatever properties we like, and use their built-in
-//destructors when we don't need them.
+/*
+* These two simple classes allow the use of different object types as
+* properties. They can then be disposed of using their built-in destructors
+* as necessary.
+*
+* The PropertyBase class is used to allow grouping of different types of
+* the Property template class.
+*/
+
 class PropertyBase {
 	private:
 
@@ -12,7 +19,7 @@ class PropertyBase {
 
 	virtual PropertyBase * makeCopy()=0;
 	virtual void * getProperty()=0;
-}; //So we can group them
+};
 
 template <class T>
 class Property : public PropertyBase {

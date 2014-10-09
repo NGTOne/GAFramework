@@ -3,12 +3,14 @@
 #include <chrono>
 #pragma once
 
+/*
+* The tournament selection strategy selects two individuals, compares them
+* by their fitness, and then selects the one with the higher fitness for
+* crossover.
+*/
+
 using namespace std;
 
-//Tournament selection is a selection strategy that pits prospective parents
-//against each other.Two parents are selected at random, and have their
-//fitnesses compared. The parent with the higher fitness is selected for
-//crossover, whereas the other is not.
 class TournamentSelection : public SelectionStrategy {
 	private:
 

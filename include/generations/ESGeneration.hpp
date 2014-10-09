@@ -3,13 +3,18 @@
 #include <string>
 #pragma once
 
-//This generation model is a (mu/rho+, lambda)-ES, derived from the work of
-//Rechenberg et al. in the 1960s and 1970s. It works by creating a new
-//population of offspring, separate from the parents, then combining the
-//populations, sorting them, and truncating to the original population size.
-//NOTE: Due to this mechanism, it has a higher memory cost than either GA or
-//SSGA, and this should be taken into account for larger problems or older
-//computers.
+/*
+* The ESGeneration model uses the (mu/rho+, lambda)-ES model, which is an
+* extension of the original ES model proposed by Ingo Rechenberg et. al. in
+* the 1960s.
+*
+* In this model, the original population, the offspring created by crossover,
+* and the offspring created by mutation (which is done independently of
+* crossover) are all combined into one population and sorted, with the next
+* generation being the members of the combined population that are the
+* most fit.
+*/
+
 class ESGeneration : public GenerationModel {
 	private:
 

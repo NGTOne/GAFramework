@@ -4,10 +4,23 @@
 #include <string>
 #pragma once
 
-//This is a dual-purpose class for gene pools - it serves as a "base"
-//GA, and also as a gene pool for individuals in hierarchical GAs.
-//Since these functions are, by and large, very similar, they can be
-//combined together into one class.
+/*
+* The HierarchicalGenePool class, which extends GenePool, serves two roles:
+*
+* First, it is capable of iterating generations and performs all of the
+* functions of a basic genetic algorithm, and a single example of this class`
+* (when properly initialized) can be used to create a GA.
+*
+* Secondly, it can be used as a gene pool for hierarchical GAs, providing
+* its population of Individuals as genes for other Individuals that are
+* higher up the hierarchy.
+*
+* These functions are very similar (especially since, in the usual conception
+* of HGAs, every node in the hierarchical GA tree is essentially its own
+* self-contained GA), and are therefore combined into one class rather than
+* being split apart.
+*/
+
 class HierarchicalGenePool : public GenePool {
 	private:
 

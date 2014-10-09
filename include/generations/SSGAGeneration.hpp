@@ -3,12 +3,13 @@
 #include <string>
 #pragma once
 
-//This generation model represents the "steady-state GA" model, in which
-//population replacements happen one-to-one, in-situ. Rather than generating
-//a new population of individuals, replacement happens immediately after
-//crossover/mutation, with the offspring taking the place of their parents.
-//This particular implementation uses local elitism (in which replacement
-//only occurs if the offspring are inferior to the parents).
+/*
+* The SSGAGeneration model uses the steady-state GA model, in which one pair
+* of parents is directly replaced by their offspring in each generation. For
+* this reason, it is much slower than other models, but can yield results
+* that may not appear using them.
+*/
+
 class SSGAGeneration : public GenerationModel {
 	private:
 

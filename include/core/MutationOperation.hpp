@@ -3,8 +3,11 @@
 #include <random>
 #include <string>
 
-//The MutationOperation abstract class allows us to define any GA mutation
-//operators that we please.
+/*
+* This abstract class allows the creation of any mutation operator that is
+* desired.
+*/
+
 class MutationOperation {
 	private:
 

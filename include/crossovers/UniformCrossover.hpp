@@ -1,9 +1,18 @@
 #include "../core/CrossoverOperation.hpp"
 #pragma once
 
-//Uniform crossover is, in effect, a "bitwise" crossover operator. Each gene
-//in the genome decides randomly whether it will be swapped with its
-//correspondent gene in the other parent.
+/*
+* The uniform crossover operator randomly generates a bitwise mask, and then
+* crosses over only the genes that are masked.
+*
+* EXAMPLE:
+* Mask:        01110101
+* Parent 1:    ABBBDCCB
+* Parent 2:    BBCDABDA
+* Offspring 1: ABCDDBCA
+* Offspring 2: BBBBACDB
+*/
+
 class UniformCrossover : public CrossoverOperation {
 	private:
 

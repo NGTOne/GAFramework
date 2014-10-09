@@ -7,8 +7,13 @@
 #include <string>
 #pragma once
 
-//Exactly what it says on the tin: the Individual class represents one
-//complete individual in the population.
+/*
+* The Individual class is exactly what the name implies - a member of the
+* population of a GA. This class is meant to be completely generic - it
+* relies on its various subclasses to perform genetic operations and give the
+* information it contains any real "meaning".
+*/
+
 class Individual {
 	private:
 

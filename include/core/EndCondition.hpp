@@ -1,9 +1,13 @@
 #include "Individual.hpp"
 #pragma once
 
-//The EndCondition class provides a simple way to provide an "evaluative"
-//ending condition for GAs - this allows the GA to end before the maximum
-//number of generations have elapsed, when some goalpost has been reached.
+/*
+* This abstract class allows us to specify an ending condition for the
+* genetic algorithm other than having a number of generations go by.
+* This can be something like having an individual in the population reach
+* a given fitness, or the population as a whole reaching some milestone.
+*/
+
 class EndCondition {
 	private:
 
