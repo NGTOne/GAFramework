@@ -9,8 +9,6 @@
 * crossover.
 */
 
-using namespace std;
-
 class TournamentSelection : public SelectionStrategy {
 	private:
 
