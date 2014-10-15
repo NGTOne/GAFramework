@@ -46,9 +46,18 @@ int main(void) {
 	cout << topLevelPool->toString();
 
 	delete(topLevelPool);
-	for (int i = 0; i < 32; i++) {
+	for (int i = 0; i < 64; i++) {
 		delete(baseGenes[i]);
 	}
+
+	delete(myModel);
+	delete(myMutation);
+	delete(myCrossover);
+	delete(myStrategy);
+	delete(myCondition);
+	delete(myFunction);
+	delete(myToString);
+	delete(myPropagator);
 
 	free(baseGenes);
 }

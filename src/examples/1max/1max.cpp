@@ -50,6 +50,15 @@ int main(void) {
 		delete(baseGenes[i]);
 	}
 
+	delete(myGenerationModel);
+	delete(myMutation);
+	delete(myCrossover);
+	delete(myStrategy);
+	delete(myEndCondition);
+	delete(myFunction);
+	delete(myToString);
+	delete(myPropagator);
+
 	free(baseGenes);
 }
 

@@ -50,6 +50,8 @@ int main(void) {
 		Individual * bottomLevelTemplateIndividual = new Individual(baseGenes[i], 8, bottomLevelCrossovers[i], bottomLevelMutations[i], bottomLevelFunctions[i], bottomLevelToString);
 
 		bottomLevelPools[i] = new HierarchicalGenePool(8, bottomLevelTemplateIndividual, 100, 1, bottomLevelModels[i], NULL, myPropagator);
+
+		delete(bottomLevelTemplateIndividual);
 	}
 
 	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);
@@ -74,5 +76,39 @@ int main(void) {
 
 	cout << "--------------------------------------------------------------------------\nAfter:\n";
 	cout << topLevelPool->toString();
+
+	delete(myPropagator);
+	delete(bottomLevelToString);
+
+	for (int i = 0; i < 4; i++) {
+		delete(bottomLevelStrategies[i]);
+		delete(bottomLevelModels[i]);
+		delete(bottomLevelFunctions[i]);
+		delete(bottomLevelCrossovers[i]);
+		delete(bottomLevelMutations[i]);
+		delete(bottomLevelPools[i]);
+
+		for (int k = 0; k < 8; k++) {
+			delete(baseGenes[i][k]);
+		}
+		free(baseGenes[i]);
+	}
+
+	free(bottomLevelStrategies);
+	free(bottomLevelModels);
+	free(bottomLevelFunctions);
+	free(bottomLevelCrossovers);
+	free(bottomLevelMutations);
+	free(bottomLevelPools);
+	free(baseGenes);
+
+	delete(topLevelCrossover);
+	delete(topLevelMutation);
+	delete(topLevelFunction);
+	delete(topLevelToString);
+	delete(topLevelStrategy);
+	delete(topLevelModel);
+	delete(templateIndividual);
+	delete(topLevelPool);
 }
 
