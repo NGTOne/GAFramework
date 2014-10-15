@@ -4,6 +4,8 @@
 #include "RoyalRoadFitness.hpp"
 #include "HierRoyalRoadFitness.hpp"
 
+using namespace std;
+
 int main(void) {
 
 	Individual * templateIndividual;

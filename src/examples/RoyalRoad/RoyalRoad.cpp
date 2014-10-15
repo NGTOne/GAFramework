@@ -3,6 +3,8 @@
 #include <libGAFramework/GAFramework.hpp>
 #include "RoyalRoadFitness.hpp"
 
+using namespace std;
+
 int main(void) {
 	SelectionStrategy * myStrategy = new TournamentSelection(0.5);
 

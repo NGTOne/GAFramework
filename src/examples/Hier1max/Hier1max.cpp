@@ -4,6 +4,8 @@
 #include "1maxFitness.hpp"
 #include "Hier1maxFitness.hpp"
 
+using namespace std;
+
 int main(void) {
 
 	SelectionStrategy ** bottomLevelStrategies = (SelectionStrategy**)malloc(sizeof(SelectionStrategy*)*4);
