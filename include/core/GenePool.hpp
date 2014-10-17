@@ -20,6 +20,8 @@ class GenePool {
 	std::mt19937 generator;
 
 	public:
+	virtual ~GenePool()=0;
+
 	virtual void runGenerations()=0;
 	virtual void * getIndex(int index) = 0;
 	virtual void * getFittest() = 0;

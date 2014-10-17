@@ -14,6 +14,8 @@ GenePool::GenePool(unsigned overriddenSeed) {
 	init(overriddenSeed);
 }
 
+GenePool::~GenePool() {}
+
 void GenePool::init(unsigned newSeed) {
 	seed = newSeed;
 	mt19937 newGenerator(seed);
