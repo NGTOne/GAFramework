@@ -20,7 +20,7 @@ template <> NonHierarchicalGenePool<int>::NonHierarchicalGenePool(int * populati
 }
 
 template <class T> NonHierarchicalGenePool<T>::~NonHierarchicalGenePool() {
-	free(myPopulation);
+
 }
 
 template <class T> void * NonHierarchicalGenePool<T>::getIndex(int index) {
