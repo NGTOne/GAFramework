@@ -1,6 +1,6 @@
-GAFramework
+libHierGA
 ===========
-Sebastian Lenartowicz's Genetic Algorithm Framework
+Sebastian Lenartowicz's Hierarchical Genetic Algorithms Library
 
 This framework provides a basic library for basic and hierarchical genetic
 algorithms. It is completely function-agnostic, and the only thing that it

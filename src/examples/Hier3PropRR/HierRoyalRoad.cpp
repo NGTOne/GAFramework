@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <iostream>
-#include <libGAFramework/GAFramework.hpp>
+#include <libHierGA/HierGA.hpp>
 #include "RoyalRoadFitness.hpp"
 #include "HierRoyalRoadFitness.hpp"
 

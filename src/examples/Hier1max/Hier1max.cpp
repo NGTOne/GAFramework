@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <iostream>
-#include <libGAFramework/GAFramework.hpp>
+#include <libHierGA/HierGA.hpp>
 #include "1maxFitness.hpp"
 #include "Hier1maxFitness.hpp"
 

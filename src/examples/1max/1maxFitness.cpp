@@ -1,7 +1,7 @@
 #include <sstream>
 #include <string>
 #include "1maxFitness.hpp"
-#include <libGAFramework/GAFramework.hpp>
+#include <libHierGA/HierGA.hpp>
 
 using namespace std;
 

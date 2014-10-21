@@ -1,13 +1,13 @@
 CPPC = g++
 CPPFLAGS = -c -g -std=gnu++0x -fPIC
 INCLUDE = -Iinclude
-STATICLIB = libs/libGAFramework.a
+STATICLIB = libs/libHierGA.a
 MAJORVERSION = 1
 MINORVERSION = 0
-LIBNAME = libGAFramework.so
+LIBNAME = libHierGA.so
 DYNAMICLIB = $(LIBNAME).$(MAJORVERSION).$(MINORVERSION)
 
-SHAREDLIB = -lGAFramework
+SHAREDLIB = -lHierGA
 
 info:
 	@echo "Usage:"
@@ -28,13 +28,13 @@ all: library
 install:
 	sudo cp libs/$(LIBNAME) /usr/lib
 	sudo chmod 0755 /usr/lib/$(LIBNAME)
-	sudo mkdir /usr/include/libGAFramework
-	sudo cp -r include/* /usr/include/libGAFramework
+	sudo mkdir /usr/include/libHierGA
+	sudo cp -r include/* /usr/include/libHierGA
 	sudo ldconfig
 
 uninstall:
-	sudo rm /usr/lib/*libGAFramework*
-	sudo rm -r /usr/include/*libGAFramework*
+	sudo rm /usr/lib/*libHierGA*
+	sudo rm -r /usr/include/*libHierGA*
 	sudo ldconfig
 
 examples: 1-max hier1-max royalroad hierroyalroad hier3royalroad hier3proprr
@@ -143,4 +143,4 @@ clean:
 	find obj -name *.o | xargs rm -f
 	rm -f libs/*
 	cd examples; ls | xargs rm -f
-	rm -f /usr/libs/libGAFramework.so*
+	rm -f /usr/libs/libHierGA.so*

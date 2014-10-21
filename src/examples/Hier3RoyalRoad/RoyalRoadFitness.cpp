@@ -1,6 +1,6 @@
 #include <sstream>
 #include <string>
-#include <libGAFramework/GAFramework.hpp>
+#include <libHierGA/HierGA.hpp>
 #include "RoyalRoadFitness.hpp"
 
 using namespace std;
