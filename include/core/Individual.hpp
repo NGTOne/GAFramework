@@ -35,11 +35,6 @@ class Individual {
 	//hierarchical GA
 	PropertiesList * properties;
 
-	//A gene pool is a collection of any elements that can be used as genome
-	//components - for instance, it can be the English alphabet, a set
-	//of digits, or a population of individuals for a hierarchical GA
-	GenePool ** myGenePools;
-
 	CrossoverOperation * myCrossover;
 	MutationOperation * myMutation;
 	FitnessFunction * myFunction;

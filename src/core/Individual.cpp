@@ -211,7 +211,7 @@ Individual * Individual::makeSpecifiedCopy(int newGenome[]) {
 }
 
 GenePool ** Individual::getGenePoolList() {
-	return myGenePools;
+	return genome->getGenePools();
 }
 
 //Necessary for crossover
