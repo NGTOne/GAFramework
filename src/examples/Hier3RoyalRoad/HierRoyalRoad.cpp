@@ -74,6 +74,8 @@ int main(void) {
 		for (int k = 0; k < 4; k++) {
 			templateIndividual = new Individual(baseGenes[i][k], 2, bottomLevelCrossovers[i][k], bottomLevelMutations[i][k], bottomLevelFunctions[i][k], bottomLevelToString);
 			firstLevelPools[i][k] = new HierarchicalGenePool(4, templateIndividual, 100, 1, bottomLevelModels[i][k], NULL, myPropagator);
+
+			delete(templateIndividual);
 		}
 	}
 
@@ -99,6 +101,8 @@ int main(void) {
 	for (int i = 0; i < 4; i++) {
 		templateIndividual = new Individual(firstLevelPools[i], 4, secondLevelCrossovers[i], secondLevelMutations[i], secondLevelFunctions[i], secondLevelToString);
 		secondLevelPools[i] = new HierarchicalGenePool(8, templateIndividual, 100, 1, secondLevelModels[i], NULL, myPropagator);
+
+		delete(templateIndividual);
 	}
 
 	//Setting up the top level (bitstring length = 32, genome length = 4)
@@ -124,5 +128,67 @@ int main(void) {
 
 	cout << "--------------------------------------------------------------------------\nAfter:\n";
 	cout << topLevelPool->toString();
-}
 
+	//We clean up from the top down
+	delete(templateIndividual);
+	delete(topLevelPool);
+	delete(topLevelModel);
+	delete(topLevelStrategy);
+	delete(topLevelFunction);
+	delete(topLevelToString);
+	delete(topLevelCrossover);
+	delete(topLevelMutation);
+
+	//Cleaning up the middle (second) level
+	for (int i = 0; i < 4; i++) {
+		delete(secondLevelPools[i]);
+		delete(secondLevelStrategies[i]);
+		delete(secondLevelModels[i]);
+		delete(secondLevelFunctions[i]);
+		delete(secondLevelCrossovers[i]);
+		delete(secondLevelMutations[i]);
+	}
+
+	free(secondLevelPools);
+	free(secondLevelStrategies);
+	free(secondLevelModels);
+	free(secondLevelFunctions);
+	free(secondLevelCrossovers);
+	free(secondLevelMutations);
+
+	for (int i = 0; i < 4; i++) {
+		for (int k = 0; k < 4; k++) {
+			delete(bottomLevelStrategies[i][k]);
+			delete(bottomLevelModels[i][k]);
+			delete(bottomLevelFunctions[i][k]);
+			delete(bottomLevelCrossovers[i][k]);
+			delete(bottomLevelMutations[i][k]);
+			delete(firstLevelPools[i][k]);
+
+			for (int c = 0; c < 2; c++) {
+				delete(baseGenes[i][k][c]);
+			}
+			free(baseGenes[i][k]);
+		}
+
+		free(bottomLevelStrategies[i]);
+		free(bottomLevelModels[i]);
+		free(bottomLevelFunctions[i]);
+		free(bottomLevelCrossovers[i]);
+		free(bottomLevelMutations[i]);
+		free(firstLevelPools[i]);
+		free(baseGenes[i]);
+	}
+
+	free(bottomLevelStrategies);
+	free(bottomLevelModels);
+	free(bottomLevelFunctions);
+	free(bottomLevelCrossovers);
+	free(bottomLevelMutations);
+	free(firstLevelPools);
+	free(baseGenes);
+
+	delete(myPropagator);
+	delete(bottomLevelToString);
+	delete(secondLevelToString);
+}

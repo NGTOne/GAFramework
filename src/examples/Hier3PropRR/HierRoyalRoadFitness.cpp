@@ -56,6 +56,8 @@ PropertiesList * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * ind
 		}
 	}
 
+	free(tempGenomeList);
+
 	//Now that we've flattened our tree, total up our fitness value
 	int longestPathLength = 0;
 	int currentPathLength = 0;
@@ -77,6 +79,9 @@ PropertiesList * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * ind
 			currentPathLength = 0;
 		}
 	}
+
+	free(fullPools);
+	free(fullIndexes);
 
 	if (currentPathLength > longestPathLength) {
 		longestPathLength = currentPathLength;

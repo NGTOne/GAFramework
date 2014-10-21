@@ -69,12 +69,13 @@ int main(void) {
 		for (int k = 0; k < 4; k++) {
 			templateIndividual = new Individual(baseGenes[i][k], 2, bottomLevelCrossovers[i][k], bottomLevelMutations[i][k], NULL, RRToString);
 			firstLevelPools[i][k] = new HierarchicalGenePool(4, templateIndividual, 100, 1, bottomLevelModels[i][k], NULL, myPropagator);
+
+			delete(templateIndividual);
 		}
 	}
 
 	//Setting up the second level (bitstring length = 8, genome length = 4)
 	GenerationModel ** secondLevelModels = (GenerationModel**)malloc(sizeof(GenerationModel*)*4);
-	FitnessFunction ** secondLevelFunctions = (FitnessFunction**)malloc(sizeof(FitnessFunction*)*4);
 	CrossoverOperation ** secondLevelCrossovers = (CrossoverOperation**)malloc(sizeof(CrossoverOperation*)*4);
 	MutationOperation ** secondLevelMutations = (MutationOperation**)malloc(sizeof(MutationOperation*)*4);
 	SelectionStrategy ** secondLevelStrategies = (SelectionStrategy**)malloc(sizeof(SelectionStrategy)*4);
@@ -93,6 +94,8 @@ int main(void) {
 	for (int i = 0; i < 4; i++) {
 		templateIndividual = new Individual(firstLevelPools[i], 4, secondLevelCrossovers[i], secondLevelMutations[i], NULL, HierRRToString);
 		secondLevelPools[i] = new HierarchicalGenePool(8, templateIndividual, 100, 1, secondLevelModels[i], NULL, myPropagator);
+
+		delete(templateIndividual);
 	}
 
 	//Setting up the top level (bitstring length = 32, genome length = 4)
@@ -117,5 +120,62 @@ int main(void) {
 
 	cout << "--------------------------------------------------------------------------\nAfter:\n";
 	cout << topLevelPool->toString();
+
+	//We clean up from the top down
+	delete(templateIndividual);
+	delete(topLevelPool);
+	delete(topLevelModel);
+	delete(topLevelStrategy);
+	delete(topLevelFunction);
+	delete(HierRRToString);
+	delete(topLevelCrossover);
+	delete(topLevelMutation);
+
+	//Cleaning up the middle (second) level
+	for (int i = 0; i < 4; i++) {
+		delete(secondLevelPools[i]);
+		delete(secondLevelStrategies[i]);
+		delete(secondLevelModels[i]);
+		delete(secondLevelCrossovers[i]);
+		delete(secondLevelMutations[i]);
+	}
+
+	free(secondLevelPools);
+	free(secondLevelStrategies);
+	free(secondLevelModels);
+	free(secondLevelCrossovers);
+	free(secondLevelMutations);
+
+	for (int i = 0; i < 4; i++) {
+		for (int k = 0; k < 4; k++) {
+			delete(bottomLevelStrategies[i][k]);
+			delete(bottomLevelModels[i][k]);
+			delete(bottomLevelCrossovers[i][k]);
+			delete(bottomLevelMutations[i][k]);
+			delete(firstLevelPools[i][k]);
+
+			for (int c = 0; c < 2; c++) {
+				delete(baseGenes[i][k][c]);
+			}
+			free(baseGenes[i][k]);
+		}
+
+		free(bottomLevelStrategies[i]);
+		free(bottomLevelModels[i]);
+		free(bottomLevelCrossovers[i]);
+		free(bottomLevelMutations[i]);
+		free(firstLevelPools[i]);
+		free(baseGenes[i]);
+	}
+
+	free(bottomLevelStrategies);
+	free(bottomLevelModels);
+	free(bottomLevelCrossovers);
+	free(bottomLevelMutations);
+	free(firstLevelPools);
+	free(baseGenes);
+
+	delete(myPropagator);
+	delete(RRToString);
 }
 
