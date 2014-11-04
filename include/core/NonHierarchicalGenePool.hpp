@@ -1,5 +1,6 @@
 #include "GenePool.hpp"
 #include <string>
+#include <sstream>
 #pragma once
 
 /*
@@ -44,5 +45,51 @@ class NonHierarchicalGenePool: public GenePool {
 	std::string toString();
 };
 
-template <> NonHierarchicalGenePool<int>::NonHierarchicalGenePool(int * population, int newPopulationSize);
 template <> void * NonHierarchicalGenePool<int>::getIndex(int index);
+template <> std::string NonHierarchicalGenePool<int>::toString();
+
+using namespace std;
+
+template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool(T * population, int newPopulationSize) : GenePool() {
+	myPopulation = population;
+	populationSize = newPopulationSize;
+}
+
+template <class T> NonHierarchicalGenePool<T>::~NonHierarchicalGenePool() {
+
+}
+
+template <class T> void * NonHierarchicalGenePool<T>::getIndex(int index) {
+	return (void *)myPopulation[index];
+}
+
+template <class T> void * NonHierarchicalGenePool<T>::getFittest() {}
+
+template <class T> int NonHierarchicalGenePool<T>::getHighestFitness() {}
+
+template <class T> void NonHierarchicalGenePool<T>::setFitnessAtIndex(int index, int newFitness) {}
+
+template <class T> int NonHierarchicalGenePool<T>::getFitnessAtIndex(int index) {
+	return 0;
+}
+
+//Empty, to maintain compatibility with the GenePool abstract class (an
+//Individual doesn't care what's going on in here, so this works)
+template <class T> void NonHierarchicalGenePool<T>::runGenerations() {}
+template <class T> void NonHierarchicalGenePool<T>::propagateFitnesses() {}
+
+template <class T> string NonHierarchicalGenePool<T>::toString() {
+        string returnString = "";
+        stringstream ss;
+
+        for (int i = 0; i < populationSize; i++) {
+                ss << myPopulation[i].toString() << " ";
+        }
+
+	ss << "\nRandom Seed: " << seed << "\n";
+
+        returnString = ss.str();
+
+        return returnString;
+
+}
