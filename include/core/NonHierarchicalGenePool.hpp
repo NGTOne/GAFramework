@@ -41,12 +41,23 @@ class NonHierarchicalGenePool: public GenePool {
 	void propagateFitnesses();
 
 	int getFitnessAtIndex(int index);
-	
+
 	std::string toString();
 };
 
+//Since primitive types behave a bit differently, we need special versions
+//of these functions for them
 template <> void * NonHierarchicalGenePool<int>::getIndex(int index);
 template <> std::string NonHierarchicalGenePool<int>::toString();
+
+template <> void * NonHierarchicalGenePool<double>::getIndex(int index);
+template <> std::string NonHierarchicalGenePool<double>::toString();
+
+template <> void * NonHierarchicalGenePool<char>::getIndex(int index);
+template <> std::string NonHierarchicalGenePool<char>::toString();
+
+template <> void * NonHierarchicalGenePool<bool>::getIndex(int index);
+template <> std::string NonHierarchicalGenePool<bool>::toString();
 
 using namespace std;
 
@@ -82,9 +93,9 @@ template <class T> string NonHierarchicalGenePool<T>::toString() {
         string returnString = "";
         stringstream ss;
 
-        for (int i = 0; i < populationSize; i++) {
-                ss << myPopulation[i].toString() << " ";
-        }
+	for (int i = 0; i < populationSize; i++) {
+		ss << myPopulation[i].toString() << " ";
+	}
 
 	ss << "\nRandom Seed: " << seed << "\n";
 

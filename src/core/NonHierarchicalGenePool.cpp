@@ -1,8 +1,3 @@
-//This is a gene pool type that takes basic "literal" types for its genome
-//elements - lets us build "classical" GAs
-//It has no generational mechanics, selection strategy, or fitness evaluations,
-//which means it's distinct from the HierarchicalGenePool
-
 using namespace std;
 
 #include <sstream>
@@ -19,9 +14,82 @@ template <> string NonHierarchicalGenePool<int>::toString() {
 	string returnString = "";
 	stringstream ss;
 
+	ss << "Population: ";
+
 	for (int i = 0; i < populationSize; i++) {
 		ss << myPopulation[i] << " ";
 	}
+
+	ss << "\nRandom Seed: " << seed << "\n";
+
+	returnString = ss.str();
+
+	return returnString;
+}
+
+template <> void * NonHierarchicalGenePool<double>::getIndex(int index) {
+	double * returnValue = &myPopulation[index];
+
+	return (void*)returnValue;
+}
+
+template <> string NonHierarchicalGenePool<double>::toString() {
+	string returnString = "";
+	stringstream ss;
+
+	ss << "Population: ";
+
+	for (int i = 0; i < populationSize; i++) {
+		ss << myPopulation[i] << " ";
+	}
+
+	ss << "\nRandom Seed: " << seed << "\n";
+
+	returnString = ss.str();
+
+	return returnString;
+}
+
+template <> void * NonHierarchicalGenePool<char>::getIndex(int index) {
+	char * returnValue = &myPopulation[index];
+
+	return (void*)returnValue;
+}
+
+template <> string NonHierarchicalGenePool<char>::toString() {
+	string returnString = "";
+	stringstream ss;
+
+	ss << "Population: ";
+
+	for (int i = 0; i < populationSize; i++) {
+		ss << myPopulation[i] << " ";
+	}
+
+	ss << "\nRandom Seed: " << seed << "\n";
+
+	returnString = ss.str();
+
+	return returnString;
+}
+
+template <> void * NonHierarchicalGenePool<bool>::getIndex(int index) {
+	bool * returnValue = &myPopulation[index];
+
+	return (void*)returnValue;
+}
+
+template <> string NonHierarchicalGenePool<bool>::toString() {
+	string returnString = "";
+	stringstream ss;
+
+	ss << "Population: ";
+
+	for (int i = 0; i < populationSize; i++) {
+		ss << myPopulation[i] << " ";
+	}
+
+	ss << "\nRandom Seed: " << seed << "\n";
 
 	returnString = ss.str();
 
