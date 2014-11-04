@@ -59,6 +59,9 @@ template <> std::string NonHierarchicalGenePool<char>::toString();
 template <> void * NonHierarchicalGenePool<bool>::getIndex(int index);
 template <> std::string NonHierarchicalGenePool<bool>::toString();
 
+template <> void * NonHierarchicalGenePool<std::string>::getIndex(int index);
+template <> std::string NonHierarchicalGenePool<std::string>::toString();
+
 using namespace std;
 
 template <class T> NonHierarchicalGenePool<T>::NonHierarchicalGenePool(T * population, int newPopulationSize) : GenePool() {

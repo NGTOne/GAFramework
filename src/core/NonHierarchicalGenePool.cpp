@@ -95,3 +95,26 @@ template <> string NonHierarchicalGenePool<bool>::toString() {
 
 	return returnString;
 }
+
+template <> void * NonHierarchicalGenePool<string>::getIndex(int index) {
+	string * returnValue = &myPopulation[index];
+
+	return (void*)returnValue;
+}
+
+template <> string NonHierarchicalGenePool<string>::toString() {
+	string returnString = "";
+	stringstream ss;
+
+	ss << "Population: ";
+
+	for (int i = 0; i < populationSize; i++) {
+		ss << myPopulation[i] << " ";
+	}
+
+	ss << "\nRandom Seed: " << seed << "\n";
+
+	returnString = ss.str();
+
+	return returnString;
+}
