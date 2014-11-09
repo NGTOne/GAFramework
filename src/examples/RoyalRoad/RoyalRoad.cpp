@@ -15,8 +15,6 @@ int main(void) {
 	CrossoverOperation * myCrossover = new NPointCrossover(2);
 	MutationOperation * myMutation = new UniformMutation(0.2);
 
-	EndCondition * myCondition = new FitnessMatchEnd(32);
-
 	FitnessPropagator * myPropagator = new NonPropagator();
 
 	int binaryDigits[] = {0,1};
@@ -29,7 +27,7 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(baseGenes, 64, myCrossover, myMutation, myFunction, myToString);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(128, templateIndividual, 100, 1, myModel, myCondition, myPropagator);
+	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(128, templateIndividual, 100, 1, myModel, NULL, myPropagator);
 
 	delete(templateIndividual);
 	
@@ -44,7 +42,6 @@ int main(void) {
 	delete(myMutation);
 	delete(myCrossover);
 	delete(myStrategy);
-	delete(myCondition);
 	delete(myFunction);
 	delete(myToString);
 	delete(myPropagator);
