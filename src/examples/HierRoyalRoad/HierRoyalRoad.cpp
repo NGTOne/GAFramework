@@ -65,17 +65,7 @@ int main(void) {
 
 	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(32, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
 
-	printf("Before:\n");
-	cout << topLevelPool->toString();
-	for (int i = 0; i < 120; i++) {
-		cout << "-----------------------------------------------------------------\n";
-		topLevelPool->runGenerations();
-		cout << "After generation " << i << ":\n";
-		cout << topLevelPool->toString();
-	}
-
-	cout << "--------------------------------------------------------------------------\nAfter:\n";
-	cout << topLevelPool->toString();
+	topLevelPool->run(true);
 
 	delete(myPropagator);
 	delete(bottomLevelToString);

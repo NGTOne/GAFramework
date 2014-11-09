@@ -137,6 +137,30 @@ void HierarchicalGenePool::propagateFitnesses() {
 	myPropagator->propagateFitnesses(myPopulation, populationSize);
 }
 
+void HierarchicalGenePool::run(bool verbose) {
+	if (verbose == true) {
+		cout << "Before:\n" << toString() << "-----------------------------------------------------------------\n";
+	}
+
+	while (currentGeneration < maxGenerations && optimumFound == false) {
+		if (verbose == true) {
+			cout << "Before generation " << currentGeneration << ":\n";
+			cout << toString();
+			cout << "-----------------------------------------------------------------\n";
+		}
+
+		runGenerations();
+	}
+
+	if (verbose == true) {
+		cout << "After:\n" << toString() << "-----------------------------------------------------------------\n";
+		if (optimumFound == true) {
+			cout << "Genetic algorithm ended after generation " << currentGeneration-1 << " because specified ending condition was met.\n";
+		}
+	}
+
+}
+
 //For HGAs - if we want to run multiple generations of a lower-level gene pool
 //for every one of a higher-level one, this is how
 //Basically a loop wrapped around nextGeneration()

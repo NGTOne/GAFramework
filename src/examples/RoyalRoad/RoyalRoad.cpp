@@ -33,17 +33,7 @@ int main(void) {
 
 	delete(templateIndividual);
 	
-	printf("Before:\n");
-	cout << topLevelPool->toString();
-	for (int i = 0; i < 120; i++) {
-		cout << "-----------------------------------------------------------------\n";
-		topLevelPool->runGenerations();
-		cout << "After generation " << i << ":\n";
-		cout << topLevelPool->toString();
-	}
-
-	cout << "--------------------------------------------------------------------------\nAfter:\n";
-	cout << topLevelPool->toString();
+	topLevelPool->run(true);
 
 	delete(topLevelPool);
 	for (int i = 0; i < 64; i++) {

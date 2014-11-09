@@ -93,5 +93,9 @@ class HierarchicalGenePool : public GenePool {
 	//Basically a loop wrapped around nextGeneration()
 	void runGenerations();
 
+	//Wraps around runGenerations, to run the entire GA with one call
+	//and minimal fuss
+	void run(bool verbose);
+
 	std::string toString();
 };
