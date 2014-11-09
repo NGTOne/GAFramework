@@ -144,7 +144,9 @@ void HierarchicalGenePool::run(bool verbose) {
 
 	while (currentGeneration < maxGenerations && optimumFound == false) {
 		if (verbose == true) {
-			cout << "Before generation " << currentGeneration << ":\n";
+			//Because currentGeneration is 0-indexed, but humans
+			//start counting from 1
+			cout << "Before generation " << currentGeneration+1 << ":\n";
 			cout << toString();
 			cout << "-----------------------------------------------------------------\n";
 		}
@@ -155,7 +157,9 @@ void HierarchicalGenePool::run(bool verbose) {
 	if (verbose == true) {
 		cout << "After:\n" << toString() << "-----------------------------------------------------------------\n";
 		if (optimumFound == true) {
-			cout << "Genetic algorithm ended after generation " << currentGeneration-1 << " because specified ending condition was met.\n";
+			cout << "Genetic algorithm ended after generation " << currentGeneration << " because specified ending condition was met.\n";
+		} else {
+			cout << "Genetic algorithm ended after generation " << currentGeneration << " because it reached the maximum generation count.\n";
 		}
 	}
 
