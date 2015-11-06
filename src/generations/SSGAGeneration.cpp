@@ -6,9 +6,13 @@
 
 using namespace std;
 
-SSGAGeneration::SSGAGeneration(SelectionStrategy * newStrategy) : GenerationModel(newStrategy) {}
+SSGAGeneration::SSGAGeneration(SelectionStrategy * newStrategy, NichingStrategy newNiching) : GenerationModel(newStrategy) {
+		niching = newNiching;
+	}
 
-SSGAGeneration::SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newStrategy) {}
+SSGAGeneration::SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy, NichingStrategy newStrategy) : GenerationModel(newSeed, newStrategy) {
+		niching = newNiching;
+	}
 
 //This strategy uses the SSGA (Steady State Genetic Algorithm) approach - 1:1
 //replacement of parents by offspring, using local elitism
@@ -38,8 +42,14 @@ Individual ** SSGAGeneration::breedMutateSelect(Individual ** initialPopulation,
 	//delete(firstParent);
 	//delete(secondParent);
 
-	firstParent = children[0]->mutationOperation();
-	secondParent = children[1]->mutationOperation();
+	children[0] = children[0]->mutationOperation();
+	children[1] = children[1]->mutationOperation();
+
+	int replacementIndices[];
+	replacementIndices = (niching != null ? niching->getIndices(initialPopulation) : {firstIndex, secondIndex});
+
+	initialPopulation[replacementIndices[0]] = children[0];
+	initialPopulation[replacementIndices[1]] = children[1];
 
 	delete(children[0]);
 	delete(children[1]);

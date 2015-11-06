@@ -1,4 +1,5 @@
 #include "../core/GenerationModel.hpp"
+#include "niching/NichingStrategy.hpp"
 #include <random>
 #include <string>
 #pragma once
@@ -14,12 +15,11 @@ class SSGAGeneration : public GenerationModel {
 	private:
 
 	protected:
+	NichingStrategy * niching;
 
 	public:
 
-	SSGAGeneration(SelectionStrategy * newStrategy);
-
-	SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy);
-
+	SSGAGeneration(SelectionStrategy * newStrategy, NichingStrategy newNiching);
+	SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy, NichingStrategy newNiching);
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 };
