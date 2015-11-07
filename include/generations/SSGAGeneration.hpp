@@ -19,7 +19,9 @@ class SSGAGeneration : public GenerationModel {
 
 	public:
 
-	SSGAGeneration(SelectionStrategy * newStrategy, NichingStrategy newNiching);
-	SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy, NichingStrategy newNiching);
+	SSGAGeneration(SelectionStrategy * newStrategy);
+	SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy);
+	SSGAGeneration(SelectionStrategy * newStrategy, NichingStrategy * newNiching);
+	SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy, NichingStrategy * newNiching);
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 };

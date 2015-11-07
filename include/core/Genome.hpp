@@ -23,4 +23,5 @@ class Genome {
 	int * getGenome();
 	int getGenomeLength();
 	GenePool ** getGenePools();
+	int getDifference(Genome * otherGenome);
 };

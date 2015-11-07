@@ -1,5 +1,6 @@
 #include "core/Genome.hpp"
 #include <cstdlib>
+#include <cmath>
 
 using namespace std;
 
@@ -28,4 +29,24 @@ int Genome::getGenomeLength() {
 
 GenePool ** Genome::getGenePools() {
 	return genePools;
+}
+
+int Genome::getDifference(Genome * otherGenome) {
+	int * otherGenomeRaw = otherGenome->getGenome();
+	int otherGenomeLength = otherGenome->getGenomeLength();
+	int difference = 0;
+	int shorterGenome = fmin(genomeLength, otherGenomeLength);
+	int longerGenome = fmax(genomeLength, otherGenomeLength);
+	int i;
+
+	for (i = 0; i < shorterGenome; i++) {
+		difference += abs(gene[i] - otherGenomeRaw[i]);
+	}
+
+	// We want to account for genes of different lengths somehow
+	if (longerGenome != shorterGenome) {
+		difference += longerGenome - shorterGenome;
+	}
+
+	return difference;
 }

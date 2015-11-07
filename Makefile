@@ -6,6 +6,7 @@ MAJORVERSION = 1
 MINORVERSION = 0
 LIBNAME = libHierGA.so
 DYNAMICLIB = $(LIBNAME).$(MAJORVERSION).$(MINORVERSION)
+LIBOBJS = $$(find obj -name *.o | grep -v examples)
 
 SHAREDLIB = -lHierGA
 
@@ -40,8 +41,8 @@ uninstall:
 examples: 1-max hier1-max royalroad hierroyalroad hier3royalroad hier3proprr
 
 library: core selections mutations crossovers generations endconditions propagators
-	g++ -shared -o libs/$(LIBNAME) obj/*/*.o
-	ar -cvq $(STATICLIB) obj/*/*.o
+	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
+	ar -cvq $(STATICLIB) $(LIBOBJS)
 
 core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Property.cpp -o obj/core/Property.o
@@ -75,8 +76,11 @@ ga:
 es:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/ESGeneration.cpp -o obj/generations/ESGeneration.o
 
-ssga:
+ssga: niching
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/SSGAGeneration.cpp -o obj/generations/SSGAGeneration.o
+
+niching:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/niching/Crowding.cpp -o obj/generations/niching/Crowding.o
 
 tournamentSelection:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
