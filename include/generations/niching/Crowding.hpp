@@ -1,7 +1,7 @@
 #pragma once
-#include "generations/niching/NichingStrategy.hpp"
+#include "NichingStrategy.hpp"
 
-class Crowding : NichingStrategy {
+class Crowding : public NichingStrategy {
 	private:
 
 	protected:

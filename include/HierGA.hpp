@@ -20,6 +20,7 @@
 #include "generations/ESGeneration.hpp"
 #include "generations/GAGeneration.hpp"
 #include "generations/SSGAGeneration.hpp"
+#include "generations/niching/Crowding.hpp"
 #include "mutations/BoundaryMutation.hpp"
 #include "mutations/UniformMutation.hpp"
 #include "selections/TournamentSelection.hpp"
