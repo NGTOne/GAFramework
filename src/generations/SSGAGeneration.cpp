@@ -46,51 +46,53 @@ Individual ** SSGAGeneration::breedMutateSelect(Individual ** initialPopulation,
 	secondParent = initialPopulation[secondIndex];
 
 	children = firstParent->crossoverOperation(secondParent);
-
-	//delete(firstParent);
-	//delete(secondParent);
-
-	children[0] = children[0]->mutationOperation();
-	children[1] = children[1]->mutationOperation();
-
-	int * replacementIndices;
-	if (niching != NULL) {
-		replacementIndices = niching->getIndices(initialPopulation, populationSize, children);
-	} else {
-		replacementIndices = (int*)malloc(sizeof(int)*2);
-		replacementIndices[0] = firstIndex;
-		replacementIndices[1] = secondIndex;
-	}
-	//replacementIndices = (niching != NULL ? niching->getIndices(initialPopulation, children) : (int[]){firstIndex, secondIndex});
-
-	initialPopulation[replacementIndices[0]] = children[0];
-	initialPopulation[replacementIndices[1]] = children[1];
-	free(replacementIndices);
+	Individual ** finalChildren = (Individual **)malloc(sizeof(Individual*)*2);
+	for (int i = 0; i < 2; i++) finalChildren[i] = children[i]->mutationOperation();
 
 	delete(children[0]);
 	delete(children[1]);
 	free(children);
 
-	firstFitness = firstParent->getFitness();
-	secondFitness = secondParent->getFitness();
+	int * replacementIndices;
+	if (niching != NULL) {
+		replacementIndices = niching->getIndices(initialPopulation, populationSize, finalChildren);
+	} else {
+		replacementIndices = (int*)malloc(sizeof(int)*2);
+		replacementIndices[0] = firstIndex;
+		replacementIndices[1] = secondIndex;
+	}
 
-	if (firstFitness > populationFitnesses[firstIndex]) {
+	//initialPopulation[replacementIndices[0]] = children[0];
+	//initialPopulation[replacementIndices[1]] = children[1];
+	//free(replacementIndices);
+
+	//delete(children[0]);
+	//delete(children[1]);
+	//free(children);
+
+	firstFitness = finalChildren[0]->getFitness();
+	secondFitness = finalChildren[1]->getFitness();
+
+	if (firstFitness > populationFitnesses[replacementIndices[0]]) {
 		//delete(initialPopulation[firstIndex]);
 
-		newPopulation[firstIndex] = firstParent;
-		populationFitnesses[firstIndex] = firstFitness;
+		newPopulation[replacementIndices[0]] = finalChildren[0];
+		populationFitnesses[replacementIndices[0]] = firstFitness;
 	} else {
-		delete(firstParent);
+		delete(finalChildren[0]);
 	}
 
-	if (secondFitness > populationFitnesses[secondIndex]) {
+	if (secondFitness > populationFitnesses[replacementIndices[1]]) {
 		//delete(initialPopulation[secondIndex]);
 
-		newPopulation[secondIndex] = secondParent;
-		populationFitnesses[secondIndex] = secondFitness;
+		newPopulation[replacementIndices[1]] = finalChildren[1];
+		populationFitnesses[replacementIndices[1]] = secondFitness;
 	} else {
-		delete(secondParent);
+		delete(finalChildren[1]);
 	}
+
+	free(finalChildren);
+	free(replacementIndices);
 
 	for (int i = 0; i < populationSize; i++) {
 		if (newPopulation[i] == NULL) {
