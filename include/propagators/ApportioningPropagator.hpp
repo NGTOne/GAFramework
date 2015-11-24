@@ -18,8 +18,12 @@ class ApportioningPropagator : public FitnessPropagator {
 	// Returns an array, so we know which Individuals use it how many times
 	int * getUseCount(Individual ** population, int populationSize, Individual * target);
 
-	virtual void getAssignableFitness(Individual ** population, int populationSize, Individual * target)=0;
-	virtual double getFitnessContribution(Individual * user, Individual * used)=0;
+	virtual int getAssignableFitness(Individual ** population, int populationSize, Individual * target)=0;
+
+	// Acts as a wrapper around getFitnessContribution, to allow us to do
+	// things that the user shouldn't need to worry about
+	int getFitnessValue(Individual * user, Individual * used);
+	virtual int getFitnessContribution(Individual * user, Individual * used)=0;
 
 	public:
 	void propagateFitnesses(Individual ** population, int populationSize);

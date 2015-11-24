@@ -113,6 +113,7 @@ class Individual {
 	bool sameSpecies(Individual * otherIndividual);
 
 	int getGenomeLength();
+	bool usesComponent(Individual * component);
 
 	std::string toGenomeString();
 	std::string toString();

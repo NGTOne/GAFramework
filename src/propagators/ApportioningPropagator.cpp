@@ -35,3 +35,43 @@ int * ApportioningPropagator::getUseCount(Individual ** population, int populati
 
 	return numUses;
 }
+
+void ApportioningPropagator::propagateFitnesses(Individual ** population, int populationSize) {
+	int fitnessContribution, assignableFitness;
+	int i, k, c;
+	Genome * genome;
+	GenePool ** pools;
+	int genomeLength, *indexes;
+	Individual * temp;
+	Individual ** used = (Individual**)malloc(sizeof(Individual*));
+	int numUsed = 1;
+	bool componentUsed;
+	int fitness;
+
+	for (i = 0; i < populationSize; i++) {
+		genome = population[i]->getGenome();
+		genomeLength = genome->getGenomeLength();
+		pools = genome->getGenePools();
+		indexes = genome->getGenome();
+
+		for (k = 0; k < genomeLength; k++) {
+			temp = (Individual*)pools[k]->getIndex(indexes[i]);
+			componentUsed = false;
+
+			for (c = 0; c < numUsed; c++) if (temp == used[c]) componentUsed = true;
+			if (!used) {
+				used[numUsed-1] = temp;
+				used = (Individual**)realloc(used, sizeof(Individual*) * ++numUsed);
+			}
+		}
+	}
+
+	for (i = 0; i < numUsed; i++) {
+		fitness = this->getAssignableFitness(population, populationSize, used[i]);
+		used[i]->setFitness(fitness);
+	}
+}
+
+int ApportioningPropagator::getFitnessValue(Individual * user, Individual * used) {
+	if (user->usesComponent(used)) return this->getFitnessContribution(user, used);
+}

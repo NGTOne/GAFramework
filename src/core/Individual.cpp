@@ -256,6 +256,20 @@ int Individual::getGenomeLength() {
 	return genome->getGenomeLength();
 }
 
+bool Individual::usesComponent(Individual * component) {
+	GenePool ** pools;
+	int i, genomeLength, *indexes;
+
+	pools = genome->getGenePools();
+	genomeLength = genome->getGenomeLength();
+	indexes = genome->getGenome();
+
+	for (i = 0; i < genomeLength; i++) {
+		if (pools[i]->getIndex(indexes[i]) == component) return true;
+	}
+	return false;
+}
+
 string Individual::toGenomeString() {
 	return myToString->toString(genome->getGenePools(), genome->getGenome(), genome->getGenomeLength());
 }
