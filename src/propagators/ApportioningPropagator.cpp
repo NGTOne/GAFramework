@@ -73,5 +73,9 @@ void ApportioningPropagator::propagateFitnesses(Individual ** population, int po
 }
 
 int ApportioningPropagator::getFitnessValue(Individual * user, Individual * used) {
-	if (user->usesComponent(used)) return this->getFitnessContribution(user, used);
+	if (user->usesComponent(used)) {
+		return this->getFitnessContribution(user, used);
+	} else {
+		return 0;
+	}
 }

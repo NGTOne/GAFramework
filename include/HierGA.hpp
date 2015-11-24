@@ -27,4 +27,6 @@
 #include "propagators/NonPropagator.hpp"
 #include "propagators/DownPropagator.hpp"
 #include "propagators/ApportioningPropagator.hpp"
+#include "propagators/apportioning/AveragingPropagator.hpp"
+#include "propagators/apportioning/SummingPropagator.hpp"
 #pragma once
