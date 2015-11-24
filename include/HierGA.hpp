@@ -26,4 +26,5 @@
 #include "selections/TournamentSelection.hpp"
 #include "propagators/NonPropagator.hpp"
 #include "propagators/DownPropagator.hpp"
+#include "propagators/ApportioningPropagator.hpp"
 #pragma once

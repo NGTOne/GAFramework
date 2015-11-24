@@ -68,7 +68,7 @@ generations: ga es ssga
 
 endconditions: fitnessMatch
 
-propagators: nonPropagator downPropagator
+propagators: nonPropagator downPropagator apportioningPropagator
 
 ga:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/GAGeneration.cpp -o obj/generations/GAGeneration.o
@@ -108,6 +108,9 @@ nonPropagator:
 
 downPropagator:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/DownPropagator.cpp -o obj/propagators/DownPropagator.o
+
+apportioningPropagator:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/ApportioningPropagator.cpp -o obj/propagators/ApportioningPropagator.o
 
 1-max:
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/1max src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o
