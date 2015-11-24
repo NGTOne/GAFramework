@@ -5,6 +5,7 @@ int ApportioningPropagator::getIndividualCount(Individual ** population, int pop
 	useCounts = this->getUseCount(population, populationSize, target);
 
 	for (i = 0; i < populationSize; i++) if (useCounts[i] > 0) numUses++;
+	free(useCounts);
 
 	return numUses;
 }
