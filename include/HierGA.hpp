@@ -29,4 +29,5 @@
 #include "propagators/ApportioningPropagator.hpp"
 #include "propagators/apportioning/AveragingPropagator.hpp"
 #include "propagators/apportioning/SummingPropagator.hpp"
+#include "propagators/apportioning/WeightedAveragePropagator.hpp"
 #pragma once

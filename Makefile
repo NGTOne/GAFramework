@@ -113,6 +113,7 @@ apportioningPropagator:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/ApportioningPropagator.cpp -o obj/propagators/ApportioningPropagator.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/apportioning/AveragingPropagator.cpp -o obj/propagators/apportioning/AveragingPropagator.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/apportioning/SummingPropagator.cpp -o obj/propagators/apportioning/SummingPropagator.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/apportioning/WeightedAveragePropagator.cpp -o obj/propagators/apportioning/WeightedAveragePropagator.o
 
 1-max:
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/1max src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o
