@@ -69,15 +69,12 @@ void ApportioningPropagator::propagateFitnesses(Individual ** population, int po
 	for (i = 0; i < numUsed; i++) {
 		fitness = this->getAssignableFitness(population, populationSize, used[i]);
 		used[i]->setFitness(fitness);
-	}
-
-	for (i = 0; i < populationSize; i++) {
-		genome = population[i]->getGenome();
+		genome = used[i]->getGenome();
 		genomeLength = genome->getGenomeLength();
 		pools = genome->getGenePools();
 
 		for (k = 0; k < genomeLength; k++) {
-			pools[k]->propagateFitnesses();	
+			pools[k]->propagateFitnesses();
 		}
 	}
 }
