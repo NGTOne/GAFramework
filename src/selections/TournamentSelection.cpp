@@ -18,31 +18,20 @@ int TournamentSelection::getParent(int populationFitnesses[], int populationSize
 	bool pickedTwo = false;
 
         uniform_real_distribution<double> selectionDistribution(0,1);
+	uniform_int_distribution indexDistribution(0, populationSize-1);
 
-	while (pickedTwo == false) {
-		for (int k = 0; k < populationSize; k++) {
-                        secondFitness = 0;
-
-			if (selectionDistribution(generator) < crossoverRate) {
-                                firstFitness = populationFitnesses[k];
-				firstIndex = k;
-
-				for (int c = 0; c < populationSize; c++) {
-					if (selectionDistribution(generator) < crossoverRate) {
-						secondFitness = populationFitnesses[c];
-						secondIndex = c;
-
-                        	                c = populationSize + 1;
-						pickedTwo = true;
-                	                }
-				}
-
-				if (pickedTwo == true) {
-                                	k = populationSize + 1;
-                        	}
-                	}
-		}
+	firstIndex = indexDistribution(generator);
+	while (selectionDistribution(generator) > crossoverRate) {
+		firstIndex = indexDistribution(generator);
 	}
+
+	secondIndex = indexDistribution(generator);
+	while (selectionDistribution(generator) > crossoverRate) {
+		secondIndex = indexDistribution(generator);
+	}
+
+	firstFitness = populationFitnesses[firstIndex];
+	secondFitness = populationFitnesses[secondIndex];
 
 	if (firstFitness >= secondFitness) {
 		return firstIndex;
