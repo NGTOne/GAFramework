@@ -50,8 +50,8 @@ Individual ** ReplacingGAGeneration::breedMutateSelect(Individual ** initialPopu
 		for (int k = 0; k < 2; k++) {
 			indexes[k] = getParent(populationFitnesses, populationSize);
 		}
-		firstParent = initialPopulation[indexes[0]];
-		secondParent = initialPopulation[indexes[1]];
+		firstParent = newPopulation[indexes[0]];
+		secondParent = newPopulation[indexes[1]];
 
 		children = firstParent->crossoverOperation(secondParent);
 
