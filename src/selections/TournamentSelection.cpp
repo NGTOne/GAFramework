@@ -18,7 +18,7 @@ int TournamentSelection::getParent(int populationFitnesses[], int populationSize
 	bool pickedTwo = false;
 
         uniform_real_distribution<double> selectionDistribution(0,1);
-	uniform_int_distribution indexDistribution(0, populationSize-1);
+	uniform_int_distribution<int> indexDistribution(0, populationSize-1);
 
 	firstIndex = indexDistribution(generator);
 	while (selectionDistribution(generator) > crossoverRate) {
