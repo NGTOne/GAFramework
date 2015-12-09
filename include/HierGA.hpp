@@ -17,6 +17,7 @@
 #include "crossovers/NPointCrossover.hpp"
 #include "crossovers/UniformCrossover.hpp"
 #include "endconditions/FitnessMatchEnd.hpp"
+#include "endconditions/MaxFitnessConvergenceEnd.hpp"
 #include "generations/ESGeneration.hpp"
 #include "generations/GAGeneration.hpp"
 #include "generations/ReplacingGAGeneration.hpp"
