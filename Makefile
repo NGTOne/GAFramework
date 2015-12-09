@@ -64,7 +64,7 @@ mutations: uniformMutation boundaryMutation
 
 crossovers: nPointCrossover uniformCrossover cutAndSpliceCrossover
 
-generations: ga es ssga
+generations: ga es ssga rga
 
 endconditions: fitnessMatch
 
@@ -78,6 +78,9 @@ es:
 
 ssga: niching
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/SSGAGeneration.cpp -o obj/generations/SSGAGeneration.o
+
+rga:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/ReplacingGAGeneration.cpp -o obj/generations/ReplacingGAGeneration.o
 
 niching:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/niching/Crowding.cpp -o obj/generations/niching/Crowding.o

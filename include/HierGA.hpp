@@ -19,6 +19,7 @@
 #include "endconditions/FitnessMatchEnd.hpp"
 #include "generations/ESGeneration.hpp"
 #include "generations/GAGeneration.hpp"
+#include "generations/ReplacingGAGeneration.hpp"
 #include "generations/SSGAGeneration.hpp"
 #include "generations/niching/Crowding.hpp"
 #include "mutations/BoundaryMutation.hpp"
