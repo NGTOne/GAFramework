@@ -4,13 +4,16 @@ FitnessMatchEnd::FitnessMatchEnd(int newMinimumFitness) {
 	minimumFitness = newMinimumFitness;
 }
 
-bool FitnessMatchEnd::checkCondition(Individual * individualToCheck) {
-	PropertiesList * properties = individualToCheck->getProperties();
+bool FitnessMatchEnd::checkIndividual(Individual * target) {
+	PropertiesList * properties = target->getProperties();
 	int individualsFitness = properties->getFitness();
 
-	if (individualsFitness >= minimumFitness) {
-		return true;
-	} else {
-		return false;
+	return properties->getFitness() >= minimumFitness ? true : false;
+}
+
+bool FitnessMatchEnd::checkCondition(Individual ** population, int populationSize) {
+	for (int i = 0; i < populationSize; i++) {
+		if (checkIndividual(population[i])) return true;
 	}
+	return false;
 }

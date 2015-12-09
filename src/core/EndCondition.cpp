@@ -4,6 +4,6 @@ EndCondition::EndCondition() {}
 
 EndCondition::~EndCondition() {}
 
-bool EndCondition::checkCondition(Individual * individualToCheck) {
+bool EndCondition::checkCondition(Individual ** individualToCheck, int populationSize) {
 	return false;
 }

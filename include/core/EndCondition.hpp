@@ -12,11 +12,12 @@ class EndCondition {
 	private:
 
 	protected:
+	virtual bool checkIndividual(Individual * target)=0;
 	
 	public:
 	EndCondition();
 
 	~EndCondition();
 
-	virtual bool checkCondition(Individual * individualToCheck);
+	virtual bool checkCondition(Individual ** population, int populationSize)=0;
 };

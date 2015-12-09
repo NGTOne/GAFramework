@@ -127,9 +127,7 @@ void HierarchicalGenePool::nextGeneration() {
 		evaluateFitnesses();
 
 		if (myCondition != NULL) {
-			for (int i = 0; i < populationSize && optimumFound == false; i++) {
-				optimumFound = myCondition->checkCondition(myPopulation[i]);
-			}
+			optimumFound = myCondition->checkCondition(myPopulation, populationSize);
 		}
 	}
 }
