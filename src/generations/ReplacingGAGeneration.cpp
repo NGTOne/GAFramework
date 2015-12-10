@@ -6,13 +6,9 @@
 
 using namespace std;
 
-ReplacingGAGeneration::ReplacingGAGeneration(SelectionStrategy * newStrategy, double newReplacementRate) : GenerationModel(newStrategy) {
-	replacementRate = newReplacementRate;
-}
+ReplacingGAGeneration::ReplacingGAGeneration(SelectionStrategy * newStrategy) : GenerationModel(newStrategy) {}
 
-ReplacingGAGeneration::ReplacingGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy, double newReplacementRate) : GenerationModel(newSeed, newStrategy) {
-	replacementRate = newReplacementRate;
-}
+ReplacingGAGeneration::ReplacingGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newStrategy) {}
 
 bool ReplacingGAGeneration::inPopulation(Individual * target, Individual ** population, int populationSize) {
 	for (int i = 0; i < populationSize; i++) {

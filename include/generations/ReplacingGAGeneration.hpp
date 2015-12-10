@@ -19,8 +19,8 @@ class ReplacingGAGeneration : public GenerationModel {
 	bool inPopulation(Individual * target, Individual ** population, int populationSize);
 
 	public:
-	ReplacingGAGeneration(SelectionStrategy * newStrategy, double newReplacementRate);
-	ReplacingGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy, double newReplacementRate);
+	ReplacingGAGeneration(SelectionStrategy * newStrategy);
+	ReplacingGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy);
 
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 };
