@@ -8,34 +8,42 @@ TournamentSelection::TournamentSelection(double newCrossoverRate) : SelectionStr
 
 TournamentSelection::TournamentSelection(unsigned newSeed, double newCrossoverRate) : SelectionStrategy(newSeed, newCrossoverRate, "Tournament") {}
 
-//Picks two random indices, gets their fitnesses, then compares them
-//and returns the index with the higher fitness
+void TournamentSelection::sortByFitness(int indexes[], int fitnesses[], int tournamentSize) {
+	int tempIndex, tempFitness;
+	for (int i = 0; i < tournamentSize; i++) {
+		for (int k = i + 1; k < tournamentSize; k++) {
+			if (fitnesses[k] > fitnesses[i]) {
+				tempFitness = fitnesses[k];
+				tempIndex = indexes[k];
+				fitnesses[k] = fitnesses[i];
+				indexes[k] = indexes[i];
+				fitnesses[i] = tempFitness;
+				indexes[i] = tempIndex;
+			}
+		}
+	}
+}
+
 int TournamentSelection::getParent(int populationFitnesses[], int populationSize) {
-	int firstFitness = 0;
-	int secondFitness = 0;
-	int firstIndex;
-	int secondIndex;
-	bool pickedTwo = false;
+	int tournamentSize = 2;
+	int fitnesses[tournamentSize];
+	int indexes[tournamentSize];
+	int index;
 
         uniform_real_distribution<double> selectionDistribution(0,1);
 	uniform_int_distribution<int> indexDistribution(0, populationSize-1);
 
-	firstIndex = indexDistribution(generator);
-	while (selectionDistribution(generator) > crossoverRate) {
-		firstIndex = indexDistribution(generator);
+	for (int i = 0; i < tournamentSize; i++) {
+		index = indexDistribution(generator);
+		fitnesses[i] = populationFitnesses[index];
+		indexes[i] = index;
 	}
 
-	secondIndex = indexDistribution(generator);
-	while (selectionDistribution(generator) > crossoverRate) {
-		secondIndex = indexDistribution(generator);
-	}
+	sortByFitness(indexes, fitnesses, tournamentSize);
 
-	firstFitness = populationFitnesses[firstIndex];
-	secondFitness = populationFitnesses[secondIndex];
-
-	if (firstFitness >= secondFitness) {
-		return firstIndex;
-	} else {
-		return secondIndex;
+	for (int i = 0; i < tournamentSize; i++) {
+		if (selectionDistribution(generator) < crossoverRate || i == tournamentSize - 1) {
+			return indexes[i];
+		}
 	}
 }

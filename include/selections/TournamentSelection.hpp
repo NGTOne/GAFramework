@@ -13,9 +13,9 @@ class TournamentSelection : public SelectionStrategy {
 	private:
 
 	protected:
+	void sortByFitness(int indexes[], int fitnesses[], int tournamentSize);
 
 	public:
-
 	TournamentSelection(double newCrossoverRate);
 
         TournamentSelection(unsigned newSeed, double newCrossoverRate);
