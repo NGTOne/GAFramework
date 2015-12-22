@@ -22,7 +22,7 @@ int main(void) {
 	GenePool ** baseGenes = (GenePool**)malloc(sizeof(GenePool*)*64);
 
 	for (int i = 0; i < 64; i++) {
-		baseGenes[i] = new NonHierarchicalGenePool<int>(binaryDigits, 2);
+		baseGenes[i] = new LibraryNode<int>(binaryDigits, 2);
 	}
 
 	Individual * templateIndividual = new Individual(baseGenes, 64, myCrossover, myMutation, myFunction, myToString);

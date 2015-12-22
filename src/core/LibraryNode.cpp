@@ -2,15 +2,15 @@ using namespace std;
 
 #include <sstream>
 #include <string>
-#include "core/NonHierarchicalGenePool.hpp"
+#include "core/LibraryNode.hpp"
 
-template <> void * NonHierarchicalGenePool<int>::getIndex(int index) {
+template <> void * LibraryNode<int>::getIndex(int index) {
 	int * returnValue = &myPopulation[index];
 
 	return (void*)returnValue;
 }
 
-template <> string NonHierarchicalGenePool<int>::toString() {
+template <> string LibraryNode<int>::toString() {
 	string returnString = "";
 	stringstream ss;
 
@@ -27,13 +27,13 @@ template <> string NonHierarchicalGenePool<int>::toString() {
 	return returnString;
 }
 
-template <> void * NonHierarchicalGenePool<double>::getIndex(int index) {
+template <> void * LibraryNode<double>::getIndex(int index) {
 	double * returnValue = &myPopulation[index];
 
 	return (void*)returnValue;
 }
 
-template <> string NonHierarchicalGenePool<double>::toString() {
+template <> string LibraryNode<double>::toString() {
 	string returnString = "";
 	stringstream ss;
 
@@ -50,13 +50,13 @@ template <> string NonHierarchicalGenePool<double>::toString() {
 	return returnString;
 }
 
-template <> void * NonHierarchicalGenePool<char>::getIndex(int index) {
+template <> void * LibraryNode<char>::getIndex(int index) {
 	char * returnValue = &myPopulation[index];
 
 	return (void*)returnValue;
 }
 
-template <> string NonHierarchicalGenePool<char>::toString() {
+template <> string LibraryNode<char>::toString() {
 	string returnString = "";
 	stringstream ss;
 
@@ -73,13 +73,13 @@ template <> string NonHierarchicalGenePool<char>::toString() {
 	return returnString;
 }
 
-template <> void * NonHierarchicalGenePool<bool>::getIndex(int index) {
+template <> void * LibraryNode<bool>::getIndex(int index) {
 	bool * returnValue = &myPopulation[index];
 
 	return (void*)returnValue;
 }
 
-template <> string NonHierarchicalGenePool<bool>::toString() {
+template <> string LibraryNode<bool>::toString() {
 	string returnString = "";
 	stringstream ss;
 
@@ -96,13 +96,13 @@ template <> string NonHierarchicalGenePool<bool>::toString() {
 	return returnString;
 }
 
-template <> void * NonHierarchicalGenePool<string>::getIndex(int index) {
+template <> void * LibraryNode<string>::getIndex(int index) {
 	string * returnValue = &myPopulation[index];
 
 	return (void*)returnValue;
 }
 
-template <> string NonHierarchicalGenePool<string>::toString() {
+template <> string LibraryNode<string>::toString() {
 	string returnString = "";
 	stringstream ss;
 

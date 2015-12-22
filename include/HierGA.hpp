@@ -8,7 +8,7 @@
 #include "core/HierarchicalGenePool.hpp"
 #include "core/Individual.hpp"
 #include "core/MutationOperation.hpp"
-#include "core/NonHierarchicalGenePool.hpp"
+#include "core/LibraryNode.hpp"
 #include "core/SelectionStrategy.hpp"
 #include "core/PropertiesList.hpp"
 #include "core/Property.hpp"
@@ -33,3 +33,6 @@
 #include "propagators/apportioning/SummingPropagator.hpp"
 #include "propagators/apportioning/WeightedAveragePropagator.hpp"
 #pragma once
+
+// Legacy
+typedef LibraryNode NonHierarchicalGenePool;

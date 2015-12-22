@@ -52,7 +52,7 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Genome.cpp -o obj/core/Genome.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Individual.cpp -o obj/core/Individual.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/GenePool.cpp -o obj/core/GenePool.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/NonHierarchicalGenePool.cpp -o obj/core/NonHierarchicalGenePool.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/LibraryNode.cpp -o obj/core/LibraryNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/GenerationModel.cpp -o obj/core/GenerationModel.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EndCondition.cpp -o obj/core/EndCondition.o

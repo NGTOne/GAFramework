@@ -43,7 +43,7 @@ int main(void) {
 		baseGenes[i] = (GenePool**)malloc(sizeof(GenePool*)*8);
 
 		for (int k = 0; k < 8; k++) {
-			baseGenes[i][k] = new NonHierarchicalGenePool<int>(binaryDigits, 2);
+			baseGenes[i][k] = new LibraryNode<int>(binaryDigits, 2);
 		}
 
 		Individual * bottomLevelTemplateIndividual = new Individual(baseGenes[i], 8, bottomLevelCrossovers[i], bottomLevelMutations[i], bottomLevelFunctions[i], bottomLevelToString);

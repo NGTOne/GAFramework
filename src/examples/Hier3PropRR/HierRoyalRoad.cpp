@@ -55,7 +55,7 @@ int main(void) {
 		for (int k = 0; k < 4; k++) {
 			baseGenes[i][k] = (GenePool**)malloc(sizeof(GenePool*)*2);
 			for (int c = 0; c < 2; c++) {
-				baseGenes[i][k][c] = new NonHierarchicalGenePool<int>(binaryDigits, 2);
+				baseGenes[i][k][c] = new LibraryNode<int>(binaryDigits, 2);
 			}
 		}
 	}

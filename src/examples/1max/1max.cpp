@@ -25,7 +25,7 @@ int main(void) {
 	GenePool ** baseGenes = (GenePool**)malloc(sizeof(GenePool*)*32);
 
 	for (int i = 0; i < 32; i++) {
-		baseGenes[i] = new NonHierarchicalGenePool<int>(binaryDigits, 2);
+		baseGenes[i] = new LibraryNode<int>(binaryDigits, 2);
 	}
 
 	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction, myToString);
