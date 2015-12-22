@@ -56,7 +56,7 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/GenerationModel.cpp -o obj/core/GenerationModel.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EndCondition.cpp -o obj/core/EndCondition.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierarchicalGenePool.cpp -o obj/core/HierarchicalGenePool.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PopulationNode.cpp -o obj/core/PopulationNode.o
 
 selections: tournamentSelection
 

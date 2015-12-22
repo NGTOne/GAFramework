@@ -73,7 +73,7 @@ int main(void) {
 
 		for (int k = 0; k < 4; k++) {
 			templateIndividual = new Individual(baseGenes[i][k], 2, bottomLevelCrossovers[i][k], bottomLevelMutations[i][k], bottomLevelFunctions[i][k], bottomLevelToString);
-			firstLevelPools[i][k] = new HierarchicalGenePool(4, templateIndividual, 100, 1, bottomLevelModels[i][k], NULL, myPropagator);
+			firstLevelPools[i][k] = new PopulationNode(4, templateIndividual, 100, 1, bottomLevelModels[i][k], NULL, myPropagator);
 
 			delete(templateIndividual);
 		}
@@ -100,7 +100,7 @@ int main(void) {
 
 	for (int i = 0; i < 4; i++) {
 		templateIndividual = new Individual(firstLevelPools[i], 4, secondLevelCrossovers[i], secondLevelMutations[i], secondLevelFunctions[i], secondLevelToString);
-		secondLevelPools[i] = new HierarchicalGenePool(8, templateIndividual, 100, 1, secondLevelModels[i], NULL, myPropagator);
+		secondLevelPools[i] = new PopulationNode(8, templateIndividual, 100, 1, secondLevelModels[i], NULL, myPropagator);
 
 		delete(templateIndividual);
 	}
@@ -115,7 +115,7 @@ int main(void) {
 
 	templateIndividual = new Individual(secondLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);
 
-	GenePool * topLevelPool = new HierarchicalGenePool(8, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
+	GenePool * topLevelPool = new PopulationNode(8, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
 
 	topLevelPool->run(true);
 

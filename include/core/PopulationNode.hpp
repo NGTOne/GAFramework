@@ -5,7 +5,7 @@
 #pragma once
 
 /*
-* The HierarchicalGenePool class, which extends GenePool, serves two roles:
+* The PopulationNode class, which extends GenePool, serves two roles:
 *
 * First, it is capable of iterating generations and performs all of the
 * functions of a basic genetic algorithm, and a single example of this class`
@@ -21,7 +21,7 @@
 * being split apart.
 */
 
-class HierarchicalGenePool : public GenePool {
+class PopulationNode : public GenePool {
 	private:
 
 	protected:
@@ -57,11 +57,11 @@ class HierarchicalGenePool : public GenePool {
 
 	int getFitnessAtIndex(int index);
 
-	HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
+	PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
 
-        HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
+        PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
 
-	~HierarchicalGenePool();
+	~PopulationNode();
 
 	void init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
 

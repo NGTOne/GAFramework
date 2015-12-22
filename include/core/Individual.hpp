@@ -83,7 +83,7 @@ class Individual {
 
 	Individual * deepCopy();
 
-	//For populating HierarchicalGenePools - basically, use this Individual
+	//For populating PopulationNodes - basically, use this Individual
 	//as a template, just generate a new genome for it
 	Individual * makeRandomCopy();
 

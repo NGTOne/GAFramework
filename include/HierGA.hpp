@@ -5,7 +5,7 @@
 #include "core/GenePool.hpp"
 #include "core/GenerationModel.hpp"
 #include "core/Genome.hpp"
-#include "core/HierarchicalGenePool.hpp"
+#include "core/PopulationNode.hpp"
 #include "core/Individual.hpp"
 #include "core/MutationOperation.hpp"
 #include "core/LibraryNode.hpp"
@@ -35,3 +35,4 @@
 #pragma once
 
 // Legacy
+typedef PopulationNode HierarchicalGenePool;

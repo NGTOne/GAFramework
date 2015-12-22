@@ -1,5 +1,5 @@
 //This abstract class serves as a general base for all selection strategies,
-//allowing any HierarchicalGenePool to use any strategy you might want
+//allowing any PopulationNode to use any strategy you might want
 
 #include <random>
 #include <chrono>

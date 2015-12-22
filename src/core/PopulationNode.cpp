@@ -3,23 +3,23 @@
 //Since these functions are, by and large, very similar, they can be
 //combined together into one class
 
-#include "core/HierarchicalGenePool.hpp"
+#include "core/PopulationNode.hpp"
 #include <sstream>
 #include <iostream>
 
 using namespace std;
 
 //If we don't know the optimum
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) : GenePool() {
+PopulationNode::PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) : GenePool() {
 	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel, newCondition, newPropagator);
 }
 
 //Unknown optimum, overridden seed
-HierarchicalGenePool::HierarchicalGenePool(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) : GenePool(newSeed) {
+PopulationNode::PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) : GenePool(newSeed) {
 	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel, newCondition, newPropagator);
 }
 
-HierarchicalGenePool::~HierarchicalGenePool() {
+PopulationNode::~PopulationNode() {
 	for (int i = 0; i < populationSize; i++) {
 		delete(myPopulation[i]);
 	}
@@ -28,7 +28,7 @@ HierarchicalGenePool::~HierarchicalGenePool() {
 	free(populationFitnesses);
 }
 
-void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) {
+void PopulationNode::init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) {
 	myPopulation = (Individual**)malloc(sizeof(Individual*)*newPopulationSize);
 
 	populationFitnesses = (int*)malloc(sizeof(int)*newPopulationSize);
@@ -54,7 +54,7 @@ void HierarchicalGenePool::init(int newPopulationSize, Individual * templateIndi
 
 //Evaluates the fitnesses of the population of this particular GenePool
 //Basically a convenience thing
-void HierarchicalGenePool::evaluateFitnesses() {
+void PopulationNode::evaluateFitnesses() {
 	for (int i = 0; i < populationSize; i++) {
 		populationFitnesses[i] = myPopulation[i]->checkFitness();
 	}
@@ -62,7 +62,7 @@ void HierarchicalGenePool::evaluateFitnesses() {
 
 //Evaluates the fitnesses of a given population of individuals
 //Doesn't care what their genetic makeup is - uses their fitness functions
-int * HierarchicalGenePool::evaluateFitnesses(Individual ** populationToEval, int populationToEvalSize) {
+int * PopulationNode::evaluateFitnesses(Individual ** populationToEval, int populationToEvalSize) {
 	int * populationToEvalFitnesses = (int*)malloc(sizeof(int)*populationToEvalSize);
 
 	for (int i = 0; i < populationToEvalSize; i++) {
@@ -73,7 +73,7 @@ int * HierarchicalGenePool::evaluateFitnesses(Individual ** populationToEval, in
 }
 
 //When we need a specific individual
-void * HierarchicalGenePool::getIndex(int index) {
+void * PopulationNode::getIndex(int index) {
 	void * returnValue;
 
 	returnValue = (void*)myPopulation[index];
@@ -81,7 +81,7 @@ void * HierarchicalGenePool::getIndex(int index) {
 	return returnValue;
 }
 
-void * HierarchicalGenePool::getFittest() {
+void * PopulationNode::getFittest() {
 	int fittestIndex;
 	int fittestIndexFitness = 0;
 
@@ -96,7 +96,7 @@ void * HierarchicalGenePool::getFittest() {
 }
 
 //Run one generation
-void HierarchicalGenePool::nextGeneration() {
+void PopulationNode::nextGeneration() {
 	Individual ** newPopulation;
 
 	if (currentGeneration < maxGenerations && optimumFound == false) {
@@ -132,11 +132,11 @@ void HierarchicalGenePool::nextGeneration() {
 	}
 }
 
-void HierarchicalGenePool::propagateFitnesses() {
+void PopulationNode::propagateFitnesses() {
 	myPropagator->propagateFitnesses(myPopulation, populationSize);
 }
 
-void HierarchicalGenePool::run(bool verbose) {
+void PopulationNode::run(bool verbose) {
 	if (verbose == true) {
 		cout << "Before:\n" << toString() << "-----------------------------------------------------------------\n";
 	}
@@ -167,7 +167,7 @@ void HierarchicalGenePool::run(bool verbose) {
 //For HGAs - if we want to run multiple generations of a lower-level gene pool
 //for every one of a higher-level one, this is how
 //Basically a loop wrapped around nextGeneration()
-void HierarchicalGenePool::runGenerations() {
+void PopulationNode::runGenerations() {
 	int target = currentGeneration + numIterationsPerGeneration;
 
 	for (int i = currentGeneration; i < target && i < maxGenerations && optimumFound == false; i++) {
@@ -175,23 +175,23 @@ void HierarchicalGenePool::runGenerations() {
 	}
 }
 
-void HierarchicalGenePool::sortPopulation() {
+void PopulationNode::sortPopulation() {
 	myModel->sortPopulation(myPopulation, populationFitnesses, populationSize);
 }
 
-int HierarchicalGenePool::getHighestFitness() {
+int PopulationNode::getHighestFitness() {
 	return populationFitnesses[0];
 }
 
-void HierarchicalGenePool::setFitnessAtIndex(int index, int newFitness) {
+void PopulationNode::setFitnessAtIndex(int index, int newFitness) {
 	myPopulation[index]->setFitness(newFitness);
 }
 
-int HierarchicalGenePool::getFitnessAtIndex(int index) {
+int PopulationNode::getFitnessAtIndex(int index) {
 	return populationFitnesses[index];
 }
 
-string HierarchicalGenePool::toString() {
+string PopulationNode::toString() {
 	string returnString = "";
 	stringstream ss;
 	string populationString;

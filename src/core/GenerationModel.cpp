@@ -1,5 +1,5 @@
 //This abstract class serves as a general base for all generation models,
-//allowing any HierarchicalGenePool to use any model you might want
+//allowing any PopulationNode to use any model you might want
 
 #include <random>
 #include <chrono>

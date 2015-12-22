@@ -30,7 +30,7 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction, myToString);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(64, templateIndividual, 100, 1, myGenerationModel, myEndCondition, myPropagator);
+	PopulationNode * topLevelPool = new PopulationNode(64, templateIndividual, 100, 1, myGenerationModel, myEndCondition, myPropagator);
 
 	delete(templateIndividual);
 	

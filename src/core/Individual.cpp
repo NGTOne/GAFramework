@@ -187,7 +187,7 @@ Individual * Individual::deepCopy() {
 	return myCopy;
 }
 
-//For populating HierarchicalGenePools - basically, use this Individual as a
+//For populating PopulationNodes - basically, use this Individual as a
 //template, just generate a new genome for it
 Individual * Individual::makeRandomCopy() {
 	Individual * myCopy = new Individual(genome->getGenePools(), genome->getGenomeLength(), myCrossover, myMutation, myFunction, myToString, speciesID);

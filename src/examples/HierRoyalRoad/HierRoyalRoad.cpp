@@ -49,7 +49,7 @@ int main(void) {
 
 		Individual * bottomLevelTemplateIndividual = new Individual(baseGenes[i], 8, bottomLevelCrossovers[i], bottomLevelMutations[i], bottomLevelFunctions[i], bottomLevelToString);
 
-		bottomLevelPools[i] = new HierarchicalGenePool(8, bottomLevelTemplateIndividual, 100, 1, bottomLevelModels[i], NULL, myPropagator);
+		bottomLevelPools[i] = new PopulationNode(8, bottomLevelTemplateIndividual, 100, 1, bottomLevelModels[i], NULL, myPropagator);
 
 		delete(bottomLevelTemplateIndividual);
 	}
@@ -63,7 +63,7 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);
 
-	HierarchicalGenePool * topLevelPool = new HierarchicalGenePool(32, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
+	PopulationNode * topLevelPool = new PopulationNode(32, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
 
 	topLevelPool->run(true);
 
