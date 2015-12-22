@@ -23,7 +23,7 @@ int main(void) {
 
 	for (int i = 0; i < 4; i++) {
 		bottomLevelStrategies[i] = new TournamentSelection(0.5);
-		bottomLevelModels[i] = new GAGeneration(2, bottomLevelStrategies[i]);
+		bottomLevelModels[i] = new GA(2, bottomLevelStrategies[i]);
 		bottomLevelFunctions[i] = new OneMaxFitness();
 		bottomLevelCrossovers[i] = new NPointCrossover(2);
 		bottomLevelMutations[i] = new UniformMutation(0.2);
@@ -58,7 +58,7 @@ int main(void) {
 	FitnessFunction * topLevelFunction = new HierOneMaxFitness();
 	ToStringFunction * topLevelToString = new HierOneMaxToString();
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
-	EvolutionarySystem * topLevelModel = new GAGeneration(2, topLevelStrategy);
+	EvolutionarySystem * topLevelModel = new GA(2, topLevelStrategy);
 	EndCondition * topLevelCondition = new FitnessMatchEnd(32);
 
 	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);

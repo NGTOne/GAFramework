@@ -8,8 +8,8 @@ using namespace std;
 int main(void) {
 	SelectionStrategy * myStrategy = new TournamentSelection(0.5);
 
-	//EvolutionarySystem * myEvolutionarySystem = new SSGAGeneration(2, myStrategy);
-	EvolutionarySystem * myEvolutionarySystem = new ReplacingGAGeneration(myStrategy);
+	//EvolutionarySystem * myEvolutionarySystem = new SSGA(2, myStrategy);
+	EvolutionarySystem * myEvolutionarySystem = new ReplacingGA(myStrategy);
 
 	EndCondition * myEndCondition = new FitnessMatchEnd(32);
 

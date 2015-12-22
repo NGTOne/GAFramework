@@ -4,7 +4,7 @@
 #pragma once
 
 /*
-* The ESGeneration model uses the (mu/rho+, lambda)-ES model, which is an
+* The ES model uses the (mu/rho+, lambda)-ES model, which is an
 * extension of the original ES model proposed by Ingo Rechenberg et. al. in
 * the 1960s.
 *
@@ -15,16 +15,16 @@
 * most fit.
 */
 
-class ESGeneration : public EvolutionarySystem {
+class ES : public EvolutionarySystem {
 	private:
 
 	protected:
 
 	public:
 
-	ESGeneration(SelectionStrategy * newStrategy);
+	ES(SelectionStrategy * newStrategy);
 
-	ESGeneration(unsigned newSeed, SelectionStrategy * newStrategy);
+	ES(unsigned newSeed, SelectionStrategy * newStrategy);
 
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 };

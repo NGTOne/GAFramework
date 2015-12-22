@@ -2,21 +2,21 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "systems/GAGeneration.hpp"
+#include "systems/GA.hpp"
 
 using namespace std;
 
-GAGeneration::GAGeneration(int newNumElites, SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {
+GA::GA(int newNumElites, SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {
 	numElites = newNumElites;
 }
 
-GAGeneration::GAGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {
+GA::GA(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {
 	numElites = newNumElites;
 }
 
 //This strategy uses the GA (Genetic Algorithms) approach - pick a few elites,
 //then fill the rest of the population in with new individuals
-Individual ** GAGeneration::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
+Individual ** GA::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
 	Individual ** newPopulation;
 	int * newFitnesses;
 	bool eliteLocations[populationSize];

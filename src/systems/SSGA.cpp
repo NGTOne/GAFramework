@@ -2,29 +2,29 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "systems/SSGAGeneration.hpp"
+#include "systems/SSGA.hpp"
 
 using namespace std;
 
 
-SSGAGeneration::SSGAGeneration(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {
+SSGA::SSGA(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {
 	niching = NULL;
 }
 
-SSGAGeneration::SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {
+SSGA::SSGA(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {
 	niching = NULL;
 }
-SSGAGeneration::SSGAGeneration(SelectionStrategy * newStrategy, NichingStrategy * newNiching) : EvolutionarySystem(newStrategy) {
+SSGA::SSGA(SelectionStrategy * newStrategy, NichingStrategy * newNiching) : EvolutionarySystem(newStrategy) {
 	niching = newNiching;
 }
 
-SSGAGeneration::SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy, NichingStrategy * newNiching) : EvolutionarySystem(newSeed, newStrategy) {
+SSGA::SSGA(unsigned newSeed, SelectionStrategy * newStrategy, NichingStrategy * newNiching) : EvolutionarySystem(newSeed, newStrategy) {
 	niching = newNiching;
 }
 
 //This strategy uses the SSGA (Steady State Genetic Algorithm) approach - 1:1
 //replacement of parents by offspring, using local elitism
-Individual ** SSGAGeneration::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
+Individual ** SSGA::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
 	Individual * firstParent;
 	Individual * secondParent;
 	Individual ** children;

@@ -2,15 +2,15 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "systems/ReplacingGAGeneration.hpp"
+#include "systems/ReplacingGA.hpp"
 
 using namespace std;
 
-ReplacingGAGeneration::ReplacingGAGeneration(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {}
+ReplacingGA::ReplacingGA(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {}
 
-ReplacingGAGeneration::ReplacingGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {}
+ReplacingGA::ReplacingGA(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {}
 
-bool ReplacingGAGeneration::inPopulation(Individual * target, Individual ** population, int populationSize) {
+bool ReplacingGA::inPopulation(Individual * target, Individual ** population, int populationSize) {
 	for (int i = 0; i < populationSize; i++) {
 		if (population[i] == target) return true;
 	}
@@ -18,7 +18,7 @@ bool ReplacingGAGeneration::inPopulation(Individual * target, Individual ** popu
 	return false;
 }
 
-void ReplacingGAGeneration::removeUnusedIndividuals(Individual ** initialPopulation, Individual ** newPopulation, int populationSize) {
+void ReplacingGA::removeUnusedIndividuals(Individual ** initialPopulation, Individual ** newPopulation, int populationSize) {
 	Individual * temp;
 
 	for (int i = 0; i < populationSize; i++) {
@@ -26,7 +26,7 @@ void ReplacingGAGeneration::removeUnusedIndividuals(Individual ** initialPopulat
 	}
 }
 
-Individual ** ReplacingGAGeneration::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
+Individual ** ReplacingGA::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
 	Individual ** newPopulation;
 	int indexes[2];
 	int * newFitnesses;

@@ -2,18 +2,18 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "systems/ESGeneration.hpp"
+#include "systems/ES.hpp"
 
 using namespace std;
 
-ESGeneration::ESGeneration(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {}
+ES::ES(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {}
 
-ESGeneration::ESGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {}
+ES::ES(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {}
 
 //This strategy uses the ES (Evolutionary Strategies) approach - generate all
 //the offspring, concatenate them together, sort them by fitness, and then
 //truncate to the original population size
-Individual ** ESGeneration::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
+Individual ** ES::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
         Individual ** mutantChildren;
         Individual ** crossoverChildren;
         Individual ** finalPopulation;

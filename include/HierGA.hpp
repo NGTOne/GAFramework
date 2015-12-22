@@ -18,10 +18,10 @@
 #include "crossovers/UniformCrossover.hpp"
 #include "endconditions/FitnessMatchEnd.hpp"
 #include "endconditions/MaxFitnessConvergenceEnd.hpp"
-#include "systems/ESGeneration.hpp"
-#include "systems/GAGeneration.hpp"
-#include "systems/ReplacingGAGeneration.hpp"
-#include "systems/SSGAGeneration.hpp"
+#include "systems/ES.hpp"
+#include "systems/GA.hpp"
+#include "systems/ReplacingGA.hpp"
+#include "systems/SSGA.hpp"
 #include "systems/niching/Crowding.hpp"
 #include "mutations/BoundaryMutation.hpp"
 #include "mutations/UniformMutation.hpp"
@@ -38,3 +38,7 @@
 typedef PopulationNode HierarchicalGenePool;
 typedef GeneNode GenePool;
 typedef EvolutionarySystem GenerationModel;
+typedef GA GAGeneration;
+typedef ES ESGeneration;
+typedef SSGA SSGAGeneration;
+typedef ReplacingGA ReplacingGAGeneration;

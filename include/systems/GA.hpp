@@ -4,7 +4,7 @@
 #pragma once
 
 /*
-* The GAGeneration model reflects the "classic" GA, as popularized by the work
+* The GA model reflects the "classic" GA, as popularized by the work
 * of John Holland in the 1970s.
 *
 * In this model, a few elites (the best of the previous generation) are
@@ -13,7 +13,7 @@
 * combination of crossover and mutation.
 */
 
-class GAGeneration : public EvolutionarySystem {
+class GA : public EvolutionarySystem {
 	private:
 
 	protected:
@@ -21,9 +21,9 @@ class GAGeneration : public EvolutionarySystem {
 
 	public:
 
-	GAGeneration(int newNumElites, SelectionStrategy * newStrategy);
+	GA(int newNumElites, SelectionStrategy * newStrategy);
 
-	GAGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
+	GA(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
 
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 };

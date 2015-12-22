@@ -71,16 +71,16 @@ endconditions: fitnessMatch
 propagators: nonPropagator downPropagator apportioningPropagator
 
 ga:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/GAGeneration.cpp -o obj/systems/GAGeneration.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/GA.cpp -o obj/systems/GA.o
 
 es:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ESGeneration.cpp -o obj/systems/ESGeneration.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ES.cpp -o obj/systems/ES.o
 
 ssga: niching
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/SSGAGeneration.cpp -o obj/systems/SSGAGeneration.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/SSGA.cpp -o obj/systems/SSGA.o
 
 rga:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ReplacingGAGeneration.cpp -o obj/systems/ReplacingGAGeneration.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ReplacingGA.cpp -o obj/systems/ReplacingGA.o
 
 niching:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/niching/Crowding.cpp -o obj/systems/niching/Crowding.o

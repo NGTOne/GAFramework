@@ -4,13 +4,13 @@
 #pragma once
 
 /*
-* The ReplacingGAGeneration model represents a "classical" GA model,
+* The ReplacingGA model represents a "classical" GA model,
 * similar to that proposed by John Holland in the 1970s, but where the
 * offspring may (or may not) replace their parents at the exact same locations
 * in the population.
 */
 
-class ReplacingGAGeneration : public EvolutionarySystem {
+class ReplacingGA : public EvolutionarySystem {
 	private:
 	double replacementRate;
 
@@ -19,8 +19,8 @@ class ReplacingGAGeneration : public EvolutionarySystem {
 	bool inPopulation(Individual * target, Individual ** population, int populationSize);
 
 	public:
-	ReplacingGAGeneration(SelectionStrategy * newStrategy);
-	ReplacingGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy);
+	ReplacingGA(SelectionStrategy * newStrategy);
+	ReplacingGA(unsigned newSeed, SelectionStrategy * newStrategy);
 
 	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
 };

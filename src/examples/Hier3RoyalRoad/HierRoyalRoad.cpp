@@ -35,7 +35,7 @@ int main(void) {
 
 		for (int k = 0; k < 4; k++) {
 			bottomLevelStrategies[i][k] = new TournamentSelection(0.5);
-			bottomLevelModels[i][k] = new GAGeneration(2, bottomLevelStrategies[i][k]);
+			bottomLevelModels[i][k] = new GA(2, bottomLevelStrategies[i][k]);
 			bottomLevelFunctions[i][k] = new RoyalRoadFitness();
 			bottomLevelCrossovers[i][k] = new NPointCrossover(2);
 			bottomLevelMutations[i][k] = new UniformMutation(0.2);
@@ -90,7 +90,7 @@ int main(void) {
 
 	for (int i = 0; i < 4; i++) {
 		secondLevelStrategies[i] = new TournamentSelection(0.5);
-		secondLevelModels[i] = new GAGeneration(2, secondLevelStrategies[i]);
+		secondLevelModels[i] = new GA(2, secondLevelStrategies[i]);
 		secondLevelFunctions[i] = new HierRoyalRoadFitness();
 		secondLevelCrossovers[i] = new NPointCrossover(2);
 		secondLevelMutations[i] = new UniformMutation(0.2);
@@ -107,7 +107,7 @@ int main(void) {
 
 	//Setting up the top level (bitstring length = 32, genome length = 4)
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
-	EvolutionarySystem * topLevelModel = new GAGeneration(2, topLevelStrategy);
+	EvolutionarySystem * topLevelModel = new GA(2, topLevelStrategy);
 	FitnessFunction * topLevelFunction = new HierRoyalRoadFitness();
 	ToStringFunction * topLevelToString = new HierRoyalRoadToString();
 	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);

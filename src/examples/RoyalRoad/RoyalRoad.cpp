@@ -8,7 +8,7 @@ using namespace std;
 int main(void) {
 	SelectionStrategy * myStrategy = new TournamentSelection(0.5);
 
-	EvolutionarySystem * myModel = new GAGeneration(2, myStrategy);
+	EvolutionarySystem * myModel = new GA(2, myStrategy);
 
 	FitnessFunction * myFunction = new RoyalRoadFitness();
 	ToStringFunction * myToString = new RoyalRoadToString();
