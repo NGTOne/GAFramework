@@ -3,7 +3,7 @@
 void DownPropagator::propagateFitnesses(Individual ** population, int populationSize) {
 	int tempFitness;
 	Genome * tempGenome;
-	GenePool ** tempPools;
+	GeneNode ** tempPools;
 	int tempGenomeLength;
 	int * tempIndexes;
 
@@ -11,7 +11,7 @@ void DownPropagator::propagateFitnesses(Individual ** population, int population
 		tempFitness = population[i]->getFitness();
 		
 		tempGenome = population[i]->getGenome();
-		tempPools = tempGenome->getGenePools();
+		tempPools = tempGenome->getGeneNodes();
 		tempGenomeLength = tempGenome->getGenomeLength();
 		tempIndexes = tempGenome->getGenome();		
 

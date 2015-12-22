@@ -2,7 +2,7 @@
 #include "core/EndCondition.hpp"
 #include "core/FitnessFunction.hpp"
 #include "core/ToStringFunction.hpp"
-#include "core/GenePool.hpp"
+#include "core/GeneNode.hpp"
 #include "core/GenerationModel.hpp"
 #include "core/Genome.hpp"
 #include "core/PopulationNode.hpp"
@@ -36,3 +36,4 @@
 
 // Legacy
 typedef PopulationNode HierarchicalGenePool;
+typedef GeneNode GenePool;

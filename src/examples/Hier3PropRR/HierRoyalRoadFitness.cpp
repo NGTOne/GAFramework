@@ -7,7 +7,7 @@ using namespace std;
 
 HierRoyalRoadFitness::HierRoyalRoadFitness() : FitnessFunction() {}
 
-PropertiesList * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
+PropertiesList * HierRoyalRoadFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
 	Individual * tempIndividual;
 	Genome * tempGenome;
 	PropertiesList * returnProperties = new PropertiesList(0);
@@ -15,7 +15,7 @@ PropertiesList * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * ind
 	int numGenomes = 0;
 	int length = 0;
 	int * fullIndexes = NULL;
-	GenePool ** fullPools = NULL;
+	GeneNode ** fullPools = NULL;
 
 	//Get the second (middle) level - we're evaluating at the top (first)
 	//level, so we have to retrieve the second and third (middle and
@@ -27,7 +27,7 @@ PropertiesList * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * ind
 		tempGenome = tempIndividual->getGenome();
 
 		int tempLength = tempGenome->getGenomeLength();
-		GenePool ** tempPools = tempGenome->getGenePools();
+		GeneNode ** tempPools = tempGenome->getGeneNodes();
 		int * tempIndexes = tempGenome->getGenome();
 
 		//Get the genomes at the bottom level
@@ -44,11 +44,11 @@ PropertiesList * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * ind
 	for (int i = 0; i < numGenomes; i++) {
 		length += tempGenomeList[i]->getGenomeLength();
 		fullIndexes = (int*)realloc(fullIndexes, sizeof(int)*length);
-		fullPools = (GenePool**)realloc(fullPools, sizeof(GenePool*)*length);
+		fullPools = (GeneNode**)realloc(fullPools, sizeof(GeneNode*)*length);
 
 		int currentInternalIndex = 0;
 		int * tempIndexes = tempGenomeList[i]->getGenome();
-		GenePool ** tempPools = tempGenomeList[i]->getGenePools();
+		GeneNode ** tempPools = tempGenomeList[i]->getGeneNodes();
 
 		for (int k = length - tempGenomeList[i]->getGenomeLength(); k < length; k++) {
 			fullIndexes[k] = tempIndexes[currentInternalIndex];
@@ -96,7 +96,7 @@ PropertiesList * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * ind
 	return returnProperties;
 }
 
-string HierRoyalRoadToString::toString(GenePool ** pools, int * indexes, int genomeLength) {
+string HierRoyalRoadToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

@@ -1,5 +1,5 @@
 #include <string>
-#include "GenePool.hpp"
+#include "GeneNode.hpp"
 #include "PropertiesList.hpp"
 #pragma once
 
@@ -16,5 +16,5 @@ class FitnessFunction {
 	protected:
 
 	public:
-	virtual PropertiesList * checkFitness(GenePool ** pools, int * indexes, int genomeLength)=0;
+	virtual PropertiesList * checkFitness(GeneNode ** pools, int * indexes, int genomeLength)=0;
 };

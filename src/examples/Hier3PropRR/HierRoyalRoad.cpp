@@ -40,31 +40,31 @@ int main(void) {
 	int binaryDigits[] = {0,1};
 
 	//The idiomatically correct way to set up an HGA is to have EACH
-	//GenePool, hierarchical or otherwise, constructed separately
+	//GeneNode, hierarchical or otherwise, constructed separately
 	//Because of this, setting up the bottom level of a balanced tree like
 	//this can become somewhat cumbersome
 	//Unfortunately, an extra level of pointers is required for each
 	//additional level in order to do it correctly
 	//TODO: Write a wrapper class, or at least a series of static methods,
 	//to do it automatically
-	GenePool **** baseGenes = (GenePool****)malloc(sizeof(GenePool***)*4);
+	GeneNode **** baseGenes = (GeneNode****)malloc(sizeof(GeneNode***)*4);
 
 	for (int i = 0; i < 4; i++) {
-		baseGenes[i] = (GenePool***)malloc(sizeof(GenePool**)*4);
+		baseGenes[i] = (GeneNode***)malloc(sizeof(GeneNode**)*4);
 		
 		for (int k = 0; k < 4; k++) {
-			baseGenes[i][k] = (GenePool**)malloc(sizeof(GenePool*)*2);
+			baseGenes[i][k] = (GeneNode**)malloc(sizeof(GeneNode*)*2);
 			for (int c = 0; c < 2; c++) {
 				baseGenes[i][k][c] = new LibraryNode<int>(binaryDigits, 2);
 			}
 		}
 	}
 
-	GenePool *** firstLevelPools = (GenePool***)malloc(sizeof(GenePool**)*4);
+	GeneNode *** firstLevelPools = (GeneNode***)malloc(sizeof(GeneNode**)*4);
 
 	for (int i = 0; i < 4; i++) {
 
-		firstLevelPools[i] = (GenePool**)malloc(sizeof(GenePool*)*4);
+		firstLevelPools[i] = (GeneNode**)malloc(sizeof(GeneNode*)*4);
 
 		for (int k = 0; k < 4; k++) {
 			templateIndividual = new Individual(baseGenes[i][k], 2, bottomLevelCrossovers[i][k], bottomLevelMutations[i][k], NULL, RRToString);
@@ -89,7 +89,7 @@ int main(void) {
 		secondLevelMutations[i] = new UniformMutation(0.2);
 	}
 
-	GenePool ** secondLevelPools = (GenePool**)malloc(sizeof(GenePool*)*4);
+	GeneNode ** secondLevelPools = (GeneNode**)malloc(sizeof(GeneNode*)*4);
 
 	for (int i = 0; i < 4; i++) {
 		templateIndividual = new Individual(firstLevelPools[i], 4, secondLevelCrossovers[i], secondLevelMutations[i], NULL, HierRRToString);
@@ -107,7 +107,7 @@ int main(void) {
 
 	templateIndividual = new Individual(secondLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, HierRRToString);
 
-	GenePool * topLevelPool = new PopulationNode(8, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
+	GeneNode * topLevelPool = new PopulationNode(8, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
 
 	topLevelPool->run(true);
 

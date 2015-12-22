@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Genome::Genome(int * newGene, int newGenomeLength, GenePool ** newGenePools) {
+Genome::Genome(int * newGene, int newGenomeLength, GeneNode ** newGeneNodes) {
 	gene = (int*)malloc(sizeof(int)*newGenomeLength);
 
 	for (int i = 0; i < newGenomeLength; i++) {
@@ -12,7 +12,7 @@ Genome::Genome(int * newGene, int newGenomeLength, GenePool ** newGenePools) {
 	}
 
 	genomeLength = newGenomeLength;
-	genePools = newGenePools;
+	genePools = newGeneNodes;
 }
 
 Genome::~Genome() {
@@ -27,7 +27,7 @@ int Genome::getGenomeLength() {
 	return genomeLength;
 }
 
-GenePool ** Genome::getGenePools() {
+GeneNode ** Genome::getGeneNodes() {
 	return genePools;
 }
 

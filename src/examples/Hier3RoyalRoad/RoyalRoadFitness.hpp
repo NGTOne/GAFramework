@@ -9,7 +9,7 @@ class RoyalRoadFitness : public FitnessFunction {
 
 	public:
 	RoyalRoadFitness();
-	PropertiesList * checkFitness(GenePool ** pools, int * indexes, int genomeLength);
+	PropertiesList * checkFitness(GeneNode ** pools, int * indexes, int genomeLength);
 };
 
 class RoyalRoadToString : public ToStringFunction {
@@ -18,5 +18,5 @@ class RoyalRoadToString : public ToStringFunction {
 	protected:
 
 	public:
-	std::string toString(GenePool ** pools, int * indexes, int genomeLength);
+	std::string toString(GeneNode ** pools, int * indexes, int genomeLength);
 };

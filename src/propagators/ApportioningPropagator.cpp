@@ -13,7 +13,7 @@ int ApportioningPropagator::getIndividualCount(Individual ** population, int pop
 int * ApportioningPropagator::getUseCount(Individual ** population, int populationSize, Individual * target) {
 	int i, k;
 	Genome * genome;
-	GenePool ** pools;
+	GeneNode ** pools;
 	int genomeLength;
 	int * indexes;
 
@@ -22,7 +22,7 @@ int * ApportioningPropagator::getUseCount(Individual ** population, int populati
 	for (i = 0; i < populationSize; i++) {
 		numUses[i] = 0;
 		genome = population[i]->getGenome();
-		pools = genome->getGenePools();
+		pools = genome->getGeneNodes();
 		genomeLength = genome->getGenomeLength();
 		indexes = genome->getGenome();
 
@@ -40,7 +40,7 @@ void ApportioningPropagator::propagateFitnesses(Individual ** population, int po
 	int fitnessContribution, assignableFitness;
 	int i, k, c;
 	Genome * genome;
-	GenePool ** pools;
+	GeneNode ** pools;
 	int genomeLength, *indexes;
 	Individual * temp;
 	Individual ** used = (Individual**)malloc(sizeof(Individual*));
@@ -51,7 +51,7 @@ void ApportioningPropagator::propagateFitnesses(Individual ** population, int po
 	for (i = 0; i < populationSize; i++) {
 		genome = population[i]->getGenome();
 		genomeLength = genome->getGenomeLength();
-		pools = genome->getGenePools();
+		pools = genome->getGeneNodes();
 		indexes = genome->getGenome();
 
 		for (k = 0; k < genomeLength; k++) {
@@ -74,7 +74,7 @@ void ApportioningPropagator::propagateFitnesses(Individual ** population, int po
 	for (i = 0; i < populationSize; i++) {
 		genome = population[i]->getGenome();
 		genomeLength = genome->getGenomeLength();
-		pools = genome->getGenePools();
+		pools = genome->getGeneNodes();
 
 		for (k = 0; k < genomeLength; k++) {
 			pools[k]->propagateFitnesses();	

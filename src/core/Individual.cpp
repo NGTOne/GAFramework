@@ -10,18 +10,18 @@ using namespace std;
 
 //Basic constructor - lets us have a completely generic Individual that doesn't
 //know what the heck is going on inside it
-Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString) {
+Individual::Individual(GeneNode ** newGeneNodes, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString) {
 	//The system time that the first individual of that species was
 	//created makes an acceptable species ID
 	unsigned newSpeciesID = chrono::system_clock::now().time_since_epoch().count();
 
-	init(newGenePools, newGenomeLength, newCrossover, newMutation, newFitness, newToString, newSpeciesID);
+	init(newGeneNodes, newGenomeLength, newCrossover, newMutation, newFitness, newToString, newSpeciesID);
 
 	checkFitness();
 }
 
-Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID) {
-	init(newGenePools, newGenomeLength, newCrossover, newMutation, newFitness, newToString, newSpeciesID);
+Individual::Individual(GeneNode ** newGeneNodes, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID) {
+	init(newGeneNodes, newGenomeLength, newCrossover, newMutation, newFitness, newToString, newSpeciesID);
 
 	checkFitness();
 }
@@ -29,12 +29,12 @@ Individual::Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverO
 //Constructor that lets us create an Individual with a fully specified genome
 //Necessary for crossover/mutation
 Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID) {
-	init(newGenome->getGenePools(), newGenome->getGenomeLength(), newCrossover, newMutation, newFitness, newToString, newSpeciesID);
+	init(newGenome->getGeneNodes(), newGenome->getGenomeLength(), newCrossover, newMutation, newFitness, newToString, newSpeciesID);
 
 	//Throw out the random genome we just created
 	delete(genome);
 
-	genome = new Genome(newGenome->getGenome(), newGenome->getGenomeLength(), newGenome->getGenePools());
+	genome = new Genome(newGenome->getGenome(), newGenome->getGenomeLength(), newGenome->getGeneNodes());
 
 	checkFitness();
 }
@@ -60,7 +60,7 @@ Individual::~Individual() {
 	}
 }
 
-void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID) {
+void Individual::init(GeneNode ** newGeneNodes, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID) {
 	int * newGenome = (int*)malloc(sizeof(int)*newGenomeLength);
 
 	properties = NULL;
@@ -68,10 +68,10 @@ void Individual::init(GenePool ** newGenePools, int newGenomeLength, CrossoverOp
 	//This way, we don't actually need to know how many genes are in
 	//each pool - it can be 2 or 2000
 	for (int i = 0; i < newGenomeLength; i++) {
-		newGenome[i] = newGenePools[i]->chooseRandomMember();
+		newGenome[i] = newGeneNodes[i]->chooseRandomMember();
 	}
 
-	genome = new Genome(newGenome, newGenomeLength, newGenePools);
+	genome = new Genome(newGenome, newGenomeLength, newGeneNodes);
 
 	free(newGenome);
 
@@ -123,10 +123,10 @@ Individual * Individual::mutationOperation() {
 	Genome * mutantGenome;
 	int maxValues[genome->getGenomeLength()];
 
-	GenePool ** myGenePools = genome->getGenePools();
+	GeneNode ** myGeneNodes = genome->getGeneNodes();
 
 	for (int i = 0; i < genome->getGenomeLength(); i++) {
-		maxValues[i] = myGenePools[i]->getPopulationSize()-1;
+		maxValues[i] = myGeneNodes[i]->getPopulationSize()-1;
 	}
 
 	mutantGenome = myMutation->mutate(genome, maxValues);
@@ -141,7 +141,7 @@ int Individual::checkFitness() {
 	PropertiesList * newProperties;
 
 	if (fitnessOverridden == false) {
-		newProperties = myFunction->checkFitness(genome->getGenePools(), genome->getGenome(), genome->getGenomeLength());
+		newProperties = myFunction->checkFitness(genome->getGeneNodes(), genome->getGenome(), genome->getGenomeLength());
 
 		if (properties != NULL) {
 			delete(properties);
@@ -170,7 +170,7 @@ unsigned Individual::getSpeciesID() {
 
 Individual * Individual::deepCopy() {
 	PropertiesList * newPropertiesList = new PropertiesList();
-	Genome * newGenome = new Genome(genome->getGenome(), genome->getGenomeLength(), genome->getGenePools());
+	Genome * newGenome = new Genome(genome->getGenome(), genome->getGenomeLength(), genome->getGeneNodes());
 
 	PropertyBase ** myProperties = properties->getProperties();
 	int numProperties = properties->getNumProperties();
@@ -190,7 +190,7 @@ Individual * Individual::deepCopy() {
 //For populating PopulationNodes - basically, use this Individual as a
 //template, just generate a new genome for it
 Individual * Individual::makeRandomCopy() {
-	Individual * myCopy = new Individual(genome->getGenePools(), genome->getGenomeLength(), myCrossover, myMutation, myFunction, myToString, speciesID);
+	Individual * myCopy = new Individual(genome->getGeneNodes(), genome->getGenomeLength(), myCrossover, myMutation, myFunction, myToString, speciesID);
 
 	return myCopy;
 }
@@ -201,7 +201,7 @@ Individual * Individual::makeRandomCopy() {
 //If the chromosomes in newGenome are out of range for their gene pools, bad
 //things will happen
 Individual * Individual::makeSpecifiedCopy(int newGenome[]) {
-	Genome * tempGenome = new Genome(newGenome, genome->getGenomeLength(), genome->getGenePools());
+	Genome * tempGenome = new Genome(newGenome, genome->getGenomeLength(), genome->getGeneNodes());
 
 	Individual * myCopy = new Individual(tempGenome, myCrossover, myMutation, myFunction, myToString, speciesID);
 
@@ -210,8 +210,8 @@ Individual * Individual::makeSpecifiedCopy(int newGenome[]) {
 	return myCopy;
 }
 
-GenePool ** Individual::getGenePoolList() {
-	return genome->getGenePools();
+GeneNode ** Individual::getGeneNodeList() {
+	return genome->getGeneNodes();
 }
 
 //Necessary for crossover
@@ -220,10 +220,10 @@ Genome * Individual::getGenome() {
 }
 
 void Individual::runHierarchicalGenerations() {
-	GenePool ** myGenePools = genome->getGenePools();
+	GeneNode ** myGeneNodes = genome->getGeneNodes();
 
 	for (int i = 0; i < genome->getGenomeLength(); i++) {
-		myGenePools[i]->runGenerations();
+		myGeneNodes[i]->runGenerations();
 	}
 }
 
@@ -257,10 +257,10 @@ int Individual::getGenomeLength() {
 }
 
 bool Individual::usesComponent(Individual * component) {
-	GenePool ** pools;
+	GeneNode ** pools;
 	int i, genomeLength, *indexes;
 
-	pools = genome->getGenePools();
+	pools = genome->getGeneNodes();
 	genomeLength = genome->getGenomeLength();
 	indexes = genome->getGenome();
 
@@ -271,7 +271,7 @@ bool Individual::usesComponent(Individual * component) {
 }
 
 string Individual::toGenomeString() {
-	return myToString->toString(genome->getGenePools(), genome->getGenome(), genome->getGenomeLength());
+	return myToString->toString(genome->getGeneNodes(), genome->getGenome(), genome->getGenomeLength());
 }
 
 string Individual::toString() {

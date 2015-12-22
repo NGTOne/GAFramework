@@ -5,7 +5,7 @@
 #pragma once
 
 /*
-* The PopulationNode class, which extends GenePool, serves two roles:
+* The PopulationNode class, which extends GeneNode, serves two roles:
 *
 * First, it is capable of iterating generations and performs all of the
 * functions of a basic genetic algorithm, and a single example of this class`
@@ -21,7 +21,7 @@
 * being split apart.
 */
 
-class PopulationNode : public GenePool {
+class PopulationNode : public GeneNode {
 	private:
 
 	protected:
@@ -66,7 +66,7 @@ class PopulationNode : public GenePool {
 	void init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
 
 	//Evaluates the fitnesses of the population of this particular
-	//GenePool - basically a convenience thing
+	//GeneNode - basically a convenience thing
 	void evaluateFitnesses();
 
 	//Wraps around the fitness propagator and allows us to call it

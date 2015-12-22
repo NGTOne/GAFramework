@@ -9,7 +9,7 @@ RoyalRoadFitness::RoyalRoadFitness() : FitnessFunction() {}
 
 //Slightly more complex than the base RR fitness - returns the location of
 //EVERY path, not just the longest one
-PropertiesList * RoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
+PropertiesList * RoyalRoadFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
 	int longestPathLength = 0;
 	int currentPathLength = 0;
 	int currentPathIndex;
@@ -68,7 +68,7 @@ PropertiesList * RoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes
 	return returnProperties;
 }
 
-string RoyalRoadToString::toString(GenePool ** pools, int * indexes, int genomeLength) {
+string RoyalRoadToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

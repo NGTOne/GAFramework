@@ -1,32 +1,32 @@
 #include <cstdlib>
 #include <random>
 #include <chrono>
-#include "core/GenePool.hpp"
+#include "core/GeneNode.hpp"
 
 using namespace std;
 
-GenePool::GenePool() {
+GeneNode::GeneNode() {
 	seed = chrono::system_clock::now().time_since_epoch().count();
 	init(seed);
 }
 
-GenePool::GenePool(unsigned overriddenSeed) {
+GeneNode::GeneNode(unsigned overriddenSeed) {
 	init(overriddenSeed);
 }
 
-GenePool::~GenePool() {}
+GeneNode::~GeneNode() {}
 
-void GenePool::init(unsigned newSeed) {
+void GeneNode::init(unsigned newSeed) {
 	seed = newSeed;
 	mt19937 newGenerator(seed);
 	generator = newGenerator;
 }
 
-int GenePool::getPopulationSize() {
+int GeneNode::getPopulationSize() {
 	return populationSize;
 }
 
-int GenePool::chooseRandomMember() {
+int GeneNode::chooseRandomMember() {
 	uniform_int_distribution<int> selectionDistribution(0, populationSize-1);
 
 	int randomMember = selectionDistribution(generator);
@@ -34,11 +34,11 @@ int GenePool::chooseRandomMember() {
 	return randomMember;
 }
 
-int GenePool::getSeed() {
+int GeneNode::getSeed() {
 	return seed;
 }
 
-bool GenePool::equals(GenePool * otherPool) {
+bool GeneNode::equals(GeneNode * otherPool) {
 	if (seed == otherPool->getSeed() && populationSize == otherPool->getPopulationSize()) {
 		return true;
 	} else {

@@ -22,7 +22,7 @@ int main(void) {
 
 	int binaryDigits[] = {0,1};
 
-	GenePool ** baseGenes = (GenePool**)malloc(sizeof(GenePool*)*32);
+	GeneNode ** baseGenes = (GeneNode**)malloc(sizeof(GeneNode*)*32);
 
 	for (int i = 0; i < 32; i++) {
 		baseGenes[i] = new LibraryNode<int>(binaryDigits, 2);

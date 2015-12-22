@@ -1,4 +1,4 @@
-#include "GenePool.hpp"
+#include "GeneNode.hpp"
 #include <string>
 #include <sstream>
 #pragma once
@@ -10,14 +10,14 @@
 * hierarchy draw exclusively from LibraryNodes), and as a source
 * of genetic information for any GA.
 *
-* Though it is a subclass of GenePool, it has no generational mechanics,
+* Though it is a subclass of GeneNode, it has no generational mechanics,
 * selection strategy, or fitness evaluations (those functions are empty,
 * to maintain compatibility with the superclass), which means that it is
 * entirely passive, doing nothing more than providing information.
 */
 
 template <class T>
-class LibraryNode: public GenePool {
+class LibraryNode: public GeneNode {
 	private:
 
 	protected:
@@ -34,7 +34,7 @@ class LibraryNode: public GenePool {
 
 	int getHighestFitness();
 
-	//Empty, to maintain compatibility with the GenePool abstract class
+	//Empty, to maintain compatibility with the GeneNode abstract class
 	//(an Individual doesn't care what's going on in here, so this works)
 	void run(bool verbose);
 	void runGenerations();
@@ -65,7 +65,7 @@ template <> std::string LibraryNode<std::string>::toString();
 
 using namespace std;
 
-template <class T> LibraryNode<T>::LibraryNode(T * population, int newPopulationSize) : GenePool() {
+template <class T> LibraryNode<T>::LibraryNode(T * population, int newPopulationSize) : GeneNode() {
 	myPopulation = population;
 	populationSize = newPopulationSize;
 }
@@ -88,7 +88,7 @@ template <class T> int LibraryNode<T>::getFitnessAtIndex(int index) {
 	return 0;
 }
 
-//Empty, to maintain compatibility with the GenePool abstract class (an
+//Empty, to maintain compatibility with the GeneNode abstract class (an
 //Individual doesn't care what's going on in here, so this works)
 template <class T> void LibraryNode<T>::run(bool verbose) {}
 template <class T> void LibraryNode<T>::runGenerations() {}

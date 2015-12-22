@@ -5,7 +5,7 @@
 
 using namespace std;
 
-string RoyalRoadToString::toString(GenePool ** pools, int * indexes, int genomeLength) {
+string RoyalRoadToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

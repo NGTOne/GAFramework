@@ -9,7 +9,7 @@ class HierRoyalRoadFitness : public FitnessFunction {
 
 	public:
 	HierRoyalRoadFitness();
-	PropertiesList * checkFitness(GenePool ** pools, int * indexes, int genomeLength);
+	PropertiesList * checkFitness(GeneNode ** pools, int * indexes, int genomeLength);
 };
 
 class HierRoyalRoadToString : public ToStringFunction {
@@ -18,5 +18,5 @@ class HierRoyalRoadToString : public ToStringFunction {
 	protected:
 
 	public:
-	std::string toString(GenePool ** pools, int * indexes, int genomeLength);
+	std::string toString(GeneNode ** pools, int * indexes, int genomeLength);
 };

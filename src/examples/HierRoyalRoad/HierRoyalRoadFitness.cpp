@@ -7,7 +7,7 @@ using namespace std;
 
 HierRoyalRoadFitness::HierRoyalRoadFitness() : FitnessFunction() {}
 
-PropertiesList * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
+PropertiesList * HierRoyalRoadFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
 	Individual * tempIndividual;
 	PropertiesList * returnProperties = new PropertiesList(0);
 	PropertiesList * tempProperties;
@@ -150,7 +150,7 @@ PropertiesList * HierRoyalRoadFitness::checkFitness(GenePool ** pools, int * ind
 	return returnProperties;
 }
 
-string HierRoyalRoadToString::toString(GenePool ** pools, int * indexes, int genomeLength) {
+string HierRoyalRoadToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

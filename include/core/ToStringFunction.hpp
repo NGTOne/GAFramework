@@ -1,5 +1,5 @@
 #include <string>
-#include "GenePool.hpp"
+#include "GeneNode.hpp"
 #include "PropertiesList.hpp"
 #pragma once
 
@@ -16,5 +16,5 @@ class ToStringFunction {
 	protected:
 
 	public:
-	virtual std::string toString(GenePool ** pools, int * indexes, int genomeLength)=0;
+	virtual std::string toString(GeneNode ** pools, int * indexes, int genomeLength)=0;
 };

@@ -51,11 +51,11 @@ class Individual {
 	public:
 	//Basic constructor - lets us have a completely generic Individual
 	//that doesn't know what the heck is going on inside it
-	Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString);
+	Individual(GeneNode ** newGeneNodes, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString);
 
 	//Lets us create an otherwise random Individual with a specified
 	//species ID
-	Individual(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID);
+	Individual(GeneNode ** newGeneNodes, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID);
 
 	//Constructor that lets us create an Individual with a fully specified
 	//genome - necessary for crossover/mutation
@@ -63,7 +63,7 @@ class Individual {
 
 	~Individual();
 
-	void init(GenePool ** newGenePools, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID);
+	void init(GeneNode ** newGeneNodes, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID);
 
 	//Exactly what it says on the tin - wraps around the CrossoverOperation
 	//and spits out two offspring (which are new instances of Individual)
@@ -95,7 +95,7 @@ class Individual {
 	Individual * makeSpecifiedCopy(int newGenome[]);
 
 	//Necessary for species verification
-	GenePool ** getGenePoolList();
+	GeneNode ** getGeneNodeList();
 
 	//Necessary for crossover
 	Genome * getGenome();

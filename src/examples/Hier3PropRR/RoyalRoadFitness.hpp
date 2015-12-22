@@ -8,5 +8,5 @@ class RoyalRoadToString : public ToStringFunction {
 	protected:
 
 	public:
-	std::string toString(GenePool ** pools, int * indexes, int genomeLength);
+	std::string toString(GeneNode ** pools, int * indexes, int genomeLength);
 };

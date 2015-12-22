@@ -7,7 +7,7 @@ using namespace std;
 
 HierOneMaxFitness::HierOneMaxFitness() : FitnessFunction() {}
 
-PropertiesList * HierOneMaxFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
+PropertiesList * HierOneMaxFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
 	int total = 0;
 	Individual * tempIndividual;
 	PropertiesList * returnProperties = new PropertiesList();
@@ -26,7 +26,7 @@ PropertiesList * HierOneMaxFitness::checkFitness(GenePool ** pools, int * indexe
 	return returnProperties;
 }
 
-string HierOneMaxToString::toString(GenePool ** pools, int * indexes, int genomeLength) {
+string HierOneMaxToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

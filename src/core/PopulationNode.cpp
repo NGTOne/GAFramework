@@ -10,12 +10,12 @@
 using namespace std;
 
 //If we don't know the optimum
-PopulationNode::PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) : GenePool() {
+PopulationNode::PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) : GeneNode() {
 	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel, newCondition, newPropagator);
 }
 
 //Unknown optimum, overridden seed
-PopulationNode::PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) : GenePool(newSeed) {
+PopulationNode::PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator) : GeneNode(newSeed) {
 	init(newPopulationSize, templateIndividual, myMaxGenerations, numIterations, newModel, newCondition, newPropagator);
 }
 
@@ -52,7 +52,7 @@ void PopulationNode::init(int newPopulationSize, Individual * templateIndividual
         evaluateFitnesses();
 }
 
-//Evaluates the fitnesses of the population of this particular GenePool
+//Evaluates the fitnesses of the population of this particular GeneNode
 //Basically a convenience thing
 void PopulationNode::evaluateFitnesses() {
 	for (int i = 0; i < populationSize; i++) {
@@ -104,7 +104,7 @@ void PopulationNode::nextGeneration() {
 		//from the bottom up
 		myPopulation[0]->runHierarchicalGenerations();
 
-		//Re-evaluate the fitnesses to take the lower GenePools
+		//Re-evaluate the fitnesses to take the lower GeneNodes
 		//running their generations into account
 		evaluateFitnesses();
 

@@ -19,7 +19,7 @@ int main(void) {
 
 	int binaryDigits[] = {0,1};
 
-	GenePool ** baseGenes = (GenePool**)malloc(sizeof(GenePool*)*64);
+	GeneNode ** baseGenes = (GeneNode**)malloc(sizeof(GeneNode*)*64);
 
 	for (int i = 0; i < 64; i++) {
 		baseGenes[i] = new LibraryNode<int>(binaryDigits, 2);

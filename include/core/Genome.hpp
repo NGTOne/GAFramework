@@ -1,5 +1,5 @@
 #pragma once
-#include "GenePool.hpp"
+#include "GeneNode.hpp"
 
 /*
 * This simple class encapsulates all of an Individual's genetic information,
@@ -13,15 +13,15 @@ class Genome {
 	protected:
 	int * gene;
 	int genomeLength;
-	GenePool ** genePools;
+	GeneNode ** genePools;
 
 	public:
-	Genome(int * newGene, int newGenomeLength, GenePool ** newGenePools);
+	Genome(int * newGene, int newGenomeLength, GeneNode ** newGeneNodes);
 
 	~Genome();
 
 	int * getGenome();
 	int getGenomeLength();
-	GenePool ** getGenePools();
+	GeneNode ** getGeneNodes();
 	int getDifference(Genome * otherGenome);
 };

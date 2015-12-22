@@ -32,16 +32,16 @@ int main(void) {
 
 	int binaryDigits[] = {0,1};
 
-	//An array of arrays of binary GenePools - because each of the 4
-	//subtrees will have the same type of GenePools at the bottom
-	GenePool *** baseGenes = (GenePool***)malloc(sizeof(GenePool**)*4);
+	//An array of arrays of binary GeneNodes - because each of the 4
+	//subtrees will have the same type of GeneNodes at the bottom
+	GeneNode *** baseGenes = (GeneNode***)malloc(sizeof(GeneNode**)*4);
 
 	//The four "mid-level" pools - a step between the base pools and the
 	//top level
-        GenePool ** bottomLevelPools = (GenePool**)malloc(sizeof(GenePool*)*4);
+        GeneNode ** bottomLevelPools = (GeneNode**)malloc(sizeof(GeneNode*)*4);
 
 	for (int i = 0; i < 4; i++) {
-		baseGenes[i] = (GenePool**)malloc(sizeof(GenePool*)*8);
+		baseGenes[i] = (GeneNode**)malloc(sizeof(GeneNode*)*8);
 
 		for (int k = 0; k < 8; k++) {
 			baseGenes[i][k] = new LibraryNode<int>(binaryDigits, 2);

@@ -18,8 +18,8 @@ Genome ** CutAndSpliceCrossover::crossOver(Genome * firstGenome, Genome * second
 	int * genomeOne = firstGenome->getGenome();
 	int * genomeTwo = secondGenome->getGenome();
 
-	GenePool ** firstGenePools = firstGenome->getGenePools();
-	GenePool ** secondGenePools = secondGenome->getGenePools();
+	GeneNode ** firstGeneNodes = firstGenome->getGeneNodes();
+	GeneNode ** secondGeneNodes = secondGenome->getGeneNodes();
 
 	if (firstGenomeLength > secondGenomeLength) {
 		shortestGenome = secondGenomeLength;
@@ -42,20 +42,20 @@ Genome ** CutAndSpliceCrossover::crossOver(Genome * firstGenome, Genome * second
 	children[0] = (int*)malloc(sizeof(int)*firstChildLength);
 	children[1] = (int*)malloc(sizeof(int)*secondChildLength);
 
-	GenePool *** childPools = (GenePool***)malloc(sizeof(GenePool**)*2);
+	GeneNode *** childPools = (GeneNode***)malloc(sizeof(GeneNode**)*2);
 
-	childPools[0] = (GenePool**)malloc(sizeof(GenePool*)*firstChildLength);
-	childPools[1] = (GenePool**)malloc(sizeof(GenePool*)*secondChildLength);
+	childPools[0] = (GeneNode**)malloc(sizeof(GeneNode*)*firstChildLength);
+	childPools[1] = (GeneNode**)malloc(sizeof(GeneNode*)*secondChildLength);
 
 	//Create the first child
 	for (int i = 0; i < firstChildLength; i++) {
 		if (i < firstSplicePoint) {
 			children[0][i] = genomeOne[i];
-			childPools[0][i] = firstGenePools[i];
+			childPools[0][i] = firstGeneNodes[i];
 		} else {
 			for (int k = 0; k+i < firstChildLength; k++) {
 				children[0][k+i] = genomeTwo[secondSplicePoint+k];
-				childPools[0][k+i] = secondGenePools[secondSplicePoint+k];
+				childPools[0][k+i] = secondGeneNodes[secondSplicePoint+k];
 			}
 
 			i = firstChildLength;
@@ -65,11 +65,11 @@ Genome ** CutAndSpliceCrossover::crossOver(Genome * firstGenome, Genome * second
 	for (int i = 0; i < secondChildLength; i++) {
 		if (i < secondSplicePoint) {
 			children[1][i] = genomeTwo[i];
-			childPools[1][i] = secondGenePools[i];
+			childPools[1][i] = secondGeneNodes[i];
 		} else {
 			for (int k = 0; k+i < secondChildLength; k++) {
 				children[1][k+i] = genomeOne[firstSplicePoint+k];
-				childPools[1][k+i] = firstGenePools[firstSplicePoint+k];
+				childPools[1][k+i] = firstGeneNodes[firstSplicePoint+k];
 			}
 		}
 	}

@@ -5,13 +5,13 @@
 
 /*
 * This class allows us to create pools of genetic information that can be
-* recombined. GenePool itself is an abstract class, and is NEVER meant to be
-* implemented or used by itself. By extending GenePool, we can create
+* recombined. GeneNode itself is an abstract class, and is NEVER meant to be
+* implemented or used by itself. By extending GeneNode, we can create
 * different types of gene pools, for vastly different types of genetic
 * information.
 */
 
-class GenePool {
+class GeneNode {
 	private:
 
 	protected:
@@ -20,7 +20,7 @@ class GenePool {
 	std::mt19937 generator;
 
 	public:
-	virtual ~GenePool()=0;
+	virtual ~GeneNode()=0;
 
 	virtual void run(bool verbose)=0;
 	virtual void runGenerations()=0;
@@ -34,8 +34,8 @@ class GenePool {
 
 	virtual void propagateFitnesses() = 0;
 
-	GenePool();
-	GenePool(unsigned overriddenSeed);
+	GeneNode();
+	GeneNode(unsigned overriddenSeed);
 
 	int getPopulationSize();
 	int chooseRandomMember();
@@ -43,7 +43,7 @@ class GenePool {
 
 	virtual int getHighestFitness() = 0;
 
-	bool equals(GenePool * otherPool);
+	bool equals(GeneNode * otherPool);
 
 	virtual std::string toString()=0;
 };

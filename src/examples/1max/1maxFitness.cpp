@@ -6,7 +6,7 @@
 using namespace std;
 
 OneMaxFitness::OneMaxFitness() : FitnessFunction() {}
-PropertiesList * OneMaxFitness::checkFitness(GenePool ** pools, int * indexes, int genomeLength) {
+PropertiesList * OneMaxFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
 	int total = 0;
 
 	for (int i = 0; i < genomeLength; i++) {
@@ -20,7 +20,7 @@ PropertiesList * OneMaxFitness::checkFitness(GenePool ** pools, int * indexes, i
 	return returnProperties;
 }
 
-string OneMaxToString::toString(GenePool ** pools, int * indexes, int genomeLength) {
+string OneMaxToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;
