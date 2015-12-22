@@ -2,23 +2,23 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "generations/SSGAGeneration.hpp"
+#include "systems/SSGAGeneration.hpp"
 
 using namespace std;
 
 
-SSGAGeneration::SSGAGeneration(SelectionStrategy * newStrategy) : GenerationModel(newStrategy) {
+SSGAGeneration::SSGAGeneration(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {
 	niching = NULL;
 }
 
-SSGAGeneration::SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newStrategy) {
+SSGAGeneration::SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {
 	niching = NULL;
 }
-SSGAGeneration::SSGAGeneration(SelectionStrategy * newStrategy, NichingStrategy * newNiching) : GenerationModel(newStrategy) {
+SSGAGeneration::SSGAGeneration(SelectionStrategy * newStrategy, NichingStrategy * newNiching) : EvolutionarySystem(newStrategy) {
 	niching = newNiching;
 }
 
-SSGAGeneration::SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy, NichingStrategy * newNiching) : GenerationModel(newSeed, newStrategy) {
+SSGAGeneration::SSGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy, NichingStrategy * newNiching) : EvolutionarySystem(newSeed, newStrategy) {
 	niching = newNiching;
 }
 

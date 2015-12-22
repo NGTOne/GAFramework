@@ -1,4 +1,4 @@
-#include "GenerationModel.hpp"
+#include "EvolutionarySystem.hpp"
 #include "EndCondition.hpp"
 #include "FitnessPropagator.hpp"
 #include <string>
@@ -39,7 +39,7 @@ class PopulationNode : public GeneNode {
 	//for HGAs (to accelerate growth at the lower levels)
 	int numIterationsPerGeneration;
 
-	GenerationModel * myModel;
+	EvolutionarySystem * myModel;
 
 	FitnessPropagator * myPropagator;
 
@@ -57,13 +57,13 @@ class PopulationNode : public GeneNode {
 
 	int getFitnessAtIndex(int index);
 
-	PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
+	PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, EvolutionarySystem * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
 
-        PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
+        PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, EvolutionarySystem * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
 
 	~PopulationNode();
 
-	void init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, GenerationModel * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
+	void init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, EvolutionarySystem * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
 
 	//Evaluates the fitnesses of the population of this particular
 	//GeneNode - basically a convenience thing

@@ -11,7 +11,7 @@
 * evolutionary systems within the same framework.
 */
 
-class GenerationModel {
+class EvolutionarySystem {
 	private:
 
 	protected:
@@ -21,9 +21,9 @@ class GenerationModel {
 
 	public:
 
-	GenerationModel(SelectionStrategy * newStrategy);
+	EvolutionarySystem(SelectionStrategy * newStrategy);
 
-	GenerationModel(unsigned newSeed, SelectionStrategy * newStrategy);
+	EvolutionarySystem(unsigned newSeed, SelectionStrategy * newStrategy);
 
 	void init(unsigned newSeed, SelectionStrategy * newStrategy);
 

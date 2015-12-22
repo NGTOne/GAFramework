@@ -8,8 +8,8 @@ using namespace std;
 int main(void) {
 	SelectionStrategy * myStrategy = new TournamentSelection(0.5);
 
-	//GenerationModel * myGenerationModel = new SSGAGeneration(2, myStrategy);
-	GenerationModel * myGenerationModel = new ReplacingGAGeneration(myStrategy);
+	//EvolutionarySystem * myEvolutionarySystem = new SSGAGeneration(2, myStrategy);
+	EvolutionarySystem * myEvolutionarySystem = new ReplacingGAGeneration(myStrategy);
 
 	EndCondition * myEndCondition = new FitnessMatchEnd(32);
 
@@ -30,7 +30,7 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction, myToString);
 
-	PopulationNode * topLevelPool = new PopulationNode(64, templateIndividual, 100, 1, myGenerationModel, myEndCondition, myPropagator);
+	PopulationNode * topLevelPool = new PopulationNode(64, templateIndividual, 100, 1, myEvolutionarySystem, myEndCondition, myPropagator);
 
 	delete(templateIndividual);
 	
@@ -41,7 +41,7 @@ int main(void) {
 		delete(baseGenes[i]);
 	}
 
-	delete(myGenerationModel);
+	delete(myEvolutionarySystem);
 	delete(myMutation);
 	delete(myCrossover);
 	delete(myStrategy);

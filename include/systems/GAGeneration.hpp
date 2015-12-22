@@ -1,4 +1,4 @@
-#include "../core/GenerationModel.hpp"
+#include "../core/EvolutionarySystem.hpp"
 #include <random>
 #include <string>
 #pragma once
@@ -13,7 +13,7 @@
 * combination of crossover and mutation.
 */
 
-class GAGeneration : public GenerationModel {
+class GAGeneration : public EvolutionarySystem {
 	private:
 
 	protected:

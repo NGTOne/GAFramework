@@ -1,4 +1,4 @@
-#include "../core/GenerationModel.hpp"
+#include "../core/EvolutionarySystem.hpp"
 #include "niching/NichingStrategy.hpp"
 #include <random>
 #include <string>
@@ -11,7 +11,7 @@
 * that may not appear using them.
 */
 
-class SSGAGeneration : public GenerationModel {
+class SSGAGeneration : public EvolutionarySystem {
 	private:
 
 	protected:

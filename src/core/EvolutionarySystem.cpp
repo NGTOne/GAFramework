@@ -6,27 +6,27 @@
 #include <string>
 #include <sstream>
 #include "core/SelectionStrategy.hpp"
-#include "core/GenerationModel.hpp"
+#include "core/EvolutionarySystem.hpp"
 
 using namespace std;
 
-GenerationModel::GenerationModel(SelectionStrategy * newStrategy) {
+EvolutionarySystem::EvolutionarySystem(SelectionStrategy * newStrategy) {
 	seed = chrono::system_clock::now().time_since_epoch().count();
 	init(seed, newStrategy);
 }
 
-GenerationModel::GenerationModel(unsigned newSeed, SelectionStrategy * newStrategy) {
+EvolutionarySystem::EvolutionarySystem(unsigned newSeed, SelectionStrategy * newStrategy) {
 	init(newSeed, newStrategy);
 }
 
-void GenerationModel::init(unsigned newSeed, SelectionStrategy * newStrategy) {
+void EvolutionarySystem::init(unsigned newSeed, SelectionStrategy * newStrategy) {
 	seed = newSeed;
 	mt19937 newGenerator(seed);
 	generator = newGenerator;
 	myStrategy = newStrategy;
 }
 
-void GenerationModel::sortPopulation(Individual ** initialPopulation, int * initialFitnesses, int populationSize) {
+void EvolutionarySystem::sortPopulation(Individual ** initialPopulation, int * initialFitnesses, int populationSize) {
 	int topIndex = populationSize-1;
 	int splitIndex;
 	Individual ** leftPopulation;
@@ -88,11 +88,11 @@ void GenerationModel::sortPopulation(Individual ** initialPopulation, int * init
 	}
 }
 
-int GenerationModel::getParent(int * populationFitnesses, int populationSize) {
+int EvolutionarySystem::getParent(int * populationFitnesses, int populationSize) {
 	return myStrategy->getParent(populationFitnesses, populationSize);
 }
 
-string GenerationModel::toString() {
+string EvolutionarySystem::toString() {
 	string returnString = "";
         stringstream ss;
 	

@@ -1,4 +1,4 @@
-#include "generations/niching/Crowding.hpp"
+#include "systems/niching/Crowding.hpp"
 
 int * Crowding::getIndices(Individual ** initialPopulation, int populationSize, Individual ** newIndividuals) {
 	int * indices = (int*)malloc(sizeof(int)*2);

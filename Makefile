@@ -40,7 +40,7 @@ uninstall:
 
 examples: 1-max hier1-max royalroad hierroyalroad hier3royalroad hier3proprr
 
-library: core selections mutations crossovers generations endconditions propagators
+library: core selections mutations crossovers systems endconditions propagators
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
 
@@ -54,7 +54,7 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/GeneNode.cpp -o obj/core/GeneNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/LibraryNode.cpp -o obj/core/LibraryNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/GenerationModel.cpp -o obj/core/GenerationModel.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EvolutionarySystem.cpp -o obj/core/EvolutionarySystem.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EndCondition.cpp -o obj/core/EndCondition.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PopulationNode.cpp -o obj/core/PopulationNode.o
 
@@ -64,26 +64,26 @@ mutations: uniformMutation boundaryMutation
 
 crossovers: nPointCrossover uniformCrossover cutAndSpliceCrossover
 
-generations: ga es ssga rga
+systems: ga es ssga rga
 
 endconditions: fitnessMatch
 
 propagators: nonPropagator downPropagator apportioningPropagator
 
 ga:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/GAGeneration.cpp -o obj/generations/GAGeneration.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/GAGeneration.cpp -o obj/systems/GAGeneration.o
 
 es:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/ESGeneration.cpp -o obj/generations/ESGeneration.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ESGeneration.cpp -o obj/systems/ESGeneration.o
 
 ssga: niching
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/SSGAGeneration.cpp -o obj/generations/SSGAGeneration.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/SSGAGeneration.cpp -o obj/systems/SSGAGeneration.o
 
 rga:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/ReplacingGAGeneration.cpp -o obj/generations/ReplacingGAGeneration.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ReplacingGAGeneration.cpp -o obj/systems/ReplacingGAGeneration.o
 
 niching:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/generations/niching/Crowding.cpp -o obj/generations/niching/Crowding.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/niching/Crowding.cpp -o obj/systems/niching/Crowding.o
 
 tournamentSelection:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o

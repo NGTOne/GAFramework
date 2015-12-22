@@ -2,13 +2,13 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "generations/ESGeneration.hpp"
+#include "systems/ESGeneration.hpp"
 
 using namespace std;
 
-ESGeneration::ESGeneration(SelectionStrategy * newStrategy) : GenerationModel(newStrategy) {}
+ESGeneration::ESGeneration(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {}
 
-ESGeneration::ESGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newStrategy) {}
+ESGeneration::ESGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {}
 
 //This strategy uses the ES (Evolutionary Strategies) approach - generate all
 //the offspring, concatenate them together, sort them by fitness, and then

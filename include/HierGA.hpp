@@ -3,7 +3,7 @@
 #include "core/FitnessFunction.hpp"
 #include "core/ToStringFunction.hpp"
 #include "core/GeneNode.hpp"
-#include "core/GenerationModel.hpp"
+#include "core/EvolutionarySystem.hpp"
 #include "core/Genome.hpp"
 #include "core/PopulationNode.hpp"
 #include "core/Individual.hpp"
@@ -18,11 +18,11 @@
 #include "crossovers/UniformCrossover.hpp"
 #include "endconditions/FitnessMatchEnd.hpp"
 #include "endconditions/MaxFitnessConvergenceEnd.hpp"
-#include "generations/ESGeneration.hpp"
-#include "generations/GAGeneration.hpp"
-#include "generations/ReplacingGAGeneration.hpp"
-#include "generations/SSGAGeneration.hpp"
-#include "generations/niching/Crowding.hpp"
+#include "systems/ESGeneration.hpp"
+#include "systems/GAGeneration.hpp"
+#include "systems/ReplacingGAGeneration.hpp"
+#include "systems/SSGAGeneration.hpp"
+#include "systems/niching/Crowding.hpp"
 #include "mutations/BoundaryMutation.hpp"
 #include "mutations/UniformMutation.hpp"
 #include "selections/TournamentSelection.hpp"
@@ -37,3 +37,4 @@
 // Legacy
 typedef PopulationNode HierarchicalGenePool;
 typedef GeneNode GenePool;
+typedef EvolutionarySystem GenerationModel;

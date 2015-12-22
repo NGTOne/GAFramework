@@ -1,4 +1,4 @@
-#include "../core/GenerationModel.hpp"
+#include "../core/EvolutionarySystem.hpp"
 #include <random>
 #include <string>
 #pragma once
@@ -10,7 +10,7 @@
 * in the population.
 */
 
-class ReplacingGAGeneration : public GenerationModel {
+class ReplacingGAGeneration : public EvolutionarySystem {
 	private:
 	double replacementRate;
 

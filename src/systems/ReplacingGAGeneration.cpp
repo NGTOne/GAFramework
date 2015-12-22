@@ -2,13 +2,13 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "generations/ReplacingGAGeneration.hpp"
+#include "systems/ReplacingGAGeneration.hpp"
 
 using namespace std;
 
-ReplacingGAGeneration::ReplacingGAGeneration(SelectionStrategy * newStrategy) : GenerationModel(newStrategy) {}
+ReplacingGAGeneration::ReplacingGAGeneration(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {}
 
-ReplacingGAGeneration::ReplacingGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newStrategy) {}
+ReplacingGAGeneration::ReplacingGAGeneration(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {}
 
 bool ReplacingGAGeneration::inPopulation(Individual * target, Individual ** population, int populationSize) {
 	for (int i = 0; i < populationSize; i++) {

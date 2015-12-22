@@ -2,15 +2,15 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "generations/GAGeneration.hpp"
+#include "systems/GAGeneration.hpp"
 
 using namespace std;
 
-GAGeneration::GAGeneration(int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newStrategy) {
+GAGeneration::GAGeneration(int newNumElites, SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {
 	numElites = newNumElites;
 }
 
-GAGeneration::GAGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) : GenerationModel(newSeed, newStrategy) {
+GAGeneration::GAGeneration(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {
 	numElites = newNumElites;
 }
 

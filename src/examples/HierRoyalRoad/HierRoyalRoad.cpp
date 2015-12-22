@@ -10,7 +10,7 @@ int main(void) {
 
 	SelectionStrategy ** bottomLevelStrategies = (SelectionStrategy**)malloc(sizeof(SelectionStrategy*)*4);
 	
-	GenerationModel ** bottomLevelModels = (GenerationModel**)malloc(sizeof(GenerationModel*)*4);
+	EvolutionarySystem ** bottomLevelModels = (EvolutionarySystem**)malloc(sizeof(EvolutionarySystem*)*4);
 
 	FitnessFunction ** bottomLevelFunctions = (FitnessFunction**)malloc(sizeof(FitnessFunction*)*4);
 
@@ -59,7 +59,7 @@ int main(void) {
 	FitnessFunction * topLevelFunction = new HierRoyalRoadFitness();
 	ToStringFunction * topLevelToString = new HierRoyalRoadToString();
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
-	GenerationModel * topLevelModel = new GAGeneration(2, topLevelStrategy);
+	EvolutionarySystem * topLevelModel = new GAGeneration(2, topLevelStrategy);
 
 	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);
 

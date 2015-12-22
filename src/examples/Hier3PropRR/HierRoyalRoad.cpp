@@ -13,7 +13,7 @@ int main(void) {
 	//Setting up the first level (bitstring length = 2, genome length = 2)
 	SelectionStrategy *** bottomLevelStrategies = (SelectionStrategy***)malloc(sizeof(SelectionStrategy**)*4);
 	
-	GenerationModel *** bottomLevelModels = (GenerationModel***)malloc(sizeof(GenerationModel**)*4);
+	EvolutionarySystem *** bottomLevelModels = (EvolutionarySystem***)malloc(sizeof(EvolutionarySystem**)*4);
 
 	CrossoverOperation *** bottomLevelCrossovers = (CrossoverOperation***)malloc(sizeof(CrossoverOperation**)*4);
 
@@ -25,7 +25,7 @@ int main(void) {
 	for (int i = 0; i < 4; i++) {
 
 		bottomLevelStrategies[i] = (SelectionStrategy**)malloc(sizeof(SelectionStrategy*)*4);
-		bottomLevelModels[i] = (GenerationModel**)malloc(sizeof(GenerationModel*)*4);
+		bottomLevelModels[i] = (EvolutionarySystem**)malloc(sizeof(EvolutionarySystem*)*4);
 		bottomLevelCrossovers[i] = (CrossoverOperation**)malloc(sizeof(CrossoverOperation*)*4);
 		bottomLevelMutations[i] = (MutationOperation**)malloc(sizeof(MutationOperation*)*4);
 
@@ -75,7 +75,7 @@ int main(void) {
 	}
 
 	//Setting up the second level (bitstring length = 8, genome length = 4)
-	GenerationModel ** secondLevelModels = (GenerationModel**)malloc(sizeof(GenerationModel*)*4);
+	EvolutionarySystem ** secondLevelModels = (EvolutionarySystem**)malloc(sizeof(EvolutionarySystem*)*4);
 	CrossoverOperation ** secondLevelCrossovers = (CrossoverOperation**)malloc(sizeof(CrossoverOperation*)*4);
 	MutationOperation ** secondLevelMutations = (MutationOperation**)malloc(sizeof(MutationOperation*)*4);
 	SelectionStrategy ** secondLevelStrategies = (SelectionStrategy**)malloc(sizeof(SelectionStrategy)*4);
@@ -100,7 +100,7 @@ int main(void) {
 
 	//Setting up the top level (bitstring length = 32, genome length = 4)
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
-	GenerationModel * topLevelModel = new GAGeneration(2, topLevelStrategy);
+	EvolutionarySystem * topLevelModel = new GAGeneration(2, topLevelStrategy);
 	FitnessFunction * topLevelFunction = new HierRoyalRoadFitness();
 	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);
 	MutationOperation * topLevelMutation = new UniformMutation(0.2);

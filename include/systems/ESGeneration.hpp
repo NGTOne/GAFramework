@@ -1,4 +1,4 @@
-#include "../core/GenerationModel.hpp"
+#include "../core/EvolutionarySystem.hpp"
 #include <random>
 #include <string>
 #pragma once
@@ -15,7 +15,7 @@
 * most fit.
 */
 
-class ESGeneration : public GenerationModel {
+class ESGeneration : public EvolutionarySystem {
 	private:
 
 	protected:
