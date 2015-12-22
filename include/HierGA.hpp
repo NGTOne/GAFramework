@@ -35,4 +35,3 @@
 #pragma once
 
 // Legacy
-typedef LibraryNode NonHierarchicalGenePool;
