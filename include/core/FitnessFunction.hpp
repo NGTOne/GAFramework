@@ -18,3 +18,5 @@ class FitnessFunction {
 	public:
 	virtual PropertiesList * checkFitness(GeneNode ** pools, int * indexes, int genomeLength)=0;
 };
+
+typedef FitnessFunction ComponentHeuristicFunction;
