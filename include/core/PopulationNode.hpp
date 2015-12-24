@@ -86,7 +86,7 @@ class PopulationNode : public GeneNode {
 	void * getFittest();
 
 	//Run one generation
-	void nextGeneration();
+	virtual void nextGeneration();
 
 	//For HGAs - if we want to run multiple generations of a lower-level
 	//gene pool for every one of a higher-level one, this is how

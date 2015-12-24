@@ -6,6 +6,7 @@
 #include "core/EvolutionarySystem.hpp"
 #include "core/Genome.hpp"
 #include "core/PopulationNode.hpp"
+#include "core/NonEvolvingPopulationNode.hpp"
 #include "core/Individual.hpp"
 #include "core/MutationOperation.hpp"
 #include "core/LibraryNode.hpp"
