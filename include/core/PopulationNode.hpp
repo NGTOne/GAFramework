@@ -99,5 +99,6 @@ class PopulationNode : public GeneNode {
 	//and minimal fuss
 	void run(bool verbose);
 
+	std::string populationStrings();
 	std::string toString();
 };

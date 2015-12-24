@@ -196,13 +196,11 @@ int PopulationNode::getFitnessAtIndex(int index) {
 	return populationFitnesses[index];
 }
 
-string PopulationNode::toString() {
+string PopulationNode::populationStrings() {
 	string returnString = "";
 	stringstream ss;
 	string populationString;
-
-	ss << "Population size: " << populationSize << "\n";
-
+	
 	for (int i = 0; i < populationSize; i++) {
 		if (readOnce == false) {
 			populationString = myPopulation[i]->toString();
@@ -212,6 +210,17 @@ string PopulationNode::toString() {
 
 		ss << "Member " << i << ": " << populationString << " Fitness: " << populationFitnesses[i] << "\n";
 	}
+
+	return ss.str();
+}
+
+string PopulationNode::toString() {
+	string returnString = "";
+	stringstream ss;
+	string populationString;
+
+	ss << "Population size: " << populationSize << "\n";
+	ss << populationStrings();
 
 	if (readOnce == false) {
         	ss << "Seed: " << seed << "\n";
