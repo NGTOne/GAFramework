@@ -73,6 +73,8 @@ class PopulationNode : public GeneNode {
 	//recursively
 	void propagateFitnesses();
 
+	void checkEndCondition();
+
 	//Evaluates the fitnesses of a given population of individuals
 	//Doesn't care what their genetic makeup is - uses their fitness
 	//functions

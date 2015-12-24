@@ -125,15 +125,20 @@ void PopulationNode::nextGeneration() {
 
 		free(newPopulation);
 		evaluateFitnesses();
+		checkEndCondition();
+	}
+}
 
-		if (myCondition != NULL) {
-			optimumFound = myCondition->checkCondition(myPopulation, populationSize);
-		}
+void PopulationNode::checkEndCondition() {
+	if (myCondition != NULL) {
+		optimumFound = myCondition->checkCondition(myPopulation, populationSize);
 	}
 }
 
 void PopulationNode::propagateFitnesses() {
-	myPropagator->propagateFitnesses(myPopulation, populationSize);
+	if (myPropagator != NULL) {
+		myPropagator->propagateFitnesses(myPopulation, populationSize);
+	}
 }
 
 void PopulationNode::run(bool verbose) {
