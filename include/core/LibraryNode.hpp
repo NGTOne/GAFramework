@@ -65,7 +65,10 @@ template <> std::string LibraryNode<std::string>::toString();
 
 using namespace std;
 
-template <class T> LibraryNode<T>::LibraryNode(T * population, int newPopulationSize) : GeneNode() {
+template <class T> LibraryNode<T>::LibraryNode(
+	T * population,
+	int newPopulationSize
+) : GeneNode() {
 	myPopulation = population;
 	populationSize = newPopulationSize;
 }
@@ -82,7 +85,10 @@ template <class T> void * LibraryNode<T>::getFittest() {}
 
 template <class T> int LibraryNode<T>::getHighestFitness() {}
 
-template <class T> void LibraryNode<T>::setFitnessAtIndex(int index, int newFitness) {}
+template <class T> void LibraryNode<T>::setFitnessAtIndex(
+	int index,
+	int newFitness
+) {}
 
 template <class T> int LibraryNode<T>::getFitnessAtIndex(int index) {
 	return 0;

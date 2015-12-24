@@ -7,5 +7,9 @@ class Crowding : public NichingStrategy {
 	protected:
 
 	public:
-		int * getIndices(Individual ** initialPopulation, int populationSize, Individual ** newIndividuals);
+		int * getIndices(
+			Individual ** initialPopulation,
+			int populationSize,
+			Individual ** newIndividuals
+		);
 };

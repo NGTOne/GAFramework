@@ -15,12 +15,25 @@ class ReplacingGA : public EvolutionarySystem {
 	double replacementRate;
 
 	protected:
-	void removeUnusedIndividuals(Individual ** initialPopulation, Individual ** newPopulation, int populationSize);
-	bool inPopulation(Individual * target, Individual ** population, int populationSize);
+	void removeUnusedIndividuals(
+		Individual ** initialPopulation,
+		Individual ** newPopulation,
+		int populationSize
+	);
+
+	bool inPopulation(
+		Individual * target,
+		Individual ** population,
+		int populationSize
+	);
 
 	public:
 	ReplacingGA(SelectionStrategy * newStrategy);
 	ReplacingGA(unsigned newSeed, SelectionStrategy * newStrategy);
 
-	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
+	Individual ** breedMutateSelect(
+		Individual ** initialPopulation,
+		int * populationFitnesses,
+		int populationSize
+	);
 };

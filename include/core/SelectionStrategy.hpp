@@ -22,14 +22,22 @@ class SelectionStrategy {
 	double crossoverRate;
 	std::string name;
 
-	SelectionStrategy(unsigned newSeed, double newCrossoverRate, std::string newName);
+	SelectionStrategy(
+		unsigned newSeed,
+		double newCrossoverRate,
+		std::string newName
+	);
 
 	public:
 
 	SelectionStrategy(double newCrossoverRate);
 	SelectionStrategy(unsigned newSeed, double newCrossoverRate);
 
-	void init(double newCrossoverRate, unsigned newSeed, std::string newName);
+	void init(
+		double newCrossoverRate,
+		unsigned newSeed,
+		std::string newName
+	);
 
 	virtual int getParent(int populationFitnesses[], int populationSize)=0;
 

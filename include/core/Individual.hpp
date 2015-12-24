@@ -46,24 +46,63 @@ class Individual {
 
 	//For TRUE deep copying - this way, we can create an Individual with
 	//a fully specified everything
-	Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, PropertiesList * newProperties, ToStringFunction * newToString, bool artificiality);
+	Individual(
+		Genome * newGenome,
+		CrossoverOperation * newCrossover,
+		MutationOperation * newMutation,
+		FitnessFunction * newFitness,
+		unsigned newSpeciesID,
+		PropertiesList * newProperties,
+		ToStringFunction * newToString,
+		bool artificiality
+	);
 
 	public:
 	//Basic constructor - lets us have a completely generic Individual
 	//that doesn't know what the heck is going on inside it
-	Individual(GeneNode ** newGeneNodes, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString);
+	Individual(
+		GeneNode ** newGeneNodes,
+		int newGenomeLength,
+		CrossoverOperation * newCrossover,
+		MutationOperation * newMutation,
+		FitnessFunction * newFitness,
+		ToStringFunction * newToString
+	);
 
 	//Lets us create an otherwise random Individual with a specified
 	//species ID
-	Individual(GeneNode ** newGeneNodes, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID);
+	Individual(
+		GeneNode ** newGeneNodes,
+		int newGenomeLength,
+		CrossoverOperation * newCrossover,
+		MutationOperation * newMutation,
+		FitnessFunction * newFitness,
+		ToStringFunction * newToString,
+		unsigned newSpeciesID
+	);
 
 	//Constructor that lets us create an Individual with a fully specified
 	//genome - necessary for crossover/mutation
-	Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID);
+	Individual(
+		Genome * newGenome,
+		CrossoverOperation * newCrossover,
+		MutationOperation * newMutation,
+		FitnessFunction * newFitness,
+		ToStringFunction * newToString,
+		unsigned newSpeciesID
+	);
 
 	~Individual();
 
-	void init(GeneNode ** newGeneNodes, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID);
+	void init(
+		GeneNode ** newGeneNodes,
+		int newGenomeLength,
+		CrossoverOperation * newCrossover,
+		MutationOperation * newMutation,
+		FitnessFunction * newFitness,
+		ToStringFunction * newToString,
+		unsigned newSpeciesID
+	);
 
 	//Exactly what it says on the tin - wraps around the CrossoverOperation
 	//and spits out two offspring (which are new instances of Individual)

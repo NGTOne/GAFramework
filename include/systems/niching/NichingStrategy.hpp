@@ -7,5 +7,9 @@ class NichingStrategy {
 	protected:
 
 	public:
-		virtual int * getIndices(Individual ** initialPopulation, int populationSize, Individual ** newIndividuals)=0;
+		virtual int * getIndices(
+			Individual ** initialPopulation,
+			int populationSize,
+			Individual ** newIndividuals
+		)=0;
 };

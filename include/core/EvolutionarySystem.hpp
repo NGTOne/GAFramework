@@ -27,11 +27,19 @@ class EvolutionarySystem {
 
 	void init(unsigned newSeed, SelectionStrategy * newStrategy);
 
-	void sortPopulation(Individual ** initialPopulation, int * initialFitnesses, int populationSize);
+	void sortPopulation(
+		Individual ** initialPopulation,
+		int * initialFitnesses,
+		int populationSize
+	);
 
 	int getParent(int * populationFitnesses, int populationSize);
 
-	virtual Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize)=0;
+	virtual Individual ** breedMutateSelect(
+		Individual ** initialPopulation,
+		int * populationFitnesses,
+		int populationSize
+	)=0;
 
 	std::string toString();
 };

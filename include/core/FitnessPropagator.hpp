@@ -14,5 +14,8 @@ class FitnessPropagator {
 	protected:
 
 	public:
-	virtual void propagateFitnesses(Individual ** population, int populationSize)=0;
+	virtual void propagateFitnesses(
+		Individual ** population,
+		int populationSize
+	)=0;
 };

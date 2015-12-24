@@ -19,5 +19,8 @@ class EndCondition {
 
 	~EndCondition();
 
-	virtual bool checkCondition(Individual ** population, int populationSize)=0;
+	virtual bool checkCondition(
+		Individual ** population,
+		int populationSize
+	)=0;
 };

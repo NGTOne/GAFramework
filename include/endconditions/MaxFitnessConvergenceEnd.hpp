@@ -14,7 +14,13 @@ class MaxFitnessConvergenceEnd : public FitnessMatchEnd {
 
 	public:
 	MaxFitnessConvergenceEnd(int newMinimumFitness);
-	MaxFitnessConvergenceEnd(int newMinimumFitness, double newPopulationProportion);
+	MaxFitnessConvergenceEnd(
+		int newMinimumFitness,
+		double newPopulationProportion
+	);
 
-	virtual bool checkCondition(Individual ** population, int populationSize);
+	virtual bool checkCondition(
+		Individual ** population,
+		int populationSize
+	);
 };

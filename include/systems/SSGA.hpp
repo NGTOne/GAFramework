@@ -22,6 +22,16 @@ class SSGA : public EvolutionarySystem {
 	SSGA(SelectionStrategy * newStrategy);
 	SSGA(unsigned newSeed, SelectionStrategy * newStrategy);
 	SSGA(SelectionStrategy * newStrategy, NichingStrategy * newNiching);
-	SSGA(unsigned newSeed, SelectionStrategy * newStrategy, NichingStrategy * newNiching);
-	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
+
+	SSGA(
+		unsigned newSeed,
+		SelectionStrategy * newStrategy,
+		NichingStrategy * newNiching
+	);
+
+	Individual ** breedMutateSelect(
+		Individual ** initialPopulation,
+		int * populationFitnesses,
+		int populationSize
+	);
 };

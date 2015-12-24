@@ -57,13 +57,38 @@ class PopulationNode : public GeneNode {
 
 	int getFitnessAtIndex(int index);
 
-	PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, EvolutionarySystem * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
+	PopulationNode(
+		int newPopulationSize,
+		Individual * templateIndividual,
+		int myMaxGenerations,
+		int numIterations,
+		EvolutionarySystem * newModel,
+		EndCondition * newCondition,
+		FitnessPropagator * newPropagator
+	);
 
-        PopulationNode(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, int newSeed, EvolutionarySystem * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
+        PopulationNode(
+		int newPopulationSize,
+		Individual * templateIndividual,
+		int myMaxGenerations,
+		int numIterations,
+		int newSeed,
+		EvolutionarySystem * newModel,
+		EndCondition * newCondition,
+		FitnessPropagator * newPropagator
+	);
 
 	~PopulationNode();
 
-	void init(int newPopulationSize, Individual * templateIndividual, int myMaxGenerations, int numIterations, EvolutionarySystem * newModel, EndCondition * newCondition, FitnessPropagator * newPropagator);
+	void init(
+		int newPopulationSize,
+		Individual * templateIndividual,
+		int myMaxGenerations,
+		int numIterations,
+		EvolutionarySystem * newModel,
+		EndCondition * newCondition,
+		FitnessPropagator * newPropagator
+	);
 
 	//Evaluates the fitnesses of the population of this particular
 	//GeneNode - basically a convenience thing
@@ -78,7 +103,10 @@ class PopulationNode : public GeneNode {
 	//Evaluates the fitnesses of a given population of individuals
 	//Doesn't care what their genetic makeup is - uses their fitness
 	//functions
-	int * evaluateFitnesses(Individual ** populationToEval, int populationToEvalSize);
+	int * evaluateFitnesses(
+		Individual ** populationToEval,
+		int populationToEvalSize
+	);
 
 	int getHighestFitness();
 

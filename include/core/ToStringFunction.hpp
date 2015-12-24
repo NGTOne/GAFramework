@@ -16,5 +16,9 @@ class ToStringFunction {
 	protected:
 
 	public:
-	virtual std::string toString(GeneNode ** pools, int * indexes, int genomeLength)=0;
+	virtual std::string toString(
+		GeneNode ** pools,
+		int * indexes,
+		int genomeLength
+	)=0;
 };

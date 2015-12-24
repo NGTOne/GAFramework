@@ -18,5 +18,8 @@ class FitnessMatchEnd : public EndCondition {
 	public:
 	FitnessMatchEnd(int newMinimumFitness);
 
-	virtual bool checkCondition(Individual ** population, int populationSize);
+	virtual bool checkCondition(
+		Individual ** population,
+		int populationSize
+	);
 };

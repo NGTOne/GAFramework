@@ -22,8 +22,11 @@ class GA : public EvolutionarySystem {
 	public:
 
 	GA(int newNumElites, SelectionStrategy * newStrategy);
-
 	GA(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
 
-	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
+	Individual ** breedMutateSelect(
+		Individual ** initialPopulation,
+		int * populationFitnesses,
+		int populationSize
+	);
 };

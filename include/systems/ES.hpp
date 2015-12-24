@@ -26,5 +26,9 @@ class ES : public EvolutionarySystem {
 
 	ES(unsigned newSeed, SelectionStrategy * newStrategy);
 
-	Individual ** breedMutateSelect(Individual ** initialPopulation, int * populationFitnesses, int populationSize);
+	Individual ** breedMutateSelect(
+		Individual ** initialPopulation,
+		int * populationFitnesses,
+		int populationSize
+	);
 };
