@@ -6,7 +6,7 @@
 using namespace std;
 
 int main(void) {
-	SelectionStrategy * myStrategy = new TournamentSelection(0.5);
+	SelectionStrategy * myStrategy = new TournamentSelection(0.5, 4);
 
 	//EvolutionarySystem * myEvolutionarySystem = new SSGA(2, myStrategy);
 	EvolutionarySystem * myEvolutionarySystem = new ReplacingGA(myStrategy);

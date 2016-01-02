@@ -41,5 +41,5 @@ class SelectionStrategy {
 
 	virtual int getParent(int populationFitnesses[], int populationSize)=0;
 
-	std::string toString();
+	virtual std::string toString();
 };

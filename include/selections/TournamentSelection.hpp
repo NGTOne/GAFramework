@@ -1,6 +1,7 @@
 #include "../core/SelectionStrategy.hpp"
 #include <random>
 #include <chrono>
+#include <string>
 #pragma once
 
 /*
@@ -29,4 +30,6 @@ class TournamentSelection : public SelectionStrategy {
 	);
         
 	int getParent(int populationFitnesses[], int populationSize);
+
+	std::string toString();
 };

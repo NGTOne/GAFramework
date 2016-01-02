@@ -1,6 +1,8 @@
 #include "selections/TournamentSelection.hpp"
 #include <random>
 #include <chrono>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -72,4 +74,16 @@ int TournamentSelection::getParent(int populationFitnesses[], int populationSize
 			return indexes[i];
 		}
 	}
+}
+
+string TournamentSelection::toString() {
+	stringstream ss;
+
+	ss << "Name: " << name
+	<< "\nTournament size: " << tournamentSize
+	<< "\nRandom seed: " << seed
+	<< "\nCrossover Rate: " << crossoverRate
+	<< "\n";
+
+	return ss.str();
 }
