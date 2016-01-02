@@ -13,12 +13,20 @@ class TournamentSelection : public SelectionStrategy {
 	private:
 
 	protected:
-	void sortByFitness(int indexes[], int fitnesses[], int tournamentSize);
+	int tournamentSize;
+	void sortByFitness(int indexes[], int fitnesses[]);
+
+	void init(int newTournamentSize);
 
 	public:
 	TournamentSelection(double newCrossoverRate);
-
         TournamentSelection(unsigned newSeed, double newCrossoverRate);
+	TournamentSelection(double newCrossoverRate, int newTournamentSize);
+	TournamentSelection(
+		unsigned newSeed,
+		double newCrossoverRate,
+		int newTournamentSize
+	);
         
 	int getParent(int populationFitnesses[], int populationSize);
 };

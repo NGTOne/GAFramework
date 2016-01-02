@@ -4,11 +4,38 @@
 
 using namespace std;
 
-TournamentSelection::TournamentSelection(double newCrossoverRate) : SelectionStrategy(chrono::system_clock::now().time_since_epoch().count(), newCrossoverRate, "Tournament") {}
+TournamentSelection::TournamentSelection(double newCrossoverRate) : SelectionStrategy(chrono::system_clock::now().time_since_epoch().count(), newCrossoverRate, "Tournament") {
+	init(2);
+}
 
-TournamentSelection::TournamentSelection(unsigned newSeed, double newCrossoverRate) : SelectionStrategy(newSeed, newCrossoverRate, "Tournament") {}
+TournamentSelection::TournamentSelection(unsigned newSeed, double newCrossoverRate) : SelectionStrategy(newSeed, newCrossoverRate, "Tournament") {
+	init(2);
+}
 
-void TournamentSelection::sortByFitness(int indexes[], int fitnesses[], int tournamentSize) {
+TournamentSelection::TournamentSelection(
+	double newCrossoverRate,
+	int newTournamentSize
+) : SelectionStrategy(
+	chrono::system_clock::now().time_since_epoch().count(),
+	newCrossoverRate,
+	"Tournament"
+) {
+	init(newTournamentSize);
+}
+
+TournamentSelection::TournamentSelection(
+	unsigned newSeed,
+	double newCrossoverRate,
+	int newTournamentSize
+) : SelectionStrategy(newSeed, newCrossoverRate, "Tournament") {
+	init(newTournamentSize);
+}
+
+void TournamentSelection::init(int newTournamentSize) {
+	tournamentSize = newTournamentSize;
+}
+
+void TournamentSelection::sortByFitness(int indexes[], int fitnesses[]) {
 	int tempIndex, tempFitness;
 	for (int i = 0; i < tournamentSize; i++) {
 		for (int k = i + 1; k < tournamentSize; k++) {
@@ -25,7 +52,6 @@ void TournamentSelection::sortByFitness(int indexes[], int fitnesses[], int tour
 }
 
 int TournamentSelection::getParent(int populationFitnesses[], int populationSize) {
-	int tournamentSize = 2;
 	int fitnesses[tournamentSize];
 	int indexes[tournamentSize];
 	int index;
@@ -39,7 +65,7 @@ int TournamentSelection::getParent(int populationFitnesses[], int populationSize
 		indexes[i] = index;
 	}
 
-	sortByFitness(indexes, fitnesses, tournamentSize);
+	sortByFitness(indexes, fitnesses);
 
 	for (int i = 0; i < tournamentSize; i++) {
 		if (selectionDistribution(generator) < crossoverRate || i == tournamentSize - 1) {
