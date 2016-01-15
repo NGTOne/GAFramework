@@ -17,6 +17,7 @@ GA::GA(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) : Ev
 //This strategy uses the GA (Genetic Algorithms) approach - pick a few elites,
 //then fill the rest of the population in with new individuals
 Individual ** GA::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
+	if (numElites >= populationSize) int numElites = populationSize/2;
 	Individual ** newPopulation;
 	int * newFitnesses;
 	bool eliteLocations[populationSize];
