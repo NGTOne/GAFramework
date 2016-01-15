@@ -53,7 +53,13 @@ void TournamentSelection::sortByFitness(int indexes[], int fitnesses[]) {
 	}
 }
 
-int TournamentSelection::getParent(int populationFitnesses[], int populationSize) {
+int TournamentSelection::getParent(
+	int populationFitnesses[],
+	int populationSize
+) {
+	if (tournamentSize > populationSize) {
+		int tournamentSize = populationSize;
+	}
 	int fitnesses[tournamentSize];
 	int indexes[tournamentSize];
 	int index;
