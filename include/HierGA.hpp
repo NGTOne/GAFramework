@@ -33,6 +33,9 @@
 #include "propagators/apportioning/AveragingPropagator.hpp"
 #include "propagators/apportioning/SummingPropagator.hpp"
 #include "propagators/apportioning/WeightedAveragePropagator.hpp"
+#include "secondary-pop-nodes/annealer/SimulatedAnnealer.hpp"
+#include "secondary-pop-nodes/annealer/schedules/TemperatureSchedule.hpp"
+#include "secondary-pop-nodes/annealer/schedules/LinearTempSchedule.hpp"
 #pragma once
 
 // Legacy
