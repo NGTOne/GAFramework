@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class TemperatureSchedule {
 	private:
@@ -6,9 +7,15 @@ class TemperatureSchedule {
 	protected:
 	double initialTemp;
 	int iterationsToZero;
+	std::string name;
+
+	TemperatureSchedule(
+		double initialTemp,
+		int iterationsToZero,
+		std::string name
+	);
 
 	public:
-	TemperatureSchedule(double initialTemp, int iterationsToZero);
-
 	virtual double currentTemp(int currentIteration)=0;
+	virtual std::string toString();
 };
