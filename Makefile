@@ -126,6 +126,7 @@ apportioningPropagator:
 annealer:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/schedules/TemperatureSchedule.cpp -o obj/secondary-pop-nodes/annealer/schedules/TemperatureSchedule.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/schedules/LinearTempSchedule.cpp -o obj/secondary-pop-nodes/annealer/schedules/LinearTempSchedule.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/SimulatedAnnealer.cpp -o obj/secondary-pop-nodes/annealer/SimulatedAnnealer.o
 	
 
 # Examples

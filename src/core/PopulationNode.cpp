@@ -60,6 +60,14 @@ void PopulationNode::evaluateFitnesses() {
 	}
 }
 
+Individual ** PopulationNode::newPopulation() {
+	return myModel->breedMutateSelect(
+		myPopulation,
+		populationFitnesses,
+		populationSize
+	);
+}
+
 //Evaluates the fitnesses of a given population of individuals
 //Doesn't care what their genetic makeup is - uses their fitness functions
 int * PopulationNode::evaluateFitnesses(Individual ** populationToEval, int populationToEvalSize) {
@@ -97,7 +105,7 @@ void * PopulationNode::getFittest() {
 
 //Run one generation
 void PopulationNode::nextGeneration() {
-	Individual ** newPopulation;
+	Individual ** nextPopulation;
 
 	if (currentGeneration < maxGenerations && optimumFound == false) {
 		//Run the hierarchical component first - we're evolving
@@ -113,17 +121,17 @@ void PopulationNode::nextGeneration() {
 		//act like normal
 		propagateFitnesses();
 
-		newPopulation = myModel->breedMutateSelect(myPopulation, populationFitnesses, populationSize);
+		nextPopulation = newPopulation();
 
                 currentGeneration += 1;
 
 		//The new generation replaces the old
 		for (int i = 0; i < populationSize; i++) {
-			myPopulation[i] = newPopulation[i]->deepCopy();
-			delete(newPopulation[i]);
+			myPopulation[i] = nextPopulation[i]->deepCopy();
+			delete(nextPopulation[i]);
 		}
 
-		free(newPopulation);
+		free(nextPopulation);
 		evaluateFitnesses();
 		checkEndCondition();
 	}

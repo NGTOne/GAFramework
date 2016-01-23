@@ -12,47 +12,55 @@ class SimulatedAnnealer : public PopulationNode {
 
 	Individual * getNeighbour(Individual * target);
 	void init(
-		int populationSize,
-		Individual * templateIndividual,
-		int maxIterations,
-		int accelerationFactor,
-		TemperatureSchedule * schedule,
-		unsigned seed
+		bool maximize,
+		TemperatureSchedule * schedule
 	);
 
 	public:
 	SimulatedAnnealer(
 		Individual * templateIndividual,
+		bool maximize,
 		int maxIterations,
 		int accelerationFactor,
-		TemperatureSchedule * schedule
+		TemperatureSchedule * schedule,
+		EndCondition * condition,
+		FitnessPropagator * propagator
 	);
 
 	SimulatedAnnealer(
 		int populationSize,
 		Individual * templateIndividual,
+		bool maximize,
 		int maxIterations,
 		int accelerationFactor,
-		TemperatureSchedule * schedule
+		TemperatureSchedule * schedule,
+		EndCondition * condition,
+		FitnessPropagator * propagator
 	);
 
 	SimulatedAnnealer(
 		Individual * templateIndividual,
+		bool maximize,
 		int maxIterations,
 		int accelerationFactor,
 		TemperatureSchedule * schedule,
+		EndCondition * condition,
+		FitnessPropagator * propagator,
 		unsigned seed
 	);
 
 	SimulatedAnnealer(
 		int populationSize,
 		Individual * templateIndividual,
+		bool maximize,
 		int maxIterations,
 		int accelerationFactor,
 		TemperatureSchedule * schedule,
+		EndCondition * condition,
+		FitnessPropagator * propagator,
 		unsigned seed
 	);
 
-	void nextGeneration();
+	Individual ** newPopulation();
 	std::string toString();
 };
