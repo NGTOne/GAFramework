@@ -38,11 +38,14 @@ uninstall:
 	sudo rm -r /usr/include/*libHierGA*
 	sudo ldconfig
 
-examples: 1-max hier1-max royalroad hierroyalroad hier3royalroad hier3proprr
+examples: obj-dir 1-max hier1-max royalroad hierroyalroad hier3royalroad hier3proprr
 
-library: core selections mutations crossovers systems endconditions propagators
+library: obj-dir core selections mutations crossovers systems endconditions propagators
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
+
+obj-dir:
+	./compile-scripts/make-obj-dir.sh
 
 core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Property.cpp -o obj/core/Property.o
