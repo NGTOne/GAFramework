@@ -115,8 +115,7 @@ int SimulatedAnnealer::compareNeighbourliness(
 ) {
 	string basePhenotype = base->toGenomeString();
 	string targetPhenotype = target->toGenomeString();
-	int length = base->getGenomeLength();
-
+	int length = basePhenotype.length();
 
 	int diff = 0;
 	for (int i = 0; i < length; i++) {
