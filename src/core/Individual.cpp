@@ -187,6 +187,19 @@ Individual * Individual::deepCopy() {
 	return myCopy;
 }
 
+Individual * Individual::copyWithNewGenome(Genome * newGenome) {
+	Individual * myCopy = new Individual(
+		newGenome,
+		myCrossover,
+		myMutation,
+		myFunction,
+		myToString,
+		speciesID
+	);
+
+	return myCopy;
+}
+
 //For populating PopulationNodes - basically, use this Individual as a
 //template, just generate a new genome for it
 Individual * Individual::makeRandomCopy() {

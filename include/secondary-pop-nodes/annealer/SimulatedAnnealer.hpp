@@ -10,6 +10,7 @@ class SimulatedAnnealer : public PopulationNode {
 	TemperatureSchedule * schedule;
 	bool maximize;
 
+	int compareNeighbourliness(Individual * base, Individual * target);
 	Individual * getNeighbour(Individual * target);
 	void init(
 		bool maximize,
