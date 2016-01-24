@@ -121,6 +121,7 @@ class Individual {
 	unsigned getSpeciesID();
 
 	Individual * deepCopy();
+	Individual * copyWithNewGenome(Genome * newGenome);
 
 	//For populating PopulationNodes - basically, use this Individual
 	//as a template, just generate a new genome for it

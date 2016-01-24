@@ -50,6 +50,8 @@ class PopulationNode : public GeneNode {
 	//Used to decrease unnecessary verbosity in toString()
 	bool readOnce;
 
+	virtual Individual ** newPopulation();
+
 	public:
 
 	void sortPopulation();
