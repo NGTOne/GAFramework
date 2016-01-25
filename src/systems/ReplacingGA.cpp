@@ -50,10 +50,15 @@ Individual ** ReplacingGA::breedMutateSelect(Individual ** initialPopulation, in
 		children = firstParent->crossoverOperation(secondParent);
 
 		for (int k = 0; k < 2; k++) {
-			children[k] = children[k]->mutationOperation();
+			Individual * tempChild = children[k]->
+				mutationOperation();
+			delete(children[k]);
+			children[k] = tempChild;
 
 			if (children[k]->checkFitness() > newPopulation[indexes[k]]->getFitness()) {
 				newPopulation[indexes[k]] = children[k];
+			} else {
+				delete(children[k]);
 			}
 		}
 
