@@ -103,7 +103,8 @@ Individual ** SimulatedAnnealer::newPopulation() {
 	);
 
 	for (int i = 0; i < populationSize; i++) {
-		population[i] = getNeighbour(myPopulation[i]);
+		population[i] = getNeighbour(myPopulation[i]);;
+		delete(myPopulation[i]);
 	}
 
 	return population;
