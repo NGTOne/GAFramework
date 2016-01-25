@@ -38,7 +38,9 @@ Individual ** ReplacingGA::breedMutateSelect(Individual ** initialPopulation, in
 
 	newPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);
 
-	for (int i = 0; i < populationSize; i++) newPopulation[i] = initialPopulation[i];
+	for (int i = 0; i < populationSize; i++) {
+		newPopulation[i] = initialPopulation[i]->deepCopy();
+	}
 
 	for (int i = 0; i < populationSize/2; i++) {
 		for (int k = 0; k < 2; k++) {
@@ -56,6 +58,7 @@ Individual ** ReplacingGA::breedMutateSelect(Individual ** initialPopulation, in
 			children[k] = tempChild;
 
 			if (children[k]->checkFitness() > newPopulation[indexes[k]]->getFitness()) {
+				delete(newPopulation[indexes[k]]);
 				newPopulation[indexes[k]] = children[k];
 			} else {
 				delete(children[k]);
@@ -63,6 +66,10 @@ Individual ** ReplacingGA::breedMutateSelect(Individual ** initialPopulation, in
 		}
 
 		free(children);
+	}
+
+	for (int i = 0; i < populationSize; i++) {
+		delete(initialPopulation[i]);
 	}
 
 	return(newPopulation);
