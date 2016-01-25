@@ -68,9 +68,5 @@ Individual ** ReplacingGA::breedMutateSelect(Individual ** initialPopulation, in
 		free(children);
 	}
 
-	for (int i = 0; i < populationSize; i++) {
-		delete(initialPopulation[i]);
-	}
-
 	return(newPopulation);
 }

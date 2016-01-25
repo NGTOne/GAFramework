@@ -65,7 +65,7 @@ Individual ** ES::breedMutateSelect(Individual ** initialPopulation, int populat
         //Time to pick the ones that will move on to the next generation
         //First, we lump them all together into one big population
         for (int i = 0; i < populationSize; i++) {
-                overallPopulation[i] = initialPopulation[i];
+                overallPopulation[i] = initialPopulation[i]->deepCopy();
                 newPopulationFitnesses[i] = populationFitnesses[i];
                 overallPopulation[i+populationSize] = mutantChildren[i];
                 newPopulationFitnesses[i+populationSize] = mutantChildren[i]->getFitness();

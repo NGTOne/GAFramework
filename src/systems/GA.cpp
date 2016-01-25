@@ -81,7 +81,6 @@ Individual ** GA::breedMutateSelect(Individual ** initialPopulation, int populat
 
 	for (int i = 0; i < populationSize; i++) {
 		populationFitnesses[i] = newFitnesses[i];
-		delete(initialPopulation[i]);
 	}
 
 	free(newFitnesses);

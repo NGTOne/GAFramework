@@ -98,7 +98,6 @@ Individual ** SSGA::breedMutateSelect(Individual ** initialPopulation, int popul
 		if (newPopulation[i] == NULL) {
 			newPopulation[i] = initialPopulation[i]->deepCopy();
 		}
-		delete(initialPopulation[i]);
 	}
 
 	return newPopulation;

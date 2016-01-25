@@ -127,6 +127,7 @@ void PopulationNode::nextGeneration() {
 
 		//The new generation replaces the old
 		for (int i = 0; i < populationSize; i++) {
+			delete(myPopulation[i]);
 			myPopulation[i] = nextPopulation[i]->deepCopy();
 			delete(nextPopulation[i]);
 		}
