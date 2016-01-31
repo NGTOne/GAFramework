@@ -29,7 +29,7 @@ class SSGA : public EvolutionarySystem {
 		NichingStrategy * newNiching
 	);
 
-	Individual ** breedMutateSelect(
+	virtual Individual ** breedMutateSelect(
 		Individual ** initialPopulation,
 		int * populationFitnesses,
 		int populationSize

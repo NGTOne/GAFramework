@@ -82,6 +82,7 @@ es:
 
 ssga: niching
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/SSGA.cpp -o obj/systems/SSGA.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/AccelSSGA.cpp -o obj/systems/AccelSSGA.o
 
 rga:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ReplacingGA.cpp -o obj/systems/ReplacingGA.o

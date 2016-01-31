@@ -23,6 +23,7 @@
 #include "systems/GA.hpp"
 #include "systems/ReplacingGA.hpp"
 #include "systems/SSGA.hpp"
+#include "systems/AccelSSGA.hpp"
 #include "systems/niching/Crowding.hpp"
 #include "mutations/BoundaryMutation.hpp"
 #include "mutations/UniformMutation.hpp"
