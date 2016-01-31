@@ -105,18 +105,33 @@ Individual ** GA::breedMutateSelect(Individual ** initialPopulation, int populat
 		firstParent = children[0]->mutationOperation();
 		secondParent = children[1]->mutationOperation();
 
-		while (newPopulation[numOffspring++] != NULL);
+		while (
+			numOffspring < populationSize &&
+			newPopulation[numOffspring] != NULL
+		) numOffspring++;
+
 
 		delete(children[0]);
 		delete(children[1]);
 		free(children);
 
-		newPopulation[numOffspring] = firstParent;
-		newFitnesses[numOffspring++] = firstParent->getFitness();
+		if (numOffspring < populationSize) {
+			newPopulation[numOffspring] = firstParent;
+			newFitnesses[numOffspring++] = firstParent->getFitness();
+		} else {
+			delete(firstParent);
+		}
+
+		while (
+			numOffspring < populationSize &&
+			newPopulation[numOffspring] != NULL
+		) numOffspring++;
 
 		if (numOffspring < populationSize) {
 			newPopulation[numOffspring] = secondParent;
 			newFitnesses[numOffspring++] = secondParent->getFitness();
+		} else {
+			delete(secondParent);
 		}
 	}
 
