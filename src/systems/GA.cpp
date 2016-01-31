@@ -6,12 +6,50 @@
 
 using namespace std;
 
-GA::GA(int newNumElites, SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {
-	numElites = newNumElites;
+GA::GA(
+	int numElites,
+	bool randomElitePlacement,
+	SelectionStrategy * strategy
+) : EvolutionarySystem(strategy) {
+	init(numElites, randomElitePlacement);
 }
 
-GA::GA(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {
-	numElites = newNumElites;
+GA::GA(
+	int numElites,
+	SelectionStrategy * strategy
+) : EvolutionarySystem(strategy) {
+	init(numElites, false);
+}
+
+GA::GA(
+	unsigned seed,
+	int numElites,
+	bool randomElitePlacement,
+	SelectionStrategy * strategy
+) : EvolutionarySystem(seed, strategy) {
+	init(numElites, randomElitePlacement);
+}
+
+void GA::init(int numElites, bool randomElitePlacement) {
+	this->numElites = numElites;
+	this->randomElitePlacement = randomElitePlacement;
+}
+
+int GA::getEliteIndex(Individual ** newPopulation, int populationSize) {
+	if (!randomElitePlacement) {
+		for (int i = 0; i < populationSize; i++) {
+			if (newPopulation[i] == NULL) return i;
+		}
+	} else {
+		uniform_int_distribution<int> dist(0, populationSize-1);
+		int index = dist(generator);
+
+		while (newPopulation[index] != NULL) {
+			index = dist(generator);
+		}
+
+		return index;
+	}
 }
 
 //This strategy uses the GA (Genetic Algorithms) approach - pick a few elites,
@@ -37,6 +75,7 @@ Individual ** GA::breedMutateSelect(Individual ** initialPopulation, int populat
 
 	for (int i = 0; i < populationSize; i++) {
 		eliteLocations[i] = false;
+		newPopulation[i] = NULL;
 	}
 
 	//Add the elites to the new population
@@ -48,13 +87,13 @@ Individual ** GA::breedMutateSelect(Individual ** initialPopulation, int populat
 			}
 		}
 
-		newPopulation[numOffspring] = initialPopulation[bestFitnessLocation]->deepCopy();
-		newFitnesses[numOffspring] = bestFitness;
-		numOffspring += 1;
+		int index = getEliteIndex(newPopulation, populationSize);
+		newPopulation[index] = initialPopulation[bestFitnessLocation]->deepCopy();
+		newFitnesses[index] = bestFitness;
 		eliteLocations[bestFitnessLocation] = true;
 	}
 
-	for(;numOffspring < populationSize;) {
+	while(numOffspring < populationSize) {
 		firstIndex = getParent(populationFitnesses, populationSize);
 		secondIndex = getParent(populationFitnesses, populationSize);
 
@@ -65,6 +104,8 @@ Individual ** GA::breedMutateSelect(Individual ** initialPopulation, int populat
 
 		firstParent = children[0]->mutationOperation();
 		secondParent = children[1]->mutationOperation();
+
+		while (newPopulation[numOffspring++] != NULL);
 
 		delete(children[0]);
 		delete(children[1]);

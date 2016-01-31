@@ -18,11 +18,33 @@ class GA : public EvolutionarySystem {
 
 	protected:
 	int numElites;
+	bool randomElitePlacement;
+
+	void init(int numElites, bool randomElitePlacement);
+	int getEliteIndex(
+		Individual ** newPopulation,
+		int populationSize
+	);
 
 	public:
 
-	GA(int newNumElites, SelectionStrategy * newStrategy);
-	GA(unsigned newSeed, int newNumElites, SelectionStrategy * newStrategy);
+	GA(
+		int numElites,
+		bool randomElitePlacement,
+		SelectionStrategy * strategy
+	);
+
+	GA(
+		int numElites,
+		SelectionStrategy * strategy
+	);
+
+	GA(
+		unsigned seed,
+		int numElites,
+		bool randomElitePlacement,
+		SelectionStrategy * strategy
+	);
 
 	Individual ** breedMutateSelect(
 		Individual ** initialPopulation,
