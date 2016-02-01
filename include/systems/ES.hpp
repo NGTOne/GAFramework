@@ -19,11 +19,12 @@ class ES : public EvolutionarySystem {
 	private:
 
 	protected:
+	int getParent(int * populationFitnesses, int populationSize);
 
 	public:
-
+	ES();
+	ES(unsigned newSeed);
 	ES(SelectionStrategy * newStrategy);
-
 	ES(unsigned newSeed, SelectionStrategy * newStrategy);
 
 	Individual ** breedMutateSelect(

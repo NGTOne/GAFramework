@@ -98,7 +98,11 @@ string EvolutionarySystem::toString() {
 	
 	ss << "Random seed: " << seed << "\nSelection Strategy Info:\n";
 
-	ss << myStrategy->toString();
+	if (myStrategy) {
+		ss << myStrategy->toString();
+	} else {
+		ss << "Not using any selection strategy\n";
+	}
 
 	returnString = ss.str();
 

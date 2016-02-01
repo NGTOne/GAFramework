@@ -33,7 +33,7 @@ class EvolutionarySystem {
 		int populationSize
 	);
 
-	int getParent(int * populationFitnesses, int populationSize);
+	virtual int getParent(int * populationFitnesses, int populationSize);
 
 	virtual Individual ** breedMutateSelect(
 		Individual ** initialPopulation,

@@ -6,9 +6,27 @@
 
 using namespace std;
 
+ES::ES() : EvolutionarySystem(NULL) {}
+
+ES::ES(unsigned seed) : EvolutionarySystem(seed, NULL) {}
+
 ES::ES(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {}
 
 ES::ES(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {}
+
+int ES::getParent(int * populationFitnesses, int populationSize) {
+	if (myStrategy == NULL) {
+		uniform_int_distribution<int>
+			selectionDist(0, populationSize-1);
+
+		return selectionDist(generator);
+	} else {
+		return EvolutionarySystem::getParent(
+			populationFitnesses,
+			populationSize
+		);
+	}
+}
 
 //This strategy uses the ES (Evolutionary Strategies) approach - generate all
 //the offspring, concatenate them together, sort them by fitness, and then
