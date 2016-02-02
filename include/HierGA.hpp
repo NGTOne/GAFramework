@@ -22,6 +22,8 @@
 #include "systems/ES.hpp"
 #include "systems/GA.hpp"
 #include "systems/ReplacingGA.hpp"
+#include "systems/StrongIterativeReplacingGA.hpp"
+#include "systems/WeakIterativeReplacingGA.hpp"
 #include "systems/SSGA.hpp"
 #include "systems/AccelSSGA.hpp"
 #include "systems/niching/Crowding.hpp"

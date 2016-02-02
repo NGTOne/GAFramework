@@ -31,7 +31,7 @@ class ReplacingGA : public EvolutionarySystem {
 	ReplacingGA(SelectionStrategy * newStrategy);
 	ReplacingGA(unsigned newSeed, SelectionStrategy * newStrategy);
 
-	Individual ** breedMutateSelect(
+	virtual Individual ** breedMutateSelect(
 		Individual ** initialPopulation,
 		int * populationFitnesses,
 		int populationSize
