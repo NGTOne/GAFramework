@@ -50,8 +50,10 @@ Individual ** WeakIterativeReplacingGA::breedMutateSelect(
 				mutationOperation();
 			delete(children[k]);
 			children[k] = tempChild;
-			possibleContenders[indexes[k]][numOffspring[indexes[k]]++] = children[k];
 		}
+
+		possibleContenders[i][numOffspring[i]++] = children[0];
+		possibleContenders[indexes[1]][numOffspring[indexes[1]]++] = children[1];
 
 		free(children);
 	}
@@ -64,9 +66,12 @@ Individual ** WeakIterativeReplacingGA::breedMutateSelect(
 			delete(newPopulation[i]);
 			newPopulation[i] = possibleContenders[i][index]->deepCopy();
 		}
+	}
 
+	for (int i = 0; i < populationSize; i++) {
 		for (int k = 0; k < numOffspring[i]; k++) {
 			delete(possibleContenders[i][k]);
+			possibleContenders[i][k] = NULL;
 		}
 	}
 
