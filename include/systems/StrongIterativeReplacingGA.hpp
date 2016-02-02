@@ -14,12 +14,24 @@ class StrongIterativeReplacingGA : public ReplacingGA {
 	private:
 
 	protected:
+	bool scramble;
+
+	void scramblePopulation(Individual ** population, int populationSize);
 
 	public:
 	StrongIterativeReplacingGA(SelectionStrategy * newStrategy);
 	StrongIterativeReplacingGA(
 		unsigned newSeed,
 		SelectionStrategy * newStrategy
+	);
+	StrongIterativeReplacingGA(
+		bool scramble,
+		SelectionStrategy * strategy
+	);
+	StrongIterativeReplacingGA(
+		unsigned seed,
+		bool scramble,
+		SelectionStrategy * strategy
 	);
 
 	Individual ** breedMutateSelect(
