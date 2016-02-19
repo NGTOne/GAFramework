@@ -1,3 +1,4 @@
+#include "core/HierarchicalEA.hpp"
 #include "core/CrossoverOperation.hpp"
 #include "core/EndCondition.hpp"
 #include "core/FitnessFunction.hpp"
