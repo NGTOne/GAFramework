@@ -30,13 +30,18 @@ int main(void) {
 
 	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction, myToString);
 
-	PopulationNode * topLevelPool = new PopulationNode(64, templateIndividual, 100, 1, myEvolutionarySystem, myEndCondition, myPropagator);
+	PopulationNode * node = new PopulationNode(64, templateIndividual, 100, 1, myEvolutionarySystem, myEndCondition, myPropagator);
 
 	delete(templateIndividual);
-	
-	topLevelPool->run(true);
 
-	delete(topLevelPool);
+	HierarchicalEA ea(100);
+	ea.addNode(node, "P1", true);
+	ea.setEvolutionOrder({"P1"});
+	ea.run(true);
+	
+	//topLevelPool->run(true);
+
+	delete(node);
 	for (int i = 0; i < 32; i++) {
 		delete(baseGenes[i]);
 	}
