@@ -114,6 +114,7 @@ bool HierarchicalEA::done(int currentEpoch) {
 	return done;
 }
 
+// TODO: Make verbosity option actually mean something
 void HierarchicalEA::run(bool verbose) {
 	buildEvolutionNodes();
 	buildPrintNodes();
