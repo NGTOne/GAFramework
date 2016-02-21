@@ -100,8 +100,11 @@ void HierarchicalEA::run(bool verbose) {
 	buildEvolutionNodes();
 	buildPrintNodes();
 	cout << "Before:\n";
-	for (int k = 0; k < printNodes.size(); k++) {
-		cout << printNodes[k]->toString();
+	cout << string(80, '=') << "\n";
+	for (int i = 0; i < printNodes.size(); i++) {
+		cout << "Node " << nodesToPrint[i] << ":\n";
+		cout << printNodes[i]->toString();
+		cout << string(80, '-') << "\n";
 	}
 
 	for (int i = 0; i < maxEpochs; i++) {
@@ -110,8 +113,11 @@ void HierarchicalEA::run(bool verbose) {
 		}
 
 		cout << "After epoch " << i << ":\n";
+		cout << string(80, '=') << "\n";
 		for (int k = 0; k < printNodes.size(); k++) {
+			cout << "Node " << nodesToPrint[k] << ":\n";
 			cout << printNodes[k]->toString();
+			cout << string(80, '-') << "\n";
 		}
 	}
 }
