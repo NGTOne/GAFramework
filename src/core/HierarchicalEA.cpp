@@ -1,10 +1,13 @@
 #include "core/HierarchicalEA.hpp"
 #include "exception/NodeAlreadyExistsException.hpp"
 #include "exception/InvalidNodeException.hpp"
+#include "exception/NoNodesException.hpp"
+#include "exception/NoEvolutionOrderException.hpp"
 
 #include <iostream>
+#include <algorithm>
 
-HierarchicalEA::HierarchicalEA() {
+HierarchicalEA::HierarchicalEA(int maxEpochs) {
 	this->maxEpochs = maxEpochs;
 }
 
@@ -13,7 +16,7 @@ HierarchicalEA::~HierarchicalEA() {}
 void HierarchicalEA::addNode(PopulationNode * node, string name, bool print) {
 	for (int i = 0; i < nodeNames.size(); i++) {
 		if (nodeNames[i] == name or nodes[i] == node) {
-			throw NodeAlreadyExistsException;
+			throw NodeAlreadyExistsException();
 		}
 	}
 	nodes.push_back(node);
@@ -23,9 +26,10 @@ void HierarchicalEA::addNode(PopulationNode * node, string name, bool print) {
 
 void HierarchicalEA::removeNode(string name) {
 	for (int i = 0; i < nodeNames.size(); i++) {
-		if ((nodeNames[i]) == name) {
+		string nodeName = nodeNames[i];
+		if (nodeName == name) {
 			nodeNames.erase(nodeNames.begin()+i);
-			nodes.erase(nodeNames.begin()+i);
+			nodes.erase(nodes.begin()+i);
 			break;
 		}
 	}
@@ -45,7 +49,7 @@ void HierarchicalEA::checkNodesExist(vector<string> names) {
 			if (nodeNames[k] == names[i]) exists = true;
 		}
 
-		if (!exists) throw InvalidNodeException;
+		if (!exists) throw InvalidNodeException();
 	}
 }
 
@@ -65,16 +69,18 @@ void HierarchicalEA::buildNodeSet(
 	vector<string> targetNames,
 	vector<PopulationNode *> targetSet
 ) {
-	checkNodesExist(names);
+	checkNodesExist(targetNames);
 }
 
 void HierarchicalEA::buildEvolutionNodes() {
-	if (nodes.empty()) throw NoNodesException;
-	if (evolutionOrder.empty()) throw NoEvolutionOrderException;
+	if (nodes.empty()) throw NoNodesException();
+	if (evolutionOrder.empty()) throw NoEvolutionOrderException();
 
 	for (int i = 0; i < evolutionOrder.size(); i++) {
-		for (int k = 0; k < names.size(); k++) {
-			if (names[k] == evolutionOrder[i]) {
+		string orderName = evolutionOrder[i];
+		for (int k = 0; k < nodeNames.size(); k++) {
+			string name = nodeNames[k];
+			if (name == orderName) {
 				evolutionNodes.push_back(nodes[k]);
 				break;
 			}
@@ -83,12 +89,14 @@ void HierarchicalEA::buildEvolutionNodes() {
 }
 
 void HierarchicalEA::buildPrintNodes() {
-	if (nodes.empty()) throw NoNodesException;
+	if (nodes.empty()) throw NoNodesException();
 	printNodes.clear();
 
 	for (int i = 0; i < nodesToPrint.size(); i++) {
-		for (int k = 0; k < names.size(); k++) {
-			if (names[k] == printNodes[i]) {
+		string printNode = nodesToPrint[i];
+		for (int k = 0; k < nodeNames.size(); k++) {
+			string name = nodeNames[k];
+			if (name == printNode) {
 				printNodes.push_back(nodes[k]);
 				break;
 			}

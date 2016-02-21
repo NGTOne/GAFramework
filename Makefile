@@ -61,6 +61,7 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EndCondition.cpp -o obj/core/EndCondition.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PopulationNode.cpp -o obj/core/PopulationNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/NonEvolvingPopulationNode.cpp -o obj/core/NonEvolvingPopulationNode.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierarchicalEA.cpp -o obj/core/HierarchicalEA.o
 
 selections: tournamentSelection
 

@@ -13,19 +13,23 @@ class HierarchicalEA {
 	vector<string> nodeNames;
 	vector<string> nodesToPrint;
 	vector<string> evolutionOrder;
-	vector<MigratoryRelationship *> migrations;
+	//vector<MigratoryRelationship *> migrations;
 	int maxEpochs;
 
 	vector<PopulationNode *> evolutionNodes;
 	vector<PopulationNode *> printNodes;
 
+	void buildNodeSet(
+		vector<string> targetNames,
+		vector <PopulationNode *> targetSet
+	);
 	void buildEvolutionNodes();
 	void buildPrintNodes();
 
 	void checkNodesExist(vector<string> names);
 
 	public:
-	HierachicalEA(int maxEpochs);
+	HierarchicalEA(int maxEpochs);
 	~HierarchicalEA();
 
 	void run(bool verbose);

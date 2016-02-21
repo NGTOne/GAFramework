@@ -150,34 +150,6 @@ void PopulationNode::propagateFitnesses() {
 	}
 }
 
-void PopulationNode::run(bool verbose) {
-	if (verbose == true) {
-		cout << "Before:\n" << toString() << "-----------------------------------------------------------------\n";
-	}
-
-	while (currentGeneration < maxGenerations && optimumFound == false) {
-		if (verbose == true) {
-			//Because currentGeneration is 0-indexed, but humans
-			//start counting from 1
-			cout << "Before generation " << currentGeneration+1 << ":\n";
-			cout << toString();
-			cout << "-----------------------------------------------------------------\n";
-		}
-
-		runGenerations();
-	}
-
-	if (verbose == true) {
-		cout << "After:\n" << toString() << "-----------------------------------------------------------------\n";
-		if (optimumFound == true) {
-			cout << "Genetic algorithm ended after generation " << currentGeneration << " because specified ending condition was met.\n";
-		} else {
-			cout << "Genetic algorithm ended after generation " << currentGeneration << " because it reached the maximum generation count.\n";
-		}
-	}
-
-}
-
 //For HGAs - if we want to run multiple generations of a lower-level gene pool
 //for every one of a higher-level one, this is how
 //Basically a loop wrapped around nextGeneration()
