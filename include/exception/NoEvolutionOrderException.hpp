@@ -1,6 +1,6 @@
 #include <exception>
 #pragma once
 
-class NoEvolutionOrderException : public exception {
+class NoEvolutionOrderException : public std::exception {
 	virtual const char * what() const throw();
 };

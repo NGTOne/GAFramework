@@ -36,7 +36,6 @@ class LibraryNode: public GeneNode {
 
 	//Empty, to maintain compatibility with the GeneNode abstract class
 	//(an Individual doesn't care what's going on in here, so this works)
-	void run(bool verbose);
 	void runGenerations();
 	void setFitnessAtIndex(int index, int newFitness);
 	void propagateFitnesses();
@@ -96,7 +95,6 @@ template <class T> int LibraryNode<T>::getFitnessAtIndex(int index) {
 
 //Empty, to maintain compatibility with the GeneNode abstract class (an
 //Individual doesn't care what's going on in here, so this works)
-template <class T> void LibraryNode<T>::run(bool verbose) {}
 template <class T> void LibraryNode<T>::runGenerations() {}
 template <class T> void LibraryNode<T>::propagateFitnesses() {}
 

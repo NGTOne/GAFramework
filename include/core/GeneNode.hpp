@@ -22,7 +22,6 @@ class GeneNode {
 	public:
 	virtual ~GeneNode()=0;
 
-	virtual void run(bool verbose)=0;
 	virtual void runGenerations()=0;
 	virtual void * getIndex(int index) = 0;
 	virtual void * getFittest() = 0;
