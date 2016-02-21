@@ -95,6 +95,25 @@ void HierarchicalEA::buildPrintNodes() {
 	buildNodeSet(nodesToPrint, &printNodes);
 }
 
+bool HierarchicalEA::done(int currentEpoch) {
+	bool done = true;
+	if (currentEpoch >= maxEpochs - 1) {
+		cout << "Hierarchical EA ended because maximum epoch count was reached.\n";
+		return done;
+	}
+
+	for (int i = 0; i < evolutionNodes.size(); i++) {
+		if (!evolutionNodes[i]->done()) {
+			done = false;
+			break;
+		}
+	}
+
+	if (done) cout << "Hierarchical EA ended because all population nodes reported reaching their specified ending conditions.\n";
+
+	return done;
+}
+
 void HierarchicalEA::run(bool verbose) {
 	buildEvolutionNodes();
 	buildPrintNodes();
@@ -108,7 +127,9 @@ void HierarchicalEA::run(bool verbose) {
 
 	for (int i = 0; i < maxEpochs; i++) {
 		for (int k = 0; k < evolutionNodes.size(); k++) {
-			evolutionNodes[k]->runGenerations();
+			if (!evolutionNodes[k]->done()) {
+				evolutionNodes[k]->runGenerations();
+			}
 		}
 
 		// Because humans count from 1, we add 1 to our epoch counter
@@ -119,5 +140,7 @@ void HierarchicalEA::run(bool verbose) {
 			cout << printNodes[k]->toString();
 			cout << string(80, '-') << "\n";
 		}
+
+		if (done(i)) break;
 	}
 }

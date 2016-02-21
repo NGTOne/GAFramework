@@ -27,6 +27,7 @@ class HierarchicalEA {
 	void buildPrintNodes();
 
 	void checkNodesExist(vector<string> names);
+	bool done(int currentEpoch);
 
 	public:
 	HierarchicalEA(int maxEpochs);

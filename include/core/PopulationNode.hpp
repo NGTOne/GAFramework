@@ -54,6 +54,8 @@ class PopulationNode : public GeneNode {
 
 	public:
 
+	bool done();
+
 	void sortPopulation();
 	void setFitnessAtIndex(int index, int newFitness);
 

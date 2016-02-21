@@ -38,8 +38,6 @@ int main(void) {
 	ea.addNode(node, "P1", true);
 	ea.setEvolutionOrder({"P1"});
 	ea.run(true);
-	
-	//topLevelPool->run(true);
 
 	delete(node);
 	for (int i = 0; i < 32; i++) {

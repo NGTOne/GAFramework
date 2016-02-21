@@ -177,6 +177,10 @@ int PopulationNode::getFitnessAtIndex(int index) {
 	return populationFitnesses[index];
 }
 
+bool PopulationNode::done() {
+	return currentGeneration >= maxGenerations - 1 || optimumFound;
+}
+
 string PopulationNode::populationStrings() {
 	string returnString = "";
 	stringstream ss;
