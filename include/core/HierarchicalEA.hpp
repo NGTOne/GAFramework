@@ -15,7 +15,7 @@ class HierarchicalEA {
 	vector<string> nodeNames;
 	vector<string> nodesToPrint;
 	vector<string> evolutionOrder;
-	//vector<MigratoryRelationship *> migrations;
+	vector<MigratoryRelationship *> migrations;
 	int maxEpochs;
 
 	vector<PopulationNode *> evolutionNodes;
