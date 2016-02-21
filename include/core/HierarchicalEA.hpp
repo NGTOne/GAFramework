@@ -1,4 +1,6 @@
 #include "PopulationNode.hpp"
+#include "migration/MigratoryRelationship.hpp"
+#include "migration/TranslationFunction.hpp"
 #include <vector>
 #include <string>
 #pragma once
@@ -45,5 +47,18 @@ class HierarchicalEA {
 		string from,
 		string to,
 		bool bidirectional
+	);
+
+	void addMigratoryRelationship(
+		string from,
+		string to,
+		TranslationFunction toTranslate
+	);
+
+	void addMigratoryRelationship(
+		string from,
+		string to,
+		TranslationFunction toTranslate,
+		TranslationFunction fromTranslate
 	);
 };

@@ -15,6 +15,8 @@
 #include "core/PropertiesList.hpp"
 #include "core/Property.hpp"
 #include "core/FitnessPropagator.hpp"
+#include "core/MigratoryRelationship.hpp"
+#include "core/TranslationFunction.hpp"
 #include "crossovers/CutAndSpliceCrossover.hpp"
 #include "crossovers/NPointCrossover.hpp"
 #include "crossovers/UniformCrossover.hpp"
