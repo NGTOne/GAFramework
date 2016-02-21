@@ -21,7 +21,7 @@ class HierarchicalEA {
 
 	void buildNodeSet(
 		vector<string> targetNames,
-		vector <PopulationNode *> targetSet
+		vector <PopulationNode *> * targetSet
 	);
 	void buildEvolutionNodes();
 	void buildPrintNodes();

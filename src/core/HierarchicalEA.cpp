@@ -67,7 +67,7 @@ void HierarchicalEA::setEvolutionOrder(vector<string> names) {
 
 void HierarchicalEA::buildNodeSet(
 	vector<string> targetNames,
-	vector<PopulationNode *> targetSet
+	vector<PopulationNode *> * targetSet
 ) {
 	if (nodes.empty()) throw NoNodesException();
 	checkNodesExist(targetNames);
@@ -77,7 +77,7 @@ void HierarchicalEA::buildNodeSet(
 		for (int k = 0; k < nodeNames.size(); k++) {
 			string realName = nodeNames[k];
 			if (name == realName) {
-				targetSet.push_back(nodes[k]);
+				targetSet->push_back(nodes[k]);
 				break;
 			}
 		}
@@ -87,13 +87,12 @@ void HierarchicalEA::buildNodeSet(
 void HierarchicalEA::buildEvolutionNodes() {
 	if (evolutionOrder.empty()) throw NoEvolutionOrderException();
 	evolutionNodes.clear();
-	buildNodeSet(evolutionOrder, evolutionNodes);
+	buildNodeSet(evolutionOrder, &evolutionNodes);
 }
 
 void HierarchicalEA::buildPrintNodes() {
-	if (nodes.empty()) throw NoNodesException();
 	printNodes.clear();
-	buildNodeSet(nodesToPrint, printNodes);
+	buildNodeSet(nodesToPrint, &printNodes);
 }
 
 void HierarchicalEA::run(bool verbose) {
@@ -112,7 +111,8 @@ void HierarchicalEA::run(bool verbose) {
 			evolutionNodes[k]->runGenerations();
 		}
 
-		cout << "After epoch " << i << ":\n";
+		// Because humans count from 1, we add 1 to our epoch counter
+		cout << "After epoch " << i+1 << ":\n";
 		cout << string(80, '=') << "\n";
 		for (int k = 0; k < printNodes.size(); k++) {
 			cout << "Node " << nodesToPrint[k] << ":\n";
