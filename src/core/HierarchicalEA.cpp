@@ -69,39 +69,31 @@ void HierarchicalEA::buildNodeSet(
 	vector<string> targetNames,
 	vector<PopulationNode *> targetSet
 ) {
-	checkNodesExist(targetNames);
-}
-
-void HierarchicalEA::buildEvolutionNodes() {
 	if (nodes.empty()) throw NoNodesException();
-	if (evolutionOrder.empty()) throw NoEvolutionOrderException();
+	checkNodesExist(targetNames);
 
-	for (int i = 0; i < evolutionOrder.size(); i++) {
-		string orderName = evolutionOrder[i];
+	for (int i = 0; i < targetNames.size(); i++) {
+		string name = targetNames[i];
 		for (int k = 0; k < nodeNames.size(); k++) {
-			string name = nodeNames[k];
-			if (name == orderName) {
-				evolutionNodes.push_back(nodes[k]);
+			string realName = nodeNames[k];
+			if (name == realName) {
+				targetSet.push_back(nodes[k]);
 				break;
 			}
 		}
 	}
+}
+
+void HierarchicalEA::buildEvolutionNodes() {
+	if (evolutionOrder.empty()) throw NoEvolutionOrderException();
+	evolutionNodes.clear();
+	buildNodeSet(evolutionOrder, evolutionNodes);
 }
 
 void HierarchicalEA::buildPrintNodes() {
 	if (nodes.empty()) throw NoNodesException();
 	printNodes.clear();
-
-	for (int i = 0; i < nodesToPrint.size(); i++) {
-		string printNode = nodesToPrint[i];
-		for (int k = 0; k < nodeNames.size(); k++) {
-			string name = nodeNames[k];
-			if (name == printNode) {
-				printNodes.push_back(nodes[k]);
-				break;
-			}
-		}
-	}
+	buildNodeSet(nodesToPrint, printNodes);
 }
 
 void HierarchicalEA::run(bool verbose) {
