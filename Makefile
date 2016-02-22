@@ -38,7 +38,7 @@ uninstall:
 	sudo rm -r /usr/include/*libHierGA*
 	sudo ldconfig
 
-examples: obj-dir 1-max hier1-max royalroad hierroyalroad hier3royalroad hier3proprr
+examples: obj-dir 1-max hier1-max longestfragment hierlongestfragment hier3longestfragment hier3proprr
 
 library: obj-dir core selections mutations crossovers systems endconditions propagators exception
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
@@ -154,28 +154,28 @@ hier1-max:
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier1max src/examples/Hier1max/Hier1max.cpp -o obj/examples/Hier1max/Hier1max.o
 	$(CPPC) -o examples/Hier1max obj/examples/Hier1max/*.o $(SHAREDLIB)
 
-royalroad:
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/RoyalRoad src/examples/RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/RoyalRoad/RoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/RoyalRoad src/examples/RoyalRoad/RoyalRoad.cpp -o obj/examples/RoyalRoad/RoyalRoad.o
-	$(CPPC) -o examples/RoyalRoad obj/examples/RoyalRoad/*.o $(SHAREDLIB)
+longestfragment:
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/LongestFragment src/examples/LongestFragment/LongestFragmentFitness.cpp -o obj/examples/LongestFragment/LongestFragmentFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/LongestFragment src/examples/LongestFragment/LongestFragment.cpp -o obj/examples/LongestFragment/LongestFragment.o
+	$(CPPC) -o examples/LongestFragment obj/examples/LongestFragment/*.o $(SHAREDLIB)
 
-hierroyalroad:
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/RoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/RoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierRoyalRoad src/examples/HierRoyalRoad/HierRoyalRoad.cpp -o obj/examples/HierRoyalRoad/HierRoyalRoad.o
-	$(CPPC) -o examples/HierRoyalRoad obj/examples/HierRoyalRoad/*.o $(SHAREDLIB)
+hierlongestfragment:
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierLongestFragment src/examples/HierLongestFragment/LongestFragmentFitness.cpp -o obj/examples/HierLongestFragment/LongestFragmentFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierLongestFragment src/examples/HierLongestFragment/HierLongestFragmentFitness.cpp -o obj/examples/HierLongestFragment/HierLongestFragmentFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierLongestFragment src/examples/HierLongestFragment/HierLongestFragment.cpp -o obj/examples/HierLongestFragment/HierLongestFragment.o
+	$(CPPC) -o examples/HierLongestFragment obj/examples/HierLongestFragment/*.o $(SHAREDLIB)
 
-hier3royalroad:
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/RoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/RoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoadFitness.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3RoyalRoad src/examples/Hier3RoyalRoad/HierRoyalRoad.cpp -o obj/examples/Hier3RoyalRoad/HierRoyalRoad.o
-	$(CPPC) -o examples/Hier3RoyalRoad obj/examples/Hier3RoyalRoad/*.o $(SHAREDLIB)
+hier3longestfragment:
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3LongestFragment src/examples/Hier3LongestFragment/LongestFragmentFitness.cpp -o obj/examples/Hier3LongestFragment/LongestFragmentFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3LongestFragment src/examples/Hier3LongestFragment/HierLongestFragmentFitness.cpp -o obj/examples/Hier3LongestFragment/HierLongestFragmentFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3LongestFragment src/examples/Hier3LongestFragment/HierLongestFragment.cpp -o obj/examples/Hier3LongestFragment/HierLongestFragment.o
+	$(CPPC) -o examples/Hier3LongestFragment obj/examples/Hier3LongestFragment/*.o $(SHAREDLIB)
 
 hier3proprr:
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3PropRR src/examples/Hier3PropRR/RoyalRoadFitness.cpp -o obj/examples/Hier3PropRR/RoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3PropRR src/examples/Hier3PropRR/HierRoyalRoadFitness.cpp -o obj/examples/Hier3PropRR/HierRoyalRoadFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3PropRR src/examples/Hier3PropRR/HierRoyalRoad.cpp -o obj/examples/Hier3PropRR/HierRoyalRoad.o
-	$(CPPC) -o examples/Hier3PropRR obj/examples/Hier3PropRR/*.o $(SHAREDLIB)
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3PropLF src/examples/Hier3PropLF/LongestFragmentFitness.cpp -o obj/examples/Hier3PropLF/LongestFragmentFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3PropLF src/examples/Hier3PropLF/HierLongestFragmentFitness.cpp -o obj/examples/Hier3PropLF/HierLongestFragmentFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3PropLF src/examples/Hier3PropLF/HierLongestFragment.cpp -o obj/examples/Hier3PropLF/HierLongestFragment.o
+	$(CPPC) -o examples/Hier3PropLF obj/examples/Hier3PropLF/*.o $(SHAREDLIB)
 
 clean:
 	find obj -name *.o | xargs rm -f

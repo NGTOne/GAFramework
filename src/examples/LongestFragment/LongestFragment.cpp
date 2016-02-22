@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <iostream>
 #include <libHierGA/HierGA.hpp>
-#include "RoyalRoadFitness.hpp"
+#include "LongestFragmentFitness.hpp"
 
 using namespace std;
 
@@ -10,8 +10,8 @@ int main(void) {
 
 	EvolutionarySystem * myModel = new GA(2, myStrategy);
 
-	FitnessFunction * myFunction = new RoyalRoadFitness();
-	ToStringFunction * myToString = new RoyalRoadToString();
+	FitnessFunction * myFunction = new LongestFragmentFitness();
+	ToStringFunction * myToString = new LongestFragmentToString();
 	CrossoverOperation * myCrossover = new NPointCrossover(2);
 	MutationOperation * myMutation = new UniformMutation(0.2);
 
@@ -30,8 +30,11 @@ int main(void) {
 	PopulationNode * topLevelPool = new PopulationNode(128, templateIndividual, 100, 1, myModel, NULL, myPropagator);
 
 	delete(templateIndividual);
-	
-	topLevelPool->run(true);
+
+	HierarchicalEA ea(100);
+	ea.addNode(topLevelPool, "P1", true, true);
+	ea.setEvolutionOrder({"P1"});
+	ea.run(true);
 
 	delete(topLevelPool);
 	for (int i = 0; i < 64; i++) {
