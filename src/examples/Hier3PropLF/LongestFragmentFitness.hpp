@@ -2,7 +2,7 @@
 #include <string>
 #pragma once
 
-class RoyalRoadToString : public ToStringFunction {
+class LongestFragmentToString : public ToStringFunction {
 	private:
 
 	protected:

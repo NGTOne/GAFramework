@@ -1,8 +1,8 @@
 #include <cstdio>
 #include <iostream>
 #include <libHierGA/HierGA.hpp>
-#include "RoyalRoadFitness.hpp"
-#include "HierRoyalRoadFitness.hpp"
+#include "LongestFragmentFitness.hpp"
+#include "HierLongestFragmentFitness.hpp"
 
 using namespace std;
 
@@ -20,7 +20,7 @@ int main(void) {
 	MutationOperation *** bottomLevelMutations = (MutationOperation***)malloc(sizeof(MutationOperation**)*4);
 
 	FitnessPropagator * myPropagator = new DownPropagator();
-	ToStringFunction * RRToString = new RoyalRoadToString();
+	ToStringFunction * RRToString = new LongestFragmentToString();
 
 	for (int i = 0; i < 4; i++) {
 
@@ -80,7 +80,7 @@ int main(void) {
 	MutationOperation ** secondLevelMutations = (MutationOperation**)malloc(sizeof(MutationOperation*)*4);
 	SelectionStrategy ** secondLevelStrategies = (SelectionStrategy**)malloc(sizeof(SelectionStrategy)*4);
 
-	ToStringFunction * HierRRToString = new HierRoyalRoadToString();
+	ToStringFunction * HierRRToString = new HierLongestFragmentToString();
 
 	for (int i = 0; i < 4; i++) {
 		secondLevelStrategies[i] = new TournamentSelection(0.5);
@@ -101,7 +101,7 @@ int main(void) {
 	//Setting up the top level (bitstring length = 32, genome length = 4)
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
 	EvolutionarySystem * topLevelModel = new GA(2, topLevelStrategy);
-	FitnessFunction * topLevelFunction = new HierRoyalRoadFitness();
+	FitnessFunction * topLevelFunction = new HierLongestFragmentFitness();
 	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);
 	MutationOperation * topLevelMutation = new UniformMutation(0.2);
 

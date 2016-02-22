@@ -1,15 +1,15 @@
 #include <sstream>
 #include <string>
 #include <libHierGA/HierGA.hpp>
-#include "RoyalRoadFitness.hpp"
+#include "LongestFragmentFitness.hpp"
 
 using namespace std;
 
-RoyalRoadFitness::RoyalRoadFitness() : FitnessFunction() {}
+LongestFragmentFitness::LongestFragmentFitness() : FitnessFunction() {}
 
 //Slightly more complex than the base RR fitness - returns the location of
 //EVERY path, not just the longest one
-PropertiesList * RoyalRoadFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
+PropertiesList * LongestFragmentFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
 	int longestPathLength = 0;
 	int currentPathLength = 0;
 	int currentPathIndex;
@@ -68,7 +68,7 @@ PropertiesList * RoyalRoadFitness::checkFitness(GeneNode ** pools, int * indexes
 	return returnProperties;
 }
 
-string RoyalRoadToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
+string LongestFragmentToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

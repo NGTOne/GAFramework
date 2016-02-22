@@ -1,11 +1,11 @@
 #include <sstream>
 #include <string>
 #include <libHierGA/HierGA.hpp>
-#include "RoyalRoadFitness.hpp"
+#include "LongestFragmentFitness.hpp"
 
 using namespace std;
 
-string RoyalRoadToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
+string LongestFragmentToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

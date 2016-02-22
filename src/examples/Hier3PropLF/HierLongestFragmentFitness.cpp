@@ -1,13 +1,13 @@
 #include <sstream>
 #include <string>
 #include <libHierGA/HierGA.hpp>
-#include "HierRoyalRoadFitness.hpp"
+#include "HierLongestFragmentFitness.hpp"
 
 using namespace std;
 
-HierRoyalRoadFitness::HierRoyalRoadFitness() : FitnessFunction() {}
+HierLongestFragmentFitness::HierLongestFragmentFitness() : FitnessFunction() {}
 
-PropertiesList * HierRoyalRoadFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
+PropertiesList * HierLongestFragmentFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
 	Individual * tempIndividual;
 	Genome * tempGenome;
 	PropertiesList * returnProperties = new PropertiesList(0);
@@ -96,7 +96,7 @@ PropertiesList * HierRoyalRoadFitness::checkFitness(GeneNode ** pools, int * ind
 	return returnProperties;
 }
 
-string HierRoyalRoadToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
+string HierLongestFragmentToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
 	string returnString = "";
 	stringstream ss;
 	int * tempIntPtr;

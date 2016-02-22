@@ -2,17 +2,17 @@
 #include <string>
 #pragma once
 
-class RoyalRoadFitness : public FitnessFunction {
+class HierLongestFragmentFitness : public FitnessFunction {
 	private:
 
 	protected:
 
 	public:
-	RoyalRoadFitness();
+	HierLongestFragmentFitness();
 	PropertiesList * checkFitness(GeneNode ** pools, int * indexes, int genomeLength);
 };
 
-class RoyalRoadToString : public ToStringFunction {
+class HierLongestFragmentToString : public ToStringFunction {
 	private:
 
 	protected:

@@ -1,8 +1,8 @@
 #include <cstdio>
 #include <iostream>
 #include <libHierGA/HierGA.hpp>
-#include "RoyalRoadFitness.hpp"
-#include "HierRoyalRoadFitness.hpp"
+#include "LongestFragmentFitness.hpp"
+#include "HierLongestFragmentFitness.hpp"
 
 using namespace std;
 
@@ -21,7 +21,7 @@ int main(void) {
 
 	MutationOperation *** bottomLevelMutations = (MutationOperation***)malloc(sizeof(MutationOperation**)*4);
 
-	ToStringFunction * bottomLevelToString = new RoyalRoadToString();
+	ToStringFunction * bottomLevelToString = new LongestFragmentToString();
 
 	FitnessPropagator * myPropagator = new NonPropagator();
 
@@ -36,7 +36,7 @@ int main(void) {
 		for (int k = 0; k < 4; k++) {
 			bottomLevelStrategies[i][k] = new TournamentSelection(0.5);
 			bottomLevelModels[i][k] = new GA(2, bottomLevelStrategies[i][k]);
-			bottomLevelFunctions[i][k] = new RoyalRoadFitness();
+			bottomLevelFunctions[i][k] = new LongestFragmentFitness();
 			bottomLevelCrossovers[i][k] = new NPointCrossover(2);
 			bottomLevelMutations[i][k] = new UniformMutation(0.2);
 		}
@@ -86,12 +86,12 @@ int main(void) {
 	CrossoverOperation ** secondLevelCrossovers = (CrossoverOperation**)malloc(sizeof(CrossoverOperation*)*4);
 	MutationOperation ** secondLevelMutations = (MutationOperation**)malloc(sizeof(MutationOperation*)*4);
 
-	ToStringFunction * secondLevelToString = new HierRoyalRoadToString();
+	ToStringFunction * secondLevelToString = new HierLongestFragmentToString();
 
 	for (int i = 0; i < 4; i++) {
 		secondLevelStrategies[i] = new TournamentSelection(0.5);
 		secondLevelModels[i] = new GA(2, secondLevelStrategies[i]);
-		secondLevelFunctions[i] = new HierRoyalRoadFitness();
+		secondLevelFunctions[i] = new HierLongestFragmentFitness();
 		secondLevelCrossovers[i] = new NPointCrossover(2);
 		secondLevelMutations[i] = new UniformMutation(0.2);
 	}
@@ -108,8 +108,8 @@ int main(void) {
 	//Setting up the top level (bitstring length = 32, genome length = 4)
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
 	EvolutionarySystem * topLevelModel = new GA(2, topLevelStrategy);
-	FitnessFunction * topLevelFunction = new HierRoyalRoadFitness();
-	ToStringFunction * topLevelToString = new HierRoyalRoadToString();
+	FitnessFunction * topLevelFunction = new HierLongestFragmentFitness();
+	ToStringFunction * topLevelToString = new HierLongestFragmentToString();
 	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);
 	MutationOperation * topLevelMutation = new UniformMutation(0.2);
 
