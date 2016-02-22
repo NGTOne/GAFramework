@@ -35,7 +35,7 @@ int main(void) {
 	delete(templateIndividual);
 
 	HierarchicalEA ea(100);
-	ea.addNode(node, "P1", true);
+	ea.addNode(node, "P1", true, true);
 	ea.setEvolutionOrder({"P1"});
 	ea.run(true);
 

@@ -73,7 +73,7 @@ int main(void) {
 		ea.addNode(bottomLevelPools[i], name.str(), false);
 	}
 
-	ea.addNode(topLevelPool, "P1", false);
+	ea.addNode(topLevelPool, "P1", false, true);
 	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});
 	ea.setNodesToPrint({"P1", "P2", "P3", "P4", "P5"});
 	ea.run(true);
