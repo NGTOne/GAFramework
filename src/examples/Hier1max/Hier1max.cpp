@@ -67,11 +67,13 @@ int main(void) {
 
 	PopulationNode * topLevelPool = new PopulationNode(32, templateIndividual, 100, 1, topLevelModel, topLevelCondition, myPropagator);
 
-	for (int i = 0; i < 4; i++) {
-		stringstream name;
-		name << "P" << i+2;
-		ea.addNode(bottomLevelPools[i], name.str(), false);
-	}
+	ea.addNodes(
+		bottomLevelPools,
+		4,
+		{"P2", "P3", "P4", "P5"},
+		{false, false, false, false},
+		{false, false, false, false}
+	);
 
 	ea.addNode(topLevelPool, "P1", false, true);
 	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});
