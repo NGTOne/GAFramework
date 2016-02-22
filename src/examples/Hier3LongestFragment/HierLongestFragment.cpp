@@ -96,7 +96,7 @@ int main(void) {
 		secondLevelMutations[i] = new UniformMutation(0.2);
 	}
 
-	GeneNode ** secondLevelPools = (GeneNode**)malloc(sizeof(GeneNode*)*4);
+	PopulationNode ** secondLevelPools = (PopulationNode**)malloc(sizeof(PopulationNode*)*4);
 
 	for (int i = 0; i < 4; i++) {
 		templateIndividual = new Individual(firstLevelPools[i], 4, secondLevelCrossovers[i], secondLevelMutations[i], secondLevelFunctions[i], secondLevelToString);
@@ -113,11 +113,50 @@ int main(void) {
 	CrossoverOperation * topLevelCrossover = new NPointCrossover(2);
 	MutationOperation * topLevelMutation = new UniformMutation(0.2);
 
-	templateIndividual = new Individual(secondLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);
+	templateIndividual = new Individual((GeneNode**)secondLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);
 
-	GeneNode * topLevelPool = new PopulationNode(8, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
+	PopulationNode * topLevelPool = new PopulationNode(8, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
 
-	topLevelPool->run(true);
+	HierarchicalEA ea(100);
+	ea.addNode(topLevelPool, "P1", true, true);
+	ea.addNodes(
+		secondLevelPools,
+		4,
+		{"P2", "P3", "P4", "P5"},
+		{false, false, false, false},
+		{false, false, false, false}
+	);
+
+	int poolNameIndex = 6;
+	char buffer[10];
+
+	for (int i = 0; i < 4; i++) {
+		for (int k = 0; k < 4; k++) {
+			string name = "P";
+			sprintf(buffer, "%d", poolNameIndex++);
+			name.append(buffer);
+			ea.addNode(
+				(PopulationNode*)firstLevelPools[i][k],
+				name,
+				false,
+				false
+			);
+		}
+	}
+
+	vector<string> evoOrder;
+
+	poolNameIndex--;
+
+	while (poolNameIndex > 0) {
+		string name = "P";
+		sprintf(buffer, "%d", poolNameIndex--);
+		name.append(buffer);
+		evoOrder.push_back(name);
+	}
+
+	ea.setEvolutionOrder(evoOrder);
+	ea.run(true);
 
 	//We clean up from the top down
 	delete(templateIndividual);
