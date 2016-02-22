@@ -45,11 +45,8 @@ void HierarchicalEA::checkNodesExist(vector<string> names) {
 	for (int i = 0; i < names.size(); i++) {
 		bool exists = false;
 
-		for (int k = 0; k < nodeNames.size(); k++) {
-			if (nodeNames[k] == names[i]) exists = true;
-		}
-
-		if (!exists) throw InvalidNodeException();
+		if (getNodeByName(names[i]) == NULL)
+			throw InvalidNodeException();
 	}
 }
 
@@ -65,6 +62,18 @@ void HierarchicalEA::setEvolutionOrder(vector<string> names) {
 	evolutionOrder = names;
 }
 
+PopulationNode * HierarchicalEA::getNodeByName(string name) {
+	string temp;
+	for (int i = 0; i < nodeNames.size(); i++) {
+		temp = nodeNames[i];
+		if (name == temp) {
+			return nodes[i];
+		}
+	}
+
+	return NULL;
+}
+
 void HierarchicalEA::buildNodeSet(
 	vector<string> targetNames,
 	vector<PopulationNode *> * targetSet
@@ -74,13 +83,7 @@ void HierarchicalEA::buildNodeSet(
 
 	for (int i = 0; i < targetNames.size(); i++) {
 		string name = targetNames[i];
-		for (int k = 0; k < nodeNames.size(); k++) {
-			string realName = nodeNames[k];
-			if (name == realName) {
-				targetSet->push_back(nodes[k]);
-				break;
-			}
-		}
+		targetSet->push_back(getNodeByName(name));
 	}
 }
 
@@ -93,6 +96,12 @@ void HierarchicalEA::buildEvolutionNodes() {
 void HierarchicalEA::buildPrintNodes() {
 	printNodes.clear();
 	buildNodeSet(nodesToPrint, &printNodes);
+}
+
+void HierarchicalEA::migrate() {
+	for (int i = 0; i < migrations.size(); i++) {
+		migrations[i].migrate();
+	}
 }
 
 bool HierarchicalEA::done(int currentEpoch) {
@@ -133,6 +142,8 @@ void HierarchicalEA::run(bool verbose) {
 			}
 		}
 
+		migrate();
+
 		// Because humans count from 1, we add 1 to our epoch counter
 		cout << "After epoch " << i+1 << ":\n";
 		cout << string(80, '=') << "\n";
@@ -144,4 +155,64 @@ void HierarchicalEA::run(bool verbose) {
 
 		if (done(i)) break;
 	}
+}
+
+void HierarchicalEA::addMigratoryRelationship(
+	string from,
+	string to,
+	bool bidirectional,
+	int n
+) {
+	if (bidirectional) {
+		addMigratoryRelationship(
+			from,
+			to,
+			n,
+			TranslationFunction(),
+			TranslationFunction()
+		);
+	} else {
+		addMigratoryRelationship(
+			from,
+			to,
+			n,
+			TranslationFunction()
+		);
+	}
+}
+
+void HierarchicalEA::addMigratoryRelationship(
+	string from,
+	string to,
+	int n,
+	TranslationFunction toTranslate
+) {
+	PopulationNode * fromNode, * toNode;
+	fromNode = getNodeByName(from);
+	toNode = getNodeByName(to);
+	migrations.push_back(MigratoryRelationship(
+		fromNode,
+		toNode,
+		n,
+		toTranslate
+	));
+}
+
+void HierarchicalEA::addMigratoryRelationship(
+	string from,
+	string to,
+	int n,
+	TranslationFunction toTranslate,
+	TranslationFunction fromTranslate
+) {
+	PopulationNode * fromNode, * toNode;
+	fromNode = getNodeByName(from);
+	toNode = getNodeByName(to);
+	migrations.push_back(MigratoryRelationship(
+		fromNode,
+		toNode,
+		n,
+		toTranslate,
+		fromTranslate
+	));
 }
