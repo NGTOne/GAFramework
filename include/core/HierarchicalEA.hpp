@@ -45,6 +45,13 @@ class HierarchicalEA {
 
 	void addNode(PopulationNode * node, string name, bool print);
 	void addNode(PopulationNode * node, string name, bool print, bool end);
+	void addNodes(
+		PopulationNode ** nodes,
+		int count,
+		vector<string> names,
+		vector<bool> print,
+		vector<bool> end
+	);
 	void removeNode(string name);
 
 	void setNodesToPrint(vector<string> names);

@@ -3,6 +3,7 @@
 #include "exception/InvalidNodeException.hpp"
 #include "exception/NoNodesException.hpp"
 #include "exception/NoEvolutionOrderException.hpp"
+#include "exception/MismatchedCountsException.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -32,6 +33,26 @@ void HierarchicalEA::addNode(
 	nodeNames.push_back(name);
 	if (print) nodesToPrint.push_back(name);
 	if (end) endDictators.push_back(name);
+}
+
+void HierarchicalEA::addNodes(
+	PopulationNode ** nodes,
+	int count,
+	vector<string> names,
+	vector<bool> print,
+	vector<bool> end
+) {
+	if (
+		count != names.size() ||
+		count != print.size() ||
+		count != end.size()
+	) {
+		throw MismatchedCountsException();
+	}
+
+	for (int i = 0; i < count; i++) {
+		addNode(nodes[i], names[i], print[i], end[i]);
+	}
 }
 
 void HierarchicalEA::removeNode(string name) {
