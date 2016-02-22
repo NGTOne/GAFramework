@@ -14,6 +14,15 @@ HierarchicalEA::HierarchicalEA(int maxEpochs) {
 HierarchicalEA::~HierarchicalEA() {}
 
 void HierarchicalEA::addNode(PopulationNode * node, string name, bool print) {
+	addNode(node, name, print, false);
+}
+
+void HierarchicalEA::addNode(
+	PopulationNode* node,
+	string name,
+	bool print,
+	bool end
+) {
 	for (int i = 0; i < nodeNames.size(); i++) {
 		if (nodeNames[i] == name or nodes[i] == node) {
 			throw NodeAlreadyExistsException();
@@ -22,6 +31,7 @@ void HierarchicalEA::addNode(PopulationNode * node, string name, bool print) {
 	nodes.push_back(node);
 	nodeNames.push_back(name);
 	if (print) nodesToPrint.push_back(name);
+	if (end) endDictators.push_back(name);
 }
 
 void HierarchicalEA::removeNode(string name) {
@@ -62,6 +72,12 @@ void HierarchicalEA::setEvolutionOrder(vector<string> names) {
 	evolutionOrder = names;
 }
 
+void HierarchicalEA::setEndConditionDictatorNodes(vector<string> names) {
+	checkNodesExist(names);
+	endDictators.clear();
+	endDictators = names;
+}
+
 PopulationNode * HierarchicalEA::getNodeByName(string name) {
 	string temp;
 	for (int i = 0; i < nodeNames.size(); i++) {
@@ -98,6 +114,11 @@ void HierarchicalEA::buildPrintNodes() {
 	buildNodeSet(nodesToPrint, &printNodes);
 }
 
+void HierarchicalEA::buildEndDictators() {
+	endConditionDictatorNodes.clear();
+	buildNodeSet(endDictators, &endConditionDictatorNodes);
+}
+
 void HierarchicalEA::migrate() {
 	for (int i = 0; i < migrations.size(); i++) {
 		migrations[i].migrate();
@@ -111,14 +132,16 @@ bool HierarchicalEA::done(int currentEpoch) {
 		return done;
 	}
 
-	for (int i = 0; i < evolutionNodes.size(); i++) {
-		if (!evolutionNodes[i]->done()) {
+	if (endConditionDictatorNodes.size() == 0) return false;
+
+	for (int i = 0; i < endConditionDictatorNodes.size(); i++) {
+		if (!endConditionDictatorNodes[i]->done()) {
 			done = false;
 			break;
 		}
 	}
 
-	if (done) cout << "Hierarchical EA ended because all population nodes reported reaching their specified ending conditions.\n";
+	if (done) cout << "Hierarchical EA ended because all specified population nodes reported reaching their ending conditions.\n";
 
 	return done;
 }
@@ -127,6 +150,7 @@ bool HierarchicalEA::done(int currentEpoch) {
 void HierarchicalEA::run(bool verbose) {
 	buildEvolutionNodes();
 	buildPrintNodes();
+	buildEndDictators();
 	cout << "Before:\n";
 	cout << string(80, '=') << "\n";
 	for (int i = 0; i < printNodes.size(); i++) {

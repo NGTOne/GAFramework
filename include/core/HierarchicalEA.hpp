@@ -15,11 +15,13 @@ class HierarchicalEA {
 	vector<string> nodeNames;
 	vector<string> nodesToPrint;
 	vector<string> evolutionOrder;
+	vector<string> endDictators;
 	vector<MigratoryRelationship> migrations;
 	int maxEpochs;
 
 	vector<PopulationNode *> evolutionNodes;
 	vector<PopulationNode *> printNodes;
+	vector<PopulationNode *> endConditionDictatorNodes;
 
 	void buildNodeSet(
 		vector<string> targetNames,
@@ -27,6 +29,7 @@ class HierarchicalEA {
 	);
 	void buildEvolutionNodes();
 	void buildPrintNodes();
+	void buildEndDictators();
 	void migrate();
 
 	void checkNodesExist(vector<string> names);
@@ -41,10 +44,12 @@ class HierarchicalEA {
 	void run(bool verbose);
 
 	void addNode(PopulationNode * node, string name, bool print);
+	void addNode(PopulationNode * node, string name, bool print, bool end);
 	void removeNode(string name);
-	void setNodesToPrint(vector<string> names);
 
+	void setNodesToPrint(vector<string> names);
 	void setEvolutionOrder(vector<string> names);
+	void setEndConditionDictatorNodes(vector<string> names);
 
 	void addMigratoryRelationship(
 		string from,
