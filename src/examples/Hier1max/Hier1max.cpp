@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <iostream>
+#include <sstream>
 #include <libHierGA/HierGA.hpp>
 #include "1maxFitness.hpp"
 #include "Hier1maxFitness.hpp"
@@ -7,6 +8,7 @@
 using namespace std;
 
 int main(void) {
+	HierarchicalEA ea(100);
 
 	SelectionStrategy ** bottomLevelStrategies = (SelectionStrategy**)malloc(sizeof(SelectionStrategy*)*4);
 	
@@ -37,7 +39,7 @@ int main(void) {
 
 	//The four "mid-level" pools - a step between the base pools and the
 	//top level
-        GeneNode ** bottomLevelPools = (GeneNode**)malloc(sizeof(GeneNode*)*4);
+        PopulationNode ** bottomLevelPools = (PopulationNode**)malloc(sizeof(GeneNode*)*4);
 
 	for (int i = 0; i < 4; i++) {
 		baseGenes[i] = (GeneNode**)malloc(sizeof(GeneNode*)*8);
@@ -61,11 +63,22 @@ int main(void) {
 	EvolutionarySystem * topLevelModel = new GA(2, topLevelStrategy);
 	EndCondition * topLevelCondition = new FitnessMatchEnd(32);
 
-	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);
+	Individual * templateIndividual = new Individual((GeneNode**)bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);
 
 	PopulationNode * topLevelPool = new PopulationNode(32, templateIndividual, 100, 1, topLevelModel, topLevelCondition, myPropagator);
 
-	topLevelPool->run(true);
+	for (int i = 0; i < 4; i++) {
+		stringstream name;
+		name << "P" << i+2;
+		ea.addNode(bottomLevelPools[i], name.str(), false);
+	}
+
+	ea.addNode(topLevelPool, "P1", false);
+	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});
+	ea.setNodesToPrint({"P1", "P2", "P3", "P4", "P5"});
+	ea.run(true);
+
+	//topLevelPool->run(true);
 
 	delete(myPropagator);
 	delete(bottomLevelToString);
