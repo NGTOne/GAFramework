@@ -83,10 +83,10 @@ void MigratoryRelationship::migrate() {
 		fromIndex = fromNodeDist(generator);
 		toIndex = toNodeDist(generator);
 
-		if (fromTranslate.isNull()) {
-			oneWayMigrate(fromIndex, toIndex);
-		} else {
+		fromTranslate.isNull() ? oneWayMigrate(fromIndex, toIndex) :
 			swap(fromIndex, toIndex);
-		}
 	}
+
+	toNode->evaluateFitnesses();
+	if (!fromTranslate.isNull()) fromNode->evaluateFitnesses();
 }
