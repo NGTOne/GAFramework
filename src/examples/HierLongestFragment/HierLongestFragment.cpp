@@ -38,7 +38,7 @@ int main(void) {
 
 	//The four "mid-level" pools - a step between the base pools and the
 	//top level
-        GeneNode ** bottomLevelPools = (GeneNode**)malloc(sizeof(GeneNode*)*4);
+        PopulationNode ** bottomLevelPools = (PopulationNode**)malloc(sizeof(GeneNode*)*4);
 
 	for (int i = 0; i < 4; i++) {
 		baseGenes[i] = (GeneNode**)malloc(sizeof(GeneNode*)*8);
@@ -61,11 +61,22 @@ int main(void) {
 	SelectionStrategy * topLevelStrategy = new TournamentSelection(0.5);
 	EvolutionarySystem * topLevelModel = new GA(2, topLevelStrategy);
 
-	Individual * templateIndividual = new Individual(bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);
+	Individual * templateIndividual = new Individual((GeneNode**)bottomLevelPools, 4, topLevelCrossover, topLevelMutation, topLevelFunction, topLevelToString);
 
 	PopulationNode * topLevelPool = new PopulationNode(32, templateIndividual, 100, 1, topLevelModel, NULL, myPropagator);
 
-	topLevelPool->run(true);
+	HierarchicalEA ea(100);
+	ea.addNodes(
+		bottomLevelPools,
+		4,
+		{"P2", "P3", "P4", "P5"},
+		{false, false, false, false},
+		{false, false, false, false}
+	);
+
+	ea.addNode(topLevelPool, "P1", true, true);
+	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});
+	ea.run(true);
 
 	delete(myPropagator);
 	delete(bottomLevelToString);
@@ -101,4 +112,3 @@ int main(void) {
 	delete(templateIndividual);
 	delete(topLevelPool);
 }
-
