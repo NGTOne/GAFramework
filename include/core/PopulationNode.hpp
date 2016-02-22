@@ -98,6 +98,8 @@ class PopulationNode : public GeneNode {
 	//GeneNode - basically a convenience thing
 	void evaluateFitnesses();
 
+	void insert(int index, Individual * target);
+
 	//Wraps around the fitness propagator and allows us to call it
 	//recursively
 	void propagateFitnesses();

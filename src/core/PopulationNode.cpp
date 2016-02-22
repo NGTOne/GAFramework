@@ -173,6 +173,12 @@ void PopulationNode::setFitnessAtIndex(int index, int newFitness) {
 	myPopulation[index]->setFitness(newFitness);
 }
 
+void PopulationNode::insert(int index, Individual * target) {
+	delete(myPopulation[index]);
+	myPopulation[index] = target;
+	populationFitnesses[index] = target->checkFitness();
+}
+
 int PopulationNode::getFitnessAtIndex(int index) {
 	return populationFitnesses[index];
 }

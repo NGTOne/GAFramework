@@ -46,18 +46,21 @@ class HierarchicalEA {
 	void addMigratoryRelationship(
 		string from,
 		string to,
-		bool bidirectional
+		bool bidirectional,
+		int n
 	);
 
 	void addMigratoryRelationship(
 		string from,
 		string to,
+		int n,
 		TranslationFunction toTranslate
 	);
 
 	void addMigratoryRelationship(
 		string from,
 		string to,
+		int n,
 		TranslationFunction toTranslate,
 		TranslationFunction fromTranslate
 	);

@@ -1,7 +1,8 @@
 #include "../Individual.hpp"
+#include "TranslationFunction.hpp"
 #pragma once
 
-class TranslationFunction {
+class NullTranslationFunction : public TranslationFunction {
 	private:
 
 	protected:
