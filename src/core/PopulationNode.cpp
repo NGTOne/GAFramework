@@ -108,10 +108,6 @@ void PopulationNode::nextGeneration() {
 	Individual ** nextPopulation;
 
 	if (currentGeneration < maxGenerations && optimumFound == false) {
-		//Run the hierarchical component first - we're evolving
-		//from the bottom up
-		myPopulation[0]->runHierarchicalGenerations();
-
 		//Re-evaluate the fitnesses to take the lower GeneNodes
 		//running their generations into account
 		evaluateFitnesses();
@@ -136,6 +132,9 @@ void PopulationNode::nextGeneration() {
 		evaluateFitnesses();
 		checkEndCondition();
 	}
+
+	// So we're still fitness-checking after we're done evolving
+	if (optimumFound) evaluateFitnesses();
 }
 
 void PopulationNode::checkEndCondition() {
