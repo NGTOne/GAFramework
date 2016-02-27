@@ -219,7 +219,7 @@ Individual * SimulatedAnnealer::getNeighbour(Individual * target) {
 	) {
 		return neighbour;
 	} else {
-		double temp = schedule->currentTemp(currentGeneration);
+		float temp = schedule->currentTemp(currentGeneration);
 		if (temp == 0) {
 			delete(neighbour);
 			return target;
@@ -228,9 +228,9 @@ Individual * SimulatedAnnealer::getNeighbour(Individual * target) {
 		int delta = maximize ? neighbourFitness - targetFitness :
 			targetFitness - neighbourFitness;
 
-		double probability = exp(-delta/temp);
+		float probability = exp(((float)-delta)/temp);
 
-		uniform_real_distribution<double>
+		uniform_real_distribution<float>
 			goingWrongWayDistribution(0, 1);
 
 		if (goingWrongWayDistribution(generator) < probability) {

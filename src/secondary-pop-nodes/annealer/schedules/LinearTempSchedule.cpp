@@ -1,13 +1,18 @@
 #include "secondary-pop-nodes/annealer/schedules/LinearTempSchedule.hpp"
 
 LinearTempSchedule::LinearTempSchedule(
-	double initialTemp,
+	float initialTemp,
+	int hoverTime,
 	int iterationsToZero
-) : TemperatureSchedule(initialTemp, iterationsToZero, "Linear") {}
+) : TemperatureSchedule(initialTemp, hoverTime, iterationsToZero, "Linear") {}
 
-double LinearTempSchedule::currentTemp(int currentIteration) {
-	double frac = initialTemp/(double)iterationsToZero;
+float LinearTempSchedule::currentTemp(int currentIteration) {
+	float frac = initialTemp/(float)iterationsToZero;
 
-	return (currentIteration < iterationsToZero) ? 
-		initialTemp - (frac*currentIteration) : 0;
+	if (currentIteration % hoverTime == 0) {
+		currentTemperature = (currentIteration < iterationsToZero) ? 
+			initialTemp - (frac*currentIteration) : 0;
+	}
+
+	return currentTemperature;
 }
