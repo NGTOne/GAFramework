@@ -5,13 +5,16 @@
 using namespace std;
 
 TemperatureSchedule::TemperatureSchedule(
-	double initialTemp,
+	float initialTemp,
+	int hoverTime,
 	int iterationsToZero,
 	string name
 ) {
 	this->initialTemp = initialTemp;
+	this->hoverTime = hoverTime;
 	this->iterationsToZero = iterationsToZero;
 	this->name = name;
+	this->currentTemperature = initialTemp;
 }
 
 string TemperatureSchedule::toString() {

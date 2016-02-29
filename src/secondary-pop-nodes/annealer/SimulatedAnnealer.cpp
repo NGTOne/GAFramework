@@ -1,6 +1,7 @@
 #include "secondary-pop-nodes/annealer/SimulatedAnnealer.hpp"
 #include <string>
 #include <sstream>
+#include <iostream>
 #include <random>
 #include <cmath>
 
@@ -98,15 +99,15 @@ void SimulatedAnnealer::init(bool maximize, TemperatureSchedule * schedule) {
 }
 
 Individual ** SimulatedAnnealer::newPopulation() {
-	Individual ** population = (Individual**)malloc(
+	Individual ** nextPopulation = (Individual**)malloc(
 		sizeof(Individual*)*populationSize
 	);
 
 	for (int i = 0; i < populationSize; i++) {
-		population[i] = getNeighbour(myPopulation[i]);;
+		nextPopulation[i] = getNeighbour(myPopulation[i]);
 	}
 
-	return population;
+	return nextPopulation;
 }
 
 int SimulatedAnnealer::compareNeighbourliness(
@@ -202,7 +203,8 @@ Individual * SimulatedAnnealer::getNeighbour(Individual * target) {
 		choice = neighbourDistribution(generator);
 	}
 
-	if (neighbours[choice] == NULL) return target;
+	if (neighbours[choice] == NULL) return target->deepCopy();
+
 	int targetFitness = target->checkFitness();
 	int neighbourFitness = neighbours[choice]->checkFitness();
 
@@ -219,25 +221,24 @@ Individual * SimulatedAnnealer::getNeighbour(Individual * target) {
 	) {
 		return neighbour;
 	} else {
-		double temp = schedule->currentTemp(currentGeneration);
+		float temp = schedule->currentTemp(currentGeneration);
 		if (temp == 0) {
 			delete(neighbour);
-			return target;
+			return target->deepCopy();
 		}
 
 		int delta = maximize ? neighbourFitness - targetFitness :
 			targetFitness - neighbourFitness;
 
-		double probability = exp(-delta/temp);
+		float probability = exp(((float)delta)/temp);
 
-		uniform_real_distribution<double>
+		uniform_real_distribution<float>
 			goingWrongWayDistribution(0, 1);
 
 		if (goingWrongWayDistribution(generator) < probability) {
 			return neighbour;
 		} else {
-			delete(neighbour);
-			return target;
+			return target->deepCopy();
 		}
 	}
 }
