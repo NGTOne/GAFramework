@@ -43,6 +43,7 @@
 #include "secondary-pop-nodes/annealer/SimulatedAnnealer.hpp"
 #include "secondary-pop-nodes/annealer/schedules/TemperatureSchedule.hpp"
 #include "secondary-pop-nodes/annealer/schedules/LinearTempSchedule.hpp"
+#include "secondary-pop-nodes/annealer/schedules/ExponentialTempSchedule.hpp"
 #pragma once
 
 // Legacy

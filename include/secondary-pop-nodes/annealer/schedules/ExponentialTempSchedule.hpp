@@ -1,14 +1,16 @@
 #pragma once
 #include "TemperatureSchedule.hpp"
 
-class LinearTempSchedule : public TemperatureSchedule {
+class ExponentialTempSchedule : public TemperatureSchedule {
 	private:
 
 	protected:
+	float alpha;
 
 	public:
-	LinearTempSchedule(
+	ExponentialTempSchedule(
 		float initialTemp,
+		float alpha,
 		int hoverTime,
 		int iterationsToZero
 	);
