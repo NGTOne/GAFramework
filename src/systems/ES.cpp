@@ -6,20 +6,67 @@
 
 using namespace std;
 
-ES::ES() : EvolutionarySystem(NULL) {}
+ES::ES() : EvolutionarySystem(NULL) {
+	init(1, 1);
+}
 
-ES::ES(unsigned seed) : EvolutionarySystem(seed, NULL) {}
+ES::ES(unsigned seed) : EvolutionarySystem(seed, NULL) {
+	init(1, 1);
+}
 
-ES::ES(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {}
+ES::ES(SelectionStrategy * strategy) : EvolutionarySystem(strategy) {
+	init(1, 1);
+}
 
-ES::ES(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {}
+ES::ES(
+	unsigned seed,
+	SelectionStrategy * strategy
+) : EvolutionarySystem(seed, strategy) {
+	init(1, 1);
+}
+
+ES::ES(double muRatio, double rhoRatio) : EvolutionarySystem(NULL) {
+	init(muRatio, rhoRatio);
+}
+
+ES::ES(
+	double muRatio,
+	double rhoRatio,
+	unsigned seed
+) : EvolutionarySystem(seed, NULL) {
+	init(muRatio, rhoRatio);
+}
+
+ES::ES(
+	double muRatio,
+	double rhoRatio,
+	SelectionStrategy * newStrategy
+) : EvolutionarySystem(newStrategy) {
+	init(muRatio, rhoRatio);
+}
+
+ES::ES(
+	double muRatio,
+	double rhoRatio,
+	unsigned newSeed,
+	SelectionStrategy * newStrategy
+) : EvolutionarySystem(newSeed, newStrategy) {
+	init(muRatio, rhoRatio);
+}
+
+void ES::init(double muRatio, double rhoRatio) {
+	this->muRatio = muRatio;
+	this->rhoRatio = rhoRatio;
+}
+
+int ES::getRandomParent(int populationSize) {
+	uniform_int_distribution<int> selectionDist(0, populationSize-1);
+	return selectionDist(generator);
+}
 
 int ES::getParent(int * populationFitnesses, int populationSize) {
 	if (myStrategy == NULL) {
-		uniform_int_distribution<int>
-			selectionDist(0, populationSize-1);
-
-		return selectionDist(generator);
+		return getRandomParent(populationSize);
 	} else {
 		return EvolutionarySystem::getParent(
 			populationFitnesses,
@@ -32,86 +79,113 @@ int ES::getParent(int * populationFitnesses, int populationSize) {
 //the offspring, concatenate them together, sort them by fitness, and then
 //truncate to the original population size
 Individual ** ES::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
-        Individual ** mutantChildren;
-        Individual ** crossoverChildren;
-        Individual ** finalPopulation;
-        Individual ** overallPopulation;
-        int newPopulationFitnesses[populationSize*3];
-        int finalPopulationFitnesses[populationSize];
+	Individual ** mutantChildren;
+	Individual ** crossoverChildren;
+	Individual ** finalPopulation;
+	Individual ** overallPopulation;
+	int numCrossChildren = (double)populationSize*muRatio;
+	int numMutants = (double)populationSize*rhoRatio;
+	int overallPopSize = populationSize + numCrossChildren + numMutants;
 
-        Individual * firstParent;
-        Individual * secondParent;
-        Individual ** children;
+	int newPopulationFitnesses[overallPopSize];
+	int finalPopulationFitnesses[populationSize];
 
-        int firstIndex;
-        int secondIndex;
+	Individual * firstParent;
+	Individual * secondParent;
+	Individual ** children;
 
-        crossoverChildren = (Individual**)malloc(sizeof(Individual*)*populationSize);
-	mutantChildren = (Individual**)malloc(sizeof(Individual*)*populationSize);
-        finalPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);
-        overallPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize*3);
+	int firstIndex;
+	int secondIndex;
 
-        for (int i = 0; i < populationSize; i++) {
-                finalPopulationFitnesses[i] = 0;
-        }
+	crossoverChildren = (Individual**)malloc(
+		sizeof(Individual*)*numCrossChildren);
+	mutantChildren = (Individual**)malloc(
+		sizeof(Individual*)*numMutants);
+	finalPopulation = (Individual**)malloc(
+		sizeof(Individual*)*populationSize);
+	overallPopulation = (Individual**)malloc(
+		sizeof(Individual*)*overallPopSize);
 
-        for (int i = 0; i < populationSize*3; i++) {
-                newPopulationFitnesses[i] = 0;
-        }
+	for (int i = 0; i < populationSize; i++) {
+		finalPopulationFitnesses[i] = 0;
+	}
 
-        //Each individual produces one mutant
-        for (int i = 0; i < populationSize; i++) {
-                mutantChildren[i] = initialPopulation[i]->mutationOperation();
-        }
+	for (int i = 0; i < overallPopSize; i++) {
+		newPopulationFitnesses[i] = 0;
+	}
 
-	//Make n/2 crossover attempts
-        for (int i = 0; i < (populationSize/2)*2; i+=2) {
-                firstIndex = getParent(populationFitnesses, populationSize);
-                secondIndex = getParent(populationFitnesses, populationSize);
-                firstParent = initialPopulation[firstIndex];
-                secondParent = initialPopulation[secondIndex];
+	// We produce rho mutants
+	for (int i = 0; i < numMutants; i++) {
+		firstIndex = getRandomParent(populationSize);
+		mutantChildren[i] = initialPopulation[firstIndex]
+			->mutationOperation();
+	}
 
-                children = firstParent->crossoverOperation(secondParent);
+	//Make mu crossover attempts
+	for (int i = 0; i < numCrossChildren; i++) {
+		firstIndex = getParent(populationFitnesses, populationSize);
+		secondIndex = getParent(populationFitnesses, populationSize);
+		firstParent = initialPopulation[firstIndex];
+		secondParent = initialPopulation[secondIndex];
 
-                crossoverChildren[i] = children[0];
-                crossoverChildren[i+1] = children[1];
+		children = firstParent->crossoverOperation(secondParent);
 
-                free(children);
-        }
+		// Pick one of the children at random and toss the other away
+		firstIndex = getRandomParent(2);
+		secondIndex = 1-firstIndex;
+		crossoverChildren[i] = children[firstIndex];
+		delete(children[secondIndex]);
 
-        //OK, now we have all the results of our breeding and mutation
-        //Time to pick the ones that will move on to the next generation
-        //First, we lump them all together into one big population
-        for (int i = 0; i < populationSize; i++) {
-                overallPopulation[i] = initialPopulation[i]->deepCopy();
-                newPopulationFitnesses[i] = populationFitnesses[i];
-                overallPopulation[i+populationSize] = mutantChildren[i];
-                newPopulationFitnesses[i+populationSize] = mutantChildren[i]->getFitness();
-                overallPopulation[i+(populationSize*2)] = crossoverChildren[i];
-                newPopulationFitnesses[i+(populationSize*2)] = crossoverChildren[i]->getFitness();
-        }
+		free(children);
+	}
 
-        //Now, of course, we sort them
-        sortPopulation(overallPopulation, newPopulationFitnesses, populationSize*3);
+	//OK, now we have all the results of our breeding and mutation
+	//Time to pick the ones that will move on to the next generation
+	//First, we lump them all together into one big population
+	for (int i = 0; i < populationSize; i++) {
+		overallPopulation[i] = initialPopulation[i]->deepCopy();
+		newPopulationFitnesses[i] = populationFitnesses[i];
+	}
 
-        //Since they're sorted, the best of the new generation can simply be
-        //pulled from the top of the list
-        for (int i = 0; i < populationSize; i++) {
-                finalPopulation[i] = overallPopulation[i]->deepCopy();
-                finalPopulationFitnesses[i] = newPopulationFitnesses[i];
-        }
+	for (int i = 0; i < numMutants; i++) {
+		overallPopulation[i + populationSize] = mutantChildren[i];
+		newPopulationFitnesses[i + populationSize] = mutantChildren[i]
+			->getFitness();
+	}
 
-	for (int i = 0; i < populationSize*3; i++) {
-                delete(overallPopulation[i]);
-        }
+	for (int i = 0; i < numCrossChildren; i++) {
+		overallPopulation[i + populationSize + numMutants]
+			= crossoverChildren[i];
+		newPopulationFitnesses[i + populationSize + numMutants]
+			= crossoverChildren[i]->getFitness();
+	}
 
-        free(mutantChildren);
-        free(crossoverChildren);
-        free(overallPopulation);
+	//Now, of course, we sort them
+	sortPopulation(
+		overallPopulation,
+		newPopulationFitnesses,
+		overallPopSize
+	);
 
-        //Return the new population and fitness values
-        for (int i = 0; i < populationSize; i++) {
-                populationFitnesses[i] = finalPopulationFitnesses[i];
-        }
-        return finalPopulation;
+	//Since they're sorted, the best of the new generation can simply be
+	//pulled from the top of the list
+	for (int i = 0; i < populationSize; i++) {
+		finalPopulation[i] = overallPopulation[i]->deepCopy();
+		finalPopulationFitnesses[i] = newPopulationFitnesses[i];
+	}
+
+	// A little housekeeping
+	for (int i = 0; i < overallPopSize; i++) {
+		delete(overallPopulation[i]);
+	}
+
+	free(mutantChildren);
+	free(crossoverChildren);
+	free(overallPopulation);
+
+	//Return the new population and fitness values
+	for (int i = 0; i < populationSize; i++) {
+		populationFitnesses[i] = finalPopulationFitnesses[i];
+	}
+	return finalPopulation;
 }

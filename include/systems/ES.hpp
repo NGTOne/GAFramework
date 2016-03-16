@@ -19,13 +19,28 @@ class ES : public EvolutionarySystem {
 	private:
 
 	protected:
+	double muRatio;
+	double rhoRatio;
+
+	void init(double muRatio, double rhoRatio);
+
 	int getParent(int * populationFitnesses, int populationSize);
+	int getRandomParent(int populationSize);
 
 	public:
 	ES();
-	ES(unsigned newSeed);
-	ES(SelectionStrategy * newStrategy);
-	ES(unsigned newSeed, SelectionStrategy * newStrategy);
+	ES(SelectionStrategy * strategy);
+	ES(unsigned seed);
+	ES(unsigned seed, SelectionStrategy * strategy);
+	ES(double muRatio, double rhoRatio);
+	ES(double muRatio, double rhoRatio, unsigned newSeed);
+	ES(double muRatio, double rhoRatio, SelectionStrategy * newStrategy);
+	ES(
+		double muRatio,
+		double rhoRatio,
+		unsigned newSeed,
+		SelectionStrategy * newStrategy
+	);
 
 	Individual ** breedMutateSelect(
 		Individual ** initialPopulation,
