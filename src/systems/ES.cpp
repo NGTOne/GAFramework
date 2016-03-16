@@ -79,32 +79,21 @@ int ES::getParent(int * populationFitnesses, int populationSize) {
 //the offspring, concatenate them together, sort them by fitness, and then
 //truncate to the original population size
 Individual ** ES::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
-	Individual ** mutantChildren;
-	Individual ** crossoverChildren;
-	Individual ** finalPopulation;
-	Individual ** overallPopulation;
+	Individual ** mutantChildren, ** crossoverChildren, ** finalPopulation,
+		** overallPopulation, * firstParent, * secondParent,
+		** children;
 	int numCrossChildren = (double)populationSize*muRatio;
 	int numMutants = (double)populationSize*rhoRatio;
 	int overallPopSize = populationSize + numCrossChildren + numMutants;
 
 	int newPopulationFitnesses[overallPopSize];
 	int finalPopulationFitnesses[populationSize];
+	int firstIndex, secondIndex;
 
-	Individual * firstParent;
-	Individual * secondParent;
-	Individual ** children;
-
-	int firstIndex;
-	int secondIndex;
-
-	crossoverChildren = (Individual**)malloc(
-		sizeof(Individual*)*numCrossChildren);
-	mutantChildren = (Individual**)malloc(
-		sizeof(Individual*)*numMutants);
-	finalPopulation = (Individual**)malloc(
-		sizeof(Individual*)*populationSize);
-	overallPopulation = (Individual**)malloc(
-		sizeof(Individual*)*overallPopSize);
+	crossoverChildren = getEmptyPopulation(numCrossChildren);
+	mutantChildren = getEmptyPopulation(numMutants);
+	finalPopulation = getEmptyPopulation(populationSize);
+	overallPopulation = getEmptyPopulation(overallPopSize);
 
 	for (int i = 0; i < populationSize; i++) {
 		finalPopulationFitnesses[i] = 0;

@@ -19,8 +19,9 @@ class EvolutionarySystem {
 	std::mt19937 generator;
 	SelectionStrategy * myStrategy;
 
-	public:
+	Individual ** getEmptyPopulation(int populationSize);
 
+	public:
 	EvolutionarySystem(SelectionStrategy * newStrategy);
 
 	EvolutionarySystem(unsigned newSeed, SelectionStrategy * newStrategy);

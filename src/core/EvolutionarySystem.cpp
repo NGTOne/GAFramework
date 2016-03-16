@@ -88,6 +88,10 @@ void EvolutionarySystem::sortPopulation(Individual ** initialPopulation, int * i
 	}
 }
 
+Individual ** EvolutionarySystem::getEmptyPopulation(int populationSize) {
+	return (Individual**)malloc(sizeof(Individual*)*populationSize);
+}
+
 int EvolutionarySystem::getParent(int * populationFitnesses, int populationSize) {
 	return myStrategy->getParent(populationFitnesses, populationSize);
 }
