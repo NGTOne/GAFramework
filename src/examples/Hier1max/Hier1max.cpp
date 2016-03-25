@@ -31,8 +31,6 @@ int main(void) {
 		bottomLevelMutations[i] = new UniformMutation(0.2);
 	}
 
-	int binaryDigits[] = {0,1};
-
 	//An array of arrays of binary GeneNodes - because each of the 4
 	//subtrees will have the same type of GeneNodes at the bottom
 	GeneNode *** baseGenes = (GeneNode***)malloc(sizeof(GeneNode**)*4);
@@ -45,7 +43,7 @@ int main(void) {
 		baseGenes[i] = (GeneNode**)malloc(sizeof(GeneNode*)*8);
 
 		for (int k = 0; k < 8; k++) {
-			baseGenes[i][k] = new LibraryNode<int>(binaryDigits, 2);
+			baseGenes[i][k] = new IntLocus(0, 1);
 		}
 
 		Individual * bottomLevelTemplateIndividual = new Individual(baseGenes[i], 8, bottomLevelCrossovers[i], bottomLevelMutations[i], bottomLevelFunctions[i], bottomLevelToString);

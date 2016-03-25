@@ -37,8 +37,6 @@ int main(void) {
 		}
 	}
 
-	int binaryDigits[] = {0,1};
-
 	//The idiomatically correct way to set up an HGA is to have EACH
 	//GeneNode, hierarchical or otherwise, constructed separately
 	//Because of this, setting up the bottom level of a balanced tree like
@@ -55,7 +53,7 @@ int main(void) {
 		for (int k = 0; k < 4; k++) {
 			baseGenes[i][k] = (GeneNode**)malloc(sizeof(GeneNode*)*2);
 			for (int c = 0; c < 2; c++) {
-				baseGenes[i][k][c] = new LibraryNode<int>(binaryDigits, 2);
+				baseGenes[i][k][c] = new IntLocus(0, 1);
 			}
 		}
 	}

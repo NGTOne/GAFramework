@@ -20,12 +20,10 @@ int main(void) {
 
 	FitnessPropagator * myPropagator = new NonPropagator();
 
-	int binaryDigits[] = {0,1};
-
 	GeneNode ** baseGenes = (GeneNode**)malloc(sizeof(GeneNode*)*32);
 
 	for (int i = 0; i < 32; i++) {
-		baseGenes[i] = new LibraryNode<int>(binaryDigits, 2);
+		baseGenes[i] = new IntLocus(0, 1);
 	}
 
 	Individual * templateIndividual = new Individual(baseGenes, 32, myCrossover, myMutation, myFunction, myToString);
