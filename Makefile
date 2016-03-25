@@ -68,7 +68,10 @@ core:
 
 selections: tournamentSelection
 
-mutations: uniformMutation boundaryMutation
+mutations:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/mutations/UniformMutation.cpp -o obj/mutations/UniformMutation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/mutations/BoundaryMutation.cpp -o obj/mutations/BoundaryMutation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/mutations/GaussianMutation.cpp -o obj/mutations/GaussianMutation.o
 
 crossovers: nPointCrossover uniformCrossover cutAndSpliceCrossover
 
@@ -98,12 +101,6 @@ niching:
 
 tournamentSelection:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
-
-uniformMutation:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/mutations/UniformMutation.cpp -o obj/mutations/UniformMutation.o
-
-boundaryMutation:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/mutations/BoundaryMutation.cpp -o obj/mutations/BoundaryMutation.o
 
 nPointCrossover:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/crossovers/NPointCrossover.cpp -o obj/crossovers/NPointCrossover.o

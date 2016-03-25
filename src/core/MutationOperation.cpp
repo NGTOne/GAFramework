@@ -29,6 +29,38 @@ void MutationOperation::init(double newMutationRate, unsigned newSeed) {
 	generator = newGenerator;
 }
 
+virtual Genome * mutate(Genome * initialGenome, int * largestPossibleValues) {
+	int genomeLength = initialGenome->getGenomeLength();
+	int * originalGenome = initialGenome->getGenome();
+
+	double randomNumber;
+	int * newGenome = (int*)malloc(sizeof(int)*genomeLength);
+	uniform_real_distribution<double> mutationChanceDist(0.0, 1.0);
+
+	for (int i = 0; i < genomeLength; i++) {
+		randomNumber = mutationChanceDist(generator);
+
+		if (randomNumber <= mutationRate) {
+			newGenome[i] = getNewLocusValue(
+				originalGenome[i],
+				largestPossibleValues[i]
+			);
+		} else {
+			newGenome[i] = originalGenome[i];
+		}
+	}
+
+	Genome * newGene = new Genome(
+		newGenome,
+		genomeLength,
+		initialGenome->getGeneNodes()
+	);
+
+	free(newGenome);
+
+	return newGene;
+}
+
 string MutationOperation::toString() {
 	string returnString = "";
 	stringstream ss;

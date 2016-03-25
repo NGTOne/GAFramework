@@ -11,13 +11,13 @@ class BoundaryMutation : public MutationOperation {
 	private:
 
 	protected:
+	virtual int getNewLocusValue(
+		int currentValue,
+		int largestPossibleValue
+	);
 
 	public:
-
 	BoundaryMutation();
-	BoundaryMutation(double newMutationRate);
-	BoundaryMutation(double newMutationRate, unsigned newSeed);
-
-	Genome * mutate(Genome * initialGenome, int largestPossibleValues[]);
-
+	BoundaryMutation(double mutationRate);
+	BoundaryMutation(double mutationRate, unsigned seed);
 };

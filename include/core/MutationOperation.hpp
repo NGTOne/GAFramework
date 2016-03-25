@@ -16,6 +16,11 @@ class MutationOperation {
         double mutationRate;
 	std::mt19937 generator;
 
+	virtual int getNewLocusValue(
+		int currentValue,
+		int largestPossibleValue
+	)=0;
+
 	public:
 
 	MutationOperation();
@@ -25,7 +30,7 @@ class MutationOperation {
 	virtual Genome * mutate(
 		Genome * initialGenome,
 		int * largestPossibleValues
-	)=0;
+	);
 
 	void init(double newMutationRate, unsigned newSeed);
 

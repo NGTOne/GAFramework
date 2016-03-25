@@ -11,13 +11,13 @@ class UniformMutation : public MutationOperation {
 	private:
 
 	protected:
+	virtual int getNewLocusValue(
+		int currentValue,
+		int largestPossibleValue
+	);
 
 	public:
-
 	UniformMutation();
-	UniformMutation(double newMutationRate);
-	UniformMutation(double newMutationRate, unsigned newSeed);
-
-	Genome * mutate(Genome * initialGenome, int largestPossibleValues[]);
-
+	UniformMutation(double mutationRate);
+	UniformMutation(double mutationRate, unsigned seed);
 };

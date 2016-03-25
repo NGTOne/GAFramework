@@ -10,11 +10,13 @@ class GaussianMutation : public MutationOperation {
 	private:
 
 	protected:
+	virtual int getNewLocusValue(
+		int currentValue,
+		int largestPossibleValue
+	);
 
 	public:
 	GaussianMutation();
 	GaussianMutation(double mutationRate);
 	GaussianMutation(double mutationRate, unsigned seed);
-
-	Genome * mutate(Genome * initialGenome, int largestPossibleValues[]);
 };

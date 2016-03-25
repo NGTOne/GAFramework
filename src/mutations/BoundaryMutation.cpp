@@ -5,39 +5,22 @@
 using namespace std;
 
 BoundaryMutation::BoundaryMutation() : MutationOperation() {}
-BoundaryMutation::BoundaryMutation(double newMutationRate) : MutationOperation(newMutationRate) {}
-BoundaryMutation::BoundaryMutation(double newMutationRate, unsigned newSeed) : MutationOperation(newMutationRate, newSeed) {}
 
+BoundaryMutation::BoundaryMutation(
+	double mutationRate
+) : MutationOperation(mutationRate) {}
 
-Genome * BoundaryMutation::mutate(Genome * initialGenome, int * largestPossibleValues) {
-	int genomeLength = initialGenome->getGenomeLength();
-	int * originalGenome = initialGenome->getGenome();
+BoundaryMutation::BoundaryMutation(
+	double mutationRate,
+	unsigned seed
+) : MutationOperation(mutationRate, seed) {}
 
-	double randomNumber;
-	int * newGenome = (int*)malloc(sizeof(int)*genomeLength);
+int BoundaryMutation::getNewLocusValue(
+	int currentValue,
+	int largestPossibleValue
+) {
+	uniform_int_distribution<int> newValueDist(0, 1);
+	int newValue = newValueDist(generator);
 
-	uniform_real_distribution<double> mutationChanceDistribution(0.0, 1.0);
-	uniform_int_distribution<int> newValueDistribution(0, 1);
-
-	for (int i = 0; i < genomeLength; i++) {
-		randomNumber = mutationChanceDistribution(generator);
-
-		if (randomNumber <= mutationRate) {
-			int newValue = newValueDistribution(generator);
-
-			if (newValue == 0) {
-				newGenome[i] = 0;
-			} else {
-				newGenome[i] = largestPossibleValues[i];
-			}
-		} else {
-			newGenome[i] = originalGenome[i];
-		}
-	}
-
-	Genome * newGene = new Genome(newGenome, genomeLength, initialGenome->getGeneNodes());
-
-	free(newGenome);
-
-	return newGene;
+	return (newValue == 0 ? 0 : largestPossibleValue);
 }
