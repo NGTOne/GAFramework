@@ -140,8 +140,6 @@ class Individual {
 	//Necessary for crossover
 	Genome * getGenome();
 
-	void runHierarchicalGenerations();
-
 	void setFitness(int newFitness);
 	void setArtificiality(bool newArtificiality);
 

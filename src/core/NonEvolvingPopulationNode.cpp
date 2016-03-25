@@ -42,7 +42,6 @@ NonEvolvingPopulationNode::NonEvolvingPopulationNode(
 
 void NonEvolvingPopulationNode::nextGeneration() {
 	if (currentGeneration < maxGenerations && optimumFound == false) {
-		myPopulation[0]->runHierarchicalGenerations();
 		evaluateFitnesses();
 		propagateFitnesses();
 		currentGeneration++;

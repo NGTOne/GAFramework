@@ -22,7 +22,6 @@ class GeneNode {
 	public:
 	virtual ~GeneNode()=0;
 
-	virtual void runGenerations()=0;
 	virtual void * getIndex(int index) = 0;
 
 	void init(unsigned newSeed);

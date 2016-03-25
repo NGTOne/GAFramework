@@ -232,14 +232,6 @@ Genome * Individual::getGenome() {
 	return genome;
 }
 
-void Individual::runHierarchicalGenerations() {
-	GeneNode ** myGeneNodes = genome->getGeneNodes();
-
-	for (int i = 0; i < genome->getGenomeLength(); i++) {
-		myGeneNodes[i]->runGenerations();
-	}
-}
-
 void Individual::setFitness(int newFitness) {
 	fitnessOverridden = true;
 
