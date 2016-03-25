@@ -1,4 +1,4 @@
-#include "core/LibraryNode.hpp"
+#include "../core/LibraryNode.hpp"
 #include <vector>
 #include <string>
 #pragma once
