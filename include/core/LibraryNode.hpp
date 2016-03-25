@@ -30,7 +30,6 @@ class LibraryNode: public GeneNode {
 	~LibraryNode();
 
 	void * getIndex(int index);
-	void * getFittest();
 
 	int getHighestFitness();
 
@@ -79,8 +78,6 @@ template <class T> LibraryNode<T>::~LibraryNode() {
 template <class T> void * LibraryNode<T>::getIndex(int index) {
 	return (void *)myPopulation[index];
 }
-
-template <class T> void * LibraryNode<T>::getFittest() {}
 
 template <class T> int LibraryNode<T>::getHighestFitness() {}
 

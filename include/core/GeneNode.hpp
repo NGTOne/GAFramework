@@ -24,7 +24,6 @@ class GeneNode {
 
 	virtual void runGenerations()=0;
 	virtual void * getIndex(int index) = 0;
-	virtual void * getFittest() = 0;
 
 	void init(unsigned newSeed);
 	virtual void setFitnessAtIndex(int index, int newFitness) = 0;

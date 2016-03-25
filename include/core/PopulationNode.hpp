@@ -119,8 +119,6 @@ class PopulationNode : public GeneNode {
 	//When we need a specific individual
 	void * getIndex(int index);
 
-	void * getFittest();
-
 	//Run one generation
 	virtual void nextGeneration();
 

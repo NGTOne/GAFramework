@@ -89,20 +89,6 @@ void * PopulationNode::getIndex(int index) {
 	return returnValue;
 }
 
-void * PopulationNode::getFittest() {
-	int fittestIndex;
-	int fittestIndexFitness = 0;
-
-	for (int i = 0; i < populationSize; i++) {
-		if (populationFitnesses[i] > fittestIndexFitness) {
-			fittestIndex = i;
-			fittestIndexFitness = populationFitnesses[i];
-		}
-	}
-
-	return (void*)myPopulation[fittestIndex];
-}
-
 //Run one generation
 void PopulationNode::nextGeneration() {
 	Individual ** nextPopulation;
