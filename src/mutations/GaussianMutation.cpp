@@ -50,8 +50,8 @@ int GaussianMutation::getNewLocusValue(
 	int currentValue,
 	int largestPossibleValue
 ) {
-	normal_distribution<int> addendDist(0, largestPossibleValue/3);
-	int addend = addendDist(generator);
+	normal_distribution<double> addendDist(0, largestPossibleValue/3);
+	int addend = (int)addendDist(generator);
 	int newValue = currentValue - addend;
 	int borderValue = (newValue < 0 ? 0 : largestPossibleValue);
 
@@ -60,7 +60,7 @@ int GaussianMutation::getNewLocusValue(
 			addend = -(
 				newValue < 0 ? 
 				newValue : 
-				(newValue - largestPossibleValue
+				newValue - largestPossibleValue
 			);
 			newValue = borderValue + addend;
 		} else {
