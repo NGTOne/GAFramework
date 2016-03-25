@@ -10,13 +10,20 @@ class GaussianMutation : public MutationOperation {
 	private:
 
 	protected:
+	bool reflection;
+
 	virtual int getNewLocusValue(
 		int currentValue,
 		int largestPossibleValue
 	);
 
+	void init(bool reflection);
+
 	public:
 	GaussianMutation();
+	GaussianMutation(bool reflection);
 	GaussianMutation(double mutationRate);
+	GaussianMutation(double mutationRate, bool reflection);
 	GaussianMutation(double mutationRate, unsigned seed);
+	GaussianMutation(double mutationRate, bool reflection, unsigned seed);
 };
