@@ -29,7 +29,10 @@ void MutationOperation::init(double newMutationRate, unsigned newSeed) {
 	generator = newGenerator;
 }
 
-virtual Genome * mutate(Genome * initialGenome, int * largestPossibleValues) {
+Genome * MutationOperation::mutate(
+	Genome * initialGenome,
+	int * largestPossibleValues
+) {
 	int genomeLength = initialGenome->getGenomeLength();
 	int * originalGenome = initialGenome->getGenome();
 
