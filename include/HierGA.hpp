@@ -32,6 +32,7 @@
 #include "systems/AccelSSGA.hpp"
 #include "systems/niching/Crowding.hpp"
 #include "mutations/BoundaryMutation.hpp"
+#include "mutations/GaussianMutation.hpp"
 #include "mutations/UniformMutation.hpp"
 #include "selections/TournamentSelection.hpp"
 #include "propagators/NonPropagator.hpp"
