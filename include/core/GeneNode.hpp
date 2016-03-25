@@ -38,8 +38,6 @@ class GeneNode {
 	int chooseRandomMember();
 	int getSeed();
 
-	virtual int getHighestFitness() = 0;
-
 	bool equals(GeneNode * otherPool);
 
 	virtual std::string toString()=0;

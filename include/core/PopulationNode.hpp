@@ -114,8 +114,6 @@ class PopulationNode : public GeneNode {
 		int populationToEvalSize
 	);
 
-	int getHighestFitness();
-
 	//When we need a specific individual
 	void * getIndex(int index);
 

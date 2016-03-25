@@ -40,7 +40,7 @@ uninstall:
 
 examples: obj-dir 1-max hier1-max longestfragment hierlongestfragment hier3longestfragment hier3proprr
 
-library: obj-dir core selections mutations crossovers systems endconditions propagators exception
+library: obj-dir core loci selections mutations crossovers systems endconditions propagators exception
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
 
@@ -65,6 +65,9 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/migration/NullTranslationFunction.cpp -o obj/core/migration/NullTranslationFunction.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/migration/MigratoryRelationship.cpp -o obj/core/migration/MigratoryRelationship.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierarchicalEA.cpp -o obj/core/HierarchicalEA.o
+
+loci:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/IntLocus.cpp -o obj/loci/IntLocus.o
 
 selections: tournamentSelection
 

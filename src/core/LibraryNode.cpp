@@ -1,120 +1,43 @@
-using namespace std;
-
 #include <sstream>
 #include <string>
 #include "core/LibraryNode.hpp"
 
-template <> void * LibraryNode<int>::getIndex(int index) {
-	int * returnValue = &myPopulation[index];
+using namespace std;
 
-	return (void*)returnValue;
+template <class T> LibraryNode<T>::LibraryNode(
+	T * population,
+	int populationSize
+) {
+	this->population = population;
+	this->populationSize = populationSize;
 }
 
-template <> string LibraryNode<int>::toString() {
-	string returnString = "";
-	stringstream ss;
+template <class T> LibraryNode<T>::~LibraryNode() {};
 
-	ss << "Population: ";
+template <class T> T * LibraryNode<T>::getIndex(int index) {
+	return this->population[index];
+}
+
+template <class T> string LibraryNode<T>::toString() {
+        string returnString = "";
+        stringstream ss;
 
 	for (int i = 0; i < populationSize; i++) {
-		ss << myPopulation[i] << " ";
+		ss << population[i].toString() << " ";
 	}
 
 	ss << "\nRandom Seed: " << seed << "\n";
 
-	returnString = ss.str();
+        returnString = ss.str();
 
-	return returnString;
+        return returnString;
+
 }
 
-template <> void * LibraryNode<double>::getIndex(int index) {
-	double * returnValue = &myPopulation[index];
-
-	return (void*)returnValue;
-}
-
-template <> string LibraryNode<double>::toString() {
-	string returnString = "";
-	stringstream ss;
-
-	ss << "Population: ";
-
-	for (int i = 0; i < populationSize; i++) {
-		ss << myPopulation[i] << " ";
-	}
-
-	ss << "\nRandom Seed: " << seed << "\n";
-
-	returnString = ss.str();
-
-	return returnString;
-}
-
-template <> void * LibraryNode<char>::getIndex(int index) {
-	char * returnValue = &myPopulation[index];
-
-	return (void*)returnValue;
-}
-
-template <> string LibraryNode<char>::toString() {
-	string returnString = "";
-	stringstream ss;
-
-	ss << "Population: ";
-
-	for (int i = 0; i < populationSize; i++) {
-		ss << myPopulation[i] << " ";
-	}
-
-	ss << "\nRandom Seed: " << seed << "\n";
-
-	returnString = ss.str();
-
-	return returnString;
-}
-
-template <> void * LibraryNode<bool>::getIndex(int index) {
-	bool * returnValue = &myPopulation[index];
-
-	return (void*)returnValue;
-}
-
-template <> string LibraryNode<bool>::toString() {
-	string returnString = "";
-	stringstream ss;
-
-	ss << "Population: ";
-
-	for (int i = 0; i < populationSize; i++) {
-		ss << myPopulation[i] << " ";
-	}
-
-	ss << "\nRandom Seed: " << seed << "\n";
-
-	returnString = ss.str();
-
-	return returnString;
-}
-
-template <> void * LibraryNode<string>::getIndex(int index) {
-	string * returnValue = &myPopulation[index];
-
-	return (void*)returnValue;
-}
-
-template <> string LibraryNode<string>::toString() {
-	string returnString = "";
-	stringstream ss;
-
-	ss << "Population: ";
-
-	for (int i = 0; i < populationSize; i++) {
-		ss << myPopulation[i] << " ";
-	}
-
-	ss << "\nRandom Seed: " << seed << "\n";
-
-	returnString = ss.str();
-
-	return returnString;
-}
+// Legacy garbage
+template <class T> void LibraryNode<T>::setFitnessAtIndex(
+	int index,
+	int newFitness
+) {}
+template <class T> void LibraryNode<T>::propagateFitnesses() {}
+template <class T> int LibraryNode<T>::getFitnessAtIndex(int index) {}

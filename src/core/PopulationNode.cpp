@@ -150,10 +150,6 @@ void PopulationNode::sortPopulation() {
 	myModel->sortPopulation(myPopulation, populationFitnesses, populationSize);
 }
 
-int PopulationNode::getHighestFitness() {
-	return populationFitnesses[0];
-}
-
 void PopulationNode::setFitnessAtIndex(int index, int newFitness) {
 	myPopulation[index]->setFitness(newFitness);
 }
