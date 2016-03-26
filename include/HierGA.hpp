@@ -19,6 +19,7 @@
 #include "core/migration/TranslationFunction.hpp"
 #include "core/migration/NullTranslationFunction.hpp"
 #include "loci/IntLocus.hpp"
+#include "loci/FloatLocus.hpp"
 #include "crossovers/CutAndSpliceCrossover.hpp"
 #include "crossovers/NPointCrossover.hpp"
 #include "crossovers/UniformCrossover.hpp"
