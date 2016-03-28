@@ -38,6 +38,7 @@ class HierarchicalEA {
 	PopulationNode * getNodeByName(string name);
 
 	public:
+	HierarchicalEA();
 	HierarchicalEA(int maxEpochs);
 	~HierarchicalEA();
 

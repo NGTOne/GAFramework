@@ -8,6 +8,8 @@
 #include <iostream>
 #include <algorithm>
 
+HierarchicalEA::HierarchicalEA() {}
+
 HierarchicalEA::HierarchicalEA(int maxEpochs) {
 	this->maxEpochs = maxEpochs;
 }
