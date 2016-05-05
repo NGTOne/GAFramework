@@ -1,0 +1,47 @@
+#include "PopulationNode.hpp"
+#include "EvolutionarySystem.hpp"
+#include "CrossoverOperation.hpp"
+#include "MutationOperation.hpp"
+#include <string>
+#pragma once
+
+class EANode : public PopulationNode {
+	private:
+
+	protected:
+	EvolutionarySystem * system;
+	CrossoverOperation * cross;
+	MutationOperation * mutation;
+
+	public:
+	EANode(
+		int populationSize,
+		std::vector<ObjectiveFunction*> objectives,
+		std::string name,
+		int maxIterations,
+		EvolutionarySystem * system,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+
+	EANode(
+		int populationSize,
+		std::vector<ObjectiveFunction*> objectives,
+		std::string name,
+		int maxIterations,
+		int accelerationFactor,
+		EvolutionarySystem * system,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+
+	~EANode();
+
+	void init(
+		EvolutionarySystem * system,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+
+	virtual void nextIteration();
+};
