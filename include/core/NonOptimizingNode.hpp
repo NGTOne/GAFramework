@@ -11,6 +11,7 @@ class NonEvolvingPopulationNode : public PopulationNode {
 		int populationSize,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
+		std::vector<EndCondition *> conditions,
 		std::string name
 	);
 

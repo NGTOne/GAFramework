@@ -25,8 +25,8 @@ class PopulationNode {
 		int populationSize,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
+		std::vector<EndCondition *> conditions,
 		std::string name,
-		int maxIterations,
 		int accelerationFactor
 	);
 
@@ -35,13 +35,15 @@ class PopulationNode {
 		int populationSize,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
-		std::string name,
+		std::vector<EndCondition *> conditions,
+		std::string name
 	);
 
 	PopulationNode(
 		int populationSize,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
+		std::vector<EndCondition *> conditions,
 		std::string name,
 		int accelerationFactor
 	);
