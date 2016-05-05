@@ -1,5 +1,5 @@
 #include <string>
-#include "GeneNode.hpp"
+#include "Genome.hpp"
 #include "PropertiesList.hpp"
 #pragma once
 
@@ -10,17 +10,11 @@
 * themselves.
 */
 
-class FitnessFunction {
+class ObjectiveFunction {
 	private:
 
 	protected:
 
 	public:
-	virtual PropertiesList * checkFitness(
-		GeneNode ** pools,
-		int * indexes,
-		int genomeLength
-	)=0;
+	virtual PropertiesList * checkFitness(Genome * genome)=0;
 };
-
-typedef FitnessFunction ComponentHeuristicFunction;
