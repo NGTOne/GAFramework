@@ -10,7 +10,8 @@ class NonEvolvingPopulationNode : public PopulationNode {
 	NonEvolvingPopulationNode(
 		int populationSize,
 		std::vector<ObjectiveFunction*> objectives,
-		std::string name,
+		ToStringFunction * populationToString,
+		std::string name
 	);
 
 	void nextIteration();

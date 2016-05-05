@@ -15,12 +15,16 @@ class PopulationNode {
 	std::vector<EndCondition *> conditions;
 	bool done;
 
+	std::vector<ObjectiveFunction*> objectives;
+	ToStringFunction * populationToString;
+
 	//Used to decrease unnecessary verbosity in toString()
 	bool readOnce;
 
 	void init(
 		int populationSize,
 		std::vector<ObjectiveFunction*> objectives,
+		ToStringFunction * populationToString,
 		std::string name,
 		int maxIterations,
 		int accelerationFactor
@@ -30,15 +34,15 @@ class PopulationNode {
 	PopulationNode(
 		int populationSize,
 		std::vector<ObjectiveFunction*> objectives,
+		ToStringFunction * populationToString,
 		std::string name,
-		int maxIterations
 	);
 
 	PopulationNode(
 		int populationSize,
 		std::vector<ObjectiveFunction*> objectives,
+		ToStringFunction * populationToString,
 		std::string name,
-		int maxIterations,
 		int accelerationFactor
 	);
 

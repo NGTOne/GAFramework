@@ -17,8 +17,8 @@ class EANode : public PopulationNode {
 	EANode(
 		int populationSize,
 		std::vector<ObjectiveFunction*> objectives,
+		ToStringFunction * populationToString,
 		std::string name,
-		int maxIterations,
 		EvolutionarySystem * system,
 		CrossoverOperation * cross,
 		MutationOperation * mutation
@@ -27,8 +27,8 @@ class EANode : public PopulationNode {
 	EANode(
 		int populationSize,
 		std::vector<ObjectiveFunction*> objectives,
+		ToStringFunction * populationToString,
 		std::string name,
-		int maxIterations,
 		int accelerationFactor,
 		EvolutionarySystem * system,
 		CrossoverOperation * cross,
