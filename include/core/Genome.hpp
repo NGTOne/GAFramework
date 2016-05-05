@@ -1,27 +1,22 @@
 #pragma once
-#include "GeneNode.hpp"
-
-/*
-* This simple class encapsulates all of an Individual's genetic information,
-* including the gene pools it uses, with the goal of easing the sharing of
-* this information between classes.
-*/
+#include "Locus.hpp"
+#include <vector>
 
 class Genome {
 	private:
 
 	protected:
-	int * gene;
-	int genomeLength;
-	GeneNode ** genePools;
+	std::vector<int> genes;
+	std::vector<Locus*> loci;
 
 	public:
-	Genome(int * newGene, int newGenomeLength, GeneNode ** newGeneNodes);
+	Genome(std::vector<Locus*> loci);
+	Genome(std::vector<int> genes, std::vector<Locus*> loci);
 
 	~Genome();
 
-	int * getGenome();
+	std::vector<int> getGenome();
 	int getGenomeLength();
-	GeneNode ** getGeneNodes();
+	std::vector<Locus*> getLoci();
 	int getDifference(Genome * otherGenome);
 };
