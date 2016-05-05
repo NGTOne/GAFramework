@@ -44,12 +44,11 @@ class HierarchicalEA {
 
 	void run(bool verbose);
 
-	void addNode(PopulationNode * node, string name, bool print);
-	void addNode(PopulationNode * node, string name, bool print, bool end);
+	void addNode(PopulationNode * node, bool print);
+	void addNode(PopulationNode * node, bool print, bool end);
 	void addNodes(
 		PopulationNode ** nodes,
 		int count,
-		vector<string> names,
 		vector<bool> print,
 		vector<bool> end
 	);
