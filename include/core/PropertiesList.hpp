@@ -1,4 +1,5 @@
 #include "Property.hpp"
+#include <vector>
 #pragma once
 
 /*
@@ -9,14 +10,13 @@
 
 class PropertiesList {
 	private:
-	int numProperties;
-	PropertyBase ** properties;
-
-	//Fitness is such a universal example of a property that we detach it
-	//from the rest of the list just to make life easy
-	int fitness;
 
 	protected:
+	std::vector<PropertyBase*> properties;
+
+	// Fitness is such a universal example of a property that we detach it
+	// from the rest of the list just to make life easy
+	int fitness;
 
 	public:
 	PropertiesList();
@@ -25,7 +25,7 @@ class PropertiesList {
 	~PropertiesList();
 
 	void addProperty(PropertyBase * newProperty);
-	PropertyBase ** getProperties();
+	std::vector<PropertyBase*> getProperties();
 	int getNumProperties();
 	int getFitness();
 	void setFitness(int newFitness);

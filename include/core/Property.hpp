@@ -18,7 +18,7 @@ class PropertyBase {
 	virtual ~PropertyBase()=0;
 
 	virtual PropertyBase * makeCopy()=0;
-	virtual void * getProperty()=0;
+	virtual int * getProperty()=0;
 };
 
 template <class T>
