@@ -1,5 +1,5 @@
 #pragma once
-#include "Genome.hpp"
+#include "../../core/Genome.hpp"
 #include <random>
 #include <string>
 

@@ -1,4 +1,4 @@
-#include "Individual.hpp"
+#include "../../core/Solution.hpp"
 #include <random>
 #include <string>
 #pragma once
@@ -39,7 +39,7 @@ class SelectionStrategy {
 		std::string newName
 	);
 
-	virtual int getParent(int populationFitnesses[], int populationSize)=0;
+	virtual int getParent(std::vector<Solution*> population)=0;
 
 	virtual std::string toString();
 };

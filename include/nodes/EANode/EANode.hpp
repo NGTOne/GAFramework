@@ -1,4 +1,4 @@
-#include "PopulationNode.hpp"
+#include "../../core/PopulationNode.hpp"
 #include "EvolutionarySystem.hpp"
 #include "CrossoverOperation.hpp"
 #include "MutationOperation.hpp"

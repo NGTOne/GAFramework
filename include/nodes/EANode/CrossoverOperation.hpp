@@ -1,7 +1,8 @@
 #pragma once
-#include "Genome.hpp"
+#include "../../core/Genome.hpp"
 #include <random>
 #include <string>
+#include <vector>
 
 /*
 * This class serves as an abstract base for crossover operators, allowing
@@ -24,7 +25,7 @@ class CrossoverOperation {
 	void init(unsigned newSeed);
         CrossoverOperation();        
         CrossoverOperation(unsigned newSeed);
-        virtual Genome ** crossOver(Genome * genomeOne, Genome * genomeTwo)=0;
+        virtual std::vector<Genome*> crossOver(std::vector<Genome*> genomes)=0;
 	virtual std::string toString()=0;
 };
 

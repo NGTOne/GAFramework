@@ -1,4 +1,4 @@
-#include "Individual.hpp"
+#include "../../core/Solution.hpp"
 #include "SelectionStrategy.hpp"
 #include <random>
 #include <string>
@@ -17,29 +17,18 @@ class EvolutionarySystem {
 	protected:
 	unsigned seed;
 	std::mt19937 generator;
-	SelectionStrategy * myStrategy;
-
-	Individual ** getEmptyPopulation(int populationSize);
-
-	public:
-	EvolutionarySystem(SelectionStrategy * newStrategy);
-
-	EvolutionarySystem(unsigned newSeed, SelectionStrategy * newStrategy);
+	SelectionStrategy * strategy;
 
 	void init(unsigned newSeed, SelectionStrategy * newStrategy);
 
-	void sortPopulation(
-		Individual ** initialPopulation,
-		int * initialFitnesses,
-		int populationSize
-	);
+	public:
+	EvolutionarySystem(SelectionStrategy * newStrategy);
+	EvolutionarySystem(unsigned newSeed, SelectionStrategy * newStrategy);
 
-	virtual int getParent(int * populationFitnesses, int populationSize);
-
-	virtual Individual ** breedMutateSelect(
-		Individual ** initialPopulation,
-		int * populationFitnesses,
-		int populationSize
+	void sortPopulation(std::vector<Solution *> population);
+	virtual int getParent(std::vector<Solution*> population);
+	virtual std::vector<Solution*> breedMutateSelect(
+		std::vector<Solution*> population
 	)=0;
 
 	std::string toString();
