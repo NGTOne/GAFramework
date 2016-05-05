@@ -46,4 +46,5 @@ class EANode : public PopulationNode {
 	);
 
 	virtual void nextIteration();
+	std::string toString();
 };
