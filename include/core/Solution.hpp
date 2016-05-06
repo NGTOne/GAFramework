@@ -2,6 +2,8 @@
 #include "Genome.hpp"
 #include "PropertiesList.hpp"
 #include "Locus.hpp"
+//#include "ObjectiveFunction.hpp"
+//#include "ToStringFunction.hpp"
 #include <string>
 #pragma once
 
@@ -11,6 +13,8 @@ class Solution {
 	protected:
 	Genome * genome;
 	PropertiesList * properties;
+	//ToStringFunction * toString;
+	//std::vector<ObjectiveFunction*> objectives;
 
 	void init(Genome * genome, PropertiesList * properties);
 
@@ -23,11 +27,11 @@ class Solution {
 	Solution(std::vector<Locus*> loci);
 	~Solution();
 
-	int evaluateFitness();
+	//int evaluateFitness();
 	int getFitness();
 	PropertiesList * getProperties();
 
 	Genome * getGenome();
 
-	std::string toString();
+	//std::string toString();
 };
