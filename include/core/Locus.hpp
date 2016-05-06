@@ -1,21 +1,22 @@
 #include <string>
 #include <vector>
+#include <boost/any.hpp>
 #pragma once
 
-template <typename T>
 class Locus {
 	private:
 
 	protected:
-	std::vector<T> population;
+	std::vector<boost::any> population;
 
 	Locus();
+	Locus(std::vector<boost::any> population);
 
 	public:
-	Locus(std::vector<T> population);
 	~Locus();
 
-	T getIndex(int index);
+	int randomIndex();
+	boost::any getIndex(int index);
 
 	virtual std::string toString();
 };
