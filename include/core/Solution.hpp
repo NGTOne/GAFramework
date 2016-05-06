@@ -12,12 +12,14 @@ class Solution {
 	Genome * genome;
 	PropertiesList * properties;
 
+	void init(Genome * genome, PropertiesList * properties);
+
 	public:
 	Solution();
-	Solution(Genome * newGenome);
+	Solution(Genome * genome);
 	Solution(Solution * copyTarget, bool randomize);
-	Solution(Solution * copyTarget, int newGenome[]);
-	Solution(Genome * newGenome, PropertiesList * newProperties);
+	Solution(Solution * copyTarget, int rawGenes[]);
+	Solution(Genome * genome, PropertiesList * properties);
 	Solution(std::vector<Locus*> loci);
 	~Solution();
 

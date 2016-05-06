@@ -1,4 +1,4 @@
-#include "core/Individual.hpp"
+#include "core/Solution.hpp"
 #include "core/Genome.hpp"
 #include <cstdlib>
 #include <chrono>
@@ -8,52 +8,35 @@
 
 using namespace std;
 
-//Basic constructor - lets us have a completely generic Individual that doesn't
-//know what the heck is going on inside it
-Individual::Individual(GeneNode ** newGeneNodes, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString) {
-	//The system time that the first individual of that species was
-	//created makes an acceptable species ID
-	unsigned newSpeciesID = chrono::system_clock::now().time_since_epoch().count();
-
-	init(newGeneNodes, newGenomeLength, newCrossover, newMutation, newFitness, newToString, newSpeciesID);
-
-	checkFitness();
+Solution::Solution() {
+	init(NULL, NULL);
 }
 
-Individual::Individual(GeneNode ** newGeneNodes, int newGenomeLength, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID) {
-	init(newGeneNodes, newGenomeLength, newCrossover, newMutation, newFitness, newToString, newSpeciesID);
-
-	checkFitness();
+Solution::Solution(Genome * genome) {
+	init(genome, NULL);
+	evaluateFitness();
 }
 
-//Constructor that lets us create an Individual with a fully specified genome
-//Necessary for crossover/mutation
-Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, ToStringFunction * newToString, unsigned newSpeciesID) {
-	init(newGenome->getGeneNodes(), newGenome->getGenomeLength(), newCrossover, newMutation, newFitness, newToString, newSpeciesID);
-
-	//Throw out the random genome we just created
-	delete(genome);
-
-	genome = new Genome(newGenome->getGenome(), newGenome->getGenomeLength(), newGenome->getGeneNodes());
-
-	checkFitness();
+Solution::Solution(Solution * copyTarget, bool randomize) {
+	Genome * genome = new Genome(copyTarget->getGenome(), randomize);
+	if (randomize) {
+		init(genome, NULL);
+		evaluateFitness();
+	} else {
+		init(genome, copyTarget->getProperties());
+	}
 }
 
-//For TRUE deep copying - lets us create an Individual with every aspect
-//specified
-Individual::Individual(Genome * newGenome, CrossoverOperation * newCrossover, MutationOperation * newMutation, FitnessFunction * newFitness, unsigned newSpeciesID, PropertiesList * newProperties, ToStringFunction * newToString, bool artificiality) {
-	genome = newGenome;
-        myCrossover = newCrossover;
-        myMutation = newMutation;
-        myFunction = newFitness;
-        speciesID = newSpeciesID;
-	properties = newProperties;
-	fitnessOverridden = artificiality;
-	myToString = newToString;
+Solution::Solution(Solution * copyTarget, int rawGenes[]) {
+	Genome * genome = new Genome(copyTarget->getGenome(), rawGenes);
+	init(genome, NULL);
+	evaluateFitness();
 }
 
-Individual::~Individual() {
-	delete(genome);
+Solution::~Solution() {
+	if (genome != NULL) {
+		delete(genome);
+	}
 
 	if (properties != NULL) {
 		delete(properties);

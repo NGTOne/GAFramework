@@ -19,5 +19,6 @@ class Locus {
 	boost::any getIndex(int index);
 
 	virtual std::string toString();
+	bool outOfRange(int i);
 };
 
