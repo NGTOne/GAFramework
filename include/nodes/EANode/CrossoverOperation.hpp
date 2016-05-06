@@ -1,5 +1,6 @@
 #pragma once
 #include "../../core/Genome.hpp"
+#include "../../core/Solution.hpp"
 #include <random>
 #include <string>
 #include <vector>
@@ -22,10 +23,13 @@ class CrossoverOperation {
 	std::mt19937 generator;
 
         public:
-	void init(unsigned newSeed);
+	void init(unsigned seed);
         CrossoverOperation();        
-        CrossoverOperation(unsigned newSeed);
+        CrossoverOperation(unsigned seed);
         virtual std::vector<Genome*> crossOver(std::vector<Genome*> genomes)=0;
+	virtual std::vector<Solution*> crossOver(
+		std::vector<Solution*> parents
+	);
 	virtual std::string toString()=0;
 };
 

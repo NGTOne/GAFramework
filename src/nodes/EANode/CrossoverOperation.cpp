@@ -5,7 +5,7 @@
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "core/CrossoverOperation.hpp"
+#include "nodes/EANode/CrossoverOperation.hpp"
 using namespace std;
 
 CrossoverOperation::CrossoverOperation() {
@@ -13,11 +13,11 @@ CrossoverOperation::CrossoverOperation() {
 	init(seed);
 }
 
-CrossoverOperation::CrossoverOperation(unsigned newSeed) : seed(newSeed) {
-	init(newSeed);
+CrossoverOperation::CrossoverOperation(unsigned seed) : seed(seed) {
+	init(seed);
 }
 
-void CrossoverOperation::init(unsigned newSeed) {
-	mt19937 newGenerator(newSeed);
+void CrossoverOperation::init(unsigned seed) {
+	mt19937 newGenerator(seed);
 	generator = newGenerator;
 }

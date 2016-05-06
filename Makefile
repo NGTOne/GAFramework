@@ -40,7 +40,7 @@ uninstall:
 
 examples: obj-dir 1-max hier1-max longestfragment hierlongestfragment hier3longestfragment hier3proprr
 
-library: obj-dir core loci selections mutations crossovers systems endconditions propagators exception
+library: obj-dir core nodes loci selections mutations crossovers systems endconditions propagators exception
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
 
@@ -50,8 +50,6 @@ obj-dir:
 core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Property.cpp -o obj/core/Property.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PropertiesList.cpp -o obj/core/PropertiesList.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/CrossoverOperation.cpp -o obj/core/CrossoverOperation.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/MutationOperation.cpp -o obj/core/MutationOperation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Genome.cpp -o obj/core/Genome.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Individual.cpp -o obj/core/Individual.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/GeneNode.cpp -o obj/core/GeneNode.o
@@ -65,6 +63,10 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/migration/NullTranslationFunction.cpp -o obj/core/migration/NullTranslationFunction.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/migration/MigratoryRelationship.cpp -o obj/core/migration/MigratoryRelationship.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierarchicalEA.cpp -o obj/core/HierarchicalEA.o
+
+nodes:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/CrossoverOperation.cpp -o obj/nodes/EANode/CrossoverOperation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/MutationOperation.cpp -o obj/nodes/EANode/MutationOperation.o
 
 loci:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/IntLocus.cpp -o obj/loci/IntLocus.o
