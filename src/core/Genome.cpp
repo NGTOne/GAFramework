@@ -1,46 +1,45 @@
 #include "core/Genome.hpp"
+#include "core/Locus.hpp"
 #include <cstdlib>
 #include <cmath>
 
 using namespace std;
 
-Genome::Genome(int * newGene, int newGenomeLength, GeneNode ** newGeneNodes) {
-	gene = (int*)malloc(sizeof(int)*newGenomeLength);
-
-	for (int i = 0; i < newGenomeLength; i++) {
-		gene[i] = newGene[i];
+Genome::Genome(vector<Locus*> loci) {
+	this->loci = loci;
+	for (int i = 0; i < loci.size(); i++) {
+		genes.push_back(loci[i]->randomIndex());
 	}
-
-	genomeLength = newGenomeLength;
-	genePools = newGeneNodes;
 }
 
-Genome::~Genome() {
-	free(gene);
+Genome::Genome(vector<int> genes, vector<Locus*> loci) {
+	this->genes = genes;
+	this->loci = loci;
 }
 
-int * Genome::getGenome() {
-	return gene;
+Genome::~Genome() {}
+
+vector<int> Genome::getGenome() {
+	return genes;
 }
 
 int Genome::getGenomeLength() {
-	return genomeLength;
+	return genes.size();
 }
 
-GeneNode ** Genome::getGeneNodes() {
-	return genePools;
+vector<Locus*> Genome::getLoci() {
+	return loci;
 }
 
 int Genome::getDifference(Genome * otherGenome) {
-	int * otherGenomeRaw = otherGenome->getGenome();
-	int otherGenomeLength = otherGenome->getGenomeLength();
+	vector<int> otherGenes = otherGenome->getGenome();
 	int difference = 0;
-	int shorterGenome = fmin(genomeLength, otherGenomeLength);
-	int longerGenome = fmax(genomeLength, otherGenomeLength);
+	int shorterGenome = fmin(genes.size(), otherGenes.size());
+	int longerGenome = fmax(genes.size(), otherGenes.size());
 	int i;
 
 	for (i = 0; i < shorterGenome; i++) {
-		difference += abs(gene[i] - otherGenomeRaw[i]);
+		difference += abs(genes[i] - otherGenes[i]);
 	}
 
 	// We want to account for genes of different lengths somehow
