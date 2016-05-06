@@ -20,7 +20,7 @@ class PropertiesList {
 
 	public:
 	PropertiesList();
-	PropertiesList(int newFitness);
+	PropertiesList(int fitness);
 	
 	~PropertiesList();
 

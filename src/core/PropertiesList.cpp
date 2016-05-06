@@ -3,40 +3,28 @@
 
 using namespace std;
 
-PropertiesList::PropertiesList() {
-	numProperties = 0;
-	properties = NULL;
-	fitness = 0;
-}
+PropertiesList::PropertiesList() {}
 
-PropertiesList::PropertiesList(int newFitness) {
-	numProperties = 0;
-	properties = NULL;
-	fitness = newFitness;
+PropertiesList::PropertiesList(int fitness) {
+	this->fitness = fitness;
 }
 	
 PropertiesList::~PropertiesList() {
-	if (properties != NULL) {
-		for (int i = 0; i < numProperties; i++) {
-			delete(properties[i]);
-		}
-
-		free(properties);
+	for (int i = 0; i < properties.size(); i++) {
+		delete(properties[i]);
 	}
 }
 
 void PropertiesList::addProperty(PropertyBase * newProperty) {
-	properties = (PropertyBase**)realloc(properties, sizeof(PropertyBase*)*(numProperties+1));
-	properties[numProperties] = newProperty;
-	numProperties += 1;
+	properties.push_back(newProperty);
 }
 
-PropertyBase ** PropertiesList::getProperties() {
+vector<PropertyBase*> PropertiesList::getProperties() {
 	return properties;
 }
 
 int PropertiesList::getNumProperties() {
-	return numProperties;
+	return properties.size();
 }
 
 int PropertiesList::getFitness() {
