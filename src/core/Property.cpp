@@ -9,29 +9,13 @@ template <class T> Property<T>::Property() {
 	myProperty = NULL;
 }
 
-template <> Property<int>::Property() {
-	myProperty=NULL;
-}
-
 template <class T> Property<T>::Property(T * newProperty) {
 	myProperty = newProperty;
-}
-
-template <> Property<int>::Property(int * newProperty) {
-	myProperty = (int*)malloc(sizeof(int));
-
-	*myProperty = *newProperty;
 }
 
 template <class T> Property<T>::~Property() {
 	if (myProperty != NULL) {
 		delete(myProperty);
-	}
-}
-
-template <> Property<int>::~Property() {
-	if (myProperty != NULL) {
-		free(myProperty);
 	}
 }
 
@@ -41,14 +25,6 @@ template <class T> void Property<T>::setProperty(T * newProperty) {
 	}
 
 	myProperty = newProperty;
-}
-
-template <> void Property<int>::setProperty(int * newProperty) {
-	if (myProperty == NULL) {
-		myProperty = (int*)malloc(sizeof(int));
-	}
-
-	*myProperty = *newProperty;
 }
 
 template <class T> T * Property<T>::getProperty() {
@@ -61,6 +37,31 @@ template <class T> Property<T> * Property<T>::makeCopy() {
 	Property<T> * newProperty = new Property<T>(newValue);
 
 	return newProperty;
+}
+
+// int specialization
+template <> Property<int>::Property() {
+	myProperty=NULL;
+}
+
+template <> Property<int>::Property(int * newProperty) {
+	myProperty = (int*)malloc(sizeof(int));
+
+	*myProperty = *newProperty;
+}
+
+template <> Property<int>::~Property() {
+	if (myProperty != NULL) {
+		free(myProperty);
+	}
+}
+
+template <> void Property<int>::setProperty(int * newProperty) {
+	if (myProperty == NULL) {
+		myProperty = (int*)malloc(sizeof(int));
+	}
+
+	*myProperty = *newProperty;
 }
 
 template <> Property<int> * Property<int>::makeCopy() {
