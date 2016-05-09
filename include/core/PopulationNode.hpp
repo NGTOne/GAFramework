@@ -1,4 +1,4 @@
-#include "Solution.hpp"
+#include "Genome.hpp"
 #include "ObjectiveFunction.hpp"
 #include <vector>
 
@@ -6,7 +6,9 @@ class PopulationNode {
 	private:
 
 	protected:
-	std::vector<Solution*> population;
+	std::vector<Genome*> population;
+	std::vector<std::vector<int>> assignedFitnesses;
+	std::vector<int> fitnesses;
 	std::string name;
 
 	int maxIterations;
@@ -59,15 +61,15 @@ class PopulationNode {
 
 	// Iteration mechanics
 	virtual void nextIteration()=0;
-	Solution * getIndex(int index);
-	virtual std::vector<Solution*> getNextPopulation()=0;
+	Genome * getIndex(int index);
+	virtual std::vector<Genome*> getNextPopulation()=0;
 	virtual bool done();
 
 	virtual void sortPopulation();
 	void evaluateFitnesses();
 
 	// For migration
-	virtual void insert(int index, Solution * target);
+	virtual void insert(int index, Genome * target);
 
 	std::string populationStrings();
 	virtual std::string toString();

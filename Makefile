@@ -48,11 +48,7 @@ obj-dir:
 	./compile-scripts/make-obj-dir.sh
 
 core:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Property.cpp -o obj/core/Property.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PropertiesList.cpp -o obj/core/PropertiesList.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Genome.cpp -o obj/core/Genome.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Solution.cpp -o obj/core/Solution.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/GeneNode.cpp -o obj/core/GeneNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/LibraryNode.cpp -o obj/core/LibraryNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EvolutionarySystem.cpp -o obj/core/EvolutionarySystem.o
