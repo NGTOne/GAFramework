@@ -1,5 +1,4 @@
 #include "Genome.hpp"
-#include "PopulationNode.hpp"
 #include <vector>
 #pragma once
 
@@ -7,11 +6,15 @@ class EndCondition {
 	private:
 
 	protected:
-	virtual bool checkSolution(Genome * target)=0;
+	virtual bool checkSolution(Genome * target);
 	
 	public:
 	EndCondition();
 	~EndCondition();
 
-	virtual bool checkCondition(PopulationNode * node)=0;
+	virtual bool checkCondition(
+		std::vector<Genome*> genomes,
+		std::vector<int> fitnesses,
+		int currentIteration
+	)=0;
 };

@@ -1,21 +1,25 @@
 #include "Genome.hpp"
 #include "ObjectiveFunction.hpp"
+#include "EndCondition.hpp"
+#include "ObjectiveFunction.hpp"
+#include "ToStringFunction.hpp"
 #include <vector>
+#pragma once
 
 class PopulationNode {
 	private:
 
 	protected:
 	std::vector<Genome*> population;
-	std::vector<std::vector<int>> assignedFitnesses;
+	std::vector<std::vector<std::vector<int>>> assignedFitnesses;
 	std::vector<int> fitnesses;
-	std::string name;
+	std::string nodeName;
 
 	int maxIterations;
 	int currentIteration;
 	int accelerationFactor;
+	int populationSize; // For generating the initial population
 	std::vector<EndCondition *> conditions;
-	bool done;
 
 	std::vector<ObjectiveFunction*> objectives;
 	ToStringFunction * populationToString;
@@ -28,9 +32,11 @@ class PopulationNode {
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
-		std::string name,
+		std::string nodeName,
 		int accelerationFactor
 	);
+
+	int evaluateFitness(int solutionIndex);
 
 	public:
 	PopulationNode(
@@ -38,7 +44,7 @@ class PopulationNode {
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
-		std::string name
+		std::string nodeName
 	);
 
 	PopulationNode(
@@ -46,7 +52,7 @@ class PopulationNode {
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
-		std::string name,
+		std::string nodeName,
 		int accelerationFactor
 	);
 
@@ -60,7 +66,7 @@ class PopulationNode {
 	void addLoci(std::string format, ...);
 
 	// Iteration mechanics
-	virtual void nextIteration()=0;
+	virtual void nextIteration();
 	Genome * getIndex(int index);
 	virtual std::vector<Genome*> getNextPopulation()=0;
 	virtual bool done();
@@ -71,6 +77,7 @@ class PopulationNode {
 	// For migration
 	virtual void insert(int index, Genome * target);
 
+	std::string name();
 	std::string populationStrings();
 	virtual std::string toString();
 };

@@ -49,11 +49,10 @@ obj-dir:
 
 core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Genome.cpp -o obj/core/Genome.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/LibraryNode.cpp -o obj/core/LibraryNode.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PopulationNode.cpp -o obj/core/LibraryNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EvolutionarySystem.cpp -o obj/core/EvolutionarySystem.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EndCondition.cpp -o obj/core/EndCondition.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PopulationNode.cpp -o obj/core/PopulationNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/NonEvolvingPopulationNode.cpp -o obj/core/NonEvolvingPopulationNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/migration/TranslationFunction.cpp -o obj/core/migration/TranslationFunction.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/migration/NullTranslationFunction.cpp -o obj/core/migration/NullTranslationFunction.o
