@@ -50,8 +50,6 @@ obj-dir:
 core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Genome.cpp -o obj/core/Genome.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PopulationNode.cpp -o obj/core/LibraryNode.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/SelectionStrategy.cpp -o obj/core/SelectionStrategy.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EvolutionarySystem.cpp -o obj/core/EvolutionarySystem.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EndCondition.cpp -o obj/core/EndCondition.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/NonEvolvingPopulationNode.cpp -o obj/core/NonEvolvingPopulationNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/migration/TranslationFunction.cpp -o obj/core/migration/TranslationFunction.o
@@ -62,6 +60,8 @@ core:
 nodes:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/CrossoverOperation.cpp -o obj/nodes/EANode/CrossoverOperation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/MutationOperation.cpp -o obj/nodes/EANode/MutationOperation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/SelectionStrategy.cpp -o obj/nodes/EANode/SelectionStrategy.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/EvolutionarySystem.cpp -o obj/nodes/EANode/EvolutionarySystem.o
 
 loci:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/IntLocus.cpp -o obj/loci/IntLocus.o
