@@ -29,5 +29,5 @@ int Locus::randomIndex() {
 }
 
 bool Locus::outOfRange(int i) {
-	return i >= 0 && i < this->population.size();
+	return i < 0 || i >= this->population.size();
 }

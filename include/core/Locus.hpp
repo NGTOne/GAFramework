@@ -22,8 +22,8 @@ class Locus {
 	public:
 	~Locus();
 
-	int randomIndex();
-	bool outOfRange(int i);
+	virtual int randomIndex();
+	virtual bool outOfRange(int i);
 	virtual std::string toString()=0;
 };
 
