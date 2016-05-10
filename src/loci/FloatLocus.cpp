@@ -35,7 +35,7 @@ string FloatLocus::toString() {
 	stringstream ss;
 
 	for (int i = 0; i < population.size(); i++) {
-		ss << boost::any_cast<float>(this->population[i]) << " ";
+		ss << this->getIndex(i) << " ";
 	}
 
 	ss << "\nRandom Seed: " << seed << "\n";

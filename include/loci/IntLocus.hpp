@@ -1,9 +1,9 @@
-#include "../core/LibraryNode.hpp"
+#include "../core/Locus.hpp"
 #include <vector>
 #include <string>
 #pragma once
 
-class IntLocus: public LibraryNode<int> {
+class IntLocus: public Locus {
 	private:
 
 	protected:
@@ -11,6 +11,8 @@ class IntLocus: public LibraryNode<int> {
 	public:
 	IntLocus(int bottom, int top);
 	IntLocus(std::vector<int> values);
+
+	int getIndex(int index);
 
 	~IntLocus();
 
