@@ -1,56 +1,44 @@
 #include "loci/FloatLocus.hpp"
+#include <boost/any.hpp>
+#include <sstream>
 
 using namespace std;
 
-template<> LibraryNode<float>::~LibraryNode() {}
-template<> LibraryNode<float>::LibraryNode() {}
-template<> string LibraryNode<float>::toString() {}
-
 FloatLocus::FloatLocus(float bottom, float top, float resolution) {
+	vector<boost::any> newPopulation;
 	int size = (top - bottom)/resolution + 1;
-	float * population = (float*)malloc(sizeof(float)*size);
 
 	for (int i = 0; bottom + (i * resolution) <= top; i++) {
-		population[i] = bottom + (i * resolution);
+		newPopulation.push_back(bottom + (i * resolution));
 	}
 
-	this->population = population;
-	this->populationSize = size;
+	Locus::setPopulation(newPopulation);
 }
 
 FloatLocus::FloatLocus(vector<float> values) {
-	int size = values.size();
-	float * population = (float*)malloc(sizeof(float)*size);
+	vector<boost::any> newPopulation;
 
-	for (int i = 0; i < size; i++) {
-		population[i] = values[i];
+	for (int i = 0; i < values.size(); i++) {
+		newPopulation.push_back(values[i]);
 	}
 
-	this->population = population;
-	this->populationSize = size;
+	Locus::setPopulation(newPopulation);
 }
 
-FloatLocus::~FloatLocus() {
-	free(this->population);
+float FloatLocus::getIndex(int index) {
+	return boost::any_cast<float>(Locus::getIndex(index));
 }
+
+FloatLocus::~FloatLocus() {}
 
 string FloatLocus::toString() {
 	stringstream ss;
 
-	for (int i = 0; i < populationSize; i++) {
-		ss << population[i] << " ";
+	for (int i = 0; i < population.size(); i++) {
+		ss << boost::any_cast<float>(this->population[i]) << " ";
 	}
 
 	ss << "\nRandom Seed: " << seed << "\n";
 
 	return ss.str();
 }
-
-template <> float * LibraryNode<float>::getIndex(int index) {
-	return &population[index];
-}
-
-// Legacy garbage
-template<> void LibraryNode<float>::setFitnessAtIndex(int, int) {}
-template<> void LibraryNode<float>::propagateFitnesses() {}
-template<> int LibraryNode<float>::getFitnessAtIndex(int) {}

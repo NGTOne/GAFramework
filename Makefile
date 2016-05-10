@@ -65,8 +65,8 @@ nodes:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/NonOptimizingNode.cpp -o obj/nodes/NonOptimizingNode.o
 
 loci:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/IntLocus.cpp -o obj/loci/IntLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/FloatLocus.cpp -o obj/loci/FloatLocus.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/IntLocus.cpp -o obj/loci/IntLocus.o
 
 selections: tournamentSelection
 

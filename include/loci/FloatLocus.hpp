@@ -1,9 +1,9 @@
-#include "../core/LibraryNode.hpp"
+#include "../core/Locus.hpp"
 #include <vector>
 #include <string>
 #pragma once
 
-class FloatLocus: public LibraryNode<float> {
+class FloatLocus: public Locus {
 	private:
 
 	protected:
@@ -11,6 +11,8 @@ class FloatLocus: public LibraryNode<float> {
 	public:
 	FloatLocus(float bottom, float top, float resolution);
 	FloatLocus(std::vector<float> values);
+
+	float getIndex(int index);
 
 	~FloatLocus();
 

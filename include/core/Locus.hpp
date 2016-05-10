@@ -15,6 +15,7 @@ class Locus {
 	Locus();
 	Locus(std::vector<boost::any> population);
 	void init(unsigned seed);
+	void setPopulation(std::vector<boost::any> population);
 
 	boost::any getIndex(int index);
 
