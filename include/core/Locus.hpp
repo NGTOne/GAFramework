@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <random>
 #include <boost/any.hpp>
 #pragma once
 
@@ -8,17 +9,20 @@ class Locus {
 
 	protected:
 	std::vector<boost::any> population;
+	std::mt19937 generator;
+	unsigned seed;
 
 	Locus();
 	Locus(std::vector<boost::any> population);
+	void init(unsigned seed);
+
+	boost::any getIndex(int index);
 
 	public:
 	~Locus();
 
 	int randomIndex();
-	boost::any getIndex(int index);
-
-	virtual std::string toString();
 	bool outOfRange(int i);
+	virtual std::string toString()=0;
 };
 
