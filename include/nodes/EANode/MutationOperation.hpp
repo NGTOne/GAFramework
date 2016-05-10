@@ -21,18 +21,15 @@ class MutationOperation {
 		int largestPossibleValue
 	)=0;
 
+	void init(double mutationRate, unsigned seed);
+
 	public:
 
 	MutationOperation();
-	MutationOperation(double newMutationRate);
-	MutationOperation(double newMutationRate, unsigned newSeed);
+	MutationOperation(double mutationRate);
+	MutationOperation(double mutationRate, unsigned seed);
 
-	virtual Genome * mutate(
-		Genome * initialGenome,
-		int * largestPossibleValues
-	);
-
-	void init(double newMutationRate, unsigned newSeed);
+	virtual Genome * mutate(Genome * initialGenome)=0;
 
 	std::string toString();
 };
