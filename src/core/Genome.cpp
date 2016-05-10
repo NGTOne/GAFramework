@@ -1,8 +1,8 @@
 #include "core/Genome.hpp"
 #include "core/Locus.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
-#include <cstdlib>
 #include <cmath>
+#include <sstream>
 
 using namespace std;
 
@@ -74,4 +74,14 @@ int Genome::getDifference(Genome * otherGenome) {
 	}
 
 	return difference;
+}
+
+string Genome::flatten() {
+	stringstream ss;
+
+	for (int i = 0; i < genes.size(); i++) {
+		ss << loci[i]->flatten(genes[i]) << " ";
+	}
+
+	return ss.str();
 }
