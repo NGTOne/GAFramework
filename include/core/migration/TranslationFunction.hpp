@@ -1,4 +1,4 @@
-#include "../Individual.hpp"
+#include "../Genome.hpp"
 #pragma once
 
 class TranslationFunction {
@@ -7,6 +7,6 @@ class TranslationFunction {
 	protected:
 
 	public:
-	virtual Individual * translate(Individual * target);
+	virtual Genome * translate(Genome * target);
 	virtual bool isNull();
 };

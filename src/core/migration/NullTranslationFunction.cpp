@@ -1,6 +1,6 @@
 #include "core/migration/NullTranslationFunction.hpp"
 
-Individual * NullTranslationFunction::translate(Individual * target) {
+Genome * NullTranslationFunction::translate(Genome * target) {
 	return NULL;
 }
 

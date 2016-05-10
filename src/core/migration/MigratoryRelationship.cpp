@@ -49,13 +49,13 @@ void MigratoryRelationship::init(
 }
 
 void MigratoryRelationship::swap(int fromNodeIndex, int toNodeIndex) {
-	Individual * fromNodeInsert,
+	Genome * fromNodeInsert,
 		* toNodeInsert,
 		* fromNodeOriginal,
 		* toNodeOriginal;
 
-	fromNodeOriginal = (Individual*)fromNode->getIndex(fromNodeIndex);
-	toNodeOriginal = (Individual*)toNode->getIndex(toNodeIndex);
+	fromNodeOriginal = fromNode->getIndex(fromNodeIndex);
+	toNodeOriginal = toNode->getIndex(toNodeIndex);
 
 	toNodeInsert = toTranslate.translate(fromNodeOriginal);
 	fromNodeInsert = fromTranslate.translate(toNodeOriginal);
@@ -65,16 +65,16 @@ void MigratoryRelationship::swap(int fromNodeIndex, int toNodeIndex) {
 }
 
 void MigratoryRelationship::oneWayMigrate(int fromNodeIndex, int toNodeIndex) {
-	Individual * original, * insert;
+	Genome * original, * insert;
 
-	original = (Individual*) fromNode->getIndex(fromNodeIndex);
+	original = fromNode->getIndex(fromNodeIndex);
 	insert = toTranslate.translate(original);
 	toNode->insert(toNodeIndex, insert);
 }
 
 void MigratoryRelationship::migrate() {
-	int fromNodeSize = fromNode->getPopulationSize();
-	int toNodeSize = toNode->getPopulationSize();
+	int fromNodeSize = fromNode->populationSize();
+	int toNodeSize = toNode->populationSize();
 	int fromIndex, toIndex;
 	uniform_int_distribution<int> fromNodeDist(0, fromNodeSize);
 	uniform_int_distribution<int> toNodeDist(0, toNodeSize);

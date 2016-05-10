@@ -53,7 +53,7 @@ void PopulationNode::init(
 	string nodeName,
 	int accelerationFactor
 ) {
-	this->populationSize = populationSize;
+	this->initialPopulationSize = populationSize;
 	this->objectives = objectives;
 	this->populationToString = populationToString;
 	this->conditions = conditions;
@@ -152,6 +152,11 @@ void PopulationNode::insert(int index, Genome * target) {
 
 string PopulationNode::name() {
 	return this->nodeName;
+}
+
+int PopulationNode::populationSize() {
+	return population.size() == 0 ?
+		initialPopulationSize : population.size();
 }
 
 string PopulationNode::populationStrings() {

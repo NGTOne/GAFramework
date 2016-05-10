@@ -18,7 +18,7 @@ class PopulationNode {
 	int maxIterations;
 	int currentIteration;
 	int accelerationFactor;
-	int populationSize; // For generating the initial population
+	int initialPopulationSize; // For generating the initial population
 	std::vector<EndCondition *> conditions;
 
 	std::vector<ObjectiveFunction*> objectives;
@@ -78,6 +78,8 @@ class PopulationNode {
 	virtual void insert(int index, Genome * target);
 
 	std::string name();
+	int populationSize();
+
 	std::string populationStrings();
 	virtual std::string toString();
 };

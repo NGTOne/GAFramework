@@ -1,8 +1,7 @@
 #include "core/migration/TranslationFunction.hpp"
-#include "core/Individual.hpp"
 
-Individual * TranslationFunction::translate(Individual * target) {
-	return target->deepCopy();
+Genome * TranslationFunction::translate(Genome * target) {
+	return new Genome(target, false);
 }
 
 bool TranslationFunction::isNull() {
