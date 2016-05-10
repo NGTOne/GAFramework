@@ -1,5 +1,7 @@
 #include "core/Locus.hpp"
+#include "exception/ValueOutOfRangeException.hpp"
 #include <chrono>
+#include <sstream>
 
 using namespace std;
 

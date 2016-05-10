@@ -17,4 +17,5 @@ class FloatLocus: public Locus {
 	~FloatLocus();
 
 	std::string toString();
+	std::string flatten(int index);
 };

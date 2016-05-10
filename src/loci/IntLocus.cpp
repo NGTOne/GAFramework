@@ -1,4 +1,5 @@
 #include "loci/IntLocus.hpp"
+#include "exception/ValueOutOfRangeException.hpp"
 #include <boost/any.hpp>
 #include <sstream>
 
@@ -39,5 +40,13 @@ string IntLocus::toString() {
 
 	ss << "\nRandom Seed: " << seed << "\n";
 
+	return ss.str();
+}
+
+string IntLocus::flatten(int index) {
+	if (outOfRange(index)) throw ValueOutOfRangeException();
+
+	stringstream ss;
+	ss << this->getIndex(index);
 	return ss.str();
 }

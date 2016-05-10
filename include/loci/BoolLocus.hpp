@@ -16,4 +16,5 @@ class BoolLocus: public Locus {
 	~BoolLocus();
 
 	std::string toString();
+	std::string flatten(int index);
 };

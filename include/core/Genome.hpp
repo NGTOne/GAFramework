@@ -25,4 +25,6 @@ class Genome {
 	int getGenomeLength();
 	std::vector<Locus *> getLoci();
 	int getDifference(Genome * otherGenome);
+
+	std::string flatten();
 };

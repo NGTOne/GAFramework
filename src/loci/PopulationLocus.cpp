@@ -1,4 +1,5 @@
 #include "loci/PopulationLocus.hpp"
+#include "exception/ValueOutOfRangeException.hpp"
 #include <boost/any.hpp>
 #include <sstream>
 
@@ -32,5 +33,13 @@ string PopulationLocus::toString() {
 
 	ss << "\nRandom Seed: " << seed << "\n";
 
+	return ss.str();
+}
+
+string PopulationLocus::flatten(int index) {
+	if (outOfRange(index)) throw ValueOutOfRangeException();
+
+	stringstream ss;
+	ss << this->getIndex(index)->flatten();
 	return ss.str();
 }

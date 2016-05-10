@@ -20,4 +20,5 @@ class PopulationLocus: public Locus {
 	bool outOfRange(int i);
 
 	std::string toString();
+	std::string flatten(int index);
 };
