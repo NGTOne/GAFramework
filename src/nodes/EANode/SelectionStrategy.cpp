@@ -1,42 +1,42 @@
-//This abstract class serves as a general base for all selection strategies,
-//allowing any PopulationNode to use any strategy you might want
-
 #include <random>
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "core/SelectionStrategy.hpp"
+#include "nodes/EANode/SelectionStrategy.hpp"
 
 using namespace std;
 
-SelectionStrategy::SelectionStrategy(double newCrossoverRate) {
+SelectionStrategy::SelectionStrategy(double crossoverRate) {
 	seed = chrono::system_clock::now().time_since_epoch().count();
-	init(newCrossoverRate, seed, "Unknown");
+	init(crossoverRate, seed, "Unknown");
 }
 
-SelectionStrategy::SelectionStrategy(unsigned newSeed, double newCrossoverRate)  {
-	init(newCrossoverRate, newSeed, "Unknown");
+SelectionStrategy::SelectionStrategy(double crossoverRate, unsigned seed)  {
+	init(crossoverRate, seed, "Unknown");
 }
 
-SelectionStrategy::SelectionStrategy(unsigned newSeed, double newCrossoverRate, string newName) {
-	init(newCrossoverRate, newSeed, newName);
+SelectionStrategy::SelectionStrategy(
+	unsigned seed,
+	double crossoverRate,
+	string name
+) {
+	init(crossoverRate, seed, name);
 }
 
-void SelectionStrategy::init(double newCrossoverRate, unsigned newSeed, string newName) {
-	seed = newSeed;
-	crossoverRate = newCrossoverRate;
-	mt19937 newGenerator(seed);
-	generator = newGenerator;
-	name = newName;
+void SelectionStrategy::init(
+	double crossoverRate,
+	unsigned seed,
+	string name
+) {
+	this->seed = seed;
+	this->crossoverRate = crossoverRate;
+	this->generator = mt19937(seed);
+	this->name = name;
 }
 
 string SelectionStrategy::toString() {
-	string returnString = "";
 	stringstream ss;
-
-	ss << "Name: " << name << "\nRandom seed: " << seed << "\nCrossover Rate: " << crossoverRate << "\n";
-
-	returnString = ss.str();
-
-	return returnString;
+	ss << "Name: " << name << "\nRandom seed: " << seed
+		<< "\nCrossover Rate: " << crossoverRate << "\n";
+	return ss.str();
 }
