@@ -16,16 +16,16 @@ HierarchicalEA::HierarchicalEA(int maxEpochs) {
 
 HierarchicalEA::~HierarchicalEA() {}
 
-void HierarchicalEA::addNode(PopulationNode * node, string name, bool print) {
-	addNode(node, name, print, false);
+void HierarchicalEA::addNode(PopulationNode * node, bool print) {
+	addNode(node, print, false);
 }
 
 void HierarchicalEA::addNode(
 	PopulationNode* node,
-	string name,
 	bool print,
 	bool end
 ) {
+	string name = node->name();
 	for (int i = 0; i < nodeNames.size(); i++) {
 		if (nodeNames[i] == name or nodes[i] == node) {
 			throw NodeAlreadyExistsException();
@@ -38,22 +38,16 @@ void HierarchicalEA::addNode(
 }
 
 void HierarchicalEA::addNodes(
-	PopulationNode ** nodes,
-	int count,
-	vector<string> names,
+	vector<PopulationNode*> nodes,
 	vector<bool> print,
 	vector<bool> end
 ) {
-	if (
-		count != names.size() ||
-		count != print.size() ||
-		count != end.size()
-	) {
+	if (nodes.size() != print.size() || nodes.size() != end.size()) {
 		throw MismatchedCountsException();
 	}
 
-	for (int i = 0; i < count; i++) {
-		addNode(nodes[i], names[i], print[i], end[i]);
+	for (int i = 0; i < nodes.size(); i++) {
+		addNode(nodes[i], print[i], end[i]);
 	}
 }
 
@@ -70,6 +64,12 @@ void HierarchicalEA::removeNode(string name) {
 	for (int i = 0; i < nodesToPrint.size(); i++) {
 		if ((nodesToPrint[i]) == name) {
 			nodesToPrint.erase(nodesToPrint.begin()+i);
+		}
+	}
+
+	for (int i = 0; i < endDictators.size(); i++) {
+		if (endDictators[i] == name) {
+			endDictators.erase(endDictators.begin()+i);
 		}
 	}
 }
@@ -184,9 +184,7 @@ void HierarchicalEA::run(bool verbose) {
 
 	for (int i = 0; i < maxEpochs; i++) {
 		for (int k = 0; k < evolutionNodes.size(); k++) {
-			if (!evolutionNodes[k]->done()) {
-				evolutionNodes[k]->runGenerations();
-			}
+			evolutionNodes[k]->nextIteration();
 		}
 
 		migrate();
