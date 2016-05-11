@@ -13,6 +13,12 @@ class EANode : public PopulationNode {
 	CrossoverOperation * cross;
 	MutationOperation * mutation;
 
+	void init(
+		EvolutionarySystem * system,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+
 	public:
 	EANode(
 		int populationSize,
@@ -39,12 +45,6 @@ class EANode : public PopulationNode {
 
 	~EANode();
 
-	void init(
-		EvolutionarySystem * system,
-		CrossoverOperation * cross,
-		MutationOperation * mutation
-	);
-
-	virtual void nextIteration();
+	virtual std::vector<Genome*> getNextPopulation();
 	std::string toString();
 };

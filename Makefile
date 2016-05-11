@@ -57,18 +57,29 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/migration/MigratoryRelationship.cpp -o obj/core/migration/MigratoryRelationship.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierarchicalEA.cpp -o obj/core/HierarchicalEA.o
 
-nodes:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/CrossoverOperation.cpp -o obj/nodes/EANode/CrossoverOperation.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/MutationOperation.cpp -o obj/nodes/EANode/MutationOperation.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/SelectionStrategy.cpp -o obj/nodes/EANode/SelectionStrategy.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/EvolutionarySystem.cpp -o obj/nodes/EANode/EvolutionarySystem.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/NonOptimizingNode.cpp -o obj/nodes/NonOptimizingNode.o
-
 loci:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/BoolLocus.cpp -o obj/loci/BoolLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/IntLocus.cpp -o obj/loci/IntLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/FloatLocus.cpp -o obj/loci/FloatLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/PopulationLocus.cpp -o obj/loci/PopulationLocus.o
+
+nodes: ea sa hc
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/NonOptimizingNode.cpp -o obj/nodes/NonOptimizingNode.o
+
+ea:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/CrossoverOperation.cpp -o obj/nodes/EANode/CrossoverOperation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/MutationOperation.cpp -o obj/nodes/EANode/MutationOperation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/SelectionStrategy.cpp -o obj/nodes/EANode/SelectionStrategy.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/EvolutionarySystem.cpp -o obj/nodes/EANode/EvolutionarySystem.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/EANode.cpp -o obj/nodes/EANode/EANode.o
+
+sa:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/schedules/TemperatureSchedule.cpp -o obj/secondary-pop-nodes/annealer/schedules/TemperatureSchedule.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/schedules/LinearTempSchedule.cpp -o obj/secondary-pop-nodes/annealer/schedules/LinearTempSchedule.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/schedules/ExponentialTempSchedule.cpp -o obj/secondary-pop-nodes/annealer/schedules/ExponentialTempSchedule.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/SimulatedAnnealer.cpp -o obj/secondary-pop-nodes/annealer/SimulatedAnnealer.o
+
+hc:
 
 selections: tournamentSelection
 
@@ -130,12 +141,6 @@ apportioningPropagator:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/apportioning/AveragingPropagator.cpp -o obj/propagators/apportioning/AveragingPropagator.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/apportioning/SummingPropagator.cpp -o obj/propagators/apportioning/SummingPropagator.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/apportioning/WeightedAveragePropagator.cpp -o obj/propagators/apportioning/WeightedAveragePropagator.o
-
-annealer:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/schedules/TemperatureSchedule.cpp -o obj/secondary-pop-nodes/annealer/schedules/TemperatureSchedule.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/schedules/LinearTempSchedule.cpp -o obj/secondary-pop-nodes/annealer/schedules/LinearTempSchedule.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/schedules/ExponentialTempSchedule.cpp -o obj/secondary-pop-nodes/annealer/schedules/ExponentialTempSchedule.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/SimulatedAnnealer.cpp -o obj/secondary-pop-nodes/annealer/SimulatedAnnealer.o
 
 exception:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/InvalidNodeException.cpp -o obj/exception/InvalidNodeException.o

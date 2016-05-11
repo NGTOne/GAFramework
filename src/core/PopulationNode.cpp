@@ -175,7 +175,6 @@ string PopulationNode::populationStrings() {
 
 string PopulationNode::toString() {
 	stringstream ss;
-	string populationString;
 
 	ss << "Population size: " << population.size() << "\n";
 	ss << populationStrings();
