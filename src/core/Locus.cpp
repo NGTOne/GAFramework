@@ -25,9 +25,17 @@ boost::any Locus::getIndex(int index) {
 
 Locus::~Locus() {}
 
+int Locus::topIndex() {
+	return this->population.size() - 1;
+}
+
 int Locus::randomIndex() {
 	uniform_int_distribution<int> dist(0, this->population.size() - 1);
 	return dist(this->generator);
+}
+
+bool Locus::isConstructive() {
+	return false;
 }
 
 bool Locus::outOfRange(int i) {

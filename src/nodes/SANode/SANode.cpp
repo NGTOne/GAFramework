@@ -1,4 +1,5 @@
-#include "secondary-pop-nodes/annealer/SimulatedAnnealer.hpp"
+#include "nodes/SANode/SANode.hpp"
+#include "core/Locus.hpp"
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -7,125 +8,141 @@
 
 using namespace std;
 
-SimulatedAnnealer::SimulatedAnnealer(
-	Individual * templateIndividual,
-	bool maximize,
-	int maxIterations,
-	int accelerationFactor,
-	TemperatureSchedule * schedule,
-	EndCondition * condition,
-	FitnessPropagator * propagator
-) : PopulationNode(
-	1,
-	templateIndividual,
-	maxIterations,
-	accelerationFactor,
-	NULL,
-	condition,
-	propagator
-) {
-	init(maximize, schedule);
-}
-
-SimulatedAnnealer::SimulatedAnnealer(
+SANode::SANode(
 	int populationSize,
-	Individual * templateIndividual,
-	bool maximize,
-	int maxIterations,
-	int accelerationFactor,
+	vector<ObjectiveFunction*> objectives,
+	ToStringFunction * populationToString,
+	vector<EndCondition*> conditions,
+	string name,
 	TemperatureSchedule * schedule,
-	EndCondition * condition,
-	FitnessPropagator * propagator
+	bool maximize
 ) : PopulationNode(
 	populationSize,
-	templateIndividual,
-	maxIterations,
-	accelerationFactor,
-	NULL,
-	condition,
-	propagator
+	objectives,
+	populationToString,
+	conditions,
+	name
 ) {
-	init(maximize, schedule);
+	init(schedule, maximize);
 }
 
-SimulatedAnnealer::SimulatedAnnealer(
-	Individual * templateIndividual,
-	bool maximize,
-	int maxIterations,
-	int accelerationFactor,
-	TemperatureSchedule * schedule,
-	EndCondition * condition,
-	FitnessPropagator * propagator,
-	unsigned seed
-) : PopulationNode(
-	1,
-	templateIndividual,
-	maxIterations,
-	accelerationFactor,
-	seed,
-	NULL,
-	condition,
-	propagator
-) {
-	init(maximize, schedule);
-}
-
-SimulatedAnnealer::SimulatedAnnealer(
+SANode::SANode(
 	int populationSize,
-	Individual * templateIndividual,
-	bool maximize,
-	int maxIterations,
+	vector<ObjectiveFunction*> objectives,
+	ToStringFunction * populationToString,
+	vector<EndCondition*> conditions,
+	string name,
 	int accelerationFactor,
 	TemperatureSchedule * schedule,
-	EndCondition * condition,
-	FitnessPropagator * propagator,
-	unsigned seed
+	bool maximize
 ) : PopulationNode(
 	populationSize,
-	templateIndividual,
-	maxIterations,
-	accelerationFactor,
-	seed,
-	NULL,
-	condition,
-	propagator
+	objectives,
+	populationToString,
+	conditions,
+	name,
+	accelerationFactor
 ) {
-	init(maximize, schedule);
+	init(schedule, maximize);
 }
 
-void SimulatedAnnealer::init(bool maximize, TemperatureSchedule * schedule) {
+SANode::SANode(
+	vector<ObjectiveFunction*> objectives,
+	ToStringFunction * populationToString,
+	vector<EndCondition*> conditions,
+	string name,
+	TemperatureSchedule * schedule,
+	bool maximize
+) : PopulationNode(
+	1,
+	objectives,
+	populationToString,
+	conditions,
+	name
+) {
+	init(schedule, maximize);
+}
+
+SANode::SANode(
+	vector<ObjectiveFunction*> objectives,
+	ToStringFunction * populationToString,
+	vector<EndCondition*> conditions,
+	string name,
+	int accelerationFactor,
+	TemperatureSchedule * schedule,
+	bool maximize
+) : PopulationNode(
+	1,
+	objectives,
+	populationToString,
+	conditions,
+	name,
+	accelerationFactor
+) {
+	init(schedule, maximize);
+}
+
+void SANode::init(bool maximize, TemperatureSchedule * schedule) {
 	this->maximize = maximize;
 	this->schedule = schedule;
 }
 
-Individual ** SimulatedAnnealer::newPopulation() {
-	Individual ** nextPopulation = (Individual**)malloc(
-		sizeof(Individual*)*populationSize
-	);
+vector<Genome*> SANode::getNextPopulation() {
+	vector<Genome*> newPopulation;
 
-	for (int i = 0; i < populationSize; i++) {
-		nextPopulation[i] = getNeighbour(myPopulation[i]);
+	for (int i = 0; i < this->populationSize(); i++) {
+		newPopulation.push_back(getNeighbour(this->population[i]));
 	}
 
-	return nextPopulation;
+	return newPopulation;
 }
 
-int SimulatedAnnealer::compareNeighbourliness(
-	Individual * base,
-	Individual * target
-) {
-	string basePhenotype = base->toGenomeString();
-	string targetPhenotype = target->toGenomeString();
-	int length = basePhenotype.length();
+int SANode::compareNeighbourliness(Genome * base, Genome * target) {
+	return base->difference(target);
+}
 
-	int diff = 0;
-	for (int i = 0; i < length; i++) {
-		diff += abs(basePhenotype[i]-targetPhenotype[i]);
+vector<Genome*> SANode::getAllNeighbours(Genome * target) {
+	vector<Genome*> neighbours;
+	vector<Locus*> loci = target->getLoci();
+
+	for (int i = 0; i < target->genomeLength(); i++) {
+		if (loci[i]->isConstructive()) {
+			Genome * nearestKnownNeighbour;
+			int top = loci[i]->topIndex();
+			int lowestDiff = 0;
+
+			for (int k = 0; k <= top; k++) {
+				
+			}
+		} else {
+			// For simple locus types, just increment/decrement
+			// and be done with it
+			vector<int> rawGenes = target->getGenome();
+			if (!loci[i]->outOfRange(rawGenes[i]+1)) {
+				rawGenes[i]++;
+				neighbours.push_back(
+					new Genome(rawGenes, loci)
+				);
+				rawGenes[i]--;
+			}
+
+			if (!loci[i]->outOfRange(rawGenes[i]-1)) {
+				rawGenes[i]--;
+				neighbours.push_back(
+					new Genome(rawGenes, loci)
+				);
+			}
+		}
 	}
 
-	return diff;
+	return neighbours;
 }
 
+Genome * SANode::getNeighbour(Genome * target) {
+	
+}
+
+// Oh God, why did I write it like this?
 Individual * SimulatedAnnealer::getNeighbour(Individual * target) {
 	int genomeLength = target->getGenomeLength();
 	Individual ** neighbours = (Individual**)malloc(

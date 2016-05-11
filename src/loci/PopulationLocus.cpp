@@ -15,9 +15,17 @@ Genome * PopulationLocus::getIndex(int index) {
 	return this->node->getIndex(index);
 }
 
+int PopulationLocus::topIndex() {
+	return this->node->populationSize() - 1;
+}
+
 int PopulationLocus::randomIndex() {
 	uniform_int_distribution<int> dist(0, this->node->populationSize());
 	return dist(this->generator);
+}
+
+bool PopulationLocus::isConstructive() {
+	return true;
 }
 
 bool PopulationLocus::outOfRange(int i) {

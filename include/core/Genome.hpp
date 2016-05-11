@@ -22,9 +22,9 @@ class Genome {
 	~Genome();
 
 	std::vector<int> getGenome();
-	int getGenomeLength();
+	int genomeLength();
 	std::vector<Locus *> getLoci();
-	int getDifference(Genome * otherGenome);
+	int difference(Genome * otherGenome);
 
 	std::string flatten();
 };

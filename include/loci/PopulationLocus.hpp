@@ -17,6 +17,8 @@ class PopulationLocus: public Locus {
 
 	Genome * getIndex(int index);
 	int randomIndex();
+	int topIndex();
+	bool isConstructive();
 	bool outOfRange(int i);
 
 	std::string toString();

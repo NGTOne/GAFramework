@@ -49,7 +49,7 @@ vector<int> Genome::getGenome() {
 	return genes;
 }
 
-int Genome::getGenomeLength() {
+int Genome::genomeLength() {
 	return genes.size();
 }
 
@@ -57,7 +57,7 @@ vector<Locus*> Genome::getLoci() {
 	return loci;
 }
 
-int Genome::getDifference(Genome * otherGenome) {
+int Genome::difference(Genome * otherGenome) {
 	vector<int> otherGenes = otherGenome->getGenome();
 	int difference = 0;
 	int shorterGenome = fmin(genes.size(), otherGenes.size());

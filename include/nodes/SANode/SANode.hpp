@@ -1,7 +1,8 @@
-#include "schedules/TemperatureSchedule.hpp"
+#include "TemperatureSchedule.hpp"
 #include "../../core/PopulationNode.hpp"
-#include "../../core/Solution.hpp"
-#include <string.h>
+#include "../../core/Genome.hpp"
+#include <string>
+#include <vector>
 #pragma once
 
 class SANode : public PopulationNode {
@@ -11,8 +12,9 @@ class SANode : public PopulationNode {
 	TemperatureSchedule * schedule;
 	bool maximize;
 
-	int compareNeighbourliness(Solution * base, Solution * target);
-	Solution * getNeighbour(Solution * target);
+	int compareNeighbourliness(Genome * base, Genome * target);
+	Genome * getNeighbour(Genome * target);
+	std::vector<Genome*> getAllNeighbours(Genome * target);
 	void init(
 		bool maximize,
 		TemperatureSchedule * schedule
@@ -59,6 +61,6 @@ class SANode : public PopulationNode {
 		bool maximize
 	);
 
-	virtual void nextIteration();
+	virtual std::vector<Genome*> getNextPopulation();
 	std::string toString();
 };
