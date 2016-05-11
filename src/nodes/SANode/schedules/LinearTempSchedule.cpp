@@ -1,4 +1,4 @@
-#include "secondary-pop-nodes/annealer/schedules/LinearTempSchedule.hpp"
+#include "nodes/SANode/schedules/LinearTempSchedule.hpp"
 
 LinearTempSchedule::LinearTempSchedule(
 	float initialTemp,

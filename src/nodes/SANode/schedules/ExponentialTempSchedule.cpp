@@ -1,4 +1,4 @@
-#include "secondary-pop-nodes/annealer/schedules/ExponentialTempSchedule.hpp"
+#include "nodes/SANode/schedules/ExponentialTempSchedule.hpp"
 
 ExponentialTempSchedule::ExponentialTempSchedule(
 	float initialTemp,

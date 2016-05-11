@@ -1,4 +1,4 @@
-#include "secondary-pop-nodes/annealer/schedules/TemperatureSchedule.hpp"
+#include "nodes/SANode/TemperatureSchedule.hpp"
 #include <string>
 #include <sstream>
 

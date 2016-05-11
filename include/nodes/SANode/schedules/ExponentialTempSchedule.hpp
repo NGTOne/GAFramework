@@ -1,5 +1,5 @@
 #pragma once
-#include "TemperatureSchedule.hpp"
+#include "../TemperatureSchedule.hpp"
 
 class ExponentialTempSchedule : public TemperatureSchedule {
 	private:

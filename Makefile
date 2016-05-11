@@ -63,7 +63,7 @@ loci:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/FloatLocus.cpp -o obj/loci/FloatLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/PopulationLocus.cpp -o obj/loci/PopulationLocus.o
 
-nodes: ea sa hc
+nodes: ea sa
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/NonOptimizingNode.cpp -o obj/nodes/NonOptimizingNode.o
 
 ea:
@@ -74,12 +74,10 @@ ea:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/EANode.cpp -o obj/nodes/EANode/EANode.o
 
 sa:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/schedules/TemperatureSchedule.cpp -o obj/secondary-pop-nodes/annealer/schedules/TemperatureSchedule.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/schedules/LinearTempSchedule.cpp -o obj/secondary-pop-nodes/annealer/schedules/LinearTempSchedule.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/schedules/ExponentialTempSchedule.cpp -o obj/secondary-pop-nodes/annealer/schedules/ExponentialTempSchedule.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/secondary-pop-nodes/annealer/SimulatedAnnealer.cpp -o obj/secondary-pop-nodes/annealer/SimulatedAnnealer.o
-
-hc:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/SANode/TemperatureSchedule.cpp -o obj/nodes/SANode/TemperatureSchedule.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/SANode/schedules/LinearTempSchedule.cpp -o obj/nodes/SANode/schedules/LinearTempSchedule.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/SANode/schedules/ExponentialTempSchedule.cpp -o obj/nodes/SANode/schedules/ExponentialTempSchedule.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/SANode/SANode.cpp -o obj/nodes/SANode/SANode.o
 
 selections: tournamentSelection
 
