@@ -1,15 +1,9 @@
-#include "../../core/Solution.hpp"
+#include "../../core/Genome.hpp"
 #include "SelectionStrategy.hpp"
 #include <random>
 #include <string>
+#include <vector>
 #pragma once
-
-/*
-* By extending this abstract class, we are able to have
-* generation-over-generation population replacement handled in a variety of
-* different ways - essentially allowing us to build entirely different
-* evolutionary systems within the same framework.
-*/
 
 class EvolutionarySystem {
 	private:
@@ -19,16 +13,23 @@ class EvolutionarySystem {
 	std::mt19937 generator;
 	SelectionStrategy * strategy;
 
-	void init(unsigned newSeed, SelectionStrategy * newStrategy);
+	void init(SelectionStrategy * strategy, unsigned seed);
+	void sortPopulation(
+		std::vector<Genome*> &population,
+		std::vector<int> &fitnesses
+	);
 
 	public:
-	EvolutionarySystem(SelectionStrategy * newStrategy);
-	EvolutionarySystem(unsigned newSeed, SelectionStrategy * newStrategy);
+	EvolutionarySystem(SelectionStrategy * strategy);
+	EvolutionarySystem(SelectionStrategy * strategy, unsigned seed);
 
-	void sortPopulation(std::vector<Solution *> population);
-	virtual int getParent(std::vector<Solution*> population);
-	virtual std::vector<Solution*> breedMutateSelect(
-		std::vector<Solution*> population
+	virtual int getParent(
+		std::vector<Genome*> population,
+		std::vector<int> fitnesses
+	);
+	virtual std::vector<Genome*> breedMutateSelect(
+		std::vector<Genome*> population,
+		std::vector<int> fitnesses
 	)=0;
 
 	std::string toString();

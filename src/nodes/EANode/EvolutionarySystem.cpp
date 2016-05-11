@@ -1,114 +1,65 @@
-//This abstract class serves as a general base for all generation models,
-//allowing any PopulationNode to use any model you might want
-
 #include <random>
 #include <chrono>
 #include <string>
 #include <sstream>
-#include "core/SelectionStrategy.hpp"
-#include "core/EvolutionarySystem.hpp"
+#include "nodes/EANode/EvolutionarySystem.hpp"
 
 using namespace std;
 
-EvolutionarySystem::EvolutionarySystem(SelectionStrategy * newStrategy) {
-	seed = chrono::system_clock::now().time_since_epoch().count();
-	init(seed, newStrategy);
+EvolutionarySystem::EvolutionarySystem(SelectionStrategy * strategy) {
+	init(strategy, chrono::system_clock::now().time_since_epoch().count());
 }
 
-EvolutionarySystem::EvolutionarySystem(unsigned newSeed, SelectionStrategy * newStrategy) {
-	init(newSeed, newStrategy);
+EvolutionarySystem::EvolutionarySystem(
+	SelectionStrategy * strategy,
+	unsigned seed
+) {
+	init(strategy, seed);
 }
 
-void EvolutionarySystem::init(unsigned newSeed, SelectionStrategy * newStrategy) {
-	seed = newSeed;
-	mt19937 newGenerator(seed);
-	generator = newGenerator;
-	myStrategy = newStrategy;
+void EvolutionarySystem::init(SelectionStrategy * strategy, unsigned seed) {
+	this->seed = seed;
+	this->generator = mt19937(seed);
+	this->strategy = strategy;
 }
 
-void EvolutionarySystem::sortPopulation(Individual ** initialPopulation, int * initialFitnesses, int populationSize) {
-	int topIndex = populationSize-1;
-	int splitIndex;
-	Individual ** leftPopulation;
-	Individual ** rightPopulation;
-	int * leftFitnesses;
-	int * rightFitnesses;
+void EvolutionarySystem::sortPopulation(
+	std::vector<Genome*> &population,
+	std::vector<int> &fitnesses
+) {
+	for (int i = 0; i < population.size(); i++) {
+		for (int k = 0; k < population.size(); k++) {
+			if (fitnesses[i] > fitnesses[k]) {
+				int tempFitness = fitnesses[i];
+				Genome * tempSolution = population[i];
 
-	if (populationSize > 1) {
-		splitIndex = topIndex/2;
-		leftPopulation = (Individual**)malloc(sizeof(Individual*)*(splitIndex+1));
-		rightPopulation = (Individual**)malloc(sizeof(Individual*)*(topIndex-splitIndex));
+				fitnesses[i] = fitnesses[k];
+				population[i] = population[k];
 
-		leftFitnesses = (int*)malloc(sizeof(int)*(splitIndex+1));
-		rightFitnesses = (int*)malloc(sizeof(int)*(topIndex-splitIndex));
-
-		for (int i = 0; i <= splitIndex; i++) {
-			leftPopulation[i] = initialPopulation[i];
-			leftFitnesses[i] = initialFitnesses[i];
-		}
-
-		for (int i = 0; i < topIndex-splitIndex; i++) {
-			rightPopulation[i] = initialPopulation[splitIndex+i+1];
-			rightFitnesses[i] = initialFitnesses[splitIndex+i+1];
-		}
-
-		sortPopulation(leftPopulation, leftFitnesses, splitIndex+1);
-		sortPopulation(rightPopulation, rightFitnesses, (topIndex-splitIndex));
-
-		int leftIndex = 0;
-		int rightIndex = 0;
-		int overallIndex = 0;
-
-		while (leftIndex <= splitIndex || rightIndex < topIndex-splitIndex) {
-			if (leftIndex <= splitIndex && rightIndex < topIndex-splitIndex) {
-				if (leftFitnesses[leftIndex] > rightFitnesses[rightIndex]) {
-					initialPopulation[overallIndex] = leftPopulation[leftIndex];
-					initialFitnesses[overallIndex++] = leftFitnesses[leftIndex++];
-				} else {
-					initialPopulation[overallIndex] = rightPopulation[rightIndex];
-					initialFitnesses[overallIndex++] = rightFitnesses[rightIndex++];
-				}
-			} else {
-				if (leftIndex <= splitIndex) {
-					initialPopulation[overallIndex] = leftPopulation[leftIndex];
-					initialFitnesses[overallIndex++] = leftFitnesses[leftIndex++];
-				}
-
-				if (rightIndex < topIndex-splitIndex) {
-					initialPopulation[overallIndex] = rightPopulation[rightIndex];
-					initialFitnesses[overallIndex++] = rightFitnesses[rightIndex++];
-				}
+				fitnesses[k] = tempFitness;
+				population[k] = tempSolution;
 			}
 		}
-
-		free(leftPopulation);
-		free(rightPopulation);
-		free(leftFitnesses);
-		free(rightFitnesses);
 	}
 }
 
-Individual ** EvolutionarySystem::getEmptyPopulation(int populationSize) {
-	return (Individual**)malloc(sizeof(Individual*)*populationSize);
-}
-
-int EvolutionarySystem::getParent(int * populationFitnesses, int populationSize) {
-	return myStrategy->getParent(populationFitnesses, populationSize);
+int EvolutionarySystem::getParent(
+	vector<Genome*> population,
+	vector<int> fitnesses
+) {
+	return this->strategy->getParent(population, fitnesses);
 }
 
 string EvolutionarySystem::toString() {
-	string returnString = "";
         stringstream ss;
 	
 	ss << "Random seed: " << seed << "\nSelection Strategy Info:\n";
 
-	if (myStrategy) {
-		ss << myStrategy->toString();
+	if (strategy) {
+		ss << this->strategy->toString();
 	} else {
 		ss << "Not using any selection strategy\n";
 	}
 
-	returnString = ss.str();
-
-	return returnString;
+	return ss.str();
 }
