@@ -101,33 +101,59 @@ int SANode::compareNeighbourliness(Genome * base, Genome * target) {
 	return base->difference(target);
 }
 
+// TODO: Break this down further at some point
 vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 	vector<Genome*> neighbours;
 	vector<Locus*> loci = target->getLoci();
+	vector<int> rawGenes = target->getGenome();
+	vector<int> tempGenes = rawGenes;
 
 	for (int i = 0; i < target->genomeLength(); i++) {
 		if (loci[i]->isConstructive()) {
-			Genome * nearestKnownNeighbour;
+			Genome * nearestKnownNeighbour, tempGenome;
 			int top = loci[i]->topIndex();
-			int lowestDiff = 0;
+			int lowestDiff = 0, diff = 0;
 
 			for (int k = 0; k <= top; k++) {
-				
+				// So we're not checking against ourselves
+				if (rawGenes[i] == k) (k < top) ? k++ : break;
+
+				tempGenes = rawGenes;
+				tempGenes[i] = k;
+				tempGenome = new Genome(tempGenes, loci);
+
+				diff = this->compareNeighbourliness(
+					target,
+					tempGenome
+				);
+
+				if ((diff < lowestDiff && diff > 0)
+					|| lowestDiff == 0
+				) {
+					delete(nearestKnownNeighbour);
+					nearestKnownNeighbour = tempGenome;
+					lowestDiff = diff;
+				} else {
+					delete(tempGenome);
+				}
+			}
+
+			if (lowestDiff > 0) {
+				neighbours.push_back(nearestKnownNeighbour);
 			}
 		} else {
 			// For simple locus types, just increment/decrement
 			// and be done with it
-			vector<int> rawGenes = target->getGenome();
 			if (!loci[i]->outOfRange(rawGenes[i]+1)) {
-				rawGenes[i]++;
+				tempGenes[i]++;
 				neighbours.push_back(
 					new Genome(rawGenes, loci)
 				);
-				rawGenes[i]--;
 			}
 
+			tempGenes = rawGenes;
 			if (!loci[i]->outOfRange(rawGenes[i]-1)) {
-				rawGenes[i]--;
+				tempGenes[i]--;
 				neighbours.push_back(
 					new Genome(rawGenes, loci)
 				);
@@ -139,80 +165,14 @@ vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 }
 
 Genome * SANode::getNeighbour(Genome * target) {
-	
+	vector<Genome*> neighbours = this->getAllNeighbours(target);
+	uniform_int_distribution<int> neighbourDist(0, neighbours.size() - 1);
+	int neighbour = neighbourDistribution(generator);
 }
 
 // Oh God, why did I write it like this?
 Individual * SimulatedAnnealer::getNeighbour(Individual * target) {
-	int genomeLength = target->getGenomeLength();
-	Individual ** neighbours = (Individual**)malloc(
-		sizeof(Individual*)*genomeLength
-	);
-	Individual * temp;
-	Genome * tempGenome;
-
-	Genome * baseGenome = target->getGenome();
-	GeneNode ** nodes = baseGenome->getGeneNodes();
-	int * genes = baseGenome->getGenome();
-	int diff;
-
-	for (int i = 0; i < genomeLength; i++) {
-		int lowestDiff = 0;
-		Individual * nearestKnownNeighbour = NULL;
-
-		// Since we don't know where our nearest neighbour is in a
-		// population of components, we have to cycle through them all
-		int numAlleles = nodes[i]->getPopulationSize();
-		for (int k = 0; k < numAlleles; k++) {
-			if (genes[i] == k) {
-				if (k < numAlleles - 1) {
-					k++;
-				} else {
-					break;
-				}
-			}
-
-			int * tempGenes = (int*)malloc(
-				sizeof(int)*genomeLength
-			);
-
-			for (int c = 0; c < genomeLength; c++) {
-				tempGenes[c] = genes[c]; // Reset
-			}
-
-			tempGenes[i] = k;
-
-			tempGenome = new Genome(
-				tempGenes,
-				genomeLength,
-				nodes
-			);
-
-			temp = target->copyWithNewGenome(tempGenome);
-			delete(tempGenome);
-			free(tempGenes);
-			diff = compareNeighbourliness(target, temp);
-
-			if ((diff < lowestDiff && diff > 0) || lowestDiff == 0) {
-				delete(nearestKnownNeighbour);
-				nearestKnownNeighbour = temp;
-				lowestDiff = diff;
-			} else {
-				delete(temp);
-			}
-		}
-
-		if (lowestDiff == 0) {
-			// The lowest diff being zero means that we have no
-			// neighbours (i.e. all the available choices result
-			// in no change)
-			neighbours[i] = NULL;
-		} else {
-			neighbours[i] = nearestKnownNeighbour;
-		}
-	}
-
-	uniform_int_distribution<int> neighbourDistribution(0, genomeLength-1);
+/*	uniform_int_distribution<int> neighbourDistribution(0, genomeLength-1);
 	int choice = neighbourDistribution(generator);
 
 	// Make sure we're not picking identical values over and over again
@@ -220,7 +180,7 @@ Individual * SimulatedAnnealer::getNeighbour(Individual * target) {
 		choice = neighbourDistribution(generator);
 	}
 
-	if (neighbours[choice] == NULL) return target->deepCopy();
+	if (neighbours[choice] == NULL) return target->deepCopy();*/
 
 	int targetFitness = target->checkFitness();
 	int neighbourFitness = neighbours[choice]->checkFitness();
