@@ -1,13 +1,13 @@
-#include "PopulationNode.hpp"
+#include "core/PopulationNode.hpp"
 #pragma once
 
-class NonEvolvingPopulationNode : public PopulationNode {
+class NonOptimizingNode : public PopulationNode {
 	private:
 
 	protected:
 
 	public:
-	NonEvolvingPopulationNode(
+	NonOptimizingNode(
 		int populationSize,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
@@ -16,5 +16,4 @@ class NonEvolvingPopulationNode : public PopulationNode {
 	);
 
 	void nextIteration();
-	std::string toString();
 };
