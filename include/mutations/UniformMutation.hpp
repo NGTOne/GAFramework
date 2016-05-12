@@ -1,4 +1,4 @@
-#include "../core/MutationOperation.hpp"
+#include "../nodes/EANode/MutationOperation.hpp"
 #pragma once
 
 /*
