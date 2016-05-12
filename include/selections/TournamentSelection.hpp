@@ -1,35 +1,31 @@
-#include "../core/SelectionStrategy.hpp"
-#include <random>
-#include <chrono>
+#include "../nodes/EANode/SelectionStrategy.hpp"
 #include <string>
+#include <vector>
 #pragma once
 
-/*
-* The tournament selection strategy selects two individuals, compares them
-* by their fitness, and then selects the one with the higher fitness for
-* crossover.
-*/
+#define DEFAULT_TOURNAMENT_SIZE 2
 
 class TournamentSelection : public SelectionStrategy {
 	private:
 
 	protected:
-	int tournamentSize;
-	void sortByFitness(int indexes[], int fitnesses[]);
+	unsigned int tournamentSize;
+	void sortByFitness(
+		std::vector<int> indexes,
+		std::vector<int> fitnesses
+	);
 
-	void init(int newTournamentSize);
+	void init(unsigned int tournamentSize);
 
 	public:
-	TournamentSelection(double newCrossoverRate);
-        TournamentSelection(unsigned newSeed, double newCrossoverRate);
-	TournamentSelection(double newCrossoverRate, int newTournamentSize);
+	TournamentSelection(double crossoverRate);
+	TournamentSelection(double crossoverRate, unsigned int tournamentSize);
 	TournamentSelection(
-		unsigned newSeed,
-		double newCrossoverRate,
-		int newTournamentSize
+		double crossoverRate,
+		unsigned int tournamentSize,
+		unsigned seed
 	);
         
-	int getParent(int populationFitnesses[], int populationSize);
-
+	int getParent(std::vector<int> populationFitnesses);
 	std::string toString();
 };

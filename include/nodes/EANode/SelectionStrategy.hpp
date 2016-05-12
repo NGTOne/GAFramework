@@ -14,6 +14,7 @@ class SelectionStrategy {
 
 	double crossoverRate;
 
+	SelectionStrategy(double crossoverRate, std::string name);
 	SelectionStrategy(
 		unsigned seed,
 		double crossoverRate,

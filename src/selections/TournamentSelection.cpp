@@ -1,46 +1,48 @@
 #include "selections/TournamentSelection.hpp"
 #include <random>
-#include <chrono>
 #include <sstream>
-#include <string>
+#include <algorithm>
 
 using namespace std;
 
-TournamentSelection::TournamentSelection(double newCrossoverRate) : SelectionStrategy(chrono::system_clock::now().time_since_epoch().count(), newCrossoverRate, "Tournament") {
-	init(2);
-}
-
-TournamentSelection::TournamentSelection(unsigned newSeed, double newCrossoverRate) : SelectionStrategy(newSeed, newCrossoverRate, "Tournament") {
-	init(2);
-}
-
 TournamentSelection::TournamentSelection(
-	double newCrossoverRate,
-	int newTournamentSize
+	double crossoverRate
 ) : SelectionStrategy(
-	chrono::system_clock::now().time_since_epoch().count(),
-	newCrossoverRate,
+	crossoverRate,
 	"Tournament"
 ) {
-	init(newTournamentSize);
+	init(DEFAULT_TOURNAMENT_SIZE);
 }
 
 TournamentSelection::TournamentSelection(
-	unsigned newSeed,
-	double newCrossoverRate,
-	int newTournamentSize
-) : SelectionStrategy(newSeed, newCrossoverRate, "Tournament") {
-	init(newTournamentSize);
+	double crossoverRate,
+	unsigned int tournamentSize
+) : SelectionStrategy(
+	crossoverRate,
+	"Tournament"
+) {
+	init(tournamentSize);
 }
 
-void TournamentSelection::init(int newTournamentSize) {
-	tournamentSize = newTournamentSize;
+TournamentSelection::TournamentSelection(
+	double crossoverRate,
+	unsigned int tournamentSize,
+	unsigned seed
+) : SelectionStrategy(seed, crossoverRate, "Tournament") {
+	init(tournamentSize);
 }
 
-void TournamentSelection::sortByFitness(int indexes[], int fitnesses[]) {
+void TournamentSelection::init(unsigned int tournamentSize) {
+	this->tournamentSize = tournamentSize;
+}
+
+void TournamentSelection::sortByFitness(
+	vector<int> indexes,
+	vector<int> fitnesses
+) {
 	int tempIndex, tempFitness;
-	for (int i = 0; i < tournamentSize; i++) {
-		for (int k = i + 1; k < tournamentSize; k++) {
+	for (int i = 0; i < indexes.size(); i++) {
+		for (int k = 0; k < indexes.size(); k++) {
 			if (fitnesses[k] > fitnesses[i]) {
 				tempFitness = fitnesses[k];
 				tempIndex = indexes[k];
@@ -53,30 +55,31 @@ void TournamentSelection::sortByFitness(int indexes[], int fitnesses[]) {
 	}
 }
 
-int TournamentSelection::getParent(
-	int populationFitnesses[],
-	int populationSize
-) {
-	if (tournamentSize > populationSize) {
-		int tournamentSize = populationSize;
-	}
-	int fitnesses[tournamentSize];
-	int indexes[tournamentSize];
+int TournamentSelection::getParent(vector<int> populationFitnesses) {
+	unsigned int populationSize = populationFitnesses.size();
+	unsigned int tournamentSize = min(
+		this->tournamentSize,
+		populationSize
+	);
+	vector<int> fitnesses, indexes;
 	int index;
 
-        uniform_real_distribution<double> selectionDistribution(0,1);
-	uniform_int_distribution<int> indexDistribution(0, populationSize-1);
+        uniform_real_distribution<double> selectionDist(0,1);
+	uniform_int_distribution<int> indexDist(0, fitnesses.size() - 1);
 
 	for (int i = 0; i < tournamentSize; i++) {
-		index = indexDistribution(generator);
-		fitnesses[i] = populationFitnesses[index];
-		indexes[i] = index;
+		index = indexDist(this->generator);
+		fitnesses.push_back(populationFitnesses[index]);
+		indexes.push_back(index);
 	}
 
 	sortByFitness(indexes, fitnesses);
 
 	for (int i = 0; i < tournamentSize; i++) {
-		if (selectionDistribution(generator) < crossoverRate || i == tournamentSize - 1) {
+		if (
+			selectionDist(generator) < crossoverRate
+			|| i == tournamentSize - 1
+		) {
 			return indexes[i];
 		}
 	}

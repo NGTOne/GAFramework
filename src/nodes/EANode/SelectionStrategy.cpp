@@ -7,12 +7,23 @@
 using namespace std;
 
 SelectionStrategy::SelectionStrategy(double crossoverRate) {
-	seed = chrono::system_clock::now().time_since_epoch().count();
+	this->seed = chrono::system_clock::now().time_since_epoch().count();
 	init(crossoverRate, seed, "Unknown");
 }
 
 SelectionStrategy::SelectionStrategy(double crossoverRate, unsigned seed)  {
 	init(crossoverRate, seed, "Unknown");
+}
+
+SelectionStrategy::SelectionStrategy(
+	double crossoverRate,
+	string name
+) {
+	init(
+		crossoverRate,
+		chrono::system_clock::now().time_since_epoch().count(),
+		name
+	);
 }
 
 SelectionStrategy::SelectionStrategy(
