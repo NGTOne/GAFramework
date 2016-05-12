@@ -3,6 +3,7 @@
 #include "../../core/Genome.hpp"
 #include <string>
 #include <vector>
+#include <random>
 #pragma once
 
 class SANode : public PopulationNode {
@@ -12,12 +13,16 @@ class SANode : public PopulationNode {
 	TemperatureSchedule * schedule;
 	bool maximize;
 
+	unsigned seed;
+	mt19937 generator;
+	bool readOnce;
+
 	int compareNeighbourliness(Genome * base, Genome * target);
 	Genome * getNeighbour(Genome * target);
 	std::vector<Genome*> getAllNeighbours(Genome * target);
 	void init(
-		bool maximize,
-		TemperatureSchedule * schedule
+		TemperatureSchedule * schedule,
+		bool maximize
 	);
 
 	public:

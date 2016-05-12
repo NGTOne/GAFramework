@@ -2,9 +2,9 @@
 #include "core/Locus.hpp"
 #include <string>
 #include <sstream>
-#include <iostream>
 #include <random>
 #include <cmath>
+#include <chrono>
 
 using namespace std;
 
@@ -82,26 +82,22 @@ SANode::SANode(
 	init(schedule, maximize);
 }
 
-void SANode::init(bool maximize, TemperatureSchedule * schedule) {
+void SANode::init(TemperatureSchedule * schedule, bool maximize) {
 	this->maximize = maximize;
 	this->schedule = schedule;
-}
 
-vector<Genome*> SANode::getNextPopulation() {
-	vector<Genome*> newPopulation;
-
-	for (int i = 0; i < this->populationSize(); i++) {
-		newPopulation.push_back(getNeighbour(this->population[i]));
-	}
-
-	return newPopulation;
+	seed = chrono::system_clock::now().time_since_epoch().count();
+	generator = mt19937(seed);
+	readOnce = false;
 }
 
 int SANode::compareNeighbourliness(Genome * base, Genome * target) {
+	// TODO: Make this compare neighbourliness properly
 	return base->difference(target);
 }
 
 // TODO: Break this down further at some point
+// TODO: Make this more efficient
 vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 	vector<Genome*> neighbours;
 	vector<Locus*> loci = target->getLoci();
@@ -110,13 +106,13 @@ vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 
 	for (int i = 0; i < target->genomeLength(); i++) {
 		if (loci[i]->isConstructive()) {
-			Genome * nearestKnownNeighbour, tempGenome;
+			Genome * nearestKnownNeighbour, * tempGenome;
 			int top = loci[i]->topIndex();
 			int lowestDiff = 0, diff = 0;
 
 			for (int k = 0; k <= top; k++) {
 				// So we're not checking against ourselves
-				if (rawGenes[i] == k) (k < top) ? k++ : break;
+				if (rawGenes[i] == k && k++ >= top) break;
 
 				tempGenes = rawGenes;
 				tempGenes[i] = k;
@@ -167,63 +163,58 @@ vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 Genome * SANode::getNeighbour(Genome * target) {
 	vector<Genome*> neighbours = this->getAllNeighbours(target);
 	uniform_int_distribution<int> neighbourDist(0, neighbours.size() - 1);
-	int neighbour = neighbourDistribution(generator);
-}
+	int choice = neighbourDist(generator);
+	Genome * neighbour = neighbours[choice];
 
-// Oh God, why did I write it like this?
-Individual * SimulatedAnnealer::getNeighbour(Individual * target) {
-/*	uniform_int_distribution<int> neighbourDistribution(0, genomeLength-1);
-	int choice = neighbourDistribution(generator);
-
-	// Make sure we're not picking identical values over and over again
-	for (int i = 0; i < genomeLength && neighbours[choice] == NULL; i++) {
-		choice = neighbourDistribution(generator);
+	for (int i = 0; i < neighbours.size(); i++) {
+		if (i != choice) delete(neighbours[i]);
 	}
 
-	if (neighbours[choice] == NULL) return target->deepCopy();*/
+	int neighbourFitness = this->evaluateFitness(neighbour);
+	int targetFitness = this->evaluateFitness(target);
 
-	int targetFitness = target->checkFitness();
-	int neighbourFitness = neighbours[choice]->checkFitness();
-
-	Individual * neighbour = neighbours[choice]->deepCopy();
-	for (int i = 0; i < genomeLength; i++) {
-		delete(neighbours[i]);
-	}
-
-	free(neighbours);
-
-	if (
-		(maximize && targetFitness < neighbourFitness) ||
-		(!maximize && targetFitness > neighbourFitness)
-	) {
+	if ((this->maximize && targetFitness < neighbourFitness) ||
+		(!this->maximize && targetFitness > neighbourFitness)) {
 		return neighbour;
 	} else {
-		float temp = schedule->currentTemp(currentGeneration);
-		if (temp == 0) {
+		float currentTemp = this->schedule->currentTemp(
+			currentIteration
+		);
+
+		if (currentTemp == 0) {
 			delete(neighbour);
-			return target->deepCopy();
+			return new Genome(target, false);
 		}
 
-		int delta = maximize ? neighbourFitness - targetFitness :
-			targetFitness - neighbourFitness;
+		float delta = this->maximize ? neighbourFitness - targetFitness
+			: targetFitness - neighbourFitness;
 
-		float probability = exp(((float)delta)/temp);
+		float probability = exp(delta/currentTemp);
 
-		uniform_real_distribution<float>
-			goingWrongWayDistribution(0, 1);
+		uniform_real_distribution<float> goingWrongWayDist(0, 1);
 
-		if (goingWrongWayDistribution(generator) < probability) {
+		if (goingWrongWayDist(this->generator) < probability) {
 			return neighbour;
 		} else {
-			return target->deepCopy();
+			return new Genome(target, false);
 		}
 	}
 }
 
-string SimulatedAnnealer::toString() {
+vector<Genome*> SANode::getNextPopulation() {
+	vector<Genome*> newPopulation;
+	for (int i = 0; i < population.size(); i++) {
+		newPopulation.push_back(getNeighbour(population[i]));
+		delete(population[i]);
+	}
+
+	return newPopulation;
+}
+
+string SANode::toString() {
 	stringstream ss;
 
-	ss << "Population size: " << populationSize << "\n";
+	ss << "Population size: " << population.size() << "\n";
 	ss << populationStrings();
 
 	if (!readOnce) ss << "Seed: " << seed << "\n";

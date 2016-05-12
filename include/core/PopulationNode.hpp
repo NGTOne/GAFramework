@@ -36,6 +36,7 @@ class PopulationNode {
 		int accelerationFactor
 	);
 
+	int evaluateFitness(Genome * target);
 	int evaluateFitness(int solutionIndex);
 
 	public:
