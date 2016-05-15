@@ -6,98 +6,102 @@
 
 using namespace std;
 
-NPointCrossover::NPointCrossover(int newNumPoints) : CrossoverOperation() {
-	numPoints = newNumPoints;
+NPointCrossover::NPointCrossover (
+	unsigned int numPoints
+) : CrossoverOperation() {
+	this->numPoints = numPoints;
 }
 
-NPointCrossover::NPointCrossover(int newNumPoints, unsigned newSeed) : CrossoverOperation(newSeed) {
-	numPoints = newNumPoints;
+NPointCrossover::NPointCrossover(
+	unsigned int numPoints,
+	unsigned int numOffspring
+) : CrossoverOperation(numOffspring) {
+	this->numPoints = numPoints;
 }
 
-Genome ** NPointCrossover::crossOver(Genome * firstGenome, Genome * secondGenome) {
-	int points[numPoints];
-	int shortestGenome;
+NPointCrossover::NPointCrossover(
+	unsigned int numPoints,
+	unsigned int numOffspring,
+	unsigned seed
+) : CrossoverOperation(numOffspring, seed) {
+	this->numPoints = numPoints;
+}
 
-	int firstGenomeLength = firstGenome->getGenomeLength();
-	int secondGenomeLength = secondGenome->getGenomeLength();
+vector<int> NPointCrossover::getPoints(int maxPoint) {
+	vector<int> points;
+	uniform_int_distribution<int> pointsDist(0, maxPoint);
 
-	int * genomeOne = firstGenome->getGenome();
-	int * genomeTwo = secondGenome->getGenome();
-
-	if (firstGenomeLength > secondGenomeLength) {
-		shortestGenome = secondGenomeLength;
-	} else {
-		shortestGenome = firstGenomeLength;
+	for (int i = 0; i < this->numPoints; i++) {
+		points.push_back(pointsDist(this->generator));
 	}
 
-	//We're generating two children - each one sees the same crossover
-	//points, but draws from the parents in a different order
-	int ** children = (int**)malloc(sizeof(int*)*2);
+	sort(points.begin(), points.begin() + this->numPoints);
+	return points;
+}
 
-	children[0] = (int*)malloc(sizeof(int)*shortestGenome);
-	children[1] = (int*)malloc(sizeof(int)*shortestGenome);
+vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
+	int shortestGenomeLength = 0;
 
-	uniform_int_distribution<int> distribution(0, firstGenomeLength);
-
-	//Generate the points - duplicates will be taken care of later
-	for (int i = 0; i < numPoints; i++) {
-		points[i] = distribution(generator);
-	}
-
-	//Sort the points
-	sort(points, points+numPoints);
-
-	//Replace the duplicate points with -1 (which would never appear as a
-	//valid point)
-	for (int i = 0; i < numPoints-1; i++) {
-		if (points[i+1] == points[i]) {
-			for (int k = i+1; k < numPoints && points[k] == points[i]; k++) {
-				points[k] = -1;
-			}
+	for (int i = 0; i < genomes.size(); i++) {
+		if (genomes[i]->genomeLength() < shortestGenomeLength
+			|| shortestGenomeLength == 0
+		) {
+			shortestGenomeLength = genomes[i]->genomeLength();
 		}
 	}
 
-	int currentPoint = 0;
-	bool firstOrSecond = false; //false = first, true = second
+	vector<int> points = this->getPoints(shortestGenomeLength);
+	int currentPoint = 0, currentParent = 0;
+	vector<vector<int>> childGenomes;
+	childGenomes.resize(genomes.size());
+	vector<vector<int>> parentGenomes = this->getGenomes(genomes);
+	vector<vector<Locus*>> childLoci;
+	childLoci.resize(genomes.size());
+	vector<vector<Locus*>> parentLoci = this->getLoci(genomes);
 
-	for (int i = 0; i < shortestGenome; i++) {
-		if (currentPoint < numPoints) {
-			if (i == points[currentPoint]) {
-				firstOrSecond = !firstOrSecond;
-				currentPoint += 1;
-			} else {
-				for (; currentPoint < numPoints && points[currentPoint] == -1; currentPoint++);
-			}
+	for (int i = 0; i < shortestGenomeLength; i++) {
+		if (i == points[currentPoint]) {
+			currentParent = (currentParent == genomes.size() - 1)
+				? 0 : currentParent++;
+			currentPoint++;
 		}
 
-		if (firstOrSecond == true) {
-			children[0][i] = genomeOne[i];
-			children[1][i] = genomeTwo[i];
-		} else {
-			children[1][i] = genomeOne[i];
-			children[0][i] = genomeTwo[i];
+		for (int k = 0; k < childGenomes.size(); k++) {
+			int parent = currentParent + k;
+			if (parent >= genomes.size()) parent -= genomes.size();
+
+			childGenomes[k].push_back(parentGenomes[parent][i]);
+			childLoci[k].push_back(parentLoci[parent][i]);
 		}
 	}
 
-	Genome ** returnChildren = (Genome**)malloc(sizeof(Genome*)*2);
+	vector<Genome*> children;
 
-	returnChildren[0] = new Genome(children[0], shortestGenome, firstGenome->getGeneNodes());
-	returnChildren[1] = new Genome(children[1], shortestGenome, secondGenome->getGeneNodes());
+	for (int i = 0; i < childGenomes.size(); i++) {
+		children.push_back(new Genome(childGenomes[i], childLoci[i]));
+	}
 
-	free(children[0]);
-	free(children[1]);
-	free(children);
+	if (children.size() > this->numOffspring) {
+		int numToDelete = children.size() - numOffspring;
+		for (int i = 0; i < numToDelete; i++) {
+			uniform_int_distribution<int> removalDist(
+				0,
+				children.size()
+			);
 
-	return returnChildren;
+			int index = removalDist(this->generator);
+
+			children.erase(children.begin() + index);
+		}
+	}
+
+	return children;
 }
 
 string NPointCrossover::toString() {
-	string returnString = "";
 	stringstream ss;
 
 	ss << "Type: N-Point Crossover\nRandom Seed: " << seed << "\nNumber of points: " << numPoints << "\n";
 
-	returnString = ss.str();
-
-	return returnString;
+	return ss.str();
 }

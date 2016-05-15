@@ -1,4 +1,4 @@
-#include "../core/CrossoverOperation.hpp"
+#include "../nodes/EANode/CrossoverOperation.hpp"
 #pragma once
 
 /*
@@ -21,16 +21,20 @@ class NPointCrossover : public CrossoverOperation {
 	private:
 
 	protected:
-	
-	int numPoints;
+	unsigned int numPoints;
+
+	std::vector<int> getPoints(int maxPoint);
 
 	public:
-
-	NPointCrossover(int newNumPoints);
-	NPointCrossover(int newNumPoints, unsigned newSeed);
+	NPointCrossover(unsigned int numPoints);
+	NPointCrossover(unsigned int numPoints, unsigned int numOffspring);
+	NPointCrossover(
+		unsigned int numPoints,
+		unsigned int numOffspring,
+		unsigned seed
+	);
 	
-	Genome ** crossOver(Genome * firstGenome, Genome * secondGenome);
-
+	std::vector<Genome*> crossOver(std::vector<Genome*> genomes)=0;
 	std::string toString();
 
 };
