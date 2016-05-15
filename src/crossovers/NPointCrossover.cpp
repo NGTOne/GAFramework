@@ -63,7 +63,10 @@ vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
 		if (i == points[currentPoint]) {
 			currentParent = (currentParent == genomes.size() - 1)
 				? 0 : currentParent++;
-			currentPoint++;
+			do currentPoint++; while (
+				points[currentPoint] ==
+				points[currentPoint - 1]
+			);
 		}
 
 		for (int k = 0; k < childGenomes.size(); k++) {
