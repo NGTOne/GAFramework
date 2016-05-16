@@ -1,9 +1,10 @@
-#include "../core/CrossoverOperation.hpp"
+#include "../nodes/EANode/CrossoverOperation.hpp"
+#include <vector>
 #pragma once
 
 /*
 * Cut-and-splice crossover takes the two parents, selects different,
-* arbitrary points along each of their genomes, and then copies everything
+* arbitrary points along each of their genomes, and then
 * replaces everything after the first parent's point with everything after
 * the second parent's (and vice versa). The offspring are the result of this,
 * and may have genomes of different lengths than those of their parents.
@@ -22,16 +23,13 @@ class CutAndSpliceCrossover : public CrossoverOperation {
 	private:
 
 	protected:
-	
-	int numPoints;
+	Genome * createOffspring(vector<Genome*> parents, vector<int> points);
 
 	public:
-
 	CutAndSpliceCrossover();
-	CutAndSpliceCrossover(unsigned newSeed);
+	CutAndSpliceCrossover(unsigned int numOffspring);
+	CutAndSpliceCrossover(unsigned int numOffspring, unsigned seed);
 	
-	Genome ** crossOver(Genome * firstGenome, Genome * secondGenome);
-
+	std::vector<Genome*> crossOver(std::vector<Genome*> genomes)=0;
 	std::string toString();
-
 };

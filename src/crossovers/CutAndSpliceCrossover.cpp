@@ -1,89 +1,73 @@
 #include <random>
-#include <chrono>
 #include <sstream>
+#include <algorithm>
 #include "crossovers/CutAndSpliceCrossover.hpp"
 
 using namespace std;
 
 CutAndSpliceCrossover::CutAndSpliceCrossover() : CrossoverOperation() {}
 
-CutAndSpliceCrossover::CutAndSpliceCrossover(unsigned newSeed) : CrossoverOperation(newSeed) {}
+CutAndSpliceCrossover::CutAndSpliceCrossover(
+	unsigned seed
+) : CrossoverOperation(seed) {}
 
-Genome ** CutAndSpliceCrossover::crossOver(Genome * firstGenome, Genome * secondGenome) {
-	int shortestGenome;
+Genome * CutAndSpliceCrossover::createOffspring(
+	vector<Genome*> parents,
+	vector<int> points
+) {
+	vector<int> offspringGenome;
+	vector<Locus*> offspringLoci;
+	vector<vector<int>> parentGenomes = this->getGenomes(parents);
+	vector<vector<Locus*>> parentLoci = this->getLoci(parents);
 
-	int firstGenomeLength = firstGenome->getGenomeLength();
-	int secondGenomeLength = secondGenome->getGenomeLength();
+	int offspringGenomeLength = points[0] +
+		(parents[1]->genomeLength() - points[1]);
 
-	int * genomeOne = firstGenome->getGenome();
-	int * genomeTwo = secondGenome->getGenome();
-
-	GeneNode ** firstGeneNodes = firstGenome->getGeneNodes();
-	GeneNode ** secondGeneNodes = secondGenome->getGeneNodes();
-
-	if (firstGenomeLength > secondGenomeLength) {
-		shortestGenome = secondGenomeLength;
-	} else {
-		shortestGenome = firstGenomeLength;
-	}
-
-	uniform_int_distribution<int> pointDistribution(0, shortestGenome);
-
-	//We're generating two children - each one uses the same crossover
-	//points, but draws from the parents in a different order
-	int ** children = (int**)malloc(sizeof(int*)*2);
-
-	int firstSplicePoint = pointDistribution(generator);
-	int secondSplicePoint = pointDistribution(generator);
-
-	int firstChildLength = firstSplicePoint+(secondGenomeLength-secondSplicePoint);
-	int secondChildLength = secondSplicePoint+(firstGenomeLength-firstSplicePoint);
-
-	children[0] = (int*)malloc(sizeof(int)*firstChildLength);
-	children[1] = (int*)malloc(sizeof(int)*secondChildLength);
-
-	GeneNode *** childPools = (GeneNode***)malloc(sizeof(GeneNode**)*2);
-
-	childPools[0] = (GeneNode**)malloc(sizeof(GeneNode*)*firstChildLength);
-	childPools[1] = (GeneNode**)malloc(sizeof(GeneNode*)*secondChildLength);
-
-	//Create the first child
-	for (int i = 0; i < firstChildLength; i++) {
-		if (i < firstSplicePoint) {
-			children[0][i] = genomeOne[i];
-			childPools[0][i] = firstGeneNodes[i];
+	for (int i = 0; i < offspringGenomeLength; i++) {
+		if (i < points[0]) {
+			offspringGenome.push_back(parentGenomes[0][i]);
+			offspringLoci.push_back(parentLoci[0][i]);
 		} else {
-			for (int k = 0; k+i < firstChildLength; k++) {
-				children[0][k+i] = genomeTwo[secondSplicePoint+k];
-				childPools[0][k+i] = secondGeneNodes[secondSplicePoint+k];
-			}
-
-			i = firstChildLength;
+			offspringGenome.push_back(
+				parentGenomes[1][points[1] + (i - points[0])]
+			);
+			offspringLoci.push_back(
+				parentLoci[1][points[1] + (i - points[0])]
+			);
 		}
 	}
 
-	for (int i = 0; i < secondChildLength; i++) {
-		if (i < secondSplicePoint) {
-			children[1][i] = genomeTwo[i];
-			childPools[1][i] = secondGeneNodes[i];
-		} else {
-			for (int k = 0; k+i < secondChildLength; k++) {
-				children[1][k+i] = genomeOne[firstSplicePoint+k];
-				childPools[1][k+i] = firstGeneNodes[firstSplicePoint+k];
-			}
-		}
+	return new Genome(offspringGenome, offspringLoci);
+}
+
+vector<Genome*> CutAndSpliceCrossover::crossOver(vector<Genome*> genomes) {
+	vector<int> genomeLengths, points;
+	vector<Genome*> offspring;
+	vector<vector<int>> pairings;
+
+	for (int i = 0; i < genomes.size(); i++) {
+		genomeLengths.push_back(genomes[i]->genomeLength());
+		uniform_int_distribution<int> pointDist(0, genomeLengths[i]);
+		points.push_back(pointDist(this->generator));
 	}
 
-	Genome ** returnChildren = (Genome**)malloc(sizeof(Genome*)*2);
+	int numPairings = maxPairings(genomes.size(), 2);
+	vector<int> parentIndexes;
+	for (int i = 0; i < numPairings; i++) {
+		parentIndexes = this->getParents(genomes.size(), 2, pairings);
+		vector<Genome*> parents;
+		vector<int> parentPoints;
+		for (int k = 0; k < 2; k++) {
+			parents.push_back(genomes[parentIndexes[k]]);
+			parentPoints.push_back(points[parentIndexes[k]]);
+		}
 
-	returnChildren[0] = new Genome(children[0], firstChildLength, childPools[0]);
-	returnChildren[1] = new Genome(children[1], secondChildLength, childPools[1]);
+		offspring.push_back(
+			this->createOffspring(parents,parentPoints)
+		);
+	}
 
-	free(children[0]);
-	free(children[1]);
-	free(children);
-
-	return returnChildren;
+	return offspring;
 }
 
 string CutAndSpliceCrossover::toString() {
