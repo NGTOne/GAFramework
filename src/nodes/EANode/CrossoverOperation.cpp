@@ -94,3 +94,17 @@ vector<vector<Locus*>> CrossoverOperation::getLoci(vector<Genome*> parents) {
 		parentLoci.push_back(parents[i]->getLoci());
 	return parentLoci;
 }
+
+int CrossoverOperation::shortestGenome(vector<Genome*> genomes) {
+	int shortestGenomeLength = 0;
+
+	for (int i = 0; i < genomes.size(); i++) {
+		if (genomes[i]->genomeLength() < shortestGenomeLength
+			|| shortestGenomeLength == 0
+		) {
+			shortestGenomeLength = genomes[i]->genomeLength();
+		}
+	}
+
+	return shortestGenomeLength;
+}

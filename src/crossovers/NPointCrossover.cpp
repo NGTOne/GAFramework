@@ -40,15 +40,7 @@ vector<int> NPointCrossover::getPoints(int maxPoint) {
 }
 
 vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
-	int shortestGenomeLength = 0;
-
-	for (int i = 0; i < genomes.size(); i++) {
-		if (genomes[i]->genomeLength() < shortestGenomeLength
-			|| shortestGenomeLength == 0
-		) {
-			shortestGenomeLength = genomes[i]->genomeLength();
-		}
-	}
+	int shortestGenomeLength = this->shortestGenome(genomes);
 
 	vector<int> points = this->getPoints(shortestGenomeLength);
 	int currentPoint = 0, currentParent = 0;
