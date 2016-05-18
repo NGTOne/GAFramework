@@ -1,5 +1,8 @@
 #include "../../core/Genome.hpp"
 #include "SelectionStrategy.hpp"
+#include "CrossoverOperation.hpp"
+#include "../../core/ObjectiveFunction.hpp"
+#include "MutationOperation.hpp"
 #include <random>
 #include <string>
 #include <vector>
@@ -18,6 +21,10 @@ class EvolutionarySystem {
 		std::vector<Genome*> &population,
 		std::vector<int> &fitnesses
 	);
+	int evaluateFitness(
+		Genome * target,
+		std::vector<ObjectiveFunction*> objectives
+	);
 
 	public:
 	EvolutionarySystem(SelectionStrategy * strategy);
@@ -28,8 +35,11 @@ class EvolutionarySystem {
 		std::vector<int> fitnesses
 	);
 	virtual std::vector<Genome*> breedMutateSelect(
-		std::vector<Genome*> population,
-		std::vector<int> fitnesses
+		std::vector<Genome*> initialPopulation,
+		std::vector<int> & populationFitnesses,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		std::vector<ObjectiveFunction*> objectives
 	)=0;
 
 	std::string toString();

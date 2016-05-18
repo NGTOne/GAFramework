@@ -43,6 +43,20 @@ void EvolutionarySystem::sortPopulation(
 	}
 }
 
+// TODO: Work in apportionment here
+int EvolutionarySystem::evaluateFitness(
+	Genome * target,
+	vector<ObjectiveFunction*> objectives
+) {
+	int finalFitness = 0;
+
+	for (int i = 0; i < objectives.size(); i++) {
+		finalFitness += objectives[i]->checkFitness(target);
+	}
+
+	return finalFitness;
+}
+
 int EvolutionarySystem::getParent(
 	vector<Genome*> population,
 	vector<int> fitnesses

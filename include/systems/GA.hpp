@@ -1,6 +1,6 @@
-#include "../core/EvolutionarySystem.hpp"
-#include <random>
+#include "../nodes/EANode/EvolutionarySystem.hpp"
 #include <string>
+#include <vector>
 #pragma once
 
 /*
@@ -21,10 +21,13 @@ class GA : public EvolutionarySystem {
 	bool randomElitePlacement;
 
 	void init(int numElites, bool randomElitePlacement);
-	int getEliteIndex(
-		Individual ** newPopulation,
-		int populationSize
+	void placeElites(
+		std::vector<Genome*> initialPopulation,
+		std::vector<int> initialPopulationFitnesses,
+		std::vector<Genome*> & newPopulation,
+		std::vector<int> & newPopulationFitnesses
 	);
+	std::vector<int> findElites(std::vector<int> fitnesses);
 
 	public:
 
@@ -40,15 +43,17 @@ class GA : public EvolutionarySystem {
 	);
 
 	GA(
-		unsigned seed,
 		int numElites,
 		bool randomElitePlacement,
-		SelectionStrategy * strategy
+		SelectionStrategy * strategy,
+		unsigned seed
 	);
 
-	Individual ** breedMutateSelect(
-		Individual ** initialPopulation,
-		int * populationFitnesses,
-		int populationSize
+	std::vector<Genome*> breedMutateSelect(
+		std::vector<Genome*> initialPopulation,
+		std::vector<int> & populationFitnesses,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		std::vector<ObjectiveFunction*> objectives
 	);
 };

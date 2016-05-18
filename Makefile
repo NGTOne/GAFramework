@@ -88,7 +88,7 @@ mutations:
 
 crossovers: nPointCrossover uniformCrossover cutAndSpliceCrossover
 
-systems: ga es ssga rga
+systems:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/GA.cpp -o obj/systems/GA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ES.cpp -o obj/systems/ES.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/SSGA.cpp -o obj/systems/SSGA.o

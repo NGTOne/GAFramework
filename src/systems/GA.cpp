@@ -22,11 +22,11 @@ GA::GA(
 }
 
 GA::GA(
-	unsigned seed,
 	int numElites,
 	bool randomElitePlacement,
-	SelectionStrategy * strategy
-) : EvolutionarySystem(seed, strategy) {
+	SelectionStrategy * strategy,
+	unsigned seed
+) : EvolutionarySystem(strategy, seed) {
 	init(numElites, randomElitePlacement);
 }
 
@@ -35,111 +35,127 @@ void GA::init(int numElites, bool randomElitePlacement) {
 	this->randomElitePlacement = randomElitePlacement;
 }
 
-int GA::getEliteIndex(Individual ** newPopulation, int populationSize) {
-	if (!randomElitePlacement) {
-		for (int i = 0; i < populationSize; i++) {
-			if (newPopulation[i] == NULL) return i;
-		}
-	} else {
-		uniform_int_distribution<int> dist(0, populationSize-1);
-		int index = dist(generator);
+void GA::placeElites(
+	vector<Genome*> initialPopulation,
+	vector<int> initialPopulationFitnesses,
+	vector<Genome*> & newPopulation,
+	vector<int> & newPopulationFitnesses
+) {
+	vector<int> eliteLocations = this->findElites(
+		initialPopulationFitnesses
+	);
 
-		while (newPopulation[index] != NULL) {
-			index = dist(generator);
-		}
+	for (int i = 0; i < eliteLocations.size(); i++) {
+		if (!randomElitePlacement) {
+			newPopulation[i] =
+				initialPopulation[eliteLocations[i]];
+			newPopulationFitnesses[i] =
+				initialPopulationFitnesses[eliteLocations[i]];
+		} else {
+			uniform_int_distribution<int> dist(
+				0,
+				initialPopulation.size()-1
+			);
+			int index;
 
-		return index;
+			do {
+				index = dist(generator);
+			} while (newPopulation[index] != NULL);
+			newPopulation[index] =
+				initialPopulation[eliteLocations[i]];
+			newPopulationFitnesses[index] =
+				initialPopulationFitnesses[eliteLocations[i]];
+		}
 	}
 }
 
-//This strategy uses the GA (Genetic Algorithms) approach - pick a few elites,
-//then fill the rest of the population in with new individuals
-Individual ** GA::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
-	if (numElites >= populationSize) int numElites = populationSize/2;
-	Individual ** newPopulation;
-	int * newFitnesses;
+vector<int> GA::findElites(vector<int> fitnesses) {
+	int populationSize = fitnesses.size(), bestFitness, bestFitnessIndex;
 	bool eliteLocations[populationSize];
-	int numOffspring = 0;
+	vector<int> eliteIndexes;
+	for (int i = 0; i < populationSize; i++) eliteLocations[i] = false;
+	int numElites = this->numElites >= fitnesses.size() ?
+		this->numElites/2 : this->numElites;
 
-	int firstIndex;
-	int secondIndex;
-	Individual * firstParent;
-	Individual * secondParent;
-	Individual ** children;
-
-	int bestFitness = 0;
-	int bestFitnessLocation = 0;
-
-	newPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);
-	newFitnesses = (int*)malloc(sizeof(int)*populationSize);
-
-	for (int i = 0; i < populationSize; i++) {
-		eliteLocations[i] = false;
-		newPopulation[i] = NULL;
-	}
-
-	//Add the elites to the new population
 	for (int i = 0; i < numElites; i++) {
-		for (int k = 0; k < populationSize; k++) {
-			if (populationFitnesses[k] > bestFitness && eliteLocations[k] != true) {
-				bestFitness = populationFitnesses[k];
-				bestFitnessLocation = k;
+		bestFitness = 0;
+		for (int k = 0; k < populationSize; i++) {
+			if (
+				fitnesses[k] > bestFitness
+				&& eliteLocations[k] == false
+			) {
+				bestFitnessIndex = k;
+				bestFitness  = fitnesses[k];
 			}
 		}
 
-		int index = getEliteIndex(newPopulation, populationSize);
-		newPopulation[index] = initialPopulation[bestFitnessLocation]->deepCopy();
-		newFitnesses[index] = bestFitness;
-		eliteLocations[bestFitnessLocation] = true;
-	}
-
-	while(numOffspring < populationSize) {
-		firstIndex = getParent(populationFitnesses, populationSize);
-		secondIndex = getParent(populationFitnesses, populationSize);
-
-		firstParent = initialPopulation[firstIndex];
-		secondParent = initialPopulation[secondIndex];
-
-		children = firstParent->crossoverOperation(secondParent);
-
-		firstParent = children[0]->mutationOperation();
-		secondParent = children[1]->mutationOperation();
-
-		while (
-			numOffspring < populationSize &&
-			newPopulation[numOffspring] != NULL
-		) numOffspring++;
-
-
-		delete(children[0]);
-		delete(children[1]);
-		free(children);
-
-		if (numOffspring < populationSize) {
-			newPopulation[numOffspring] = firstParent;
-			newFitnesses[numOffspring++] = firstParent->getFitness();
-		} else {
-			delete(firstParent);
-		}
-
-		while (
-			numOffspring < populationSize &&
-			newPopulation[numOffspring] != NULL
-		) numOffspring++;
-
-		if (numOffspring < populationSize) {
-			newPopulation[numOffspring] = secondParent;
-			newFitnesses[numOffspring++] = secondParent->getFitness();
-		} else {
-			delete(secondParent);
-		}
+		eliteLocations[bestFitnessIndex] = true;
 	}
 
 	for (int i = 0; i < populationSize; i++) {
-		populationFitnesses[i] = newFitnesses[i];
+		if (eliteLocations[i]) eliteIndexes.push_back(i);
 	}
 
-	free(newFitnesses);
+	return eliteIndexes;
+}
+
+vector<Genome*> GA::breedMutateSelect(
+	vector<Genome*> initialPopulation,
+	vector<int> & populationFitnesses,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
+	vector<ObjectiveFunction*> objectives
+) {
+	vector<Genome*> newPopulation;
+	vector<int> newFitnesses;
+
+	for (int i = 0; i < initialPopulation.size(); i++) {
+		newPopulation.push_back(NULL);
+		newFitnesses.push_back(0);
+	}
+
+	this->placeElites(
+		initialPopulation,
+		populationFitnesses,
+		newPopulation,
+		newFitnesses
+	);
+
+	int numOffspring = this->numElites;
+	while(numOffspring < initialPopulation.size()) {
+		vector<Genome*> parents;
+		vector<Genome*> rawChildren;
+		vector<Genome*> finalChildren;
+		for (int i = 0; i < 2; i++) parents.push_back(
+			initialPopulation[this->getParent(
+				initialPopulation,
+				populationFitnesses
+			)]
+		);
+
+		rawChildren = cross->crossOver(parents);
+		for (int i = 0; i < rawChildren.size(); i++) {
+			finalChildren.push_back(
+				mutation->mutate(rawChildren[i])
+			);
+			delete(rawChildren[i]);
+		}
+
+		for (
+			int i = 0;
+			numOffspring < initialPopulation.size(); 
+			i++
+		) {
+			newPopulation[numOffspring++] = finalChildren[i];
+		}
+	}
+
+	for (int i = 0; i < newPopulation.size(); i++) {
+		populationFitnesses[i] = this->evaluateFitness(
+			newPopulation[i],
+			objectives
+		);
+	}
 
 	return newPopulation;
 }
