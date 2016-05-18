@@ -1,6 +1,7 @@
-#include "../core/EvolutionarySystem.hpp"
+#include "../nodes/EANode/EvolutionarySystem.hpp"
 #include <random>
 #include <string>
+#include <vector>
 #pragma once
 
 /*
@@ -24,27 +25,37 @@ class ES : public EvolutionarySystem {
 
 	void init(double muRatio, double rhoRatio);
 
-	int getParent(int * populationFitnesses, int populationSize);
+	int getParent(
+		std::vector<Genome*> population,
+		std::vector<int> fitnesses
+	);
 	int getRandomParent(int populationSize);
+	Genome * getCrossoverChild(
+		vector<Genome*> initialPopulation,
+		vector<int> populationFitnesses,
+		CrossoverOperation * cross
+	);
 
 	public:
 	ES();
 	ES(SelectionStrategy * strategy);
 	ES(unsigned seed);
-	ES(unsigned seed, SelectionStrategy * strategy);
+	ES(SelectionStrategy * strategy, unsigned seed);
 	ES(double muRatio, double rhoRatio);
-	ES(double muRatio, double rhoRatio, unsigned newSeed);
-	ES(double muRatio, double rhoRatio, SelectionStrategy * newStrategy);
+	ES(double muRatio, double rhoRatio, unsigned seed);
+	ES(double muRatio, double rhoRatio, SelectionStrategy * strategy);
 	ES(
 		double muRatio,
 		double rhoRatio,
-		unsigned newSeed,
-		SelectionStrategy * newStrategy
+		SelectionStrategy * strategy,
+		unsigned seed
 	);
 
-	Individual ** breedMutateSelect(
-		Individual ** initialPopulation,
-		int * populationFitnesses,
-		int populationSize
+	std::vector<Genome*> breedMutateSelect(
+		std::vector<Genome*> initialPopulation,
+		std::vector<int> & populationFitnesses,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		std::vector<ObjectiveFunction*> objectives
 	);
 };

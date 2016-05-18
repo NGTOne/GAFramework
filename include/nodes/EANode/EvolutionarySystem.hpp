@@ -25,15 +25,15 @@ class EvolutionarySystem {
 		Genome * target,
 		std::vector<ObjectiveFunction*> objectives
 	);
+	virtual int getParent(
+		std::vector<Genome*> population,
+		std::vector<int> fitnesses
+	);
 
 	public:
 	EvolutionarySystem(SelectionStrategy * strategy);
 	EvolutionarySystem(SelectionStrategy * strategy, unsigned seed);
 
-	virtual int getParent(
-		std::vector<Genome*> population,
-		std::vector<int> fitnesses
-	);
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
 		std::vector<int> & populationFitnesses,
