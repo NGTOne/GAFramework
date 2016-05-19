@@ -1,6 +1,5 @@
 #include "ReplacingGA.hpp"
-#include <random>
-#include <string>
+#include <vector>
 #pragma once
 
 /*
@@ -16,27 +15,32 @@ class StrongIterativeReplacingGA : public ReplacingGA {
 	protected:
 	bool scramble;
 
-	void scramblePopulation(Individual ** population, int populationSize);
+	void scramblePopulation(
+		std::vector<Genome*> & population,
+		std::vector<int> & fitnesses
+	);
 
 	public:
-	StrongIterativeReplacingGA(SelectionStrategy * newStrategy);
+	StrongIterativeReplacingGA(SelectionStrategy * strategy);
 	StrongIterativeReplacingGA(
-		unsigned newSeed,
-		SelectionStrategy * newStrategy
+		SelectionStrategy * strategy,
+		unsigned seed
 	);
 	StrongIterativeReplacingGA(
-		bool scramble,
-		SelectionStrategy * strategy
+		SelectionStrategy * strategy,
+		bool scramble
 	);
 	StrongIterativeReplacingGA(
-		unsigned seed,
+		SelectionStrategy * strategy,
 		bool scramble,
-		SelectionStrategy * strategy
+		unsigned seed
 	);
 
-	Individual ** breedMutateSelect(
-		Individual ** initialPopulation,
-		int * populationFitnesses,
-		int populationSize
+	std::vector<Genome*> breedMutateSelect(
+		std::vector<Genome*> initialPopulation,
+		std::vector<int> & populationFitness,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		std::vector<ObjectiveFunction*> objectives
 	);
 };
