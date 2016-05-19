@@ -1,29 +1,39 @@
 #include "systems/niching/Crowding.hpp"
+#include <algorithm>
 
-int * Crowding::getIndices(Individual ** initialPopulation, int populationSize, Individual ** newIndividuals) {
-	int * indices = (int*)malloc(sizeof(int)*2);
-	int i, k, c, highestValue, highestIndex;;
-	int differences[populationSize];
+std::vector<int> Crowding::getIndices(
+	std::vector<Genome*> initialPopulation,
+	std::vector<Genome*> newPopulation
+) {
+	std::vector<int> indices;
+	std::vector<int> differences(initialPopulation.size(), 0);
+	int highestValue, lowestValue, lowestIndex;
 
-	for (i = 0; i < 2; i++) {
-		highestValue = highestIndex = 0;
-		Genome * genome = newIndividuals[i]->getGenome();
+	for (int i = 0; i < newPopulation.size(); i++) {
+		highestValue = lowestIndex = 0;
 
-		for (k = 0; k < populationSize; k++) {
-			differences[k] = genome->getDifference(initialPopulation[k]->getGenome());
-			if (differences[k] > highestValue) {
-				int alreadyUsed = 0;
-				for (c = 0; c < i; c++) {
-					if (indices[c] == k) alreadyUsed = 1;
-				}
-				if (!alreadyUsed) {
-					highestValue = differences[k];
-					highestIndex = k;
+		for (int k = 0; k < initialPopulation.size(); k++) {
+			differences[k] = newPopulation[i]->difference(
+				initialPopulation[k]
+			);
+			if (differences[k] > highestValue)
+				highestValue = differences[k];
+		}
+
+		lowestValue = highestValue;
+
+		for (int k = 0; k < initialPopulation.size(); k++) {
+			if (differences[k] <= lowestValue) {
+				if (find(indices.begin(), indices.end(), k)
+					!= indices.end()
+				) {
+					lowestValue = differences[k];
+					lowestIndex = k;
 				}
 			}
 		}
 
-		indices[i] = highestIndex;
+		indices.push_back(lowestIndex);
 
 		return indices;
 	}
