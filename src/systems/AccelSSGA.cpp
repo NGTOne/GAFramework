@@ -3,9 +3,9 @@
 AccelSSGA::AccelSSGA(SelectionStrategy * strategy) : SSGA(strategy) {}
 
 AccelSSGA::AccelSSGA(
-	unsigned seed,
-	SelectionStrategy * strategy
-) : SSGA(seed, strategy) {}
+	SelectionStrategy * strategy,
+	unsigned seed
+) : SSGA(strategy, seed) {}
 
 AccelSSGA::AccelSSGA(
 	SelectionStrategy * strategy,
@@ -13,37 +13,27 @@ AccelSSGA::AccelSSGA(
 ) : SSGA(strategy, niching) {}
 
 AccelSSGA::AccelSSGA(
-	unsigned seed,
 	SelectionStrategy * strategy,
-	NichingStrategy * niching
-) : SSGA(seed, strategy, niching) {}
+	NichingStrategy * niching,
+	unsigned seed
+) : SSGA(strategy, niching, seed) {}
 
-Individual ** AccelSSGA::breedMutateSelect(
-	Individual ** initialPopulation,
-	int * populationFitnesses,
-	int populationSize
+std::vector<Genome*> AccelSSGA::breedMutateSelect(
+	std::vector<Genome*> initialPopulation,
+	std::vector<int> & populationFitnesses,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
+	std::vector<ObjectiveFunction*> objectives
 ) {
-	Individual ** newPopulation = NULL;
-	for (int i = 0; i < populationSize/2; i++) {
-		if (!newPopulation) {
-			newPopulation = SSGA::breedMutateSelect(
-				initialPopulation,
-				populationFitnesses,
-				populationSize
-			);
-		} else {
-			Individual ** tempPopulation = SSGA::breedMutateSelect(
-				newPopulation,
-				populationFitnesses,
-				populationSize
-			);
-
-			for (int k = 0; k < populationSize; k++) {
-				delete(newPopulation[k]);
-			}
-			free(newPopulation);
-			newPopulation = tempPopulation;
-		}
+	std::vector<Genome*> newPopulation;
+	for (int i = 0; i < initialPopulation.size()/2; i++) {
+		newPopulation = SSGA::breedMutateSelect(
+			initialPopulation,
+			populationFitnesses,
+			cross,
+			mutation,
+			objectives
+		);
 	}
 
 	return newPopulation;

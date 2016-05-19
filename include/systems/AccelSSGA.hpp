@@ -1,7 +1,6 @@
 #include "SSGA.hpp"
 #include "niching/NichingStrategy.hpp"
-#include <random>
-#include <string>
+#include <vector>
 #pragma once
 
 /*
@@ -22,21 +21,23 @@ class AccelSSGA : public SSGA {
 
 	public:
 	AccelSSGA(SelectionStrategy * strategy);
-	AccelSSGA(unsigned seed, SelectionStrategy * strategy);
+	AccelSSGA(SelectionStrategy * strategy, unsigned seed);
 	AccelSSGA(
 		SelectionStrategy * strategy,
 		NichingStrategy * niching
 	);
 
 	AccelSSGA(
-		unsigned seed,
 		SelectionStrategy * strategy,
-		NichingStrategy * niching
+		NichingStrategy * niching,
+		unsigned seed
 	);
 
-	Individual ** breedMutateSelect(
-		Individual ** initialPopulation,
-		int * populationFitnesses,
-		int populationSize
+	virtual std::vector<Genome*> breedMutateSelect(
+		std::vector<Genome*> initialPopulation,
+		std::vector<int> & populationFitnesses,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		std::vector<ObjectiveFunction*> objectives
 	);
 };
