@@ -1,5 +1,6 @@
 #pragma once
-#include "../../core/Individual.hpp"
+#include "../../core/Genome.hpp"
+#include <vector>
 
 class NichingStrategy {
 	private:
@@ -7,9 +8,8 @@ class NichingStrategy {
 	protected:
 
 	public:
-		virtual int * getIndices(
-			Individual ** initialPopulation,
-			int populationSize,
-			Individual ** newIndividuals
+		virtual std::vector<int> getIndices(
+			std::vector<Genome*> initialPopulation,
+			std::vector<Genome*> newPopulation
 		)=0;
 };
