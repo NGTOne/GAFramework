@@ -1,72 +1,84 @@
-#include <random>
-#include <chrono>
-#include <string>
-#include <sstream>
 #include "systems/ReplacingGA.hpp"
 
 using namespace std;
 
-ReplacingGA::ReplacingGA(SelectionStrategy * newStrategy) : EvolutionarySystem(newStrategy) {}
+ReplacingGA::ReplacingGA(
+	SelectionStrategy * strategy
+) : EvolutionarySystem(strategy) {}
 
-ReplacingGA::ReplacingGA(unsigned newSeed, SelectionStrategy * newStrategy) : EvolutionarySystem(newSeed, newStrategy) {}
+ReplacingGA::ReplacingGA(
+	SelectionStrategy * strategy,
+	unsigned seed
+) : EvolutionarySystem(strategy, seed) {}
 
-bool ReplacingGA::inPopulation(Individual * target, Individual ** population, int populationSize) {
-	for (int i = 0; i < populationSize; i++) {
+bool ReplacingGA::inPopulation(Genome * target, vector<Genome*> population) {
+	for (int i = 0; i < population.size(); i++)
 		if (population[i] == target) return true;
-	}
 
 	return false;
 }
 
-void ReplacingGA::removeUnusedIndividuals(Individual ** initialPopulation, Individual ** newPopulation, int populationSize) {
-	Individual * temp;
-
-	for (int i = 0; i < populationSize; i++) {
-		if (!inPopulation(initialPopulation[i], newPopulation, populationSize)) delete(initialPopulation[i]);
+void ReplacingGA::removeUnusedIndividuals(
+	vector<Genome*> initialPopulation,
+	vector<Genome*> newPopulation
+) {
+	for (int i = 0; i < initialPopulation.size(); i++) {
+		if (!inPopulation(
+			initialPopulation[i],
+			newPopulation
+		)) delete(initialPopulation[i]);
 	}
 }
 
-Individual ** ReplacingGA::breedMutateSelect(Individual ** initialPopulation, int populationFitnesses[], int populationSize) {
-	Individual ** newPopulation;
-	int indexes[2];
-	int * newFitnesses;
-	int numOffspring = 0;
+vector<Genome*> ReplacingGA::breedMutateSelect(
+	vector<Genome*> initialPopulation,
+	vector<int> & populationFitnesses,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
+	vector<ObjectiveFunction*> objectives
+) {
+	vector<Genome*> newPopulation, children, parents;
+	vector<int> parentIndices(2, 0);
+	vector<int> newFitnesses(populationFitnesses);
+	
 
-	Individual * firstParent;
-	Individual * secondParent;
-	Individual ** children;
+	for (int i = 0; i < initialPopulation.size(); i++)
+		newPopulation.push_back(
+			new Genome(initialPopulation[i], false)
+		);
 
-	newPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);
-
-	for (int i = 0; i < populationSize; i++) {
-		newPopulation[i] = initialPopulation[i]->deepCopy();
-	}
-
-	for (int i = 0; i < populationSize/2; i++) {
+	for (int i = 0; i < initialPopulation.size()/2; i++) {
 		for (int k = 0; k < 2; k++) {
-			indexes[k] = getParent(populationFitnesses, populationSize);
+			parentIndices[k] = this->getParent(
+				initialPopulation,
+				populationFitnesses
+			);
+			parents.push_back(initialPopulation[parentIndices[k]]);
 		}
-		firstParent = initialPopulation[indexes[0]];
-		secondParent = initialPopulation[indexes[1]];
 
-		children = firstParent->crossoverOperation(secondParent);
+		children = cross->crossOver(parents);
+		for (int k = 0; k < children.size(); k++) {
+			Genome * temp = children[k];
+			children[k] = mutation->mutate(children[k]);
+			delete(temp);
+		}
 
-		for (int k = 0; k < 2; k++) {
-			Individual * tempChild = children[k]->
-				mutationOperation();
-			delete(children[k]);
-			children[k] = tempChild;
+		for (int k = 0; k < children.size(); k++) {
+			int childFitness = this->evaluateFitness(
+				children[k],
+				objectives
+			);
 
-			if (children[k]->checkFitness() > newPopulation[indexes[k]]->getFitness()) {
-				delete(newPopulation[indexes[k]]);
-				newPopulation[indexes[k]] = children[k];
+			if (childFitness > newFitnesses[parentIndices[k]]) {
+				delete(newPopulation[parentIndices[k]]);
+				newPopulation[parentIndices[k]] = children[k];
+				newFitnesses[parentIndices[k]] = childFitness;
 			} else {
 				delete(children[k]);
 			}
 		}
-
-		free(children);
 	}
 
+	populationFitnesses = newFitnesses;
 	return(newPopulation);
 }

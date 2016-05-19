@@ -1,5 +1,4 @@
-#include "../core/EvolutionarySystem.hpp"
-#include <random>
+#include "../nodes/EANode/EvolutionarySystem.hpp"
 #include <string>
 #pragma once
 
@@ -16,24 +15,24 @@ class ReplacingGA : public EvolutionarySystem {
 
 	protected:
 	void removeUnusedIndividuals(
-		Individual ** initialPopulation,
-		Individual ** newPopulation,
-		int populationSize
+		std::vector<Genome*> initialPopulation,
+		std::vector<Genome*> newPopulation
 	);
 
 	bool inPopulation(
-		Individual * target,
-		Individual ** population,
-		int populationSize
+		Genome * target,
+		std::vector<Genome*> population
 	);
 
 	public:
-	ReplacingGA(SelectionStrategy * newStrategy);
-	ReplacingGA(unsigned newSeed, SelectionStrategy * newStrategy);
+	ReplacingGA(SelectionStrategy * strategy);
+	ReplacingGA(SelectionStrategy * strategy, unsigned seed);
 
-	virtual Individual ** breedMutateSelect(
-		Individual ** initialPopulation,
-		int * populationFitnesses,
-		int populationSize
+	virtual std::vector<Genome*> breedMutateSelect(
+		std::vector<Genome*> initialPopulation,
+		std::vector<int> & populationFitnesses,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		std::vector<ObjectiveFunction*> objectives
 	);
 };
