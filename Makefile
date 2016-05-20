@@ -40,7 +40,7 @@ uninstall:
 
 examples: obj-dir 1-max hier1-max longestfragment hierlongestfragment hier3longestfragment hier3proprr
 
-library: obj-dir core loci nodes endconditions propagators exception
+library: obj-dir core loci nodes endconditions exception
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
 
@@ -103,8 +103,6 @@ endconditions:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/endconditions/MaxFitnessConvergenceEnd.cpp -o obj/endconditions/MaxFitnessConvergenceEnd.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/endconditions/IterationCountEnd.cpp -o obj/endconditions/IterationCountEnd.o
 
-propagators: nonPropagator downPropagator apportioningPropagator
-
 tournamentSelection:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
 
@@ -116,18 +114,6 @@ uniformCrossover:
 
 cutAndSpliceCrossover:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/crossovers/CutAndSpliceCrossover.cpp -o obj/crossovers/CutAndSpliceCrossover.o
-
-nonPropagator:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/NonPropagator.cpp -o obj/propagators/NonPropagator.o
-
-downPropagator:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/DownPropagator.cpp -o obj/propagators/DownPropagator.o
-
-apportioningPropagator:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/ApportioningPropagator.cpp -o obj/propagators/ApportioningPropagator.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/apportioning/AveragingPropagator.cpp -o obj/propagators/apportioning/AveragingPropagator.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/apportioning/SummingPropagator.cpp -o obj/propagators/apportioning/SummingPropagator.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/propagators/apportioning/WeightedAveragePropagator.cpp -o obj/propagators/apportioning/WeightedAveragePropagator.o
 
 exception:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/InvalidNodeException.cpp -o obj/exception/InvalidNodeException.o
