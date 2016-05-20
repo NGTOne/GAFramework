@@ -56,7 +56,10 @@ void EANode::init(
 vector<Genome*> EANode::getNextPopulation() {
 	return this->system->breedMutateSelect(
 		this->population,
-		this->fitnesses
+		this->fitnesses,
+		this->cross,
+		this->mutation,
+		this->objectives
 	);
 }
 
