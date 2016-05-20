@@ -1,19 +1,19 @@
 #include "endconditions/FitnessMatchEnd.hpp"
 
-FitnessMatchEnd::FitnessMatchEnd(int newMinimumFitness) {
-	minimumFitness = newMinimumFitness;
+FitnessMatchEnd::FitnessMatchEnd(int minimumFitness) {
+	this->minimumFitness = minimumFitness;
 }
 
-bool FitnessMatchEnd::checkIndividual(Individual * target) {
-	PropertiesList * properties = target->getProperties();
-	int individualsFitness = properties->getFitness();
-
-	return properties->getFitness() >= minimumFitness ? true : false;
+bool FitnessMatchEnd::checkSolution(Genome * target, int targetFitness) {
+	return targetFitness > this->minimumFitness;
 }
 
-bool FitnessMatchEnd::checkCondition(Individual ** population, int populationSize) {
-	for (int i = 0; i < populationSize; i++) {
-		if (checkIndividual(population[i])) return true;
-	}
+bool FitnessMatchEnd::checkCondition(
+	vector<Genome*> genomes,
+	vector<int> fitnesses,
+	int currentIteration
+) {
+	for (int i = 0; i < genomes.size(); i++)
+		if (this->checkSolution(genomes[i], fitnesses[i])) return true;
 	return false;
 }

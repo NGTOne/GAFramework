@@ -1,21 +1,30 @@
 #include "endconditions/MaxFitnessConvergenceEnd.hpp"
 
-MaxFitnessConvergenceEnd::MaxFitnessConvergenceEnd(int newMinimumFitness) : FitnessMatchEnd(newMinimumFitness) {
-	populationProportion = 0.5;
+MaxFitnessConvergenceEnd::MaxFitnessConvergenceEnd(
+	int minimumFitness
+) : FitnessMatchEnd(minimumFitness) {
+	this->populationProportion = 0.5;
 }
 
- MaxFitnessConvergenceEnd::MaxFitnessConvergenceEnd(int newMinimumFitness, double newPopulationProportion) : FitnessMatchEnd(newMinimumFitness) {
-	populationProportion = newPopulationProportion;
+MaxFitnessConvergenceEnd::MaxFitnessConvergenceEnd(
+	int minimumFitness,
+	double populationProportion
+) : FitnessMatchEnd(minimumFitness) {
+	this->populationProportion = populationProportion;
 }
 
-bool MaxFitnessConvergenceEnd::checkCondition(Individual ** population, int populationSize) {
+bool MaxFitnessConvergenceEnd::checkCondition(
+	vector<Genome*> genomes,
+	vector<int> fitnesses,
+	int currentIteration
+) {
 	double proportion = 0;
 	int countMadeIt = 0;
-	for (int i = 0; i < populationSize; i++) {
-		if (checkIndividual(population[i])) countMadeIt++;
-	}
+	for (int i = 0; i < genomes.size(); i++)
+		if (this->checkSolution(genomes[i], fitnesses[i]))
+			countMadeIt++;
 
-	proportion = (double)countMadeIt/(double)populationSize;
+	proportion = (double)countMadeIt/(double)genomes.size();
 
-	return proportion >= populationProportion;
+	return proportion >= this->populationProportion;
 }

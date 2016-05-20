@@ -13,14 +13,15 @@ class MaxFitnessConvergenceEnd : public FitnessMatchEnd {
 	double populationProportion;
 
 	public:
-	MaxFitnessConvergenceEnd(int newMinimumFitness);
+	MaxFitnessConvergenceEnd(int minimumFitness);
 	MaxFitnessConvergenceEnd(
-		int newMinimumFitness,
-		double newPopulationProportion
+		int minimumFitness,
+		double populationProportion
 	);
 
 	virtual bool checkCondition(
-		Individual ** population,
-		int populationSize
+		vector<Genome*> genomes,
+		vector<int> fitnesses,
+		int currentIteration
 	);
 };

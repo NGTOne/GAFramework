@@ -6,7 +6,7 @@ class EndCondition {
 	private:
 
 	protected:
-	virtual bool checkSolution(Genome * target);
+	virtual bool checkSolution(Genome * target, int targetFitness);
 	
 	public:
 	EndCondition();

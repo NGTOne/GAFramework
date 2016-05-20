@@ -2,7 +2,7 @@
 #pragma once
 
 /*
-* The fitness matching end condition returns true if an individual in the
+* The fitness matching end condition returns true if any individual in the
 * population has a fitness greater than or equal to a specified minimum
 * fitness.
 */
@@ -13,13 +13,14 @@ class FitnessMatchEnd : public EndCondition {
 	protected:
 	int minimumFitness;
 
-	virtual bool checkIndividual(Individual * target);
+	virtual bool checkSolution(Genome * target, int targetFitness);
 
 	public:
-	FitnessMatchEnd(int newMinimumFitness);
+	FitnessMatchEnd(int minimumFitness);
 
 	virtual bool checkCondition(
-		Individual ** population,
-		int populationSize
+		vector<Genome*> genomes,
+		vector<int> fitnesses,
+		int currentIteration
 	);
 };
