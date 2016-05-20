@@ -1,6 +1,5 @@
 #include "ReplacingGA.hpp"
-#include <random>
-#include <string>
+#include <vector>
 #pragma once
 
 /*
@@ -16,15 +15,17 @@ class WeakIterativeReplacingGA : public ReplacingGA {
 	protected:
 
 	public:
-	WeakIterativeReplacingGA(SelectionStrategy * newStrategy);
+	WeakIterativeReplacingGA(SelectionStrategy * strategy);
 	WeakIterativeReplacingGA(
-		unsigned newSeed,
-		SelectionStrategy * newStrategy
+		SelectionStrategy * strategy,
+		unsigned seed
 	);
 
-	Individual ** breedMutateSelect(
-		Individual ** initialPopulation,
-		int * populationFitnesses,
-		int populationSize
+	std::vector<Genome*> breedMutateSelect(
+		std::vector<Genome*> initialPopulation,
+		std::vector<int> & populationFitnesses,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		std::vector<ObjectiveFunction*> objectives
 	);
 };

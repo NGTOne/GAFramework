@@ -4,76 +4,78 @@
 using namespace std;
 
 WeakIterativeReplacingGA::WeakIterativeReplacingGA(
-	SelectionStrategy * newStrategy
-) : ReplacingGA(newStrategy) {}
+	SelectionStrategy * strategy
+) : ReplacingGA(strategy) {}
 
 WeakIterativeReplacingGA::WeakIterativeReplacingGA(
-	unsigned newSeed,
-	SelectionStrategy * newStrategy
-) : ReplacingGA(newSeed, newStrategy) {}
+	SelectionStrategy * strategy,
+	unsigned seed
+) : ReplacingGA(strategy, seed) {}
 
-Individual ** WeakIterativeReplacingGA::breedMutateSelect(
-	Individual ** initialPopulation,
-	int populationFitnesses[],
-	int populationSize
+vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
+	vector<Genome*> initialPopulation,
+	vector<int> & populationFitnesses,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
+	vector<ObjectiveFunction*> objectives
 ) {
-	Individual ** newPopulation;
-	int indexes[2];
-	int * newFitnesses;
-	int numOffspring[populationSize];
-	Individual * possibleContenders[populationSize][populationSize];
+	vector<vector<Genome*>> possibleContenders;
+	vector<Genome*> newPopulation(initialPopulation.size(), NULL);
+	vector<int> newFitnesses(initialPopulation.size(), 0);
 
-	Individual * firstParent;
-	Individual * secondParent;
-	Individual ** children;
+	for (int i = 0; i < initialPopulation.size(); i++) {
+		vector<int> parentIndices;
+		vector<Genome*> parents;
+		vector<Genome*> children;
+		parentIndices.push_back(i);
+		parentIndices.push_back(this->getParent(
+			initialPopulation,
+			populationFitnesses
+		));
 
-	newPopulation = (Individual**)malloc(sizeof(Individual*)*populationSize);
+		for (int k = 0; k < parentIndices.size(); k++)
+			parents.push_back(initialPopulation[parentIndices[k]]);
 
-	for (int i = 0; i < populationSize; i++) {
-		newPopulation[i] = initialPopulation[i]->deepCopy();
-		numOffspring[i] = 0;
-		for (int k = 0; k < populationSize; k++) {
-			possibleContenders[i][k] = NULL;
+		children = cross->crossOver(parents);
+
+		for (int k = 0; k < children.size(); k++) {
+			Genome * temp = children[k];
+			children[k] = mutation->mutate(children[k]);
+			delete(temp);
+		}
+
+		for (int k = 0; i < children.size(); i++) {
+			possibleContenders[parentIndices[k]].push_back(
+				children[k]
+			);
 		}
 	}
 
-	for (int i = 0; i < populationSize; i++) {
-		indexes[0] = i;
-		indexes[1] = getParent(populationFitnesses, populationSize);
-		firstParent = initialPopulation[indexes[0]];
-		secondParent = initialPopulation[indexes[1]];
+	for (int i = 0; i < initialPopulation.size(); i++) {
+		uniform_int_distribution<int> childSelectionDist(
+			0,
+			possibleContenders[i].size() - 1
+		);
+		int index = childSelectionDist(generator);
+		Genome * child = possibleContenders[i][index];
+		int childFitness = this->evaluateFitness(child, objectives);
 
-		children = firstParent->crossoverOperation(secondParent);
-
-		for (int k = 0; k < 2; k++) {
-			Individual * tempChild = children[k]->
-				mutationOperation();
-			delete(children[k]);
-			children[k] = tempChild;
+		if (childFitness > populationFitnesses[i]) {
+			newPopulation[i] = new Genome(child, false);
+			newFitnesses[i] = childFitness;
+		} else {
+			newPopulation[i] = new Genome(
+				initialPopulation[i],
+				false
+			);
+			newFitnesses[i] = populationFitnesses[i];
 		}
 
-		possibleContenders[i][numOffspring[i]++] = children[0];
-		possibleContenders[indexes[1]][numOffspring[indexes[1]]++] = children[1];
-
-		free(children);
-	}
-
-	for (int i = 0; i < populationSize; i++) {
-		uniform_int_distribution<int> selDist(0, numOffspring[i]-1);
-		int index = selDist(generator);
-
-		if (possibleContenders[i][index]->checkFitness() > newPopulation[i]->getFitness()) {
-			delete(newPopulation[i]);
-			newPopulation[i] = possibleContenders[i][index]->deepCopy();
-		}
-	}
-
-	for (int i = 0; i < populationSize; i++) {
-		for (int k = 0; k < numOffspring[i]; k++) {
+		for (int k = 0; k < possibleContenders[i].size(); i++) {
 			delete(possibleContenders[i][k]);
-			possibleContenders[i][k] = NULL;
 		}
 	}
 
+	populationFitnesses = newFitnesses;
 	return(newPopulation);
 }
