@@ -108,10 +108,7 @@ vector<Genome*> ES::breedMutateSelect(
 	int numMutants = initialPopSize * rhoRatio;
 	int numCrossChildren = initialPopSize * muRatio; 
 	vector<Genome*> crossChildren, mutantChildren, overallPopulation;
-	vector<int> finalPopulationFitnesses(
-		0,
-		initialPopSize + numMutants + numCrossChildren
-	);
+	vector<int> finalPopulationFitnesses;
 
 	for (int i = 0; i < numMutants; i++) {
 		mutantChildren.push_back(
@@ -134,14 +131,16 @@ vector<Genome*> ES::breedMutateSelect(
 
 	for (int i = 0; i < numMutants; i++) {
 		overallPopulation.push_back(mutantChildren[i]);
-		finalPopulationFitnesses[initialPopSize + i] =
-			this->evaluateFitness(mutantChildren[i], objectives);
+		finalPopulationFitnesses.push_back(
+			this->evaluateFitness(mutantChildren[i], objectives)
+		);
 	}
 
 	for (int i = 0; i < numCrossChildren; i++) {
 		overallPopulation.push_back(crossChildren[i]);
-		finalPopulationFitnesses[initialPopSize + numMutants + i] =
-			this->evaluateFitness(crossChildren[i], objectives);
+		finalPopulationFitnesses.push_back(
+			this->evaluateFitness(crossChildren[i], objectives)
+		);
 	}
 
 	this->sortPopulation(

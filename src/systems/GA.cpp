@@ -106,13 +106,8 @@ vector<Genome*> GA::breedMutateSelect(
 	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives
 ) {
-	vector<Genome*> newPopulation;
-	vector<int> newFitnesses;
-
-	for (int i = 0; i < initialPopulation.size(); i++) {
-		newPopulation.push_back(NULL);
-		newFitnesses.push_back(0);
-	}
+	vector<Genome*> newPopulation(initialPopulation.size(), NULL);
+	vector<int> newFitnesses(initialPopulation.size(), 0);
 
 	this->placeElites(
 		initialPopulation,
