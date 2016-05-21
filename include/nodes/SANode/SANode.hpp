@@ -28,6 +28,7 @@ class SANode : public PopulationNode {
 	public:
 	SANode(
 		int populationSize,
+		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
@@ -38,6 +39,7 @@ class SANode : public PopulationNode {
 
 	SANode(
 		int populationSize,
+		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
@@ -48,6 +50,7 @@ class SANode : public PopulationNode {
 	);
 
 	SANode(
+		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
@@ -57,6 +60,7 @@ class SANode : public PopulationNode {
 	);
 
 	SANode(
+		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,

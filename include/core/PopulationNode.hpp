@@ -3,6 +3,7 @@
 #include "EndCondition.hpp"
 #include "ObjectiveFunction.hpp"
 #include "ToStringFunction.hpp"
+#include "Locus.hpp"
 #include <vector>
 #pragma once
 
@@ -11,7 +12,6 @@ class PopulationNode {
 
 	protected:
 	std::vector<Genome*> population;
-	std::vector<std::vector<std::vector<int>>> assignedFitnesses;
 	std::vector<int> fitnesses;
 	std::string nodeName;
 
@@ -29,6 +29,7 @@ class PopulationNode {
 
 	void init(
 		int populationSize,
+		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
@@ -38,10 +39,12 @@ class PopulationNode {
 
 	int evaluateFitness(Genome * target);
 	int evaluateFitness(int solutionIndex);
+	void createLoci(std::vector<Locus*> loci);
 
 	public:
 	PopulationNode(
 		int populationSize,
+		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
@@ -50,6 +53,7 @@ class PopulationNode {
 
 	PopulationNode(
 		int populationSize,
+		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
@@ -64,7 +68,7 @@ class PopulationNode {
 	void setEndCondition(EndCondition * condition);
 	void setEndConditions(std::vector<EndCondition *> conditions);
 
-	void addLoci(std::string format, ...);
+	void addLoci(std::vector<Locus*> loci);
 
 	// Iteration mechanics
 	virtual void nextIteration();

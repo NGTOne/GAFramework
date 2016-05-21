@@ -6,6 +6,7 @@ using namespace std;
 
 PopulationNode::PopulationNode(
 	int populationSize,
+	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
@@ -13,6 +14,7 @@ PopulationNode::PopulationNode(
 ) {
 	init(
 		populationSize,
+		loci,
 		objectives,
 		populationToString,
 		conditions,
@@ -23,6 +25,7 @@ PopulationNode::PopulationNode(
 
 PopulationNode::PopulationNode(
 	int populationSize,
+	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
@@ -31,6 +34,7 @@ PopulationNode::PopulationNode(
 ) {
 	init(
 		populationSize,
+		loci,
 		objectives,
 		populationToString,
 		conditions,
@@ -47,6 +51,7 @@ PopulationNode::~PopulationNode() {
 
 void PopulationNode::init(
 	int populationSize,
+	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
@@ -59,6 +64,17 @@ void PopulationNode::init(
 	this->conditions = conditions;
 	this->nodeName = nodeName;
 	this->accelerationFactor = accelerationFactor;
+
+	this->createLoci(loci);
+}
+
+void PopulationNode::createLoci(vector<Locus*> loci) {
+	for (int i = 0; i < this->population.size(); i++) 
+		delete(this->population[i]);
+	this->population.clear();
+
+	for (int i = 0; i < this->initialPopulationSize; i++)
+		this->population.push_back(new Genome(loci));
 }
 
 void PopulationNode::addEndCondition(EndCondition * condition) {
@@ -81,8 +97,13 @@ void PopulationNode::setEndConditions(vector<EndCondition*> conditions) {
 	this->addEndConditions(conditions);
 }
 
-void PopulationNode::addLoci(string format, ...) {
-	// TODO
+void PopulationNode::addLoci(vector<Locus*> loci) {
+	vector<Locus*> templateLoci = this->population[0]->getLoci();
+	for (int i = 0; i < loci.size(); i++) {
+		templateLoci.push_back(loci[i]);
+	}
+
+	this->createLoci(templateLoci);
 }
 
 void PopulationNode::nextIteration() {
@@ -120,16 +141,12 @@ void PopulationNode::sortPopulation() {
 		for (int k = 0; k < population.size(); k++) {
 			if (fitnesses[i] > fitnesses[k]) {
 				int tempFitness = fitnesses[i];
-				vector<vector<int>> tempAssigned =
-					assignedFitnesses[i];
 				Genome * tempSolution = population[i];
 
 				fitnesses[i] = fitnesses[k];
-				assignedFitnesses[i] = assignedFitnesses[k];
 				population[i] = population[k];
 
 				fitnesses[k] = tempFitness;
-				assignedFitnesses[k] = tempAssigned;
 				population[k] = tempSolution;
 			}
 		}
@@ -144,9 +161,6 @@ void PopulationNode::evaluateFitnesses() {
 
 void PopulationNode::insert(int index, Genome * target) {
 	delete(population[index]);
-	for (int i = 0; i < assignedFitnesses[index].size(); i++) {
-		assignedFitnesses[index][i].clear();
-	}
 	this->evaluateFitness(index);
 }
 
@@ -155,7 +169,7 @@ string PopulationNode::name() {
 }
 
 int PopulationNode::populationSize() {
-	return population.size() == 0 ?
+	return this->population.empty() ?
 		initialPopulationSize : population.size();
 }
 

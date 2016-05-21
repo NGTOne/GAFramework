@@ -10,6 +10,7 @@ using namespace std;
 
 SANode::SANode(
 	int populationSize,
+	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
@@ -18,6 +19,7 @@ SANode::SANode(
 	bool maximize
 ) : PopulationNode(
 	populationSize,
+	loci,
 	objectives,
 	populationToString,
 	conditions,
@@ -28,6 +30,7 @@ SANode::SANode(
 
 SANode::SANode(
 	int populationSize,
+	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
@@ -37,6 +40,7 @@ SANode::SANode(
 	bool maximize
 ) : PopulationNode(
 	populationSize,
+	loci,
 	objectives,
 	populationToString,
 	conditions,
@@ -47,6 +51,7 @@ SANode::SANode(
 }
 
 SANode::SANode(
+	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
@@ -55,6 +60,7 @@ SANode::SANode(
 	bool maximize
 ) : PopulationNode(
 	1,
+	loci,
 	objectives,
 	populationToString,
 	conditions,
@@ -64,6 +70,7 @@ SANode::SANode(
 }
 
 SANode::SANode(
+	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
@@ -73,6 +80,7 @@ SANode::SANode(
 	bool maximize
 ) : PopulationNode(
 	1,
+	loci,
 	objectives,
 	populationToString,
 	conditions,

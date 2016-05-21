@@ -5,12 +5,14 @@ using namespace std;
 
 NonOptimizingNode::NonOptimizingNode(
 	int populationSize,
+	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
 	string nodeName
 ) : PopulationNode(
 	populationSize,
+	loci,
 	objectives,
 	populationToString,
 	conditions,

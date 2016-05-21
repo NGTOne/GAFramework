@@ -22,6 +22,7 @@ class EANode : public PopulationNode {
 	public:
 	EANode(
 		int populationSize,
+		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
@@ -33,6 +34,7 @@ class EANode : public PopulationNode {
 
 	EANode(
 		int populationSize,
+		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,

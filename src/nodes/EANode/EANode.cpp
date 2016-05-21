@@ -5,6 +5,7 @@ using namespace std;
 
 EANode::EANode(
 	int populationSize,
+	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
@@ -14,6 +15,7 @@ EANode::EANode(
 	MutationOperation * mutation
 ) : PopulationNode(
 	populationSize,
+	loci,
 	objectives,
 	populationToString,
 	conditions,
@@ -24,6 +26,7 @@ EANode::EANode(
 
 EANode::EANode(
 	int populationSize,
+	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
@@ -34,6 +37,7 @@ EANode::EANode(
 	MutationOperation * mutation
 ) : PopulationNode(
 	populationSize,
+	loci,
 	objectives,
 	populationToString,
 	conditions,
