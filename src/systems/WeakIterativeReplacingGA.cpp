@@ -36,13 +36,7 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 		for (int k = 0; k < parentIndices.size(); k++)
 			parents.push_back(initialPopulation[parentIndices[k]]);
 
-		children = cross->crossOver(parents);
-
-		for (int k = 0; k < children.size(); k++) {
-			Genome * temp = children[k];
-			children[k] = mutation->mutate(children[k]);
-			delete(temp);
-		}
+		children = this->produceChildren(parents, cross, mutation);
 
 		for (int k = 0; i < children.size(); i++) {
 			possibleContenders[parentIndices[k]].push_back(

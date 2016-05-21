@@ -38,7 +38,7 @@ vector<Genome*> SSGA::breedMutateSelect(
 ) {
 	vector<Genome*> finalPopulation(initialPopulation.size(), NULL);
 	vector<int> parentIndices;
-	vector<Genome*> parents;
+	vector<Genome*> parents, children;
 
 	for (int i = 0; i < 2; i++) {
 		parentIndices.push_back(this->getParent(
@@ -48,12 +48,7 @@ vector<Genome*> SSGA::breedMutateSelect(
 		parents.push_back(initialPopulation[parentIndices[i]]);
 	}
 
-	vector<Genome*> children = cross->crossOver(parents);
-	for (int i = 0; i < children.size(); i++) {
-		Genome * temp = mutation->mutate(children[i]);
-		delete(children[i]);
-		children[i] = temp;
-	}
+	children = this->produceChildren(parents, cross, mutation);
 
 	vector<int> replacementIndices = parentIndices;
 	if (niching != NULL) {

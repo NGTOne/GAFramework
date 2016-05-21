@@ -25,9 +25,16 @@ class EvolutionarySystem {
 		Genome * target,
 		std::vector<ObjectiveFunction*> objectives
 	);
+
 	virtual int getParent(
 		std::vector<Genome*> population,
 		std::vector<int> fitnesses
+	);
+
+	std::vector<Genome*> produceChildren(
+		std::vector<Genome*> parents,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
 	);
 
 	public:

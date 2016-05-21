@@ -124,8 +124,7 @@ vector<Genome*> GA::breedMutateSelect(
 	int numOffspring = this->numElites;
 	while(numOffspring < initialPopulation.size()) {
 		vector<Genome*> parents;
-		vector<Genome*> rawChildren;
-		vector<Genome*> finalChildren;
+		vector<Genome*> children;
 		for (int i = 0; i < 2; i++) parents.push_back(
 			initialPopulation[this->getParent(
 				initialPopulation,
@@ -133,20 +132,14 @@ vector<Genome*> GA::breedMutateSelect(
 			)]
 		);
 
-		rawChildren = cross->crossOver(parents);
-		for (int i = 0; i < rawChildren.size(); i++) {
-			finalChildren.push_back(
-				mutation->mutate(rawChildren[i])
-			);
-			delete(rawChildren[i]);
-		}
+		children = this->produceChildren(parents, cross, mutation);
 
 		for (
 			int i = 0;
 			numOffspring < initialPopulation.size(); 
 			i++
 		) {
-			newPopulation[numOffspring++] = finalChildren[i];
+			newPopulation[numOffspring++] = children[i];
 		}
 	}
 

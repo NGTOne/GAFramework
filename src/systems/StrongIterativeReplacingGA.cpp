@@ -72,13 +72,7 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 			parents.push_back(initialPopulation[parentIndices[k]]);
 		}
 
-		// TODO: Refactor this into the base class
-		children = cross->crossOver(parents);
-		for (int k = 0; k < children.size(); k++) {
-			Genome * temp = mutation->mutate(children[k]);
-			delete(children[k]);
-			children[k] = temp;
-		}
+		children = this->produceChildren(parents, cross, mutation);
 
 		for (int k = 0; k < children.size(); k++) {
 			int childFitness = this->evaluateFitness(

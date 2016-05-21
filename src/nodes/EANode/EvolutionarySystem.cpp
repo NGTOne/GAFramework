@@ -64,6 +64,21 @@ int EvolutionarySystem::getParent(
 	return this->strategy->getParent(population, fitnesses);
 }
 
+vector<Genome*> EvolutionarySystem::produceChildren(
+	vector<Genome*> parents,
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) {
+	vector<Genome*> children = cross->crossOver(parents);
+	for (int i = 0; i < children.size(); i++) {
+		Genome * temp = children[i];
+		children[i] = mutation->mutate(children[i]);
+		delete(temp);
+	}
+
+	return children;
+}
+
 string EvolutionarySystem::toString() {
         stringstream ss;
 	
