@@ -11,5 +11,5 @@ class UniformCrossover : public CrossoverOperation {
 	UniformCrossover(unsigned int numOffspring);
 	UniformCrossover(unsigned int numOffspring, unsigned seed);
 
-	std::vector<Genome*> crossOver(std::vector<Genome*> genomes)=0;
+	std::vector<Genome*> crossOver(std::vector<Genome*> genomes);
 };

@@ -30,6 +30,6 @@ class CutAndSpliceCrossover : public CrossoverOperation {
 	CutAndSpliceCrossover(unsigned int numOffspring);
 	CutAndSpliceCrossover(unsigned int numOffspring, unsigned seed);
 	
-	std::vector<Genome*> crossOver(std::vector<Genome*> genomes)=0;
+	std::vector<Genome*> crossOver(std::vector<Genome*> genomes);
 	std::string toString();
 };

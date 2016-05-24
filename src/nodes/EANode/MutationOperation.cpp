@@ -29,6 +29,20 @@ void MutationOperation::init(double newMutationRate, unsigned newSeed) {
 	generator = newGenerator;
 }
 
+Genome * MutationOperation::mutate(Genome * initialGenome) {
+	vector<int> newGenome, existingGenome = initialGenome->getGenome();
+	vector<Locus*> loci = initialGenome->getLoci();
+	for (int i = 0; i < initialGenome->genomeLength(); i++) {
+		newGenome.push_back(
+			this->getNewLocusValue(
+				existingGenome[i],
+				loci[i]->topIndex()
+			)
+		);
+	}
+	return new Genome(newGenome, loci);
+}
+
 string MutationOperation::toString() {
 	string returnString = "";
 	stringstream ss;

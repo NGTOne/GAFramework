@@ -1,4 +1,4 @@
-#include "core/PopulationNode.hpp"
+#include "../core/PopulationNode.hpp"
 #pragma once
 
 class NonOptimizingNode : public PopulationNode {

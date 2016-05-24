@@ -68,6 +68,19 @@ void PopulationNode::init(
 	this->createLoci(loci);
 }
 
+int PopulationNode::evaluateFitness(Genome * target) {
+	int total = 0;
+	for (int i = 0; i < this->objectives.size(); i++)
+		total += this->objectives[i]->checkFitness(target);
+
+	return total;
+}
+
+int PopulationNode::evaluateFitness(int solutionIndex) {
+	Genome * genome = this->getIndex(solutionIndex);
+	return this->evaluateFitness(genome);
+}
+
 void PopulationNode::createLoci(vector<Locus*> loci) {
 	for (int i = 0; i < this->population.size(); i++) 
 		delete(this->population[i]);

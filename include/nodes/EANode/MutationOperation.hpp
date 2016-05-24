@@ -29,7 +29,7 @@ class MutationOperation {
 	MutationOperation(double mutationRate);
 	MutationOperation(double mutationRate, unsigned seed);
 
-	virtual Genome * mutate(Genome * initialGenome)=0;
+	virtual Genome * mutate(Genome * initialGenome);
 
 	std::string toString();
 };

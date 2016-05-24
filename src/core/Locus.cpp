@@ -19,6 +19,10 @@ void Locus::init(unsigned seed) {
 	generator = mt19937(seed);
 }
 
+void Locus::setPopulation(vector<boost::any> population) {
+	this->population = population;
+}
+
 boost::any Locus::getIndex(int index) {
 	return this->population[index];
 }

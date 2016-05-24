@@ -103,11 +103,8 @@ void HierarchicalEA::setEndConditionDictatorNodes(vector<string> names) {
 
 PopulationNode * HierarchicalEA::getNodeByName(string name) {
 	string temp;
-	for (int i = 0; i < nodeNames.size(); i++) {
-		temp = nodeNames[i];
-		if (name == temp) {
-			return nodes[i];
-		}
+	for (int i = 0; i < nodes.size(); i++) {
+		if (nodes[i]->name() == name) return nodes[i];
 	}
 
 	return NULL;

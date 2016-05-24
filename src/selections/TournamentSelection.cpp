@@ -55,13 +55,16 @@ void TournamentSelection::sortByFitness(
 	}
 }
 
-int TournamentSelection::getParent(vector<int> populationFitnesses) {
-	unsigned int populationSize = populationFitnesses.size();
+int TournamentSelection::getParent(
+	vector<Genome*> population,
+	vector<int> fitnesses
+) {
+	unsigned int populationSize = fitnesses.size();
 	unsigned int tournamentSize = min(
 		this->tournamentSize,
 		populationSize
 	);
-	vector<int> fitnesses, indexes;
+	vector<int> tempFitnesses, indexes;
 	int index;
 
         uniform_real_distribution<double> selectionDist(0,1);
@@ -69,11 +72,11 @@ int TournamentSelection::getParent(vector<int> populationFitnesses) {
 
 	for (int i = 0; i < tournamentSize; i++) {
 		index = indexDist(this->generator);
-		fitnesses.push_back(populationFitnesses[index]);
+		tempFitnesses.push_back(fitnesses[index]);
 		indexes.push_back(index);
 	}
 
-	sortByFitness(indexes, fitnesses);
+	sortByFitness(indexes, tempFitnesses);
 
 	for (int i = 0; i < tournamentSize; i++) {
 		if (

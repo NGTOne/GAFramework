@@ -26,6 +26,9 @@ class TournamentSelection : public SelectionStrategy {
 		unsigned seed
 	);
         
-	int getParent(std::vector<int> populationFitnesses);
+	int getParent(
+		std::vector<Genome*> population,
+		std::vector<int> fitnesses
+	);
 	std::string toString();
 };
