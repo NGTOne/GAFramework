@@ -2,14 +2,14 @@
 #include <string>
 #pragma once
 
-class OneMaxFitness : public FitnessFunction {
+class OneMaxFitness : public ObjectiveFunction {
 	private:
 
 	protected:
 
 	public:
 	OneMaxFitness();
-	PropertiesList * checkFitness(GeneNode ** pools, int * indexes, int genomeLength);
+	int checkFitness(Genome * genome);
 };
 
 class OneMaxToString : public ToStringFunction {
@@ -18,5 +18,5 @@ class OneMaxToString : public ToStringFunction {
 	protected:
 
 	public:
-	std::string toString(GeneNode ** pools, int * indexes, int genomeLength);
+	std::string toString(Genome * genome);
 };

@@ -1,38 +1,29 @@
 #include <sstream>
-#include <string>
 #include "1maxFitness.hpp"
 #include <libHierGA/HierGA.hpp>
 
 using namespace std;
 
-OneMaxFitness::OneMaxFitness() : FitnessFunction() {}
-PropertiesList * OneMaxFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
+OneMaxFitness::OneMaxFitness() : ObjectiveFunction() {}
+
+int OneMaxFitness::checkFitness(Genome * genome) {
 	int total = 0;
+	vector<int> rawGenome = genome->getGenome();
+	vector<Locus*> loci = genome->getLoci();
 
-	for (int i = 0; i < genomeLength; i++) {
-		total += *(int*)pools[i]->getIndex(indexes[i]);
-	}
+	for (int i = 0; i < genome->genomeLength(); i++)
+		total += ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
 
-	PropertiesList * returnProperties = new PropertiesList();
-
-	returnProperties->setFitness(total);
-
-	return returnProperties;
+	return total;
 }
 
-string OneMaxToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
-	string returnString = "";
+string OneMaxToString::toString(Genome * genome) {
 	stringstream ss;
-	int * tempIntPtr;
-
+	vector<int> rawGenome = genome->getGenome();
+	vector<Locus*> loci = genome->getLoci();
 	
-	for (int i = 0; i < genomeLength; i++) {
-		tempIntPtr = (int*)pools[i]->getIndex(indexes[i]);
-
-		ss << *tempIntPtr;
-	}
-
-	returnString = ss.str();
-
-	return returnString;
+	for (int i = 0; i < genome->genomeLength(); i++)
+		ss << ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
+		
+	return ss.str();
 }
