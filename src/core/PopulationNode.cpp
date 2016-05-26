@@ -12,7 +12,7 @@ PopulationNode::PopulationNode(
 	vector<EndCondition*> conditions,
 	string nodeName
 ) {
-	init(
+	this->init(
 		populationSize,
 		loci,
 		objectives,
@@ -32,7 +32,7 @@ PopulationNode::PopulationNode(
 	string nodeName,
 	int accelerationFactor
 ) {
-	init(
+	this->init(
 		populationSize,
 		loci,
 		objectives,
@@ -64,6 +64,8 @@ void PopulationNode::init(
 	this->conditions = conditions;
 	this->nodeName = nodeName;
 	this->accelerationFactor = accelerationFactor;
+	this->currentIteration = 0;
+	this->readOnce = false;
 
 	this->createLoci(loci);
 }
@@ -85,6 +87,7 @@ void PopulationNode::createLoci(vector<Locus*> loci) {
 	for (int i = 0; i < this->population.size(); i++) 
 		delete(this->population[i]);
 	this->population.clear();
+	this->fitnesses = vector<int>(this->initialPopulationSize, 0);
 
 	for (int i = 0; i < this->initialPopulationSize; i++)
 		this->population.push_back(new Genome(loci));
@@ -95,9 +98,8 @@ void PopulationNode::addEndCondition(EndCondition * condition) {
 }
 
 void PopulationNode::addEndConditions(vector<EndCondition*> conditions) {
-	for (int i = 0; i < conditions.size(); i++) {
+	for (int i = 0; i < conditions.size(); i++)
 		this->conditions.push_back(conditions[i]);
-	}
 }
 
 void PopulationNode::setEndCondition(EndCondition * condition) {
@@ -121,10 +123,11 @@ void PopulationNode::addLoci(vector<Locus*> loci) {
 
 void PopulationNode::nextIteration() {
 	int i = 0;
-	while (!done() && i++ < accelerationFactor) {
-		evaluateFitnesses();
-		population = getNextPopulation();
-		evaluateFitnesses();
+	while (!done() && i++ < this->accelerationFactor) {
+		this->evaluateFitnesses();
+		this->population = this->getNextPopulation();
+		this->evaluateFitnesses();
+		this->currentIteration++;
 		// TODO: Work in apportionment
 	}
 }
@@ -135,11 +138,11 @@ Genome * PopulationNode::getIndex(int index) {
 
 bool PopulationNode::done() {
 	// TODO: Allow logical operations (AND/OR) of end conditions
-	for (int i = 0; i < conditions.size(); i++) {
-		if (conditions[i]->checkCondition(
-			population,
-			fitnesses,
-			currentIteration
+	for (int i = 0; i < this->conditions.size(); i++) {
+		if (this->conditions[i]->checkCondition(
+			this->population,
+			this->fitnesses,
+			this->currentIteration
 		) == false) {
 			return false;
 		}
@@ -167,9 +170,8 @@ void PopulationNode::sortPopulation() {
 }
 
 void PopulationNode::evaluateFitnesses() {
-	for (int i = 0; i < population.size(); i++) {
-		fitnesses[i] = this->evaluateFitness(i);
-	}
+	for (int i = 0; i < population.size(); i++)
+		this->fitnesses[i] = this->evaluateFitness(i);
 }
 
 void PopulationNode::insert(int index, Genome * target) {

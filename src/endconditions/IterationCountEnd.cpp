@@ -1,6 +1,6 @@
 #include "endconditions/IterationCountEnd.hpp"
 
-IterationCountEnd::IterationCountEnd(unsigned int minimumFitness) {
+IterationCountEnd::IterationCountEnd(unsigned int maxIterations) {
 	this->maxIterations = maxIterations;
 }
 
@@ -9,5 +9,5 @@ bool IterationCountEnd::checkCondition(
 	vector<int> fitnesses,
 	int currentIteration
 ) {
-	return currentIteration >= maxIterations;
+	return currentIteration >= this->maxIterations;
 }

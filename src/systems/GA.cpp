@@ -4,6 +4,9 @@
 #include <sstream>
 #include "systems/GA.hpp"
 
+// TEMP
+#include <iostream>
+
 using namespace std;
 
 GA::GA(
@@ -46,7 +49,7 @@ void GA::placeElites(
 	);
 
 	for (int i = 0; i < eliteLocations.size(); i++) {
-		if (!randomElitePlacement) {
+		if (!this->randomElitePlacement) {
 			newPopulation[i] =
 				initialPopulation[eliteLocations[i]];
 			newPopulationFitnesses[i] =
@@ -74,12 +77,12 @@ vector<int> GA::findElites(vector<int> fitnesses) {
 	bool eliteLocations[populationSize];
 	vector<int> eliteIndexes;
 	for (int i = 0; i < populationSize; i++) eliteLocations[i] = false;
-	int numElites = this->numElites >= fitnesses.size() ?
+	int trueNumElites = this->numElites >= fitnesses.size() ?
 		this->numElites/2 : this->numElites;
 
-	for (int i = 0; i < numElites; i++) {
+	for (int i = 0; i < trueNumElites; i++) {
 		bestFitness = 0;
-		for (int k = 0; k < populationSize; i++) {
+		for (int k = 0; k < populationSize; k++) {
 			if (
 				fitnesses[k] > bestFitness
 				&& eliteLocations[k] == false
@@ -116,7 +119,7 @@ vector<Genome*> GA::breedMutateSelect(
 		newFitnesses
 	);
 
-	int numOffspring = this->numElites;
+	int numOffspring = 0;
 	while(numOffspring < initialPopulation.size()) {
 		vector<Genome*> parents;
 		vector<Genome*> children;
@@ -131,9 +134,12 @@ vector<Genome*> GA::breedMutateSelect(
 
 		for (
 			int i = 0;
-			numOffspring < initialPopulation.size(); 
+			i < children.size()
+				&& numOffspring < initialPopulation.size(); 
 			i++
 		) {
+			while (newPopulation[numOffspring] != NULL)
+				numOffspring++;
 			newPopulation[numOffspring++] = children[i];
 		}
 	}

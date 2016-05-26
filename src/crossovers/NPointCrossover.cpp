@@ -31,11 +31,16 @@ vector<int> NPointCrossover::getPoints(int maxPoint) {
 	vector<int> points;
 	uniform_int_distribution<int> pointsDist(0, maxPoint);
 
-	for (int i = 0; i < this->numPoints; i++) {
+	for (int i = 0; i < this->numPoints; i++) 
 		points.push_back(pointsDist(this->generator));
-	}
 
 	sort(points.begin(), points.begin() + this->numPoints);
+
+	// Remove duplicate points
+	for (int i = 1; i < points.size(); i++)
+		if (points[i] == points[i-1])
+			points.erase(points.begin() + i--);
+
 	return points;
 }
 
@@ -52,13 +57,10 @@ vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
 	vector<vector<Locus*>> parentLoci = this->getLoci(genomes);
 
 	for (int i = 0; i < shortestGenomeLength; i++) {
-		if (i == points[currentPoint]) {
+		if (currentPoint < points.size() && i == points[currentPoint]) {
 			currentParent = (currentParent == genomes.size() - 1)
 				? 0 : currentParent++;
-			do currentPoint++; while (
-				points[currentPoint] ==
-				points[currentPoint - 1]
-			);
+			currentPoint++;
 		}
 
 		for (int k = 0; k < childGenomes.size(); k++) {

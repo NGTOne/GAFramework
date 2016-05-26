@@ -73,7 +73,7 @@ string EANode::toString() {
 	ss << "Population size: " << this->population.size() << "\n";
 	ss << populationStrings();
 
-	if (readOnce == false) {
+	if (this->readOnce == false) {
 	        ss << "Selection Info:\n" << this->system->toString();
 	        ss << "Crossover Info:\n" << this->cross->toString();
 	        ss << "Mutation Info:\n" << this->mutation->toString();

@@ -15,7 +15,6 @@ class PopulationNode {
 	std::vector<int> fitnesses;
 	std::string nodeName;
 
-	int maxIterations;
 	int currentIteration;
 	int accelerationFactor;
 	int initialPopulationSize; // For generating the initial population
