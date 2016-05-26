@@ -11,8 +11,8 @@ class TournamentSelection : public SelectionStrategy {
 	protected:
 	unsigned int tournamentSize;
 	void sortByFitness(
-		std::vector<int> indexes,
-		std::vector<int> fitnesses
+		std::vector<int> & indexes,
+		std::vector<int> & fitnesses
 	);
 
 	void init(unsigned int tournamentSize);

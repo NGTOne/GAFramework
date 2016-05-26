@@ -16,7 +16,7 @@ int main(void) {
 			new OneMaxToString(),
 			vector<EndCondition*>({new IterationCountEnd(100)}),
 			"P1",
-			new GA(2, false, new TournamentSelection(0.5, 4)),
+			new GA(2, false, new TournamentSelection(0.95, 4)),
 			new NPointCrossover(2),
 			new UniformMutation(0.2)
 		),

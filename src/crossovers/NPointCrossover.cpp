@@ -4,6 +4,9 @@
 #include <sstream>
 #include "crossovers/NPointCrossover.hpp"
 
+// TEMP
+#include <iostream>
+
 using namespace std;
 
 NPointCrossover::NPointCrossover (
@@ -58,9 +61,11 @@ vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
 
 	for (int i = 0; i < shortestGenomeLength; i++) {
 		if (currentPoint < points.size() && i == points[currentPoint]) {
-			currentParent = (currentParent == genomes.size() - 1)
-				? 0 : currentParent++;
+			//cout << points[currentPoint];
+			if (currentParent++ == genomes.size() - 1)
+				currentParent = 0;
 			currentPoint++;
+			//cout << " " << genomes.size() << " FOO!\n";
 		}
 
 		for (int k = 0; k < childGenomes.size(); k++) {

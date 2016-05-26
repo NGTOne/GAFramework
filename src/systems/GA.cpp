@@ -93,10 +93,7 @@ vector<int> GA::findElites(vector<int> fitnesses) {
 		}
 
 		eliteLocations[bestFitnessIndex] = true;
-	}
-
-	for (int i = 0; i < populationSize; i++) {
-		if (eliteLocations[i]) eliteIndexes.push_back(i);
+		eliteIndexes.push_back(bestFitnessIndex);
 	}
 
 	return eliteIndexes;

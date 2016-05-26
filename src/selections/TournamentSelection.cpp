@@ -37,13 +37,13 @@ void TournamentSelection::init(unsigned int tournamentSize) {
 }
 
 void TournamentSelection::sortByFitness(
-	vector<int> indexes,
-	vector<int> fitnesses
+	vector<int> & indexes,
+	vector<int> & fitnesses
 ) {
 	int tempIndex, tempFitness;
 	for (int i = 0; i < indexes.size(); i++) {
 		for (int k = 0; k < indexes.size(); k++) {
-			if (fitnesses[k] > fitnesses[i]) {
+			if (fitnesses[i] > fitnesses[k]) {
 				tempFitness = fitnesses[k];
 				tempIndex = indexes[k];
 				fitnesses[k] = fitnesses[i];
@@ -76,11 +76,11 @@ int TournamentSelection::getParent(
 		indexes.push_back(index);
 	}
 
-	sortByFitness(indexes, tempFitnesses);
+	this->sortByFitness(indexes, tempFitnesses);
 
 	for (int i = 0; i < tournamentSize; i++) {
 		if (
-			selectionDist(generator) < crossoverRate
+			selectionDist(generator) < this->crossoverRate
 			|| i == tournamentSize - 1
 		) {
 			return indexes[i];
