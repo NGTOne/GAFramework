@@ -40,7 +40,7 @@ void StrongIterativeReplacingGA::scramblePopulation(
 	int index, tempFitness;
 
 	for (int i = 0; i < population.size(); i++) {
-		index = placementDist(generator);
+		index = placementDist(this->generator);
 		temp = population[i];
 		tempFitness = fitnesses[i];
 		population[i] = population[index];
@@ -60,6 +60,9 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 	vector<Genome*> newPopulation, children;
 	vector<int> parentIndices(2, 0);
 
+	for (int i = 0; i < initialPopulation.size(); i++)
+		newPopulation.push_back(new Genome(initialPopulation[i], false));
+
 	for (int i = 0; i < initialPopulation.size(); i++) {
 		parentIndices[0] = i;
 		parentIndices[1] = this->getParent(
@@ -68,9 +71,8 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 		);
 
 		vector<Genome*> parents;
-		for (int k = 0; k < parentIndices.size(); i++) {
+		for (int k = 0; k < parentIndices.size(); k++)
 			parents.push_back(initialPopulation[parentIndices[k]]);
-		}
 
 		children = this->produceChildren(parents, cross, mutation);
 
@@ -84,20 +86,18 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 				childFitness >
 				populationFitnesses[parentIndices[k]]
 			) {
+				delete(newPopulation[parentIndices[k]]);
 				newPopulation[parentIndices[k]] = children[k];
 				populationFitnesses[parentIndices[k]] =
 					childFitness;
 			} else {
-				newPopulation[parentIndices[k]] =
-					initialPopulation[parentIndices[k]];
 				delete(children[k]);
 			}
 		}
 	}
 
-	if (scramble) {
-		scramblePopulation(newPopulation, populationFitnesses);
-	}
+	if (this->scramble)
+		this->scramblePopulation(newPopulation, populationFitnesses);
 
 	return(newPopulation);
 }
