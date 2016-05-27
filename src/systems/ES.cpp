@@ -126,7 +126,7 @@ vector<Genome*> ES::breedMutateSelect(
 
 	for (int i = 0; i < initialPopSize; i++) {
 		overallPopulation.push_back(initialPopulation[i]);
-		finalPopulationFitnesses[i] = populationFitnesses[i];
+		finalPopulationFitnesses.push_back(populationFitnesses[i]);
 	}
 
 	for (int i = 0; i < numMutants; i++) {
@@ -160,8 +160,10 @@ vector<Genome*> ES::breedMutateSelect(
 	}
 
 	// A little housekeeping
-	for (int i = 0; i < overallPopulation.size(); i++)
-		delete(overallPopulation[i]);
+	for (int i = 0; i < mutantChildren.size(); i++)
+		delete(mutantChildren[i]);
+	for (int i = 0; i < crossChildren.size(); i++)
+		delete(crossChildren[i]);
 
 	return finalPopulation;
 }
