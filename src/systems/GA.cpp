@@ -51,7 +51,7 @@ void GA::placeElites(
 	for (int i = 0; i < eliteLocations.size(); i++) {
 		if (!this->randomElitePlacement) {
 			newPopulation[i] = new Genome(
-				initialPopulation[eliteLocations[i]],
+				initialPopulation[eliteLocations[i]]
 			);
 			newPopulationFitnesses[i] =
 				initialPopulationFitnesses[eliteLocations[i]];
@@ -66,7 +66,7 @@ void GA::placeElites(
 				index = dist(generator);
 			} while (newPopulation[index] != NULL);
 			newPopulation[index] = new Genome(
-				initialPopulation[eliteLocations[i]],
+				initialPopulation[eliteLocations[i]]
 			);
 			newPopulationFitnesses[index] =
 				initialPopulationFitnesses[eliteLocations[i]];
