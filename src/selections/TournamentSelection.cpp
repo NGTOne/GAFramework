@@ -3,6 +3,9 @@
 #include <sstream>
 #include <algorithm>
 
+//TEMP
+#include <iostream>
+
 using namespace std;
 
 TournamentSelection::TournamentSelection(
@@ -60,10 +63,7 @@ int TournamentSelection::getParent(
 	vector<int> fitnesses
 ) {
 	unsigned int populationSize = fitnesses.size();
-	unsigned int tournamentSize = min(
-		this->tournamentSize,
-		populationSize
-	);
+	unsigned int tournamentSize = min(this->tournamentSize, populationSize);
 	vector<int> tempFitnesses, indexes;
 	int index;
 
@@ -78,10 +78,10 @@ int TournamentSelection::getParent(
 
 	this->sortByFitness(indexes, tempFitnesses);
 
-	for (int i = 0; i < tournamentSize; i++) {
+	for (int i = 0; i < indexes.size(); i++) {
 		if (
 			selectionDist(generator) < this->crossoverRate
-			|| i == tournamentSize - 1
+			|| i == indexes.size() - 1
 		) {
 			return indexes[i];
 		}
