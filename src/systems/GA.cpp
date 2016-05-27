@@ -78,7 +78,7 @@ vector<int> GA::findElites(vector<int> fitnesses) {
 	vector<int> eliteIndexes;
 	for (int i = 0; i < populationSize; i++) eliteLocations[i] = false;
 	int trueNumElites = this->numElites >= fitnesses.size() ?
-		this->numElites/2 : this->numElites;
+		fitnesses.size()/2 : this->numElites;
 
 	for (int i = 0; i < trueNumElites; i++) {
 		bestFitness = 0;
@@ -118,8 +118,7 @@ vector<Genome*> GA::breedMutateSelect(
 
 	int numOffspring = 0;
 	while(numOffspring < initialPopulation.size()) {
-		vector<Genome*> parents;
-		vector<Genome*> children;
+		vector<Genome*> parents, children;
 		for (int i = 0; i < 2; i++) parents.push_back(
 			initialPopulation[this->getParent(
 				initialPopulation,
@@ -129,24 +128,19 @@ vector<Genome*> GA::breedMutateSelect(
 
 		children = this->produceChildren(parents, cross, mutation);
 
-		for (
-			int i = 0;
-			i < children.size()
-				&& numOffspring < initialPopulation.size(); 
-			i++
-		) {
+		for (int i = 0; i < children.size(); i++) {
 			while (newPopulation[numOffspring] != NULL)
 				numOffspring++;
-			newPopulation[numOffspring++] = children[i];
+			if (numOffspring < initialPopulation.size())
+				newPopulation[numOffspring++] = children[i];
 		}
 	}
 
-	for (int i = 0; i < newPopulation.size(); i++) {
+	for (int i = 0; i < newPopulation.size(); i++)
 		populationFitnesses[i] = this->evaluateFitness(
 			newPopulation[i],
 			objectives
 		);
-	}
 
 	return newPopulation;
 }
