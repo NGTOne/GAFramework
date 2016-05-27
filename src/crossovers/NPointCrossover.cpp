@@ -52,20 +52,16 @@ vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
 
 	vector<int> points = this->getPoints(shortestGenomeLength);
 	int currentPoint = 0, currentParent = 0;
-	vector<vector<int>> childGenomes;
-	childGenomes.resize(genomes.size());
+	vector<vector<int>> childGenomes(genomes.size(), vector<int>());
 	vector<vector<int>> parentGenomes = this->getGenomes(genomes);
-	vector<vector<Locus*>> childLoci;
-	childLoci.resize(genomes.size());
+	vector<vector<Locus*>> childLoci(genomes.size(), vector<Locus*>());
 	vector<vector<Locus*>> parentLoci = this->getLoci(genomes);
 
 	for (int i = 0; i < shortestGenomeLength; i++) {
 		if (currentPoint < points.size() && i == points[currentPoint]) {
-			//cout << points[currentPoint];
 			if (currentParent++ == genomes.size() - 1)
 				currentParent = 0;
 			currentPoint++;
-			//cout << " " << genomes.size() << " FOO!\n";
 		}
 
 		for (int k = 0; k < childGenomes.size(); k++) {
