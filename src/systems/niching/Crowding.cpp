@@ -5,8 +5,7 @@ std::vector<int> Crowding::getIndices(
 	std::vector<Genome*> initialPopulation,
 	std::vector<Genome*> newPopulation
 ) {
-	std::vector<int> indices;
-	std::vector<int> differences(initialPopulation.size(), 0);
+	std::vector<int> indices, differences(initialPopulation.size(), 0);
 	int highestValue, lowestValue, lowestIndex;
 
 	for (int i = 0; i < newPopulation.size(); i++) {
@@ -34,7 +33,6 @@ std::vector<int> Crowding::getIndices(
 		}
 
 		indices.push_back(lowestIndex);
-
-		return indices;
 	}
+	return indices;
 }
