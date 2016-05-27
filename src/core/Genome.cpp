@@ -1,5 +1,6 @@
 #include "core/Genome.hpp"
 #include "core/Locus.hpp"
+#include "loci/PopulationLocus.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
 #include <cmath>
 #include <sstream>
@@ -84,9 +85,35 @@ int Genome::difference(Genome * otherGenome) {
 string Genome::flatten() {
 	stringstream ss;
 
-	for (int i = 0; i < genes.size(); i++) {
+	for (int i = 0; i < genes.size(); i++)
 		ss << loci[i]->flatten(genes[i]) << " ";
-	}
 
 	return ss.str();
+}
+
+Genome Genome::flattenGenome() {
+	vector<int> rawGenome;
+	vector<Locus*> rawLoci;
+
+	for (int i = 0; i < this->genomeLength(); i++) {
+		if (!loci[i]->isConstructive()) {
+			rawGenome.push_back(this->genes[i]);
+			rawLoci.push_back(this->loci[i]);
+		} else {
+			Genome * temp = ((PopulationLocus*)loci[i])->getIndex(
+				this->genes[i]
+			);
+
+			Genome tempFlattened = temp->flattenGenome();
+			vector<int> tempGenome = tempFlattened.getGenome();
+			vector<Locus*> tempLoci = tempFlattened.getLoci();
+
+			for (int k = 0; k < tempGenome.size(); k++) {
+				rawGenome.push_back(tempGenome[k]);
+				rawLoci.push_back(tempLoci[k]);
+			}
+		}
+	}
+
+	return Genome(rawGenome, rawLoci);
 }

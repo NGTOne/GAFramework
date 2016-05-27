@@ -28,4 +28,5 @@ class Genome {
 	int difference(Genome * otherGenome);
 
 	std::string flatten();
+	Genome flattenGenome();
 };
