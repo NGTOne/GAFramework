@@ -39,6 +39,7 @@ class PopulationNode {
 	int evaluateFitness(Genome * target);
 	int evaluateFitness(int solutionIndex);
 	void createLoci(std::vector<Locus*> loci);
+	void replacePopulation();
 
 	public:
 	PopulationNode(

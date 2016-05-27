@@ -121,11 +121,20 @@ void PopulationNode::addLoci(vector<Locus*> loci) {
 	this->createLoci(templateLoci);
 }
 
+void PopulationNode::replacePopulation() {
+	vector<Genome*> tempPopulation = this->getNextPopulation();
+
+	for (int i = 0; i < this->population.size(); i++)
+		delete(this->population[i]);
+
+	this->population = tempPopulation;
+}
+
 void PopulationNode::nextIteration() {
 	int i = 0;
 	while (!done() && i++ < this->accelerationFactor) {
 		this->evaluateFitnesses();
-		this->population = this->getNextPopulation();
+		this->replacePopulation();
 		this->evaluateFitnesses();
 		this->currentIteration++;
 		// TODO: Work in apportionment
