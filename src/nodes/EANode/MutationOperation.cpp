@@ -25,20 +25,24 @@ MutationOperation::MutationOperation(double newMutationRate, unsigned newSeed) {
 void MutationOperation::init(double newMutationRate, unsigned newSeed) {
 	mutationRate = newMutationRate;
 	seed = newSeed;
-	mt19937 newGenerator(seed);
-	generator = newGenerator;
+	generator = mt19937(seed);
 }
 
 Genome * MutationOperation::mutate(Genome * initialGenome) {
 	vector<int> newGenome, existingGenome = initialGenome->getGenome();
 	vector<Locus*> loci = initialGenome->getLoci();
+	uniform_real_distribution<double> mutationDist(0, 1);
 	for (int i = 0; i < initialGenome->genomeLength(); i++) {
-		newGenome.push_back(
-			this->getNewLocusValue(
-				existingGenome[i],
-				loci[i]->topIndex()
-			)
-		);
+		if (mutationDist(this->generator) < this->mutationRate) {
+			newGenome.push_back(
+				this->getNewLocusValue(
+					existingGenome[i],
+					loci[i]->topIndex()
+				)
+			);
+		} else {
+			newGenome.push_back(existingGenome[i]);
+		}
 	}
 	return new Genome(newGenome, loci);
 }
