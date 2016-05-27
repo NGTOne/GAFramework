@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <libHierGA/HierGA.hpp>
-#include "HierLongestFragmentFitness.hpp"
+#include "LongestFragmentFitness.hpp"
 
 using namespace std;
 
@@ -19,9 +19,9 @@ int main(void) {
 			16,
 			baseLoci,
 			vector<ObjectiveFunction*>(
-				{new HierLongestFragmentFitness()}
+				{new LongestFragmentFitness()}
 			),
-			new HierLongestFragmentToString(),
+			new LongestFragmentToString(),
 			vector<EndCondition*>({new IterationCountEnd(100)}),
 			name.str(),
 			new GA(2, false, new TournamentSelection(0.95, 4)),
@@ -37,9 +37,9 @@ int main(void) {
 			8,
 			populationLoci,
 			vector<ObjectiveFunction*>(
-				{new HierLongestFragmentFitness()}
+				{new LongestFragmentFitness()}
 			),
-			new HierLongestFragmentToString(),
+			new LongestFragmentToString(),
 			vector<EndCondition*>({new IterationCountEnd(100)}),
 			"P1",
 			new GA(2, false, new TournamentSelection(0.95, 4)),

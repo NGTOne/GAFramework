@@ -8,12 +8,13 @@ using namespace std;
 LongestFragmentFitness::LongestFragmentFitness() : ObjectiveFunction() {}
 
 int LongestFragmentFitness::checkFitness(Genome * genome) {
+	Genome flattened = genome->flattenGenome();
 	int longestPathLength = 0, currentPathLength = 0;
 	int currentPathIndex, longestPathIndex, currentDigit;
-	vector<int> rawGenome = genome->getGenome();
-	vector<Locus*> loci = genome->getLoci();
+	vector<int> rawGenome = flattened.getGenome();
+	vector<Locus*> loci = flattened.getLoci();
 
-	for (int i = 0; i < genome->genomeLength(); i++) {
+	for (int i = 0; i < flattened.genomeLength(); i++) {
 		currentDigit = ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
 		currentPathIndex = i-currentPathLength;
 
@@ -38,10 +39,11 @@ int LongestFragmentFitness::checkFitness(Genome * genome) {
 
 string LongestFragmentToString::toString(Genome * genome) {
 	stringstream ss;
-	vector<int> rawGenome = genome->getGenome();
-	vector<Locus*> loci = genome->getLoci();
+	Genome flattened = genome->flattenGenome();
+	vector<int> rawGenome = flattened.getGenome();
+	vector<Locus*> loci = flattened.getLoci();
 
-	for (int i = 0; i < genome->genomeLength(); i++)
+	for (int i = 0; i < flattened.genomeLength(); i++)
 		ss << ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
 
 	return ss.str();

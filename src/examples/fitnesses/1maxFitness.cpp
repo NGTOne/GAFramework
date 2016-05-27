@@ -1,13 +1,13 @@
 #include <sstream>
 #include <string>
 #include <libHierGA/HierGA.hpp>
-#include "Hier1maxFitness.hpp"
+#include "1maxFitness.hpp"
 
 using namespace std;
 
-HierOneMaxFitness::HierOneMaxFitness() : ObjectiveFunction() {}
+OneMaxFitness::OneMaxFitness() : ObjectiveFunction() {}
 
-int HierOneMaxFitness::checkFitness(Genome * genome) {
+int OneMaxFitness::checkFitness(Genome * genome) {
 	int total = 0;
 	Genome flattened = genome->flattenGenome();
 	vector<int> flattenedGenome = flattened.getGenome();
@@ -19,7 +19,7 @@ int HierOneMaxFitness::checkFitness(Genome * genome) {
 	return total;
 }
 
-string HierOneMaxToString::toString(Genome * genome) {
+string OneMaxToString::toString(Genome * genome) {
 	stringstream ss;
 	Genome flattened = genome->flattenGenome();
 	vector<int> rawGenome = flattened.getGenome();

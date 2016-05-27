@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <libHierGA/HierGA.hpp>
-#include "Hier1maxFitness.hpp"
+#include "1maxFitness.hpp"
 
 using namespace std;
 
@@ -18,8 +18,8 @@ int main(void) {
 		bottomNodes.push_back(new EANode(
 			16,
 			baseLoci,
-			vector<ObjectiveFunction*>({new HierOneMaxFitness()}),
-			new HierOneMaxToString(),
+			vector<ObjectiveFunction*>({new OneMaxFitness()}),
+			new OneMaxToString(),
 			vector<EndCondition*>({new IterationCountEnd(100)}),
 			name.str(),
 			new GA(2, false, new TournamentSelection(0.95, 4)),
@@ -34,8 +34,8 @@ int main(void) {
 		new EANode(
 			8,
 			populationLoci,
-			vector<ObjectiveFunction*>({new HierOneMaxFitness()}),
-			new HierOneMaxToString(),
+			vector<ObjectiveFunction*>({new OneMaxFitness()}),
+			new OneMaxToString(),
 			vector<EndCondition*>({new IterationCountEnd(100)}),
 			"P1",
 			new GA(2, false, new TournamentSelection(0.95, 4)),

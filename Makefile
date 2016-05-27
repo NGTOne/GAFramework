@@ -38,8 +38,6 @@ uninstall:
 	sudo rm -r /usr/include/*libHierGA*
 	sudo ldconfig
 
-examples: obj-dir 1-max hier1-max longestfragment hierlongestfragment hier3longestfragment hier3proprr
-
 library: obj-dir core loci nodes endconditions exception
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
@@ -116,25 +114,19 @@ exception:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/ValueOutOfRangeException.cpp -o obj/exception/ValueOutOfRangeException.o
 
 # Examples
-1-max:
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/1max src/examples/1max/1maxFitness.cpp -o obj/examples/1max/1maxFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/1max src/examples/1max/1max.cpp -o obj/examples/1max/1max.o
-	$(CPPC) -o examples/1max obj/examples/1max/*.o $(SHAREDLIB)
+examples: example-fitnesses
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/1max.cpp -o obj/examples/1max.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/Hier1max.cpp -o obj/examples/Hier1max.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/LongestFragment.cpp -o obj/examples/LongestFragment.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/HierLongestFragment.cpp -o obj/examples/HierLongestFragment.o
+	$(CPPC) -o examples/1max obj/examples/1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
+	$(CPPC) -o examples/Hier1max obj/examples/Hier1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
+	$(CPPC) -o examples/LongestFragment obj/examples/LongestFragment.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
+	$(CPPC) -o examples/HierLongestFragment obj/examples/HierLongestFragment.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
 
-hier1-max:
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier1max src/examples/Hier1max/Hier1maxFitness.cpp -o obj/examples/Hier1max/Hier1maxFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier1max src/examples/Hier1max/Hier1max.cpp -o obj/examples/Hier1max/Hier1max.o
-	$(CPPC) -o examples/Hier1max obj/examples/Hier1max/*.o $(SHAREDLIB)
-
-longestfragment:
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/LongestFragment src/examples/LongestFragment/LongestFragmentFitness.cpp -o obj/examples/LongestFragment/LongestFragmentFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/LongestFragment src/examples/LongestFragment/LongestFragment.cpp -o obj/examples/LongestFragment/LongestFragment.o
-	$(CPPC) -o examples/LongestFragment obj/examples/LongestFragment/*.o $(SHAREDLIB)
-
-hierlongestfragment:
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierLongestFragment src/examples/HierLongestFragment/HierLongestFragmentFitness.cpp -o obj/examples/HierLongestFragment/HierLongestFragmentFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierLongestFragment src/examples/HierLongestFragment/HierLongestFragment.cpp -o obj/examples/HierLongestFragment/HierLongestFragment.o
-	$(CPPC) -o examples/HierLongestFragment obj/examples/HierLongestFragment/*.o $(SHAREDLIB)
+example-fitnesses:
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/fitnesses/1maxFitness.cpp -o obj/examples/fitnesses/1maxFitness.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/fitnesses/LongestFragmentFitness.cpp -o obj/examples/fitnesses/LongestFragmentFitness.o
 
 hier3longestfragment:
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3LongestFragment src/examples/Hier3LongestFragment/LongestFragmentFitness.cpp -o obj/examples/Hier3LongestFragment/LongestFragmentFitness.o
