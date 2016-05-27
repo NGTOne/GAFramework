@@ -19,14 +19,16 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives
 ) {
-	vector<vector<Genome*>> possibleContenders;
+	vector<vector<Genome*>> possibleContenders(
+		initialPopulation.size(),
+		vector<Genome*>()
+	);
 	vector<Genome*> newPopulation(initialPopulation.size(), NULL);
 	vector<int> newFitnesses(initialPopulation.size(), 0);
 
 	for (int i = 0; i < initialPopulation.size(); i++) {
 		vector<int> parentIndices;
-		vector<Genome*> parents;
-		vector<Genome*> children;
+		vector<Genome*> parents, children;
 		parentIndices.push_back(i);
 		parentIndices.push_back(this->getParent(
 			initialPopulation,
@@ -38,11 +40,10 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 
 		children = this->produceChildren(parents, cross, mutation);
 
-		for (int k = 0; i < children.size(); i++) {
+		for (int k = 0; k < children.size(); k++)
 			possibleContenders[parentIndices[k]].push_back(
 				children[k]
 			);
-		}
 	}
 
 	for (int i = 0; i < initialPopulation.size(); i++) {
@@ -65,9 +66,8 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 			newFitnesses[i] = populationFitnesses[i];
 		}
 
-		for (int k = 0; k < possibleContenders[i].size(); i++) {
+		for (int k = 0; k < possibleContenders[i].size(); k++)
 			delete(possibleContenders[i][k]);
-		}
 	}
 
 	populationFitnesses = newFitnesses;
