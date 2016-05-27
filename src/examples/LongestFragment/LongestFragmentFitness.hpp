@@ -2,14 +2,14 @@
 #include <string>
 #pragma once
 
-class LongestFragmentFitness : public FitnessFunction {
+class LongestFragmentFitness : public ObjectiveFunction {
 	private:
 
 	protected:
 
 	public:
 	LongestFragmentFitness();
-	PropertiesList * checkFitness(GeneNode ** pools, int * indexes, int genomeLength);
+	int checkFitness(Genome * target);
 };
 
 class LongestFragmentToString : public ToStringFunction {
@@ -18,5 +18,5 @@ class LongestFragmentToString : public ToStringFunction {
 	protected:
 
 	public:
-	std::string toString(GeneNode ** pools, int * indexes, int genomeLength);
+	std::string toString(Genome * target);
 };

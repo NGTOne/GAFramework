@@ -5,18 +5,16 @@
 
 using namespace std;
 
-LongestFragmentFitness::LongestFragmentFitness() : FitnessFunction() {}
+LongestFragmentFitness::LongestFragmentFitness() : ObjectiveFunction() {}
 
-PropertiesList * LongestFragmentFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
-	int longestPathLength = 0;
-	int currentPathLength = 0;
-	int currentPathIndex;
-	int longestPathIndex;
-	int currentDigit;
-	PropertiesList * returnProperties = new PropertiesList();
+int LongestFragmentFitness::checkFitness(Genome * genome) {
+	int longestPathLength = 0, currentPathLength = 0;
+	int currentPathIndex, longestPathIndex, currentDigit;
+	vector<int> rawGenome = genome->getGenome();
+	vector<Locus*> loci = genome->getLoci();
 
-	for (int i = 0; i < genomeLength; i++) {
-		currentDigit = *(int*)pools[i]->getIndex(indexes[i]);
+	for (int i = 0; i < genome->genomeLength(); i++) {
+		currentDigit = ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
 		currentPathIndex = i-currentPathLength;
 
 		if (currentDigit == 1) {
@@ -35,27 +33,16 @@ PropertiesList * LongestFragmentFitness::checkFitness(GeneNode ** pools, int * i
 		longestPathIndex = currentPathIndex;
 	}
 
-	Property<int> * storedProperty = new Property<int>(&longestPathIndex);
-
-	returnProperties->setFitness(longestPathLength);
-	returnProperties->addProperty(storedProperty);
-
-	return returnProperties;
+	return longestPathLength;
 }
 
-string LongestFragmentToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
-	string returnString = "";
+string LongestFragmentToString::toString(Genome * genome) {
 	stringstream ss;
-	int * tempIntPtr;
+	vector<int> rawGenome = genome->getGenome();
+	vector<Locus*> loci = genome->getLoci();
 
-	
-	for (int i = 0; i < genomeLength; i++) {
-		tempIntPtr = (int*)pools[i]->getIndex(indexes[i]);
+	for (int i = 0; i < genome->genomeLength(); i++)
+		ss << ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
 
-		ss << *tempIntPtr;
-	}
-
-	returnString = ss.str();
-
-	return returnString;
+	return ss.str();
 }
