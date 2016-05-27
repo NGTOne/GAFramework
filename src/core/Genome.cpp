@@ -16,6 +16,11 @@ Genome::Genome(vector<int> genes, vector<Locus*> loci) {
 	this->loci = loci;
 }
 
+Genome::Genome(Genome * other) {
+	this->loci = other->getLoci();
+	this->genes = other->getGenome();
+}
+
 Genome::Genome(Genome * other, bool randomize) {
 	this->loci = other->getLoci();
 	if (randomize) {

@@ -56,13 +56,10 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 		int childFitness = this->evaluateFitness(child, objectives);
 
 		if (childFitness > populationFitnesses[i]) {
-			newPopulation[i] = new Genome(child, false);
+			newPopulation[i] = new Genome(child);
 			newFitnesses[i] = childFitness;
 		} else {
-			newPopulation[i] = new Genome(
-				initialPopulation[i],
-				false
-			);
+			newPopulation[i] = new Genome(initialPopulation[i]);
 			newFitnesses[i] = populationFitnesses[i];
 		}
 

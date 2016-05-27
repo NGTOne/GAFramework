@@ -27,7 +27,7 @@ std::vector<Genome*> AccelSSGA::breedMutateSelect(
 ) {
 	std::vector<Genome*> newPopulation;
 	for (int i = 0; i < initialPopulation.size(); i++)
-		newPopulation.push_back(new Genome(initialPopulation[i], false));
+		newPopulation.push_back(new Genome(initialPopulation[i]));
 
 	for (int i = 0; i < initialPopulation.size()/2; i++) {
 		std::vector<Genome*> tempPopulation = SSGA::breedMutateSelect(

@@ -61,7 +61,7 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 	vector<int> parentIndices(2, 0);
 
 	for (int i = 0; i < initialPopulation.size(); i++)
-		newPopulation.push_back(new Genome(initialPopulation[i], false));
+		newPopulation.push_back(new Genome(initialPopulation[i]));
 
 	for (int i = 0; i < initialPopulation.size(); i++) {
 		parentIndices[0] = i;

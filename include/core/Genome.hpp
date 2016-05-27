@@ -16,6 +16,7 @@ class Genome {
 	public:
 	Genome(std::vector<Locus *> loci);
 	Genome(std::vector<int> genes, std::vector<Locus *> loci);
+	Genome(Genome * other);
 	Genome(Genome * other, bool randomize);
 	Genome(Genome * other, int rawGenes[]);
 

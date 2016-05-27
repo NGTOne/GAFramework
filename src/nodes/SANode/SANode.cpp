@@ -191,7 +191,7 @@ Genome * SANode::getNeighbour(Genome * target) {
 
 		if (currentTemp == 0) {
 			delete(neighbour);
-			return new Genome(target, false);
+			return new Genome(target);
 		}
 
 		float delta = this->maximize ? neighbourFitness - targetFitness
@@ -204,7 +204,7 @@ Genome * SANode::getNeighbour(Genome * target) {
 		if (goingWrongWayDist(this->generator) < probability) {
 			return neighbour;
 		} else {
-			return new Genome(target, false);
+			return new Genome(target);
 		}
 	}
 }

@@ -92,7 +92,7 @@ Genome* ES::getCrossoverChild(
 	uniform_int_distribution<int> childIndexDist(0, children.size() - 1);
 	int index = childIndexDist(this->generator);
 
-	Genome * child = new Genome(children[index], false);
+	Genome * child = new Genome(children[index]);
 	for (int i = 0; i < children.size(); i++) delete(children[i]);
 	return child;
 }
@@ -154,7 +154,7 @@ vector<Genome*> ES::breedMutateSelect(
 	//pulled from the top of the list
 	for (int i = 0; i < initialPopSize; i++) {
 		finalPopulation.push_back(
-			new Genome(overallPopulation[i], false)
+			new Genome(overallPopulation[i])
 		);
 		populationFitnesses[i] = finalPopulationFitnesses[i];
 	}

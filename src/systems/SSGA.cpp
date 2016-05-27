@@ -78,10 +78,7 @@ vector<Genome*> SSGA::breedMutateSelect(
 
 	for (int i = 0; i < finalPopulation.size(); i++)
 		if (finalPopulation[i] == NULL)
-			finalPopulation[i] = new Genome(
-				initialPopulation[i],
-				false
-			);
+			finalPopulation[i] = new Genome(initialPopulation[i]);
 
 	return finalPopulation;
 }
