@@ -12,6 +12,7 @@ PopulationLocus::PopulationLocus(PopulationNode * node) {
 PopulationLocus::~PopulationLocus() {}
 
 Genome * PopulationLocus::getIndex(int index) {
+	if (this->outOfRange(index)) throw ValueOutOfRangeException();
 	return this->node->getIndex(index);
 }
 
@@ -20,7 +21,7 @@ int PopulationLocus::topIndex() {
 }
 
 int PopulationLocus::randomIndex() {
-	uniform_int_distribution<int> dist(0, this->node->populationSize());
+	uniform_int_distribution<int> dist(0, this->node->populationSize()-1);
 	return dist(this->generator);
 }
 
