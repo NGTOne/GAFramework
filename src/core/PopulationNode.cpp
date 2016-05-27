@@ -91,6 +91,7 @@ void PopulationNode::createLoci(vector<Locus*> loci) {
 
 	for (int i = 0; i < this->initialPopulationSize; i++)
 		this->population.push_back(new Genome(loci));
+	this->evaluateFitnesses();
 }
 
 void PopulationNode::addEndCondition(EndCondition * condition) {
