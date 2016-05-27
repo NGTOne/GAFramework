@@ -2,7 +2,6 @@
 
 #include <random>
 #include <chrono>
-#include <string>
 #include <sstream>
 #include "nodes/EANode/MutationOperation.hpp"
 
@@ -10,22 +9,22 @@ using namespace std;
 
 MutationOperation::MutationOperation() {
 	seed = chrono::system_clock::now().time_since_epoch().count();
-	init(0, seed);
+	this->init(0, seed);
 }
 
-MutationOperation::MutationOperation(double newMutationRate) {
+MutationOperation::MutationOperation(double mutationRate) {
 	seed = chrono::system_clock::now().time_since_epoch().count();
-	init(newMutationRate, seed);
+	this->init(mutationRate, seed);
 }
 
-MutationOperation::MutationOperation(double newMutationRate, unsigned newSeed) {
-	init(newMutationRate, newSeed);
+MutationOperation::MutationOperation(double mutationRate, unsigned seed) {
+	this->init(mutationRate, seed);
 }
 
-void MutationOperation::init(double newMutationRate, unsigned newSeed) {
-	mutationRate = newMutationRate;
-	seed = newSeed;
-	generator = mt19937(seed);
+void MutationOperation::init(double mutationRate, unsigned seed) {
+	this->mutationRate = mutationRate;
+	this->seed = seed;
+	this->generator = mt19937(seed);
 }
 
 Genome * MutationOperation::mutate(Genome * initialGenome) {
@@ -48,13 +47,12 @@ Genome * MutationOperation::mutate(Genome * initialGenome) {
 }
 
 string MutationOperation::toString() {
-	string returnString = "";
 	stringstream ss;
 
-	ss << "Random seed: " << seed << "\nMutation rate: " << mutationRate << "\n";
+	ss << "Random seed: " << seed
+		<< "\nMutation rate: " << mutationRate
+		<< "\n";
 
-	returnString = ss.str();
-
-	return returnString;
+	return ss.str();
 
 }
