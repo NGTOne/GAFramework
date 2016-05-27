@@ -122,7 +122,6 @@ exception:
 	$(CPPC) -o examples/1max obj/examples/1max/*.o $(SHAREDLIB)
 
 hier1-max:
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier1max src/examples/Hier1max/1maxFitness.cpp -o obj/examples/Hier1max/1maxFitness.o
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier1max src/examples/Hier1max/Hier1maxFitness.cpp -o obj/examples/Hier1max/Hier1maxFitness.o
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier1max src/examples/Hier1max/Hier1max.cpp -o obj/examples/Hier1max/Hier1max.o
 	$(CPPC) -o examples/Hier1max obj/examples/Hier1max/*.o $(SHAREDLIB)

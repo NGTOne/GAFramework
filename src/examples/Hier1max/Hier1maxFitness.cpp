@@ -5,40 +5,28 @@
 
 using namespace std;
 
-HierOneMaxFitness::HierOneMaxFitness() : FitnessFunction() {}
+HierOneMaxFitness::HierOneMaxFitness() : ObjectiveFunction() {}
 
-PropertiesList * HierOneMaxFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
+int HierOneMaxFitness::checkFitness(Genome * genome) {
 	int total = 0;
-	Individual * tempIndividual;
-	PropertiesList * returnProperties = new PropertiesList();
-	PropertiesList * tempProperties;
+	Genome flattened = genome->flattenGenome();
+	vector<int> flattenedGenome = flattened.getGenome();
+	vector<Locus*> loci = flattened.getLoci();
 
-	for (int i = 0; i < genomeLength; i++) {
-		tempIndividual = (Individual*)pools[i]->getIndex(indexes[i]);
-		
-		tempProperties = tempIndividual->getProperties();
+	for (int i = 0; i < flattenedGenome.size(); i++)
+		total += ((IntLocus*)loci[i])->getIndex(flattenedGenome[i]);
 
-		total += tempProperties->getFitness();
-	}
-
-	returnProperties->setFitness(total);
-
-	return returnProperties;
+	return total;
 }
 
-string HierOneMaxToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
-	string returnString = "";
+string HierOneMaxToString::toString(Genome * genome) {
 	stringstream ss;
-	int * tempIntPtr;
-	Individual * tempIndividual;	
-
-	for (int i = 0; i < genomeLength; i++) {
-		tempIndividual = (Individual*)pools[i]->getIndex(indexes[i]);
-
-		ss << tempIndividual->toGenomeString();
-	}
-
-	returnString = ss.str();
-
-	return returnString;
+	Genome flattened = genome->flattenGenome();
+	vector<int> rawGenome = flattened.getGenome();
+	vector<Locus*> loci = flattened.getLoci();
+	
+	for (int i = 0; i < rawGenome.size(); i++)
+		ss << ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
+		
+	return ss.str();
 }
