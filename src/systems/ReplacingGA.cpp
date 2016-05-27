@@ -57,6 +57,7 @@ vector<Genome*> ReplacingGA::breedMutateSelect(
 		}
 
 		children = this->produceChildren(parents, cross, mutation);
+		parents.clear();
 
 		for (int k = 0; k < children.size(); k++) {
 			int childFitness = this->evaluateFitness(
