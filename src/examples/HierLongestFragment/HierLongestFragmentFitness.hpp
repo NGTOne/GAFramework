@@ -2,14 +2,14 @@
 #include <string>
 #pragma once
 
-class HierLongestFragmentFitness : public FitnessFunction {
+class HierLongestFragmentFitness : public ObjectiveFunction {
 	private:
 
 	protected:
 
 	public:
 	HierLongestFragmentFitness();
-	PropertiesList * checkFitness(GeneNode ** pools, int * indexes, int genomeLength);
+	int checkFitness(Genome * target);
 };
 
 class HierLongestFragmentToString : public ToStringFunction {
@@ -18,5 +18,5 @@ class HierLongestFragmentToString : public ToStringFunction {
 	protected:
 
 	public:
-	std::string toString(GeneNode ** pools, int * indexes, int genomeLength);
+	std::string toString(Genome * target);
 };

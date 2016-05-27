@@ -132,7 +132,6 @@ longestfragment:
 	$(CPPC) -o examples/LongestFragment obj/examples/LongestFragment/*.o $(SHAREDLIB)
 
 hierlongestfragment:
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierLongestFragment src/examples/HierLongestFragment/LongestFragmentFitness.cpp -o obj/examples/HierLongestFragment/LongestFragmentFitness.o
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierLongestFragment src/examples/HierLongestFragment/HierLongestFragmentFitness.cpp -o obj/examples/HierLongestFragment/HierLongestFragmentFitness.o
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/HierLongestFragment src/examples/HierLongestFragment/HierLongestFragment.cpp -o obj/examples/HierLongestFragment/HierLongestFragment.o
 	$(CPPC) -o examples/HierLongestFragment obj/examples/HierLongestFragment/*.o $(SHAREDLIB)

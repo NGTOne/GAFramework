@@ -5,164 +5,46 @@
 
 using namespace std;
 
-HierLongestFragmentFitness::HierLongestFragmentFitness() : FitnessFunction() {}
+HierLongestFragmentFitness::HierLongestFragmentFitness() : ObjectiveFunction() {}
 
-PropertiesList * HierLongestFragmentFitness::checkFitness(GeneNode ** pools, int * indexes, int genomeLength) {
-	Individual * tempIndividual;
-	PropertiesList * returnProperties = new PropertiesList(0);
-	PropertiesList * tempProperties;
-	Property<int> ** tempPropertiesList;
+int HierLongestFragmentFitness::checkFitness(Genome * genome) {
+	Genome flattened = genome->flattenGenome();
+	int longestPathLength = 0, currentPathLength = 0;
+	int currentPathIndex, longestPathIndex, currentDigit;
+	vector<int> rawGenome = flattened.getGenome();
+	vector<Locus*> loci = flattened.getLoci();
 
-	int ** allPathLengths = (int**)malloc(sizeof(int*)*genomeLength);
-	int ** allPathIndexes = (int**)malloc(sizeof(int*)*genomeLength);
-	int numPathsPerGenome[genomeLength];
+	for (int i = 0; i < flattened.genomeLength(); i++) {
+		currentDigit = ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
+		currentPathIndex = i-currentPathLength;
 
-	int tempPropertiesLength;
-
-	int * tempPathLengths;
-	int * tempPathIndexes;
-
-	int currentTempPath = 0;
-	int lowGenomeLength;
-
-	int numPaths = 0;
-	int numPathsListed = 0;
-
-	for (int i = 0; i < genomeLength; i++) {
-		tempIndividual = (Individual*)pools[i]->getIndex(indexes[i]);
-		
-		tempProperties = tempIndividual->getProperties();
-
-		tempPropertiesLength = tempProperties->getNumProperties();
-		tempPropertiesList = (Property<int>**)tempProperties->getProperties();
-
-		lowGenomeLength = *(tempPropertiesList[0]->getProperty());
-
-		tempPathLengths = (int*)malloc(sizeof(int)*((tempPropertiesLength)/2));
-		tempPathIndexes = (int*)malloc(sizeof(int)*((tempPropertiesLength)/2));
-
-		//Read the list of paths out of the property list
-		currentTempPath = 0;
-		for (int k = 1; k < tempPropertiesLength;) {
-			tempPathLengths[currentTempPath] = *(tempPropertiesList[k++]->getProperty());
-			tempPathIndexes[currentTempPath++] = *(tempPropertiesList[k++]->getProperty());
-			numPaths++;
-		}
-
-		allPathLengths[i] = tempPathLengths;
-		allPathIndexes[i] = tempPathIndexes;
-		numPathsPerGenome[i] = currentTempPath;
-	}
-
-	if (numPaths == 0) {
-		returnProperties->setFitness(0);
-		
-		int newLength = genomeLength*lowGenomeLength;
-		PropertyBase * newProperty = new Property<int>(&newLength);
-		returnProperties->addProperty(newProperty);
-
-		return returnProperties;
-	}
-
-	tempPathLengths = (int*)malloc(sizeof(int)*numPaths);
-	tempPathIndexes = (int*)malloc(sizeof(int)*numPaths);
-
-	//Move them into one long list, and adjust for position in the overall
-	//array
-	for (int i = 0; i < genomeLength; i++) {
-		for (int k = 0; k < numPathsPerGenome[i]; k++) {
-			tempPathLengths[numPathsListed] = allPathLengths[i][k];
-			tempPathIndexes[numPathsListed++] = allPathIndexes[i][k] + (lowGenomeLength*i);
-		}
-	}
-
-	int numConsolidatedPaths = 0;
-	int * newPathLengths = (int*)malloc(sizeof(int));
-	int * newPathIndexes = (int*)malloc(sizeof(int));
-
-	int currentPathIndex = tempPathIndexes[0];
-	int currentPathLength = tempPathLengths[0];
-
-	int tempPathLength;
-	int tempPathIndex;
-
-	for (int i = 1; i < numPaths; i++) {
-		tempPathIndex = tempPathIndexes[i];
-		tempPathLength = tempPathLengths[i];
-
-		if (currentPathIndex + currentPathLength == tempPathIndex) {
-			currentPathLength += tempPathLength;
+		if (currentDigit == 1) {
+			currentPathLength += 1;
 		} else {
-			newPathLengths = (int*)realloc(newPathLengths, sizeof(int)*(numConsolidatedPaths+1));
-			newPathIndexes = (int*)realloc(newPathIndexes, sizeof(int)*(numConsolidatedPaths+1));
-			newPathLengths[numConsolidatedPaths] = currentPathLength;
-			newPathIndexes[numConsolidatedPaths] = currentPathIndex;
-			currentPathIndex = tempPathIndex;
-			currentPathLength = tempPathLength;
-			numConsolidatedPaths += 1;
+			if (currentPathLength > longestPathLength) {
+				longestPathLength = currentPathLength;
+				longestPathIndex = currentPathIndex;
+			}
+			currentPathLength = 0;
 		}
 	}
 
-	newPathLengths = (int*)realloc(newPathLengths, sizeof(int)*(numConsolidatedPaths+1));
-	newPathIndexes = (int*)realloc(newPathIndexes, sizeof(int)*(numConsolidatedPaths+1));
-	newPathLengths[numConsolidatedPaths] = currentPathLength;               
-	newPathIndexes[numConsolidatedPaths] = currentPathIndex;
-	numConsolidatedPaths++;
-
-	int longestPathLength = 0;
-
-	for (int i = 0; i < numConsolidatedPaths; i++) {
-		if (newPathLengths[i] > longestPathLength) {
-			longestPathLength = newPathLengths[i];
-		}
+	if (currentPathLength > longestPathLength) {
+		longestPathLength = currentPathLength;
+		longestPathIndex = currentPathIndex;
 	}
 
-	returnProperties->setFitness(longestPathLength);
-	
-	int newLength = genomeLength*lowGenomeLength;
-
-	PropertyBase * newProperty = new Property<int>(&newLength);
-        returnProperties->addProperty(newProperty);
-
-	int currentProperty = 0;
-
-        for (int i = 0; i < numConsolidatedPaths; i++) {
-		newProperty = new Property<int>(&newPathLengths[currentProperty]);
-		returnProperties->addProperty(newProperty);
-
-		newProperty = new Property<int>(&newPathIndexes[currentProperty++]);
-		returnProperties->addProperty(newProperty);
-        }
-
-	free(newPathLengths);
-	free(newPathIndexes);
-
-	for (int i = 0; i < genomeLength; i++) {
-		free(allPathLengths[i]);
-		free(allPathIndexes[i]);
-	}
-
-	free(allPathLengths);
-	free(allPathIndexes);
-	free(tempPathLengths);
-	free(tempPathIndexes);
-
-	return returnProperties;
+	return longestPathLength;
 }
 
-string HierLongestFragmentToString::toString(GeneNode ** pools, int * indexes, int genomeLength) {
-	string returnString = "";
+string HierLongestFragmentToString::toString(Genome * genome) {
 	stringstream ss;
-	int * tempIntPtr;
-	Individual * tempIndividual;	
+	Genome flattened = genome->flattenGenome();
+	vector<int> rawGenome = flattened.getGenome();
+	vector<Locus*> loci = flattened.getLoci();
 
-	for (int i = 0; i < genomeLength; i++) {
-		tempIndividual = (Individual*)pools[i]->getIndex(indexes[i]);
+	for (int i = 0; i < flattened.genomeLength(); i++)
+		ss << ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
 
-		ss << tempIndividual->toGenomeString();
-	}
-
-	returnString = ss.str();
-
-	return returnString;
+	return ss.str();
 }
