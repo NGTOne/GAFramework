@@ -25,11 +25,6 @@ class ES : public EvolutionarySystem {
 
 	void init(double muRatio, double rhoRatio);
 
-	int getParent(
-		std::vector<Genome*> population,
-		std::vector<int> fitnesses
-	);
-	int getRandomParent(int populationSize);
 	Genome * getCrossoverChild(
 		vector<Genome*> initialPopulation,
 		vector<int> populationFitnesses,

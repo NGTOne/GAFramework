@@ -3,14 +3,15 @@
 #include <string>
 #include <sstream>
 #include "systems/ES.hpp"
+#include "selections/RandomSelection.hpp"
 
 using namespace std;
 
-ES::ES() : EvolutionarySystem(NULL) {
+ES::ES() : EvolutionarySystem(new RandomSelection()) {
 	init(1, 1);
 }
 
-ES::ES(unsigned seed) : EvolutionarySystem(NULL, seed) {
+ES::ES(unsigned seed) : EvolutionarySystem(new RandomSelection(), seed) {
 	init(1, 1);
 }
 
@@ -25,7 +26,12 @@ ES::ES(
 	init(1, 1);
 }
 
-ES::ES(double muRatio, double rhoRatio) : EvolutionarySystem(NULL) {
+ES::ES(
+	double muRatio,
+	double rhoRatio
+) : EvolutionarySystem(
+	new RandomSelection()
+) {
 	init(muRatio, rhoRatio);
 }
 
@@ -33,7 +39,7 @@ ES::ES(
 	double muRatio,
 	double rhoRatio,
 	unsigned seed
-) : EvolutionarySystem(NULL, seed) {
+) : EvolutionarySystem(new RandomSelection(), seed) {
 	init(muRatio, rhoRatio);
 }
 
@@ -57,22 +63,6 @@ ES::ES(
 void ES::init(double muRatio, double rhoRatio) {
 	this->muRatio = muRatio;
 	this->rhoRatio = rhoRatio;
-}
-
-int ES::getRandomParent(int populationSize) {
-	uniform_int_distribution<int> selectionDist(0, populationSize-1);
-	return selectionDist(generator);
-}
-
-int ES::getParent(vector<Genome*> population, vector<int> fitnesses) {
-	if (this->strategy == NULL) {
-		return getRandomParent(population.size());
-	} else {
-		return EvolutionarySystem::getParent(
-			population,
-			fitnesses
-		);
-	}
 }
 
 Genome* ES::getCrossoverChild(
@@ -113,7 +103,10 @@ vector<Genome*> ES::breedMutateSelect(
 	for (int i = 0; i < numMutants; i++) {
 		mutantChildren.push_back(
 			mutation->mutate(initialPopulation[
-				this->getRandomParent(initialPopSize)
+				this->getParent(
+					initialPopulation,
+					populationFitnesses
+				)
 			])
 		);
 	}
