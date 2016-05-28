@@ -35,6 +35,8 @@
 #include "core/migration/TranslationFunction.hpp"
 #include "core/migration/NullTranslationFunction.hpp"
 #include "core/EndCondition.hpp"
+#include "core/gc/NodeGarbageCollector.hpp"
+#include "core/gc/NodeDeallocator.hpp"
 #include "systems/ES.hpp"
 #include "systems/niching/Crowding.hpp"
 #include "systems/niching/NichingStrategy.hpp"
@@ -48,4 +50,7 @@
 #include "loci/FloatLocus.hpp"
 #include "loci/BoolLocus.hpp"
 #include "loci/PopulationLocus.hpp"
+#include "gc/EANodeDeallocator.hpp"
+#include "gc/NonOptimizingNodeDeallocator.hpp"
+#include "gc/SANodeDeallocator.hpp"
 #pragma once

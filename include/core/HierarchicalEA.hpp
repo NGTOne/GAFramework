@@ -42,6 +42,9 @@ class HierarchicalEA {
 	HierarchicalEA(int maxEpochs);
 	~HierarchicalEA();
 
+	// Kept separate from the destructor because we might want to keep them
+	void deleteAllNodes();
+
 	void run(bool verbose);
 
 	void addNode(PopulationNode * node, bool print);

@@ -4,6 +4,7 @@
 #include "exception/NoNodesException.hpp"
 #include "exception/NoEvolutionOrderException.hpp"
 #include "exception/MismatchedCountsException.hpp"
+#include "core/gc/NodeGarbageCollector.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -15,6 +16,18 @@ HierarchicalEA::HierarchicalEA(int maxEpochs) {
 }
 
 HierarchicalEA::~HierarchicalEA() {}
+
+void HierarchicalEA::deleteAllNodes() {
+	NodeGarbageCollector gc;
+	gc.deleteNodes(this->nodes);
+
+	this->nodesToPrint.clear();
+	this->evolutionOrder.clear();
+	this->endDictators.clear();
+	this->evolutionNodes.clear();
+	this->printNodes.clear();
+	this->endConditionDictatorNodes.clear();
+}
 
 void HierarchicalEA::addNode(PopulationNode * node, bool print) {
 	addNode(node, print, false);
