@@ -5,6 +5,7 @@
 #include "ToStringFunction.hpp"
 #include "Locus.hpp"
 #include <vector>
+#include <set>
 #pragma once
 
 typedef std::string node_type_t;
@@ -90,4 +91,9 @@ class PopulationNode {
 	std::string populationStrings();
 	virtual std::string toString();
 	virtual node_type_t type()=0;
+
+	std::set<Locus*> getLoci();
+	std::vector<EndCondition*> getConditions();
+	std::vector<ObjectiveFunction*> getObjectives();
+	ToStringFunction * getToString();
 };

@@ -1,0 +1,37 @@
+#include "gc/PopulationNodeDeallocator.hpp"
+#include "core/PopulationNode.hpp"
+#include <set>
+
+PopulationNodeDeallocator::PopulationNodeDeallocator() {}
+PopulationNodeDeallocator::~PopulationNodeDeallocator() {}
+
+bool PopulationNodeDeallocator::canDeleteNode(PopulationNode * node) {
+	return true;
+}
+
+void PopulationNodeDeallocator::deleteNodes() {
+	std::set<Locus*> loci;
+	std::set<EndCondition*> conditions;
+	std::set<ObjectiveFunction*> objectives;
+	std::set<ToStringFunction*> toStrings;
+
+	for (int i = 0; i < this->nodes.size(); i++) {
+		PopulationNode * temp = this->nodes[i];
+
+		std::set<Locus*> tempLoci = temp->getLoci();
+		loci.insert(tempLoci.begin(), tempLoci.end());
+
+		vector<EndCondition*> tempConditions = temp->getConditions;
+		conditions.insert(tempConditions.begin(), tempConditions.end());
+
+		vector<ObjectiveFunction*> tempObjectives;
+		objectives.insert(tempObjectives.begin(), tempObjectives.end());
+
+		toStrings.insert(temp->getToString());
+	}
+
+	this->clearSet<Locus*>(loci);
+	this->clearSet<EndCondition*>(conditions);
+	this->clearSet<ObjectiveFunction*>(objectives);
+	this->clearSet<ToStringFunction*>(toStrings);
+}

@@ -221,3 +221,25 @@ string PopulationNode::toString() {
 	readOnce = true;
 	return ss.str();
 }
+
+set<Locus*> PopulationNode::getLoci() {
+	set<Locus*> loci;
+	for (int i = 0; i < this->population.size(); i++) {
+		vector<Locus*> temp = this->population[i]->getLoci();
+		loci.insert(temp.begin(), temp.end());
+	}
+
+	return loci;
+}
+
+vector<EndCondition*> PopulationNode::getConditions() {
+	return this->conditions;
+}
+
+vector<ObjectiveFunction*> PopulationNode::getObjectives() {
+	return this->objectives;
+}
+
+ToStringFunction * PopulationNode::getToString() {
+	return this->populationToString;
+}
