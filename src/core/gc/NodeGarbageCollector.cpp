@@ -1,4 +1,5 @@
 #include "core/gc/NodeGarbageCollector.hpp"
+#include "gc/PopulationNodeDeallocator.hpp"
 #include "gc/NonOptimizingNodeDeallocator.hpp"
 #include "gc/SANodeDeallocator.hpp"
 #include "gc/EANodeDeallocator.hpp"
@@ -11,6 +12,8 @@
 * added
 */
 NodeGarbageCollector::NodeGarbageCollector() {
+	// Must come first
+	this->deallocators.push_back(new PopulationNodeDeallocator());
 	this->deallocators.push_back(new NonOptimizingNodeDeallocator());
 	this->deallocators.push_back(new SANodeDeallocator());
 	this->deallocators.push_back(new EANodeDeallocator());
@@ -24,10 +27,8 @@ NodeGarbageCollector::~NodeGarbageCollector() {
 void NodeGarbageCollector::deleteNodes(std::vector<PopulationNode*> nodes) {
 	for (int i = 0; i < nodes.size(); i++)
 		for (int k = 0; k < this->deallocators.size(); k++)
-			if (this->deallocators[k]->canDeleteNode(nodes[i])) {
+			if (this->deallocators[k]->canDeleteNode(nodes[i]))
 				this->deallocators[k]->registerNode(nodes[i]);
-				break;
-			}
 
 	for (int i = 0; i < this->deallocators.size(); i++)
 		this->deallocators[i]->deleteNodes();

@@ -52,5 +52,6 @@
 #include "loci/PopulationLocus.hpp"
 #include "gc/EANodeDeallocator.hpp"
 #include "gc/NonOptimizingNodeDeallocator.hpp"
+#include "gc/PopulationNodeDeallocator.hpp"
 #include "gc/SANodeDeallocator.hpp"
 #pragma once
