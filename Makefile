@@ -78,6 +78,7 @@ sa:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/SANode/SANode.cpp -o obj/nodes/SANode/SANode.o
 
 selections:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/selections/RandomSelection.cpp -o obj/selections/RandomSelection.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
 
 mutations:

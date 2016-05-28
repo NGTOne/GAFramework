@@ -20,6 +20,7 @@
 #include "mutations/BoundaryMutation.hpp"
 #include "mutations/UniformMutation.hpp"
 #include "mutations/GaussianMutation.hpp"
+#include "selections/RandomSelection.hpp"
 #include "selections/TournamentSelection.hpp"
 #include "crossovers/UniformCrossover.hpp"
 #include "crossovers/NPointCrossover.hpp"
