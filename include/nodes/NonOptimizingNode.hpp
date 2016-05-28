@@ -1,6 +1,8 @@
 #include "../core/PopulationNode.hpp"
 #pragma once
 
+#define NON_OPT_TYPE "non"
+
 class NonOptimizingNode : public PopulationNode {
 	private:
 
@@ -17,4 +19,5 @@ class NonOptimizingNode : public PopulationNode {
 	);
 
 	void nextIteration();
+	node_type_t type();
 };

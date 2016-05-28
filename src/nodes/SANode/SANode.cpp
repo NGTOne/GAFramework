@@ -230,3 +230,7 @@ string SANode::toString() {
 
 	return ss.str();
 }
+
+node_type_t SANode::type() {
+	return SA_TYPE;
+}

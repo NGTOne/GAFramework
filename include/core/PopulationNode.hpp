@@ -7,6 +7,8 @@
 #include <vector>
 #pragma once
 
+typedef std::string node_type_t;
+
 class PopulationNode {
 	private:
 
@@ -87,4 +89,5 @@ class PopulationNode {
 
 	std::string populationStrings();
 	virtual std::string toString();
+	virtual node_type_t type()=0;
 };

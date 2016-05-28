@@ -5,6 +5,8 @@
 #include <string>
 #pragma once
 
+#define EA_TYPE "evolutionary"
+
 class EANode : public PopulationNode {
 	private:
 
@@ -49,4 +51,5 @@ class EANode : public PopulationNode {
 
 	virtual std::vector<Genome*> getNextPopulation();
 	std::string toString();
+	node_type_t type();
 };

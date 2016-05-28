@@ -6,6 +6,8 @@
 #include <random>
 #pragma once
 
+#define SA_TYPE "annealer"
+
 class SANode : public PopulationNode {
 	private:
 
@@ -72,4 +74,5 @@ class SANode : public PopulationNode {
 
 	virtual std::vector<Genome*> getNextPopulation();
 	std::string toString();
+	node_type_t type();
 };

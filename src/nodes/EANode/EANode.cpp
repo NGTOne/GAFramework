@@ -82,3 +82,7 @@ string EANode::toString() {
 	readOnce = true;
 	return ss.str();
 }
+
+node_type_t EANode::type() {
+	return EA_TYPE;
+}

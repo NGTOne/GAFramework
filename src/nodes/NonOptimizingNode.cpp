@@ -22,3 +22,7 @@ NonOptimizingNode::NonOptimizingNode(
 void NonOptimizingNode::nextIteration() {
 	if (!done()) evaluateFitnesses();
 }
+
+node_type_t NonOptimizingNode::type() {
+	return NON_OPT_TYPE;
+}
