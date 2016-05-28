@@ -1,5 +1,6 @@
 #include "../PopulationNode.hpp"
 #include <vector>
+#include <set>
 #pragma once
 
 class NodeDeallocator {
@@ -16,4 +17,7 @@ class NodeDeallocator {
 	void registerNode(PopulationNode * node);
 
 	virtual void deleteNodes()=0;
+
+	template<typename T>
+	void clearSet(typename std::set<T> target);
 };

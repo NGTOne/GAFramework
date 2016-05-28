@@ -16,5 +16,5 @@ void SANodeDeallocator::deleteNodes() {
 		delete(this->nodes[i]);
 	}
 
-	while(!schedules.empty()) schedules.erase(schedules.begin());
+	this->clearSet<TemperatureSchedule*>(schedules);
 }
