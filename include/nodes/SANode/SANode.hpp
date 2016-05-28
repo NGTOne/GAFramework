@@ -75,4 +75,6 @@ class SANode : public PopulationNode {
 	virtual std::vector<Genome*> getNextPopulation();
 	std::string toString();
 	node_type_t type();
+
+	TemperatureSchedule * getSchedule();
 };

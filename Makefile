@@ -59,6 +59,7 @@ core:
 
 gc:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/NonOptimizingNodeDeallocator.cpp -o obj/gc/NonOptimizingNodeDeallocator.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/SANodeDeallocator.cpp -o obj/gc/SANodeDeallocator.o
 
 loci:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/BoolLocus.cpp -o obj/loci/BoolLocus.o

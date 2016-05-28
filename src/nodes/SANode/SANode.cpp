@@ -234,3 +234,7 @@ string SANode::toString() {
 node_type_t SANode::type() {
 	return SA_TYPE;
 }
+
+TemperatureSchedule * SANode::getSchedule() {
+	return this->schedule;
+}
