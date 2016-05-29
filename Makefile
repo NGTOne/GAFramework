@@ -71,10 +71,13 @@ loci:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/FloatLocus.cpp -o obj/loci/FloatLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/PopulationLocus.cpp -o obj/loci/PopulationLocus.o
 
-apportionment:
+apportionment: apportionment-func
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment/AveragingApportionment.cpp -o obj/apportionment/AveragingApportionment.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment/SummingApportionment.cpp -o obj/apportionment/SummingApportionment.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment/BestOfApportionment.cpp -o obj/apportionment/BestOfApportionment.o
+
+apportionment-func:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment-func/SameFitnessApportionmentFunction.cpp -o obj/apportionment-func/SameFitnessApportionmentFunciont.o
 
 nodes: ea sa
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/NonOptimizingNode.cpp -o obj/nodes/NonOptimizingNode.o

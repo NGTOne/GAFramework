@@ -14,6 +14,7 @@
 #include "apportionment/AveragingApportionment.hpp"
 #include "apportionment/BestOfApportionment.hpp"
 #include "apportionment/SummingApportionment.hpp"
+#include "apportionment-func/SameFitnessApportionmentFunction.hpp"
 #include "exception/InvalidNodeException.hpp"
 #include "exception/MismatchedCountsException.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
