@@ -88,5 +88,5 @@ bool SSGA::hasNiching() {
 }
 
 NichingStrategy * SSGA::getNiching() {
-	return this->niching();
+	return this->niching;
 }
