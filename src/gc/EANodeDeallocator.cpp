@@ -33,6 +33,8 @@ void EANodeDeallocator::deleteNodes() {
 
 		if (system->hasNiching())
 			niching.insert(((SSGA*)system)->getNiching());
+
+		delete(temp);
 	}
 
 	this->clearSet<EvolutionarySystem*>(systems);
