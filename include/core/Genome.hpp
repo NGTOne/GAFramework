@@ -1,6 +1,7 @@
 #pragma once
 #include "Locus.hpp"
 #include <vector>
+#include <boost/any.hpp>
 
 using namespace std;
 
@@ -32,6 +33,26 @@ class Genome {
 	Genome flattenGenome();
 	Genome flattenExceptFor(Genome * target);
 	Genome flattenWithout(Genome * target);
+	int getFlattenedIndex(Genome * target);
 
 	bool usesComponent(Genome * component);
+
+	template <typename T>
+	bool indexIs(int index, T target);
+
+	template <typename T>
+	T getIndex(int index);
 };
+
+template <typename T>
+bool Genome::indexIs(int index, T target) {
+	T value = boost::any_cast<T>(
+		this->loci[index]->getIndex(this->genes[index])
+	);
+	return value == target;
+}
+
+template <typename T>
+T Genome::getIndex(int index) {
+	return boost::any_cast<T>(this->loci[index]->getIndex(this->genes[index]));
+}

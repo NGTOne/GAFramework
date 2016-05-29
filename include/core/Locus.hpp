@@ -17,8 +17,6 @@ class Locus {
 	void init(unsigned seed);
 	void setPopulation(std::vector<boost::any> population);
 
-	boost::any getIndex(int index);
-
 	public:
 	~Locus();
 
@@ -28,5 +26,6 @@ class Locus {
 	virtual bool isConstructive();
 	virtual std::string toString()=0;
 	virtual std::string flatten(int index)=0;
+	boost::any getIndex(int index);
 };
 
