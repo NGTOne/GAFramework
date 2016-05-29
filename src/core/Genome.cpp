@@ -138,6 +138,15 @@ Genome Genome::flattenWithout(Genome * target) {
 	return this->flattenGenome(target, true);
 }
 
+int Genome::getFlattenedIndex(Genome * target) {
+	Genome temp = this->flattenGenome(target, false);
+	vector<Locus*> tempLoci = temp.getLoci();
+
+	// TODO: Make this a bit less hack-y
+	for (int i = 0; i < temp.genomeLength(); i++)
+		if (tempLoci[i]->isConstructive()) return i;
+}
+
 bool Genome::usesComponent(Genome * component) {
 	for (int i = 0; i < this->loci.size(); i++) {
 		Locus * locus = this->loci[i];
