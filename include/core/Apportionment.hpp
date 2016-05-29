@@ -17,4 +17,7 @@ class Apportionment : public ObjectiveFunction {
 	Apportionment(PopulationNode * upperNode, ApportionmentFunction * func);
 
 	int checkFitness(Genome * genome);
+
+	bool isApportioning();
+	ApportionmentFunction * getApportionmentFunction();
 };

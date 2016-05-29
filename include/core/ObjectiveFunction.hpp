@@ -9,4 +9,5 @@ class ObjectiveFunction {
 
 	public:
 	virtual int checkFitness(Genome * genome)=0;
+	virtual bool isApportioning();
 };

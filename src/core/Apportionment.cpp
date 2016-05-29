@@ -25,3 +25,11 @@ int Apportionment::checkFitness(Genome * genome) {
 
 	return this->aggregateFitnesses(apportionedFitnesses);
 }
+
+bool Apportionment::isApportioning() {
+	return true;
+}
+
+ApportionmentFunction * Apportionment::getApportionmentFunction() {
+	return this->func;
+}
