@@ -138,7 +138,6 @@ void PopulationNode::nextIteration() {
 		this->replacePopulation();
 		this->evaluateFitnesses();
 		this->currentIteration++;
-		// TODO: Work in apportionment
 	}
 }
 

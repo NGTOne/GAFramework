@@ -43,7 +43,6 @@ void EvolutionarySystem::sortPopulation(
 	}
 }
 
-// TODO: Work in apportionment here
 int EvolutionarySystem::evaluateFitness(
 	Genome * target,
 	vector<ObjectiveFunction*> objectives
