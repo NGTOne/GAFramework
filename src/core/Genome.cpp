@@ -91,31 +91,51 @@ string Genome::flatten() {
 	return ss.str();
 }
 
-Genome Genome::flattenGenome() {
+Genome Genome::flattenGenome(Genome * target, bool exclude) {
 	vector<int> rawGenome;
 	vector<Locus*> rawLoci;
 
 	for (int i = 0; i < this->genomeLength(); i++) {
-		if (!loci[i]->isConstructive()) {
+		Locus * tempLocus = this->loci[i];
+		if (!tempLocus->isConstructive()) {
 			rawGenome.push_back(this->genes[i]);
 			rawLoci.push_back(this->loci[i]);
 		} else {
-			Genome * temp = ((PopulationLocus*)loci[i])->getIndex(
+			Genome * temp = ((PopulationLocus*)tempLocus)->getIndex(
 				this->genes[i]
 			);
 
-			Genome tempFlattened = temp->flattenGenome();
-			vector<int> tempGenome = tempFlattened.getGenome();
-			vector<Locus*> tempLoci = tempFlattened.getLoci();
+			if (temp == target) {
+				if (!exclude) {
+					rawGenome.push_back(this->genes[i]);
+					rawLoci.push_back(this->loci[i]);
+				}
+			} else {
+				Genome tempFlattened = temp->flattenGenome();
+				vector<int> tempGenome = tempFlattened.getGenome();
+				vector<Locus*> tempLoci = tempFlattened.getLoci();
 
-			for (int k = 0; k < tempGenome.size(); k++) {
-				rawGenome.push_back(tempGenome[k]);
-				rawLoci.push_back(tempLoci[k]);
+				for (int k = 0; k < tempGenome.size(); k++) {
+					rawGenome.push_back(tempGenome[k]);
+					rawLoci.push_back(tempLoci[k]);
+				}
 			}
 		}
 	}
 
 	return Genome(rawGenome, rawLoci);
+}
+
+Genome Genome::flattenGenome() {
+	return this->flattenGenome(NULL, false);
+}
+
+Genome Genome::flattenExceptFor(Genome * target) {
+	return this->flattenGenome(target, false);
+}
+
+Genome Genome::flattenWithout(Genome * target) {
+	return this->flattenGenome(target, true);
 }
 
 bool Genome::usesComponent(Genome * component) {

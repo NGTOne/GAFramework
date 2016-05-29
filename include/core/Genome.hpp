@@ -12,6 +12,7 @@ class Genome {
 	std::vector<Locus *> loci;
 
 	void generateRandomGenes();
+	Genome flattenGenome(Genome * target, bool exclude);
 
 	public:
 	Genome(std::vector<Locus *> loci);
@@ -29,6 +30,8 @@ class Genome {
 
 	std::string flatten();
 	Genome flattenGenome();
+	Genome flattenExceptFor(Genome * target);
+	Genome flattenWithout(Genome * target);
 
 	bool usesComponent(Genome * component);
 };
