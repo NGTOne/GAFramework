@@ -100,8 +100,9 @@ void SANode::init(TemperatureSchedule * schedule, bool maximize) {
 }
 
 int SANode::compareNeighbourliness(Genome * base, Genome * target) {
-	// TODO: Make this compare neighbourliness properly
-	return base->difference(target);
+	Genome flattenedBase = base->flattenGenome();
+	Genome flattenedTarget = target->flattenGenome();
+	return flattenedBase.difference(&flattenedTarget);
 }
 
 // TODO: Break this down further at some point
