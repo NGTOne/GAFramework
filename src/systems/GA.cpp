@@ -75,7 +75,7 @@ void GA::placeElites(
 }
 
 vector<int> GA::findElites(vector<int> fitnesses) {
-	int populationSize = fitnesses.size(), bestFitness, bestFitnessIndex;
+	int populationSize = fitnesses.size(), bestFitness, bestFitnessIndex = 0;
 	bool eliteLocations[populationSize];
 	vector<int> eliteIndexes;
 	for (int i = 0; i < populationSize; i++) eliteLocations[i] = false;
