@@ -243,3 +243,7 @@ vector<ObjectiveFunction*> PopulationNode::getObjectives() {
 ToStringFunction * PopulationNode::getToString() {
 	return this->populationToString;
 }
+
+int PopulationNode::getFitnessAtIndex(int index) {
+	return this->fitnesses[index];
+}

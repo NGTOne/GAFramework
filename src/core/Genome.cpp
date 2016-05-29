@@ -117,3 +117,19 @@ Genome Genome::flattenGenome() {
 
 	return Genome(rawGenome, rawLoci);
 }
+
+bool Genome::usesComponent(Genome * component) {
+	for (int i = 0; i < this->loci.size(); i++) {
+		Locus * locus = this->loci[i];
+		if (locus->isConstructive()) {
+			Genome * temp = ((PopulationLocus*)locus)->getIndex(
+				this->genes[i]
+			);
+
+			return (temp == component) ?
+				true : temp->usesComponent(component);
+		}
+	}
+
+	return false;
+}
