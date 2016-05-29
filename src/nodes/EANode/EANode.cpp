@@ -86,3 +86,15 @@ string EANode::toString() {
 node_type_t EANode::type() {
 	return EA_TYPE;
 }
+
+EvolutionarySystem * EANode::getSystem() {
+	return this->system;
+}
+
+CrossoverOperation * EANode::getCrossover() {
+	return this->cross;
+}
+
+MutationOperation * EANode::getMutation() {
+	return this->mutation;
+}

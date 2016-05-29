@@ -19,5 +19,12 @@ class NodeDeallocator {
 	virtual void deleteNodes()=0;
 
 	template<typename T>
-	void clearSet(typename std::set<T> target);
+	void clearSet(std::set<T> target);
 };
+
+// Needs to be here, because it's used in many places
+template <typename T>
+void NodeDeallocator::clearSet(std::set<T> target) {
+	std::vector<T> targetVector(target.begin(), target.end());
+	for (int i = 0; i < targetVector.size(); i++) delete(targetVector[i]);
+}
