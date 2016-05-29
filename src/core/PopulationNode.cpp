@@ -94,6 +94,25 @@ void PopulationNode::createLoci(vector<Locus*> loci) {
 	this->evaluateFitnesses();
 }
 
+void PopulationNode::addObjective(ObjectiveFunction * objective) {
+	this->objectives.push_back(objective);
+}
+
+void PopulationNode::addObjectives(vector<ObjectiveFunction*> objectives) {
+	for (int i = 0; i < objectives.size(); i++)
+		this->objectives.push_back(objectives[i]);
+}
+
+void PopulationNode::setObjective(ObjectiveFunction * objective) {
+	this->objectives.clear();
+	this->addObjective(objective);
+}
+
+void PopulationNode::setObjectives(vector<ObjectiveFunction*> objectives) {
+	this->objectives.clear();
+	this->addObjectives(objectives);
+}
+
 void PopulationNode::addEndCondition(EndCondition * condition) {
 	this->conditions.push_back(condition);
 }

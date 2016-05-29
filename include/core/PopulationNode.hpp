@@ -66,6 +66,11 @@ class PopulationNode {
 
 	~PopulationNode();
 
+	void addObjective(ObjectiveFunction * objective);
+	void addObjectives(std::vector<ObjectiveFunction*> objectives);
+	void setObjective(ObjectiveFunction * objective);
+	void setObjectives(std::vector<ObjectiveFunction*> objectives);
+
 	void addEndCondition(EndCondition * condition);
 	void addEndConditions(std::vector<EndCondition *> conditions);
 	void setEndCondition(EndCondition * condition);
