@@ -60,6 +60,7 @@ core:
 gc:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/PopulationNodeDeallocator.cpp -o obj/gc/PopulationNodeDeallocator.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/NonOptimizingNodeDeallocator.cpp -o obj/gc/NonOptimizingNodeDeallocator.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/EANodeDeallocator.cpp -o obj/gc/EANodeDeallocator.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/SANodeDeallocator.cpp -o obj/gc/SANodeDeallocator.o
 
 loci:

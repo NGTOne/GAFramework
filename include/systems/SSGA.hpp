@@ -35,4 +35,7 @@ class SSGA : public EvolutionarySystem {
 		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives
 	);
+
+	bool hasNiching();
+	NichingStrategy * getNiching();
 };

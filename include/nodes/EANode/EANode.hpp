@@ -52,4 +52,8 @@ class EANode : public PopulationNode {
 	virtual std::vector<Genome*> getNextPopulation();
 	std::string toString();
 	node_type_t type();
+
+	EvolutionarySystem * getSystem();
+	CrossoverOperation * getCrossover();
+	MutationOperation * getMutation();
 };

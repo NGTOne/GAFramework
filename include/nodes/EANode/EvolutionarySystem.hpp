@@ -50,4 +50,6 @@ class EvolutionarySystem {
 	)=0;
 
 	std::string toString();
+	SelectionStrategy * getSelectionStrategy();
+	virtual bool hasNiching();
 };

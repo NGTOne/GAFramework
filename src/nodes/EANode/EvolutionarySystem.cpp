@@ -92,3 +92,11 @@ string EvolutionarySystem::toString() {
 
 	return ss.str();
 }
+
+SelectionStrategy * EvolutionarySystem::getSelectionStrategy() {
+	return this->strategy;
+}
+
+bool EvolutionarySystem::hasNiching() {
+	return false;
+}

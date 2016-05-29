@@ -82,3 +82,11 @@ vector<Genome*> SSGA::breedMutateSelect(
 
 	return finalPopulation;
 }
+
+bool SSGA::hasNiching() {
+	return true;
+}
+
+NichingStrategy * SSGA::getNiching() {
+	return this->niching();
+}
