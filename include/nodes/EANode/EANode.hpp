@@ -47,8 +47,6 @@ class EANode : public PopulationNode {
 		MutationOperation * mutation
 	);
 
-	~EANode();
-
 	virtual std::vector<Genome*> getNextPopulation();
 	std::string toString();
 	node_type_t type();
