@@ -25,6 +25,8 @@
 #include "crossovers/UniformCrossover.hpp"
 #include "crossovers/NPointCrossover.hpp"
 #include "crossovers/CutAndSpliceCrossover.hpp"
+#include "core/ApportionmentFunction.hpp"
+#include "core/Apportionment.hpp"
 #include "core/ObjectiveFunction.hpp"
 #include "core/HierarchicalEA.hpp"
 #include "core/ToStringFunction.hpp"

@@ -29,4 +29,6 @@ class Genome {
 
 	std::string flatten();
 	Genome flattenGenome();
+
+	bool usesComponent(Genome * component);
 };

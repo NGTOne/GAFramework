@@ -96,4 +96,5 @@ class PopulationNode {
 	std::vector<EndCondition*> getConditions();
 	std::vector<ObjectiveFunction*> getObjectives();
 	ToStringFunction * getToString();
+	int getFitnessAtIndex(int index);
 };
