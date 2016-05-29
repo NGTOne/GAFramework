@@ -138,10 +138,12 @@ examples: example-fitnesses
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/Hier1max.cpp -o obj/examples/Hier1max.o
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/LongestFragment.cpp -o obj/examples/LongestFragment.o
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/HierLongestFragment.cpp -o obj/examples/HierLongestFragment.o
+	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/ApportioningHierLF.cpp -o obj/examples/ApportioningHierLF.o
 	$(CPPC) -o examples/1max obj/examples/1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
 	$(CPPC) -o examples/Hier1max obj/examples/Hier1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
 	$(CPPC) -o examples/LongestFragment obj/examples/LongestFragment.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
 	$(CPPC) -o examples/HierLongestFragment obj/examples/HierLongestFragment.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
+	$(CPPC) -o examples/ApportioningHierLF obj/examples/ApportioningHierLF.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
 
 example-fitnesses:
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/fitnesses/1maxFitness.cpp -o obj/examples/fitnesses/1maxFitness.o

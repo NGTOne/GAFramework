@@ -5,12 +5,10 @@
 
 using namespace std;
 
-LongestFragmentFitness::LongestFragmentFitness() : ObjectiveFunction() {}
-
-int LongestFragmentFitness::checkFitness(Genome * genome) {
+int findLongestPath(Genome * genome, int & longestPathIndex) {
 	Genome flattened = genome->flattenGenome();
 	int longestPathLength = 0, currentPathLength = 0;
-	int currentPathIndex, longestPathIndex, currentDigit;
+	int currentPathIndex, currentDigit;
 	vector<int> rawGenome = flattened.getGenome();
 	vector<Locus*> loci = flattened.getLoci();
 
@@ -37,6 +35,13 @@ int LongestFragmentFitness::checkFitness(Genome * genome) {
 	return longestPathLength;
 }
 
+LongestFragmentFitness::LongestFragmentFitness() : ObjectiveFunction() {}
+
+int LongestFragmentFitness::checkFitness(Genome * genome) {
+	int bitBucket;
+	return findLongestPath(genome, bitBucket);
+}
+
 string LongestFragmentToString::toString(Genome * genome) {
 	stringstream ss;
 	Genome flattened = genome->flattenGenome();
@@ -47,4 +52,39 @@ string LongestFragmentToString::toString(Genome * genome) {
 		ss << ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
 
 	return ss.str();
+}
+
+int LongestFragmentApportionment::apportionFitness(
+	Genome * recipient,
+	Genome * provider,
+	int providerFitness
+) {
+	int recipientStartIndex = provider->getFlattenedIndex(recipient);
+	int longestPathLocation;
+	int longestPathLength = findLongestPath(provider, longestPathLocation);
+	int longestPathEndLocation = longestPathLocation + longestPathLength;
+	int recipientEndLocation =
+		recipientStartIndex + recipient->genomeLength();
+
+	if (recipientEndLocation < longestPathLocation)
+		return 0;
+
+	if (recipientStartIndex > longestPathEndLocation)
+		return 0;
+
+	int totalPathOverlap = 0;
+	Genome flattenedRecipient = recipient->flattenGenome();
+
+	int currentLocation;
+	for (int i = 0; i < flattenedRecipient.genomeLength(); i++) {
+		currentLocation = i + recipientStartIndex;
+		if (
+			currentLocation >= longestPathLocation
+			&& currentLocation < longestPathEndLocation
+		) {
+			if (flattenedRecipient.indexIs<int>(i, 1)) totalPathOverlap += 1;
+		}
+	}
+
+	return totalPathOverlap;
 }
