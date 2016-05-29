@@ -35,8 +35,6 @@ class HierarchicalEA {
 	void checkNodesExist(vector<string> names);
 	bool done(int currentEpoch);
 
-	PopulationNode * getNodeByName(string name);
-
 	public:
 	HierarchicalEA();
 	HierarchicalEA(int maxEpochs);
@@ -59,6 +57,7 @@ class HierarchicalEA {
 	void setNodesToPrint(vector<string> names);
 	void setEvolutionOrder(vector<string> names);
 	void setEndConditionDictatorNodes(vector<string> names);
+	PopulationNode * getNodeByName(string name);
 
 	void addMigratoryRelationship(
 		string from,
