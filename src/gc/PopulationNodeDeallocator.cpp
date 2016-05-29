@@ -21,10 +21,10 @@ void PopulationNodeDeallocator::deleteNodes() {
 		std::set<Locus*> tempLoci = temp->getLoci();
 		loci.insert(tempLoci.begin(), tempLoci.end());
 
-		vector<EndCondition*> tempConditions = temp->getConditions;
+		vector<EndCondition*> tempConditions = temp->getConditions();
 		conditions.insert(tempConditions.begin(), tempConditions.end());
 
-		vector<ObjectiveFunction*> tempObjectives;
+		vector<ObjectiveFunction*> tempObjectives = temp->getObjectives();
 		objectives.insert(tempObjectives.begin(), tempObjectives.end());
 
 		toStrings.insert(temp->getToString());
