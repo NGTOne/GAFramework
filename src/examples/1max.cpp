@@ -26,5 +26,7 @@ int main(void) {
 
 	ea.setEvolutionOrder({"P1"});
 	ea.run(true);
+
+	ea.deleteAllNodes();
 }
 

@@ -48,5 +48,6 @@ int main(void) {
 
 	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});
 	ea.run(true);
+	ea.deleteAllNodes();
 }
 
