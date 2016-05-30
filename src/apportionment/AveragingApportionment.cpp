@@ -9,7 +9,7 @@ int AveragingApportionment::aggregateFitnesses(
 	std::vector<int> apportionedFitnesses
 ) {
 	int total = 0;
-	for (int i = 0; i < apportionedFitnesses.size(); i++)
+	for (unsigned int i = 0; i < apportionedFitnesses.size(); i++)
 		total += apportionedFitnesses[i];
 
 	return total/apportionedFitnesses.size();

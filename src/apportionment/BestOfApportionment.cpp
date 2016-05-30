@@ -9,7 +9,7 @@ int BestOfApportionment::aggregateFitnesses(
 	std::vector<int> apportionedFitnesses
 ) {
 	int bestFitness = 0;
-	for (int i = 0; i < apportionedFitnesses.size(); i++)
+	for (unsigned int i = 0; i < apportionedFitnesses.size(); i++)
 		if (apportionedFitnesses[i] > bestFitness)
 			bestFitness = apportionedFitnesses[i];
 
