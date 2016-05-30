@@ -16,12 +16,13 @@ UniformMutation::UniformMutation(
 ) : MutationOperation(mutationRate, seed) {}
 
 
-int UniformMutation::getNewLocusValue(
-	int currentValue,
-	int largestPossibleValue
+unsigned int UniformMutation::getNewLocusValue(
+	unsigned int currentValue,
+	unsigned int largestPossibleValue
 ) {
-	uniform_int_distribution<int> newValueDist(0, largestPossibleValue);
-	int newValue = newValueDist(generator);
-
-	return newValue;
+	uniform_int_distribution<unsigned int> newValueDist(
+		0,
+		largestPossibleValue
+	);
+	return newValueDist(generator);
 }

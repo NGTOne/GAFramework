@@ -11,9 +11,9 @@ class UniformMutation : public MutationOperation {
 	private:
 
 	protected:
-	virtual int getNewLocusValue(
-		int currentValue,
-		int largestPossibleValue
+	virtual unsigned int getNewLocusValue(
+		unsigned int currentValue,
+		unsigned int largestPossibleValue
 	);
 
 	public:

@@ -46,27 +46,20 @@ void GaussianMutation::init(bool reflection) {
 	this->reflection = reflection;
 }
 
-int GaussianMutation::getNewLocusValue(
-	int currentValue,
-	int largestPossibleValue
+unsigned int GaussianMutation::getNewLocusValue(
+	unsigned int currentValue,
+	unsigned int largestPossibleValue
 ) {
 	normal_distribution<double> addendDist(0, largestPossibleValue/3);
 	int addend = (int)addendDist(generator);
 	int newValue = currentValue - addend;
-	int borderValue = (newValue < 0 ? 0 : largestPossibleValue);
 
-	if (newValue < 0 || newValue > largestPossibleValue) {
-		if (reflection) {
-			addend = -(
-				newValue < 0 ? 
-				newValue : 
-				newValue - largestPossibleValue
-			);
-			newValue = borderValue + addend;
-		} else {
-			newValue = borderValue;
-		}
-	}
+	if (newValue < 0 && !this->reflection) return 0;
+	if (newValue < 0) return 0 - newValue;
+	if ((unsigned int)newValue > largestPossibleValue && !this->reflection)
+		return largestPossibleValue;
+	if ((unsigned int)newValue > largestPossibleValue)
+		return largestPossibleValue - (newValue-largestPossibleValue);
 
 	return newValue;
 }

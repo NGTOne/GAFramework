@@ -16,9 +16,9 @@ class MutationOperation {
         double mutationRate;
 	std::mt19937 generator;
 
-	virtual int getNewLocusValue(
-		int currentValue,
-		int largestPossibleValue
+	virtual unsigned int getNewLocusValue(
+		unsigned int currentValue,
+		unsigned int largestPossibleValue
 	)=0;
 
 	void init(double mutationRate, unsigned seed);
