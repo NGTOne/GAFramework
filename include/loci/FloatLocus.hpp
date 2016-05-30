@@ -12,10 +12,10 @@ class FloatLocus: public Locus {
 	FloatLocus(float bottom, float top, float resolution);
 	FloatLocus(std::vector<float> values);
 
-	float getIndex(int index);
+	float getIndex(unsigned int index);
 
 	~FloatLocus();
 
 	std::string toString();
-	std::string flatten(int index);
+	std::string flatten(unsigned int index);
 };

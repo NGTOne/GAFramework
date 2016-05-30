@@ -15,13 +15,13 @@ class PopulationLocus: public Locus {
 	PopulationLocus(PopulationNode * node);
 	~PopulationLocus();
 
-	Genome * getIndex(int index);
-	int randomIndex();
-	int topIndex();
+	Genome * getIndex(unsigned int index);
+	unsigned int randomIndex();
+	unsigned int topIndex();
 	bool isConstructive();
-	bool outOfRange(int i);
+	bool outOfRange(unsigned int i);
 
 	std::string toString();
 	std::string nodeName();
-	std::string flatten(int index);
+	std::string flatten(unsigned int index);
 };

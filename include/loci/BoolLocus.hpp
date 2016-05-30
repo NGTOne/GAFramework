@@ -11,10 +11,10 @@ class BoolLocus: public Locus {
 	public:
 	BoolLocus();
 
-	bool getIndex(int index);
+	bool getIndex(unsigned int index);
 
 	~BoolLocus();
 
 	std::string toString();
-	std::string flatten(int index);
+	std::string flatten(unsigned int index);
 };

@@ -13,7 +13,7 @@ BoolLocus::BoolLocus() {
 	Locus::setPopulation(newPopulation);
 }
 
-bool BoolLocus::getIndex(int index) {
+bool BoolLocus::getIndex(unsigned int index) {
 	return boost::any_cast<bool>(Locus::getIndex(index));
 }
 
@@ -22,17 +22,15 @@ BoolLocus::~BoolLocus() {}
 string BoolLocus::toString() {
 	stringstream ss;
 
-	for (int i = 0; i < population.size(); i++) {
+	for (unsigned int i = 0; i < this->population.size(); i++)
 		ss << this->getIndex(i) << " ";
-	}
-
-	ss << "\nRandom Seed: " << seed << "\n";
+	ss << "\nRandom Seed: " << this->seed << "\n";
 
 	return ss.str();
 }
 
-string BoolLocus::flatten(int index) {
-	if (outOfRange(index)) throw ValueOutOfRangeException();
+string BoolLocus::flatten(unsigned int index) {
+	if (this->outOfRange(index)) throw ValueOutOfRangeException();
 
 	stringstream ss;
 	ss << this->getIndex(index);

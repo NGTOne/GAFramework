@@ -12,10 +12,10 @@ class IntLocus: public Locus {
 	IntLocus(int bottom, int top);
 	IntLocus(std::vector<int> values);
 
-	int getIndex(int index);
+	int getIndex(unsigned int index);
 
 	~IntLocus();
 
 	std::string toString();
-	std::string flatten(int index);
+	std::string flatten(unsigned int index);
 };
