@@ -20,16 +20,16 @@ NodeGarbageCollector::NodeGarbageCollector() {
 }
 
 NodeGarbageCollector::~NodeGarbageCollector() {
-	for (int i = 0; i < this->deallocators.size(); i++)
+	for (unsigned int i = 0; i < this->deallocators.size(); i++)
 		delete(this->deallocators[i]);
 }
 
 void NodeGarbageCollector::deleteNodes(std::vector<PopulationNode*> nodes) {
-	for (int i = 0; i < nodes.size(); i++)
-		for (int k = 0; k < this->deallocators.size(); k++)
+	for (unsigned int i = 0; i < nodes.size(); i++)
+		for (unsigned int k = 0; k < this->deallocators.size(); k++)
 			if (this->deallocators[k]->canDeleteNode(nodes[i]))
 				this->deallocators[k]->registerNode(nodes[i]);
 
-	for (int i = 0; i < this->deallocators.size(); i++)
+	for (unsigned int i = 0; i < this->deallocators.size(); i++)
 		this->deallocators[i]->deleteNodes();
 }

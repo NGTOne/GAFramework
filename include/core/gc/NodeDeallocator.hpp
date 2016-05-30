@@ -11,7 +11,7 @@ class NodeDeallocator {
 
 	public:
 	NodeDeallocator();
-	~NodeDeallocator();
+	virtual ~NodeDeallocator();
 
 	virtual bool canDeleteNode(PopulationNode * node)=0;
 	void registerNode(PopulationNode * node);
