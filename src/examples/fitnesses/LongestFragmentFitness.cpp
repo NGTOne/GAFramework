@@ -9,11 +9,9 @@ int findLongestPath(Genome * genome, int & longestPathIndex) {
 	Genome flattened = genome->flattenGenome();
 	int longestPathLength = 0, currentPathLength = 0;
 	int currentPathIndex, currentDigit;
-	vector<int> rawGenome = flattened.getGenome();
-	vector<Locus*> loci = flattened.getLoci();
 
 	for (int i = 0; i < flattened.genomeLength(); i++) {
-		currentDigit = ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
+		currentDigit = flattened.getIndex<int>(i);
 		currentPathIndex = i-currentPathLength;
 
 		if (currentDigit == 1) {
@@ -45,11 +43,9 @@ int LongestFragmentFitness::checkFitness(Genome * genome) {
 string LongestFragmentToString::toString(Genome * genome) {
 	stringstream ss;
 	Genome flattened = genome->flattenGenome();
-	vector<int> rawGenome = flattened.getGenome();
-	vector<Locus*> loci = flattened.getLoci();
 
 	for (int i = 0; i < flattened.genomeLength(); i++)
-		ss << ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
+		ss << flattened.getIndex<int>(i);
 
 	return ss.str();
 }
@@ -82,7 +78,8 @@ int LongestFragmentApportionment::apportionFitness(
 			currentLocation >= longestPathLocation
 			&& currentLocation < longestPathEndLocation
 		) {
-			if (flattenedRecipient.indexIs<int>(i, 1)) totalPathOverlap += 1;
+			if (flattenedRecipient.indexIs<int>(i, 1))
+				totalPathOverlap += 1;
 		}
 	}
 
