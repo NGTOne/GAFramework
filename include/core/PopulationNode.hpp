@@ -19,8 +19,8 @@ class PopulationNode {
 	std::string nodeName;
 
 	int currentIteration;
-	int accelerationFactor;
-	int initialPopulationSize; // For generating the initial population
+	unsigned int accelerationFactor;
+	unsigned int initialPopulationSize;
 	std::vector<EndCondition *> conditions;
 
 	std::vector<ObjectiveFunction*> objectives;
@@ -30,13 +30,13 @@ class PopulationNode {
 	bool readOnce;
 
 	void init(
-		int populationSize,
+		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
 		std::string nodeName,
-		int accelerationFactor
+		unsigned int accelerationFactor
 	);
 
 	int evaluateFitness(Genome * target);
@@ -46,7 +46,7 @@ class PopulationNode {
 
 	public:
 	PopulationNode(
-		int populationSize,
+		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
@@ -55,13 +55,13 @@ class PopulationNode {
 	);
 
 	PopulationNode(
-		int populationSize,
+		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
 		std::string nodeName,
-		int accelerationFactor
+		unsigned int accelerationFactor
 	);
 
 	~PopulationNode();
@@ -91,7 +91,7 @@ class PopulationNode {
 	virtual void insert(int index, Genome * target);
 
 	std::string name();
-	int populationSize();
+	unsigned int populationSize();
 
 	std::string populationStrings();
 	virtual std::string toString();

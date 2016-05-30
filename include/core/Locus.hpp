@@ -20,12 +20,12 @@ class Locus {
 	public:
 	~Locus();
 
-	virtual int randomIndex();
-	virtual int topIndex();
+	virtual unsigned int randomIndex();
+	virtual unsigned int topIndex();
 	virtual bool outOfRange(unsigned int i);
 	virtual bool isConstructive();
 	virtual std::string toString()=0;
-	virtual std::string flatten(int index)=0;
-	boost::any getIndex(int index);
+	virtual std::string flatten(unsigned int index)=0;
+	boost::any getIndex(unsigned int index);
 };
 

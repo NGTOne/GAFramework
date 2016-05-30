@@ -23,18 +23,21 @@ void Locus::setPopulation(vector<boost::any> population) {
 	this->population = population;
 }
 
-boost::any Locus::getIndex(int index) {
+boost::any Locus::getIndex(unsigned int index) {
 	return this->population[index];
 }
 
 Locus::~Locus() {}
 
-int Locus::topIndex() {
+unsigned int Locus::topIndex() {
 	return this->population.size() - 1;
 }
 
-int Locus::randomIndex() {
-	uniform_int_distribution<int> dist(0, this->population.size() - 1);
+unsigned int Locus::randomIndex() {
+	uniform_int_distribution<unsigned int> dist(
+		0,
+		this->population.size() - 1
+	);
 	return dist(this->generator);
 }
 

@@ -5,7 +5,7 @@
 using namespace std;
 
 PopulationNode::PopulationNode(
-	int populationSize,
+	unsigned int populationSize,
 	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
@@ -24,13 +24,13 @@ PopulationNode::PopulationNode(
 }
 
 PopulationNode::PopulationNode(
-	int populationSize,
+	unsigned int populationSize,
 	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
 	string nodeName,
-	int accelerationFactor
+	unsigned int accelerationFactor
 ) {
 	this->init(
 		populationSize,
@@ -49,13 +49,13 @@ PopulationNode::~PopulationNode() {
 }
 
 void PopulationNode::init(
-	int populationSize,
+	unsigned int populationSize,
 	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
 	string nodeName,
-	int accelerationFactor
+	unsigned int accelerationFactor
 ) {
 	this->initialPopulationSize = populationSize;
 	this->objectives = objectives;
@@ -88,7 +88,7 @@ void PopulationNode::createLoci(vector<Locus*> loci) {
 	this->population.clear();
 	this->fitnesses = vector<int>(this->initialPopulationSize, 0);
 
-	for (int i = 0; i < this->initialPopulationSize; i++)
+	for (unsigned int i = 0; i < this->initialPopulationSize; i++)
 		this->population.push_back(new Genome(loci));
 	this->evaluateFitnesses();
 }
@@ -151,7 +151,7 @@ void PopulationNode::replacePopulation() {
 }
 
 void PopulationNode::nextIteration() {
-	int i = 0;
+	unsigned int i = 0;
 	while (!done() && i++ < this->accelerationFactor) {
 		this->evaluateFitnesses();
 		this->replacePopulation();
@@ -211,7 +211,7 @@ string PopulationNode::name() {
 	return this->nodeName;
 }
 
-int PopulationNode::populationSize() {
+unsigned int PopulationNode::populationSize() {
 	return this->population.empty() ?
 		this->initialPopulationSize : this->population.size();
 }

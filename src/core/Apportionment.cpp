@@ -11,7 +11,7 @@ Apportionment::Apportionment(
 int Apportionment::checkFitness(Genome * genome) {
 	std::vector<int> apportionedFitnesses;
 
-	for (int i = 0; i < this->upperNode->populationSize(); i++) {
+	for (unsigned int i = 0; i < this->upperNode->populationSize(); i++) {
 		Genome * provider = this->upperNode->getIndex(i);
 		if (provider->usesComponent(genome))
 			apportionedFitnesses.push_back(
