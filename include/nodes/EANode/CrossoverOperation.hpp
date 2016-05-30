@@ -30,7 +30,9 @@ class CrossoverOperation {
 		std::vector<std::vector<unsigned int>> & previousPairings
 	);
 
-	std::vector<std::vector<int>> getGenomes(std::vector<Genome*> parents);
+	std::vector<std::vector<unsigned int>> getGenomes(
+		std::vector<Genome*> parents
+	);
 	std::vector<std::vector<Locus*>> getLoci(std::vector<Genome*> parents);
 	unsigned int shortestGenome(std::vector<Genome*> genomes);
 

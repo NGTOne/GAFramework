@@ -15,9 +15,9 @@ Genome * CutAndSpliceCrossover::createOffspring(
 	vector<Genome*> parents,
 	vector<unsigned int> points
 ) {
-	vector<int> offspringGenome;
+	vector<unsigned int> offspringGenome;
 	vector<Locus*> offspringLoci;
-	vector<vector<int>> parentGenomes = this->getGenomes(parents);
+	vector<vector<unsigned int>> parentGenomes = this->getGenomes(parents);
 	vector<vector<Locus*>> parentLoci = this->getLoci(parents);
 
 	unsigned int offspringGenomeLength = points[0] +

@@ -81,8 +81,10 @@ vector<int> CrossoverOperation::getParents(
 	return pairing;
 }
 
-vector<vector<int>> CrossoverOperation::getGenomes(vector<Genome*> parents) {
-	vector<vector<int>> parentGenomes;
+vector<vector<unsigned int>> CrossoverOperation::getGenomes(
+	vector<Genome*> parents
+) {
+	vector<vector<unsigned int>> parentGenomes;
 	for (int i = 0; i < parents.size(); i++)
 		parentGenomes.push_back(parents[i]->getGenome());
 	return parentGenomes;

@@ -19,7 +19,7 @@ UniformCrossover::UniformCrossover(
 vector<Genome*> UniformCrossover::crossOver(vector<Genome*> genomes) {
 	unsigned int shortestGenomeLength = this->shortestGenome(genomes);
 	vector<Genome*> children;
-	vector<vector<int>> parentGenomes = this->getGenomes(genomes);
+	vector<vector<unsigned int>> parentGenomes = this->getGenomes(genomes);
 	vector<vector<Locus*>> parentLoci = this->getLoci(genomes);
 
 	uniform_int_distribution<unsigned int> parentDist(
@@ -28,7 +28,7 @@ vector<Genome*> UniformCrossover::crossOver(vector<Genome*> genomes) {
 	);
 
 	for (unsigned int i = 0; i < this->numOffspring; i++) {
-		vector<int> childGenome;
+		vector<unsigned int> childGenome;
 		vector<Locus*> childLoci;
 		for (unsigned int k = 0; k < shortestGenomeLength; k++) {
 			unsigned int parent = parentDist(this->generator);

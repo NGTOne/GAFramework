@@ -51,8 +51,11 @@ vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
 	unsigned int shortestGenomeLength = this->shortestGenome(genomes);
 	vector<unsigned int> points = this->getPoints(shortestGenomeLength);
 	unsigned int currentPoint = 0, currentParent = 0;
-	vector<vector<int>> childGenomes(genomes.size(), vector<int>());
-	vector<vector<int>> parentGenomes = this->getGenomes(genomes);
+	vector<vector<unsigned int>> childGenomes(
+		genomes.size(),
+		vector<unsigned int>()
+	);
+	vector<vector<unsigned int>> parentGenomes = this->getGenomes(genomes);
 	vector<vector<Locus*>> childLoci(genomes.size(), vector<Locus*>());
 	vector<vector<Locus*>> parentLoci = this->getLoci(genomes);
 
@@ -78,14 +81,14 @@ vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
 		children.push_back(new Genome(childGenomes[i], childLoci[i]));
 
 	if (children.size() > this->numOffspring) {
-		int numToDelete = children.size() - numOffspring;
-		for (int i = 0; i < numToDelete; i++) {
-			uniform_int_distribution<int> removalDist(
+		unsigned int numToDelete = children.size() - numOffspring;
+		for (unsigned int i = 0; i < numToDelete; i++) {
+			uniform_int_distribution<unsigned int> removalDist(
 				0,
 				children.size()
 			);
 
-			int index = removalDist(this->generator);
+			unsigned int index = removalDist(this->generator);
 			delete(children[i]);
 			children.erase(children.begin() + index);
 		}
