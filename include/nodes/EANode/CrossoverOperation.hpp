@@ -24,15 +24,15 @@ class CrossoverOperation {
 		unsigned int numParents,
 		unsigned int pairingSize
 	);
-	std::vector<int> getParents(
-		int numAvailableParents,
-		int desiredParents,
-		std::vector<std::vector<int>> & previousPairings
+	std::vector<unsigned int> getParents(
+		unsigned int numAvailableParents,
+		unsigned int desiredParents,
+		std::vector<std::vector<unsigned int>> & previousPairings
 	);
 
 	std::vector<std::vector<int>> getGenomes(std::vector<Genome*> parents);
 	std::vector<std::vector<Locus*>> getLoci(std::vector<Genome*> parents);
-	int shortestGenome(std::vector<Genome*> genomes);
+	unsigned int shortestGenome(std::vector<Genome*> genomes);
 
 	public:
 	CrossoverOperation();

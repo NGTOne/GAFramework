@@ -17,18 +17,21 @@ UniformCrossover::UniformCrossover(
 ) : CrossoverOperation(numOffspring, seed) {}
 
 vector<Genome*> UniformCrossover::crossOver(vector<Genome*> genomes) {
-	int shortestGenomeLength = this->shortestGenome(genomes);
+	unsigned int shortestGenomeLength = this->shortestGenome(genomes);
 	vector<Genome*> children;
 	vector<vector<int>> parentGenomes = this->getGenomes(genomes);
 	vector<vector<Locus*>> parentLoci = this->getLoci(genomes);
 
-	uniform_int_distribution<int> parentDist(0, genomes.size() - 1);
+	uniform_int_distribution<unsigned int> parentDist(
+		0,
+		genomes.size() - 1
+	);
 
-	for (int i = 0; i < this->numOffspring; i++) {
+	for (unsigned int i = 0; i < this->numOffspring; i++) {
 		vector<int> childGenome;
 		vector<Locus*> childLoci;
-		for (int k = 0; k < shortestGenomeLength; k++) {
-			int parent = parentDist(this->generator);
+		for (unsigned int k = 0; k < shortestGenomeLength; k++) {
+			unsigned int parent = parentDist(this->generator);
 			childGenome.push_back(parentGenomes[parent][k]);
 			childLoci.push_back(parentLoci[parent][k]);
 		}

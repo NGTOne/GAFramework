@@ -23,7 +23,10 @@ class CutAndSpliceCrossover : public CrossoverOperation {
 	private:
 
 	protected:
-	Genome * createOffspring(vector<Genome*> parents, vector<int> points);
+	Genome * createOffspring(
+		vector<Genome*> parents,
+		vector<unsigned int> points
+	);
 
 	public:
 	CutAndSpliceCrossover();

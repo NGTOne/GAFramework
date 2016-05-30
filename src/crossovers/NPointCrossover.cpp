@@ -30,17 +30,17 @@ NPointCrossover::NPointCrossover(
 	this->numPoints = numPoints;
 }
 
-vector<int> NPointCrossover::getPoints(int maxPoint) {
-	vector<int> points;
-	uniform_int_distribution<int> pointsDist(0, maxPoint);
+vector<unsigned int> NPointCrossover::getPoints(unsigned int maxPoint) {
+	vector<unsigned int> points;
+	uniform_int_distribution<unsigned int> pointsDist(0, maxPoint);
 
-	for (int i = 0; i < this->numPoints; i++) 
+	for (unsigned int i = 0; i < this->numPoints; i++) 
 		points.push_back(pointsDist(this->generator));
 
 	sort(points.begin(), points.begin() + this->numPoints);
 
 	// Remove duplicate points
-	for (int i = 1; i < points.size(); i++)
+	for (unsigned int i = 1; i < points.size(); i++)
 		if (points[i] == points[i-1])
 			points.erase(points.begin() + i--);
 
@@ -48,24 +48,23 @@ vector<int> NPointCrossover::getPoints(int maxPoint) {
 }
 
 vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
-	int shortestGenomeLength = this->shortestGenome(genomes);
-
-	vector<int> points = this->getPoints(shortestGenomeLength);
-	int currentPoint = 0, currentParent = 0;
+	unsigned int shortestGenomeLength = this->shortestGenome(genomes);
+	vector<unsigned int> points = this->getPoints(shortestGenomeLength);
+	unsigned int currentPoint = 0, currentParent = 0;
 	vector<vector<int>> childGenomes(genomes.size(), vector<int>());
 	vector<vector<int>> parentGenomes = this->getGenomes(genomes);
 	vector<vector<Locus*>> childLoci(genomes.size(), vector<Locus*>());
 	vector<vector<Locus*>> parentLoci = this->getLoci(genomes);
 
-	for (int i = 0; i < shortestGenomeLength; i++) {
+	for (unsigned int i = 0; i < shortestGenomeLength; i++) {
 		if (currentPoint < points.size() && i == points[currentPoint]) {
 			if (currentParent++ == genomes.size() - 1)
 				currentParent = 0;
 			currentPoint++;
 		}
 
-		for (int k = 0; k < childGenomes.size(); k++) {
-			int parent = currentParent + k;
+		for (unsigned int k = 0; k < childGenomes.size(); k++) {
+			unsigned int parent = currentParent + k;
 			if (parent >= genomes.size()) parent -= genomes.size();
 
 			childGenomes[k].push_back(parentGenomes[parent][i]);
@@ -75,9 +74,8 @@ vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
 
 	vector<Genome*> children;
 
-	for (int i = 0; i < childGenomes.size(); i++) {
+	for (unsigned int i = 0; i < childGenomes.size(); i++)
 		children.push_back(new Genome(childGenomes[i], childLoci[i]));
-	}
 
 	if (children.size() > this->numOffspring) {
 		int numToDelete = children.size() - numOffspring;
@@ -88,7 +86,7 @@ vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
 			);
 
 			int index = removalDist(this->generator);
-
+			delete(children[i]);
 			children.erase(children.begin() + index);
 		}
 	}
@@ -99,7 +97,8 @@ vector<Genome*> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
 string NPointCrossover::toString() {
 	stringstream ss;
 
-	ss << "Type: N-Point Crossover\nRandom Seed: " << seed << "\nNumber of points: " << numPoints << "\n";
+	ss << "Type: N-Point Crossover\nRandom Seed: " << this->seed
+		<< "\nNumber of points: " << this->numPoints << "\n";
 
 	return ss.str();
 }

@@ -23,7 +23,7 @@ class NPointCrossover : public CrossoverOperation {
 	protected:
 	unsigned int numPoints;
 
-	std::vector<int> getPoints(int maxPoint);
+	std::vector<unsigned int> getPoints(unsigned int maxPoint);
 
 	public:
 	NPointCrossover(unsigned int numPoints);

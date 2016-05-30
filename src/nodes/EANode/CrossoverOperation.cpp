@@ -95,10 +95,10 @@ vector<vector<Locus*>> CrossoverOperation::getLoci(vector<Genome*> parents) {
 	return parentLoci;
 }
 
-int CrossoverOperation::shortestGenome(vector<Genome*> genomes) {
-	int shortestGenomeLength = 0;
+unsigned int CrossoverOperation::shortestGenome(vector<Genome*> genomes) {
+	unsigned int shortestGenomeLength = 0;
 
-	for (int i = 0; i < genomes.size(); i++) {
+	for (unsigned int i = 0; i < genomes.size(); i++) {
 		if (genomes[i]->genomeLength() < shortestGenomeLength
 			|| shortestGenomeLength == 0
 		) {
