@@ -21,6 +21,7 @@
 #include "exception/NodeAlreadyExistsException.hpp"
 #include "exception/NoNodesException.hpp"
 #include "exception/NoEvolutionOrderException.hpp"
+#include "exception/ComponentNotPresentException.hpp"
 #include "mutations/BoundaryMutation.hpp"
 #include "mutations/UniformMutation.hpp"
 #include "mutations/GaussianMutation.hpp"

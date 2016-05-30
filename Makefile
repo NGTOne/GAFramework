@@ -1,5 +1,5 @@
 CPPC = g++
-CPPFLAGS = -c -g -std=gnu++0x -fPIC
+CPPFLAGS = -c -g -std=gnu++0x -fPIC -Wall
 INCLUDE = -Iinclude -I/usr/local/include
 STATICLIB = libs/libHierGA.a
 MAJORVERSION = 2
@@ -131,6 +131,7 @@ exception:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/NoNodesException.cpp -o obj/exception/NoNodesException.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/MismatchedCountsException.cpp -o obj/exception/MismatchedCountsException.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/ValueOutOfRangeException.cpp -o obj/exception/ValueOutOfRangeException.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/ComponentNotPresentException.cpp -o obj/exception/ComponentNotPresentException.o
 
 # Examples
 examples: example-fitnesses
