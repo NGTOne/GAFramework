@@ -37,12 +37,16 @@ string PopulationLocus::toString() {
 	stringstream ss;
 
 	for (int i = 0; i < population.size(); i++) {
-		ss << "Locus uses node " << this->node->name();
+		ss << "Locus uses node " << this->nodeName();
 	}
 
 	ss << "\nRandom Seed: " << seed << "\n";
 
 	return ss.str();
+}
+
+string PopulationLocus::nodeName() {
+	return this->node->name();
 }
 
 string PopulationLocus::flatten(int index) {
