@@ -77,7 +77,7 @@ apportionment: apportionment-func
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment/BestOfApportionment.cpp -o obj/apportionment/BestOfApportionment.o
 
 apportionment-func:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment-func/SameFitnessApportionmentFunction.cpp -o obj/apportionment-func/SameFitnessApportionmentFunciont.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment-func/SameFitnessApportionmentFunction.cpp -o obj/apportionment-func/SameFitnessApportionmentFunction.o
 
 nodes: ea sa
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/NonOptimizingNode.cpp -o obj/nodes/NonOptimizingNode.o
