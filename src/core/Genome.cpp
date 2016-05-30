@@ -13,7 +13,7 @@ Genome::Genome(vector<Locus*> loci) {
 	generateRandomGenes();
 }
 
-Genome::Genome(vector<int> genes, vector<Locus*> loci) {
+Genome::Genome(vector<unsigned int> genes, vector<Locus*> loci) {
 	this->genes = genes;
 	this->loci = loci;
 }
@@ -32,14 +32,12 @@ Genome::Genome(Genome * other, bool randomize) {
 	}
 }
 
-Genome::Genome(Genome * other, int rawGenes[]) {
+Genome::Genome(Genome * other, unsigned int rawGenes[]) {
 	this->loci = other->getLoci();
-	vector<int> genes(rawGenes, rawGenes + loci.size());
-	for (unsigned int i = 0; i < genes.size(); i++) {
-		if (this->loci[i]->outOfRange(genes[i])) {
+	vector<unsigned int> genes(rawGenes, rawGenes + loci.size());
+	for (unsigned int i = 0; i < genes.size(); i++)
+		if (this->loci[i]->outOfRange(genes[i]))
 			throw ValueOutOfRangeException();
-		}
-	}
 	this->genes = genes;
 }
 
@@ -47,17 +45,16 @@ Genome::~Genome() {}
 
 void Genome::generateRandomGenes() {
 	genes.clear();
-	for (unsigned int i = 0; i < loci.size(); i++) {
+	for (unsigned int i = 0; i < loci.size(); i++)
 		genes.push_back(loci[i]->randomIndex());
-	}
 }
 
-vector<int> Genome::getGenome() {
-	return genes;
+vector<unsigned int> Genome::getGenome() {
+	return this->genes;
 }
 
-int Genome::genomeLength() {
-	return genes.size();
+unsigned int Genome::genomeLength() {
+	return this->genes.size();
 }
 
 vector<Locus*> Genome::getLoci() {
@@ -65,10 +62,16 @@ vector<Locus*> Genome::getLoci() {
 }
 
 int Genome::difference(Genome * otherGenome) {
-	vector<int> otherGenes = otherGenome->getGenome();
+	vector<unsigned int> otherGenes = otherGenome->getGenome();
 	int difference = 0;
-	unsigned int shorterGenome = fmin(this->genes.size(), otherGenes.size());
-	unsigned int longerGenome = fmax(this->genes.size(), otherGenes.size());
+	unsigned int shorterGenome = fmin(
+		this->genes.size(),
+		otherGenes.size()
+	);
+	unsigned int longerGenome = fmax(
+		this->genes.size(),
+		otherGenes.size()
+	);
 
 	for (unsigned int i = 0; i < shorterGenome; i++)
 		difference += abs(this->genes[i] - otherGenes[i]);
@@ -90,10 +93,10 @@ string Genome::flatten() {
 }
 
 Genome Genome::flattenGenome(Genome * target, bool exclude) {
-	vector<int> rawGenome;
+	vector<unsigned int> rawGenome;
 	vector<Locus*> rawLoci;
 
-	for (int i = 0; i < this->genomeLength(); i++) {
+	for (unsigned int i = 0; i < this->genomeLength(); i++) {
 		Locus * tempLocus = this->loci[i];
 		if (!tempLocus->isConstructive()) {
 			rawGenome.push_back(this->genes[i]);
@@ -110,8 +113,10 @@ Genome Genome::flattenGenome(Genome * target, bool exclude) {
 				}
 			} else {
 				Genome tempFlattened = temp->flattenGenome();
-				vector<int> tempGenome = tempFlattened.getGenome();
-				vector<Locus*> tempLoci = tempFlattened.getLoci();
+				vector<unsigned int> tempGenome =
+					tempFlattened.getGenome();
+				vector<Locus*> tempLoci =
+					tempFlattened.getLoci();
 
 				for (
 					unsigned int k = 0;
@@ -140,12 +145,12 @@ Genome Genome::flattenWithout(Genome * target) {
 	return this->flattenGenome(target, true);
 }
 
-int Genome::getFlattenedIndex(Genome * target) {
+unsigned int Genome::getFlattenedIndex(Genome * target) {
 	Genome temp = this->flattenGenome(target, false);
 	vector<Locus*> tempLoci = temp.getLoci();
 
 	// TODO: Make this a bit less hack-y
-	for (int i = 0; i < temp.genomeLength(); i++)
+	for (unsigned int i = 0; i < temp.genomeLength(); i++)
 		if (tempLoci[i]->isConstructive()) return i;
 
 	throw ComponentNotPresentException(); 
