@@ -44,9 +44,8 @@ PopulationNode::PopulationNode(
 }
 
 PopulationNode::~PopulationNode() {
-	for (int i = 0; i < population.size(); i++) {
-		delete(population[i]);
-	}
+	for (unsigned int i = 0; i < this->population.size(); i++)
+		delete(this->population[i]);
 }
 
 void PopulationNode::init(
@@ -72,7 +71,7 @@ void PopulationNode::init(
 
 int PopulationNode::evaluateFitness(Genome * target) {
 	int total = 0;
-	for (int i = 0; i < this->objectives.size(); i++)
+	for (unsigned int i = 0; i < this->objectives.size(); i++)
 		total += this->objectives[i]->checkFitness(target);
 
 	return total;
@@ -84,7 +83,7 @@ int PopulationNode::evaluateFitness(int solutionIndex) {
 }
 
 void PopulationNode::createLoci(vector<Locus*> loci) {
-	for (int i = 0; i < this->population.size(); i++) 
+	for (unsigned int i = 0; i < this->population.size(); i++) 
 		delete(this->population[i]);
 	this->population.clear();
 	this->fitnesses = vector<int>(this->initialPopulationSize, 0);
@@ -100,7 +99,7 @@ void PopulationNode::addObjective(ObjectiveFunction * objective) {
 }
 
 void PopulationNode::addObjectives(vector<ObjectiveFunction*> objectives) {
-	for (int i = 0; i < objectives.size(); i++)
+	for (unsigned int i = 0; i < objectives.size(); i++)
 		this->objectives.push_back(objectives[i]);
 	this->evaluateFitnesses();
 }
@@ -120,7 +119,7 @@ void PopulationNode::addEndCondition(EndCondition * condition) {
 }
 
 void PopulationNode::addEndConditions(vector<EndCondition*> conditions) {
-	for (int i = 0; i < conditions.size(); i++)
+	for (unsigned int i = 0; i < conditions.size(); i++)
 		this->conditions.push_back(conditions[i]);
 }
 
@@ -136,9 +135,8 @@ void PopulationNode::setEndConditions(vector<EndCondition*> conditions) {
 
 void PopulationNode::addLoci(vector<Locus*> loci) {
 	vector<Locus*> templateLoci = this->population[0]->getLoci();
-	for (int i = 0; i < loci.size(); i++) {
+	for (unsigned int i = 0; i < loci.size(); i++)
 		templateLoci.push_back(loci[i]);
-	}
 
 	this->createLoci(templateLoci);
 }
@@ -146,7 +144,7 @@ void PopulationNode::addLoci(vector<Locus*> loci) {
 void PopulationNode::replacePopulation() {
 	vector<Genome*> tempPopulation = this->getNextPopulation();
 
-	for (int i = 0; i < this->population.size(); i++)
+	for (unsigned int i = 0; i < this->population.size(); i++)
 		delete(this->population[i]);
 
 	this->population = tempPopulation;
@@ -163,12 +161,12 @@ void PopulationNode::nextIteration() {
 }
 
 Genome * PopulationNode::getIndex(int index) {
-	return population[index];
+	return this->population[index];
 }
 
 bool PopulationNode::done() {
 	// TODO: Allow logical operations (AND/OR) of end conditions
-	for (int i = 0; i < this->conditions.size(); i++) {
+	for (unsigned int i = 0; i < this->conditions.size(); i++) {
 		if (this->conditions[i]->checkCondition(
 			this->population,
 			this->fitnesses,
@@ -183,29 +181,29 @@ bool PopulationNode::done() {
 
 // Since our n is reasonably small, the O(n^2) bubblesort will suffice
 void PopulationNode::sortPopulation() {
-	for (int i = 0; i < population.size(); i++) {
-		for (int k = 0; k < population.size(); k++) {
-			if (fitnesses[i] > fitnesses[k]) {
+	for (unsigned int i = 0; i < this->population.size(); i++) {
+		for (unsigned int k = 0; k < this->population.size(); k++) {
+			if (this->fitnesses[i] > this->fitnesses[k]) {
 				int tempFitness = fitnesses[i];
 				Genome * tempSolution = population[i];
 
-				fitnesses[i] = fitnesses[k];
-				population[i] = population[k];
+				this->fitnesses[i] = this->fitnesses[k];
+				this->population[i] = this->population[k];
 
-				fitnesses[k] = tempFitness;
-				population[k] = tempSolution;
+				this->fitnesses[k] = tempFitness;
+				this->population[k] = tempSolution;
 			}
 		}
 	}
 }
 
 void PopulationNode::evaluateFitnesses() {
-	for (int i = 0; i < population.size(); i++)
+	for (unsigned int i = 0; i < this->population.size(); i++)
 		this->fitnesses[i] = this->evaluateFitness(i);
 }
 
 void PopulationNode::insert(int index, Genome * target) {
-	delete(population[index]);
+	delete(this->population[index]);
 	this->evaluateFitness(index);
 }
 
@@ -215,18 +213,20 @@ string PopulationNode::name() {
 
 int PopulationNode::populationSize() {
 	return this->population.empty() ?
-		initialPopulationSize : population.size();
+		this->initialPopulationSize : this->population.size();
 }
 
 string PopulationNode::populationStrings() {
 	stringstream ss;
 	string populationString;
 	
-	for (int i = 0; i < population.size(); i++) {
-		populationString = populationToString->toString(population[i]);
+	for (unsigned int i = 0; i < population.size(); i++) {
+		populationString = this->populationToString->toString(
+			this->population[i]
+		);
 
 		ss << "Member " << i << ": " << populationString
-			<< " Fitness: " << fitnesses[i] << "\n";
+			<< " Fitness: " << this->fitnesses[i] << "\n";
 	}
 
 	return ss.str();
@@ -235,16 +235,16 @@ string PopulationNode::populationStrings() {
 string PopulationNode::toString() {
 	stringstream ss;
 
-	ss << "Population size: " << population.size() << "\n";
-	ss << populationStrings();
+	ss << "Population size: " << this->population.size() << "\n";
+	ss << this->populationStrings();
 
-	readOnce = true;
+	this->readOnce = true;
 	return ss.str();
 }
 
 set<Locus*> PopulationNode::getLoci() {
 	set<Locus*> loci;
-	for (int i = 0; i < this->population.size(); i++) {
+	for (unsigned int i = 0; i < this->population.size(); i++) {
 		vector<Locus*> temp = this->population[i]->getLoci();
 		loci.insert(temp.begin(), temp.end());
 	}
