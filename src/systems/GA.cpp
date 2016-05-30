@@ -10,7 +10,7 @@
 using namespace std;
 
 GA::GA(
-	int numElites,
+	unsigned int numElites,
 	bool randomElitePlacement,
 	SelectionStrategy * strategy
 ) : EvolutionarySystem(strategy) {
@@ -18,14 +18,14 @@ GA::GA(
 }
 
 GA::GA(
-	int numElites,
+	unsigned int numElites,
 	SelectionStrategy * strategy
 ) : EvolutionarySystem(strategy) {
 	init(numElites, false);
 }
 
 GA::GA(
-	int numElites,
+	unsigned int numElites,
 	bool randomElitePlacement,
 	SelectionStrategy * strategy,
 	unsigned seed
@@ -33,7 +33,7 @@ GA::GA(
 	init(numElites, randomElitePlacement);
 }
 
-void GA::init(int numElites, bool randomElitePlacement) {
+void GA::init(unsigned int numElites, bool randomElitePlacement) {
 	this->numElites = numElites;
 	this->randomElitePlacement = randomElitePlacement;
 }
@@ -44,11 +44,11 @@ void GA::placeElites(
 	vector<Genome*> & newPopulation,
 	vector<int> & newPopulationFitnesses
 ) {
-	vector<int> eliteLocations = this->findElites(
+	vector<unsigned int> eliteLocations = this->findElites(
 		initialPopulationFitnesses
 	);
 
-	for (int i = 0; i < eliteLocations.size(); i++) {
+	for (unsigned int i = 0; i < eliteLocations.size(); i++) {
 		if (!this->randomElitePlacement) {
 			newPopulation[i] = new Genome(
 				initialPopulation[eliteLocations[i]]
@@ -56,11 +56,11 @@ void GA::placeElites(
 			newPopulationFitnesses[i] =
 				initialPopulationFitnesses[eliteLocations[i]];
 		} else {
-			uniform_int_distribution<int> dist(
+			uniform_int_distribution<unsigned int> dist(
 				0,
 				initialPopulation.size()-1
 			);
-			int index;
+			unsigned int index;
 
 			do {
 				index = dist(generator);
@@ -74,17 +74,19 @@ void GA::placeElites(
 	}
 }
 
-vector<int> GA::findElites(vector<int> fitnesses) {
-	int populationSize = fitnesses.size(), bestFitness, bestFitnessIndex = 0;
+vector<unsigned int> GA::findElites(vector<int> fitnesses) {
+	unsigned int populationSize = fitnesses.size(), bestFitnessIndex = 0;
+	int bestFitness;
 	bool eliteLocations[populationSize];
-	vector<int> eliteIndexes;
-	for (int i = 0; i < populationSize; i++) eliteLocations[i] = false;
-	int trueNumElites = this->numElites >= fitnesses.size() ?
+	vector<unsigned int> eliteIndexes;
+	for (unsigned int i = 0; i < populationSize; i++)
+		eliteLocations[i] = false;
+	unsigned int trueNumElites = this->numElites >= fitnesses.size() ?
 		fitnesses.size()/2 : this->numElites;
 
-	for (int i = 0; i < trueNumElites; i++) {
+	for (unsigned int i = 0; i < trueNumElites; i++) {
 		bestFitness = 0;
-		for (int k = 0; k < populationSize; k++) {
+		for (unsigned int k = 0; k < populationSize; k++) {
 			if (
 				fitnesses[k] > bestFitness
 				&& eliteLocations[k] == false
@@ -118,7 +120,7 @@ vector<Genome*> GA::breedMutateSelect(
 		newFitnesses
 	);
 
-	int numOffspring = 0;
+	unsigned int numOffspring = 0;
 	while(numOffspring < initialPopulation.size()) {
 		vector<Genome*> parents, children;
 		for (int i = 0; i < 2; i++) parents.push_back(
@@ -130,7 +132,7 @@ vector<Genome*> GA::breedMutateSelect(
 
 		children = this->produceChildren(parents, cross, mutation);
 
-		for (int i = 0; i < children.size(); i++) {
+		for (unsigned int i = 0; i < children.size(); i++) {
 			while (newPopulation[numOffspring] != NULL)
 				numOffspring++;
 			if (numOffspring < initialPopulation.size())
@@ -138,7 +140,7 @@ vector<Genome*> GA::breedMutateSelect(
 		}
 	}
 
-	for (int i = 0; i < newPopulation.size(); i++)
+	for (unsigned int i = 0; i < newPopulation.size(); i++)
 		populationFitnesses[i] = this->evaluateFitness(
 			newPopulation[i],
 			objectives

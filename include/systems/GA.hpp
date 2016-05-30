@@ -17,33 +17,33 @@ class GA : public EvolutionarySystem {
 	private:
 
 	protected:
-	int numElites;
+	unsigned int numElites;
 	bool randomElitePlacement;
 
-	void init(int numElites, bool randomElitePlacement);
+	void init(unsigned int numElites, bool randomElitePlacement);
 	void placeElites(
 		std::vector<Genome*> initialPopulation,
 		std::vector<int> initialPopulationFitnesses,
 		std::vector<Genome*> & newPopulation,
 		std::vector<int> & newPopulationFitnesses
 	);
-	std::vector<int> findElites(std::vector<int> fitnesses);
+	std::vector<unsigned int> findElites(std::vector<int> fitnesses);
 
 	public:
 
 	GA(
-		int numElites,
+		unsigned int numElites,
 		bool randomElitePlacement,
 		SelectionStrategy * strategy
 	);
 
 	GA(
-		int numElites,
+		unsigned int numElites,
 		SelectionStrategy * strategy
 	);
 
 	GA(
-		int numElites,
+		unsigned int numElites,
 		bool randomElitePlacement,
 		SelectionStrategy * strategy,
 		unsigned seed
