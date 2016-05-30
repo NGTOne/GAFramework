@@ -44,8 +44,8 @@ void TournamentSelection::sortByFitness(
 	vector<int> & fitnesses
 ) {
 	int tempIndex, tempFitness;
-	for (int i = 0; i < indexes.size(); i++) {
-		for (int k = 0; k < indexes.size(); k++) {
+	for (unsigned int i = 0; i < indexes.size(); i++) {
+		for (unsigned int k = 0; k < indexes.size(); k++) {
 			if (fitnesses[i] > fitnesses[k]) {
 				tempFitness = fitnesses[k];
 				tempIndex = indexes[k];
@@ -65,12 +65,15 @@ int TournamentSelection::getParent(
 	unsigned int populationSize = fitnesses.size();
 	unsigned int tournamentSize = min(this->tournamentSize, populationSize);
 	vector<int> tempFitnesses, indexes;
-	int index;
+	unsigned int index;
 
         uniform_real_distribution<double> selectionDist(0,1);
-	uniform_int_distribution<int> indexDist(0, fitnesses.size() - 1);
+	uniform_int_distribution<unsigned int> indexDist(
+		0,
+		fitnesses.size() - 1
+	);
 
-	for (int i = 0; i < tournamentSize; i++) {
+	for (unsigned int i = 0; i < tournamentSize; i++) {
 		index = indexDist(this->generator);
 		tempFitnesses.push_back(fitnesses[index]);
 		indexes.push_back(index);
@@ -78,14 +81,11 @@ int TournamentSelection::getParent(
 
 	this->sortByFitness(indexes, tempFitnesses);
 
-	for (int i = 0; i < indexes.size(); i++) {
-		if (
-			selectionDist(generator) < this->crossoverRate
-			|| i == indexes.size() - 1
-		) {
+	for (unsigned int i = 0; i < indexes.size(); i++)
+		if (selectionDist(generator) < this->crossoverRate)
 			return indexes[i];
-		}
-	}
+
+	return indexes[indexes.size() - 1];
 }
 
 string TournamentSelection::toString() {
