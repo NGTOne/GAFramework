@@ -12,7 +12,6 @@ class HierarchicalEA {
 
 	protected:
 	vector<PopulationNode *> nodes;
-	vector<string> nodeNames;
 	vector<string> nodesToPrint;
 	vector<string> evolutionOrder;
 	vector<string> endDictators;
@@ -25,7 +24,7 @@ class HierarchicalEA {
 
 	void buildNodeSet(
 		vector<string> targetNames,
-		vector <PopulationNode *> * targetSet
+		vector <PopulationNode *> & targetSet
 	);
 	void buildEvolutionNodes();
 	void buildPrintNodes();

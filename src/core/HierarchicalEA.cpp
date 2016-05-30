@@ -30,7 +30,7 @@ void HierarchicalEA::deleteAllNodes() {
 }
 
 void HierarchicalEA::addNode(PopulationNode * node, bool print) {
-	addNode(node, print, false);
+	this->addNode(node, print, false);
 }
 
 void HierarchicalEA::addNode(
@@ -38,16 +38,12 @@ void HierarchicalEA::addNode(
 	bool print,
 	bool end
 ) {
-	string name = node->name();
-	for (int i = 0; i < nodeNames.size(); i++) {
-		if (nodeNames[i] == name or nodes[i] == node) {
-			throw NodeAlreadyExistsException();
-		}
-	}
-	nodes.push_back(node);
-	nodeNames.push_back(name);
-	if (print) nodesToPrint.push_back(name);
-	if (end) endDictators.push_back(name);
+	for (unsigned int i = 0; i < this->nodes.size(); i++)
+		if (this->nodes[i] == node) throw NodeAlreadyExistsException();
+
+	this->nodes.push_back(node);
+	if (print) this->nodesToPrint.push_back(node->name());
+	if (end) this->endDictators.push_back(node->name());
 }
 
 void HierarchicalEA::addNodes(
@@ -55,160 +51,146 @@ void HierarchicalEA::addNodes(
 	vector<bool> print,
 	vector<bool> end
 ) {
-	if (nodes.size() != print.size() || nodes.size() != end.size()) {
+	if (nodes.size() != print.size() || nodes.size() != end.size())
 		throw MismatchedCountsException();
-	}
 
-	for (int i = 0; i < nodes.size(); i++) {
-		addNode(nodes[i], print[i], end[i]);
-	}
+	for (unsigned int i = 0; i < nodes.size(); i++)
+		this->addNode(nodes[i], print[i], end[i]);
 }
 
+// TODO: Refactor this a bit
 void HierarchicalEA::removeNode(string name) {
-	for (int i = 0; i < nodeNames.size(); i++) {
-		string nodeName = nodeNames[i];
-		if (nodeName == name) {
-			nodeNames.erase(nodeNames.begin()+i);
-			nodes.erase(nodes.begin()+i);
+	PopulationNode * node = this->getNodeByName(name);
+	for (unsigned int i = 0; i < this->nodes.size(); i++)
+		if (node == this->nodes[i]) {
+			this->nodes.erase(this->nodes.begin()+i);
 			break;
 		}
-	}
 
-	for (int i = 0; i < nodesToPrint.size(); i++) {
-		if ((nodesToPrint[i]) == name) {
-			nodesToPrint.erase(nodesToPrint.begin()+i);
-		}
-	}
+	for (unsigned int i = 0; i < this->nodesToPrint.size(); i++)
+		if (this->nodesToPrint[i] == name)
+			this->nodesToPrint.erase(this->nodesToPrint.begin()+i);
 
-	for (int i = 0; i < endDictators.size(); i++) {
-		if (endDictators[i] == name) {
-			endDictators.erase(endDictators.begin()+i);
-		}
-	}
+	for (unsigned int i = 0; i < this->endDictators.size(); i++)
+		if (this->endDictators[i] == name)
+			this->endDictators.erase(this->endDictators.begin()+i);
 }
 
 void HierarchicalEA::checkNodesExist(vector<string> names) {
-	for (int i = 0; i < names.size(); i++) {
-		bool exists = false;
-
-		if (getNodeByName(names[i]) == NULL)
+	for (unsigned int i = 0; i < names.size(); i++)
+		if (this->getNodeByName(names[i]) == NULL)
 			throw InvalidNodeException();
-	}
 }
 
 void HierarchicalEA::setNodesToPrint(vector<string> names) {
-	checkNodesExist(names);
-	nodesToPrint.clear();
-	nodesToPrint = names;
+	this->checkNodesExist(names);
+	this->nodesToPrint.clear();
+	this->nodesToPrint = names;
 }
 
 void HierarchicalEA::setEvolutionOrder(vector<string> names) {
-	checkNodesExist(names);
-	evolutionOrder.clear();
-	evolutionOrder = names;
+	this->checkNodesExist(names);
+	this->evolutionOrder.clear();
+	this->evolutionOrder = names;
 }
 
 void HierarchicalEA::setEndConditionDictatorNodes(vector<string> names) {
-	checkNodesExist(names);
-	endDictators.clear();
-	endDictators = names;
+	this->checkNodesExist(names);
+	this->endDictators.clear();
+	this->endDictators = names;
 }
 
 PopulationNode * HierarchicalEA::getNodeByName(string name) {
-	string temp;
-	for (int i = 0; i < nodes.size(); i++) {
-		if (nodes[i]->name() == name) return nodes[i];
-	}
+	for (unsigned int i = 0; i < this->nodes.size(); i++)
+		if (this->nodes[i]->name() == name) return this->nodes[i];
 
 	return NULL;
 }
 
 void HierarchicalEA::buildNodeSet(
 	vector<string> targetNames,
-	vector<PopulationNode *> * targetSet
+	vector<PopulationNode *> & targetSet
 ) {
-	if (nodes.empty()) throw NoNodesException();
-	checkNodesExist(targetNames);
+	if (this->nodes.empty()) throw NoNodesException();
+	this->checkNodesExist(targetNames);
 
-	for (int i = 0; i < targetNames.size(); i++) {
-		string name = targetNames[i];
-		targetSet->push_back(getNodeByName(name));
-	}
+	for (unsigned int i = 0; i < targetNames.size(); i++)
+		targetSet.push_back(this->getNodeByName(targetNames[i]));
 }
 
 void HierarchicalEA::buildEvolutionNodes() {
 	if (evolutionOrder.empty()) throw NoEvolutionOrderException();
-	evolutionNodes.clear();
-	buildNodeSet(evolutionOrder, &evolutionNodes);
+	this->evolutionNodes.clear();
+	this->buildNodeSet(this->evolutionOrder, this->evolutionNodes);
 }
 
 void HierarchicalEA::buildPrintNodes() {
-	printNodes.clear();
-	buildNodeSet(nodesToPrint, &printNodes);
+	this->printNodes.clear();
+	this->buildNodeSet(this->nodesToPrint, this->printNodes);
 }
 
 void HierarchicalEA::buildEndDictators() {
-	endConditionDictatorNodes.clear();
-	buildNodeSet(endDictators, &endConditionDictatorNodes);
+	this->endConditionDictatorNodes.clear();
+	this->buildNodeSet(this->endDictators, this->endConditionDictatorNodes);
 }
 
 void HierarchicalEA::migrate() {
-	for (int i = 0; i < migrations.size(); i++) {
-		migrations[i].migrate();
-	}
+	for (unsigned int i = 0; i < this->migrations.size(); i++)
+		this->migrations[i].migrate();
 }
 
 bool HierarchicalEA::done(int currentEpoch) {
 	bool done = true;
-	if (currentEpoch >= maxEpochs - 1) {
-		cout << "Hierarchical EA ended because maximum epoch count was reached.\n";
+	if (currentEpoch >= this->maxEpochs - 1) {
+		cout << "Hierarchical EA ended because maximum epoch count"
+			<< " was reached.\n";
 		return done;
 	}
 
-	if (endConditionDictatorNodes.size() == 0) return false;
+	if (this->endConditionDictatorNodes.size() == 0) return false;
 
-	for (int i = 0; i < endConditionDictatorNodes.size(); i++) {
-		if (!endConditionDictatorNodes[i]->done()) {
+	for (unsigned int i = 0; i < this->endConditionDictatorNodes.size(); i++) {
+		if (!this->endConditionDictatorNodes[i]->done()) {
 			done = false;
 			break;
 		}
 	}
 
-	if (done) cout << "Hierarchical EA ended because all specified population nodes reported reaching their ending conditions.\n";
+	if (done) cout << "Hierarchical EA ended because all specified"
+		<< " population nodes reported reaching their ending conditions.\n";
 
 	return done;
 }
 
 // TODO: Make verbosity option actually mean something
 void HierarchicalEA::run(bool verbose) {
-	buildEvolutionNodes();
-	buildPrintNodes();
-	buildEndDictators();
+	this->buildEvolutionNodes();
+	this->buildPrintNodes();
+	this->buildEndDictators();
 	cout << "Before:\n";
 	cout << string(80, '=') << "\n";
-	for (int i = 0; i < printNodes.size(); i++) {
-		cout << "Node " << nodesToPrint[i] << ":\n";
-		cout << printNodes[i]->toString();
+	for (unsigned int i = 0; i < this->printNodes.size(); i++) {
+		cout << "Node " << this->nodesToPrint[i] << ":\n";
+		cout << this->printNodes[i]->toString();
 		cout << string(80, '-') << "\n";
 	}
 
-	for (int i = 0; i < maxEpochs; i++) {
-		for (int k = 0; k < evolutionNodes.size(); k++) {
-			evolutionNodes[k]->nextIteration();
-		}
+	for (int i = 0; i < this->maxEpochs; i++) {
+		for (unsigned int k = 0; k < this->evolutionNodes.size(); k++)
+			this->evolutionNodes[k]->nextIteration();
 
-		migrate();
+		this->migrate();
 
 		// Because humans count from 1, we add 1 to our epoch counter
 		cout << "After epoch " << i+1 << ":\n";
 		cout << string(80, '=') << "\n";
-		for (int k = 0; k < printNodes.size(); k++) {
-			cout << "Node " << nodesToPrint[k] << ":\n";
-			cout << printNodes[k]->toString();
+		for (unsigned int k = 0; k < this->printNodes.size(); k++) {
+			cout << "Node " << this->nodesToPrint[k] << ":\n";
+			cout << this->printNodes[k]->toString();
 			cout << string(80, '-') << "\n";
 		}
 
-		if (done(i)) break;
+		if (this->done(i)) break;
 	}
 }
 
@@ -219,7 +201,7 @@ void HierarchicalEA::addMigratoryRelationship(
 	int n
 ) {
 	if (bidirectional) {
-		addMigratoryRelationship(
+		this->addMigratoryRelationship(
 			from,
 			to,
 			n,
@@ -227,7 +209,7 @@ void HierarchicalEA::addMigratoryRelationship(
 			TranslationFunction()
 		);
 	} else {
-		addMigratoryRelationship(
+		this->addMigratoryRelationship(
 			from,
 			to,
 			n,
@@ -243,9 +225,9 @@ void HierarchicalEA::addMigratoryRelationship(
 	TranslationFunction toTranslate
 ) {
 	PopulationNode * fromNode, * toNode;
-	fromNode = getNodeByName(from);
-	toNode = getNodeByName(to);
-	migrations.push_back(MigratoryRelationship(
+	fromNode = this->getNodeByName(from);
+	toNode = this->getNodeByName(to);
+	this->migrations.push_back(MigratoryRelationship(
 		fromNode,
 		toNode,
 		n,
@@ -261,9 +243,9 @@ void HierarchicalEA::addMigratoryRelationship(
 	TranslationFunction fromTranslate
 ) {
 	PopulationNode * fromNode, * toNode;
-	fromNode = getNodeByName(from);
-	toNode = getNodeByName(to);
-	migrations.push_back(MigratoryRelationship(
+	fromNode = this->getNodeByName(from);
+	toNode = this->getNodeByName(to);
+	this->migrations.push_back(MigratoryRelationship(
 		fromNode,
 		toNode,
 		n,
