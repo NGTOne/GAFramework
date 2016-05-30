@@ -147,6 +147,7 @@ int Genome::getFlattenedIndex(Genome * target) {
 		if (tempLoci[i]->isConstructive()) return i;
 }
 
+#include <iostream>
 bool Genome::usesComponent(Genome * component) {
 	for (int i = 0; i < this->loci.size(); i++) {
 		Locus * locus = this->loci[i];
@@ -155,8 +156,8 @@ bool Genome::usesComponent(Genome * component) {
 				this->genes[i]
 			);
 
-			return (temp == component) ?
-				true : temp->usesComponent(component);
+			if (temp == component || temp->usesComponent(component))
+				return true;
 		}
 	}
 
