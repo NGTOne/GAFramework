@@ -42,6 +42,6 @@ bool Locus::isConstructive() {
 	return false;
 }
 
-bool Locus::outOfRange(int i) {
-	return i < 0 || i >= this->population.size();
+bool Locus::outOfRange(unsigned int i) {
+	return i >= this->population.size();
 }

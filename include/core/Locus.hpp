@@ -22,7 +22,7 @@ class Locus {
 
 	virtual int randomIndex();
 	virtual int topIndex();
-	virtual bool outOfRange(int i);
+	virtual bool outOfRange(unsigned int i);
 	virtual bool isConstructive();
 	virtual std::string toString()=0;
 	virtual std::string flatten(int index)=0;
