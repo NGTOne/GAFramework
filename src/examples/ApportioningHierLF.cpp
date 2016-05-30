@@ -14,7 +14,7 @@ int main(void) {
 
 	for (int i = 0; i < 4; i++) {
 		stringstream name;
-		name << "P" << 5 - i;
+		name << "P" << 2 + i;
 		bottomNodes.push_back(new EANode(
 			16,
 			baseLoci,
@@ -56,6 +56,7 @@ int main(void) {
 		));
 
 	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});
+	ea.setNodesToPrint({"P1", "P2", "P3", "P4", "P5"});
 	ea.run(true);
 	ea.deleteAllNodes();
 }
