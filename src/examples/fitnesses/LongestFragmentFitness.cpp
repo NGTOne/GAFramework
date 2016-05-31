@@ -10,7 +10,7 @@ int findLongestPath(Genome * genome, int & longestPathIndex) {
 	int longestPathLength = 0, currentPathLength = 0;
 	int currentPathIndex, currentDigit;
 
-	for (int i = 0; i < flattened.genomeLength(); i++) {
+	for (unsigned int i = 0; i < flattened.genomeLength(); i++) {
 		currentDigit = flattened.getIndex<int>(i);
 		currentPathIndex = i-currentPathLength;
 
@@ -44,7 +44,7 @@ string LongestFragmentToString::toString(Genome * genome) {
 	stringstream ss;
 	Genome flattened = genome->flattenGenome();
 
-	for (int i = 0; i < flattened.genomeLength(); i++)
+	for (unsigned int i = 0; i < flattened.genomeLength(); i++)
 		ss << flattened.getIndex<int>(i);
 
 	return ss.str();

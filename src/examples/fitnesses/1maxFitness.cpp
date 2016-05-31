@@ -10,11 +10,9 @@ OneMaxFitness::OneMaxFitness() : ObjectiveFunction() {}
 int OneMaxFitness::checkFitness(Genome * genome) {
 	int total = 0;
 	Genome flattened = genome->flattenGenome();
-	vector<int> flattenedGenome = flattened.getGenome();
-	vector<Locus*> loci = flattened.getLoci();
 
-	for (int i = 0; i < flattenedGenome.size(); i++)
-		total += ((IntLocus*)loci[i])->getIndex(flattenedGenome[i]);
+	for (unsigned int i = 0; i < flattened.genomeLength(); i++)
+		total += flattened.getIndex<int>(i);
 
 	return total;
 }
@@ -22,11 +20,9 @@ int OneMaxFitness::checkFitness(Genome * genome) {
 string OneMaxToString::toString(Genome * genome) {
 	stringstream ss;
 	Genome flattened = genome->flattenGenome();
-	vector<int> rawGenome = flattened.getGenome();
-	vector<Locus*> loci = flattened.getLoci();
 	
-	for (int i = 0; i < rawGenome.size(); i++)
-		ss << ((IntLocus*)loci[i])->getIndex(rawGenome[i]);
+	for (unsigned int i = 0; i < flattened.genomeLength(); i++)
+		ss << flattened.getIndex<int>(i);
 		
 	return ss.str();
 }
