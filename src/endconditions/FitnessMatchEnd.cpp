@@ -11,9 +11,9 @@ bool FitnessMatchEnd::checkSolution(Genome * target, int targetFitness) {
 bool FitnessMatchEnd::checkCondition(
 	vector<Genome*> genomes,
 	vector<int> fitnesses,
-	int currentIteration
+	unsigned int currentIteration
 ) {
-	for (int i = 0; i < genomes.size(); i++)
+	for (unsigned int i = 0; i < genomes.size(); i++)
 		if (this->checkSolution(genomes[i], fitnesses[i])) return true;
 	return false;
 }

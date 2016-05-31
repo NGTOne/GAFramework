@@ -22,6 +22,6 @@ class MaxFitnessConvergenceEnd : public FitnessMatchEnd {
 	virtual bool checkCondition(
 		vector<Genome*> genomes,
 		vector<int> fitnesses,
-		int currentIteration
+		unsigned int currentIteration
 	);
 };

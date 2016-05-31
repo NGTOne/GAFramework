@@ -16,11 +16,11 @@ MaxFitnessConvergenceEnd::MaxFitnessConvergenceEnd(
 bool MaxFitnessConvergenceEnd::checkCondition(
 	vector<Genome*> genomes,
 	vector<int> fitnesses,
-	int currentIteration
+	unsigned int currentIteration
 ) {
 	double proportion = 0;
-	int countMadeIt = 0;
-	for (int i = 0; i < genomes.size(); i++)
+	unsigned int countMadeIt = 0;
+	for (unsigned int i = 0; i < genomes.size(); i++)
 		if (this->checkSolution(genomes[i], fitnesses[i]))
 			countMadeIt++;
 

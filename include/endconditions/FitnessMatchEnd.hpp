@@ -21,6 +21,6 @@ class FitnessMatchEnd : public EndCondition {
 	virtual bool checkCondition(
 		vector<Genome*> genomes,
 		vector<int> fitnesses,
-		int currentIteration
+		unsigned int currentIteration
 	);
 };

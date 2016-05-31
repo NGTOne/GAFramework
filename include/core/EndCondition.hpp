@@ -15,6 +15,6 @@ class EndCondition {
 	virtual bool checkCondition(
 		std::vector<Genome*> genomes,
 		std::vector<int> fitnesses,
-		int currentIteration
+		unsigned int currentIteration
 	)=0;
 };

@@ -7,7 +7,7 @@ IterationCountEnd::IterationCountEnd(unsigned int maxIterations) {
 bool IterationCountEnd::checkCondition(
 	vector<Genome*> genomes,
 	vector<int> fitnesses,
-	int currentIteration
+	unsigned int currentIteration
 ) {
 	return currentIteration >= this->maxIterations;
 }
