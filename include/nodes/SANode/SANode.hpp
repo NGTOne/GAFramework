@@ -29,7 +29,7 @@ class SANode : public PopulationNode {
 
 	public:
 	SANode(
-		int populationSize,
+		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
@@ -40,13 +40,13 @@ class SANode : public PopulationNode {
 	);
 
 	SANode(
-		int populationSize,
+		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
 		std::string name,
-		int accelerationFactor,
+		unsigned int accelerationFactor,
 		TemperatureSchedule * schedule,
 		bool maximize
 	);
@@ -67,7 +67,7 @@ class SANode : public PopulationNode {
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
 		std::string name,
-		int accelerationFactor,
+		unsigned int accelerationFactor,
 		TemperatureSchedule * schedule,
 		bool maximize
 	);

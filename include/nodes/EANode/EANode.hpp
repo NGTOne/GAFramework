@@ -23,7 +23,7 @@ class EANode : public PopulationNode {
 
 	public:
 	EANode(
-		int populationSize,
+		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
@@ -35,13 +35,13 @@ class EANode : public PopulationNode {
 	);
 
 	EANode(
-		int populationSize,
+		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
 		std::string name,
-		int accelerationFactor,
+		unsigned int accelerationFactor,
 		EvolutionarySystem * system,
 		CrossoverOperation * cross,
 		MutationOperation * mutation

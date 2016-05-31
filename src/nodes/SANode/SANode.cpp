@@ -9,7 +9,7 @@
 using namespace std;
 
 SANode::SANode(
-	int populationSize,
+	unsigned int populationSize,
 	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
@@ -29,13 +29,13 @@ SANode::SANode(
 }
 
 SANode::SANode(
-	int populationSize,
+	unsigned int populationSize,
 	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
 	string name,
-	int accelerationFactor,
+	unsigned int accelerationFactor,
 	TemperatureSchedule * schedule,
 	bool maximize
 ) : PopulationNode(
@@ -75,7 +75,7 @@ SANode::SANode(
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
 	string name,
-	int accelerationFactor,
+	unsigned int accelerationFactor,
 	TemperatureSchedule * schedule,
 	bool maximize
 ) : PopulationNode(
@@ -93,10 +93,6 @@ SANode::SANode(
 void SANode::init(TemperatureSchedule * schedule, bool maximize) {
 	this->maximize = maximize;
 	this->schedule = schedule;
-
-	seed = chrono::system_clock::now().time_since_epoch().count();
-	generator = mt19937(seed);
-	readOnce = false;
 }
 
 int SANode::compareNeighbourliness(Genome * base, Genome * target) {
@@ -110,16 +106,16 @@ int SANode::compareNeighbourliness(Genome * base, Genome * target) {
 vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 	vector<Genome*> neighbours;
 	vector<Locus*> loci = target->getLoci();
-	vector<int> rawGenes = target->getGenome();
-	vector<int> tempGenes = rawGenes;
+	vector<unsigned int> rawGenes = target->getGenome();
+	vector<unsigned int> tempGenes = rawGenes;
 
-	for (int i = 0; i < target->genomeLength(); i++) {
+	for (unsigned int i = 0; i < target->genomeLength(); i++) {
 		if (loci[i]->isConstructive()) {
 			Genome * nearestKnownNeighbour, * tempGenome;
-			int top = loci[i]->topIndex();
+			unsigned int top = loci[i]->topIndex();
 			int lowestDiff = 0, diff = 0;
 
-			for (int k = 0; k <= top; k++) {
+			for (unsigned int k = 0; k <= top; k++) {
 				// So we're not checking against ourselves
 				if (rawGenes[i] == k && k++ >= top) break;
 
@@ -171,11 +167,14 @@ vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 
 Genome * SANode::getNeighbour(Genome * target) {
 	vector<Genome*> neighbours = this->getAllNeighbours(target);
-	uniform_int_distribution<int> neighbourDist(0, neighbours.size() - 1);
-	int choice = neighbourDist(generator);
+	uniform_int_distribution<unsigned int> neighbourDist(
+		0,
+		neighbours.size() - 1
+	);
+	unsigned int choice = neighbourDist(generator);
 	Genome * neighbour = neighbours[choice];
 
-	for (int i = 0; i < neighbours.size(); i++) {
+	for (unsigned int i = 0; i < neighbours.size(); i++) {
 		if (i != choice) delete(neighbours[i]);
 	}
 
@@ -212,7 +211,7 @@ Genome * SANode::getNeighbour(Genome * target) {
 
 vector<Genome*> SANode::getNextPopulation() {
 	vector<Genome*> newPopulation;
-	for (int i = 0; i < population.size(); i++) {
+	for (unsigned int i = 0; i < population.size(); i++) {
 		newPopulation.push_back(getNeighbour(population[i]));
 		delete(population[i]);
 	}
@@ -226,7 +225,7 @@ string SANode::toString() {
 	ss << "Population size: " << population.size() << "\n";
 	ss << populationStrings();
 
-	if (!readOnce) ss << "Seed: " << seed << "\n";
+	if (!this->readOnce) ss << "Seed: " << seed << "\n";
 	readOnce = true;
 
 	return ss.str();

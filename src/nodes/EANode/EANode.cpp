@@ -4,7 +4,7 @@
 using namespace std;
 
 EANode::EANode(
-	int populationSize,
+	unsigned int populationSize,
 	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
@@ -25,13 +25,13 @@ EANode::EANode(
 }
 
 EANode::EANode(
-	int populationSize,
+	unsigned int populationSize,
 	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
 	string name,
-	int accelerationFactor,
+	unsigned int accelerationFactor,
 	EvolutionarySystem * system,
 	CrossoverOperation * cross,
 	MutationOperation * mutation
