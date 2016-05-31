@@ -26,10 +26,10 @@ std::vector<Genome*> AccelSSGA::breedMutateSelect(
 	std::vector<ObjectiveFunction*> objectives
 ) {
 	std::vector<Genome*> newPopulation;
-	for (int i = 0; i < initialPopulation.size(); i++)
+	for (unsigned int i = 0; i < initialPopulation.size(); i++)
 		newPopulation.push_back(new Genome(initialPopulation[i]));
 
-	for (int i = 0; i < initialPopulation.size()/2; i++) {
+	for (unsigned int i = 0; i < initialPopulation.size()/2; i++) {
 		std::vector<Genome*> tempPopulation = SSGA::breedMutateSelect(
 			newPopulation,
 			populationFitnesses,
@@ -38,7 +38,7 @@ std::vector<Genome*> AccelSSGA::breedMutateSelect(
 			objectives
 		);
 
-		for (int k = 0; k < newPopulation.size(); k++)
+		for (unsigned int k = 0; k < newPopulation.size(); k++)
 			delete(newPopulation[k]);
 		newPopulation = tempPopulation;
 	}
