@@ -32,7 +32,7 @@ class SelectionStrategy {
 	SelectionStrategy(double crossoverRate);
 	SelectionStrategy(double crossoverRate, unsigned seed);
 
-	virtual int getParent(
+	virtual unsigned int getParent(
 		std::vector<Genome*> population,
 		std::vector<int> fitnesses
 	)=0;

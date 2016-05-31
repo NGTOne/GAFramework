@@ -56,7 +56,7 @@ int EvolutionarySystem::evaluateFitness(
 	return finalFitness;
 }
 
-int EvolutionarySystem::getParent(
+unsigned int EvolutionarySystem::getParent(
 	vector<Genome*> population,
 	vector<int> fitnesses
 ) {

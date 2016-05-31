@@ -26,7 +26,7 @@ class EvolutionarySystem {
 		std::vector<ObjectiveFunction*> objectives
 	);
 
-	virtual int getParent(
+	virtual unsigned int getParent(
 		std::vector<Genome*> population,
 		std::vector<int> fitnesses
 	);

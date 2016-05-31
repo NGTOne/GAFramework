@@ -4,11 +4,14 @@
 
 RandomSelection::RandomSelection() : SelectionStrategy(0, "Random") {}
 
-int RandomSelection::getParent(
+unsigned int RandomSelection::getParent(
 	std::vector<Genome*> population,
 	std::vector<int> fitnesses
 ) {
-	std::uniform_int_distribution<int> parentDist(0, population.size() - 1);
+	std::uniform_int_distribution<unsigned int> parentDist(
+		0,
+		population.size() - 1
+	);
 	return parentDist(this->generator);
 }
 

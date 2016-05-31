@@ -11,7 +11,7 @@ class TournamentSelection : public SelectionStrategy {
 	protected:
 	unsigned int tournamentSize;
 	void sortByFitness(
-		std::vector<int> & indexes,
+		std::vector<unsigned int> & indexes,
 		std::vector<int> & fitnesses
 	);
 
@@ -26,7 +26,7 @@ class TournamentSelection : public SelectionStrategy {
 		unsigned seed
 	);
         
-	int getParent(
+	unsigned int getParent(
 		std::vector<Genome*> population,
 		std::vector<int> fitnesses
 	);
