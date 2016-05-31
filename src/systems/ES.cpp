@@ -79,11 +79,14 @@ Genome* ES::getCrossoverChild(
 	}
 
 	children = cross->crossOver(parents);
-	uniform_int_distribution<int> childIndexDist(0, children.size() - 1);
-	int index = childIndexDist(this->generator);
+	uniform_int_distribution<unsigned int> childIndexDist(
+		0,
+		children.size() - 1
+	);
+	unsigned int index = childIndexDist(this->generator);
 
 	Genome * child = new Genome(children[index]);
-	for (int i = 0; i < children.size(); i++) delete(children[i]);
+	for (unsigned int i = 0; i < children.size(); i++) delete(children[i]);
 	return child;
 }
 
@@ -94,13 +97,13 @@ vector<Genome*> ES::breedMutateSelect(
 	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives
 ) {
-	int initialPopSize = initialPopulation.size();
-	int numMutants = initialPopSize * rhoRatio;
-	int numCrossChildren = initialPopSize * muRatio; 
+	unsigned int initialPopSize = initialPopulation.size();
+	unsigned int numMutants = initialPopSize * rhoRatio;
+	unsigned int numCrossChildren = initialPopSize * muRatio;
 	vector<Genome*> crossChildren, mutantChildren, overallPopulation;
 	vector<int> finalPopulationFitnesses;
 
-	for (int i = 0; i < numMutants; i++) {
+	for (unsigned int i = 0; i < numMutants; i++) {
 		mutantChildren.push_back(
 			mutation->mutate(initialPopulation[
 				this->getParent(
@@ -111,25 +114,25 @@ vector<Genome*> ES::breedMutateSelect(
 		);
 	}
 
-	for (int i = 0; i < numCrossChildren; i++) {
+	for (unsigned int i = 0; i < numCrossChildren; i++) {
 		crossChildren.push_back(this->getCrossoverChild(
 			initialPopulation, populationFitnesses, cross
 		));
 	}
 
-	for (int i = 0; i < initialPopSize; i++) {
+	for (unsigned int i = 0; i < initialPopSize; i++) {
 		overallPopulation.push_back(initialPopulation[i]);
 		finalPopulationFitnesses.push_back(populationFitnesses[i]);
 	}
 
-	for (int i = 0; i < numMutants; i++) {
+	for (unsigned int i = 0; i < numMutants; i++) {
 		overallPopulation.push_back(mutantChildren[i]);
 		finalPopulationFitnesses.push_back(
 			this->evaluateFitness(mutantChildren[i], objectives)
 		);
 	}
 
-	for (int i = 0; i < numCrossChildren; i++) {
+	for (unsigned int i = 0; i < numCrossChildren; i++) {
 		overallPopulation.push_back(crossChildren[i]);
 		finalPopulationFitnesses.push_back(
 			this->evaluateFitness(crossChildren[i], objectives)
@@ -145,7 +148,7 @@ vector<Genome*> ES::breedMutateSelect(
 
 	//Since they're sorted, the best of the new generation can simply be
 	//pulled from the top of the list
-	for (int i = 0; i < initialPopSize; i++) {
+	for (unsigned int i = 0; i < initialPopSize; i++) {
 		finalPopulation.push_back(
 			new Genome(overallPopulation[i])
 		);
@@ -153,9 +156,9 @@ vector<Genome*> ES::breedMutateSelect(
 	}
 
 	// A little housekeeping
-	for (int i = 0; i < mutantChildren.size(); i++)
+	for (unsigned int i = 0; i < mutantChildren.size(); i++)
 		delete(mutantChildren[i]);
-	for (int i = 0; i < crossChildren.size(); i++)
+	for (unsigned int i = 0; i < crossChildren.size(); i++)
 		delete(crossChildren[i]);
 
 	return finalPopulation;
