@@ -27,15 +27,13 @@ void EvolutionarySystem::sortPopulation(
 	std::vector<Genome*> &population,
 	std::vector<int> &fitnesses
 ) {
-	for (int i = 0; i < population.size(); i++) {
-		for (int k = 0; k < population.size(); k++) {
+	for (unsigned int i = 0; i < population.size(); i++) {
+		for (unsigned int k = 0; k < population.size(); k++) {
 			if (fitnesses[i] > fitnesses[k]) {
 				int tempFitness = fitnesses[i];
 				Genome * tempSolution = population[i];
-
 				fitnesses[i] = fitnesses[k];
 				population[i] = population[k];
-
 				fitnesses[k] = tempFitness;
 				population[k] = tempSolution;
 			}
@@ -49,9 +47,8 @@ int EvolutionarySystem::evaluateFitness(
 ) {
 	int finalFitness = 0;
 
-	for (int i = 0; i < objectives.size(); i++) {
+	for (unsigned int i = 0; i < objectives.size(); i++)
 		finalFitness += objectives[i]->checkFitness(target);
-	}
 
 	return finalFitness;
 }
@@ -69,7 +66,7 @@ vector<Genome*> EvolutionarySystem::produceChildren(
 	MutationOperation * mutation
 ) {
 	vector<Genome*> children = cross->crossOver(parents);
-	for (int i = 0; i < children.size(); i++) {
+	for (unsigned int i = 0; i < children.size(); i++) {
 		Genome * temp = children[i];
 		children[i] = mutation->mutate(children[i]);
 		delete(temp);
