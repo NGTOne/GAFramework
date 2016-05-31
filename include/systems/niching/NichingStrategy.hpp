@@ -8,7 +8,7 @@ class NichingStrategy {
 	protected:
 
 	public:
-		virtual std::vector<int> getIndices(
+		virtual std::vector<unsigned int> getIndices(
 			std::vector<Genome*> initialPopulation,
 			std::vector<Genome*> newPopulation
 		)=0;

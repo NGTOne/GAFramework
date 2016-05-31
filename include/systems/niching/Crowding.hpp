@@ -7,7 +7,7 @@ class Crowding : public NichingStrategy {
 	protected:
 
 	public:
-		std::vector<int> getIndices(
+		std::vector<unsigned int> getIndices(
 			std::vector<Genome*> initialPopulation,
 			std::vector<Genome*> newPopulation
 		);

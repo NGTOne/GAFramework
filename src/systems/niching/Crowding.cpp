@@ -1,17 +1,19 @@
 #include "systems/niching/Crowding.hpp"
 #include <algorithm>
 
-std::vector<int> Crowding::getIndices(
+std::vector<unsigned int> Crowding::getIndices(
 	std::vector<Genome*> initialPopulation,
 	std::vector<Genome*> newPopulation
 ) {
-	std::vector<int> indices, differences(initialPopulation.size(), 0);
-	int highestValue, lowestValue, lowestIndex;
+	std::vector<unsigned int> indices;
+	std::vector<int> differences(initialPopulation.size(), 0);
+	int highestValue, lowestValue;
+	unsigned int lowestIndex = 0;
 
-	for (int i = 0; i < newPopulation.size(); i++) {
+	for (unsigned int i = 0; i < newPopulation.size(); i++) {
 		highestValue = lowestIndex = 0;
 
-		for (int k = 0; k < initialPopulation.size(); k++) {
+		for (unsigned int k = 0; k < initialPopulation.size(); k++) {
 			differences[k] = newPopulation[i]->difference(
 				initialPopulation[k]
 			);
@@ -21,7 +23,7 @@ std::vector<int> Crowding::getIndices(
 
 		lowestValue = highestValue;
 
-		for (int k = 0; k < initialPopulation.size(); k++) {
+		for (unsigned int k = 0; k < initialPopulation.size(); k++) {
 			if (differences[k] <= lowestValue) {
 				if (find(indices.begin(), indices.end(), k)
 					!= indices.end()

@@ -37,7 +37,7 @@ vector<Genome*> SSGA::breedMutateSelect(
 	vector<ObjectiveFunction*> objectives
 ) {
 	vector<Genome*> finalPopulation(initialPopulation.size(), NULL);
-	vector<int> parentIndices;
+	vector<unsigned int> parentIndices;
 	vector<Genome*> parents, children;
 
 	for (int i = 0; i < 2; i++) {
@@ -50,7 +50,7 @@ vector<Genome*> SSGA::breedMutateSelect(
 
 	children = this->produceChildren(parents, cross, mutation);
 
-	vector<int> replacementIndices = parentIndices;
+	vector<unsigned int> replacementIndices = parentIndices;
 	if (niching != NULL)
 		replacementIndices = this->niching->getIndices(
 			initialPopulation,
@@ -59,7 +59,7 @@ vector<Genome*> SSGA::breedMutateSelect(
 
 	vector<int> newFitnesses;
 
-	for (int i = 0; i < children.size(); i++) {
+	for (unsigned int i = 0; i < children.size(); i++) {
 		newFitnesses.push_back(this->evaluateFitness(
 			children[i],
 			objectives
@@ -76,7 +76,7 @@ vector<Genome*> SSGA::breedMutateSelect(
 		}
 	}
 
-	for (int i = 0; i < finalPopulation.size(); i++)
+	for (unsigned int i = 0; i < finalPopulation.size(); i++)
 		if (finalPopulation[i] == NULL)
 			finalPopulation[i] = new Genome(initialPopulation[i]);
 
