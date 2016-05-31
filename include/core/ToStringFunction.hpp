@@ -8,5 +8,6 @@ class ToStringFunction {
 	protected:
 
 	public:
+	virtual ~ToStringFunction();
 	virtual std::string toString(Genome * genome)=0;
 };

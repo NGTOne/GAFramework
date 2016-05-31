@@ -15,6 +15,7 @@ class Apportionment : public ObjectiveFunction {
 
 	public:
 	Apportionment(PopulationNode * upperNode, ApportionmentFunction * func);
+	virtual ~Apportionment();
 
 	int checkFitness(Genome * genome);
 

@@ -48,7 +48,9 @@ obj-dir:
 core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Genome.cpp -o obj/core/Genome.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/ObjectiveFunction.cpp -o obj/core/ObjectiveFunction.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/ToStringFunction.cpp -o obj/core/ToStringFunction.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Apportionment.cpp -o obj/core/Apportionment.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/ApportionmentFunction.cpp -o obj/core/ApportionmentFunction.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PopulationNode.cpp -o obj/core/PopulationNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EndCondition.cpp -o obj/core/EndCondition.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Locus.cpp -o obj/core/Locus.o
@@ -114,6 +116,7 @@ systems:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ES.cpp -o obj/systems/ES.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/SSGA.cpp -o obj/systems/SSGA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/AccelSSGA.cpp -o obj/systems/AccelSSGA.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/niching/NichingStrategy.cpp -o obj/systems/niching/NichingStrategy.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/niching/Crowding.cpp -o obj/systems/niching/Crowding.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ReplacingGA.cpp -o obj/systems/ReplacingGA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/StrongIterativeReplacingGA.cpp -o obj/systems/StrongIterativeReplacingGA.o

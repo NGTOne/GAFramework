@@ -40,6 +40,7 @@ class EvolutionarySystem {
 	public:
 	EvolutionarySystem(SelectionStrategy * strategy);
 	EvolutionarySystem(SelectionStrategy * strategy, unsigned seed);
+	virtual ~EvolutionarySystem();
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,

@@ -24,10 +24,10 @@ class MutationOperation {
 	void init(double mutationRate, unsigned seed);
 
 	public:
-
 	MutationOperation();
 	MutationOperation(double mutationRate);
 	MutationOperation(double mutationRate, unsigned seed);
+	virtual ~MutationOperation();
 
 	virtual Genome * mutate(Genome * initialGenome);
 

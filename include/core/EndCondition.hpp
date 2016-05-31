@@ -10,7 +10,7 @@ class EndCondition {
 	
 	public:
 	EndCondition();
-	~EndCondition();
+	virtual ~EndCondition();
 
 	virtual bool checkCondition(
 		std::vector<Genome*> genomes,

@@ -21,6 +21,8 @@ MutationOperation::MutationOperation(double mutationRate, unsigned seed) {
 	this->init(mutationRate, seed);
 }
 
+MutationOperation::~MutationOperation() {}
+
 void MutationOperation::init(double mutationRate, unsigned seed) {
 	this->mutationRate = mutationRate;
 	this->seed = seed;

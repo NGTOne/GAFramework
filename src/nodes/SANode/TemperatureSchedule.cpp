@@ -17,6 +17,8 @@ TemperatureSchedule::TemperatureSchedule(
 	this->currentTemperature = initialTemp;
 }
 
+TemperatureSchedule::~TemperatureSchedule() {}
+
 string TemperatureSchedule::toString() {
 	stringstream ss;
 

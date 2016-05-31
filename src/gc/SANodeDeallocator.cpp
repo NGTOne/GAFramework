@@ -11,7 +11,7 @@ bool SANodeDeallocator::canDeleteNode(PopulationNode * node) {
 
 void SANodeDeallocator::deleteNodes() {
 	set<TemperatureSchedule*> schedules;
-	for (int i = 0; i < this->nodes.size(); i++) {
+	for (unsigned int i = 0; i < this->nodes.size(); i++) {
 		schedules.insert(((SANode*)this->nodes[i])->getSchedule());
 		delete(this->nodes[i]);
 	}

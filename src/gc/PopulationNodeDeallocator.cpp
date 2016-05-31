@@ -18,7 +18,7 @@ void PopulationNodeDeallocator::deleteNodes() {
 	std::set<ApportionmentFunction*> apportionments;
 	std::set<ToStringFunction*> toStrings;
 
-	for (int i = 0; i < this->nodes.size(); i++) {
+	for (unsigned int i = 0; i < this->nodes.size(); i++) {
 		PopulationNode * temp = this->nodes[i];
 
 		std::set<Locus*> tempLoci = temp->getLoci();
@@ -30,7 +30,7 @@ void PopulationNodeDeallocator::deleteNodes() {
 		vector<ObjectiveFunction*> tempObjectives = temp->getObjectives();
 		objectives.insert(tempObjectives.begin(), tempObjectives.end());
 
-		for (int k = 0; k < tempObjectives.size(); k++)
+		for (unsigned int k = 0; k < tempObjectives.size(); k++)
 			if (tempObjectives[k]->isApportioning())
 				apportionments.insert(
 					((Apportionment*)tempObjectives[k])->

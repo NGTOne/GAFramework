@@ -26,5 +26,6 @@ class NodeDeallocator {
 template <typename T>
 void NodeDeallocator::clearSet(std::set<T> target) {
 	std::vector<T> targetVector(target.begin(), target.end());
-	for (int i = 0; i < targetVector.size(); i++) delete(targetVector[i]);
+	for (unsigned int i = 0; i < targetVector.size(); i++)
+		delete(targetVector[i]);
 }

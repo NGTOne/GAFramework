@@ -17,6 +17,8 @@ EvolutionarySystem::EvolutionarySystem(
 	init(strategy, seed);
 }
 
+EvolutionarySystem::~EvolutionarySystem() {}
+
 void EvolutionarySystem::init(SelectionStrategy * strategy, unsigned seed) {
 	this->seed = seed;
 	this->generator = mt19937(seed);

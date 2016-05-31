@@ -30,6 +30,8 @@ CrossoverOperation::CrossoverOperation(
 	init(numOffspring, seed);
 }
 
+CrossoverOperation::~CrossoverOperation() {}
+
 void CrossoverOperation::init(unsigned int numOffspring, unsigned seed) {
 	this->numOffspring = numOffspring;
 	this->seed = seed;

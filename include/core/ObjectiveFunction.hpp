@@ -8,6 +8,7 @@ class ObjectiveFunction {
 	protected:
 
 	public:
+	virtual ~ObjectiveFunction();
 	virtual int checkFitness(Genome * genome)=0;
 	virtual bool isApportioning();
 };

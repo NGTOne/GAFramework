@@ -22,7 +22,7 @@ void EANodeDeallocator::deleteNodes() {
 	set<SelectionStrategy*> selections;
 	set<NichingStrategy*> niching;
 
-	for (int i = 0; i < this->nodes.size(); i++) {
+	for (unsigned int i = 0; i < this->nodes.size(); i++) {
 		EANode * temp = (EANode*)this->nodes[i];
 
 		EvolutionarySystem * system = temp->getSystem();

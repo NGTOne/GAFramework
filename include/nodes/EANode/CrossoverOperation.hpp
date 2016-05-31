@@ -40,6 +40,8 @@ class CrossoverOperation {
 	CrossoverOperation();
 	CrossoverOperation(unsigned int numOffspring);
 	CrossoverOperation(unsigned int numOffspring, unsigned seed);
+	virtual ~CrossoverOperation();
+
 	virtual std::vector<Genome*> crossOver(std::vector<Genome*> genomes)=0;
 	virtual std::string toString()=0;
 };

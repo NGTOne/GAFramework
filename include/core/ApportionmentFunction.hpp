@@ -7,6 +7,8 @@ class ApportionmentFunction {
 	protected:
 
 	public:
+	virtual ~ApportionmentFunction();
+
 	virtual int apportionFitness(
 		Genome * recipient,
 		Genome * provider,

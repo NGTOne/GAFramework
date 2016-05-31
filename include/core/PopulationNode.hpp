@@ -64,7 +64,7 @@ class PopulationNode {
 		unsigned int accelerationFactor
 	);
 
-	~PopulationNode();
+	virtual ~PopulationNode();
 
 	void addObjective(ObjectiveFunction * objective);
 	void addObjectives(std::vector<ObjectiveFunction*> objectives);

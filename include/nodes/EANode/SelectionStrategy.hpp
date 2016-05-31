@@ -28,9 +28,9 @@ class SelectionStrategy {
 	);
 
 	public:
-
 	SelectionStrategy(double crossoverRate);
 	SelectionStrategy(double crossoverRate, unsigned seed);
+	virtual ~SelectionStrategy();
 
 	virtual unsigned int getParent(
 		std::vector<Genome*> population,

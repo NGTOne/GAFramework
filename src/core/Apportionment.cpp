@@ -8,6 +8,8 @@ Apportionment::Apportionment(
 	this->upperNode = upperNode;
 }
 
+Apportionment::~Apportionment() {}
+
 int Apportionment::checkFitness(Genome * genome) {
 	std::vector<int> apportionedFitnesses;
 

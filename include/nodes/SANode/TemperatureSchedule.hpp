@@ -19,6 +19,7 @@ class TemperatureSchedule {
 	);
 
 	public:
+	virtual ~TemperatureSchedule();
 	virtual float currentTemp(int currentIteration)=0;
 	virtual std::string toString();
 };

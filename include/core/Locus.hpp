@@ -18,7 +18,7 @@ class Locus {
 	void setPopulation(std::vector<boost::any> population);
 
 	public:
-	~Locus();
+	virtual ~Locus();
 
 	virtual unsigned int randomIndex();
 	virtual unsigned int topIndex();

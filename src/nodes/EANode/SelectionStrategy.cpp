@@ -34,6 +34,8 @@ SelectionStrategy::SelectionStrategy(
 	init(crossoverRate, seed, name);
 }
 
+SelectionStrategy::~SelectionStrategy() {}
+
 void SelectionStrategy::init(
 	double crossoverRate,
 	unsigned seed,
