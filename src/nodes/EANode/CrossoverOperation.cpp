@@ -41,26 +41,30 @@ unsigned int CrossoverOperation::maxPairings(
 	unsigned int pairingSize
 ) {
 	unsigned int numerator = 1;
-	for (int i = 1; i <= numParents; i++) numerator *= i;
+	for (unsigned int i = 1; i <= numParents; i++) numerator *= i;
 	unsigned int denominator = 1;
-	for (int i = 1; i <= (numParents - pairingSize); i++) denominator *= i;
+	for (unsigned int i = 1; i <= (numParents - pairingSize); i++)
+		denominator *= i;
 	unsigned int maxPairings = numerator/denominator;
 	return maxPairings;
 }
 
 // TODO: Refactor to make this work for n parents
-vector<int> CrossoverOperation::getParents(
-	int numAvailableParents,
-	int desiredParents,
-	vector<vector<int>> & previousPairings
+vector<unsigned int> CrossoverOperation::getParents(
+	unsigned int numAvailableParents,
+	unsigned int desiredParents,
+	vector<vector<unsigned int>> & previousPairings
 ) {
-	uniform_int_distribution<int> parentDist(0, numAvailableParents - 1);
-	vector<int> pairing;
+	uniform_int_distribution<unsigned int> parentDist(
+		0,
+		numAvailableParents - 1
+	);
+	vector<unsigned int> pairing;
 
 	bool alreadySeen = false;
-	int parent;
+	unsigned int parent;
 	do {
-		for (int i = 0; i < desiredParents; i++) {
+		for (unsigned int i = 0; i < desiredParents; i++) {
 			do {
 				parent = parentDist(this->generator);
 			} while (find(
@@ -70,11 +74,10 @@ vector<int> CrossoverOperation::getParents(
 		}
 
 		alreadySeen = true;
-		for (int i = 0; i < previousPairings.size(); i++) {
-			for (int k = 0; k < pairing.size(); k++)
+		for (unsigned int i = 0; i < previousPairings.size(); i++)
+			for (unsigned int k = 0; k < pairing.size(); k++)
 				if (pairing[k] != previousPairings[i][k])
 					alreadySeen = false;
-		}
 	} while (alreadySeen == true);
 
 	previousPairings.push_back(pairing);
@@ -85,14 +88,14 @@ vector<vector<unsigned int>> CrossoverOperation::getGenomes(
 	vector<Genome*> parents
 ) {
 	vector<vector<unsigned int>> parentGenomes;
-	for (int i = 0; i < parents.size(); i++)
+	for (unsigned int i = 0; i < parents.size(); i++)
 		parentGenomes.push_back(parents[i]->getGenome());
 	return parentGenomes;
 }
 
 vector<vector<Locus*>> CrossoverOperation::getLoci(vector<Genome*> parents) {
 	vector<vector<Locus*>> parentLoci;
-	for (int i = 0; i < parents.size(); i++)
+	for (unsigned int i = 0; i < parents.size(); i++)
 		parentLoci.push_back(parents[i]->getLoci());
 	return parentLoci;
 }
@@ -100,13 +103,10 @@ vector<vector<Locus*>> CrossoverOperation::getLoci(vector<Genome*> parents) {
 unsigned int CrossoverOperation::shortestGenome(vector<Genome*> genomes) {
 	unsigned int shortestGenomeLength = 0;
 
-	for (unsigned int i = 0; i < genomes.size(); i++) {
+	for (unsigned int i = 0; i < genomes.size(); i++)
 		if (genomes[i]->genomeLength() < shortestGenomeLength
-			|| shortestGenomeLength == 0
-		) {
+			|| shortestGenomeLength == 0)
 			shortestGenomeLength = genomes[i]->genomeLength();
-		}
-	}
 
 	return shortestGenomeLength;
 }
