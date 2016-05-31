@@ -26,8 +26,8 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 	vector<Genome*> newPopulation(initialPopulation.size(), NULL);
 	vector<int> newFitnesses(initialPopulation.size(), 0);
 
-	for (int i = 0; i < initialPopulation.size(); i++) {
-		vector<int> parentIndices;
+	for (unsigned int i = 0; i < initialPopulation.size(); i++) {
+		vector<unsigned int> parentIndices;
 		vector<Genome*> parents, children;
 		parentIndices.push_back(i);
 		parentIndices.push_back(this->getParent(
@@ -35,23 +35,23 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 			populationFitnesses
 		));
 
-		for (int k = 0; k < parentIndices.size(); k++)
+		for (unsigned int k = 0; k < parentIndices.size(); k++)
 			parents.push_back(initialPopulation[parentIndices[k]]);
 
 		children = this->produceChildren(parents, cross, mutation);
 
-		for (int k = 0; k < children.size(); k++)
+		for (unsigned int k = 0; k < children.size(); k++)
 			possibleContenders[parentIndices[k]].push_back(
 				children[k]
 			);
 	}
 
-	for (int i = 0; i < initialPopulation.size(); i++) {
-		uniform_int_distribution<int> childSelectionDist(
+	for (unsigned int i = 0; i < initialPopulation.size(); i++) {
+		uniform_int_distribution<unsigned int> childSelectionDist(
 			0,
 			possibleContenders[i].size() - 1
 		);
-		int index = childSelectionDist(generator);
+		unsigned int index = childSelectionDist(generator);
 		Genome * child = possibleContenders[i][index];
 		int childFitness = this->evaluateFitness(child, objectives);
 
@@ -63,7 +63,7 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 			newFitnesses[i] = populationFitnesses[i];
 		}
 
-		for (int k = 0; k < possibleContenders[i].size(); k++)
+		for (unsigned int k = 0; k < possibleContenders[i].size(); k++)
 			delete(possibleContenders[i][k]);
 	}
 

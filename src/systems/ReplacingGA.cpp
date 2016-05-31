@@ -12,7 +12,7 @@ ReplacingGA::ReplacingGA(
 ) : EvolutionarySystem(strategy, seed) {}
 
 bool ReplacingGA::inPopulation(Genome * target, vector<Genome*> population) {
-	for (int i = 0; i < population.size(); i++)
+	for (unsigned int i = 0; i < population.size(); i++)
 		if (population[i] == target) return true;
 
 	return false;
@@ -22,8 +22,8 @@ void ReplacingGA::removeUnusedIndividuals(
 	vector<Genome*> initialPopulation,
 	vector<Genome*> newPopulation
 ) {
-	for (int i = 0; i < initialPopulation.size(); i++) {
-		if (!inPopulation(
+	for (unsigned int i = 0; i < initialPopulation.size(); i++) {
+		if (!this->inPopulation(
 			initialPopulation[i],
 			newPopulation
 		)) delete(initialPopulation[i]);
@@ -38,14 +38,13 @@ vector<Genome*> ReplacingGA::breedMutateSelect(
 	vector<ObjectiveFunction*> objectives
 ) {
 	vector<Genome*> newPopulation, children, parents;
-	vector<int> parentIndices(2, 0);
+	vector<unsigned int> parentIndices(2, 0);
 	vector<int> newFitnesses(populationFitnesses);
-	
 
-	for (int i = 0; i < initialPopulation.size(); i++)
+	for (unsigned int i = 0; i < initialPopulation.size(); i++)
 		newPopulation.push_back(new Genome(initialPopulation[i]));
 
-	for (int i = 0; i < initialPopulation.size()/2; i++) {
+	for (unsigned int i = 0; i < initialPopulation.size()/2; i++) {
 		for (int k = 0; k < 2; k++) {
 			parentIndices[k] = this->getParent(
 				initialPopulation,
@@ -57,7 +56,7 @@ vector<Genome*> ReplacingGA::breedMutateSelect(
 		children = this->produceChildren(parents, cross, mutation);
 		parents.clear();
 
-		for (int k = 0; k < children.size(); k++) {
+		for (unsigned int k = 0; k < children.size(); k++) {
 			int childFitness = this->evaluateFitness(
 				children[k],
 				objectives

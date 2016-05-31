@@ -35,11 +35,15 @@ void StrongIterativeReplacingGA::scramblePopulation(
 	std::vector<Genome*> & population,
 	std::vector<int> & fitnesses
 ) {
-	uniform_int_distribution<int> placementDist(0, population.size() - 1);
+	uniform_int_distribution<unsigned int> placementDist(
+		0,
+		population.size() - 1
+	);
 	Genome * temp;
-	int index, tempFitness;
+	unsigned int index;
+	int tempFitness;
 
-	for (int i = 0; i < population.size(); i++) {
+	for (unsigned int i = 0; i < population.size(); i++) {
 		index = placementDist(this->generator);
 		temp = population[i];
 		tempFitness = fitnesses[i];
@@ -58,12 +62,12 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 	vector<ObjectiveFunction*> objectives
 ) {
 	vector<Genome*> newPopulation, children;
-	vector<int> parentIndices(2, 0);
+	vector<unsigned int> parentIndices(2, 0);
 
-	for (int i = 0; i < initialPopulation.size(); i++)
+	for (unsigned int i = 0; i < initialPopulation.size(); i++)
 		newPopulation.push_back(new Genome(initialPopulation[i]));
 
-	for (int i = 0; i < initialPopulation.size(); i++) {
+	for (unsigned int i = 0; i < initialPopulation.size(); i++) {
 		parentIndices[0] = i;
 		parentIndices[1] = this->getParent(
 			initialPopulation,
@@ -71,12 +75,12 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 		);
 
 		vector<Genome*> parents;
-		for (int k = 0; k < parentIndices.size(); k++)
+		for (unsigned int k = 0; k < parentIndices.size(); k++)
 			parents.push_back(initialPopulation[parentIndices[k]]);
 
 		children = this->produceChildren(parents, cross, mutation);
 
-		for (int k = 0; k < children.size(); k++) {
+		for (unsigned int k = 0; k < children.size(); k++) {
 			int childFitness = this->evaluateFitness(
 				children[k],
 				objectives
