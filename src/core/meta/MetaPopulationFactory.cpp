@@ -27,13 +27,13 @@ PopulationNode * MetaPopulationFactory::createMeta(
 
 	metaNode->setObjectives({});
 	for (unsigned int i = 0; i < flattenedObjectives.size(); i++)
-		metaNode->addObjective(
+		metaNode->addObjective((ObjectiveFunction*)
 			new MetaPopulationObjective(flattenedObjectives[i])
 		);
 
 	for (unsigned int i = 0; i < secondaryNodes.size(); i++)
 		std::get<0>(secondaryNodes[i])->addObjective(
-			new MetaPopulationApportionment(
+			(ObjectiveFunction*)new MetaPopulationApportionment(
 				metaNode,
 				std::get<1>(secondaryNodes[i])
 			)
