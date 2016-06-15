@@ -78,6 +78,7 @@ class PopulationNode {
 
 	void addLoci(std::vector<Locus*> loci);
 	void setLoci(std::vector<Locus*> loci);
+	void setToString(ToStringFunction * populationToString);
 
 	// Iteration mechanics
 	virtual void nextIteration();

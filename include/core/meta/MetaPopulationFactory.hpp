@@ -1,6 +1,7 @@
 #include "../PopulationNode.hpp"
 #include "../Apportionment.hpp"
 #include "../ObjectiveFunction.hpp"
+#include "../ToStringFunction.hpp"
 #include <vector>
 #include <tuple>
 
@@ -15,6 +16,7 @@ class MetaPopulationFactory {
 	static PopulationNode * createMeta(
 		PopulationNode * metaNode,
 		std::vector<ObjectiveFunction *> flattenedObjectives,
+		ToStringFunction * flattenedToString,
 		PopulationNode * topNode,
 		Apportionment * topNodeApportionment,
 		std::vector<std::tuple<

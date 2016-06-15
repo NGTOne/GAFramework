@@ -4,11 +4,13 @@
 #include "core/ObjectiveFunction.hpp"
 #include "core/meta/MetaPopulationObjective.hpp"
 #include "core/meta/MetaPopulationApportionment.hpp"
+#include "core/meta/MetaPopulationToString.hpp"
 #include "loci/PopulationLocus.hpp"
 
 PopulationNode * MetaPopulationFactory::createMeta(
 	PopulationNode * metaNode,
 	std::vector<ObjectiveFunction *> flattenedObjectives,
+	ToStringFunction * flattenedToString,
 	PopulationNode * topNode,
 	Apportionment * topNodeApportionment,
 	std::vector<std::tuple<
@@ -25,7 +27,10 @@ PopulationNode * MetaPopulationFactory::createMeta(
 
 	metaNode->setLoci(newLoci);
 
+	// The normal varieties won't work on a meta-population anyways
 	metaNode->setObjectives({});
+	metaNode->setToString(new MetaPopulationToString(flattenedToString));
+
 	for (unsigned int i = 0; i < flattenedObjectives.size(); i++)
 		metaNode->addObjective((ObjectiveFunction*)
 			new MetaPopulationObjective(flattenedObjectives[i])

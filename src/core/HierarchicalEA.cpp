@@ -198,6 +198,7 @@ void HierarchicalEA::run(bool verbose) {
 void HierarchicalEA::addMetaPopulation(
 	PopulationNode * metaNode,
 	vector<ObjectiveFunction*> flattenedObjectives,
+	ToStringFunction * flattenedToString,
 	string topNode,
 	Apportionment * topNodeApportionment,
 	vector<tuple<string, Apportionment*>> secondaryNodes
@@ -214,6 +215,7 @@ void HierarchicalEA::addMetaPopulation(
 		MetaPopulationFactory::createMeta(
 			metaNode,
 			flattenedObjectives,
+			flattenedToString,
 			this->getNodeByName(topNode),
 			topNodeApportionment,
 			trueSecondaryNodes

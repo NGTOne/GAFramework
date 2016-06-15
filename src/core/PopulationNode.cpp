@@ -145,6 +145,10 @@ void PopulationNode::setLoci(vector<Locus*> loci) {
 	this->createLoci(loci);
 }
 
+void PopulationNode::setToString(ToStringFunction * populationToString) {
+	this->populationToString = populationToString;
+}
+
 void PopulationNode::replacePopulation() {
 	vector<Genome*> tempPopulation = this->getNextPopulation();
 

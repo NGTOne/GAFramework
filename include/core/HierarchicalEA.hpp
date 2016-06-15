@@ -2,6 +2,8 @@
 #include "migration/MigratoryRelationship.hpp"
 #include "migration/TranslationFunction.hpp"
 #include "Apportionment.hpp"
+#include "ObjectiveFunction.hpp"
+#include "ToStringFunction.hpp"
 #include <vector>
 #include <tuple>
 #include <string>
@@ -63,6 +65,7 @@ class HierarchicalEA {
 	void addMetaPopulation(
 		PopulationNode * metaNode,
 		vector<ObjectiveFunction*> flattenedObjectives,
+		ToStringFunction * flattenedToString,
 		string topNode,
 		Apportionment * topNodeApportionment,
 		vector<tuple<string, Apportionment *>> secondaryNodes
