@@ -8,6 +8,8 @@ class MetaPopulationFactory {
 	private:
 
 	protected:
+	static bool isCompleteBlanket(std::vector<PopulationNode*> nodes);
+	static bool isValidBlanket(std::vector<PopulationNode*> nodes);
 
 	public:
 	static PopulationNode * createMeta(

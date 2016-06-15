@@ -1,18 +1,19 @@
+#include "MetaPopulationFunction.hpp"
 #include "../Apportionment.hpp"
-#include "../ObjectiveFunction.hpp"
 #pragma once
 
-class MetaPopulationApportionment : public Apportionment {
+class MetaPopulationApportionment : public MetaPopulationFunction {
 	private:
 
 	protected:
 	Apportionment * flattenedApportionment;
-
-	int aggregateFitnesses(std::vector<int> apportionedFitnesses);
 
 	public:
 	MetaPopulationApportionment(
 		PopulationNode * metaNode,
 		Apportionment * flattenedApportionment
 	);
+	int checkFitness(Genome * genome);
+
+	ObjectiveFunction * getFunction();
 };

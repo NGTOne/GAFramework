@@ -1,8 +1,7 @@
-#include "../Apportionment.hpp"
-#include "../ObjectiveFunction.hpp"
+#include "MetaPopulationFunction.hpp"
 #pragma once
 
-class MetaPopulationObjective : public ObjectiveFunction {
+class MetaPopulationObjective : public MetaPopulationFunction {
 	private:
 
 	protected:
@@ -11,4 +10,6 @@ class MetaPopulationObjective : public ObjectiveFunction {
 	public:
 	MetaPopulationObjective(ObjectiveFunction * flattenedObjective);
 	int checkFitness(Genome * genome);
+
+	ObjectiveFunction * getFunction();
 };
