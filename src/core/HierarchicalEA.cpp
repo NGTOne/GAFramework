@@ -6,6 +6,8 @@
 #include "exception/MismatchedCountsException.hpp"
 #include "core/gc/NodeGarbageCollector.hpp"
 
+#include "core/MetaPopulationFactory.hpp"
+
 #include <iostream>
 #include <algorithm>
 
@@ -192,6 +194,32 @@ void HierarchicalEA::run(bool verbose) {
 
 		if (this->done(i)) break;
 	}
+}
+
+void HierarchicalEA::addMetaPopulation(
+	PopulationNode * metaNode,
+	string topNode,
+	ObjectiveFunction * topObjective,
+	vector<tuple<string, Apportionment*>> secondaryNodes
+) {
+	vector<tuple<PopulationNode *, Apportionment*>> trueSecondaryNodes;
+
+	for (unsigned int i = 0; i < secondaryNodes.size(); i++)
+		trueSecondaryNodes.push_back(make_tuple(
+			this->getNodeByName(get<0>(secondaryNodes[i])),
+			get<1>(secondaryNodes[i])
+		));
+
+	this->addNode(
+		MetaPopulationFactory::createMeta(
+			metaNode,
+			this->getNodeByName(topNode),
+			topObjective,
+			trueSecondaryNodes
+		),
+		false,
+		false
+	);
 }
 
 void HierarchicalEA::addMigratoryRelationship(

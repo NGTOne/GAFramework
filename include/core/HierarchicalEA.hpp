@@ -1,7 +1,9 @@
 #include "PopulationNode.hpp"
 #include "migration/MigratoryRelationship.hpp"
 #include "migration/TranslationFunction.hpp"
+#include "Apportionment.hpp"
 #include <vector>
+#include <tuple>
 #include <string>
 #pragma once
 
@@ -57,6 +59,13 @@ class HierarchicalEA {
 	void setEvolutionOrder(vector<string> names);
 	void setEndConditionDictatorNodes(vector<string> names);
 	PopulationNode * getNodeByName(string name);
+
+	void addMetaPopulation(
+		PopulationNode * metaNode,
+		string topNode,
+		ObjectiveFunction * topObjective,
+		vector<tuple<string, Apportionment *>> secondaryNodes
+	);
 
 	void addMigratoryRelationship(
 		string from,
