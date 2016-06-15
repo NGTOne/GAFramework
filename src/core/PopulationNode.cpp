@@ -141,6 +141,10 @@ void PopulationNode::addLoci(vector<Locus*> loci) {
 	this->createLoci(templateLoci);
 }
 
+void PopulationNode::setLoci(vector<Locus*> loci) {
+	this->createLoci(loci);
+}
+
 void PopulationNode::replacePopulation() {
 	vector<Genome*> tempPopulation = this->getNextPopulation();
 

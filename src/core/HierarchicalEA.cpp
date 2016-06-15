@@ -5,8 +5,7 @@
 #include "exception/NoEvolutionOrderException.hpp"
 #include "exception/MismatchedCountsException.hpp"
 #include "core/gc/NodeGarbageCollector.hpp"
-
-#include "core/MetaPopulationFactory.hpp"
+#include "core/meta/MetaPopulationFactory.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -198,8 +197,9 @@ void HierarchicalEA::run(bool verbose) {
 
 void HierarchicalEA::addMetaPopulation(
 	PopulationNode * metaNode,
+	vector<ObjectiveFunction*> flattenedObjectives,
 	string topNode,
-	ObjectiveFunction * topObjective,
+	Apportionment * topNodeApportionment,
 	vector<tuple<string, Apportionment*>> secondaryNodes
 ) {
 	vector<tuple<PopulationNode *, Apportionment*>> trueSecondaryNodes;
@@ -213,8 +213,9 @@ void HierarchicalEA::addMetaPopulation(
 	this->addNode(
 		MetaPopulationFactory::createMeta(
 			metaNode,
+			flattenedObjectives,
 			this->getNodeByName(topNode),
-			topObjective,
+			topNodeApportionment,
 			trueSecondaryNodes
 		),
 		false,

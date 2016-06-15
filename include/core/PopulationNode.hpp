@@ -77,6 +77,7 @@ class PopulationNode {
 	void setEndConditions(std::vector<EndCondition *> conditions);
 
 	void addLoci(std::vector<Locus*> loci);
+	void setLoci(std::vector<Locus*> loci);
 
 	// Iteration mechanics
 	virtual void nextIteration();

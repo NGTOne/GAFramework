@@ -62,8 +62,9 @@ class HierarchicalEA {
 
 	void addMetaPopulation(
 		PopulationNode * metaNode,
+		vector<ObjectiveFunction*> flattenedObjectives,
 		string topNode,
-		ObjectiveFunction * topObjective,
+		Apportionment * topNodeApportionment,
 		vector<tuple<string, Apportionment *>> secondaryNodes
 	);
 
