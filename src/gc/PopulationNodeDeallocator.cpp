@@ -1,6 +1,7 @@
 #include "gc/PopulationNodeDeallocator.hpp"
 #include "core/PopulationNode.hpp"
 #include "core/ApportionmentFunction.hpp"
+#include "core/AggregationFunction.hpp"
 #include "core/Apportionment.hpp"
 #include <set>
 
@@ -16,6 +17,7 @@ void PopulationNodeDeallocator::deleteNodes() {
 	std::set<EndCondition*> conditions;
 	std::set<ObjectiveFunction*> objectives;
 	std::set<ApportionmentFunction*> apportionments;
+	std::set<AggregationFunction*> aggregators;
 	std::set<ToStringFunction*> toStrings;
 
 	for (unsigned int i = 0; i < this->nodes.size(); i++) {
@@ -25,17 +27,29 @@ void PopulationNodeDeallocator::deleteNodes() {
 		loci.insert(tempLoci.begin(), tempLoci.end());
 
 		vector<EndCondition*> tempConditions = temp->getConditions();
-		conditions.insert(tempConditions.begin(), tempConditions.end());
+		conditions.insert(
+			tempConditions.begin(),
+			tempConditions.end()
+		);
 
-		vector<ObjectiveFunction*> tempObjectives = temp->getObjectives();
-		objectives.insert(tempObjectives.begin(), tempObjectives.end());
+		vector<ObjectiveFunction*> tempObjectives =
+			temp->getObjectives();
+		objectives.insert(
+			tempObjectives.begin(),
+			tempObjectives.end()
+		);
 
 		for (unsigned int k = 0; k < tempObjectives.size(); k++)
-			if (tempObjectives[k]->isApportioning())
+			if (tempObjectives[k]->isApportioning()) {
+				Apportionment * temp =
+					(Apportionment*)tempObjectives[k];
 				apportionments.insert(
-					((Apportionment*)tempObjectives[k])->
-						getApportionmentFunction()
+					temp->getApportionmentFunction()
 				);
+				aggregators.insert(
+					temp->getAggregationFunction()
+				);
+			}
 
 		toStrings.insert(temp->getToString());
 	}
@@ -44,5 +58,6 @@ void PopulationNodeDeallocator::deleteNodes() {
 	this->clearSet<EndCondition*>(conditions);
 	this->clearSet<ObjectiveFunction*>(objectives);
 	this->clearSet<ApportionmentFunction*>(apportionments);
+	this->clearSet<AggregationFunction*>(aggregators);
 	this->clearSet<ToStringFunction*>(toStrings);
 }
