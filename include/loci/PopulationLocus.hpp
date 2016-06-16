@@ -24,4 +24,5 @@ class PopulationLocus: public Locus {
 	std::string toString();
 	std::string nodeName();
 	std::string flatten(unsigned int index);
+	PopulationNode * getNode();
 };

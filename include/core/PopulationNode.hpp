@@ -100,6 +100,7 @@ class PopulationNode {
 	virtual node_type_t type()=0;
 
 	std::set<Locus*> getLoci();
+	std::set<Locus*> getConstructiveLoci();
 	std::vector<EndCondition*> getConditions();
 	std::vector<ObjectiveFunction*> getObjectives();
 	ToStringFunction * getToString();

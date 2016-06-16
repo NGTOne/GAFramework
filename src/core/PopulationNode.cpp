@@ -260,6 +260,17 @@ set<Locus*> PopulationNode::getLoci() {
 	return loci;
 }
 
+set<Locus*> PopulationNode::getConstructiveLoci() {
+	set<Locus*> loci;
+	for (unsigned int i = 0; i < this->population.size(); i++) {
+		vector<Locus*> temp = this->population[i]->getLoci();
+		for (unsigned int k = 0; k < temp.size(); k++)
+			if (temp[k]->isConstructive()) loci.insert(temp[k]);
+	}
+
+	return loci;
+}
+
 vector<EndCondition*> PopulationNode::getConditions() {
 	return this->conditions;
 }

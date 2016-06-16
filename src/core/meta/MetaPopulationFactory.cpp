@@ -7,6 +7,48 @@
 #include "core/meta/MetaPopulationToString.hpp"
 #include "loci/PopulationLocus.hpp"
 
+#include <set>
+
+// TODO: Refactor this
+bool MetaPopulationFactory::isCompleteBlanket(
+	std::vector<PopulationNode*> nodes
+) {
+	std::vector<Locus*> constructiveLoci;
+	std::set<Locus*> rawConstructiveLoci;
+	std::vector<PopulationNode*> unmatchedNodes;
+
+	for (unsigned int i = 0; i < nodes.size(); i++) {
+		rawConstructiveLoci = nodes[i]->getConstructiveLoci();
+		constructiveLoci = std::vector<Locus*>(
+			rawConstructiveLoci.begin(),
+			rawConstructiveLoci.end()
+		);
+		for (unsigned int k = 0; k < constructiveLoci.size(); k++)
+			unmatchedNodes.push_back(
+				((PopulationLocus*)constructiveLoci[k])
+					->getNode()
+			);
+	}
+
+	for (unsigned int i = 0; i < nodes.size(); i++) {
+		bool present = false;
+		for (unsigned int k = 0; k < unmatchedNodes.size(); k++)
+			if (unmatchedNodes[k] == nodes[i]) {
+				present = true;
+				k = unmatchedNodes.size();
+			}
+		if (!present) return false;
+	}
+
+	return true;
+}
+
+bool MetaPopulationFactory::isValidBlanket(
+	std::vector<PopulationNode*> nodes
+) {
+	if (!MetaPopulationFactory::isCompleteBlanket(nodes)) return false;
+}
+
 PopulationNode * MetaPopulationFactory::createMeta(
 	PopulationNode * metaNode,
 	std::vector<ObjectiveFunction *> flattenedObjectives,

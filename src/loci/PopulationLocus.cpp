@@ -54,3 +54,7 @@ string PopulationLocus::flatten(unsigned int index) {
 	ss << this->getIndex(index)->flatten();
 	return ss.str();
 }
+
+PopulationLocus::getNode() {
+	return this->node;
+}
