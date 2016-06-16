@@ -6,47 +6,73 @@
 #include "core/meta/MetaPopulationApportionment.hpp"
 #include "core/meta/MetaPopulationToString.hpp"
 #include "loci/PopulationLocus.hpp"
+#include "exception/InvalidBlanketException.hpp"
 
 #include <set>
 
-// TODO: Refactor this
-bool MetaPopulationFactory::isCompleteBlanket(
+std::vector<PopulationNode*> MetaPopulationFactory::getAllHierarchicalNodes(
 	std::vector<PopulationNode*> nodes
 ) {
-	std::vector<Locus*> constructiveLoci;
-	std::set<Locus*> rawConstructiveLoci;
+	std::set<Locus*> constructiveLoci;
 	std::vector<PopulationNode*> unmatchedNodes;
-
 	for (unsigned int i = 0; i < nodes.size(); i++) {
-		rawConstructiveLoci = nodes[i]->getConstructiveLoci();
-		constructiveLoci = std::vector<Locus*>(
-			rawConstructiveLoci.begin(),
-			rawConstructiveLoci.end()
-		);
-		for (unsigned int k = 0; k < constructiveLoci.size(); k++)
+		constructiveLoci = nodes[i]->getConstructiveLoci();
+		for (auto k : constructiveLoci)
 			unmatchedNodes.push_back(
-				((PopulationLocus*)constructiveLoci[k])
-					->getNode()
+				((PopulationLocus*)k)->getNode()
 			);
 	}
 
+	return unmatchedNodes;
+}
+
+bool MetaPopulationFactory::isCompleteBlanket(
+	std::vector<PopulationNode*> nodes
+) {
+	std::vector<PopulationNode*> unmatchedNodes =
+		MetaPopulationFactory::getAllHierarchicalNodes(nodes);
+
+	for (unsigned int i = 0; i < unmatchedNodes.size(); i++)
+		for (unsigned int k = 0; k < nodes.size(); k++)
+			if (unmatchedNodes[i] == nodes[k])
+				unmatchedNodes.erase(
+					unmatchedNodes.begin() + i--
+				);
+
+	return unmatchedNodes.empty();
+}
+
+bool MetaPopulationFactory::isSingleBlanket(
+	std::vector<PopulationNode*> nodes
+) {
+	std::vector<PopulationNode*> unmatchedNodes =
+		MetaPopulationFactory::getAllHierarchicalNodes(nodes);
+	unsigned int rootNodes = 0;
+
 	for (unsigned int i = 0; i < nodes.size(); i++) {
-		bool present = false;
+		bool matched = false;
 		for (unsigned int k = 0; k < unmatchedNodes.size(); k++)
-			if (unmatchedNodes[k] == nodes[i]) {
-				present = true;
-				k = unmatchedNodes.size();
+			if (nodes[i] == unmatchedNodes[k]) {
+				matched = true;
+				break;
 			}
-		if (!present) return false;
+		if (matched) rootNodes++;
 	}
 
-	return true;
+	return rootNodes == 1;
 }
 
 bool MetaPopulationFactory::isValidBlanket(
-	std::vector<PopulationNode*> nodes
+	PopulationNode * topNode,
+	std::vector<PopulationNode*> secondaryNodes
 ) {
+	std::vector<PopulationNode*> nodes = secondaryNodes;
+	nodes.push_back(topNode);
+
 	if (!MetaPopulationFactory::isCompleteBlanket(nodes)) return false;
+	if (!MetaPopulationFactory::isSingleBlanket(nodes)) return false;
+
+	return true;
 }
 
 PopulationNode * MetaPopulationFactory::createMeta(
@@ -60,6 +86,12 @@ PopulationNode * MetaPopulationFactory::createMeta(
 		Apportionment *
 	>> secondaryNodes
 ) {
+	std::vector<PopulationNode*> secondaryPopNodes;
+	for (unsigned int i = 0; i < secondaryNodes.size(); i++)
+		secondaryPopNodes.push_back(std::get<0>(secondaryNodes[i]));
+	if (!MetaPopulationFactory::isValidBlanket(topNode, secondaryPopNodes))
+		throw InvalidBlanketException();
+
 	std::vector<Locus*> newLoci;
 	newLoci.push_back(new PopulationLocus(topNode));
 	for (unsigned int i = 0; i < secondaryNodes.size(); i++)

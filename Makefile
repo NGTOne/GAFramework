@@ -136,6 +136,7 @@ exception:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/MismatchedCountsException.cpp -o obj/exception/MismatchedCountsException.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/ValueOutOfRangeException.cpp -o obj/exception/ValueOutOfRangeException.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/ComponentNotPresentException.cpp -o obj/exception/ComponentNotPresentException.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/InvalidBlanketException.cpp -o obj/exception/InvalidBlanketException.o
 
 # Examples
 examples: example-fitnesses

@@ -9,8 +9,16 @@ class MetaPopulationFactory {
 	private:
 
 	protected:
+	static std::vector<PopulationNode*> getAllHierarchicalNodes(
+		std::vector<PopulationNode*> nodes
+	);
+
 	static bool isCompleteBlanket(std::vector<PopulationNode*> nodes);
-	static bool isValidBlanket(std::vector<PopulationNode*> nodes);
+	static bool isSingleBlanket(std::vector<PopulationNode*> nodes);
+	static bool isValidBlanket(
+		PopulationNode * topNode,
+		std::vector<PopulationNode*> nodes
+	);
 
 	public:
 	static PopulationNode * createMeta(
