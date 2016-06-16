@@ -80,10 +80,14 @@ PopulationNode * MetaPopulationFactory::createMeta(
 	std::vector<ObjectiveFunction *> flattenedObjectives,
 	ToStringFunction * flattenedToString,
 	PopulationNode * topNode,
-	Apportionment * topNodeApportionment,
+	std::tuple<
+		ApportionmentFunction *,
+		AggregationFunction *
+	> topNodeApportionment,
 	std::vector<std::tuple<
 		PopulationNode *,
-		Apportionment *
+		ApportionmentFunction *,
+		AggregationFunction *
 	>> secondaryNodes
 ) {
 	std::vector<PopulationNode*> secondaryPopNodes;
@@ -110,11 +114,18 @@ PopulationNode * MetaPopulationFactory::createMeta(
 			new MetaPopulationObjective(flattenedObjectives[i])
 		);
 
+	topNode->addObjective(new MetaPopulationApportionment(
+		metaNode,
+		std::get<0>(topNodeApportionment),
+		std::get<1>(topNodeApportionment)
+	));
+
 	for (unsigned int i = 0; i < secondaryNodes.size(); i++)
 		std::get<0>(secondaryNodes[i])->addObjective(
 			(ObjectiveFunction*)new MetaPopulationApportionment(
 				metaNode,
-				std::get<1>(secondaryNodes[i])
+				std::get<1>(secondaryNodes[i]),
+				std::get<2>(secondaryNodes[i])
 			)
 		);
 

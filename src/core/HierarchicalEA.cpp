@@ -200,15 +200,27 @@ void HierarchicalEA::addMetaPopulation(
 	vector<ObjectiveFunction*> flattenedObjectives,
 	ToStringFunction * flattenedToString,
 	string topNode,
-	Apportionment * topNodeApportionment,
-	vector<tuple<string, Apportionment*>> secondaryNodes
+	tuple<
+		ApportionmentFunction *,
+		AggregationFunction *
+	> topNodeApportionment,
+	vector<tuple<
+		string,
+		ApportionmentFunction *,
+		AggregationFunction *
+	>> secondaryNodes
 ) {
-	vector<tuple<PopulationNode *, Apportionment*>> trueSecondaryNodes;
+	vector<tuple<
+		PopulationNode *,
+		ApportionmentFunction *,
+		AggregationFunction *
+	>> trueSecondaryNodes;
 
 	for (unsigned int i = 0; i < secondaryNodes.size(); i++)
 		trueSecondaryNodes.push_back(make_tuple(
 			this->getNodeByName(get<0>(secondaryNodes[i])),
-			get<1>(secondaryNodes[i])
+			get<1>(secondaryNodes[i]),
+			get<2>(secondaryNodes[i])
 		));
 
 	this->addNode(

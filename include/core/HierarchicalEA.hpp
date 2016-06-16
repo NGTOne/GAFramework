@@ -1,7 +1,8 @@
 #include "PopulationNode.hpp"
 #include "migration/MigratoryRelationship.hpp"
 #include "migration/TranslationFunction.hpp"
-#include "Apportionment.hpp"
+#include "ApportionmentFunction.hpp"
+#include "AggregationFunction.hpp"
 #include "ObjectiveFunction.hpp"
 #include "ToStringFunction.hpp"
 #include <vector>
@@ -67,8 +68,15 @@ class HierarchicalEA {
 		vector<ObjectiveFunction*> flattenedObjectives,
 		ToStringFunction * flattenedToString,
 		string topNode,
-		Apportionment * topNodeApportionment,
-		vector<tuple<string, Apportionment *>> secondaryNodes
+		tuple<
+			ApportionmentFunction *,
+			AggregationFunction *
+		> topNodeApportionment,
+		vector<tuple<
+			string,
+			ApportionmentFunction *,
+			AggregationFunction *
+		>> secondaryNodes
 	);
 
 	void addMigratoryRelationship(

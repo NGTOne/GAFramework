@@ -14,7 +14,8 @@ class MetaPopulationApportionment :
 	public:
 	MetaPopulationApportionment(
 		PopulationNode * metaNode,
-		ApportionmentFunction * func
+		ApportionmentFunction * apportionment,
+		AggregationFunction * aggregation
 	);
 	int checkFitness(Genome * genome);
 };

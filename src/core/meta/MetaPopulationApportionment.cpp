@@ -2,5 +2,6 @@
 
 MetaPopulationApportionment::MetaPopulationApportionment(
 	PopulationNode * metaNode,
-	ApportionmentFunction * func
-) : Apportionment(metaNode, func) {}
+	ApportionmentFunction * apportionment,
+	AggregationFunction * aggregation
+) : Apportionment(metaNode, apportionment, aggregation) {}

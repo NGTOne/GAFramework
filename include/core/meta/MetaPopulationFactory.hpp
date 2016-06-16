@@ -26,10 +26,14 @@ class MetaPopulationFactory {
 		std::vector<ObjectiveFunction *> flattenedObjectives,
 		ToStringFunction * flattenedToString,
 		PopulationNode * topNode,
-		Apportionment * topNodeApportionment,
+		std::tuple<
+			ApportionmentFunction *,
+			AggregationFunction *
+		> topNodeApportionment,
 		std::vector<std::tuple<
 			PopulationNode *,
-			Apportionment *
+			ApportionmentFunction *,
+			AggregationFunction *
 		>> secondaryNodes
 	);
 };
