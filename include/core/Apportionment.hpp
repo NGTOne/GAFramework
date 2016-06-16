@@ -1,5 +1,6 @@
 #include "ObjectiveFunction.hpp"
 #include "ApportionmentFunction.hpp"
+#include "AggregationFunction.hpp"
 #include "PopulationNode.hpp"
 #pragma once
 
@@ -8,17 +9,23 @@ class Apportionment : public ObjectiveFunction {
 	private:
 
 	protected:
-	ApportionmentFunction * func;
+	ApportionmentFunction * apportionment;
+	AggregationFunction * aggregator;
 	PopulationNode * upperNode;
 
-	virtual int aggregateFitnesses(vector<int> apportionedFitnesses)=0;
+	int aggregateFitnesses(std::vector<int> apportionedFitnesses);
 
 	public:
-	Apportionment(PopulationNode * upperNode, ApportionmentFunction * func);
+	Apportionment(
+		PopulationNode * upperNode,
+		ApportionmentFunction * apportionment,
+		AggregationFunction * aggregator
+	);
 	virtual ~Apportionment();
 
 	int checkFitness(Genome * genome);
 
 	bool isApportioning();
 	ApportionmentFunction * getApportionmentFunction();
+	AggregationFunction * getAggregationFunction();
 };

@@ -38,7 +38,8 @@ uninstall:
 	sudo rm -r /usr/include/*libHierGA*
 	sudo ldconfig
 
-library: obj-dir core loci apportionment nodes endconditions exception gc
+library: obj-dir core loci aggregators apportionment-func \
+		nodes endconditions exception gc
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
 
@@ -77,10 +78,10 @@ loci:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/FloatLocus.cpp -o obj/loci/FloatLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/PopulationLocus.cpp -o obj/loci/PopulationLocus.o
 
-apportionment: apportionment-func
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment/AveragingApportionment.cpp -o obj/apportionment/AveragingApportionment.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment/SummingApportionment.cpp -o obj/apportionment/SummingApportionment.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment/BestOfApportionment.cpp -o obj/apportionment/BestOfApportionment.o
+aggregators:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/aggregators/AveragingAggregator.cpp -o obj/aggregators/AveragingAggregator.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/aggregators/SummingAggregator.cpp -o obj/aggregators/SummingAggregators.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/aggregators/BestOfAggregator.cpp -o obj/aggregators/BestOfAggregator.o
 
 apportionment-func:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment-func/SameFitnessApportionmentFunction.cpp -o obj/apportionment-func/SameFitnessApportionmentFunction.o

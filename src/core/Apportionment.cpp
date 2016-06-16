@@ -2,9 +2,11 @@
 
 Apportionment::Apportionment(
 	PopulationNode * upperNode,
-	ApportionmentFunction * func
+	ApportionmentFunction * apportionment,
+	AggregationFunction * aggregator
 ) {
-	this->func = func;
+	this->apportionment = apportionment;
+	this->aggregator = aggregator;
 	this->upperNode = upperNode;
 }
 
@@ -17,7 +19,7 @@ int Apportionment::checkFitness(Genome * genome) {
 		Genome * provider = this->upperNode->getIndex(i);
 		if (provider->usesComponent(genome))
 			apportionedFitnesses.push_back(
-				this->func->apportionFitness(
+				this->apportionment->apportionFitness(
 					genome,
 					provider,
 					this->upperNode->getFitnessAtIndex(i)
@@ -28,10 +30,18 @@ int Apportionment::checkFitness(Genome * genome) {
 	return this->aggregateFitnesses(apportionedFitnesses);
 }
 
+int Apportionment::aggregateFitnesses(std::vector<int> apportionedFitnesses) {
+	return this->aggregator->aggregateFitnesses(apportionedFitnesses);
+}
+
 bool Apportionment::isApportioning() {
 	return true;
 }
 
 ApportionmentFunction * Apportionment::getApportionmentFunction() {
-	return this->func;
+	return this->apportionment;
+}
+
+AggregationFunction * Apportionment::getAggregationFunction() {
+	return this->aggregator;
 }

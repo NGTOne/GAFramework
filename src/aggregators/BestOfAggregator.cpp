@@ -1,11 +1,6 @@
-#include "apportionment/BestOfApportionment.hpp"
+#include "aggregators/BestOfAggregator.hpp"
 
-BestOfApportionment::BestOfApportionment(
-	PopulationNode * upperNode,
-	ApportionmentFunction * func
-) : Apportionment(upperNode, func) {}
-
-int BestOfApportionment::aggregateFitnesses(
+int BestOfAggregator::aggregateFitnesses(
 	std::vector<int> apportionedFitnesses
 ) {
 	int bestFitness = 0;
