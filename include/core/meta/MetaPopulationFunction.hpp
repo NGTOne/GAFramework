@@ -1,11 +1,11 @@
-#include "../ObjectiveFunction.hpp"
+#include "../Genome.hpp"
 #pragma once
 
-class MetaPopulationFunction : public ObjectiveFunction {
+class MetaPopulationFunction {
 	private:
 
 	protected:
+	Genome resolveBlanket(Genome * blanket);
 
 	public:
-	virtual ObjectiveFunction * getFunction()=0;
 };

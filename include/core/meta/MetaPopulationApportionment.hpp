@@ -1,19 +1,20 @@
 #include "MetaPopulationFunction.hpp"
 #include "../Apportionment.hpp"
+#include "../PopulationNode.hpp"
 #pragma once
 
-class MetaPopulationApportionment : public MetaPopulationFunction {
+class MetaPopulationApportionment :
+	public MetaPopulationFunction,
+	public Apportionment
+{
 	private:
 
 	protected:
-	Apportionment * flattenedApportionment;
 
 	public:
 	MetaPopulationApportionment(
 		PopulationNode * metaNode,
-		Apportionment * flattenedApportionment
+		ApportionmentFunction * func
 	);
 	int checkFitness(Genome * genome);
-
-	ObjectiveFunction * getFunction();
 };
