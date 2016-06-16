@@ -55,6 +55,6 @@ string PopulationLocus::flatten(unsigned int index) {
 	return ss.str();
 }
 
-PopulationLocus::getNode() {
+PopulationNode * PopulationLocus::getNode() {
 	return this->node;
 }
