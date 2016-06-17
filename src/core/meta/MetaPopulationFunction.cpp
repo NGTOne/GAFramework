@@ -2,6 +2,7 @@
 #include "core/PopulationNode.hpp"
 #include "core/Locus.hpp"
 #include "loci/PopulationLocus.hpp"
+#include "exception/InvalidBlanketException.hpp"
 
 unsigned int MetaPopulationFunction::findHeadIndex(Genome * blanket) {
 	std::vector<bool> matched(blanket->genomeLength(), false);
@@ -29,7 +30,8 @@ unsigned int MetaPopulationFunction::findHeadIndex(Genome * blanket) {
 	for (unsigned int i = 0; i < matched.size(); i++)
 		if (!matched[i]) return i;
 
-	return 0;
+	// Strangeness is happening here
+	throw InvalidBlanketException();
 }
 
 Genome MetaPopulationFunction::resolveBlanket(Genome * blanket) {
