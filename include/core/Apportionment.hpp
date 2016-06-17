@@ -14,6 +14,7 @@ class Apportionment : public ObjectiveFunction {
 	PopulationNode * upperNode;
 
 	int aggregateFitnesses(std::vector<int> apportionedFitnesses);
+	virtual Genome * getOperableGenome(Genome * genome);
 
 	public:
 	Apportionment(

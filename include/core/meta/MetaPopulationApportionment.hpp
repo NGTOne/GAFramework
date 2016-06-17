@@ -10,6 +10,7 @@ class MetaPopulationApportionment :
 	private:
 
 	protected:
+	Genome * getOperableGenome(Genome * genome);
 
 	public:
 	MetaPopulationApportionment(
@@ -17,5 +18,4 @@ class MetaPopulationApportionment :
 		ApportionmentFunction * apportionment,
 		AggregationFunction * aggregation
 	);
-	int checkFitness(Genome * genome);
 };

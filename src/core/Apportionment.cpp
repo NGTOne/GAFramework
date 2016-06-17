@@ -12,19 +12,26 @@ Apportionment::Apportionment(
 
 Apportionment::~Apportionment() {}
 
+Genome * Apportionment::getOperableGenome(Genome * genome) {
+	return new Genome(genome);
+}
+
 int Apportionment::checkFitness(Genome * genome) {
 	std::vector<int> apportionedFitnesses;
 
 	for (unsigned int i = 0; i < this->upperNode->populationSize(); i++) {
 		Genome * provider = this->upperNode->getIndex(i);
-		if (provider->usesComponent(genome))
+		if (provider->usesComponent(genome)) {
+			Genome * operable = this->getOperableGenome(genome);
 			apportionedFitnesses.push_back(
 				this->apportionment->apportionFitness(
-					genome,
+					operable,
 					provider,
 					this->upperNode->getFitnessAtIndex(i)
 				)
 			);
+			delete(operable);
+		}
 	}
 
 	return this->aggregateFitnesses(apportionedFitnesses);
