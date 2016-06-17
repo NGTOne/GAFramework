@@ -56,7 +56,7 @@ bool MetaPopulationFactory::isSingleBlanket(
 				matched = true;
 				break;
 			}
-		if (matched) rootNodes++;
+		if (!matched) rootNodes++;
 	}
 
 	return rootNodes == 1;
