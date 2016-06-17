@@ -263,9 +263,8 @@ set<Locus*> PopulationNode::getLoci() {
 set<Locus*> PopulationNode::getConstructiveLoci() {
 	set<Locus*> loci;
 	for (unsigned int i = 0; i < this->population.size(); i++) {
-		vector<Locus*> temp = this->population[i]->getLoci();
-		for (unsigned int k = 0; k < temp.size(); k++)
-			if (temp[k]->isConstructive()) loci.insert(temp[k]);
+		set<Locus*> temp = this->population[i]->getConstructiveLoci();
+		loci.insert(temp.begin(), temp.end());
 	}
 
 	return loci;
@@ -285,4 +284,10 @@ ToStringFunction * PopulationNode::getToString() {
 
 int PopulationNode::getFitnessAtIndex(int index) {
 	return this->fitnesses[index];
+}
+
+bool PopulationNode::contains(Genome * target) {
+	for (unsigned int i = 0; i < this->population.size(); i++)
+		if (this->population[i] == target) return true;
+	return false;
 }
