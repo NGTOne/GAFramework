@@ -1,6 +1,7 @@
 #pragma once
 #include "Locus.hpp"
 #include <vector>
+#include <set>
 #include <boost/any.hpp>
 
 using namespace std;
@@ -36,6 +37,7 @@ class Genome {
 	unsigned int getFlattenedIndex(Genome * target);
 
 	bool usesComponent(Genome * component);
+	set<Locus*> getConstructiveLoci();
 
 	template <typename T>
 	bool indexIs(unsigned int index, T target);
@@ -54,5 +56,7 @@ bool Genome::indexIs(unsigned int index, T target) {
 
 template <typename T>
 T Genome::getIndex(unsigned int index) {
-	return boost::any_cast<T>(this->loci[index]->getIndex(this->genes[index]));
+	return boost::any_cast<T>(
+		this->loci[index]->getIndex(this->genes[index])
+	);
 }

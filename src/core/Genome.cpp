@@ -171,3 +171,18 @@ bool Genome::usesComponent(Genome * component) {
 
 	return false;
 }
+
+set<Locus*> Genome::getConstructiveLoci() {
+	set<Locus*> constructiveLoci;
+	for (unsigned int i = 0; i < this->loci.size(); i++)
+		if (this->loci[i]->isConstructive())
+			constructiveLoci.insert(this->loci[i]);
+
+	return constructiveLoci;
+}
+
+template <>
+Genome * Genome::getIndex<Genome*>(unsigned int index) {
+	return ((PopulationLocus*)this->loci[index])
+		->getIndex(this->genes[index]);
+}
