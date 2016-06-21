@@ -1,10 +1,6 @@
 #include "../ToStringFunction.hpp"
-#include "MetaPopulationFunction.hpp"
 
-class MetaPopulationToString :
-	public ToStringFunction,
-	public MetaPopulationFunction
-{
+class MetaPopulationToString : public ToStringFunction {
 	private:
 
 	protected:

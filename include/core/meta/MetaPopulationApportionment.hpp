@@ -1,12 +1,8 @@
-#include "MetaPopulationFunction.hpp"
 #include "../Apportionment.hpp"
 #include "../PopulationNode.hpp"
 #pragma once
 
-class MetaPopulationApportionment :
-	public MetaPopulationFunction,
-	public Apportionment
-{
+class MetaPopulationApportionment : public Apportionment {
 	private:
 
 	protected:

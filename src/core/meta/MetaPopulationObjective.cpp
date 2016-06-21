@@ -1,4 +1,5 @@
 #include "core/meta/MetaPopulationObjective.hpp"
+#include "core/meta/BlanketResolver.hpp"
 
 MetaPopulationObjective::MetaPopulationObjective(
 	ObjectiveFunction * flattenedObjective
@@ -7,6 +8,6 @@ MetaPopulationObjective::MetaPopulationObjective(
 }
 
 int MetaPopulationObjective::checkFitness(Genome * genome) {
-	Genome resolved = this->resolveBlanket(genome);
+	Genome resolved = BlanketResolver::resolveBlanket(genome);
 	return this->flattenedObjective->checkFitness(&resolved);
 }

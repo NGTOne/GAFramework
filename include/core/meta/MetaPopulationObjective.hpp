@@ -1,11 +1,7 @@
-#include "MetaPopulationFunction.hpp"
 #include "../ObjectiveFunction.hpp"
 #pragma once
 
-class MetaPopulationObjective :
-	public ObjectiveFunction,
-	public MetaPopulationFunction
-{
+class MetaPopulationObjective : public ObjectiveFunction {
 	private:
 
 	protected:

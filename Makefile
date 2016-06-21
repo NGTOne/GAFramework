@@ -60,7 +60,7 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/migration/NullTranslationFunction.cpp -o obj/core/migration/NullTranslationFunction.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/migration/MigratoryRelationship.cpp -o obj/core/migration/MigratoryRelationship.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationFactory.cpp -o obj/core/meta/MetaPopulationFactory.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationFunction.cpp -o obj/core/meta/MetaPopulationFunction.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/BlanketResolver.cpp -o obj/core/meta/BlanketResolver.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationApportionment.cpp -o obj/core/meta/MetaPopulationApportionment.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationObjective.cpp -o obj/core/meta/MetaPopulationObjective.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationToString.cpp -o obj/core/meta/MetaPopulationToString.o

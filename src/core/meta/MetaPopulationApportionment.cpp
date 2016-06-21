@@ -1,4 +1,5 @@
 #include "core/meta/MetaPopulationApportionment.hpp"
+#include "core/meta/BlanketResolver.hpp"
 
 MetaPopulationApportionment::MetaPopulationApportionment(
 	PopulationNode * metaNode,
@@ -7,6 +8,6 @@ MetaPopulationApportionment::MetaPopulationApportionment(
 ) : Apportionment(metaNode, apportionment, aggregation) {}
 
 Genome * MetaPopulationApportionment::getOperableGenome(Genome * genome) {
-	Genome resolved = this->resolveBlanket(genome);
+	Genome resolved = BlanketResolver::resolveBlanket(genome);
 	return new Genome(&resolved);
 }

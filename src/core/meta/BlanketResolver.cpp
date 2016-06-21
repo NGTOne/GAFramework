@@ -1,10 +1,10 @@
-#include "core/meta/MetaPopulationFunction.hpp"
+#include "core/meta/BlanketResolver.hpp"
 #include "core/PopulationNode.hpp"
 #include "core/Locus.hpp"
 #include "loci/PopulationLocus.hpp"
 #include "exception/InvalidBlanketException.hpp"
 
-std::vector<Genome*> MetaPopulationFunction::getBlanketGenomes(
+std::vector<Genome*> BlanketResolver::getBlanketGenomes(
 	Genome * blanket
 ) {
 	std::vector<Genome*> blanketGenomes;
@@ -14,9 +14,10 @@ std::vector<Genome*> MetaPopulationFunction::getBlanketGenomes(
 	return blanketGenomes;
 }
 
-unsigned int MetaPopulationFunction::findHeadIndex(Genome * blanket) {
+unsigned int BlanketResolver::findHeadIndex(Genome * blanket) {
 	std::vector<bool> matched(blanket->genomeLength(), false);
-	std::vector<Genome*> blanketGenomes = this->getBlanketGenomes(blanket);
+	std::vector<Genome*> blanketGenomes =
+		BlanketResolver::getBlanketGenomes(blanket);
 	std::vector<PopulationNode*> nodes;
 
 	for (unsigned int i = 0; i < blanket->genomeLength(); i++) {
@@ -41,11 +42,11 @@ unsigned int MetaPopulationFunction::findHeadIndex(Genome * blanket) {
 	throw InvalidBlanketException();
 }
 
-unsigned int MetaPopulationFunction::findMetaComponentIndex(
+unsigned int BlanketResolver::findMetaComponentIndex(
 	Genome * blanket,
 	PopulationNode * node
 ) {
-	std::vector<Genome*> blanketGenomes = this->getBlanketGenomes(blanket);
+	std::vector<Genome*> blanketGenomes = BlanketResolver::getBlanketGenomes(blanket);
 
 	for (unsigned int i = 0; i < blanketGenomes.size(); i++)
 		if (node->contains(blanketGenomes[i]))
@@ -55,7 +56,7 @@ unsigned int MetaPopulationFunction::findMetaComponentIndex(
 	throw InvalidBlanketException();
 }
 
-void MetaPopulationFunction::appendGenomes(
+void BlanketResolver::appendGenomes(
 	std::vector<unsigned int> & targetGenes,
 	std::vector<Locus*> & targetLoci,
 	std::vector<unsigned int> genesToAppend,
@@ -70,7 +71,7 @@ void MetaPopulationFunction::appendGenomes(
 std::tuple<
 	std::vector<unsigned int>,
 	std::vector<Locus*>
-> MetaPopulationFunction::resolve(Genome * blanket, unsigned int target) {
+> BlanketResolver::resolve(Genome * blanket, unsigned int target) {
 	std::vector<unsigned int> resolvedGenes;
 	std::vector<Locus*> resolvedLoci;
 
@@ -88,15 +89,15 @@ std::tuple<
 			std::tie(
 				resolvedComponentGenes,
 				resolvedComponentLoci
-			) = this->resolve(
+			) = BlanketResolver::resolve(
 				blanket,
-				this->findMetaComponentIndex(
+				BlanketResolver::findMetaComponentIndex(
 					blanket,
 					((PopulationLocus*)unresolvedLoci[i])
 						->getNode()
 				)
 			);
-			this->appendGenomes(
+			BlanketResolver::appendGenomes(
 				resolvedGenes,
 				resolvedLoci,
 				resolvedComponentGenes,
@@ -108,10 +109,11 @@ std::tuple<
 	return std::make_tuple(resolvedGenes, resolvedLoci);
 }
 
-Genome MetaPopulationFunction::resolveBlanket(Genome * blanket) {
+Genome BlanketResolver::resolveBlanket(Genome * blanket) {
 	std::vector<Locus*> resolvedLoci;
 	std::vector<unsigned int> resolvedGenes;
-	unsigned int head = this->findHeadIndex(blanket);
-	std::tie(resolvedGenes, resolvedLoci) = this->resolve(blanket, head);
+	unsigned int head = BlanketResolver::findHeadIndex(blanket);
+	std::tie(resolvedGenes, resolvedLoci) =
+		BlanketResolver::resolve(blanket, head);
 	return Genome(resolvedGenes, resolvedLoci);
 }

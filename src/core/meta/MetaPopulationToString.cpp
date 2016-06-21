@@ -1,4 +1,5 @@
 #include "core/meta/MetaPopulationToString.hpp"
+#include "core/meta/BlanketResolver.hpp"
 
 MetaPopulationToString::MetaPopulationToString(
 	ToStringFunction * flattenedToString
@@ -7,6 +8,6 @@ MetaPopulationToString::MetaPopulationToString(
 }
 
 std::string MetaPopulationToString::toString(Genome * genome) {
-	Genome resolved = this->resolveBlanket(genome);
+	Genome resolved = BlanketResolver::resolveBlanket(genome);
 	return this->flattenedToString->toString(&resolved);
 }
