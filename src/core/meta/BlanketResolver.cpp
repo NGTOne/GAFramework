@@ -46,7 +46,8 @@ unsigned int BlanketResolver::findMetaComponentIndex(
 	Genome * blanket,
 	PopulationNode * node
 ) {
-	std::vector<Genome*> blanketGenomes = BlanketResolver::getBlanketGenomes(blanket);
+	std::vector<Genome*> blanketGenomes =
+		BlanketResolver::getBlanketGenomes(blanket);
 
 	for (unsigned int i = 0; i < blanketGenomes.size(); i++)
 		if (node->contains(blanketGenomes[i]))
