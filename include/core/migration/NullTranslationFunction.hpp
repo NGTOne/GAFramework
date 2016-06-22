@@ -6,8 +6,15 @@ class NullTranslationFunction : public TranslationFunction {
 	private:
 
 	protected:
+	virtual std::tuple<
+		std::vector<unsigned int>,
+		std::vector<Locus*>
+	> translate(Genome * target);
 
 	public:
-	virtual Genome * translate(Genome * target);
+	virtual Genome * createdTranslatedGenome(
+		Genome * target,
+		std::string targetNode
+	);
 	virtual bool isNull();
 };

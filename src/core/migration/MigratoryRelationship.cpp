@@ -57,8 +57,14 @@ void MigratoryRelationship::swap(int fromNodeIndex, int toNodeIndex) {
 	fromNodeOriginal = fromNode->getIndex(fromNodeIndex);
 	toNodeOriginal = toNode->getIndex(toNodeIndex);
 
-	toNodeInsert = toTranslate.translate(fromNodeOriginal);
-	fromNodeInsert = fromTranslate.translate(toNodeOriginal);
+	toNodeInsert = this->toTranslate.createTranslatedGenome(
+		fromNodeOriginal,
+		this->toNode->name()
+	);
+	fromNodeInsert = this->fromTranslate.createTranslatedGenome(
+		toNodeOriginal,
+		this->fromNode->name()
+	);
 
 	toNode->insert(toNodeIndex, toNodeInsert);
 	fromNode->insert(fromNodeIndex, fromNodeInsert);
@@ -68,7 +74,10 @@ void MigratoryRelationship::oneWayMigrate(int fromNodeIndex, int toNodeIndex) {
 	Genome * original, * insert;
 
 	original = fromNode->getIndex(fromNodeIndex);
-	insert = toTranslate.translate(original);
+	insert = toTranslate.createTranslatedGenome(
+		original,
+		this->toNode->name()
+	);
 	toNode->insert(toNodeIndex, insert);
 }
 

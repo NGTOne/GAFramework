@@ -1,6 +1,19 @@
 #include "core/migration/NullTranslationFunction.hpp"
 
-Genome * NullTranslationFunction::translate(Genome * target) {
+std::tuple<
+	std::vector<unsigned int>,
+	std::vector<Locus*>
+> TranslationFunction::translate(Genome * target) {
+	return std::make_tuple(
+		std::vector<unsigned int>(),
+		std::vector<Locus*>()
+	);
+}
+
+Genome * TranslationFunction::createTranslatedGenome(
+	Genome * target,
+	std::string targetNode
+) {
 	return NULL;
 }
 
