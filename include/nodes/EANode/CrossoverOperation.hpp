@@ -1,6 +1,7 @@
 #pragma once
 #include "../../core/Genome.hpp"
 #include <random>
+#include <tuple>
 #include <string>
 #include <vector>
 
@@ -42,7 +43,15 @@ class CrossoverOperation {
 	CrossoverOperation(unsigned int numOffspring, unsigned seed);
 	virtual ~CrossoverOperation();
 
-	virtual std::vector<Genome*> crossOver(std::vector<Genome*> genomes)=0;
+	std::vector<Genome*> crossOver(
+		std::vector<Genome*> parents,
+		std::string speciesNode
+	);
+
+	virtual std::vector<std::tuple<
+		std::vector<unsigned int>,
+		std::vector<Locus*>
+	>> crossOver(std::vector<Genome*> genomes)=0;
 	virtual std::string toString()=0;
 };
 

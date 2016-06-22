@@ -34,7 +34,10 @@ class NPointCrossover : public CrossoverOperation {
 		unsigned seed
 	);
 	
-	std::vector<Genome*> crossOver(std::vector<Genome*> genomes);
+	std::vector<std::tuple<
+		std::vector<unsigned int>,
+		std::vector<Locus*>
+	>> crossOver(std::vector<Genome*> genomes);
 	std::string toString();
 
 };

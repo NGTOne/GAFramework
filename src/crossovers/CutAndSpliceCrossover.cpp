@@ -11,7 +11,10 @@ CutAndSpliceCrossover::CutAndSpliceCrossover(
 	unsigned seed
 ) : CrossoverOperation(seed) {}
 
-Genome * CutAndSpliceCrossover::createOffspring(
+std::tuple<
+	std::vector<unsigned int>,
+	std::vector<Locus*>
+> CutAndSpliceCrossover::createOffspring(
 	vector<Genome*> parents,
 	vector<unsigned int> points
 ) {
@@ -37,12 +40,18 @@ Genome * CutAndSpliceCrossover::createOffspring(
 		}
 	}
 
-	return new Genome(offspringGenome, offspringLoci);
+	return std::make_tuple(offspringGenome, offspringLoci);
 }
 
-vector<Genome*> CutAndSpliceCrossover::crossOver(vector<Genome*> genomes) {
+std::vector<std::tuple<
+	std::vector<unsigned int>,
+	std::vector<Locus*>
+>> CutAndSpliceCrossover::crossOver(vector<Genome*> genomes) {
 	vector<unsigned int> genomeLengths, points;
-	vector<Genome*> offspring;
+	std::vector<std::tuple<
+		std::vector<unsigned int>,
+		std::vector<Locus*>
+	>> offspring;
 	vector<vector<unsigned int>> pairings;
 
 	for (unsigned int i = 0; i < genomes.size(); i++) {

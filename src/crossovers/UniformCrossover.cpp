@@ -16,9 +16,15 @@ UniformCrossover::UniformCrossover(
 	unsigned seed
 ) : CrossoverOperation(numOffspring, seed) {}
 
-vector<Genome*> UniformCrossover::crossOver(vector<Genome*> genomes) {
+std::vector<std::tuple<
+	std::vector<unsigned int>,
+	std::vector<Locus*>
+>> UniformCrossover::crossOver(vector<Genome*> genomes) {
 	unsigned int shortestGenomeLength = this->shortestGenome(genomes);
-	vector<Genome*> children;
+	std::vector<std::tuple<
+		std::vector<unsigned int>,
+		std::vector<Locus*>
+	>> children;
 	vector<vector<unsigned int>> parentGenomes = this->getGenomes(genomes);
 	vector<vector<Locus*>> parentLoci = this->getLoci(genomes);
 
@@ -35,7 +41,7 @@ vector<Genome*> UniformCrossover::crossOver(vector<Genome*> genomes) {
 			childGenome.push_back(parentGenomes[parent][k]);
 			childLoci.push_back(parentLoci[parent][k]);
 		}
-		children.push_back(new Genome(childGenome, childLoci));
+		children.push_back(std::make_tuple(childGenome, childLoci));
 	}
 
 	return children;
