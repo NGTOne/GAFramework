@@ -79,6 +79,7 @@ loci:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/IntLocus.cpp -o obj/loci/IntLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/FloatLocus.cpp -o obj/loci/FloatLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/PopulationLocus.cpp -o obj/loci/PopulationLocus.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/FakePopulationLocus.cpp -o obj/loci/FakePopulationLocus.o
 
 aggregators:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/aggregators/AveragingAggregator.cpp -o obj/aggregators/AveragingAggregator.o

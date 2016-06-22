@@ -28,10 +28,6 @@ unsigned int PopulationLocus::randomIndex() {
 	return dist(this->generator);
 }
 
-bool PopulationLocus::isConstructive() {
-	return true;
-}
-
 bool PopulationLocus::outOfRange(unsigned int i) {
 	return i >= this->node->populationSize();
 }

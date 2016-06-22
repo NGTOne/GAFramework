@@ -1,5 +1,4 @@
 #include "../core/Locus.hpp"
-#include "../core/Genome.hpp"
 #include "../core/PopulationNode.hpp"
 #include <vector>
 #include <string>
@@ -15,14 +14,15 @@ class PopulationLocus: public Locus {
 	PopulationLocus(PopulationNode * node);
 	~PopulationLocus();
 
-	Genome * getIndex(unsigned int index);
-	unsigned int randomIndex();
-	unsigned int topIndex();
+	virtual Genome * getIndex(unsigned int index);
+	virtual unsigned int randomIndex();
+	virtual unsigned int topIndex();
+	virtual bool outOfRange(unsigned int i);
 	bool isConstructive();
-	bool outOfRange(unsigned int i);
 
-	std::string toString();
-	std::string nodeName();
-	std::string flatten(unsigned int index);
+	virtual std::string toString();
+	virtual std::string nodeName();
+	virtual std::string flatten(unsigned int index);
+	virtual Genome flattenToGenome(unsigned int index);
 	PopulationNode * getNode();
 };
