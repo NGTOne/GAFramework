@@ -89,7 +89,7 @@ void PopulationNode::createLoci(vector<Locus*> loci) {
 	this->fitnesses = vector<int>(this->initialPopulationSize, 0);
 
 	for (unsigned int i = 0; i < this->initialPopulationSize; i++)
-		this->population.push_back(new Genome(loci));
+		this->population.push_back(new Genome(loci, this->nodeName));
 	this->evaluateFitnesses();
 }
 

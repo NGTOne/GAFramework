@@ -116,5 +116,9 @@ Genome BlanketResolver::resolveBlanket(Genome * blanket) {
 	unsigned int head = BlanketResolver::findHeadIndex(blanket);
 	std::tie(resolvedGenes, resolvedLoci) =
 		BlanketResolver::resolve(blanket, head);
-	return Genome(resolvedGenes, resolvedLoci);
+	return Genome(
+		resolvedGenes,
+		resolvedLoci,
+		blanket->getIndex<Genome*>(head)->getSpeciesNode()
+	);
 }
