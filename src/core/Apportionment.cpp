@@ -82,7 +82,7 @@ int Apportionment::checkFitness(Genome * genome) {
 		unsigned int index;
 		do index = selDist(generator); while(tried[index]);
 		Genome provider = this->upperNode->getIndex(index)
-			->flattenWithReplacement(genome);
+			->replaceComponent(genome);
 		apportionedFitnesses.push_back(
 			this->apportionment->apportionFitness(
 				operable,
@@ -91,7 +91,7 @@ int Apportionment::checkFitness(Genome * genome) {
 			)
 		);
 		triedOn++;
-		tried[i] = true;
+		tried[index] = true;
 	}
 
 	delete(operable);
