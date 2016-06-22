@@ -1,5 +1,6 @@
 #pragma once
 #include "Locus.hpp"
+#include <tuple>
 #include <vector>
 #include <set>
 #include <boost/any.hpp>
@@ -22,6 +23,13 @@ class Genome {
 	Genome(
 		std::vector<unsigned int> genes,
 		std::vector<Locus *> loci,
+		std::string speciesNode
+	);
+	Genome(
+		std::tuple<
+			std::vector<unsigned int>,
+			std::vector<Locus*>
+		> genes,
 		std::string speciesNode
 	);
 	Genome(Genome * other);

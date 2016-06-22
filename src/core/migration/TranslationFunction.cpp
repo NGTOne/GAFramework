@@ -11,10 +11,7 @@ Genome * TranslationFunction::createTranslatedGenome(
 	Genome * target,
 	std::string targetNode
 ) {
-	std::vector<unsigned int> newGenes;
-	std::vector<Locus*> newLoci;
-	std::tie(newGenes, newLoci) = this->translate(target);
-	return new Genome(newGenes, newLoci, targetNode);
+	return new Genome(this->translate(target), targetNode);
 }
 
 bool TranslationFunction::isNull() {
