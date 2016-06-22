@@ -12,13 +12,18 @@ class Genome {
 	protected:
 	std::vector<unsigned int> genes;
 	std::vector<Locus *> loci;
+	std::string speciesNode;
 
 	void generateRandomGenes();
 	Genome flattenGenome(Genome * target, bool exclude);
 
 	public:
-	Genome(std::vector<Locus *> loci);
-	Genome(std::vector<unsigned int> genes, std::vector<Locus *> loci);
+	Genome(std::vector<Locus *> loci, std::string speciesNode);
+	Genome(
+		std::vector<unsigned int> genes,
+		std::vector<Locus *> loci,
+		std::string speciesNode
+	);
 	Genome(Genome * other);
 	Genome(Genome * other, bool randomize);
 	Genome(Genome * other, unsigned int rawGenes[]);
@@ -28,6 +33,7 @@ class Genome {
 	std::vector<unsigned int> getGenome();
 	unsigned int genomeLength();
 	std::vector<Locus *> getLoci();
+	std::string getSpeciesNode();
 	int difference(Genome * otherGenome);
 
 	std::string flatten();

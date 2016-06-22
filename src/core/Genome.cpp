@@ -8,23 +8,31 @@
 
 using namespace std;
 
-Genome::Genome(vector<Locus*> loci) {
+Genome::Genome(vector<Locus*> loci, std::string speciesNode) {
 	this->loci = loci;
+	this->speciesNode = speciesNode;
 	generateRandomGenes();
 }
 
-Genome::Genome(vector<unsigned int> genes, vector<Locus*> loci) {
+Genome::Genome(
+	vector<unsigned int> genes,
+	vector<Locus*> loci,
+	std::string speciesNode
+) {
 	this->genes = genes;
 	this->loci = loci;
+	this->speciesNode = speciesNode;
 }
 
 Genome::Genome(Genome * other) {
 	this->loci = other->getLoci();
 	this->genes = other->getGenome();
+	this->speciesNode = other->getSpeciesNode();
 }
 
 Genome::Genome(Genome * other, bool randomize) {
 	this->loci = other->getLoci();
+	this->speciesNode = other->getSpeciesNode();
 	if (randomize) {
 		this->generateRandomGenes();
 	} else {
@@ -34,6 +42,7 @@ Genome::Genome(Genome * other, bool randomize) {
 
 Genome::Genome(Genome * other, unsigned int rawGenes[]) {
 	this->loci = other->getLoci();
+	this->speciesNode = other->getSpeciesNode();
 	vector<unsigned int> genes(rawGenes, rawGenes + loci.size());
 	for (unsigned int i = 0; i < genes.size(); i++)
 		if (this->loci[i]->outOfRange(genes[i]))
@@ -59,6 +68,10 @@ unsigned int Genome::genomeLength() {
 
 vector<Locus*> Genome::getLoci() {
 	return loci;
+}
+
+std::string Genome::getSpeciesNode() {
+	return this->speciesNode;
 }
 
 int Genome::difference(Genome * otherGenome) {
@@ -130,7 +143,7 @@ Genome Genome::flattenGenome(Genome * target, bool exclude) {
 		}
 	}
 
-	return Genome(rawGenome, rawLoci);
+	return Genome(rawGenome, rawLoci, this->speciesNode);
 }
 
 Genome Genome::flattenGenome() {
