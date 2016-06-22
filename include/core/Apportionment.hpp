@@ -4,7 +4,6 @@
 #include "PopulationNode.hpp"
 #pragma once
 
-// TODO: Work in "trying on" to solve the valley of the dinosaurs
 class Apportionment : public ObjectiveFunction {
 	private:
 
@@ -12,6 +11,14 @@ class Apportionment : public ObjectiveFunction {
 	ApportionmentFunction * apportionment;
 	AggregationFunction * aggregator;
 	PopulationNode * upperNode;
+	unsigned int tryOns;
+
+	void init(
+		PopulationNode * upperNode,
+		ApportionmentFunction * apportionment,
+		AggregationFunction * aggregator,
+		unsigned int tryOns
+	);
 
 	int aggregateFitnesses(std::vector<int> apportionedFitnesses);
 	virtual Genome * getOperableGenome(Genome * genome);
@@ -22,6 +29,13 @@ class Apportionment : public ObjectiveFunction {
 		ApportionmentFunction * apportionment,
 		AggregationFunction * aggregator
 	);
+	Apportionment(
+		PopulationNode * upperNode,
+		ApportionmentFunction * apportionment,
+		AggregationFunction * aggregator,
+		unsigned int tryOns
+	);
+
 	virtual ~Apportionment();
 
 	int checkFitness(Genome * genome);

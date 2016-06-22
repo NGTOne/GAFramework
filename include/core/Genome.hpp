@@ -34,6 +34,7 @@ class Genome {
 	Genome flattenGenome();
 	Genome flattenExceptFor(Genome * target);
 	Genome flattenWithout(Genome * target);
+	Genome flattenWithReplacement(Genome * target);
 	unsigned int getFlattenedIndex(Genome * target);
 
 	bool usesComponent(Genome * component);

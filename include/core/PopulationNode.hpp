@@ -39,7 +39,6 @@ class PopulationNode {
 		unsigned int accelerationFactor
 	);
 
-	int evaluateFitness(Genome * target);
 	int evaluateFitness(int solutionIndex);
 	void createLoci(std::vector<Locus*> loci);
 	void replacePopulation();
@@ -88,6 +87,7 @@ class PopulationNode {
 
 	virtual void sortPopulation();
 	void evaluateFitnesses();
+	int evaluateFitness(Genome * target);
 
 	// For migration
 	virtual void insert(int index, Genome * target);
