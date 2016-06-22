@@ -49,14 +49,14 @@ int Apportionment::checkFitness(Genome * genome) {
 	std::vector<bool> tried(this->upperNode->populationSize(), false);
 	unsigned int triedOn = 0;
 
-	Genome * operable = this->getOperableGenome(genome);
-
 	for (unsigned int i = 0; i < this->upperNode->populationSize(); i++) {
-		Genome * provider = this->upperNode->getIndex(i);
+		Genome * provider = this->getOperableGenome(
+			this->upperNode->getIndex(i)
+		);
 		if (provider->usesComponent(genome)) {
 			apportionedFitnesses.push_back(
 				this->apportionment->apportionFitness(
-					operable,
+					genome,
 					provider,
 					this->upperNode->getFitnessAtIndex(i)
 				)
@@ -64,6 +64,7 @@ int Apportionment::checkFitness(Genome * genome) {
 			triedOn++;
 			tried[i] = true;
 		}
+		delete(provider);
 	}
 
 	// TODO: Refactor this into the class def
@@ -83,18 +84,19 @@ int Apportionment::checkFitness(Genome * genome) {
 		do index = selDist(generator); while(tried[index]);
 		Genome provider = this->upperNode->getIndex(index)
 			->replaceComponent(genome);
+		Genome * operable = this->getOperableGenome(&provider);
 		apportionedFitnesses.push_back(
 			this->apportionment->apportionFitness(
+				genome,
 				operable,
-				&provider,
 				this->upperNode->evaluateFitness(&provider)
 			)
 		);
 		triedOn++;
 		tried[index] = true;
+		delete(operable);
 	}
 
-	delete(operable);
 	return this->aggregateFitnesses(apportionedFitnesses);
 }
 
