@@ -90,6 +90,8 @@ int Apportionment::checkFitness(Genome * genome) {
 				this->upperNode->evaluateFitness(&provider)
 			)
 		);
+		triedOn++;
+		tried[i] = true;
 	}
 
 	delete(operable);
