@@ -46,7 +46,7 @@ Genome * MutationOperation::mutate(Genome * initialGenome) {
 		} else {
 			newGenome.push_back(existingGenome[i]);
 		}
-	return new Genome(newGenome, loci);
+	return new Genome(newGenome, loci, initialGenome->getSpeciesNode());
 }
 
 string MutationOperation::toString() {
