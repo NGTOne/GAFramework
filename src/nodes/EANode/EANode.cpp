@@ -63,7 +63,8 @@ vector<Genome*> EANode::getNextPopulation() {
 		this->fitnesses,
 		this->cross,
 		this->mutation,
-		this->objectives
+		this->objectives,
+		this->nodeName
 	);
 }
 

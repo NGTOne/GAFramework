@@ -41,6 +41,7 @@ class StrongIterativeReplacingGA : public ReplacingGA {
 		std::vector<int> & populationFitness,
 		CrossoverOperation * cross,
 		MutationOperation * mutation,
-		std::vector<ObjectiveFunction*> objectives
+		std::vector<ObjectiveFunction*> objectives,
+		std::string speciesNode
 	);
 };

@@ -28,7 +28,8 @@ class ES : public EvolutionarySystem {
 	Genome * getCrossoverChild(
 		vector<Genome*> initialPopulation,
 		vector<int> populationFitnesses,
-		CrossoverOperation * cross
+		CrossoverOperation * cross,
+		std::string speciesNode
 	);
 
 	public:
@@ -51,6 +52,7 @@ class ES : public EvolutionarySystem {
 		std::vector<int> & populationFitnesses,
 		CrossoverOperation * cross,
 		MutationOperation * mutation,
-		std::vector<ObjectiveFunction*> objectives
+		std::vector<ObjectiveFunction*> objectives,
+		std::string speciesNode
 	);
 };

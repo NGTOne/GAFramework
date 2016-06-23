@@ -108,7 +108,8 @@ vector<Genome*> GA::breedMutateSelect(
 	vector<int> & populationFitnesses,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
-	vector<ObjectiveFunction*> objectives
+	vector<ObjectiveFunction*> objectives,
+	std::string speciesNode
 ) {
 	vector<Genome*> newPopulation(initialPopulation.size(), NULL);
 	vector<int> newFitnesses(initialPopulation.size(), 0);
@@ -130,7 +131,12 @@ vector<Genome*> GA::breedMutateSelect(
 			)]
 		);
 
-		children = this->produceChildren(parents, cross, mutation);
+		children = this->produceChildren(
+			parents,
+			cross,
+			mutation,
+			speciesNode
+		);
 
 		for (unsigned int i = 0; i < children.size(); i++) {
 			while (newPopulation[numOffspring] != NULL)

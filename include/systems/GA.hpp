@@ -54,6 +54,7 @@ class GA : public EvolutionarySystem {
 		std::vector<int> & populationFitnesses,
 		CrossoverOperation * cross,
 		MutationOperation * mutation,
-		std::vector<ObjectiveFunction*> objectives
+		std::vector<ObjectiveFunction*> objectives,
+		std::string speciesNode
 	);
 };

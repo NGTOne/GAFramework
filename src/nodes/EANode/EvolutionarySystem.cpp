@@ -65,9 +65,10 @@ unsigned int EvolutionarySystem::getParent(
 vector<Genome*> EvolutionarySystem::produceChildren(
 	vector<Genome*> parents,
 	CrossoverOperation * cross,
-	MutationOperation * mutation
+	MutationOperation * mutation,
+	std::string speciesNode
 ) {
-	vector<Genome*> children = cross->crossOver(parents);
+	vector<Genome*> children = cross->crossOver(parents, speciesNode);
 	for (unsigned int i = 0; i < children.size(); i++) {
 		Genome * temp = children[i];
 		children[i] = mutation->mutate(children[i]);

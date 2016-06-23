@@ -23,7 +23,8 @@ std::vector<Genome*> AccelSSGA::breedMutateSelect(
 	std::vector<int> & populationFitnesses,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
-	std::vector<ObjectiveFunction*> objectives
+	std::vector<ObjectiveFunction*> objectives,
+	std::string speciesNode
 ) {
 	std::vector<Genome*> newPopulation;
 	for (unsigned int i = 0; i < initialPopulation.size(); i++)
@@ -35,7 +36,8 @@ std::vector<Genome*> AccelSSGA::breedMutateSelect(
 			populationFitnesses,
 			cross,
 			mutation,
-			objectives
+			objectives,
+			speciesNode
 		);
 
 		for (unsigned int k = 0; k < newPopulation.size(); k++)

@@ -68,7 +68,8 @@ void ES::init(double muRatio, double rhoRatio) {
 Genome* ES::getCrossoverChild(
 	vector<Genome*> initialPopulation,
 	vector<int> populationFitnesses,
-	CrossoverOperation * cross
+	CrossoverOperation * cross,
+	std::string speciesNode
 ) {
 	vector<Genome*> parents, children;
 	for (int i = 0; i < 2; i++) {
@@ -78,7 +79,7 @@ Genome* ES::getCrossoverChild(
 		)]);
 	}
 
-	children = cross->crossOver(parents);
+	children = cross->crossOver(parents, speciesNode);
 	uniform_int_distribution<unsigned int> childIndexDist(
 		0,
 		children.size() - 1
@@ -95,7 +96,8 @@ vector<Genome*> ES::breedMutateSelect(
 	vector<int> & populationFitnesses,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
-	vector<ObjectiveFunction*> objectives
+	vector<ObjectiveFunction*> objectives,
+	std::string speciesNode
 ) {
 	unsigned int initialPopSize = initialPopulation.size();
 	unsigned int numMutants = initialPopSize * rhoRatio;
@@ -116,7 +118,10 @@ vector<Genome*> ES::breedMutateSelect(
 
 	for (unsigned int i = 0; i < numCrossChildren; i++) {
 		crossChildren.push_back(this->getCrossoverChild(
-			initialPopulation, populationFitnesses, cross
+			initialPopulation,
+			populationFitnesses,
+			cross,
+			speciesNode
 		));
 	}
 

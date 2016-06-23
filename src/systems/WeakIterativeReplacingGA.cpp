@@ -17,7 +17,8 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 	vector<int> & populationFitnesses,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
-	vector<ObjectiveFunction*> objectives
+	vector<ObjectiveFunction*> objectives,
+	std::string speciesNode
 ) {
 	vector<vector<Genome*>> possibleContenders(
 		initialPopulation.size(),
@@ -38,7 +39,12 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 		for (unsigned int k = 0; k < parentIndices.size(); k++)
 			parents.push_back(initialPopulation[parentIndices[k]]);
 
-		children = this->produceChildren(parents, cross, mutation);
+		children = this->produceChildren(
+			parents,
+			cross,
+			mutation,
+			speciesNode
+		);
 
 		for (unsigned int k = 0; k < children.size(); k++)
 			possibleContenders[parentIndices[k]].push_back(

@@ -34,7 +34,8 @@ class EvolutionarySystem {
 	std::vector<Genome*> produceChildren(
 		std::vector<Genome*> parents,
 		CrossoverOperation * cross,
-		MutationOperation * mutation
+		MutationOperation * mutation,
+		std::string speciesNode
 	);
 
 	public:
@@ -47,7 +48,8 @@ class EvolutionarySystem {
 		std::vector<int> & populationFitnesses,
 		CrossoverOperation * cross,
 		MutationOperation * mutation,
-		std::vector<ObjectiveFunction*> objectives
+		std::vector<ObjectiveFunction*> objectives,
+		std::string speciesNode
 	)=0;
 
 	std::string toString();

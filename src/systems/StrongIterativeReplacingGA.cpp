@@ -59,7 +59,8 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 	vector<int> & populationFitnesses,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
-	vector<ObjectiveFunction*> objectives
+	vector<ObjectiveFunction*> objectives,
+	std::string speciesNode
 ) {
 	vector<Genome*> newPopulation, children;
 	vector<unsigned int> parentIndices(2, 0);
@@ -78,7 +79,12 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 		for (unsigned int k = 0; k < parentIndices.size(); k++)
 			parents.push_back(initialPopulation[parentIndices[k]]);
 
-		children = this->produceChildren(parents, cross, mutation);
+		children = this->produceChildren(
+			parents,
+			cross,
+			mutation,
+			speciesNode
+		);
 
 		for (unsigned int k = 0; k < children.size(); k++) {
 			int childFitness = this->evaluateFitness(

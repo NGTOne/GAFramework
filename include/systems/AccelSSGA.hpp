@@ -38,6 +38,7 @@ class AccelSSGA : public SSGA {
 		std::vector<int> & populationFitnesses,
 		CrossoverOperation * cross,
 		MutationOperation * mutation,
-		std::vector<ObjectiveFunction*> objectives
+		std::vector<ObjectiveFunction*> objectives,
+		std::string speciesNode
 	);
 };

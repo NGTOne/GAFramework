@@ -34,7 +34,8 @@ vector<Genome*> SSGA::breedMutateSelect(
 	vector<int> & populationFitnesses,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
-	vector<ObjectiveFunction*> objectives
+	vector<ObjectiveFunction*> objectives,
+	std::string speciesNode
 ) {
 	vector<Genome*> finalPopulation(initialPopulation.size(), NULL);
 	vector<unsigned int> parentIndices;
@@ -48,7 +49,12 @@ vector<Genome*> SSGA::breedMutateSelect(
 		parents.push_back(initialPopulation[parentIndices[i]]);
 	}
 
-	children = this->produceChildren(parents, cross, mutation);
+	children = this->produceChildren(
+		parents,
+		cross,
+		mutation,
+		speciesNode
+	);
 
 	vector<unsigned int> replacementIndices = parentIndices;
 	if (niching != NULL)
