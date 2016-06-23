@@ -3,14 +3,14 @@
 std::tuple<
 	std::vector<unsigned int>,
 	std::vector<Locus*>
-> TranslationFunction::translate(Genome * target) {
+> NullTranslationFunction::translate(Genome * target) {
 	return std::make_tuple(
 		std::vector<unsigned int>(),
 		std::vector<Locus*>()
 	);
 }
 
-Genome * TranslationFunction::createTranslatedGenome(
+Genome * NullTranslationFunction::createTranslatedGenome(
 	Genome * target,
 	std::string targetNode
 ) {

@@ -12,7 +12,7 @@ class NullTranslationFunction : public TranslationFunction {
 	> translate(Genome * target);
 
 	public:
-	virtual Genome * createdTranslatedGenome(
+	virtual Genome * createTranslatedGenome(
 		Genome * target,
 		std::string targetNode
 	);
