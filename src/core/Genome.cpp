@@ -193,7 +193,8 @@ Genome Genome::replaceComponent(Genome * target) {
 			Genome * locusTarget = (temp->usesSpecies(target) ?
 				target : this->getIndex<Genome*>(i));
 			newLoci.push_back(new FakePopulationLocus(
-				locusTarget->replaceComponent(target)
+				locusTarget->replaceComponent(target),
+				temp
 			));
 		} else {
 			newLoci.push_back(this->loci[i]);

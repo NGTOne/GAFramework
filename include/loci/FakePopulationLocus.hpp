@@ -14,8 +14,8 @@ class FakePopulationLocus: public PopulationLocus {
 	Genome * target;
 
 	public:
-	FakePopulationLocus(Genome * target);
-	FakePopulationLocus(Genome target);
+	FakePopulationLocus(Genome * target, PopulationLocus * original);
+	FakePopulationLocus(Genome target, PopulationLocus * original);
 	~FakePopulationLocus();
 
 	Genome * getIndex(unsigned int index);

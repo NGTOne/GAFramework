@@ -1,11 +1,17 @@
 #include "loci/FakePopulationLocus.hpp"
 #include <sstream>
 
-FakePopulationLocus::FakePopulationLocus(Genome * target) {
+FakePopulationLocus::FakePopulationLocus(
+	Genome * target,
+	PopulationLocus * original
+) : PopulationLocus(original->getNode()) {
 	this->target = new Genome(target);
 }
 
-FakePopulationLocus::FakePopulationLocus(Genome target) {
+FakePopulationLocus::FakePopulationLocus(
+	Genome target,
+	PopulationLocus * original
+) : PopulationLocus(original->getNode()) {
 	this->target = new Genome(&target);
 }
 
@@ -34,11 +40,16 @@ bool FakePopulationLocus::isFake() {
 }
 
 std::string FakePopulationLocus::toString() {
-	return "Fake population locus.";
+	stringstream ss;
+	ss << "Fake population locus with genome: "
+		<< this->node->stringifyGenome(this->target)
+		<< ".\n";
+
+	return ss.str();
 }
 
 std::string FakePopulationLocus::flatten(unsigned int index) {
-	return "";
+	return this->node->stringifyGenome(this->target);
 }
 
 Genome FakePopulationLocus::flattenToGenome(unsigned int index) {
