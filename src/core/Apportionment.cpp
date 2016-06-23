@@ -43,6 +43,36 @@ Genome * Apportionment::getOperableGenome(Genome * genome) {
 	return new Genome(genome->flattenGenome());
 }
 
+std::vector<unsigned int> Apportionment::getComponentIndices(
+	Genome * upper,
+	Genome * target
+) {
+	return upper->getFlattenedIndices(target);
+}
+
+void Apportionment::evaluatePair(
+	Genome * upper,
+	Genome * target,
+	int upperFitness,
+	std::vector<int> & apportionedFitnesses
+) {
+	std::vector<unsigned int> componentIndices =
+		this->getComponentIndices(upper, target);
+
+	for (unsigned int i = 0; i < componentIndices.size(); i++) {
+		Genome * provider = this->getOperableGenome(upper);
+		apportionedFitnesses.push_back(
+			this->apportionment->apportionFitness(
+				target,
+				provider,
+				componentIndices[i],
+				upperFitness
+			)
+		);
+		delete(provider);
+	}
+}
+
 // TODO: Refactor this function
 int Apportionment::checkFitness(Genome * genome) {
 	std::vector<int> apportionedFitnesses;
@@ -50,21 +80,16 @@ int Apportionment::checkFitness(Genome * genome) {
 	unsigned int triedOn = 0;
 
 	for (unsigned int i = 0; i < this->upperNode->populationSize(); i++) {
-		Genome * provider = this->getOperableGenome(
-			this->upperNode->getIndex(i)
-		);
-		if (provider->usesComponent(genome)) {
-			apportionedFitnesses.push_back(
-				this->apportionment->apportionFitness(
-					genome,
-					provider,
-					this->upperNode->getFitnessAtIndex(i)
-				)
+		if (this->upperNode->getIndex(i)->usesComponent(genome)) {
+			this->evaluatePair(
+				this->upperNode->getIndex(i),
+				genome,
+				this->upperNode->getFitnessAtIndex(i),
+				apportionedFitnesses
 			);
 			triedOn++;
 			tried[i] = true;
 		}
-		delete(provider);
 	}
 
 	// TODO: Refactor this into the class def
@@ -84,17 +109,14 @@ int Apportionment::checkFitness(Genome * genome) {
 		do index = selDist(generator); while(tried[index]);
 		Genome provider = this->upperNode->getIndex(index)
 			->replaceComponent(genome);
-		Genome * operable = this->getOperableGenome(&provider);
-		apportionedFitnesses.push_back(
-			this->apportionment->apportionFitness(
-				genome,
-				operable,
-				this->upperNode->evaluateFitness(&provider)
-			)
+		this->evaluatePair(
+			&provider,
+			genome,
+			this->upperNode->evaluateFitness(&provider),
+			apportionedFitnesses
 		);
 		triedOn++;
 		tried[index] = true;
-		delete(operable);
 	}
 
 	return this->aggregateFitnesses(apportionedFitnesses);

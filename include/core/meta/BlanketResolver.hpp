@@ -9,7 +9,6 @@ class BlanketResolver {
 	private:
 	static std::vector<Genome*> getBlanketGenomes(Genome * blanket);
 
-	static unsigned int findHeadIndex(Genome * blanket);
 	static unsigned int findMetaComponentIndex(
 		Genome * blanket,
 		PopulationNode * node
@@ -30,5 +29,6 @@ class BlanketResolver {
 	protected:
 
 	public:
+	static unsigned int findHeadIndex(Genome * blanket);
 	static Genome resolveBlanket(Genome * blanket);
 };

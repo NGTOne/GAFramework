@@ -10,6 +10,7 @@ class SameFitnessApportionmentFunction : ApportionmentFunction {
 	int apportionFitness(
 		Genome * recipient,
 		Genome * provider,
+		unsigned int recipientPosition,
 		int providerFitness
 	);
 };

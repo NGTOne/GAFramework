@@ -22,6 +22,17 @@ class Apportionment : public ObjectiveFunction {
 
 	int aggregateFitnesses(std::vector<int> apportionedFitnesses);
 	virtual Genome * getOperableGenome(Genome * genome);
+	virtual std::vector<unsigned int> getComponentIndices(
+		Genome * upper,
+		Genome * target
+	);
+
+	void evaluatePair(
+		Genome * upper,
+		Genome * target,
+		int upperFitness,
+		std::vector<int> & apportionedFitnesses
+	);
 
 	public:
 	Apportionment(

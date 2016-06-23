@@ -204,15 +204,39 @@ Genome Genome::replaceComponent(Genome * target) {
 	return Genome(newGenes, newLoci, this->speciesNode);
 }
 
-unsigned int Genome::getFlattenedIndex(Genome * target) {
-	Genome temp = this->flattenGenome(target, false);
-	vector<Locus*> tempLoci = temp.getLoci();
+std::vector<unsigned int> Genome::getFlattenedIndices(Genome * target) {
+	std::vector<unsigned int> indices;
+	unsigned int currentIndex = 0;
 
-	// TODO: Make this a bit less hack-y
-	for (unsigned int i = 0; i < temp.genomeLength(); i++)
-		if (tempLoci[i]->isConstructive()) return i;
+	for (unsigned int i = 0; i < this->genes.size(); i++) {
+		if (this->loci[i]->isConstructive()) {
+			Genome * temp = ((PopulationLocus*)this->loci[i])
+				->getIndex(this->genes[i]);
+			if (temp == target) {
+				indices.push_back(i);
+				currentIndex += temp->flattenedGenomeLength();
+			} else {
+				std::vector<unsigned int> componentIndices =
+					temp->getFlattenedIndices(target);
 
-	throw ComponentNotPresentException(); 
+				for (
+					unsigned int k = 0;
+					k < componentIndices.size();
+					k++
+				) {
+					indices.push_back(
+						componentIndices[k]
+							+ currentIndex
+					);
+				}
+				currentIndex += temp->flattenedGenomeLength();
+			}
+		} else {
+			currentIndex++;
+		}
+	}
+
+	return indices;
 }
 
 bool Genome::usesComponent(Genome * component) {

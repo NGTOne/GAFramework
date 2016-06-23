@@ -40,6 +40,7 @@ class Genome {
 
 	std::vector<unsigned int> getGenome();
 	unsigned int genomeLength();
+	unsigned int flattenedGenomeLength();
 	std::vector<Locus *> getLoci();
 	std::string getSpeciesNode();
 	int difference(Genome * otherGenome);
@@ -49,7 +50,7 @@ class Genome {
 	Genome flattenExceptFor(Genome * target);
 	Genome flattenWithout(Genome * target);
 	Genome replaceComponent(Genome * target);
-	unsigned int getFlattenedIndex(Genome * target);
+	std::vector<unsigned int> getFlattenedIndices(Genome * target);
 
 	bool usesComponent(Genome * component);
 	set<Locus*> getConstructiveLoci();

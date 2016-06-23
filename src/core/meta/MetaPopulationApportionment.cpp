@@ -11,3 +11,12 @@ Genome * MetaPopulationApportionment::getOperableGenome(Genome * genome) {
 	Genome resolved = BlanketResolver::resolveBlanket(genome);
 	return new Genome(&resolved);
 }
+
+std::vector<unsigned int> MetaPopulationApportionment::getComponentIndices(
+	Genome * upper,
+	Genome * target
+) {
+	unsigned int headIndex = BlanketResolver::findHeadIndex(upper);
+	return upper->getIndex<Genome*>(headIndex)
+		->getFlattenedIndices(target);
+}

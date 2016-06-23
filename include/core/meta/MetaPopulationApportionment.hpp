@@ -7,6 +7,10 @@ class MetaPopulationApportionment : public Apportionment {
 
 	protected:
 	Genome * getOperableGenome(Genome * genome);
+	std::vector<unsigned int> getComponentIndices(
+		Genome * upper,
+		Genome * target
+	);
 
 	public:
 	MetaPopulationApportionment(
