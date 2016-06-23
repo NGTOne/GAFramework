@@ -40,7 +40,7 @@ void Apportionment::init(
 }
 
 Genome * Apportionment::getOperableGenome(Genome * genome) {
-	return new Genome(genome);
+	return new Genome(genome->flattenGenome());
 }
 
 // TODO: Refactor this function
