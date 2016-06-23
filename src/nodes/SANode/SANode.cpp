@@ -121,7 +121,11 @@ vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 
 				tempGenes = rawGenes;
 				tempGenes[i] = k;
-				tempGenome = new Genome(tempGenes, loci);
+				tempGenome = new Genome(
+					tempGenes,
+					loci,
+					target->getSpeciesNode()
+				);
 
 				diff = this->compareNeighbourliness(
 					target,
@@ -148,7 +152,11 @@ vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 			if (!loci[i]->outOfRange(rawGenes[i]+1)) {
 				tempGenes[i]++;
 				neighbours.push_back(
-					new Genome(rawGenes, loci)
+					new Genome(
+						rawGenes,
+						loci,
+						target->getSpeciesNode()
+					)
 				);
 			}
 
@@ -156,7 +164,11 @@ vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 			if (!loci[i]->outOfRange(rawGenes[i]-1)) {
 				tempGenes[i]--;
 				neighbours.push_back(
-					new Genome(rawGenes, loci)
+					new Genome(
+						rawGenes,
+						loci,
+						target->getSpeciesNode()
+					)
 				);
 			}
 		}
