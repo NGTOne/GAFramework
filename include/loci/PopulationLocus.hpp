@@ -19,6 +19,8 @@ class PopulationLocus: public Locus {
 	virtual unsigned int topIndex();
 	virtual bool outOfRange(unsigned int i);
 	bool isConstructive();
+	virtual bool isFake();
+	bool usesSpecies(Genome * target);
 
 	virtual std::string toString();
 	virtual std::string nodeName();

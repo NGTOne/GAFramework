@@ -1,6 +1,7 @@
 #include "core/Genome.hpp"
 #include "core/Locus.hpp"
 #include "loci/PopulationLocus.hpp"
+#include "loci/FakePopulationLocus.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
 #include "exception/ComponentNotPresentException.hpp"
 #include <cmath>
@@ -61,7 +62,13 @@ Genome::Genome(Genome * other, unsigned int rawGenes[]) {
 	this->genes = genes;
 }
 
-Genome::~Genome() {}
+Genome::~Genome() {
+	for (unsigned int i = 0; i < this->loci.size(); i++)
+		if (
+			this->loci[i]->isConstructive()
+			&& ((PopulationLocus*)this->loci[i])->isFake()
+		) delete(this->loci[i]);
+}
 
 void Genome::generateRandomGenes() {
 	genes.clear();
@@ -114,6 +121,12 @@ string Genome::flatten() {
 		ss << this->loci[i]->flatten(this->genes[i]) << " ";
 
 	return ss.str();
+}
+
+template <>
+Genome * Genome::getIndex<Genome*>(unsigned int index) {
+	return ((PopulationLocus*)this->loci[index])
+		->getIndex(this->genes[index]);
 }
 
 Genome Genome::flattenGenome(Genome * target, bool exclude) {
@@ -169,6 +182,27 @@ Genome Genome::flattenWithout(Genome * target) {
 	return this->flattenGenome(target, true);
 }
 
+Genome Genome::replaceComponent(Genome * target) {
+	std::vector<unsigned int> newGenes;
+	std::vector<Locus*> newLoci;
+	for (unsigned int i = 0; i < this->loci.size(); i++) {
+		if (this->loci[i]->isConstructive()) {
+			PopulationLocus * temp =
+				(PopulationLocus*)this->loci[i];
+
+			Genome * locusTarget = (temp->usesSpecies(target) ?
+				target : this->getIndex<Genome*>(i));
+			newLoci.push_back(new FakePopulationLocus(
+				locusTarget->replaceComponent(target)
+			));
+		} else {
+			newLoci.push_back(this->loci[i]);
+		}
+		newGenes.push_back(this->genes[i]);
+	}
+	return Genome(newGenes, newLoci, this->speciesNode);
+}
+
 unsigned int Genome::getFlattenedIndex(Genome * target) {
 	Genome temp = this->flattenGenome(target, false);
 	vector<Locus*> tempLoci = temp.getLoci();
@@ -203,10 +237,4 @@ set<Locus*> Genome::getConstructiveLoci() {
 			constructiveLoci.insert(this->loci[i]);
 
 	return constructiveLoci;
-}
-
-template <>
-Genome * Genome::getIndex<Genome*>(unsigned int index) {
-	return ((PopulationLocus*)this->loci[index])
-		->getIndex(this->genes[index]);
 }

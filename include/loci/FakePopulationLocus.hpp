@@ -14,13 +14,15 @@ class FakePopulationLocus: public PopulationLocus {
 	Genome * target;
 
 	public:
-	FakePopulationLocus(Genome * target, PopulationNode * targetBase);
+	FakePopulationLocus(Genome * target);
+	FakePopulationLocus(Genome target);
 	~FakePopulationLocus();
 
 	Genome * getIndex(unsigned int index);
 	unsigned int randomIndex();
 	unsigned int topIndex();
 	bool outOfRange(unsigned int i);
+	bool isFake();
 
 	std::string toString();
 	std::string flatten(unsigned int index);

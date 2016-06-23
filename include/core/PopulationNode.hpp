@@ -95,6 +95,7 @@ class PopulationNode {
 	std::string name();
 	unsigned int populationSize();
 	bool contains(Genome * target);
+	bool usesSpecies(Genome * target);
 
 	std::string populationStrings();
 	virtual std::string toString();

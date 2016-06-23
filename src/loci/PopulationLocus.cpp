@@ -32,6 +32,14 @@ bool PopulationLocus::outOfRange(unsigned int i) {
 	return i >= this->node->populationSize();
 }
 
+bool PopulationLocus::isConstructive() {
+	return true;
+}
+
+bool PopulationLocus::isFake() {
+	return false;
+}
+
 string PopulationLocus::toString() {
 	stringstream ss;
 	ss << "Locus uses node " << this->nodeName() << "\n"
