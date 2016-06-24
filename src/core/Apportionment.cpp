@@ -78,12 +78,13 @@ int Apportionment::checkFitness(Genome * genome) {
 	std::vector<int> apportionedFitnesses;
 	std::vector<bool> tried(this->upperNode->populationSize(), false);
 	unsigned int triedOn = 0;
+	Genome flattened = genome->flattenGenome();
 
 	for (unsigned int i = 0; i < this->upperNode->populationSize(); i++) {
 		if (this->upperNode->getIndex(i)->usesComponent(genome)) {
 			this->evaluatePair(
 				this->upperNode->getIndex(i),
-				genome,
+				&flattened,
 				this->upperNode->getFitnessAtIndex(i),
 				apportionedFitnesses
 			);
@@ -111,7 +112,7 @@ int Apportionment::checkFitness(Genome * genome) {
 			->replaceComponent(genome);
 		this->evaluatePair(
 			&provider,
-			genome,
+			&flattened,
 			this->upperNode->evaluateFitness(&provider),
 			apportionedFitnesses
 		);
