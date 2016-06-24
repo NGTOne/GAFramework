@@ -29,7 +29,11 @@ int main(void) {
 		populationLoci.push_back(new PopulationLocus(bottomNodes[i]));
 	}
 
-	ea.addNodes(bottomNodes, vector<bool>(4, true), vector<bool>(4, false));
+	ea.addNodes(
+		bottomNodes,
+		vector<bool>(4, true),
+		vector<bool>(4, false)
+	);
 	ea.addNode(
 		new EANode(
 			8,
@@ -49,10 +53,11 @@ int main(void) {
 	);
 
 	vector<string> names({"P5", "P4", "P3", "P2"});
-	for (int i = 0; i < names.size(); i++)
-		ea.getNodeByName(names[i])->setObjective(new BestOfApportionment(
+	for (unsigned int i = 0; i < names.size(); i++)
+		ea.getNodeByName(names[i])->setObjective(new Apportionment(
 			ea.getNodeByName("P1"),
-			new LongestFragmentApportionment()
+			new LongestFragmentApportionment(),
+			new BestOfAggregator()
 		));
 
 	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});
