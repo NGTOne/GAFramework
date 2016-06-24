@@ -177,7 +177,7 @@ Genome Genome::flattenWithout(Genome * target) {
 	return this->flattenGenome(target, true);
 }
 
-Genome Genome::replaceComponent(Genome * target) {
+Genome * Genome::replaceComponent(Genome * target) {
 	std::vector<unsigned int> newGenes;
 	std::vector<Locus*> newLoci;
 	for (unsigned int i = 0; i < this->loci.size(); i++) {
@@ -196,7 +196,7 @@ Genome Genome::replaceComponent(Genome * target) {
 		}
 		newGenes.push_back(this->genes[i]);
 	}
-	return FakeGenome(newGenes, newLoci, this->speciesNode);
+	return new FakeGenome(newGenes, newLoci, this->speciesNode);
 }
 
 std::vector<unsigned int> Genome::getFlattenedIndices(Genome * target) {

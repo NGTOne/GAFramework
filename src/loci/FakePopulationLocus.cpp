@@ -1,18 +1,19 @@
 #include "loci/FakePopulationLocus.hpp"
+#include "core/FakeGenome.hpp"
 #include <sstream>
 
 FakePopulationLocus::FakePopulationLocus(
 	Genome * target,
 	PopulationLocus * original
 ) : PopulationLocus(original->getNode()) {
-	this->target = new Genome(target);
+	this->target = new FakeGenome(target);
 }
 
 FakePopulationLocus::FakePopulationLocus(
 	Genome target,
 	PopulationLocus * original
 ) : PopulationLocus(original->getNode()) {
-	this->target = new Genome(&target);
+	this->target = new FakeGenome(&target);
 }
 
 FakePopulationLocus::~FakePopulationLocus() {

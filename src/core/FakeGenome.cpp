@@ -7,6 +7,8 @@ FakeGenome::FakeGenome(
 	std::string speciesNode
 ) : Genome(genes, loci, speciesNode) {}
 
+FakeGenome::FakeGenome(Genome * other) : Genome(other) {}
+
 FakeGenome::~FakeGenome() {
 	for (unsigned int i = 0; i < this->loci.size(); i++)
 		if (

@@ -49,7 +49,7 @@ class Genome {
 	Genome flattenGenome();
 	Genome flattenExceptFor(Genome * target);
 	Genome flattenWithout(Genome * target);
-	Genome replaceComponent(Genome * target);
+	Genome * replaceComponent(Genome * target);
 	std::vector<unsigned int> getFlattenedIndices(Genome * target);
 
 	bool usesComponent(Genome * component);

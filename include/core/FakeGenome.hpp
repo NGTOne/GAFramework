@@ -11,6 +11,7 @@ class FakeGenome : public Genome {
 		std::vector<Locus *> loci,
 		std::string speciesNode
 	);
+	FakeGenome(Genome * other);
 
 	~FakeGenome();
 };

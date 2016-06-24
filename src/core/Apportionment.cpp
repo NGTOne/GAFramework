@@ -97,25 +97,26 @@ int Apportionment::checkFitness(Genome * genome) {
 	mt19937 generator;
 	uniform_int_distribution<unsigned int> selDist(
 		0,
-		this->upperNode->populationSize()
+		this->upperNode->populationSize() - 1
 	);
 
 	unsigned int tryOns = std::min(
-		this->upperNode->populationSize(),
+		this->upperNode->populationSize() - 1,
 		this->tryOns
 	);
 
 	while (triedOn < tryOns) {
 		unsigned int index;
 		do index = selDist(generator); while(tried[index]);
-		Genome provider = this->upperNode->getIndex(index)
+		Genome * provider = this->upperNode->getIndex(index)
 			->replaceComponent(genome);
 		this->evaluatePair(
-			&provider,
+			provider,
 			&flattened,
-			this->upperNode->evaluateFitness(&provider),
+			this->upperNode->evaluateFitness(provider),
 			apportionedFitnesses
 		);
+		delete(provider);
 		triedOn++;
 		tried[index] = true;
 	}

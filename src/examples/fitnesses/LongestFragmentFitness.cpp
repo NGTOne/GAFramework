@@ -6,11 +6,12 @@
 using namespace std;
 
 int findLongestPath(Genome * genome, unsigned int & longestPathIndex) {
+	Genome flattened = genome->flattenGenome();
 	int longestPathLength = 0, currentPathLength = 0;
 	unsigned int currentPathIndex, currentDigit;
 
-	for (unsigned int i = 0; i < genome->genomeLength(); i++) {
-		currentDigit = genome->getIndex<int>(i);
+	for (unsigned int i = 0; i < flattened.genomeLength(); i++) {
+		currentDigit = flattened.getIndex<int>(i);
 		currentPathIndex = i-currentPathLength;
 
 		if (currentDigit == 1) {
