@@ -1,4 +1,5 @@
 #include "core/Genome.hpp"
+#include "core/FakeGenome.hpp"
 #include "core/Locus.hpp"
 #include "loci/PopulationLocus.hpp"
 #include "loci/FakePopulationLocus.hpp"
@@ -62,13 +63,7 @@ Genome::Genome(Genome * other, unsigned int rawGenes[]) {
 	this->genes = genes;
 }
 
-Genome::~Genome() {
-	for (unsigned int i = 0; i < this->loci.size(); i++)
-		if (
-			this->loci[i]->isConstructive()
-			&& ((PopulationLocus*)this->loci[i])->isFake()
-		) delete(this->loci[i]);
-}
+Genome::~Genome() {}
 
 void Genome::generateRandomGenes() {
 	genes.clear();
@@ -201,7 +196,7 @@ Genome Genome::replaceComponent(Genome * target) {
 		}
 		newGenes.push_back(this->genes[i]);
 	}
-	return Genome(newGenes, newLoci, this->speciesNode);
+	return FakeGenome(newGenes, newLoci, this->speciesNode);
 }
 
 std::vector<unsigned int> Genome::getFlattenedIndices(Genome * target) {

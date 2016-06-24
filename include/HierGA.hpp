@@ -3,6 +3,7 @@
 #include "aggregators/SummingAggregator.hpp"
 #include "apportionment-func/SameFitnessApportionmentFunction.hpp"
 #include "core/Genome.hpp"
+#include "core/FakeGenome.hpp"
 #include "core/EndCondition.hpp"
 #include "core/migration/TranslationFunction.hpp"
 #include "core/migration/MigratoryRelationship.hpp"
