@@ -5,13 +5,12 @@
 
 using namespace std;
 
-int findLongestPath(Genome * genome, int & longestPathIndex) {
-	Genome flattened = genome->flattenGenome();
+int findLongestPath(Genome * genome, unsigned int & longestPathIndex) {
 	int longestPathLength = 0, currentPathLength = 0;
-	int currentPathIndex, currentDigit;
+	unsigned int currentPathIndex, currentDigit;
 
-	for (unsigned int i = 0; i < flattened.genomeLength(); i++) {
-		currentDigit = flattened.getIndex<int>(i);
+	for (unsigned int i = 0; i < genome->genomeLength(); i++) {
+		currentDigit = genome->getIndex<int>(i);
 		currentPathIndex = i-currentPathLength;
 
 		if (currentDigit == 1) {
@@ -36,7 +35,7 @@ int findLongestPath(Genome * genome, int & longestPathIndex) {
 LongestFragmentFitness::LongestFragmentFitness() : ObjectiveFunction() {}
 
 int LongestFragmentFitness::checkFitness(Genome * genome) {
-	int bitBucket;
+	unsigned int bitBucket;
 	return findLongestPath(genome, bitBucket);
 }
 
@@ -53,34 +52,31 @@ string LongestFragmentToString::toString(Genome * genome) {
 int LongestFragmentApportionment::apportionFitness(
 	Genome * recipient,
 	Genome * provider,
+	unsigned int recipientPosition,
 	int providerFitness
 ) {
-	int recipientStartIndex = provider->getFlattenedIndex(recipient);
-	int longestPathLocation;
-	int longestPathLength = findLongestPath(provider, longestPathLocation);
-	int longestPathEndLocation = longestPathLocation + longestPathLength;
-	int recipientEndLocation =
-		recipientStartIndex + recipient->genomeLength();
+	unsigned int longestPathLocation;
+	unsigned int longestPathLength =
+		findLongestPath(provider, longestPathLocation);
+	unsigned int longestPathEndLocation =
+		longestPathLocation + longestPathLength;
+	unsigned int recipientEndLocation =
+		recipientPosition + recipient->genomeLength();
 
 	if (recipientEndLocation < longestPathLocation)
 		return 0;
 
-	if (recipientStartIndex > longestPathEndLocation)
+	if (recipientPosition > longestPathEndLocation)
 		return 0;
 
-	int totalPathOverlap = 0;
-	Genome flattenedRecipient = recipient->flattenGenome();
-
-	int currentLocation;
-	for (int i = 0; i < flattenedRecipient.genomeLength(); i++) {
-		currentLocation = i + recipientStartIndex;
+	unsigned int totalPathOverlap = 0, currentLocation;
+	for (unsigned int i = 0; i < recipient->genomeLength(); i++) {
+		currentLocation = i + recipientPosition;
 		if (
 			currentLocation >= longestPathLocation
 			&& currentLocation < longestPathEndLocation
-		) {
-			if (flattenedRecipient.indexIs<int>(i, 1))
-				totalPathOverlap += 1;
-		}
+			&& recipient->indexIs<int>(i, 1)
+		) totalPathOverlap += 1;
 	}
 
 	return totalPathOverlap;
