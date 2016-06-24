@@ -62,3 +62,7 @@ string PopulationLocus::flatten(unsigned int index) {
 PopulationNode * PopulationLocus::getNode() {
 	return this->node;
 }
+
+bool PopulationLocus::usesSpecies(Genome * target) {
+	return this->node->name() == target->getSpeciesNode();
+}

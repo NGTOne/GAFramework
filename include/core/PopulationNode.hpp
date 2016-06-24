@@ -99,7 +99,6 @@ class PopulationNode {
 
 	std::string populationStrings();
 	virtual std::string toString();
-	std::string stringifyGenome(Genome * target);
 	virtual node_type_t type()=0;
 
 	std::set<Locus*> getLoci();

@@ -239,6 +239,10 @@ std::vector<unsigned int> Genome::getFlattenedIndices(Genome * target) {
 	return indices;
 }
 
+unsigned int Genome::flattenedGenomeLength() {
+	return this->flattenGenome().genomeLength();
+}
+
 bool Genome::usesComponent(Genome * component) {
 	for (unsigned int i = 0; i < this->loci.size(); i++) {
 		Locus * locus = this->loci[i];

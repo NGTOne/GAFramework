@@ -42,16 +42,12 @@ bool FakePopulationLocus::isFake() {
 std::string FakePopulationLocus::toString() {
 	stringstream ss;
 	ss << "Fake population locus with genome: "
-		<< this->node->stringifyGenome(this->target)
+		<< this->target->flatten()
 		<< ".\n";
 
 	return ss.str();
 }
 
 std::string FakePopulationLocus::flatten(unsigned int index) {
-	return this->node->stringifyGenome(this->target);
-}
-
-Genome FakePopulationLocus::flattenToGenome(unsigned int index) {
-	return this->target->flattenGenome();
+	return this->target->flatten();
 }

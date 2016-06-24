@@ -25,6 +25,5 @@ class PopulationLocus: public Locus {
 	virtual std::string toString();
 	virtual std::string nodeName();
 	virtual std::string flatten(unsigned int index);
-	virtual Genome flattenToGenome(unsigned int index);
 	PopulationNode * getNode();
 };
