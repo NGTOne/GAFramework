@@ -185,12 +185,14 @@ Genome * Genome::replaceComponent(Genome * target) {
 			PopulationLocus * temp =
 				(PopulationLocus*)this->loci[i];
 
-			Genome * locusTarget = (temp->usesSpecies(target) ?
-				target : this->getIndex<Genome*>(i));
+			Genome * replaced = ((temp->usesSpecies(target) ?
+				target : this->getIndex<Genome*>(i)))
+				->replaceComponent(target);
 			newLoci.push_back(new FakePopulationLocus(
-				locusTarget->replaceComponent(target),
+				replaced,
 				temp
 			));
+			delete(replaced);
 		} else {
 			newLoci.push_back(this->loci[i]);
 		}
@@ -246,8 +248,10 @@ bool Genome::usesComponent(Genome * component) {
 				this->genes[i]
 			);
 
-			if (temp == component || temp->usesComponent(component))
-				return true;
+			if (
+				temp == component
+				|| temp->usesComponent(component)
+			) return true;
 		}
 	}
 
