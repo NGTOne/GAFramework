@@ -60,10 +60,11 @@ void Apportionment::evaluatePair(
 		this->getComponentIndices(upper, target);
 
 	Genome * provider = this->getOperableGenome(upper);
+	Genome flattened = target->flattenGenome();
 	for (unsigned int i = 0; i < componentIndices.size(); i++)
 		apportionedFitnesses.push_back(
 			this->apportionment->apportionFitness(
-				target,
+				&flattened,
 				provider,
 				componentIndices[i],
 				upperFitness
@@ -77,20 +78,18 @@ int Apportionment::checkFitness(Genome * genome) {
 	std::vector<int> apportionedFitnesses;
 	std::vector<bool> tried(this->upperNode->populationSize(), false);
 	unsigned int triedOn = 0;
-	Genome flattened = genome->flattenGenome();
 
-	for (unsigned int i = 0; i < this->upperNode->populationSize(); i++) {
+	for (unsigned int i = 0; i < this->upperNode->populationSize(); i++)
 		if (this->upperNode->getIndex(i)->usesComponent(genome)) {
 			this->evaluatePair(
 				this->upperNode->getIndex(i),
-				&flattened,
+				genome,
 				this->upperNode->getFitnessAtIndex(i),
 				apportionedFitnesses
 			);
 			triedOn++;
 			tried[i] = true;
 		}
-	}
 
 	// TODO: Refactor this into the class def
 	mt19937 generator;
@@ -111,7 +110,7 @@ int Apportionment::checkFitness(Genome * genome) {
 			->replaceComponent(genome);
 		this->evaluatePair(
 			provider,
-			&flattened,
+			genome,
 			this->upperNode->evaluateFitness(provider),
 			apportionedFitnesses
 		);
