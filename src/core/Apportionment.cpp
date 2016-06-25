@@ -59,8 +59,8 @@ void Apportionment::evaluatePair(
 	std::vector<unsigned int> componentIndices =
 		this->getComponentIndices(upper, target);
 
-	for (unsigned int i = 0; i < componentIndices.size(); i++) {
-		Genome * provider = this->getOperableGenome(upper);
+	Genome * provider = this->getOperableGenome(upper);
+	for (unsigned int i = 0; i < componentIndices.size(); i++)
 		apportionedFitnesses.push_back(
 			this->apportionment->apportionFitness(
 				target,
@@ -69,8 +69,7 @@ void Apportionment::evaluatePair(
 				upperFitness
 			)
 		);
-		delete(provider);
-	}
+	delete(provider);
 }
 
 // TODO: Refactor this function
