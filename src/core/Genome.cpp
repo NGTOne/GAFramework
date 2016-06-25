@@ -218,8 +218,7 @@ std::vector<unsigned int> Genome::getFlattenedIndices(Genome * target) {
 			Genome * temp = ((PopulationLocus*)this->loci[i])
 				->getIndex(this->genes[i]);
 			if (temp == target) {
-				indices.push_back(i);
-				currentIndex += temp->flattenedGenomeLength();
+				indices.push_back(currentIndex);
 			} else {
 				std::vector<unsigned int> componentIndices =
 					temp->getFlattenedIndices(target);
@@ -234,8 +233,8 @@ std::vector<unsigned int> Genome::getFlattenedIndices(Genome * target) {
 							+ currentIndex
 					);
 				}
-				currentIndex += temp->flattenedGenomeLength();
 			}
+			currentIndex += temp->flattenedGenomeLength();
 		} else {
 			currentIndex++;
 		}
