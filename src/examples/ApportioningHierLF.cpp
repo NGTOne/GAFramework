@@ -57,7 +57,8 @@ int main(void) {
 		ea.getNodeByName(names[i])->setObjective(new Apportionment(
 			ea.getNodeByName("P1"),
 			new LongestFragmentApportionment(),
-			new BestOfAggregator()
+			new BestOfAggregator(),
+			1
 		));
 
 	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});
