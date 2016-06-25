@@ -100,7 +100,7 @@ int Apportionment::checkFitness(Genome * genome) {
 	);
 
 	unsigned int tryOns = std::min(
-		this->upperNode->populationSize() - 1,
+		this->upperNode->populationSize(),
 		this->tryOns
 	);
 
