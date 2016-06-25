@@ -12,9 +12,14 @@ class FakePopulationLocus: public PopulationLocus {
 
 	protected:
 	Genome * target;
+	bool fakeGenome;
 
 	public:
-	FakePopulationLocus(Genome * target, PopulationLocus * original);
+	FakePopulationLocus(
+		Genome * target,
+		PopulationLocus * original,
+		bool fakeGenome
+	);
 	FakePopulationLocus(Genome target, PopulationLocus * original);
 	~FakePopulationLocus();
 

@@ -185,14 +185,22 @@ Genome * Genome::replaceComponent(Genome * target) {
 			PopulationLocus * temp =
 				(PopulationLocus*)this->loci[i];
 
-			Genome * replaced = ((temp->usesSpecies(target) ?
-				target : this->getIndex<Genome*>(i)))
-				->replaceComponent(target);
-			newLoci.push_back(new FakePopulationLocus(
-				replaced,
-				temp
-			));
-			delete(replaced);
+			if (temp->usesSpecies(target)) {
+				newLoci.push_back(new FakePopulationLocus(
+					target,
+					temp,
+					false
+				));
+			} else {
+				Genome * replaced = this->getIndex<Genome*>(i)
+					->replaceComponent(target);
+				newLoci.push_back(new FakePopulationLocus(
+					replaced,
+					temp,
+					true
+				));
+				delete(replaced);
+			}
 		} else {
 			newLoci.push_back(this->loci[i]);
 		}

@@ -4,9 +4,11 @@
 
 FakePopulationLocus::FakePopulationLocus(
 	Genome * target,
-	PopulationLocus * original
+	PopulationLocus * original,
+	bool fakeGenome
 ) : PopulationLocus(original->getNode()) {
-	this->target = new FakeGenome(target);
+	this->target = (fakeGenome) ? new FakeGenome(target) : target;
+	this->fakeGenome = fakeGenome;
 }
 
 FakePopulationLocus::FakePopulationLocus(
@@ -14,10 +16,11 @@ FakePopulationLocus::FakePopulationLocus(
 	PopulationLocus * original
 ) : PopulationLocus(original->getNode()) {
 	this->target = new FakeGenome(&target);
+	this->fakeGenome = true;
 }
 
 FakePopulationLocus::~FakePopulationLocus() {
-	delete(this->target);
+	if (this->fakeGenome) delete(this->target);
 }
 
 Genome * FakePopulationLocus::getIndex(unsigned int index) {
