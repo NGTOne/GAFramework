@@ -21,6 +21,7 @@ class FakePopulationLocus: public PopulationLocus {
 		bool fakeGenome
 	);
 	FakePopulationLocus(Genome target, PopulationLocus * original);
+	FakePopulationLocus(FakePopulationLocus * target);
 	~FakePopulationLocus();
 
 	Genome * getIndex(unsigned int index);
@@ -28,6 +29,7 @@ class FakePopulationLocus: public PopulationLocus {
 	unsigned int topIndex();
 	bool outOfRange(unsigned int i);
 	bool isFake();
+	bool genomeIsFake();
 
 	std::string toString();
 	std::string flatten(unsigned int index);

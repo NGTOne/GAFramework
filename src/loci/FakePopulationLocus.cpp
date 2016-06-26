@@ -19,6 +19,14 @@ FakePopulationLocus::FakePopulationLocus(
 	this->fakeGenome = true;
 }
 
+FakePopulationLocus::FakePopulationLocus(
+	FakePopulationLocus * target
+) : PopulationLocus(target->getNode()) {
+	this->fakeGenome = target->genomeIsFake();
+	this->target = (this->fakeGenome) ?
+		new FakeGenome(target->getIndex(0)) : target->getIndex(0);
+}
+
 FakePopulationLocus::~FakePopulationLocus() {
 	if (this->fakeGenome) delete(this->target);
 }
@@ -41,6 +49,10 @@ bool FakePopulationLocus::outOfRange(unsigned int i) {
 
 bool FakePopulationLocus::isFake() {
 	return true;
+}
+
+bool FakePopulationLocus::genomeIsFake() {
+	return this->fakeGenome;
 }
 
 std::string FakePopulationLocus::toString() {

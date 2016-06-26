@@ -291,3 +291,7 @@ bool PopulationNode::contains(Genome * target) {
 		if (this->population[i] == target) return true;
 	return false;
 }
+
+bool PopulationNode::usesSpecies(Genome * target) {
+	return this->nodeName == target->getSpeciesNode();
+}

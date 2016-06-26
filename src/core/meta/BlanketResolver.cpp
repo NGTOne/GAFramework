@@ -14,6 +14,8 @@ std::vector<Genome*> BlanketResolver::getBlanketGenomes(
 	return blanketGenomes;
 }
 
+#include <iostream>
+
 unsigned int BlanketResolver::findHeadIndex(Genome * blanket) {
 	std::vector<bool> matched(blanket->genomeLength(), false);
 	std::vector<Genome*> blanketGenomes =
@@ -42,6 +44,8 @@ unsigned int BlanketResolver::findHeadIndex(Genome * blanket) {
 	throw InvalidBlanketException();
 }
 
+// TODO: Make sure this works for more complex structures (where node is
+// repeated)
 unsigned int BlanketResolver::findMetaComponentIndex(
 	Genome * blanket,
 	PopulationNode * node
@@ -50,7 +54,7 @@ unsigned int BlanketResolver::findMetaComponentIndex(
 		BlanketResolver::getBlanketGenomes(blanket);
 
 	for (unsigned int i = 0; i < blanketGenomes.size(); i++)
-		if (node->contains(blanketGenomes[i]))
+		if (node->usesSpecies(blanketGenomes[i]))
 			return i;
 
 	// Should never get here
