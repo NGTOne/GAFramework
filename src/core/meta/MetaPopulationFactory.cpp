@@ -34,10 +34,15 @@ bool MetaPopulationFactory::isCompleteBlanket(
 
 	for (unsigned int i = 0; i < unmatchedNodes.size(); i++)
 		for (unsigned int k = 0; k < nodes.size(); k++)
-			if (unmatchedNodes[i] == nodes[k])
+			if (
+				!unmatchedNodes.empty()
+				&& unmatchedNodes[i] == nodes[k]
+			) {
 				unmatchedNodes.erase(
-					unmatchedNodes.begin() + i--
+					unmatchedNodes.begin() + i
 				);
+				i = 0;
+			}
 
 	return unmatchedNodes.empty();
 }
