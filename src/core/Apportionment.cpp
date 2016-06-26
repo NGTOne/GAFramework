@@ -91,22 +91,28 @@ int Apportionment::checkFitness(Genome * genome) {
 			tried[i] = true;
 		}
 
+	std::vector<unsigned int> untriedIndices;
+	for (unsigned int i = 0; i < tried.size(); i++)
+		if (!tried[i]) untriedIndices.push_back(i);
+
 	// TODO: Refactor this into the class def
 	mt19937 generator;
-	uniform_int_distribution<unsigned int> selDist(
-		0,
-		this->upperNode->populationSize() - 1
-	);
 
 	unsigned int tryOns = std::min(
 		this->upperNode->populationSize(),
 		this->tryOns
 	);
 
+	unsigned int index;
 	while (triedOn < tryOns) {
-		unsigned int index;
-		do index = selDist(generator); while(tried[index]);
-		Genome * provider = this->upperNode->getIndex(index)
+		uniform_int_distribution<unsigned int> selDist(
+			0,
+			untriedIndices.size() - 1
+		);
+		index = selDist(generator);
+
+		Genome * provider = this->upperNode
+			->getIndex(untriedIndices[index])
 			->replaceComponent(genome);
 		this->evaluatePair(
 			provider,
@@ -115,8 +121,8 @@ int Apportionment::checkFitness(Genome * genome) {
 			apportionedFitnesses
 		);
 		delete(provider);
+		untriedIndices.erase(untriedIndices.begin() + index);
 		triedOn++;
-		tried[index] = true;
 	}
 
 	return this->aggregateFitnesses(apportionedFitnesses);
