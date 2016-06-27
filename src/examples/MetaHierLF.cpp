@@ -103,8 +103,8 @@ int main(void) {
 			1
 		));
 
-	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});
-	ea.setNodesToPrint({"P1", "P2", "P3", "P4", "P5"});
+	ea.setEvolutionOrder({"M1", "P5", "P4", "P3", "P2", "P1"});
+	ea.setNodesToPrint({"M1", "P1", "P2", "P3", "P4", "P5"});
 	ea.run(true);
 	ea.deleteAllNodes();
 }
