@@ -180,6 +180,12 @@ void HierarchicalEA::run(bool verbose) {
 		for (unsigned int k = 0; k < this->evolutionNodes.size(); k++)
 			this->evolutionNodes[k]->nextIteration();
 
+		// TODO: Optimize fitness evaluation overall
+		// There's too many evaluations required right now in order to
+		// do everything
+		for (unsigned int k = 0; k < this->evolutionNodes.size(); k++)
+			this->evolutionNodes[k]->evaluateFitnesses();
+
 		this->migrate();
 
 		// Because humans count from 1, we add 1 to our epoch counter

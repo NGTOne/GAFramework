@@ -163,7 +163,6 @@ void PopulationNode::nextIteration() {
 	while (!done() && i++ < this->accelerationFactor) {
 		this->evaluateFitnesses();
 		this->replacePopulation();
-		this->evaluateFitnesses();
 		this->currentIteration++;
 	}
 }
