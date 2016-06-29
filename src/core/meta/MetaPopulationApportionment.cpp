@@ -16,7 +16,11 @@ std::vector<unsigned int> MetaPopulationApportionment::getComponentIndices(
 	Genome * upper,
 	Genome * target
 ) {
-	unsigned int headIndex = BlanketResolver::findHeadIndex(upper);
-	return upper->getIndex<Genome*>(headIndex)
-		->getFlattenedIndices(target);
+	Genome * head = upper->getIndex<Genome*>(
+		BlanketResolver::findHeadIndex(upper)
+	);
+
+	return (head == target) ?
+		std::vector<unsigned int>(1, 0) :
+		head->getFlattenedIndices(target);
 }
