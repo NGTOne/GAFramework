@@ -22,5 +22,5 @@ std::vector<unsigned int> MetaPopulationApportionment::getComponentIndices(
 
 	return (head == target) ?
 		std::vector<unsigned int>(1, 0) :
-		head->getFlattenedIndices(target);
+		head->getFlattenedSpeciesIndices(target);
 }

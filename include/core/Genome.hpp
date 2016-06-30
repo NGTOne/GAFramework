@@ -3,6 +3,7 @@
 #include <tuple>
 #include <vector>
 #include <set>
+#include <functional>
 #include <boost/any.hpp>
 
 using namespace std;
@@ -17,6 +18,11 @@ class Genome {
 
 	void generateRandomGenes();
 	Genome flattenGenome(Genome * target, bool exclude);
+
+	std::vector<unsigned int> getFlattenedIndices(
+		Genome * target,
+		std::function<bool(Genome *, Genome *)> compare
+	);
 
 	public:
 	Genome(std::vector<Locus *> loci, std::string speciesNode);
@@ -51,6 +57,7 @@ class Genome {
 	Genome flattenWithout(Genome * target);
 	Genome * replaceComponent(Genome * target);
 	std::vector<unsigned int> getFlattenedIndices(Genome * target);
+	std::vector<unsigned int> getFlattenedSpeciesIndices(Genome * target);
 
 	bool usesComponent(Genome * component);
 	set<Locus*> getConstructiveLoci();

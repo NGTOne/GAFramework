@@ -209,7 +209,10 @@ Genome * Genome::replaceComponent(Genome * target) {
 	return new FakeGenome(newGenes, newLoci, this->speciesNode);
 }
 
-std::vector<unsigned int> Genome::getFlattenedIndices(Genome * target) {
+std::vector<unsigned int> Genome::getFlattenedIndices(
+	Genome * target,
+	std::function<bool(Genome *, Genome *)> compare
+) {
 	std::vector<unsigned int> indices;
 	unsigned int currentIndex = 0;
 
@@ -217,7 +220,7 @@ std::vector<unsigned int> Genome::getFlattenedIndices(Genome * target) {
 		if (this->loci[i]->isConstructive()) {
 			Genome * temp = ((PopulationLocus*)this->loci[i])
 				->getIndex(this->genes[i]);
-			if (temp == target) {
+			if (compare(target, temp)) {
 				indices.push_back(currentIndex);
 			} else {
 				std::vector<unsigned int> componentIndices =
@@ -241,6 +244,25 @@ std::vector<unsigned int> Genome::getFlattenedIndices(Genome * target) {
 	}
 
 	return indices;
+}
+
+std::vector<unsigned int> Genome::getFlattenedIndices(Genome * target) {
+	return this->getFlattenedIndices(
+		target,
+		[] (Genome * target, Genome * compare) -> bool {
+			return target == compare;
+		}
+	);
+}
+
+std::vector<unsigned int> Genome::getFlattenedSpeciesIndices(Genome * target) {
+	return this->getFlattenedIndices(
+		target,
+		[] (Genome * target, Genome * compare) -> bool {
+			return target->getSpeciesNode()
+				== compare->getSpeciesNode();
+		}
+	);
 }
 
 unsigned int Genome::flattenedGenomeLength() {
