@@ -34,7 +34,7 @@ class SelectionStrategy {
 
 	virtual unsigned int getParent(
 		std::vector<Genome*> population,
-		std::vector<int> fitnesses
+		std::vector<float> fitnesses
 	)=0;
 
 	virtual std::string toString();

@@ -9,6 +9,6 @@ class ObjectiveFunction {
 
 	public:
 	virtual ~ObjectiveFunction();
-	virtual int checkFitness(Genome * genome)=0;
+	virtual float checkFitness(Genome * genome)=0;
 	virtual bool isApportioning();
 };

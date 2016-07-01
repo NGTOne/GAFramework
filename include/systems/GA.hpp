@@ -23,9 +23,9 @@ class GA : public EvolutionarySystem {
 	void init(unsigned int numElites, bool randomElitePlacement);
 	void placeElites(
 		std::vector<Genome*> initialPopulation,
-		std::vector<int> initialPopulationFitnesses,
+		std::vector<float> initialPopulationFitnesses,
 		std::vector<Genome*> & newPopulation,
-		std::vector<int> & newPopulationFitnesses
+		std::vector<float> & newPopulationFitnesses
 	);
 	std::vector<unsigned int> findElites(std::vector<int> fitnesses);
 
@@ -51,7 +51,7 @@ class GA : public EvolutionarySystem {
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
-		std::vector<int> & populationFitnesses,
+		std::vector<float> & populationFitnesses,
 		CrossoverOperation * cross,
 		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,

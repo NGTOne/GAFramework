@@ -11,16 +11,16 @@ class FitnessMatchEnd : public EndCondition {
 	private:
 
 	protected:
-	int minimumFitness;
+	float minimumFitness;
 
-	virtual bool checkSolution(Genome * target, int targetFitness);
+	virtual bool checkSolution(Genome * target, float targetFitness);
 
 	public:
-	FitnessMatchEnd(int minimumFitness);
+	FitnessMatchEnd(float minimumFitness);
 
 	virtual bool checkCondition(
 		vector<Genome*> genomes,
-		vector<int> fitnesses,
+		vector<float> fitnesses,
 		unsigned int currentIteration
 	);
 };

@@ -10,11 +10,11 @@ class ApportionmentFunction {
 	public:
 	virtual ~ApportionmentFunction();
 
-	virtual int apportionFitness(
+	virtual float apportionFitness(
 		Genome * recipient,
 		Genome * provider,
 		unsigned int recipientStartIndex,
 		std::vector<unsigned int> relevantRecipientIndices,
-		int providerFitness
+		float providerFitness
 	)=0;
 };

@@ -17,7 +17,7 @@ class IterationCountEnd : public EndCondition {
 
 	virtual bool checkCondition(
 		vector<Genome*> genomes,
-		vector<int> fitnesses,
+		vector<float> fitnesses,
 		unsigned int currentIteration
 	);
 };

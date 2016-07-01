@@ -30,7 +30,7 @@ class ReplacingGA : public EvolutionarySystem {
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
-		std::vector<int> & populationFitnesses,
+		std::vector<float> & populationFitnesses,
 		CrossoverOperation * cross,
 		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,

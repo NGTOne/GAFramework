@@ -15,7 +15,7 @@ class PopulationNode {
 
 	protected:
 	std::vector<Genome*> population;
-	std::vector<int> fitnesses;
+	std::vector<float> fitnesses;
 	std::string nodeName;
 
 	int currentIteration;
@@ -39,7 +39,7 @@ class PopulationNode {
 		unsigned int accelerationFactor
 	);
 
-	int evaluateFitness(int solutionIndex);
+	float evaluateFitness(unsigned int solutionIndex);
 	void createLoci(std::vector<Locus*> loci);
 	void replacePopulation();
 
@@ -87,7 +87,7 @@ class PopulationNode {
 
 	virtual void sortPopulation();
 	void evaluateFitnesses();
-	int evaluateFitness(Genome * target);
+	float evaluateFitness(Genome * target);
 
 	// For migration
 	virtual void insert(int index, Genome * target);
@@ -106,5 +106,5 @@ class PopulationNode {
 	std::vector<EndCondition*> getConditions();
 	std::vector<ObjectiveFunction*> getObjectives();
 	ToStringFunction * getToString();
-	int getFitnessAtIndex(int index);
+	float getFitnessAtIndex(unsigned int index);
 };

@@ -6,7 +6,7 @@ class EndCondition {
 	private:
 
 	protected:
-	virtual bool checkSolution(Genome * target, int targetFitness);
+	virtual bool checkSolution(Genome * target, float targetFitness);
 	
 	public:
 	EndCondition();
@@ -14,7 +14,7 @@ class EndCondition {
 
 	virtual bool checkCondition(
 		std::vector<Genome*> genomes,
-		std::vector<int> fitnesses,
+		std::vector<float> fitnesses,
 		unsigned int currentIteration
 	)=0;
 };

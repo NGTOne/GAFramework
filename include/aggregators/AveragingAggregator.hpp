@@ -5,7 +5,7 @@ class AveragingAggregator : public AggregationFunction {
 	private:
 
 	protected:
-	int aggregateFitnesses(std::vector<int> apportionedFitnesses);
+	float aggregateFitnesses(std::vector<float> apportionedFitnesses);
 
 	public:
 };

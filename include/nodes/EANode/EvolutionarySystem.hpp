@@ -18,8 +18,8 @@ class EvolutionarySystem {
 
 	void init(SelectionStrategy * strategy, unsigned seed);
 	void sortPopulation(
-		std::vector<Genome*> &population,
-		std::vector<int> &fitnesses
+		std::vector<Genome*> & population,
+		std::vector<float> & fitnesses
 	);
 	int evaluateFitness(
 		Genome * target,
@@ -28,7 +28,7 @@ class EvolutionarySystem {
 
 	virtual unsigned int getParent(
 		std::vector<Genome*> population,
-		std::vector<int> fitnesses
+		std::vector<float> fitnesses
 	);
 
 	std::vector<Genome*> produceChildren(
@@ -45,7 +45,7 @@ class EvolutionarySystem {
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
-		std::vector<int> & populationFitnesses,
+		std::vector<float> & populationFitnesses,
 		CrossoverOperation * cross,
 		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,

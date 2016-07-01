@@ -7,10 +7,10 @@ class SameFitnessApportionmentFunction : ApportionmentFunction {
 	protected:
 
 	public:
-	int apportionFitness(
+	float apportionFitness(
 		Genome * recipient,
 		Genome * provider,
 		unsigned int recipientPosition,
-		int providerFitness
+		float providerFitness
 	);
 };

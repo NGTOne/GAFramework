@@ -9,5 +9,5 @@ class AggregationFunction {
 	public:
 	virtual ~AggregationFunction();
 
-	virtual int aggregateFitnesses(std::vector<int> fitnesses)=0;
+	virtual float aggregateFitnesses(std::vector<float> fitnesses)=0;
 };

@@ -9,5 +9,5 @@ class MetaPopulationObjective : public ObjectiveFunction {
 
 	public:
 	MetaPopulationObjective(ObjectiveFunction * flattenedObjective);
-	int checkFitness(Genome * genome);
+	float checkFitness(Genome * genome);
 };

@@ -12,7 +12,7 @@ class TournamentSelection : public SelectionStrategy {
 	unsigned int tournamentSize;
 	void sortByFitness(
 		std::vector<unsigned int> & indexes,
-		std::vector<int> & fitnesses
+		std::vector<float> & fitnesses
 	);
 
 	void init(unsigned int tournamentSize);
@@ -28,7 +28,7 @@ class TournamentSelection : public SelectionStrategy {
         
 	unsigned int getParent(
 		std::vector<Genome*> population,
-		std::vector<int> fitnesses
+		std::vector<float> fitnesses
 	);
 	std::string toString();
 };

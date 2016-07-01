@@ -17,7 +17,7 @@ class StrongIterativeReplacingGA : public ReplacingGA {
 
 	void scramblePopulation(
 		std::vector<Genome*> & population,
-		std::vector<int> & fitnesses
+		std::vector<float> & fitnesses
 	);
 
 	public:
@@ -38,7 +38,7 @@ class StrongIterativeReplacingGA : public ReplacingGA {
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
-		std::vector<int> & populationFitness,
+		std::vector<float> & populationFitness,
 		CrossoverOperation * cross,
 		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,

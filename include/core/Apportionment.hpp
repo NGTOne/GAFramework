@@ -20,7 +20,7 @@ class Apportionment : public ObjectiveFunction {
 		unsigned int tryOns
 	);
 
-	int aggregateFitnesses(std::vector<int> apportionedFitnesses);
+	float aggregateFitnesses(std::vector<float> apportionedFitnesses);
 	virtual Genome * getOperableGenome(Genome * genome);
 	virtual std::vector<unsigned int> getComponentIndices(
 		Genome * upper,
@@ -34,8 +34,8 @@ class Apportionment : public ObjectiveFunction {
 	void evaluatePair(
 		Genome * upper,
 		Genome * target,
-		int upperFitness,
-		std::vector<int> & apportionedFitnesses
+		float upperFitness,
+		std::vector<float> & apportionedFitnesses
 	);
 
 	public:
@@ -53,7 +53,7 @@ class Apportionment : public ObjectiveFunction {
 
 	virtual ~Apportionment();
 
-	int checkFitness(Genome * genome);
+	float checkFitness(Genome * genome);
 
 	bool isApportioning();
 	ApportionmentFunction * getApportionmentFunction();
