@@ -50,6 +50,18 @@ std::vector<unsigned int> Apportionment::getComponentIndices(
 	return upper->getFlattenedIndices(target);
 }
 
+std::vector<unsigned int> Apportionment::getRelevantIndices(
+	Genome * target,
+	unsigned int targetIndex
+) {
+	unsigned int length = target->flattenedGenomeLength();
+	std::vector<unsigned int> indices;
+	for (unsigned int i = 0; i < length; i++)
+		indices.push_back(targetIndex + i);
+
+	return indices;
+}
+
 void Apportionment::evaluatePair(
 	Genome * upper,
 	Genome * target,
@@ -66,7 +78,10 @@ void Apportionment::evaluatePair(
 			this->apportionment->apportionFitness(
 				&flattened,
 				provider,
-				componentIndices[i],
+				this->getRelevantIndices(
+					target,
+					componentIndices[i]
+				),
 				upperFitness
 			)
 		);

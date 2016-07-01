@@ -11,6 +11,10 @@ class MetaPopulationApportionment : public Apportionment {
 		Genome * upper,
 		Genome * target
 	);
+	std::vector<unsigned int> getRelevantIndices(
+		Genome * target,
+		unsigned int targetIndex
+	);
 
 	public:
 	MetaPopulationApportionment(

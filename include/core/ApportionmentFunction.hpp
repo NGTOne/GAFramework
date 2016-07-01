@@ -1,4 +1,5 @@
 #include "Genome.hpp"
+#include <vector>
 #pragma once
 
 class ApportionmentFunction {
@@ -12,7 +13,7 @@ class ApportionmentFunction {
 	virtual int apportionFitness(
 		Genome * recipient,
 		Genome * provider,
-		unsigned int recipientPosition,
+		std::vector<unsigned int> recipientIndices,
 		int providerFitness
 	)=0;
 };

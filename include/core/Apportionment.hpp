@@ -26,6 +26,10 @@ class Apportionment : public ObjectiveFunction {
 		Genome * upper,
 		Genome * target
 	);
+	virtual std::vector<unsigned int> getRelevantIndices(
+		Genome * target,
+		unsigned int targetIndex
+	);
 
 	void evaluatePair(
 		Genome * upper,

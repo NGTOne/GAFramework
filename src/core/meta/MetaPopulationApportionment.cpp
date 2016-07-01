@@ -24,3 +24,24 @@ std::vector<unsigned int> MetaPopulationApportionment::getComponentIndices(
 		std::vector<unsigned int>(1, 0) :
 		head->getFlattenedSpeciesIndices(target);
 }
+
+std::vector<unsigned int> MetaPopulationApportionment::getRelevantIndices(
+	Genome * target,
+	unsigned int targetIndex
+) {
+	std::vector<unsigned int> targetGenome = target->getGenome();
+	std::vector<Locus*> targetLoci = target->getLoci();
+	std::vector<unsigned int> indices;
+	unsigned int currentIndex = 0;
+
+	for (unsigned int i = 0; i < targetLoci.size(); i++)
+		if (!targetLoci[i]->isConstructive()) {
+			indices.push_back(targetIndex + currentIndex);
+		} else {
+			currentIndex += target->getIndex<Genome*>(
+				targetGenome[i]
+			)->flattenedGenomeLength();
+		}
+
+	return indices;
+}
