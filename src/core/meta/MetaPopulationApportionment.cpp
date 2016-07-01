@@ -29,7 +29,6 @@ std::vector<unsigned int> MetaPopulationApportionment::getRelevantIndices(
 	Genome * target,
 	unsigned int targetIndex
 ) {
-	std::vector<unsigned int> targetGenome = target->getGenome();
 	std::vector<Locus*> targetLoci = target->getLoci();
 	std::vector<unsigned int> indices;
 	unsigned int currentIndex = 0;
@@ -38,9 +37,8 @@ std::vector<unsigned int> MetaPopulationApportionment::getRelevantIndices(
 		if (!targetLoci[i]->isConstructive()) {
 			indices.push_back(targetIndex + currentIndex);
 		} else {
-			currentIndex += target->getIndex<Genome*>(
-				targetGenome[i]
-			)->flattenedGenomeLength();
+			currentIndex += target->getIndex<Genome*>(i)
+				->flattenedGenomeLength();
 		}
 
 	return indices;
