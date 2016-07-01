@@ -10,7 +10,7 @@ int main(void) {
 	HierarchicalEA ea(100);
 	vector<Locus*> baseLoci(8, new IntLocus(0, 1));
 	vector<PopulationNode*> bottomNodes;
-	vector<Locus*> populationLoci;
+	vector<Locus*> topLoci;
 
 	for (int i = 0; i < 4; i++) {
 		stringstream name;
@@ -26,7 +26,7 @@ int main(void) {
 			new NPointCrossover(2),
 			new UniformMutation(0.2)
 		));
-		populationLoci.push_back(new PopulationLocus(bottomNodes[i]));
+		topLoci.push_back(new PopulationLocus(bottomNodes[i]));
 	}
 
 	ea.addNodes(
@@ -34,10 +34,15 @@ int main(void) {
 		vector<bool>(4, true),
 		vector<bool>(4, false)
 	);
+
+	// Add context for the top node (to demonstrate)
+	for (unsigned int i = 0; i < 16; i++)
+		topLoci.push_back(new IntLocus(0, 1));
+
 	ea.addNode(
 		new EANode(
 			8,
-			populationLoci,
+			topLoci,
 			vector<ObjectiveFunction*>(),
 			new LongestFragmentToString(),
 			vector<EndCondition*>({new IterationCountEnd(100)}),
