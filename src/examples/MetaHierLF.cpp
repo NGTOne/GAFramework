@@ -94,15 +94,6 @@ int main(void) {
 		}
 	);
 
-	vector<string> names({"P5", "P4", "P3", "P2"});
-	for (unsigned int i = 0; i < names.size(); i++)
-		ea.getNodeByName(names[i])->setObjective(new Apportionment(
-			ea.getNodeByName("P1"),
-			new LongestFragmentApportionment(),
-			new BestOfAggregator(),
-			1
-		));
-
 	ea.setEvolutionOrder({"M1", "P5", "P4", "P3", "P2", "P1"});
 	ea.setNodesToPrint({"M1", "P1", "P2", "P3", "P4", "P5"});
 	ea.run(true);
