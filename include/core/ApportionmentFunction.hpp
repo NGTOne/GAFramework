@@ -13,8 +13,8 @@ class ApportionmentFunction {
 	virtual int apportionFitness(
 		Genome * recipient,
 		Genome * provider,
-		unsigned int recipientLocation,
-		std::vector<unsigned int> recipientIndices,
+		unsigned int recipientStartIndex,
+		std::vector<unsigned int> relevantRecipientIndices,
 		int providerFitness
 	)=0;
 };
