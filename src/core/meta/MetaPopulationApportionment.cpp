@@ -35,7 +35,7 @@ std::vector<unsigned int> MetaPopulationApportionment::getRelevantIndices(
 
 	for (unsigned int i = 0; i < targetLoci.size(); i++)
 		if (!targetLoci[i]->isConstructive()) {
-			indices.push_back(targetIndex + currentIndex);
+			indices.push_back(targetIndex + currentIndex++);
 		} else {
 			currentIndex += target->getIndex<Genome*>(i)
 				->flattenedGenomeLength();
