@@ -98,13 +98,13 @@ int Apportionment::checkFitness(Genome * genome) {
 	// TODO: Refactor this into the class def
 	mt19937 generator;
 
-	unsigned int tryOns = std::min(
+	unsigned int realTryOns = std::min(
 		this->upperNode->populationSize(),
 		this->tryOns
 	);
 
 	unsigned int index;
-	while (triedOn < tryOns) {
+	while (triedOn < realTryOns) {
 		uniform_int_distribution<unsigned int> selDist(
 			0,
 			untriedIndices.size() - 1
