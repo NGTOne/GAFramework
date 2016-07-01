@@ -78,6 +78,7 @@ void Apportionment::evaluatePair(
 			this->apportionment->apportionFitness(
 				&flattened,
 				provider,
+				componentIndices[i],
 				this->getRelevantIndices(
 					target,
 					componentIndices[i]
