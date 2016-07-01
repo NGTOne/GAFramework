@@ -30,7 +30,8 @@ class LongestFragmentApportionment : public ApportionmentFunction {
 	int apportionFitness(
 		Genome * recipient,
 		Genome * provider,
-		unsigned int recipientPosition,
+		unsigned int recipientStartIndex,
+		std::vector<unsigned int> relevantRecipientIndices,
 		int providerFitness
 	);
 };

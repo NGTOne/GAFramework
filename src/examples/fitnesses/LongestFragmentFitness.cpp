@@ -53,7 +53,8 @@ string LongestFragmentToString::toString(Genome * genome) {
 int LongestFragmentApportionment::apportionFitness(
 	Genome * recipient,
 	Genome * provider,
-	unsigned int recipientPosition,
+	unsigned int recipientStartIndex,
+	std::vector<unsigned int> relevantRecipientIndices,
 	int providerFitness
 ) {
 	unsigned int longestPathLocation;
@@ -62,21 +63,25 @@ int LongestFragmentApportionment::apportionFitness(
 	unsigned int longestPathEndLocation =
 		longestPathLocation + longestPathLength;
 	unsigned int recipientEndLocation =
-		recipientPosition + recipient->genomeLength();
+		recipientStartIndex + recipient->flattenedGenomeLength();
 
 	if (recipientEndLocation < longestPathLocation)
 		return 0;
 
-	if (recipientPosition > longestPathEndLocation)
+	if (recipientStartIndex > longestPathEndLocation)
 		return 0;
 
 	unsigned int totalPathOverlap = 0, currentLocation;
-	for (unsigned int i = 0; i < recipient->genomeLength(); i++) {
-		currentLocation = i + recipientPosition;
+	for (unsigned int i = 0; i < relevantRecipientIndices.size(); i++) {
+		currentLocation = relevantRecipientIndices[i];
 		if (
 			currentLocation >= longestPathLocation
 			&& currentLocation < longestPathEndLocation
-			&& recipient->indexIs<int>(i, 1)
+			&& provider->indexIs<int>(currentLocation, 1)
+			&& recipient->indexIs<int>(
+				currentLocation - recipientStartIndex,
+				1
+			)
 		) totalPathOverlap += 1;
 	}
 
