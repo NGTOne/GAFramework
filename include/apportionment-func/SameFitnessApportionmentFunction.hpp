@@ -1,7 +1,7 @@
 #include "../core/ApportionmentFunction.hpp"
 #pragma once
 
-class SameFitnessApportionmentFunction : ApportionmentFunction {
+class SameFitnessApportionmentFunction : public ApportionmentFunction {
 	private:
 
 	protected:
@@ -10,7 +10,8 @@ class SameFitnessApportionmentFunction : ApportionmentFunction {
 	float apportionFitness(
 		Genome * recipient,
 		Genome * provider,
-		unsigned int recipientPosition,
+		unsigned int recipientStartIndex,
+		std::vector<unsigned int> relevantRecipientIndices,
 		float providerFitness
 	);
 };
