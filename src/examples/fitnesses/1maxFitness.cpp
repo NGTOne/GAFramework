@@ -7,8 +7,8 @@ using namespace std;
 
 OneMaxFitness::OneMaxFitness() : ObjectiveFunction() {}
 
-int OneMaxFitness::checkFitness(Genome * genome) {
-	int total = 0;
+float OneMaxFitness::checkFitness(Genome * genome) {
+	unsigned total = 0;
 	Genome flattened = genome->flattenGenome();
 
 	for (unsigned int i = 0; i < flattened.genomeLength(); i++)

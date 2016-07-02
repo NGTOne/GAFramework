@@ -5,9 +5,12 @@
 
 using namespace std;
 
-int findLongestPath(Genome * genome, unsigned int & longestPathIndex) {
+unsigned int findLongestPath(
+	Genome * genome,
+	unsigned int & longestPathIndex
+) {
 	Genome flattened = genome->flattenGenome();
-	int longestPathLength = 0, currentPathLength = 0;
+	unsigned int longestPathLength = 0, currentPathLength = 0;
 	unsigned int currentPathIndex, currentDigit;
 
 	for (unsigned int i = 0; i < flattened.genomeLength(); i++) {
@@ -35,7 +38,7 @@ int findLongestPath(Genome * genome, unsigned int & longestPathIndex) {
 
 LongestFragmentFitness::LongestFragmentFitness() : ObjectiveFunction() {}
 
-int LongestFragmentFitness::checkFitness(Genome * genome) {
+float LongestFragmentFitness::checkFitness(Genome * genome) {
 	unsigned int bitBucket;
 	return findLongestPath(genome, bitBucket);
 }
@@ -50,12 +53,12 @@ string LongestFragmentToString::toString(Genome * genome) {
 	return ss.str();
 }
 
-int LongestFragmentApportionment::apportionFitness(
+float LongestFragmentApportionment::apportionFitness(
 	Genome * recipient,
 	Genome * provider,
 	unsigned int recipientStartIndex,
 	std::vector<unsigned int> relevantRecipientIndices,
-	int providerFitness
+	float providerFitness
 ) {
 	unsigned int longestPathLocation;
 	unsigned int longestPathLength =

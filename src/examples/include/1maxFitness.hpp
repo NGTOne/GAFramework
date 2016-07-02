@@ -9,7 +9,7 @@ class OneMaxFitness : public ObjectiveFunction {
 
 	public:
 	OneMaxFitness();
-	int checkFitness(Genome * genome);
+	float checkFitness(Genome * genome);
 };
 
 class OneMaxToString : public ToStringFunction {
