@@ -23,12 +23,12 @@ class CutAndSpliceCrossover : public CrossoverOperation {
 	private:
 
 	protected:
-	std::tuple<
-		std::vector<unsigned int>,
-		std::vector<Locus*>
-	> createOffspring(
+	GenomeTemplate createOffspring(
 		vector<Genome*> parents,
 		vector<unsigned int> points
+	);
+	std::vector<GenomeTemplate> crossOver(
+		std::vector<Genome*> genomes
 	);
 
 	public:
@@ -36,9 +36,5 @@ class CutAndSpliceCrossover : public CrossoverOperation {
 	CutAndSpliceCrossover(unsigned int numOffspring);
 	CutAndSpliceCrossover(unsigned int numOffspring, unsigned int seed);
 	
-	std::vector<std::tuple<
-		std::vector<unsigned int>,
-		std::vector<Locus*>
-	>> crossOver(std::vector<Genome*> genomes);
 	std::string toString();
 };

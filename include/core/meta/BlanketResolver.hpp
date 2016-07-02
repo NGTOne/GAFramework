@@ -1,7 +1,7 @@
 #include "../Genome.hpp"
+#include "../GenomeTemplate.hpp"
 #include "../Locus.hpp"
 #include "../PopulationNode.hpp"
-#include <tuple>
 #include <vector>
 #pragma once
 
@@ -21,10 +21,7 @@ class BlanketResolver {
 		std::vector<Locus*> lociToAppend
 	);
 
-	static std::tuple<
-		std::vector<unsigned int>,
-		std::vector<Locus*>
-	> resolve(Genome * blanket, unsigned int target);
+	static GenomeTemplate resolve(Genome * blanket, unsigned int target);
 
 	protected:
 

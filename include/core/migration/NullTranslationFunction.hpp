@@ -1,4 +1,5 @@
 #include "../Genome.hpp"
+#include "../GenomeTemplate.hpp"
 #include "TranslationFunction.hpp"
 #pragma once
 
@@ -6,10 +7,7 @@ class NullTranslationFunction : public TranslationFunction {
 	private:
 
 	protected:
-	virtual std::tuple<
-		std::vector<unsigned int>,
-		std::vector<Locus*>
-	> translate(Genome * target);
+	virtual GenomeTemplate translate(Genome * target);
 
 	public:
 	virtual Genome * createTranslatedGenome(

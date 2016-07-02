@@ -73,10 +73,10 @@ void BlanketResolver::appendGenomes(
 	}
 }
 
-std::tuple<
-	std::vector<unsigned int>,
-	std::vector<Locus*>
-> BlanketResolver::resolve(Genome * blanket, unsigned int target) {
+GenomeTemplate BlanketResolver::resolve(
+	Genome * blanket,
+	unsigned int target
+) {
 	std::vector<unsigned int> resolvedGenes;
 	std::vector<Locus*> resolvedLoci;
 
@@ -111,7 +111,7 @@ std::tuple<
 		}
 	}
 
-	return std::make_tuple(resolvedGenes, resolvedLoci);
+	return GenomeTemplate(resolvedGenes, resolvedLoci);
 }
 
 Genome BlanketResolver::resolveBlanket(Genome * blanket) {

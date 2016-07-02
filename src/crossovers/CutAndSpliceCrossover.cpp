@@ -11,13 +11,11 @@ CutAndSpliceCrossover::CutAndSpliceCrossover(
 	unsigned int seed
 ) : CrossoverOperation(seed) {}
 
-std::tuple<
-	std::vector<unsigned int>,
-	std::vector<Locus*>
-> CutAndSpliceCrossover::createOffspring(
+GenomeTemplate CutAndSpliceCrossover::createOffspring(
 	vector<Genome*> parents,
 	vector<unsigned int> points
 ) {
+	GenomeTemplate newTemplate;
 	vector<unsigned int> offspringGenome;
 	vector<Locus*> offspringLoci;
 	vector<vector<unsigned int>> parentGenomes = this->getGenomes(parents);
@@ -28,30 +26,23 @@ std::tuple<
 
 	for (unsigned int i = 0; i < offspringGenomeLength; i++) {
 		if (i < points[0]) {
-			offspringGenome.push_back(parentGenomes[0][i]);
-			offspringLoci.push_back(parentLoci[0][i]);
+			newTemplate.add(parentGenomes[0][i], parentLoci[0][i]);
 		} else {
-			offspringGenome.push_back(
-				parentGenomes[1][points[1] + (i - points[0])]
-			);
-			offspringLoci.push_back(
+			newTemplate.add(
+				parentGenomes[1][points[1] + (i - points[0])],
 				parentLoci[1][points[1] + (i - points[0])]
 			);
 		}
 	}
 
-	return std::make_tuple(offspringGenome, offspringLoci);
+	return newTemplate;
 }
 
-std::vector<std::tuple<
-	std::vector<unsigned int>,
-	std::vector<Locus*>
->> CutAndSpliceCrossover::crossOver(vector<Genome*> genomes) {
+std::vector<GenomeTemplate> CutAndSpliceCrossover::crossOver(
+	std::vector<Genome*> genomes
+) {
 	vector<unsigned int> genomeLengths, points;
-	std::vector<std::tuple<
-		std::vector<unsigned int>,
-		std::vector<Locus*>
-	>> offspring;
+	std::vector<GenomeTemplate> offspring;
 	vector<vector<unsigned int>> pairings;
 
 	for (unsigned int i = 0; i < genomes.size(); i++) {

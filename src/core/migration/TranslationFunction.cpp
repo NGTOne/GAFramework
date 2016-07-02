@@ -1,10 +1,7 @@
 #include "core/migration/TranslationFunction.hpp"
 
-std::tuple<
-	std::vector<unsigned int>,
-	std::vector<Locus*>
-> TranslationFunction::translate(Genome * target) {
-	return std::make_tuple(target->getGenome(), target->getLoci());
+GenomeTemplate TranslationFunction::translate(Genome * target) {
+	return GenomeTemplate(target->getGenome(), target->getLoci());
 }
 
 Genome * TranslationFunction::createTranslatedGenome(

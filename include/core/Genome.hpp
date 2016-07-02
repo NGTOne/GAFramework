@@ -1,6 +1,6 @@
 #pragma once
 #include "Locus.hpp"
-#include <tuple>
+#include "GenomeTemplate.hpp"
 #include <vector>
 #include <set>
 #include <functional>
@@ -31,13 +31,7 @@ class Genome {
 		std::vector<Locus *> loci,
 		std::string speciesNode
 	);
-	Genome(
-		std::tuple<
-			std::vector<unsigned int>,
-			std::vector<Locus*>
-		> genes,
-		std::string speciesNode
-	);
+	Genome(GenomeTemplate geneTemplate, std::string speciesNode);
 	Genome(Genome * other);
 	Genome(Genome * other, bool randomize);
 	Genome(Genome * other, unsigned int rawGenes[]);

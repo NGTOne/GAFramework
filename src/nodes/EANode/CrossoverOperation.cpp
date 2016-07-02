@@ -106,15 +106,12 @@ std::vector<Genome*> CrossoverOperation::crossOver(
 	std::vector<Genome*> parents,
 	std::string speciesNode
 ) {
-	std::vector<std::tuple<
-		std::vector<unsigned int>,
-		std::vector<Locus*>
-	>> genomeTemplates = this->crossOver(parents);
+	std::vector<GenomeTemplate> templates = this->crossOver(parents);
 	std::vector<Genome *> offspring;
 
-	for (unsigned int i = 0; i < genomeTemplates.size(); i++)
+	for (unsigned int i = 0; i < templates.size(); i++)
 		offspring.push_back(
-			new Genome(genomeTemplates[i], speciesNode)
+			new Genome(templates[i], speciesNode)
 		);
 
 	return offspring;

@@ -1,7 +1,7 @@
 #pragma once
 #include "../../core/Genome.hpp"
+#include "../../core/GenomeTemplate.hpp"
 #include <random>
-#include <tuple>
 #include <string>
 #include <vector>
 
@@ -36,6 +36,9 @@ class CrossoverOperation {
 	);
 	std::vector<std::vector<Locus*>> getLoci(std::vector<Genome*> parents);
 	unsigned int shortestGenome(std::vector<Genome*> genomes);
+	virtual std::vector<GenomeTemplate> crossOver(
+		std::vector<Genome*> genomes
+	)=0;
 
 	public:
 	CrossoverOperation();
@@ -48,10 +51,6 @@ class CrossoverOperation {
 		std::string speciesNode
 	);
 
-	virtual std::vector<std::tuple<
-		std::vector<unsigned int>,
-		std::vector<Locus*>
-	>> crossOver(std::vector<Genome*> genomes)=0;
 	virtual std::string toString()=0;
 };
 

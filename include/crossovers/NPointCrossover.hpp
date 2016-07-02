@@ -24,6 +24,9 @@ class NPointCrossover : public CrossoverOperation {
 	unsigned int numPoints;
 
 	std::vector<unsigned int> getPoints(unsigned int maxPoint);
+	std::vector<GenomeTemplate> crossOver(
+		std::vector<Genome*> genomes
+	);
 
 	public:
 	NPointCrossover(unsigned int numPoints);
@@ -34,10 +37,6 @@ class NPointCrossover : public CrossoverOperation {
 		unsigned int seed
 	);
 	
-	std::vector<std::tuple<
-		std::vector<unsigned int>,
-		std::vector<Locus*>
-	>> crossOver(std::vector<Genome*> genomes);
 	std::string toString();
 
 };

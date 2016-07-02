@@ -47,10 +47,10 @@ vector<unsigned int> NPointCrossover::getPoints(unsigned int maxPoint) {
 	return points;
 }
 
-std::vector<std::tuple<
-	std::vector<unsigned int>,
-	std::vector<Locus*>
->> NPointCrossover::crossOver(std::vector<Genome*> genomes) {
+// TODO: Refactor this
+std::vector<GenomeTemplate> NPointCrossover::crossOver(
+	std::vector<Genome*> genomes
+) {
 	unsigned int shortestGenomeLength = this->shortestGenome(genomes);
 	vector<unsigned int> points = this->getPoints(shortestGenomeLength);
 	unsigned int currentPoint = 0, currentParent = 0;
@@ -78,14 +78,11 @@ std::vector<std::tuple<
 		}
 	}
 
-	std::vector<std::tuple<
-		std::vector<unsigned int>,
-		std::vector<Locus*>
-	>> children;
+	std::vector<GenomeTemplate> children;
 
 	for (unsigned int i = 0; i < childGenomes.size(); i++)
 		children.push_back(
-			std::make_tuple(childGenomes[i], childLoci[i])
+			GenomeTemplate(childGenomes[i], childLoci[i])
 		);
 
 	if (children.size() > this->numOffspring) {

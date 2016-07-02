@@ -26,14 +26,9 @@ Genome::Genome(
 	this->speciesNode = speciesNode;
 }
 
-Genome::Genome(
-	std::tuple<
-		std::vector<unsigned int>,
-		std::vector<Locus*>
-	> genes,
-	std::string speciesNode
-) {
-	std::tie(this->genes, this->loci) = genes;
+Genome::Genome(GenomeTemplate geneTemplate, std::string speciesNode) {
+	this->genes = geneTemplate.getGenes();
+	this->loci = geneTemplate.getLoci();
 	this->speciesNode = speciesNode;
 }
 
