@@ -8,7 +8,7 @@ using namespace std;
 CutAndSpliceCrossover::CutAndSpliceCrossover() : CrossoverOperation() {}
 
 CutAndSpliceCrossover::CutAndSpliceCrossover(
-	unsigned seed
+	unsigned int seed
 ) : CrossoverOperation(seed) {}
 
 std::tuple<
@@ -80,12 +80,8 @@ std::vector<std::tuple<
 }
 
 string CutAndSpliceCrossover::toString() {
-	string returnString = "";
 	stringstream ss;
-
-	ss << "Type: Cut and Splice Crossover\nRandom Seed: " << seed << "\n";
-
-	returnString = ss.str();
-
-	return returnString;
+	ss << "Type: Cut and Splice Crossover\nRandom Seed: "
+		<< this->seed << "\n";
+	return ss.str();
 }

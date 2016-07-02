@@ -10,14 +10,14 @@
 using namespace std;
 
 CrossoverOperation::CrossoverOperation() {
-	init(
+	this->init(
 		DEFAULT_NUM_OFFSPRING,
 		chrono::system_clock::now().time_since_epoch().count()
 	);
 }
 
 CrossoverOperation::CrossoverOperation(unsigned int numOffspring) {
-	init(
+	this->init(
 		numOffspring,
 		chrono::system_clock::now().time_since_epoch().count()
 	);
@@ -25,17 +25,17 @@ CrossoverOperation::CrossoverOperation(unsigned int numOffspring) {
 
 CrossoverOperation::CrossoverOperation(
 	unsigned int numOffspring,
-	unsigned seed
+	unsigned int seed
 ) {
-	init(numOffspring, seed);
+	this->init(numOffspring, seed);
 }
 
 CrossoverOperation::~CrossoverOperation() {}
 
-void CrossoverOperation::init(unsigned int numOffspring, unsigned seed) {
+void CrossoverOperation::init(unsigned int numOffspring, unsigned int seed) {
 	this->numOffspring = numOffspring;
 	this->seed = seed;
-	generator = mt19937(seed);
+	this->generator = mt19937(seed);
 }
 
 unsigned int CrossoverOperation::maxPairings(

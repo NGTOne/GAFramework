@@ -14,7 +14,7 @@ TournamentSelection::TournamentSelection(
 	crossoverRate,
 	"Tournament"
 ) {
-	init(DEFAULT_TOURNAMENT_SIZE);
+	this->init(DEFAULT_TOURNAMENT_SIZE);
 }
 
 TournamentSelection::TournamentSelection(
@@ -24,15 +24,15 @@ TournamentSelection::TournamentSelection(
 	crossoverRate,
 	"Tournament"
 ) {
-	init(tournamentSize);
+	this->init(tournamentSize);
 }
 
 TournamentSelection::TournamentSelection(
 	double crossoverRate,
 	unsigned int tournamentSize,
-	unsigned seed
+	unsigned int seed
 ) : SelectionStrategy(seed, crossoverRate, "Tournament") {
-	init(tournamentSize);
+	this->init(tournamentSize);
 }
 
 void TournamentSelection::init(unsigned int tournamentSize) {
@@ -93,10 +93,10 @@ unsigned int TournamentSelection::getParent(
 string TournamentSelection::toString() {
 	stringstream ss;
 
-	ss << "Name: " << name
-	<< "\nTournament size: " << tournamentSize
-	<< "\nRandom seed: " << seed
-	<< "\nCrossover Rate: " << crossoverRate
+	ss << "Name: " << this->name
+	<< "\nTournament size: " << this->tournamentSize
+	<< "\nRandom seed: " << this->seed
+	<< "\nCrossover Rate: " << this->crossoverRate
 	<< "\n";
 
 	return ss.str();

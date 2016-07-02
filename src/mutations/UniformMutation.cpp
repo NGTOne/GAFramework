@@ -12,7 +12,7 @@ UniformMutation::UniformMutation(
 
 UniformMutation::UniformMutation(
 	double mutationRate,
-	unsigned seed
+	unsigned int seed
 ) : MutationOperation(mutationRate, seed) {}
 
 

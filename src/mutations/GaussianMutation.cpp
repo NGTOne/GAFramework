@@ -5,45 +5,45 @@
 using namespace std;
 
 GaussianMutation::GaussianMutation() : MutationOperation() {
-	init(false);
+	this->init(false);
 }
 
 GaussianMutation::GaussianMutation(
-	bool reflection
+	bool endReflection
 ) : MutationOperation() {
-	init(reflection);
+	this->init(endReflection);
 }
 
 GaussianMutation::GaussianMutation(
 	double mutationRate
 ) : MutationOperation(mutationRate) {
-	init(false);
+	this->init(false);
 }
 
 GaussianMutation::GaussianMutation(
 	double mutationRate,
-	bool reflection
+	bool endReflection
 ) : MutationOperation(mutationRate) {
-	init(reflection);
+	this->init(endReflection);
 }
 
 GaussianMutation::GaussianMutation(
 	double mutationRate,
-	unsigned seed
+	unsigned int seed
 ) : MutationOperation(mutationRate, seed) {
 	init(false);
 }
 
 GaussianMutation::GaussianMutation(
 	double mutationRate,
-	bool reflection,
-	unsigned seed
+	bool endReflection,
+	unsigned int seed
 ) : MutationOperation(mutationRate, seed) {
-	init(reflection);
+	this->init(endReflection);
 }
 
-void GaussianMutation::init(bool reflection) {
-	this->reflection = reflection;
+void GaussianMutation::init(bool endReflection) {
+	this->endReflection = endReflection;
 }
 
 unsigned int GaussianMutation::getNewLocusValue(
@@ -54,10 +54,13 @@ unsigned int GaussianMutation::getNewLocusValue(
 	int addend = (int)addendDist(generator);
 	int newValue = currentValue - addend;
 
-	if (newValue < 0 && !this->reflection) return 0;
+	if (newValue < 0 && !this->endReflection) return 0;
 	if (newValue < 0) return 0 - newValue;
-	if ((unsigned int)newValue > largestPossibleValue && !this->reflection)
-		return largestPossibleValue;
+	if (
+		(unsigned int)newValue > largestPossibleValue
+		&& !this->endReflection
+	) return largestPossibleValue;
+
 	if ((unsigned int)newValue > largestPossibleValue)
 		return largestPossibleValue - (newValue-largestPossibleValue);
 

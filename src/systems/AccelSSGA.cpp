@@ -4,7 +4,7 @@ AccelSSGA::AccelSSGA(SelectionStrategy * strategy) : SSGA(strategy) {}
 
 AccelSSGA::AccelSSGA(
 	SelectionStrategy * strategy,
-	unsigned seed
+	unsigned int seed
 ) : SSGA(strategy, seed) {}
 
 AccelSSGA::AccelSSGA(
@@ -15,7 +15,7 @@ AccelSSGA::AccelSSGA(
 AccelSSGA::AccelSSGA(
 	SelectionStrategy * strategy,
 	NichingStrategy * niching,
-	unsigned seed
+	unsigned int seed
 ) : SSGA(strategy, niching, seed) {}
 
 std::vector<Genome*> AccelSSGA::breedMutateSelect(

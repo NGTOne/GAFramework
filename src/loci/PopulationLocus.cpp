@@ -43,7 +43,7 @@ bool PopulationLocus::isFake() {
 string PopulationLocus::toString() {
 	stringstream ss;
 	ss << "Locus uses node " << this->nodeName() << "\n"
-		<< "\nRandom Seed: " << seed << "\n";
+		<< "\nRandom Seed: " << this->seed << "\n";
 	return ss.str();
 }
 

@@ -9,7 +9,7 @@ WeakIterativeReplacingGA::WeakIterativeReplacingGA(
 
 WeakIterativeReplacingGA::WeakIterativeReplacingGA(
 	SelectionStrategy * strategy,
-	unsigned seed
+	unsigned int seed
 ) : ReplacingGA(strategy, seed) {}
 
 vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(

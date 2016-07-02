@@ -8,11 +8,11 @@ using namespace std;
 
 SelectionStrategy::SelectionStrategy(double crossoverRate) {
 	this->seed = chrono::system_clock::now().time_since_epoch().count();
-	init(crossoverRate, seed, "Unknown");
+	this->init(crossoverRate, seed, "Unknown");
 }
 
 SelectionStrategy::SelectionStrategy(double crossoverRate, unsigned seed)  {
-	init(crossoverRate, seed, "Unknown");
+	this->init(crossoverRate, seed, "Unknown");
 }
 
 SelectionStrategy::SelectionStrategy(

@@ -7,19 +7,25 @@
 using namespace std;
 
 EvolutionarySystem::EvolutionarySystem(SelectionStrategy * strategy) {
-	init(strategy, chrono::system_clock::now().time_since_epoch().count());
+	this->init(
+		strategy,
+		chrono::system_clock::now().time_since_epoch().count()
+	);
 }
 
 EvolutionarySystem::EvolutionarySystem(
 	SelectionStrategy * strategy,
-	unsigned seed
+	unsigned int seed
 ) {
-	init(strategy, seed);
+	this->init(strategy, seed);
 }
 
 EvolutionarySystem::~EvolutionarySystem() {}
 
-void EvolutionarySystem::init(SelectionStrategy * strategy, unsigned seed) {
+void EvolutionarySystem::init(
+	SelectionStrategy * strategy,
+	unsigned int seed
+) {
 	this->seed = seed;
 	this->generator = mt19937(seed);
 	this->strategy = strategy;

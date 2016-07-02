@@ -28,7 +28,7 @@ GA::GA(
 	unsigned int numElites,
 	bool randomElitePlacement,
 	SelectionStrategy * strategy,
-	unsigned seed
+	unsigned int seed
 ) : EvolutionarySystem(strategy, seed) {
 	init(numElites, randomElitePlacement);
 }

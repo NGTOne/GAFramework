@@ -14,9 +14,9 @@ Locus::Locus(vector<boost::any> population) {
 	init(chrono::system_clock::now().time_since_epoch().count());
 }
 
-void Locus::init(unsigned seed) {
+void Locus::init(unsigned int seed) {
 	this->seed = seed;
-	generator = mt19937(seed);
+	this->generator = mt19937(seed);
 }
 
 void Locus::setPopulation(vector<boost::any> population) {

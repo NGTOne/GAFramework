@@ -8,22 +8,26 @@
 using namespace std;
 
 MutationOperation::MutationOperation() {
-	seed = chrono::system_clock::now().time_since_epoch().count();
-	this->init(0, seed);
+	this->init(
+		0,
+		chrono::system_clock::now().time_since_epoch().count()
+	);
 }
 
 MutationOperation::MutationOperation(double mutationRate) {
-	seed = chrono::system_clock::now().time_since_epoch().count();
-	this->init(mutationRate, seed);
+	this->init(
+		mutationRate,
+		chrono::system_clock::now().time_since_epoch().count()
+	);
 }
 
-MutationOperation::MutationOperation(double mutationRate, unsigned seed) {
+MutationOperation::MutationOperation(double mutationRate, unsigned int seed) {
 	this->init(mutationRate, seed);
 }
 
 MutationOperation::~MutationOperation() {}
 
-void MutationOperation::init(double mutationRate, unsigned seed) {
+void MutationOperation::init(double mutationRate, unsigned int seed) {
 	this->mutationRate = mutationRate;
 	this->seed = seed;
 	this->generator = mt19937(seed);
@@ -52,8 +56,8 @@ Genome * MutationOperation::mutate(Genome * initialGenome) {
 string MutationOperation::toString() {
 	stringstream ss;
 
-	ss << "Random seed: " << seed
-		<< "\nMutation rate: " << mutationRate
+	ss << "Random seed: " << this->seed
+		<< "\nMutation rate: " << this->mutationRate
 		<< "\n";
 
 	return ss.str();

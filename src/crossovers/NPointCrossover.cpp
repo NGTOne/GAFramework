@@ -25,7 +25,7 @@ NPointCrossover::NPointCrossover(
 NPointCrossover::NPointCrossover(
 	unsigned int numPoints,
 	unsigned int numOffspring,
-	unsigned seed
+	unsigned int seed
 ) : CrossoverOperation(numOffspring, seed) {
 	this->numPoints = numPoints;
 }

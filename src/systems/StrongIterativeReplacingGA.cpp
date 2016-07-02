@@ -11,7 +11,7 @@ StrongIterativeReplacingGA::StrongIterativeReplacingGA(
 
 StrongIterativeReplacingGA::StrongIterativeReplacingGA(
 	SelectionStrategy * strategy,
-	unsigned seed
+	unsigned int seed
 ) : ReplacingGA(strategy, seed) {
 	this->scramble = false;
 }
@@ -26,7 +26,7 @@ StrongIterativeReplacingGA::StrongIterativeReplacingGA(
 StrongIterativeReplacingGA::StrongIterativeReplacingGA(
 	SelectionStrategy * strategy,
 	bool scramble,
-	unsigned seed
+	unsigned int seed
 ) : ReplacingGA(strategy, seed) {
 	this->scramble = scramble;
 }
@@ -41,7 +41,7 @@ void StrongIterativeReplacingGA::scramblePopulation(
 	);
 	Genome * temp;
 	unsigned int index;
-	int tempFitness;
+	float tempFitness;
 
 	for (unsigned int i = 0; i < population.size(); i++) {
 		index = placementDist(this->generator);

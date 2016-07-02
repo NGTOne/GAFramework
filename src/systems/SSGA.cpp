@@ -10,7 +10,7 @@ SSGA::SSGA(SelectionStrategy * strategy) : EvolutionarySystem(strategy) {
 
 SSGA::SSGA(
 	SelectionStrategy * strategy,
-	unsigned seed
+	unsigned int seed
 ) : EvolutionarySystem(strategy, seed) {
 	this->niching = NULL;
 }
@@ -24,7 +24,7 @@ SSGA::SSGA(
 SSGA::SSGA(
 	SelectionStrategy * strategy,
 	NichingStrategy * niching,
-	unsigned seed
+	unsigned int seed
 ) : EvolutionarySystem(strategy, seed) {
 	this->niching = niching;
 }

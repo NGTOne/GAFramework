@@ -8,7 +8,7 @@ ReplacingGA::ReplacingGA(
 
 ReplacingGA::ReplacingGA(
 	SelectionStrategy * strategy,
-	unsigned seed
+	unsigned int seed
 ) : EvolutionarySystem(strategy, seed) {}
 
 bool ReplacingGA::inPopulation(Genome * target, vector<Genome*> population) {

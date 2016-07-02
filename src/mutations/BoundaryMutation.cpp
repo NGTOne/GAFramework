@@ -12,7 +12,7 @@ BoundaryMutation::BoundaryMutation(
 
 BoundaryMutation::BoundaryMutation(
 	double mutationRate,
-	unsigned seed
+	unsigned int seed
 ) : MutationOperation(mutationRate, seed) {}
 
 unsigned int BoundaryMutation::getNewLocusValue(

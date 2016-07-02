@@ -237,7 +237,7 @@ string SANode::toString() {
 	ss << "Population size: " << population.size() << "\n";
 	ss << populationStrings();
 
-	if (!this->readOnce) ss << "Seed: " << seed << "\n";
+	if (!this->readOnce) ss << "Seed: " << this->seed << "\n";
 	readOnce = true;
 
 	return ss.str();

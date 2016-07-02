@@ -11,7 +11,7 @@ ES::ES() : EvolutionarySystem(new RandomSelection()) {
 	init(1, 1);
 }
 
-ES::ES(unsigned seed) : EvolutionarySystem(new RandomSelection(), seed) {
+ES::ES(unsigned int seed) : EvolutionarySystem(new RandomSelection(), seed) {
 	init(1, 1);
 }
 
@@ -21,7 +21,7 @@ ES::ES(SelectionStrategy * strategy) : EvolutionarySystem(strategy) {
 
 ES::ES(
 	SelectionStrategy * strategy,
-	unsigned seed
+	unsigned int seed
 ) : EvolutionarySystem(strategy, seed) {
 	init(1, 1);
 }
@@ -38,7 +38,7 @@ ES::ES(
 ES::ES(
 	double muRatio,
 	double rhoRatio,
-	unsigned seed
+	unsigned int seed
 ) : EvolutionarySystem(new RandomSelection(), seed) {
 	init(muRatio, rhoRatio);
 }
@@ -55,7 +55,7 @@ ES::ES(
 	double muRatio,
 	double rhoRatio,
 	SelectionStrategy * strategy,
-	unsigned seed
+	unsigned int seed
 ) : EvolutionarySystem(strategy, seed) {
 	init(muRatio, rhoRatio);
 }

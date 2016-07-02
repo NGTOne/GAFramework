@@ -13,7 +13,7 @@ UniformCrossover::UniformCrossover(
 
 UniformCrossover::UniformCrossover(
 	unsigned int numOffspring,
-	unsigned seed
+	unsigned int seed
 ) : CrossoverOperation(numOffspring, seed) {}
 
 std::vector<std::tuple<
