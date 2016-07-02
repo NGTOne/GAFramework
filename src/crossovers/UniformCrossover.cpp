@@ -43,3 +43,10 @@ std::vector<GenomeTemplate> UniformCrossover::crossOver(
 
 	return children;
 }
+
+std::string UniformCrossover::toString() {
+	stringstream ss;
+	ss << "Type: Uniform Crossover\nRandom Seed: " << this->seed
+		<< "\nNumber of offspring: " << this->numOffspring << "\n";
+	return ss.str();
+}
