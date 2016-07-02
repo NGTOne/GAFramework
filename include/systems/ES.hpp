@@ -36,15 +36,15 @@ class ES : public EvolutionarySystem {
 	ES();
 	ES(SelectionStrategy * strategy);
 	ES(unsigned seed);
-	ES(SelectionStrategy * strategy, unsigned seed);
+	ES(SelectionStrategy * strategy, unsigned int seed);
 	ES(double muRatio, double rhoRatio);
-	ES(double muRatio, double rhoRatio, unsigned seed);
+	ES(double muRatio, double rhoRatio, unsigned int seed);
 	ES(double muRatio, double rhoRatio, SelectionStrategy * strategy);
 	ES(
 		double muRatio,
 		double rhoRatio,
 		SelectionStrategy * strategy,
-		unsigned seed
+		unsigned int seed
 	);
 
 	std::vector<Genome*> breedMutateSelect(

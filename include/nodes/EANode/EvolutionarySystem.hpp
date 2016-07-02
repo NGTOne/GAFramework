@@ -12,11 +12,11 @@ class EvolutionarySystem {
 	private:
 
 	protected:
-	unsigned seed;
+	unsigned int seed;
 	std::mt19937 generator;
 	SelectionStrategy * strategy;
 
-	void init(SelectionStrategy * strategy, unsigned seed);
+	void init(SelectionStrategy * strategy, unsigned int seed);
 	void sortPopulation(
 		std::vector<Genome*> & population,
 		std::vector<float> & fitnesses
@@ -40,7 +40,7 @@ class EvolutionarySystem {
 
 	public:
 	EvolutionarySystem(SelectionStrategy * strategy);
-	EvolutionarySystem(SelectionStrategy * strategy, unsigned seed);
+	EvolutionarySystem(SelectionStrategy * strategy, unsigned int seed);
 	virtual ~EvolutionarySystem();
 
 	virtual std::vector<Genome*> breedMutateSelect(

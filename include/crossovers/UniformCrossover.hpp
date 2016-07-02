@@ -9,7 +9,7 @@ class UniformCrossover : public CrossoverOperation {
 	public:
 	UniformCrossover();
 	UniformCrossover(unsigned int numOffspring);
-	UniformCrossover(unsigned int numOffspring, unsigned seed);
+	UniformCrossover(unsigned int numOffspring, unsigned int seed);
 
 	std::vector<std::tuple<
 		std::vector<unsigned int>,

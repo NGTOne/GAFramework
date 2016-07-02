@@ -10,7 +10,7 @@ class NonOptimizingNode : public PopulationNode {
 
 	public:
 	NonOptimizingNode(
-		int populationSize,
+		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,

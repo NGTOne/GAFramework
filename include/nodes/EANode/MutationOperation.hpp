@@ -12,7 +12,7 @@ class MutationOperation {
 	private:
 
 	protected:
-	unsigned seed;
+	unsigned int seed;
         double mutationRate;
 	std::mt19937 generator;
 
@@ -21,12 +21,12 @@ class MutationOperation {
 		unsigned int largestPossibleValue
 	)=0;
 
-	void init(double mutationRate, unsigned seed);
+	void init(double mutationRate, unsigned int seed);
 
 	public:
 	MutationOperation();
 	MutationOperation(double mutationRate);
-	MutationOperation(double mutationRate, unsigned seed);
+	MutationOperation(double mutationRate, unsigned int seed);
 	virtual ~MutationOperation();
 
 	virtual Genome * mutate(Genome * initialGenome);

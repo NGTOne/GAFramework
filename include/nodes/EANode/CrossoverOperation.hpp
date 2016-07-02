@@ -16,11 +16,11 @@ class CrossoverOperation {
 	private:
 
 	protected:
-	unsigned seed;
+	unsigned int seed;
 	unsigned int numOffspring;
 	std::mt19937 generator;
 
-	void init(unsigned int numOffspring, unsigned seed);
+	void init(unsigned int numOffspring, unsigned int seed);
 	unsigned int maxPairings(
 		unsigned int numParents,
 		unsigned int pairingSize
@@ -40,7 +40,7 @@ class CrossoverOperation {
 	public:
 	CrossoverOperation();
 	CrossoverOperation(unsigned int numOffspring);
-	CrossoverOperation(unsigned int numOffspring, unsigned seed);
+	CrossoverOperation(unsigned int numOffspring, unsigned int seed);
 	virtual ~CrossoverOperation();
 
 	std::vector<Genome*> crossOver(

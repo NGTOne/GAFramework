@@ -11,37 +11,40 @@ class MigratoryRelationship {
 	PopulationNode * toNode;
 	TranslationFunction toTranslate;
 	TranslationFunction fromTranslate;
-	int n;
+	unsigned int n;
 
 	std::mt19937 generator;
 
 	void init(
 		PopulationNode * fromNode,
 		PopulationNode * toNode,
-		int n,
+		unsigned int n,
 		TranslationFunction toTranslate,
 		TranslationFunction fromTranslate
 	);
 
-	void swap(int fromNodeIndex, int toNodeIndex);
-	void oneWayMigrate(int fromNodeIndex, int toNodeIndex);
+	void swap(unsigned int fromNodeIndex, unsigned int toNodeIndex);
+	void oneWayMigrate(
+		unsigned int fromNodeIndex,
+		unsigned int toNodeIndex
+	);
 
 	public:
 	MigratoryRelationship(
 		PopulationNode * fromNode,
 		PopulationNode * toNode,
-		int n
+		unsigned int n
 	);
 	MigratoryRelationship(
 		PopulationNode * fromNode,
 		PopulationNode * toNode,
-		int n,
+		unsigned int n,
 		TranslationFunction toTranslate
 	);
 	MigratoryRelationship(
 		PopulationNode * fromNode,
 		PopulationNode * toNode,
-		int n,
+		unsigned int n,
 		TranslationFunction toTranslate,
 		TranslationFunction fromTranslate
 	);

@@ -9,9 +9,9 @@ class LinearTempSchedule : public TemperatureSchedule {
 	public:
 	LinearTempSchedule(
 		float initialTemp,
-		int hoverTime,
-		int iterationsToZero
+		unsigned int hoverTime,
+		unsigned int iterationsToZero
 	);
 
-	float currentTemp(int currentIteration);
+	float currentTemp(unsigned int currentIteration);
 };

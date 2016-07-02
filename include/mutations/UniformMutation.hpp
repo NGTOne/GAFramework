@@ -19,5 +19,5 @@ class UniformMutation : public MutationOperation {
 	public:
 	UniformMutation();
 	UniformMutation(double mutationRate);
-	UniformMutation(double mutationRate, unsigned seed);
+	UniformMutation(double mutationRate, unsigned int seed);
 };

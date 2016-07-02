@@ -10,13 +10,13 @@ class MaxFitnessConvergenceEnd : public FitnessMatchEnd {
 	private:
 
 	protected:
-	double populationProportion;
+	float populationProportion;
 
 	public:
 	MaxFitnessConvergenceEnd(float minimumFitness);
 	MaxFitnessConvergenceEnd(
 		float minimumFitness,
-		double populationProportion
+		float populationProportion
 	);
 
 	virtual bool checkCondition(

@@ -8,7 +8,7 @@ class SelectionStrategy {
 	private:
 
 	protected:
-	unsigned seed;
+	unsigned int seed;
 	std::mt19937 generator;
 	std::string name;
 
@@ -16,20 +16,20 @@ class SelectionStrategy {
 
 	SelectionStrategy(double crossoverRate, std::string name);
 	SelectionStrategy(
-		unsigned seed,
+		unsigned int seed,
 		double crossoverRate,
 		std::string name
 	);
 
 	void init(
 		double crossoverRate,
-		unsigned seed,
+		unsigned int seed,
 		std::string name
 	);
 
 	public:
 	SelectionStrategy(double crossoverRate);
-	SelectionStrategy(double crossoverRate, unsigned seed);
+	SelectionStrategy(double crossoverRate, unsigned int seed);
 	virtual ~SelectionStrategy();
 
 	virtual unsigned int getParent(

@@ -15,7 +15,7 @@ class SANode : public PopulationNode {
 	TemperatureSchedule * schedule;
 	bool maximize;
 
-	unsigned seed;
+	unsigned int seed;
 	mt19937 generator;
 	bool readOnce;
 

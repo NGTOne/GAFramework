@@ -34,7 +34,7 @@ class CutAndSpliceCrossover : public CrossoverOperation {
 	public:
 	CutAndSpliceCrossover();
 	CutAndSpliceCrossover(unsigned int numOffspring);
-	CutAndSpliceCrossover(unsigned int numOffspring, unsigned seed);
+	CutAndSpliceCrossover(unsigned int numOffspring, unsigned int seed);
 	
 	std::vector<std::tuple<
 		std::vector<unsigned int>,

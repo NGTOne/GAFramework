@@ -21,7 +21,7 @@ class AccelSSGA : public SSGA {
 
 	public:
 	AccelSSGA(SelectionStrategy * strategy);
-	AccelSSGA(SelectionStrategy * strategy, unsigned seed);
+	AccelSSGA(SelectionStrategy * strategy, unsigned int seed);
 	AccelSSGA(
 		SelectionStrategy * strategy,
 		NichingStrategy * niching
@@ -30,7 +30,7 @@ class AccelSSGA : public SSGA {
 	AccelSSGA(
 		SelectionStrategy * strategy,
 		NichingStrategy * niching,
-		unsigned seed
+		unsigned int seed
 	);
 
 	virtual std::vector<Genome*> breedMutateSelect(

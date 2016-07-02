@@ -23,7 +23,7 @@ class TournamentSelection : public SelectionStrategy {
 	TournamentSelection(
 		double crossoverRate,
 		unsigned int tournamentSize,
-		unsigned seed
+		unsigned int seed
 	);
         
 	unsigned int getParent(

@@ -37,16 +37,13 @@ class GA : public EvolutionarySystem {
 		SelectionStrategy * strategy
 	);
 
-	GA(
-		unsigned int numElites,
-		SelectionStrategy * strategy
-	);
+	GA(unsigned int numElites, SelectionStrategy * strategy);
 
 	GA(
 		unsigned int numElites,
 		bool randomElitePlacement,
 		SelectionStrategy * strategy,
-		unsigned seed
+		unsigned int seed
 	);
 
 	std::vector<Genome*> breedMutateSelect(

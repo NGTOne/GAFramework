@@ -20,12 +20,12 @@ class SSGA : public EvolutionarySystem {
 
 	public:
 	SSGA(SelectionStrategy * strategy);
-	SSGA(SelectionStrategy * strategy, unsigned seed);
+	SSGA(SelectionStrategy * strategy, unsigned int seed);
 	SSGA(SelectionStrategy * strategy, NichingStrategy * niching);
 	SSGA(
 		SelectionStrategy * strategy,
 		NichingStrategy * niching,
-		unsigned seed
+		unsigned int seed
 	);
 
 	virtual std::vector<Genome*> breedMutateSelect(

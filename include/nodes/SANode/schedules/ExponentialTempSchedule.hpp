@@ -11,9 +11,9 @@ class ExponentialTempSchedule : public TemperatureSchedule {
 	ExponentialTempSchedule(
 		float initialTemp,
 		float alpha,
-		int hoverTime,
-		int iterationsToZero
+		unsigned int hoverTime,
+		unsigned int iterationsToZero
 	);
 
-	float currentTemp(int currentIteration);
+	float currentTemp(unsigned int currentIteration);
 };

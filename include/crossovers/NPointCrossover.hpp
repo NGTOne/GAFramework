@@ -31,7 +31,7 @@ class NPointCrossover : public CrossoverOperation {
 	NPointCrossover(
 		unsigned int numPoints,
 		unsigned int numOffspring,
-		unsigned seed
+		unsigned int seed
 	);
 	
 	std::vector<std::tuple<

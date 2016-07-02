@@ -6,20 +6,20 @@ class TemperatureSchedule {
 
 	protected:
 	float initialTemp;
-	int hoverTime;
-	int iterationsToZero;
+	unsigned int hoverTime;
+	unsigned int iterationsToZero;
 	float currentTemperature;
 	std::string name;
 
 	TemperatureSchedule(
 		float initialTemp,
-		int hoverTime,
-		int iterationsToZero,
+		unsigned int hoverTime,
+		unsigned int iterationsToZero,
 		std::string name
 	);
 
 	public:
 	virtual ~TemperatureSchedule();
-	virtual float currentTemp(int currentIteration)=0;
+	virtual float currentTemp(unsigned int currentIteration)=0;
 	virtual std::string toString();
 };

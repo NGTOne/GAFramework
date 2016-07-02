@@ -18,7 +18,7 @@ class PopulationNode {
 	std::vector<float> fitnesses;
 	std::string nodeName;
 
-	int currentIteration;
+	unsigned int currentIteration;
 	unsigned int accelerationFactor;
 	unsigned int initialPopulationSize;
 	std::vector<EndCondition *> conditions;
@@ -81,7 +81,7 @@ class PopulationNode {
 
 	// Iteration mechanics
 	virtual void nextIteration();
-	Genome * getIndex(int index);
+	Genome * getIndex(unsigned int index);
 	virtual std::vector<Genome*> getNextPopulation()=0;
 	virtual bool done();
 
@@ -90,7 +90,7 @@ class PopulationNode {
 	float evaluateFitness(Genome * target);
 
 	// For migration
-	virtual void insert(int index, Genome * target);
+	virtual void insert(unsigned int index, Genome * target);
 
 	std::string name();
 	unsigned int populationSize();

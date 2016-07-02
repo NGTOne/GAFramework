@@ -18,7 +18,7 @@ class WeakIterativeReplacingGA : public ReplacingGA {
 	WeakIterativeReplacingGA(SelectionStrategy * strategy);
 	WeakIterativeReplacingGA(
 		SelectionStrategy * strategy,
-		unsigned seed
+		unsigned int seed
 	);
 
 	std::vector<Genome*> breedMutateSelect(

@@ -26,7 +26,7 @@ class ReplacingGA : public EvolutionarySystem {
 
 	public:
 	ReplacingGA(SelectionStrategy * strategy);
-	ReplacingGA(SelectionStrategy * strategy, unsigned seed);
+	ReplacingGA(SelectionStrategy * strategy, unsigned int seed);
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,

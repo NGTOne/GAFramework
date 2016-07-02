@@ -21,7 +21,7 @@ class HierarchicalEA {
 	vector<string> evolutionOrder;
 	vector<string> endDictators;
 	vector<MigratoryRelationship> migrations;
-	int maxEpochs;
+	unsigned int maxEpochs;
 
 	vector<PopulationNode *> evolutionNodes;
 	vector<PopulationNode *> printNodes;
@@ -37,11 +37,11 @@ class HierarchicalEA {
 	void migrate();
 
 	void checkNodesExist(vector<string> names);
-	bool done(int currentEpoch);
+	bool done(unsigned int currentEpoch);
 
 	public:
 	HierarchicalEA();
-	HierarchicalEA(int maxEpochs);
+	HierarchicalEA(unsigned int maxEpochs);
 	~HierarchicalEA();
 
 	// Kept separate from the destructor because we might want to keep them
@@ -83,20 +83,20 @@ class HierarchicalEA {
 		string from,
 		string to,
 		bool bidirectional,
-		int n
+		unsigned int n
 	);
 
 	void addMigratoryRelationship(
 		string from,
 		string to,
-		int n,
+		unsigned int n,
 		TranslationFunction toTranslate
 	);
 
 	void addMigratoryRelationship(
 		string from,
 		string to,
-		int n,
+		unsigned int n,
 		TranslationFunction toTranslate,
 		TranslationFunction fromTranslate
 	);
