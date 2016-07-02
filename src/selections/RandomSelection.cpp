@@ -6,7 +6,7 @@ RandomSelection::RandomSelection() : SelectionStrategy(0, "Random") {}
 
 unsigned int RandomSelection::getParent(
 	std::vector<Genome*> population,
-	std::vector<int> fitnesses
+	std::vector<float> fitnesses
 ) {
 	std::uniform_int_distribution<unsigned int> parentDist(
 		0,

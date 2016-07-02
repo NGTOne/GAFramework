@@ -65,8 +65,8 @@ std::vector<unsigned int> Apportionment::getRelevantIndices(
 void Apportionment::evaluatePair(
 	Genome * upper,
 	Genome * target,
-	int upperFitness,
-	std::vector<int> & apportionedFitnesses
+	float upperFitness,
+	std::vector<float> & apportionedFitnesses
 ) {
 	std::vector<unsigned int> componentIndices =
 		this->getComponentIndices(upper, target);
@@ -90,8 +90,8 @@ void Apportionment::evaluatePair(
 }
 
 // TODO: Refactor this function
-int Apportionment::checkFitness(Genome * genome) {
-	std::vector<int> apportionedFitnesses;
+float Apportionment::checkFitness(Genome * genome) {
+	std::vector<float> apportionedFitnesses;
 	std::vector<bool> tried(this->upperNode->populationSize(), false);
 	unsigned int triedOn = 0;
 
@@ -144,7 +144,9 @@ int Apportionment::checkFitness(Genome * genome) {
 	return this->aggregateFitnesses(apportionedFitnesses);
 }
 
-int Apportionment::aggregateFitnesses(std::vector<int> apportionedFitnesses) {
+float Apportionment::aggregateFitnesses(
+	std::vector<float> apportionedFitnesses
+) {
 	return this->aggregator->aggregateFitnesses(apportionedFitnesses);
 }
 

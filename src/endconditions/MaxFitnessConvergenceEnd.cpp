@@ -1,13 +1,13 @@
 #include "endconditions/MaxFitnessConvergenceEnd.hpp"
 
 MaxFitnessConvergenceEnd::MaxFitnessConvergenceEnd(
-	int minimumFitness
+	float minimumFitness
 ) : FitnessMatchEnd(minimumFitness) {
 	this->populationProportion = 0.5;
 }
 
 MaxFitnessConvergenceEnd::MaxFitnessConvergenceEnd(
-	int minimumFitness,
+	float minimumFitness,
 	double populationProportion
 ) : FitnessMatchEnd(minimumFitness) {
 	this->populationProportion = populationProportion;
@@ -15,7 +15,7 @@ MaxFitnessConvergenceEnd::MaxFitnessConvergenceEnd(
 
 bool MaxFitnessConvergenceEnd::checkCondition(
 	vector<Genome*> genomes,
-	vector<int> fitnesses,
+	vector<float> fitnesses,
 	unsigned int currentIteration
 ) {
 	double proportion = 0;

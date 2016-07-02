@@ -7,7 +7,7 @@ MetaPopulationObjective::MetaPopulationObjective(
 	this->flattenedObjective = flattenedObjective;
 }
 
-int MetaPopulationObjective::checkFitness(Genome * genome) {
+float MetaPopulationObjective::checkFitness(Genome * genome) {
 	Genome resolved = BlanketResolver::resolveBlanket(genome);
 	return this->flattenedObjective->checkFitness(&resolved);
 }

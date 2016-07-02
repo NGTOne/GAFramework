@@ -67,7 +67,7 @@ void ES::init(double muRatio, double rhoRatio) {
 
 Genome* ES::getCrossoverChild(
 	vector<Genome*> initialPopulation,
-	vector<int> populationFitnesses,
+	vector<float> populationFitnesses,
 	CrossoverOperation * cross,
 	std::string speciesNode
 ) {
@@ -93,7 +93,7 @@ Genome* ES::getCrossoverChild(
 
 vector<Genome*> ES::breedMutateSelect(
 	vector<Genome*> initialPopulation,
-	vector<int> & populationFitnesses,
+	vector<float> & populationFitnesses,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives,
@@ -103,7 +103,7 @@ vector<Genome*> ES::breedMutateSelect(
 	unsigned int numMutants = initialPopSize * rhoRatio;
 	unsigned int numCrossChildren = initialPopSize * muRatio;
 	vector<Genome*> crossChildren, mutantChildren, overallPopulation;
-	vector<int> finalPopulationFitnesses;
+	vector<float> finalPopulationFitnesses;
 
 	for (unsigned int i = 0; i < numMutants; i++) {
 		mutantChildren.push_back(

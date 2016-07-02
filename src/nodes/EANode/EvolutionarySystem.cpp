@@ -26,13 +26,13 @@ void EvolutionarySystem::init(SelectionStrategy * strategy, unsigned seed) {
 }
 
 void EvolutionarySystem::sortPopulation(
-	std::vector<Genome*> &population,
-	std::vector<int> &fitnesses
+	std::vector<Genome*> & population,
+	std::vector<float> & fitnesses
 ) {
 	for (unsigned int i = 0; i < population.size(); i++) {
 		for (unsigned int k = 0; k < population.size(); k++) {
 			if (fitnesses[i] > fitnesses[k]) {
-				int tempFitness = fitnesses[i];
+				float tempFitness = fitnesses[i];
 				Genome * tempSolution = population[i];
 				fitnesses[i] = fitnesses[k];
 				population[i] = population[k];
@@ -43,12 +43,11 @@ void EvolutionarySystem::sortPopulation(
 	}
 }
 
-int EvolutionarySystem::evaluateFitness(
+float EvolutionarySystem::evaluateFitness(
 	Genome * target,
 	vector<ObjectiveFunction*> objectives
 ) {
-	int finalFitness = 0;
-
+	float finalFitness = 0;
 	for (unsigned int i = 0; i < objectives.size(); i++)
 		finalFitness += objectives[i]->checkFitness(target);
 
@@ -57,7 +56,7 @@ int EvolutionarySystem::evaluateFitness(
 
 unsigned int EvolutionarySystem::getParent(
 	vector<Genome*> population,
-	vector<int> fitnesses
+	vector<float> fitnesses
 ) {
 	return this->strategy->getParent(population, fitnesses);
 }

@@ -33,7 +33,7 @@ StrongIterativeReplacingGA::StrongIterativeReplacingGA(
 
 void StrongIterativeReplacingGA::scramblePopulation(
 	std::vector<Genome*> & population,
-	std::vector<int> & fitnesses
+	std::vector<float> & fitnesses
 ) {
 	uniform_int_distribution<unsigned int> placementDist(
 		0,
@@ -56,7 +56,7 @@ void StrongIterativeReplacingGA::scramblePopulation(
 
 vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 	vector<Genome*> initialPopulation,
-	vector<int> & populationFitnesses,
+	vector<float> & populationFitnesses,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives,
@@ -87,7 +87,7 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 		);
 
 		for (unsigned int k = 0; k < children.size(); k++) {
-			int childFitness = this->evaluateFitness(
+			float childFitness = this->evaluateFitness(
 				children[k],
 				objectives
 			);

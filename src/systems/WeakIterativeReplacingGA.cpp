@@ -14,7 +14,7 @@ WeakIterativeReplacingGA::WeakIterativeReplacingGA(
 
 vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 	vector<Genome*> initialPopulation,
-	vector<int> & populationFitnesses,
+	vector<float> & populationFitnesses,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives,
@@ -25,7 +25,7 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 		vector<Genome*>()
 	);
 	vector<Genome*> newPopulation(initialPopulation.size(), NULL);
-	vector<int> newFitnesses(initialPopulation.size(), 0);
+	vector<float> newFitnesses(initialPopulation.size(), 0);
 
 	for (unsigned int i = 0; i < initialPopulation.size(); i++) {
 		vector<unsigned int> parentIndices;
@@ -59,7 +59,7 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 		);
 		unsigned int index = childSelectionDist(generator);
 		Genome * child = possibleContenders[i][index];
-		int childFitness = this->evaluateFitness(child, objectives);
+		float childFitness = this->evaluateFitness(child, objectives);
 
 		if (childFitness > populationFitnesses[i]) {
 			newPopulation[i] = new Genome(child);

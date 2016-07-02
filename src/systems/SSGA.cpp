@@ -31,7 +31,7 @@ SSGA::SSGA(
 
 vector<Genome*> SSGA::breedMutateSelect(
 	vector<Genome*> initialPopulation,
-	vector<int> & populationFitnesses,
+	vector<float> & populationFitnesses,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives,
@@ -63,7 +63,7 @@ vector<Genome*> SSGA::breedMutateSelect(
 			children
 		);
 
-	vector<int> newFitnesses;
+	vector<float> newFitnesses;
 
 	for (unsigned int i = 0; i < children.size(); i++) {
 		newFitnesses.push_back(this->evaluateFitness(

@@ -1,10 +1,10 @@
 #include "apportionment-func/SameFitnessApportionmentFunction.hpp"
 
-int SameFitnessApportionmentFunction::apportionFitness(
+float SameFitnessApportionmentFunction::apportionFitness(
 	Genome * recipient,
 	Genome * provider,
 	unsigned int recipientLocation,
-	int providerFitness
+	float providerFitness
 ) {
 	return providerFitness;
 }

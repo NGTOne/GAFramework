@@ -21,7 +21,7 @@ class EvolutionarySystem {
 		std::vector<Genome*> & population,
 		std::vector<float> & fitnesses
 	);
-	int evaluateFitness(
+	float evaluateFitness(
 		Genome * target,
 		std::vector<ObjectiveFunction*> objectives
 	);

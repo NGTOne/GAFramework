@@ -32,7 +32,7 @@ void ReplacingGA::removeUnusedIndividuals(
 
 vector<Genome*> ReplacingGA::breedMutateSelect(
 	vector<Genome*> initialPopulation,
-	vector<int> & populationFitnesses,
+	vector<float> & populationFitnesses,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives,
@@ -40,7 +40,7 @@ vector<Genome*> ReplacingGA::breedMutateSelect(
 ) {
 	vector<Genome*> newPopulation, children, parents;
 	vector<unsigned int> parentIndices(2, 0);
-	vector<int> newFitnesses(populationFitnesses);
+	vector<float> newFitnesses(populationFitnesses);
 
 	for (unsigned int i = 0; i < initialPopulation.size(); i++)
 		newPopulation.push_back(new Genome(initialPopulation[i]));
@@ -63,7 +63,7 @@ vector<Genome*> ReplacingGA::breedMutateSelect(
 		parents.clear();
 
 		for (unsigned int k = 0; k < children.size(); k++) {
-			int childFitness = this->evaluateFitness(
+			float childFitness = this->evaluateFitness(
 				children[k],
 				objectives
 			);

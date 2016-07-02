@@ -27,7 +27,7 @@ class GA : public EvolutionarySystem {
 		std::vector<Genome*> & newPopulation,
 		std::vector<float> & newPopulationFitnesses
 	);
-	std::vector<unsigned int> findElites(std::vector<int> fitnesses);
+	std::vector<unsigned int> findElites(std::vector<float> fitnesses);
 
 	public:
 

@@ -190,8 +190,8 @@ Genome * SANode::getNeighbour(Genome * target) {
 		if (i != choice) delete(neighbours[i]);
 	}
 
-	int neighbourFitness = this->evaluateFitness(neighbour);
-	int targetFitness = this->evaluateFitness(target);
+	float neighbourFitness = this->evaluateFitness(neighbour);
+	float targetFitness = this->evaluateFitness(target);
 
 	if ((this->maximize && targetFitness < neighbourFitness) ||
 		(!this->maximize && targetFitness > neighbourFitness)) {
