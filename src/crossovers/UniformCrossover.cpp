@@ -21,8 +21,7 @@ std::vector<GenomeTemplate> UniformCrossover::crossOver(
 ) {
 	unsigned int shortestGenomeLength = this->shortestGenome(genomes);
 	std::vector<GenomeTemplate> children;
-	vector<vector<unsigned int>> parentGenomes = this->getGenomes(genomes);
-	vector<vector<Locus*>> parentLoci = this->getLoci(genomes);
+	std::vector<GenomeTemplate> parents = this->getTemplates(genomes);
 
 	uniform_int_distribution<unsigned int> parentDist(
 		0,
@@ -33,10 +32,7 @@ std::vector<GenomeTemplate> UniformCrossover::crossOver(
 		GenomeTemplate child;
 		for (unsigned int k = 0; k < shortestGenomeLength; k++) {
 			unsigned int parent = parentDist(this->generator);
-			child.add(
-				parentGenomes[parent][k],
-				parentLoci[parent][k]
-			);
+			child.add(parents[parent].getIndex(k));
 		}
 		children.push_back(child);
 	}

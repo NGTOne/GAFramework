@@ -54,36 +54,25 @@ std::vector<GenomeTemplate> NPointCrossover::crossOver(
 	unsigned int shortestGenomeLength = this->shortestGenome(genomes);
 	vector<unsigned int> points = this->getPoints(shortestGenomeLength);
 	unsigned int currentPoint = 0, currentParent = 0;
-	vector<vector<unsigned int>> childGenomes(
-		genomes.size(),
-		vector<unsigned int>()
-	);
-	vector<vector<unsigned int>> parentGenomes = this->getGenomes(genomes);
-	vector<vector<Locus*>> childLoci(genomes.size(), vector<Locus*>());
-	vector<vector<Locus*>> parentLoci = this->getLoci(genomes);
+	std::vector<GenomeTemplate> children(genomes.size(), GenomeTemplate());
+	std::vector<GenomeTemplate> parents = this->getTemplates(genomes);
 
 	for (unsigned int i = 0; i < shortestGenomeLength; i++) {
-		if (currentPoint < points.size() && i == points[currentPoint]) {
+		if (
+			currentPoint < points.size()
+			&& i == points[currentPoint]
+		) {
 			if (currentParent++ == genomes.size() - 1)
 				currentParent = 0;
 			currentPoint++;
 		}
 
-		for (unsigned int k = 0; k < childGenomes.size(); k++) {
+		for (unsigned int k = 0; k < children.size(); k++) {
 			unsigned int parent = currentParent + k;
 			if (parent >= genomes.size()) parent -= genomes.size();
-
-			childGenomes[k].push_back(parentGenomes[parent][i]);
-			childLoci[k].push_back(parentLoci[parent][i]);
+			children[k].add(parents[parent].getIndex(i));
 		}
 	}
-
-	std::vector<GenomeTemplate> children;
-
-	for (unsigned int i = 0; i < childGenomes.size(); i++)
-		children.push_back(
-			GenomeTemplate(childGenomes[i], childLoci[i])
-		);
 
 	if (children.size() > this->numOffspring) {
 		unsigned int numToDelete = children.size() - numOffspring;

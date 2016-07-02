@@ -10,6 +10,8 @@ class GenomeTemplate: public std::tuple<
 	private:
 
 	protected:
+	template<unsigned int i, typename T>
+	void updateVector(T newValue);
 
 	public:
 	GenomeTemplate();
@@ -19,13 +21,12 @@ class GenomeTemplate: public std::tuple<
 	);
 
 	void add(unsigned int gene, Locus * locus);
+	void add(std::tuple<unsigned int, Locus*> newGene);
 	void add(std::vector<unsigned int> genes, std::vector<Locus*> loci);
-
-	template<unsigned int i, typename T>
-	void updateVector(T newValue);
 
 	std::vector<unsigned int> getGenes();
 	std::vector<Locus*> getLoci();
+	std::tuple<unsigned int, Locus*> getIndex(unsigned int index);
 };
 
 template <unsigned int i, typename T>

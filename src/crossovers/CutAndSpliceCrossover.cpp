@@ -15,27 +15,25 @@ GenomeTemplate CutAndSpliceCrossover::createOffspring(
 	vector<Genome*> parents,
 	vector<unsigned int> points
 ) {
-	GenomeTemplate newTemplate;
-	vector<unsigned int> offspringGenome;
-	vector<Locus*> offspringLoci;
-	vector<vector<unsigned int>> parentGenomes = this->getGenomes(parents);
-	vector<vector<Locus*>> parentLoci = this->getLoci(parents);
+	GenomeTemplate offspring;
+	std::vector<GenomeTemplate> templates = this->getTemplates(parents);
 
 	unsigned int offspringGenomeLength = points[0] +
 		(parents[1]->genomeLength() - points[1]);
 
 	for (unsigned int i = 0; i < offspringGenomeLength; i++) {
 		if (i < points[0]) {
-			newTemplate.add(parentGenomes[0][i], parentLoci[0][i]);
+			offspring.add(templates[0].getIndex(i));
 		} else {
-			newTemplate.add(
-				parentGenomes[1][points[1] + (i - points[0])],
-				parentLoci[1][points[1] + (i - points[0])]
+			offspring.add(
+				templates[1].getIndex(
+					points[1] + (i - points[0])
+				)
 			);
 		}
 	}
 
-	return newTemplate;
+	return offspring;
 }
 
 std::vector<GenomeTemplate> CutAndSpliceCrossover::crossOver(

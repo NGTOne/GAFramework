@@ -290,3 +290,7 @@ set<Locus*> Genome::getConstructiveLoci() {
 
 	return constructiveLoci;
 }
+
+GenomeTemplate Genome::getTemplate() {
+	return GenomeTemplate(this->genes, this->loci);
+}

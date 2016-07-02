@@ -16,6 +16,10 @@ void GenomeTemplate::add(unsigned int gene, Locus * locus) {
 	this->updateVector<1, Locus*>(locus);
 }
 
+void GenomeTemplate::add(std::tuple<unsigned int, Locus*> newGene) {
+	this->add(std::get<0>(newGene), std::get<1>(newGene));
+}
+
 void GenomeTemplate::add(
 	std::vector<unsigned int> genes,
 	std::vector<Locus*> loci
@@ -32,4 +36,11 @@ std::vector<unsigned int> GenomeTemplate::getGenes() {
 
 std::vector<Locus*> GenomeTemplate::getLoci() {
 	return std::get<1>(*this);
+}
+
+std::tuple<unsigned int, Locus*> GenomeTemplate::getIndex(unsigned int index) {
+	return std::make_tuple(
+		this->getGenes()[index],
+		this->getLoci()[index]
+	);
 }

@@ -86,20 +86,13 @@ vector<unsigned int> CrossoverOperation::getParents(
 	return pairing;
 }
 
-vector<vector<unsigned int>> CrossoverOperation::getGenomes(
-	vector<Genome*> parents
+std::vector<GenomeTemplate> CrossoverOperation::getTemplates(
+	std::vector<Genome*> parents
 ) {
-	vector<vector<unsigned int>> parentGenomes;
+	std::vector<GenomeTemplate> templates;
 	for (unsigned int i = 0; i < parents.size(); i++)
-		parentGenomes.push_back(parents[i]->getGenome());
-	return parentGenomes;
-}
-
-vector<vector<Locus*>> CrossoverOperation::getLoci(vector<Genome*> parents) {
-	vector<vector<Locus*>> parentLoci;
-	for (unsigned int i = 0; i < parents.size(); i++)
-		parentLoci.push_back(parents[i]->getLoci());
-	return parentLoci;
+		templates.push_back(parents[i]->getTemplate());
+	return templates;
 }
 
 std::vector<Genome*> CrossoverOperation::crossOver(

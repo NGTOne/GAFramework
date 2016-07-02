@@ -55,6 +55,7 @@ class Genome {
 
 	bool usesComponent(Genome * component);
 	set<Locus*> getConstructiveLoci();
+	GenomeTemplate getTemplate();
 
 	template <typename T>
 	bool indexIs(unsigned int index, T target);
