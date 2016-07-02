@@ -167,7 +167,7 @@ void PopulationNode::nextIteration() {
 	}
 }
 
-Genome * PopulationNode::getIndex(int index) {
+Genome * PopulationNode::getIndex(unsigned int index) {
 	return this->population[index];
 }
 
@@ -209,7 +209,7 @@ void PopulationNode::evaluateFitnesses() {
 		this->fitnesses[i] = this->evaluateFitness(i);
 }
 
-void PopulationNode::insert(int index, Genome * target) {
+void PopulationNode::insert(unsigned int index, Genome * target) {
 	delete(this->population[index]);
 	this->evaluateFitness(index);
 }

@@ -12,7 +12,7 @@
 
 HierarchicalEA::HierarchicalEA() {}
 
-HierarchicalEA::HierarchicalEA(int maxEpochs) {
+HierarchicalEA::HierarchicalEA(unsigned int maxEpochs) {
 	this->maxEpochs = maxEpochs;
 }
 
@@ -140,7 +140,7 @@ void HierarchicalEA::migrate() {
 		this->migrations[i].migrate();
 }
 
-bool HierarchicalEA::done(int currentEpoch) {
+bool HierarchicalEA::done(unsigned int currentEpoch) {
 	bool done = true;
 	if (currentEpoch >= this->maxEpochs - 1) {
 		cout << "Hierarchical EA ended because maximum epoch count"
@@ -176,7 +176,7 @@ void HierarchicalEA::run(bool verbose) {
 		cout << string(80, '-') << "\n";
 	}
 
-	for (int i = 0; i < this->maxEpochs; i++) {
+	for (unsigned int i = 0; i < this->maxEpochs; i++) {
 		for (unsigned int k = 0; k < this->evolutionNodes.size(); k++)
 			this->evolutionNodes[k]->nextIteration();
 
@@ -247,7 +247,7 @@ void HierarchicalEA::addMigratoryRelationship(
 	string from,
 	string to,
 	bool bidirectional,
-	int n
+	unsigned int n
 ) {
 	if (bidirectional) {
 		this->addMigratoryRelationship(
@@ -270,7 +270,7 @@ void HierarchicalEA::addMigratoryRelationship(
 void HierarchicalEA::addMigratoryRelationship(
 	string from,
 	string to,
-	int n,
+	unsigned int n,
 	TranslationFunction toTranslate
 ) {
 	PopulationNode * fromNode, * toNode;
@@ -287,7 +287,7 @@ void HierarchicalEA::addMigratoryRelationship(
 void HierarchicalEA::addMigratoryRelationship(
 	string from,
 	string to,
-	int n,
+	unsigned int n,
 	TranslationFunction toTranslate,
 	TranslationFunction fromTranslate
 ) {

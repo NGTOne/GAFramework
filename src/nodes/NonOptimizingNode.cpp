@@ -4,7 +4,7 @@
 using namespace std;
 
 NonOptimizingNode::NonOptimizingNode(
-	int populationSize,
+	unsigned int populationSize,
 	vector<Locus*> loci,
 	vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,

@@ -3,8 +3,8 @@
 ExponentialTempSchedule::ExponentialTempSchedule(
 	float initialTemp,
 	float alpha,
-	int hoverTime,
-	int iterationsToZero
+	unsigned int hoverTime,
+	unsigned int iterationsToZero
 ) : TemperatureSchedule(
 	initialTemp,
 	hoverTime,
@@ -14,7 +14,7 @@ ExponentialTempSchedule::ExponentialTempSchedule(
 	this->alpha = alpha;
 }
 
-float ExponentialTempSchedule::currentTemp(int currentIteration) {
+float ExponentialTempSchedule::currentTemp(unsigned int currentIteration) {
 	if (currentIteration % hoverTime == 0) {
 		currentTemperature = alpha * currentTemperature;
 	}

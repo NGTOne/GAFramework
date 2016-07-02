@@ -9,34 +9,46 @@ using namespace std;
 MigratoryRelationship::MigratoryRelationship(
 	PopulationNode * fromNode,
 	PopulationNode * toNode,
-	int n
+	unsigned int n
 ) {
-	init(fromNode, toNode, n, TranslationFunction(), TranslationFunction());
+	this->init(
+		fromNode,
+		toNode,
+		n,
+		TranslationFunction(),
+		TranslationFunction()
+	);
 }
 
 MigratoryRelationship::MigratoryRelationship(
 	PopulationNode * fromNode,
 	PopulationNode * toNode,
-	int n,
+	unsigned int n,
 	TranslationFunction toTranslate
 ) {
-	init(fromNode, toNode, n, toTranslate, NullTranslationFunction());
+	this->init(
+		fromNode,
+		toNode,
+		n,
+		toTranslate,
+		NullTranslationFunction()
+	);
 }
 
 MigratoryRelationship::MigratoryRelationship(
 	PopulationNode * fromNode,
 	PopulationNode * toNode,
-	int n,
+	unsigned int n,
 	TranslationFunction toTranslate,
 	TranslationFunction fromTranslate
 ) {
-	init(fromNode, toNode, n, toTranslate, fromTranslate);
+	this->init(fromNode, toNode, n, toTranslate, fromTranslate);
 }
 
 void MigratoryRelationship::init(
 	PopulationNode * fromNode,
 	PopulationNode * toNode,
-	int n,
+	unsigned int n,
 	TranslationFunction toTranslate,
 	TranslationFunction fromTranslate
 ) {
@@ -45,10 +57,15 @@ void MigratoryRelationship::init(
 	this->n = n;
 	this->toTranslate = toTranslate;
 	this->fromTranslate = fromTranslate;
-	generator = mt19937(chrono::system_clock::now().time_since_epoch().count());
+	this->generator = mt19937(
+		chrono::system_clock::now().time_since_epoch().count()
+	);
 }
 
-void MigratoryRelationship::swap(int fromNodeIndex, int toNodeIndex) {
+void MigratoryRelationship::swap(
+	unsigned int fromNodeIndex,
+	unsigned int toNodeIndex
+) {
 	Genome * fromNodeInsert,
 		* toNodeInsert,
 		* fromNodeOriginal,
@@ -70,7 +87,10 @@ void MigratoryRelationship::swap(int fromNodeIndex, int toNodeIndex) {
 	fromNode->insert(fromNodeIndex, fromNodeInsert);
 }
 
-void MigratoryRelationship::oneWayMigrate(int fromNodeIndex, int toNodeIndex) {
+void MigratoryRelationship::oneWayMigrate(
+	unsigned int fromNodeIndex,
+	unsigned int toNodeIndex
+) {
 	Genome * original, * insert;
 
 	original = fromNode->getIndex(fromNodeIndex);
@@ -82,13 +102,13 @@ void MigratoryRelationship::oneWayMigrate(int fromNodeIndex, int toNodeIndex) {
 }
 
 void MigratoryRelationship::migrate() {
-	int fromNodeSize = fromNode->populationSize();
-	int toNodeSize = toNode->populationSize();
-	int fromIndex, toIndex;
-	uniform_int_distribution<int> fromNodeDist(0, fromNodeSize);
-	uniform_int_distribution<int> toNodeDist(0, toNodeSize);
+	unsigned int fromNodeSize = fromNode->populationSize();
+	unsigned int toNodeSize = toNode->populationSize();
+	unsigned int fromIndex, toIndex;
+	uniform_int_distribution<unsigned int> fromNodeDist(0, fromNodeSize);
+	uniform_int_distribution<unsigned int> toNodeDist(0, toNodeSize);
 
-	for (int i = 0; i < n; i++) {
+	for (unsigned int i = 0; i < n; i++) {
 		fromIndex = fromNodeDist(generator);
 		toIndex = toNodeDist(generator);
 

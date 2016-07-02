@@ -6,8 +6,8 @@ using namespace std;
 
 TemperatureSchedule::TemperatureSchedule(
 	float initialTemp,
-	int hoverTime,
-	int iterationsToZero,
+	unsigned int hoverTime,
+	unsigned int iterationsToZero,
 	string name
 ) {
 	this->initialTemp = initialTemp;

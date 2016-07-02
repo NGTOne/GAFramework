@@ -8,7 +8,7 @@ MaxFitnessConvergenceEnd::MaxFitnessConvergenceEnd(
 
 MaxFitnessConvergenceEnd::MaxFitnessConvergenceEnd(
 	float minimumFitness,
-	double populationProportion
+	float populationProportion
 ) : FitnessMatchEnd(minimumFitness) {
 	this->populationProportion = populationProportion;
 }
@@ -18,13 +18,13 @@ bool MaxFitnessConvergenceEnd::checkCondition(
 	vector<float> fitnesses,
 	unsigned int currentIteration
 ) {
-	double proportion = 0;
+	float proportion = 0;
 	unsigned int countMadeIt = 0;
 	for (unsigned int i = 0; i < genomes.size(); i++)
 		if (this->checkSolution(genomes[i], fitnesses[i]))
 			countMadeIt++;
 
-	proportion = (double)countMadeIt/(double)genomes.size();
+	proportion = (float)countMadeIt/(float)genomes.size();
 
 	return proportion >= this->populationProportion;
 }
