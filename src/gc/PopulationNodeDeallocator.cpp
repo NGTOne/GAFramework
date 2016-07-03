@@ -4,6 +4,7 @@
 #include "core/AggregationFunction.hpp"
 #include "core/Apportionment.hpp"
 #include "core/NestedObjective.hpp"
+#include "core/meta/MetaPopulationToString.hpp"
 #include <set>
 
 PopulationNodeDeallocator::PopulationNodeDeallocator() {}
@@ -61,7 +62,14 @@ void PopulationNodeDeallocator::deleteNodes() {
 			}
 		}
 
-		toStrings.insert(temp->getToString());
+		ToStringFunction * tempToString = temp->getToString();
+		toStrings.insert(tempToString);
+		if (tempToString->isNested()) {
+			std::vector<ToStringFunction*> inner =
+				((MetaPopulationToString*)tempToString)
+				->getNested();
+			toStrings.insert(inner.begin(), inner.end());
+		}
 	}
 
 	this->clearSet<Locus*>(loci);

@@ -10,4 +10,5 @@ class ToStringFunction {
 	public:
 	virtual ~ToStringFunction();
 	virtual std::string toString(Genome * genome)=0;
+	virtual bool isNested();
 };
