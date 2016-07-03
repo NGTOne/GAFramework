@@ -73,6 +73,8 @@ core:
 
 objectives:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/NoisyObjective.cpp -o obj/objectives/noisy/NoisyObjective.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/scramblers/GeneScrambler.cpp -o obj/objectives/noisy/scramblers/GeneScrambler.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/scramblers/NonScrambler.cpp -o obj/objectives/noisy/scramblers/NonScrambler.o
 
 gc:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/PopulationNodeDeallocator.cpp -o obj/gc/PopulationNodeDeallocator.o

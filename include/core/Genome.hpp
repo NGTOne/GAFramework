@@ -35,6 +35,7 @@ class Genome {
 	Genome(Genome * other);
 	Genome(Genome * other, bool randomize);
 	Genome(Genome * other, unsigned int rawGenes[]);
+	Genome(Genome * other, std::vector<unsigned int> rawGenes);
 
 	virtual ~Genome();
 
