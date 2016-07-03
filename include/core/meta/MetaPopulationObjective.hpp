@@ -1,11 +1,10 @@
-#include "../ObjectiveFunction.hpp"
+#include "../NestedObjective.hpp"
 #pragma once
 
-class MetaPopulationObjective : public ObjectiveFunction {
+class MetaPopulationObjective : public NestedObjective {
 	private:
 
 	protected:
-	ObjectiveFunction * flattenedObjective;
 
 	public:
 	MetaPopulationObjective(ObjectiveFunction * flattenedObjective);

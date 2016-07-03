@@ -3,6 +3,7 @@
 #include "core/ApportionmentFunction.hpp"
 #include "core/AggregationFunction.hpp"
 #include "core/Apportionment.hpp"
+#include "core/NestedObjective.hpp"
 #include <set>
 
 PopulationNodeDeallocator::PopulationNodeDeallocator() {}
@@ -39,7 +40,7 @@ void PopulationNodeDeallocator::deleteNodes() {
 			tempObjectives.end()
 		);
 
-		for (unsigned int k = 0; k < tempObjectives.size(); k++)
+		for (unsigned int k = 0; k < tempObjectives.size(); k++) {
 			if (tempObjectives[k]->isApportioning()) {
 				Apportionment * temp =
 					(Apportionment*)tempObjectives[k];
@@ -50,6 +51,15 @@ void PopulationNodeDeallocator::deleteNodes() {
 					temp->getAggregationFunction()
 				);
 			}
+
+			if (tempObjectives[k]->isNested()) {
+				NestedObjective * temp =
+					(NestedObjective*)tempObjectives[k];
+				std::vector<ObjectiveFunction*> inner =
+					temp->getInner();
+				objectives.insert(inner.begin(), inner.end());
+			}
+		}
 
 		toStrings.insert(temp->getToString());
 	}

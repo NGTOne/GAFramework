@@ -3,11 +3,9 @@
 
 MetaPopulationObjective::MetaPopulationObjective(
 	ObjectiveFunction * flattenedObjective
-) {
-	this->flattenedObjective = flattenedObjective;
-}
+) : NestedObjective(flattenedObjective) {}
 
 float MetaPopulationObjective::checkFitness(Genome * genome) {
 	Genome resolved = BlanketResolver::resolveBlanket(genome);
-	return this->flattenedObjective->checkFitness(&resolved);
+	return this->checkInnerFitness(&resolved);
 }
