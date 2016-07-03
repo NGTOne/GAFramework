@@ -34,23 +34,35 @@ void MutationOperation::init(double mutationRate, unsigned int seed) {
 }
 
 Genome * MutationOperation::mutate(Genome * initialGenome) {
-	vector<unsigned int> newGenome;
-	vector<unsigned int> existingGenome = initialGenome->getGenome();
-	vector<Locus*> loci = initialGenome->getLoci();
+	return new Genome(
+		this->mutate(initialGenome->getTemplate()),
+		initialGenome->getSpeciesNode()
+	);
+}
+
+unsigned int MutationOperation::getNewLocusValue(
+	std::tuple<unsigned int, Locus*> existing
+) {
+	return this->getNewLocusValue(
+		std::get<0>(existing),
+		std::get<1>(existing)->topIndex()
+	);
+}
+
+GenomeTemplate MutationOperation::mutate(GenomeTemplate initial) {
+	std::vector<unsigned int> newGenome;
 	uniform_real_distribution<double> mutationDist(0, 1);
 
-	for (unsigned int i = 0; i < initialGenome->genomeLength(); i++)
+	for (unsigned int i = 0; i < initial.genomeLength(); i++)
 		if (mutationDist(this->generator) < this->mutationRate) {
 			newGenome.push_back(
-				this->getNewLocusValue(
-					existingGenome[i],
-					loci[i]->topIndex()
-				)
+				this->getNewLocusValue(initial.getIndex(i))
 			);
 		} else {
-			newGenome.push_back(existingGenome[i]);
+			newGenome.push_back(initial.getGene(i));
 		}
-	return new Genome(newGenome, loci, initialGenome->getSpeciesNode());
+
+	return GenomeTemplate(newGenome, initial.getLoci());
 }
 
 string MutationOperation::toString() {

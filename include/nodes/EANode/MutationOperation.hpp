@@ -1,5 +1,6 @@
 #pragma once
 #include "../../core/Genome.hpp"
+#include "../../core/GenomeTemplate.hpp"
 #include <random>
 #include <string>
 
@@ -20,6 +21,9 @@ class MutationOperation {
 		unsigned int currentValue,
 		unsigned int largestPossibleValue
 	)=0;
+	unsigned int getNewLocusValue(
+		std::tuple<unsigned int, Locus*> existing
+	);
 
 	void init(double mutationRate, unsigned int seed);
 
@@ -30,6 +34,7 @@ class MutationOperation {
 	virtual ~MutationOperation();
 
 	virtual Genome * mutate(Genome * initialGenome);
+	GenomeTemplate mutate(GenomeTemplate initial);
 
 	std::string toString();
 };

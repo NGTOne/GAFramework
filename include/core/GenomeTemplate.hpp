@@ -26,7 +26,12 @@ class GenomeTemplate: public std::tuple<
 
 	std::vector<unsigned int> getGenes();
 	std::vector<Locus*> getLoci();
+
+	unsigned int getGene(unsigned int index);
+	Locus * getLocus(unsigned int index);
 	std::tuple<unsigned int, Locus*> getIndex(unsigned int index);
+
+	unsigned int genomeLength();
 };
 
 template <unsigned int i, typename T>

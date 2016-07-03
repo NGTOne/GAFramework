@@ -38,9 +38,21 @@ std::vector<Locus*> GenomeTemplate::getLoci() {
 	return std::get<1>(*this);
 }
 
+unsigned int GenomeTemplate::getGene(unsigned int index) {
+	return std::get<0>(this->getIndex(index));
+}
+
+Locus * GenomeTemplate::getLocus(unsigned int index) {
+	return std::get<1>(this->getIndex(index));
+}
+
 std::tuple<unsigned int, Locus*> GenomeTemplate::getIndex(unsigned int index) {
 	return std::make_tuple(
 		this->getGenes()[index],
 		this->getLoci()[index]
 	);
+}
+
+unsigned int GenomeTemplate::genomeLength() {
+	return this->getGenes().size();
 }
