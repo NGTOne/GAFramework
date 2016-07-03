@@ -26,12 +26,18 @@ info:
 
 all: library
 
-install:
+install: all-header
 	sudo cp libs/$(LIBNAME) /usr/lib
 	sudo chmod 0755 /usr/lib/$(LIBNAME)
 	sudo mkdir /usr/include/libHierGA
 	sudo cp -r include/* /usr/include/libHierGA
 	sudo ldconfig
+
+all-header:
+	find include -name *.hpp | grep -v HierGA | sed 's/^include\///g' | \
+		awk '{print "#include \"" $$1 "\""}' > include/HierGA.hpp
+	echo "#pragma once" >> include/HierGA.hpp
+	
 
 uninstall:
 	sudo rm /usr/lib/*libHierGA*
