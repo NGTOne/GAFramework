@@ -16,7 +16,7 @@ int main(void) {
 		stringstream name;
 		name << "P" << 2 + i;
 		bottomNodes.push_back(new EANode(
-			16,
+			8,
 			baseLoci,
 			vector<ObjectiveFunction*>(),
 			new LongestFragmentToString(),
@@ -58,7 +58,7 @@ int main(void) {
 	// TODO TODO: Refactor this call
 	ea.addMetaPopulation(
 		new EANode(
-			8,
+			4,
 			vector<Locus*>(),
 			vector<ObjectiveFunction*>(),
 			NULL,
