@@ -1,18 +1,17 @@
 #include <vector>
 #include <random>
+#include "../../../nodes/EANode/MutationOperation.hpp"
 #pragma once
 
 class GeneScrambler {
 	private:
 
 	protected:
-	std::mt19937 generator;
+	MutationOperation * mutator;
+
+	GeneScrambler(MutationOperation * mutator);
 
 	public:
-	GeneScrambler();
-	GeneScrambler(unsigned int seed);
-
-	virtual std::vector<unsigned int> scramble(
-		std::vector<unsigned int> genes
-	)=0;
+	virtual Genome scramble(Genome * target);
+	Genome scramble(Genome target);
 };

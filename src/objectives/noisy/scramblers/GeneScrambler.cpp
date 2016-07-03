@@ -1,12 +1,16 @@
 #include "objectives/noisy/scramblers/GeneScrambler.hpp"
-#include <chrono>
 
-GeneScrambler::GeneScrambler() {
-	this->generator = std::mt19937(
-		std::chrono::system_clock::now().time_since_epoch().count()
+GeneScrambler::GeneScrambler(MutationOperation * mutator) {
+	this->mutator = mutator;
+}
+
+Genome GeneScrambler::scramble(Genome * target) {
+	return Genome(
+		this->mutator->mutate(target->getTemplate()),
+		target->getSpeciesNode()
 	);
 }
 
-GeneScrambler::GeneScrambler(unsigned int seed) {
-	this->generator = std::mt19937(seed);
+Genome GeneScrambler::scramble(Genome target) {
+	return this->scramble(&target);
 }

@@ -7,5 +7,5 @@ class NonScrambler: public GeneScrambler {
 	protected:
 
 	public:
-	std::vector<unsigned int> scramble(std::vector<unsigned int> genes);
+	Genome scramble(Genome * target);
 };
