@@ -83,6 +83,8 @@ objectives:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/genetic-noise/NonNoisyGeneticSource.cpp -o obj/objectives/noisy/genetic-noise/NonNoisyGeneticSource.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/genetic-noise/UniformGeneticNoiseSource.cpp -o obj/objectives/noisy/genetic-noise/UniformGeneticNoiseSource.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/genetic-noise/BoundaryGeneticNoiseSource.cpp -o obj/objectives/noisy/genetic-noise/BoundaryGeneticNoiseSource.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/fitness-noise/FitnessNoiseSource.cpp -o obj/objectives/noisy/fitness-noise/FitnessNoiseSource.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/fitness-noise/NonNoisyFitnessSource.cpp -o obj/objectives/noisy/fitness-noise/NonNoisyFitnessSource.o
 
 gc:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/PopulationNodeDeallocator.cpp -o obj/gc/PopulationNodeDeallocator.o

@@ -1,5 +1,6 @@
 #include "../../core/NestedObjective.hpp"
 #include "genetic-noise/GeneticNoiseSource.hpp"
+#include "fitness-noise/FitnessNoiseSource.hpp"
 #include <random>
 #pragma once
 
@@ -7,25 +8,30 @@ class NoisyObjective: public NestedObjective {
 	private:
 
 	protected:
-	std::mt19937 generator;
 	GeneticNoiseSource * geneticSource;
+	FitnessNoiseSource * fitnessSource;
 
-	virtual float addNoise(float cleanFitness)=0;
+	float addNoise(float cleanFitness);
 	Genome addNoise(Genome * target);
 
-	void init(GeneticNoiseSource * geneticSource, unsigned int seed);
+	void init(
+		GeneticNoiseSource * geneticSource,
+		FitnessNoiseSource * fitnessSource
+	);
 
 	public:
-	NoisyObjective(ObjectiveFunction * cleanObjective);
 	NoisyObjective(
 		ObjectiveFunction * cleanObjective,
 		GeneticNoiseSource * geneticSource
 	);
-	NoisyObjective(ObjectiveFunction * cleanObjective, unsigned int seed);
+	NoisyObjective(
+		ObjectiveFunction * cleanObjective,
+		FitnessNoiseSource * fitnessSource
+	);
 	NoisyObjective(
 		ObjectiveFunction * cleanObjective,
 		GeneticNoiseSource * geneticSource,
-		unsigned int seed
+		FitnessNoiseSource * fitnessSource
 	);
 	float checkFitness(Genome * genome);
 };

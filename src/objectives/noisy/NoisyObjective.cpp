@@ -1,47 +1,36 @@
 #include "objectives/noisy/NoisyObjective.hpp"
 #include "objectives/noisy/genetic-noise/NonNoisyGeneticSource.hpp"
+#include "objectives/noisy/fitness-noise/NonNoisyFitnessSource.hpp"
 #include <chrono>
-
-NoisyObjective::NoisyObjective(
-	ObjectiveFunction * cleanObjective
-) : NestedObjective(cleanObjective) {
-	this->init(
-		new NonNoisyGeneticSource(),
-		std::chrono::system_clock::now().time_since_epoch().count()
-	);
-}
 
 NoisyObjective::NoisyObjective(
 	ObjectiveFunction * cleanObjective,
 	GeneticNoiseSource * geneticSource
 ) : NestedObjective(cleanObjective) {
-	this->init(
-		geneticSource,
-		std::chrono::system_clock::now().time_since_epoch().count()
-	);
+	this->init(geneticSource, new NonNoisyFitnessSource());
 }
 
 NoisyObjective::NoisyObjective(
 	ObjectiveFunction * cleanObjective,
-	unsigned int seed
+	FitnessNoiseSource * fitnessSource
 ) : NestedObjective(cleanObjective) {
-	this->init(new NonNoisyGeneticSource(), seed);
+	this->init(new NonNoisyGeneticSource(), fitnessSource);
 }
 
 NoisyObjective::NoisyObjective(
 	ObjectiveFunction * cleanObjective,
 	GeneticNoiseSource * geneticSource,
-	unsigned int seed
+	FitnessNoiseSource * fitnessSource
 ) : NestedObjective(cleanObjective) {
-	this->init(geneticSource, seed);
+	this->init(geneticSource, fitnessSource);
 }
 
 void NoisyObjective::init(
 	GeneticNoiseSource * geneticSource,
-	unsigned int seed
+	FitnessNoiseSource * fitnessSource
 ) {
 	this->geneticSource = geneticSource;
-	this->generator = std::mt19937(seed);
+	this->fitnessSource = fitnessSource;
 }
 
 Genome NoisyObjective::addNoise(Genome * target) {
@@ -50,5 +39,5 @@ Genome NoisyObjective::addNoise(Genome * target) {
 
 float NoisyObjective::checkFitness(Genome * genome) {
 	Genome noisy = this->addNoise(genome);
-	return this->addNoise(this->checkInnerFitness(&noisy));
+	return this->fitnessSource->addNoise(this->checkInnerFitness(&noisy));
 }
