@@ -9,6 +9,7 @@ class GeneScrambler {
 	protected:
 	MutationOperation * mutator;
 
+	GeneScrambler();
 	GeneScrambler(MutationOperation * mutator);
 
 	public:

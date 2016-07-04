@@ -1,5 +1,9 @@
 #include "objectives/noisy/scramblers/GeneScrambler.hpp"
 
+GeneScrambler::GeneScrambler() {
+	this->mutator = NULL;
+}
+
 GeneScrambler::GeneScrambler(MutationOperation * mutator) {
 	this->mutator = mutator;
 }
