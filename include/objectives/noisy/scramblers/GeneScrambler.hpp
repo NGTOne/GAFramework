@@ -12,6 +12,8 @@ class GeneScrambler {
 	GeneScrambler(MutationOperation * mutator);
 
 	public:
+	~GeneScrambler();
+
 	virtual Genome scramble(Genome * target);
 	Genome scramble(Genome target);
 };
