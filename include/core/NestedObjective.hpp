@@ -1,5 +1,6 @@
 #include "ObjectiveFunction.hpp"
 #include <vector>
+#pragma once
 
 class NestedObjective: public ObjectiveFunction {
 	private:
