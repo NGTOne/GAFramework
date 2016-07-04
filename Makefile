@@ -86,6 +86,7 @@ objectives:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/fitness-noise/FitnessNoiseSource.cpp -o obj/objectives/noisy/fitness-noise/FitnessNoiseSource.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/fitness-noise/NonNoisyFitnessSource.cpp -o obj/objectives/noisy/fitness-noise/NonNoisyFitnessSource.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/fitness-noise/GaussianFitnessNoiseSource.cpp -o obj/objectives/noisy/fitness-noise/GaussianFitnessNoiseSource.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/fitness-noise/ZeroingFitnessNoiseSource.cpp -o obj/objectives/noisy/fitness-noise/ZeroingFitnessNoiseSource.o
 
 gc:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/PopulationNodeDeallocator.cpp -o obj/gc/PopulationNodeDeallocator.o
