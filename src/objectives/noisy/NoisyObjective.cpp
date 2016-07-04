@@ -42,7 +42,7 @@ void NoisyObjective::init(GeneScrambler * scrambler, unsigned int seed) {
 }
 
 Genome NoisyObjective::addNoise(Genome * target) {
-	return Genome(target, this->scrambler->scramble(target->getGenome()));
+	return this->scrambler->scramble(target);
 }
 
 float NoisyObjective::checkFitness(Genome * genome) {

@@ -7,5 +7,6 @@ class NonScrambler: public GeneScrambler {
 	protected:
 
 	public:
+	NonScrambler();
 	Genome scramble(Genome * target);
 };
