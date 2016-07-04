@@ -79,10 +79,10 @@ core:
 
 objectives:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/NoisyObjective.cpp -o obj/objectives/noisy/NoisyObjective.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/scramblers/GeneScrambler.cpp -o obj/objectives/noisy/scramblers/GeneScrambler.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/scramblers/NonScrambler.cpp -o obj/objectives/noisy/scramblers/NonScrambler.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/scramblers/UniformScrambler.cpp -o obj/objectives/noisy/scramblers/UniformScrambler.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/scramblers/BoundaryScrambler.cpp -o obj/objectives/noisy/scramblers/BoundaryScrambler.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/genetic-noise/GeneticNoiseSource.cpp -o obj/objectives/noisy/genetic-noise/GeneticNoiseSource.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/genetic-noise/NonNoisyGeneticSource.cpp -o obj/objectives/noisy/genetic-noise/NonNoisyGeneticSource.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/genetic-noise/UniformGeneticNoiseSource.cpp -o obj/objectives/noisy/genetic-noise/UniformGeneticNoiseSource.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/genetic-noise/BoundaryGeneticNoiseSource.cpp -o obj/objectives/noisy/genetic-noise/BoundaryGeneticNoiseSource.o
 
 gc:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/PopulationNodeDeallocator.cpp -o obj/gc/PopulationNodeDeallocator.o

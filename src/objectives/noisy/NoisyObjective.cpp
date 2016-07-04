@@ -1,22 +1,22 @@
 #include "objectives/noisy/NoisyObjective.hpp"
-#include "objectives/noisy/scramblers/NonScrambler.hpp"
+#include "objectives/noisy/genetic-noise/NonNoisyGeneticSource.hpp"
 #include <chrono>
 
 NoisyObjective::NoisyObjective(
 	ObjectiveFunction * cleanObjective
 ) : NestedObjective(cleanObjective) {
 	this->init(
-		new NonScrambler(),
+		new NonNoisyGeneticSource(),
 		std::chrono::system_clock::now().time_since_epoch().count()
 	);
 }
 
 NoisyObjective::NoisyObjective(
 	ObjectiveFunction * cleanObjective,
-	GeneScrambler * scrambler
+	GeneticNoiseSource * geneticSource
 ) : NestedObjective(cleanObjective) {
 	this->init(
-		scrambler,
+		geneticSource,
 		std::chrono::system_clock::now().time_since_epoch().count()
 	);
 }
@@ -25,24 +25,27 @@ NoisyObjective::NoisyObjective(
 	ObjectiveFunction * cleanObjective,
 	unsigned int seed
 ) : NestedObjective(cleanObjective) {
-	this->init(new NonScrambler(), seed);
+	this->init(new NonNoisyGeneticSource(), seed);
 }
 
 NoisyObjective::NoisyObjective(
 	ObjectiveFunction * cleanObjective,
-	GeneScrambler * scrambler,
+	GeneticNoiseSource * geneticSource,
 	unsigned int seed
 ) : NestedObjective(cleanObjective) {
-	this->init(scrambler, seed);
+	this->init(geneticSource, seed);
 }
 
-void NoisyObjective::init(GeneScrambler * scrambler, unsigned int seed) {
-	this->scrambler = scrambler;
+void NoisyObjective::init(
+	GeneticNoiseSource * geneticSource,
+	unsigned int seed
+) {
+	this->geneticSource = geneticSource;
 	this->generator = std::mt19937(seed);
 }
 
 Genome NoisyObjective::addNoise(Genome * target) {
-	return this->scrambler->scramble(target);
+	return this->geneticSource->addNoise(target);
 }
 
 float NoisyObjective::checkFitness(Genome * genome) {
