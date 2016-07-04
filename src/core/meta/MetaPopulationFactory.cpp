@@ -32,39 +32,28 @@ bool MetaPopulationFactory::isCompleteBlanket(
 	std::vector<PopulationNode*> unmatchedNodes =
 		MetaPopulationFactory::getAllHierarchicalNodes(nodes);
 
-	for (unsigned int i = 0; i < unmatchedNodes.size(); i++)
-		for (unsigned int k = 0; k < nodes.size(); k++)
-			if (
-				!unmatchedNodes.empty()
-				&& unmatchedNodes[i] == nodes[k]
-			) {
+	unsigned int i = 0, k = 0;
+	bool matched;
+	while (i < nodes.size()) {
+		matched = false;
+		while (k < unmatchedNodes.size() && !unmatchedNodes.empty()) {
+			if (unmatchedNodes[k] == nodes[i]) {
 				unmatchedNodes.erase(
-					unmatchedNodes.begin() + i
+					unmatchedNodes.begin() + k
 				);
-				i = 0;
-			}
-
-	return unmatchedNodes.empty();
-}
-
-bool MetaPopulationFactory::isSingleBlanket(
-	std::vector<PopulationNode*> nodes
-) {
-	std::vector<PopulationNode*> unmatchedNodes =
-		MetaPopulationFactory::getAllHierarchicalNodes(nodes);
-	unsigned int rootNodes = 0;
-
-	for (unsigned int i = 0; i < nodes.size(); i++) {
-		bool matched = false;
-		for (unsigned int k = 0; k < unmatchedNodes.size(); k++)
-			if (nodes[i] == unmatchedNodes[k]) {
+				nodes.erase(nodes.begin() + i);
+				i = k = 0;
 				matched = true;
-				break;
+			} else {
+				k++;
 			}
-		if (!matched) rootNodes++;
+		}
+		k = 0;
+		if (!matched) i++;
 	}
 
-	return rootNodes == 1;
+	// Implies that we only have one root node
+	return unmatchedNodes.empty() && nodes.size() == 1;
 }
 
 bool MetaPopulationFactory::isValidBlanket(
@@ -75,7 +64,6 @@ bool MetaPopulationFactory::isValidBlanket(
 	nodes.push_back(topNode);
 
 	if (!MetaPopulationFactory::isCompleteBlanket(nodes)) return false;
-	if (!MetaPopulationFactory::isSingleBlanket(nodes)) return false;
 
 	return true;
 }

@@ -14,7 +14,6 @@ class MetaPopulationFactory {
 	);
 
 	static bool isCompleteBlanket(std::vector<PopulationNode*> nodes);
-	static bool isSingleBlanket(std::vector<PopulationNode*> nodes);
 	static bool isValidBlanket(
 		PopulationNode * topNode,
 		std::vector<PopulationNode*> nodes
