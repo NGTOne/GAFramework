@@ -14,13 +14,6 @@ class BlanketResolver {
 		PopulationNode * node
 	);
 
-	static void appendGenomes(
-		std::vector<unsigned int> & targetGenes,
-		std::vector<Locus*> & targetLoci,
-		std::vector<unsigned int> genesToAppend,
-		std::vector<Locus*> lociToAppend
-	);
-
 	static GenomeTemplate resolve(Genome * blanket, unsigned int target);
 
 	protected:

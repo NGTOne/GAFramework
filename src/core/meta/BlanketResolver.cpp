@@ -59,18 +59,6 @@ unsigned int BlanketResolver::findMetaComponentIndex(
 	throw InvalidBlanketException();
 }
 
-void BlanketResolver::appendGenomes(
-	std::vector<unsigned int> & targetGenes,
-	std::vector<Locus*> & targetLoci,
-	std::vector<unsigned int> genesToAppend,
-	std::vector<Locus*> lociToAppend
-) {
-	for (unsigned int i = 0; i < genesToAppend.size(); i++) {
-		targetGenes.push_back(genesToAppend[i]);
-		targetLoci.push_back(lociToAppend[i]);
-	}
-}
-
 GenomeTemplate BlanketResolver::resolve(
 	Genome * blanket,
 	unsigned int target
