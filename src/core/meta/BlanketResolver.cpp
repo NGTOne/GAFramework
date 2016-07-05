@@ -14,8 +14,6 @@ std::vector<Genome*> BlanketResolver::getBlanketGenomes(
 	return blanketGenomes;
 }
 
-#include <iostream>
-
 unsigned int BlanketResolver::findHeadIndex(Genome * blanket) {
 	std::vector<bool> matched(blanket->genomeLength(), false);
 	std::vector<Genome*> blanketGenomes =
