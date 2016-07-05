@@ -15,6 +15,7 @@ class MetaPopulationApportionment : public Apportionment {
 		Genome * target,
 		unsigned int targetIndex
 	);
+	bool upperGenomeUsesComponent(Genome * upper, Genome * target);
 
 	public:
 	MetaPopulationApportionment(

@@ -30,6 +30,10 @@ class Apportionment : public ObjectiveFunction {
 		Genome * target,
 		unsigned int targetIndex
 	);
+	virtual bool upperGenomeUsesComponent(
+		Genome * upper,
+		Genome * target
+	);
 
 	void evaluatePair(
 		Genome * upper,

@@ -89,16 +89,24 @@ void Apportionment::evaluatePair(
 	delete(provider);
 }
 
+bool Apportionment::upperGenomeUsesComponent(
+	Genome * upper,
+	Genome * target
+) {
+	return upper->usesComponent(target);
+}
+
 // TODO: Refactor this function
 float Apportionment::checkFitness(Genome * genome) {
 	std::vector<float> apportionedFitnesses;
 	std::vector<bool> tried(this->upperNode->populationSize(), false);
 	unsigned int triedOn = 0;
 
-	for (unsigned int i = 0; i < this->upperNode->populationSize(); i++)
-		if (this->upperNode->getIndex(i)->usesComponent(genome)) {
+	for (unsigned int i = 0; i < this->upperNode->populationSize(); i++) {
+		Genome * upper = this->upperNode->getIndex(i);
+		if (this->upperGenomeUsesComponent(upper, genome)) {
 			this->evaluatePair(
-				this->upperNode->getIndex(i),
+				upper,
 				genome,
 				this->upperNode->getFitnessAtIndex(i),
 				apportionedFitnesses
@@ -106,6 +114,7 @@ float Apportionment::checkFitness(Genome * genome) {
 			triedOn++;
 			tried[i] = true;
 		}
+	}
 
 	std::vector<unsigned int> untriedIndices;
 	for (unsigned int i = 0; i < tried.size(); i++)

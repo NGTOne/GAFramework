@@ -54,3 +54,14 @@ std::vector<unsigned int> MetaPopulationApportionment::getRelevantIndices(
 
 	return indices;
 }
+
+bool MetaPopulationApportionment::upperGenomeUsesComponent(
+	Genome * upper,
+	Genome * target
+) {
+	for (unsigned int i = 0; i < upper->genomeLength(); i++)
+		if (upper->getIndex<Genome*>(i) == target)
+			return true;
+
+	return false;
+}
