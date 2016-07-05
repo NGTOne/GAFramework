@@ -59,14 +59,19 @@ unsigned int BlanketResolver::findMetaComponentIndex(
 	throw InvalidBlanketException();
 }
 
+#include <iostream>
+
 std::vector<unsigned int> BlanketResolver::getIndices(
 	Genome * blanket,
 	Genome * target
 ) {
 	std::vector<unsigned int> indices;
-	for (unsigned int i = 0; i < blanket->genomeLength(); i++)
-		if (blanket->getIndex<Genome*>(i) == target)
-			indices.push_back(i);
+	unsigned int currentIndex = 0;
+	for (unsigned int i = 0; i < blanket->genomeLength(); i++) {
+		Genome * temp = blanket->getIndex<Genome*>(i);
+		if (temp == target) indices.push_back(currentIndex);
+		if (temp->isSameSpecies(target)) currentIndex++;
+	}
 
 	return indices;
 }

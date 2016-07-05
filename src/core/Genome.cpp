@@ -264,6 +264,10 @@ unsigned int Genome::flattenedGenomeLength() {
 	return this->flattenGenome().genomeLength();
 }
 
+bool Genome::isSameSpecies(Genome * target) {
+	return this->speciesNode == target->getSpeciesNode();
+}
+
 bool Genome::usesComponent(Genome * component) {
 	for (unsigned int i = 0; i < this->loci.size(); i++) {
 		Locus * locus = this->loci[i];

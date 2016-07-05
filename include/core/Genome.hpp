@@ -54,6 +54,7 @@ class Genome {
 	std::vector<unsigned int> getFlattenedIndices(Genome * target);
 	std::vector<unsigned int> getFlattenedSpeciesIndices(Genome * target);
 
+	bool isSameSpecies(Genome * other);
 	bool usesComponent(Genome * component);
 	set<Locus*> getConstructiveLoci();
 	GenomeTemplate getTemplate();
