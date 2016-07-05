@@ -30,6 +30,10 @@ void GenomeTemplate::add(
 		this->add(genes[i], loci[i]);
 }
 
+void GenomeTemplate::add(GenomeTemplate other) {
+	this->add(other.getGenes(), other.getLoci());
+}
+
 std::vector<unsigned int> GenomeTemplate::getGenes() {
 	return std::get<0>(*this);
 }

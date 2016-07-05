@@ -23,6 +23,7 @@ class GenomeTemplate: public std::tuple<
 	void add(unsigned int gene, Locus * locus);
 	void add(std::tuple<unsigned int, Locus*> newGene);
 	void add(std::vector<unsigned int> genes, std::vector<Locus*> loci);
+	void add(GenomeTemplate other);
 
 	std::vector<unsigned int> getGenes();
 	std::vector<Locus*> getLoci();

@@ -77,52 +77,32 @@ GenomeTemplate BlanketResolver::resolve(
 	Genome * blanket,
 	unsigned int target
 ) {
-	std::vector<unsigned int> resolvedGenes;
-	std::vector<Locus*> resolvedLoci;
+	GenomeTemplate resolved;
+	GenomeTemplate unresolved =
+		blanket->getIndex<Genome*>(target)->getTemplate();
 
-	Genome * toResolve = blanket->getIndex<Genome*>(target);
-
-	std::vector<unsigned int> unresolvedGenes = toResolve->getGenome();
-	std::vector<Locus*> unresolvedLoci = toResolve->getLoci();
-	for (unsigned int i = 0; i < toResolve->genomeLength(); i++) {
-		if (!unresolvedLoci[i]->isConstructive()) {
-			resolvedGenes.push_back(unresolvedGenes[i]);
-			resolvedLoci.push_back(unresolvedLoci[i]);
+	for (unsigned int i = 0; i < unresolved.genomeLength(); i++) {
+		Locus * temp = unresolved.getLocus(i);
+		if (!temp->isConstructive()) {
+			resolved.add(unresolved.getIndex(i));
 		} else {
-			std::vector<unsigned int> resolvedComponentGenes;
-			std::vector<Locus*> resolvedComponentLoci;
-			std::tie(
-				resolvedComponentGenes,
-				resolvedComponentLoci
-			) = BlanketResolver::resolve(
+			resolved.add(BlanketResolver::resolve(
 				blanket,
 				BlanketResolver::findMetaComponentIndex(
 					blanket,
-					((PopulationLocus*)unresolvedLoci[i])
-						->getNode()
+					((PopulationLocus*)temp)->getNode()
 				)
-			);
-			BlanketResolver::appendGenomes(
-				resolvedGenes,
-				resolvedLoci,
-				resolvedComponentGenes,
-				resolvedComponentLoci
-			);
+			));
 		}
 	}
 
-	return GenomeTemplate(resolvedGenes, resolvedLoci);
+	return resolved;
 }
 
 Genome BlanketResolver::resolveBlanket(Genome * blanket) {
-	std::vector<Locus*> resolvedLoci;
-	std::vector<unsigned int> resolvedGenes;
 	unsigned int head = BlanketResolver::findHeadIndex(blanket);
-	std::tie(resolvedGenes, resolvedLoci) =
-		BlanketResolver::resolve(blanket, head);
 	return Genome(
-		resolvedGenes,
-		resolvedLoci,
+		BlanketResolver::resolve(blanket, head),
 		blanket->getIndex<Genome*>(head)->getSpeciesNode()
 	);
 }
