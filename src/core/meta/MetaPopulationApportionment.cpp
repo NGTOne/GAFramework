@@ -20,9 +20,20 @@ std::vector<unsigned int> MetaPopulationApportionment::getComponentIndices(
 		BlanketResolver::findHeadIndex(upper)
 	);
 
-	return (head == target) ?
-		std::vector<unsigned int>(1, 0) :
-		head->getFlattenedSpeciesIndices(target);
+	if (head == target) {
+		// The graph's root node is, by definition, located at index 0
+		return std::vector<unsigned int>(1, 0);
+	} else {
+		std::vector<unsigned int> rawIndices =
+			head->getFlattenedSpeciesIndices(target);
+		std::vector<unsigned int> indexIndices =
+			BlanketResolver::getIndices(upper, target);
+		std::vector<unsigned int> indices;
+
+		for (unsigned int i = 0; i < indexIndices.size(); i++)
+			indices.push_back(rawIndices[indexIndices[i]]);
+		return indices;
+	}
 }
 
 std::vector<unsigned int> MetaPopulationApportionment::getRelevantIndices(

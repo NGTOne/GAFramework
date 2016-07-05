@@ -24,6 +24,10 @@ class BlanketResolver {
 	protected:
 
 	public:
+	static std::vector<unsigned int> getIndices(
+		Genome * blanket,
+		Genome * target
+	);
 	static unsigned int findHeadIndex(Genome * blanket);
 	static Genome resolveBlanket(Genome * blanket);
 };
