@@ -45,27 +45,27 @@ unsigned int BlanketResolver::findHeadIndex(Genome * blanket) {
 // TODO: Make sure this works for more complex structures (where node is
 // repeated)
 unsigned int BlanketResolver::findMetaComponentIndex(
-	Genome * blanket,
+	std::vector<Genome *> blanketGenomes,
+	std::vector<bool> & usedGenomes,
 	PopulationNode * node
 ) {
-	std::vector<Genome*> blanketGenomes =
-		BlanketResolver::getBlanketGenomes(blanket);
-
 	for (unsigned int i = 0; i < blanketGenomes.size(); i++)
-		if (node->usesSpecies(blanketGenomes[i]))
+		if (!usedGenomes[i] && node->usesSpecies(blanketGenomes[i])) {
+			usedGenomes[i] = true;
 			return i;
+		}
 
 	// Should never get here
 	throw InvalidBlanketException();
 }
 
 GenomeTemplate BlanketResolver::resolve(
-	Genome * blanket,
+	std::vector<Genome *> blanketGenomes,
+	std::vector<bool> & usedGenomes,
 	unsigned int target
 ) {
 	GenomeTemplate resolved;
-	GenomeTemplate unresolved =
-		blanket->getIndex<Genome*>(target)->getTemplate();
+	GenomeTemplate unresolved = blanketGenomes[target]->getTemplate();
 
 	for (unsigned int i = 0; i < unresolved.genomeLength(); i++) {
 		Locus * temp = unresolved.getLocus(i);
@@ -73,9 +73,11 @@ GenomeTemplate BlanketResolver::resolve(
 			resolved.add(unresolved.getIndex(i));
 		} else {
 			resolved.add(BlanketResolver::resolve(
-				blanket,
+				blanketGenomes,
+				usedGenomes,
 				BlanketResolver::findMetaComponentIndex(
-					blanket,
+					blanketGenomes,
+					usedGenomes,
 					((PopulationLocus*)temp)->getNode()
 				)
 			));
@@ -87,8 +89,13 @@ GenomeTemplate BlanketResolver::resolve(
 
 Genome BlanketResolver::resolveBlanket(Genome * blanket) {
 	unsigned int head = BlanketResolver::findHeadIndex(blanket);
+	std::vector<bool> used(blanket->genomeLength(), false);
 	return Genome(
-		BlanketResolver::resolve(blanket, head),
+		BlanketResolver::resolve(
+			BlanketResolver::getBlanketGenomes(blanket),
+			used,
+			head
+		),
 		blanket->getIndex<Genome*>(head)->getSpeciesNode()
 	);
 }
