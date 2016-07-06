@@ -55,48 +55,31 @@ int main(void) {
 		true
 	);
 
-	// TODO TODO: Refactor this call
-	ea.addMetaPopulation(
-		new EANode(
-			4,
-			vector<Locus*>(),
-			vector<ObjectiveFunction*>(),
-			NULL,
-			vector<EndCondition*>({new IterationCountEnd(100)}),
-			"M1",
-			new GA(2, false, new TournamentSelection(0.95, 4)),
-			new NPointCrossover(2),
-			new UniformMutation(0.2)
-		),
-		{new LongestFragmentFitness()},
-		new LongestFragmentToString(),
-		"P1",
-		make_tuple(
+	// Add the meta node
+	std::vector<std::tuple<
+		std::string,
+		ApportionmentFunction *,
+		AggregationFunction *
+	>> hierarchyNodes;
+
+	std::vector<std::string> nodes = {"P1", "P2", "P3", "P4", "P5"};
+	for (unsigned int i = 0; i < nodes.size(); i++)
+		hierarchyNodes.push_back(std::make_tuple(
+			nodes[i],
 			new LongestFragmentApportionment,
 			new BestOfAggregator
-		),
-		{
-			make_tuple(
-				"P2",
-				new LongestFragmentApportionment,
-				new BestOfAggregator
-			),
-			make_tuple(
-				"P3",
-				new LongestFragmentApportionment,
-				new BestOfAggregator
-			),
-			make_tuple(
-				"P4",
-				new LongestFragmentApportionment,
-				new BestOfAggregator
-			),
-			make_tuple(
-				"P5",
-				new LongestFragmentApportionment,
-				new BestOfAggregator
-			)
-		}
+		));
+
+	ea.addMetaPopulation<EANode>(
+		4,
+		hierarchyNodes,
+		{new LongestFragmentFitness()},
+		new LongestFragmentToString,
+		{new IterationCountEnd(100)},
+		"M1",
+		new GA(2, false, new TournamentSelection(0.95, 4)),
+		new NPointCrossover(2),
+		new UniformMutation(0.2)
 	);
 
 	ea.setEvolutionOrder({"M1", "P5", "P4", "P3", "P2", "P1"});
