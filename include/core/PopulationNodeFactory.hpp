@@ -8,7 +8,7 @@ class PopulationNodeFactory {
 	protected:
 
 	public:
-	template <PopulationNode NodeType, typename... params>
+	template <typename NodeType, typename... params>
 	static PopulationNode * createNode(
 		unsigned int populationSize,
 		std::vector<Locus*> loci,
@@ -21,7 +21,7 @@ class PopulationNodeFactory {
 	);
 };
 
-template<PopulationNode NodeType, typename... params>
+template<typename NodeType, typename... params>
 static PopulationNode * createNode(
 	unsigned int populationSize,
 	std::vector<Locus*> loci,

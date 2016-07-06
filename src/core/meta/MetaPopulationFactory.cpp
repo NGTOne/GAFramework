@@ -6,7 +6,6 @@
 #include "core/meta/MetaPopulationApportionment.hpp"
 #include "core/meta/MetaPopulationToString.hpp"
 #include "loci/PopulationLocus.hpp"
-#include "exception/InvalidBlanketException.hpp"
 
 #include <set>
 
@@ -57,70 +56,49 @@ bool MetaPopulationFactory::isCompleteBlanket(
 }
 
 bool MetaPopulationFactory::isValidBlanket(
-	PopulationNode * topNode,
-	std::vector<PopulationNode*> secondaryNodes
+	std::vector<std::tuple<
+		PopulationNode*,
+		ApportionmentFunction *,
+		AggregationFunction *
+	>> nodes
 ) {
-	std::vector<PopulationNode*> nodes = secondaryNodes;
-	nodes.push_back(topNode);
+	std::vector<PopulationNode*> actualNodes;
+	for (unsigned int i = 0; i < nodes.size(); i++)
+		actualNodes.push_back(std::get<0>(nodes[i]));
 
-	if (!MetaPopulationFactory::isCompleteBlanket(nodes)) return false;
-
+	if (!MetaPopulationFactory::isCompleteBlanket(actualNodes))
+		return false;
 	return true;
 }
 
-PopulationNode * MetaPopulationFactory::createMeta(
-	PopulationNode * metaNode,
-	std::vector<ObjectiveFunction *> flattenedObjectives,
-	ToStringFunction * flattenedToString,
-	PopulationNode * topNode,
-	std::tuple<
-		ApportionmentFunction *,
-		AggregationFunction *
-	> topNodeApportionment,
+std::vector<Locus*> MetaPopulationFactory::createLoci(
 	std::vector<std::tuple<
-		PopulationNode *,
+		PopulationNode*,
 		ApportionmentFunction *,
 		AggregationFunction *
-	>> secondaryNodes
+	>> nodes
 ) {
-	std::vector<PopulationNode*> secondaryPopNodes;
-	for (unsigned int i = 0; i < secondaryNodes.size(); i++)
-		secondaryPopNodes.push_back(std::get<0>(secondaryNodes[i]));
-	if (!MetaPopulationFactory::isValidBlanket(topNode, secondaryPopNodes))
-		throw InvalidBlanketException();
+	std::vector<Locus*> loci;
+	for (unsigned int i = 0; i < nodes.size(); i++)
+		loci.push_back(new PopulationLocus(std::get<0>(nodes[i])));
 
-	std::vector<Locus*> newLoci;
-	newLoci.push_back(new PopulationLocus(topNode));
-	for (unsigned int i = 0; i < secondaryNodes.size(); i++)
-		newLoci.push_back(new PopulationLocus(
-			std::get<0>(secondaryNodes[i])
-		));
+	return loci;
+}
 
-	metaNode->setLoci(newLoci);
-
-	// The normal varieties won't work on a meta-population anyways
-	metaNode->setObjectives({});
-	metaNode->setToString(new MetaPopulationToString(flattenedToString));
-
-	for (unsigned int i = 0; i < flattenedObjectives.size(); i++)
-		metaNode->addObjective((ObjectiveFunction*)
-			new MetaPopulationObjective(flattenedObjectives[i])
-		);
-
-	topNode->addObjective(new MetaPopulationApportionment(
-		metaNode,
-		std::get<0>(topNodeApportionment),
-		std::get<1>(topNodeApportionment)
-	));
-
-	for (unsigned int i = 0; i < secondaryNodes.size(); i++)
-		std::get<0>(secondaryNodes[i])->addObjective(
-			(ObjectiveFunction*)new MetaPopulationApportionment(
+void MetaPopulationFactory::addMetaApportionments(
+	PopulationNode * metaNode,
+	std::vector<std::tuple<
+		PopulationNode*,
+		ApportionmentFunction *,
+		AggregationFunction *
+	>> nodes
+) {
+	for (unsigned int i = 0; i < nodes.size(); i++)
+		std::get<0>(nodes[i])->addObjective(
+			new MetaPopulationApportionment(
 				metaNode,
-				std::get<1>(secondaryNodes[i]),
-				std::get<2>(secondaryNodes[i])
+				std::get<1>(nodes[i]),
+				std::get<2>(nodes[i])
 			)
 		);
-
-	return metaNode;
 }

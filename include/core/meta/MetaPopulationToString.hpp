@@ -1,5 +1,6 @@
 #include "../ToStringFunction.hpp"
 #include <vector>
+#pragma once
 
 class MetaPopulationToString : public ToStringFunction {
 	private:
