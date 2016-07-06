@@ -32,6 +32,10 @@ static PopulationNode * createNode(
 	unsigned int accelerationFactor,
 	params... as
 ) {
+	static_assert(
+		std::is_base_of<PopulationNode, NodeType>::value,
+		"Type provided to population factory is not a population node!"
+	);
 	return new NodeType(
 		populationSize,
 		loci,
