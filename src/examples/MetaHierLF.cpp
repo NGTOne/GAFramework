@@ -55,24 +55,15 @@ int main(void) {
 		true
 	);
 
-	// Add the meta node
-	std::vector<std::tuple<
-		std::string,
-		ApportionmentFunction *,
-		AggregationFunction *
-	>> hierarchyNodes;
-
-	std::vector<std::string> nodes = {"P1", "P2", "P3", "P4", "P5"};
-	for (unsigned int i = 0; i < nodes.size(); i++)
-		hierarchyNodes.push_back(std::make_tuple(
-			nodes[i],
-			new LongestFragmentApportionment,
-			new BestOfAggregator
-		));
-
 	ea.addMetaPopulation<EANode>(
 		4,
-		hierarchyNodes,
+		std::make_tuple(
+			std::vector<std::string>(
+				{"P1", "P2", "P3", "P4", "P5"}
+			),
+			new LongestFragmentApportionment,
+			new BestOfAggregator
+		),
 		{new LongestFragmentFitness()},
 		new LongestFragmentToString,
 		{new IterationCountEnd(100)},
@@ -81,6 +72,9 @@ int main(void) {
 		new NPointCrossover(2),
 		new UniformMutation(0.2)
 	);
+
+	ea.setEvolutionOrder({"M1", "P5", "P4", "P3", "P2", "P1"});
+	ea.setNodesToPrint({"M1", "P1", "P2", "P3", "P4", "P5"});
 
 	ea.setEvolutionOrder({"M1", "P5", "P4", "P3", "P2", "P1"});
 	ea.setNodesToPrint({"M1", "P1", "P2", "P3", "P4", "P5"});
