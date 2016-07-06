@@ -129,7 +129,7 @@ void HierarchicalEA::addMetaPopulation(
 		));
 
 	this->addNode(
-		MetaPopulationFactory::createMeta(
+		MetaPopulationFactory::createMeta<MetaNodeType>(
 			populationSize,
 			trueNodes,
 			flattenedObjectives,
