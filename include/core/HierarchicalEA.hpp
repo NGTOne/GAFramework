@@ -67,6 +67,21 @@ class HierarchicalEA {
 	template<typename MetaNodeType, typename... params>
 	void addMetaPopulation(
 		unsigned int populationSize,
+		std::tuple<
+			std::vector<std::string>,
+			ApportionmentFunction *,
+			AggregationFunction *
+		> nodes,
+		std::vector<ObjectiveFunction*> flattenedObjectives,
+		ToStringFunction * flattenedToString,
+		std::vector<EndCondition*> conditions,
+		std::string metaNodeName,
+		params... as
+	);
+
+	template<typename MetaNodeType, typename... params>
+	void addMetaPopulation(
+		unsigned int populationSize,
 		std::vector<std::tuple<
 			std::string,
 			ApportionmentFunction *,
@@ -101,6 +116,43 @@ class HierarchicalEA {
 		TranslationFunction fromTranslate
 	);
 };
+
+template<typename MetaNodeType, typename... params>
+void HierarchicalEA::addMetaPopulation(
+	unsigned int populationSize,
+	std::tuple<
+		std::vector<std::string>,
+		ApportionmentFunction *,
+		AggregationFunction *
+	> nodes,
+	std::vector<ObjectiveFunction*> flattenedObjectives,
+	ToStringFunction * flattenedToString,
+	std::vector<EndCondition*> conditions,
+	std::string metaNodeName,
+	params... as
+) {
+	std::vector<std::tuple<
+		std::string,
+		ApportionmentFunction*,
+		AggregationFunction*
+	>> fullNodes;
+	for (unsigned int i = 0; i < std::get<0>(nodes).size(); i++)
+		fullNodes.push_back(std::make_tuple(
+			std::get<0>(nodes)[i],
+			std::get<1>(nodes),
+			std::get<2>(nodes)
+		));
+
+	this->addMetaPopulation<MetaNodeType>(
+		populationSize,
+		fullNodes,
+		flattenedObjectives,
+		flattenedToString,
+		conditions,
+		metaNodeName,
+		as...
+	);
+}
 
 template<typename MetaNodeType, typename... params>
 void HierarchicalEA::addMetaPopulation(
