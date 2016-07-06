@@ -230,12 +230,9 @@ void HierarchicalEA::addMigratoryRelationship(
 	unsigned int n,
 	TranslationFunction toTranslate
 ) {
-	PopulationNode * fromNode, * toNode;
-	fromNode = this->getNodeByName(from);
-	toNode = this->getNodeByName(to);
 	this->migrations.push_back(MigratoryRelationship(
-		fromNode,
-		toNode,
+		this->getNodeByName(from),
+		this->getNodeByName(to),
 		n,
 		toTranslate
 	));
@@ -248,12 +245,9 @@ void HierarchicalEA::addMigratoryRelationship(
 	TranslationFunction toTranslate,
 	TranslationFunction fromTranslate
 ) {
-	PopulationNode * fromNode, * toNode;
-	fromNode = this->getNodeByName(from);
-	toNode = this->getNodeByName(to);
 	this->migrations.push_back(MigratoryRelationship(
-		fromNode,
-		toNode,
+		this->getNodeByName(from),
+		this->getNodeByName(to),
 		n,
 		toTranslate,
 		fromTranslate
