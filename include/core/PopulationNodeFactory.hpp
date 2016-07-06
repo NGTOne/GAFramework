@@ -22,7 +22,7 @@ class PopulationNodeFactory {
 };
 
 template<typename NodeType, typename... params>
-static PopulationNode * createNode(
+PopulationNode * PopulationNodeFactory::createNode(
 	unsigned int populationSize,
 	std::vector<Locus*> loci,
 	std::vector<ObjectiveFunction*> objectives,
