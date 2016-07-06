@@ -5,7 +5,6 @@
 #include "exception/NoEvolutionOrderException.hpp"
 #include "exception/MismatchedCountsException.hpp"
 #include "core/gc/NodeGarbageCollector.hpp"
-#include "core/meta/MetaPopulationFactory.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -199,48 +198,6 @@ void HierarchicalEA::run(bool verbose) {
 
 		if (this->done(i)) break;
 	}
-}
-
-void HierarchicalEA::addMetaPopulation(
-	PopulationNode * metaNode,
-	vector<ObjectiveFunction*> flattenedObjectives,
-	ToStringFunction * flattenedToString,
-	string topNode,
-	tuple<
-		ApportionmentFunction *,
-		AggregationFunction *
-	> topNodeApportionment,
-	vector<tuple<
-		string,
-		ApportionmentFunction *,
-		AggregationFunction *
-	>> secondaryNodes
-) {
-	vector<tuple<
-		PopulationNode *,
-		ApportionmentFunction *,
-		AggregationFunction *
-	>> trueSecondaryNodes;
-
-	for (unsigned int i = 0; i < secondaryNodes.size(); i++)
-		trueSecondaryNodes.push_back(make_tuple(
-			this->getNodeByName(get<0>(secondaryNodes[i])),
-			get<1>(secondaryNodes[i]),
-			get<2>(secondaryNodes[i])
-		));
-
-	this->addNode(
-		MetaPopulationFactory::createMeta(
-			metaNode,
-			flattenedObjectives,
-			flattenedToString,
-			this->getNodeByName(topNode),
-			topNodeApportionment,
-			trueSecondaryNodes
-		),
-		false,
-		false
-	);
 }
 
 void HierarchicalEA::addMigratoryRelationship(

@@ -5,6 +5,7 @@
 #include "AggregationFunction.hpp"
 #include "ObjectiveFunction.hpp"
 #include "ToStringFunction.hpp"
+#include "meta/MetaPopulationFactory.hpp"
 #include <vector>
 #include <tuple>
 #include <string>
@@ -63,20 +64,35 @@ class HierarchicalEA {
 	void setEndConditionDictatorNodes(vector<string> names);
 	PopulationNode * getNodeByName(string name);
 
+	template<typename MetaNodeType, typename... params>
 	void addMetaPopulation(
-		PopulationNode * metaNode,
-		vector<ObjectiveFunction*> flattenedObjectives,
+		unsigned int populationSize,
+		std::vector<std::tuple<
+			std::string,
+			ApportionmentFunction *,
+			AggregationFunction *
+		>> nodes,
+		std::vector<ObjectiveFunction*> flattenedObjectives,
 		ToStringFunction * flattenedToString,
-		string topNode,
-		tuple<
+		std::vector<EndCondition*> conditions,
+		std::string metaNodeName,
+		params... as
+	);
+
+	template<typename MetaNodeType, typename... params>
+	void addMetaPopulation(
+		unsigned int populationSize,
+		std::vector<std::tuple<
+			std::string,
 			ApportionmentFunction *,
 			AggregationFunction *
-		> topNodeApportionment,
-		vector<tuple<
-			string,
-			ApportionmentFunction *,
-			AggregationFunction *
-		>> secondaryNodes
+		>> nodes,
+		std::vector<ObjectiveFunction*> flattenedObjectives,
+		ToStringFunction * flattenedToString,
+		std::vector<EndCondition*> conditions,
+		std::string metaNodeName,
+		unsigned int accelerationFactor,
+		params... as
 	);
 
 	void addMigratoryRelationship(
@@ -101,3 +117,71 @@ class HierarchicalEA {
 		TranslationFunction fromTranslate
 	);
 };
+
+template<typename MetaNodeType, typename... params>
+void HierarchicalEA::addMetaPopulation(
+	unsigned int populationSize,
+	std::vector<std::tuple<
+		std::string,
+		ApportionmentFunction *,
+		AggregationFunction *
+	>> nodes,
+	std::vector<ObjectiveFunction*> flattenedObjectives,
+	ToStringFunction * flattenedToString,
+	std::vector<EndCondition*> conditions,
+	std::string metaNodeName,
+	unsigned int accelerationFactor,
+	params... as
+) {
+	std::vector<std::tuple<
+		PopulationNode*,
+		ApportionmentFunction*,
+		AggregationFunction *
+	>> trueNodes;
+	for (unsigned int i = 0; i < nodes.size(); i++)
+		trueNodes.push_back(std::make_tuple(
+			this->getNodeByName(std::get<0>(nodes[i])),
+			std::get<1>(nodes[i]),
+			std::get<2>(nodes[i])
+		));
+
+	this->addNode(
+		MetaPopulationFactory::createMeta(
+			populationSize,
+			trueNodes,
+			flattenedObjectives,
+			flattenedToString,
+			conditions,
+			metaNodeName,
+			accelerationFactor,
+			as...
+		),
+		false,
+		false
+	);
+}
+
+template<typename MetaNodeType, typename... params>
+void HierarchicalEA::addMetaPopulation(
+	unsigned int populationSize,
+	std::vector<std::tuple<
+		std::string,
+		ApportionmentFunction *,
+		AggregationFunction *
+	>> nodes,
+	std::vector<ObjectiveFunction*> flattenedObjectives,
+	ToStringFunction * flattenedToString,
+	std::vector<EndCondition*> conditions,
+	std::string metaNodeName,
+	params... as
+) {
+	this->addMetaPopulation<MetaNodeType>(
+		populationSize,
+		nodes,
+		flattenedObjectives,
+		flattenedToString,
+		conditions,
+		metaNodeName,
+		as...
+	);
+}

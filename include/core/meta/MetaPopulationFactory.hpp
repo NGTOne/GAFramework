@@ -8,6 +8,7 @@
 #include "MetaPopulationToString.hpp"
 #include <vector>
 #include <tuple>
+#pragma once
 
 class MetaPopulationFactory {
 	private:
