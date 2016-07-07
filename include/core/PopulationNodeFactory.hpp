@@ -1,5 +1,4 @@
 #include "PopulationNode.hpp"
-#include <cstdarg>
 #pragma once
 
 class PopulationNodeFactory {
@@ -10,6 +9,19 @@ class PopulationNodeFactory {
 	public:
 	template <typename NodeType, typename... params>
 	static PopulationNode * createNode(
+		unsigned int populationSize,
+		std::vector<Locus*> loci,
+		std::vector<ObjectiveFunction*> objectives,
+		ToStringFunction * populationToString,
+		std::vector<EndCondition*> conditions,
+		std::string nodeName,
+		unsigned int accelerationFactor,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	static std::vector<PopulationNode *> createNodes(
+		unsigned int numNodes,
 		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
@@ -46,4 +58,32 @@ PopulationNode * PopulationNodeFactory::createNode(
 		accelerationFactor,
 		as...
 	);
+}
+
+template <typename NodeType, typename... params>
+std::vector<PopulationNode *> PopulationNodeFactory::createNodes(
+	unsigned int numNodes,
+	unsigned int populationSize,
+	std::vector<Locus*> loci,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction * populationToString,
+	std::vector<EndCondition*> conditions,
+	std::string nodeName,
+	unsigned int accelerationFactor,
+	params... as
+) {
+	std::vector<PopulationNode*> nodes;
+	for (unsigned int i = 0; i < numNodes; i++)
+		nodes.push_back(PopulationNodeFactory::createNode<NodeType>(
+			populationSize,
+			loci,
+			objectives,
+			populationToString,
+			conditions,
+			nodeName,
+			accelerationFactor,
+			as...
+		));
+
+	return nodes;
 }
