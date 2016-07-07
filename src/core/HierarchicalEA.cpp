@@ -47,6 +47,15 @@ void HierarchicalEA::addNode(
 }
 
 void HierarchicalEA::addNodes(
+	std::vector<PopulationNode*> nodes,
+	bool print,
+	bool end
+) {
+	for (unsigned int i = 0; i < nodes.size(); i++)
+		this->addNode(nodes[i], print, end);
+}
+
+void HierarchicalEA::addNodes(
 	vector<PopulationNode*> nodes,
 	vector<bool> print,
 	vector<bool> end

@@ -52,6 +52,11 @@ class HierarchicalEA {
 	void addNode(PopulationNode * node, bool print);
 	void addNode(PopulationNode * node, bool print, bool end);
 	void addNodes(
+		std::vector<PopulationNode*> nodes,
+		bool print,
+		bool end
+	);
+	void addNodes(
 		vector<PopulationNode*> nodes,
 		vector<bool> print,
 		vector<bool> end
