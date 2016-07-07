@@ -21,13 +21,12 @@ class PopulationNodeFactory {
 
 	template <typename NodeType, typename... params>
 	static std::vector<PopulationNode *> createNodes(
-		unsigned int numNodes,
 		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
 		ToStringFunction * populationToString,
 		std::vector<EndCondition*> conditions,
-		std::string nodeName,
+		std::vector<std::string> nodeNames,
 		unsigned int accelerationFactor,
 		params... as
 	);
@@ -62,18 +61,17 @@ PopulationNode * PopulationNodeFactory::createNode(
 
 template <typename NodeType, typename... params>
 std::vector<PopulationNode *> PopulationNodeFactory::createNodes(
-	unsigned int numNodes,
 	unsigned int populationSize,
 	std::vector<Locus*> loci,
 	std::vector<ObjectiveFunction*> objectives,
 	ToStringFunction * populationToString,
 	std::vector<EndCondition*> conditions,
-	std::string nodeName,
+	std::vector<std::string> nodeNames,
 	unsigned int accelerationFactor,
 	params... as
 ) {
 	std::vector<PopulationNode*> nodes;
-	for (unsigned int i = 0; i < numNodes; i++)
+	for (unsigned int i = 0; i < nodeNames.size(); i++)
 		nodes.push_back(PopulationNodeFactory::createNode<NodeType>(
 			populationSize,
 			loci,
