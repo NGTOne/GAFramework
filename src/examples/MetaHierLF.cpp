@@ -56,6 +56,7 @@ int main(void) {
 	);
 
 	ea.addMetaPopulation<EANode>(
+		true,
 		4,
 		std::make_tuple(
 			std::vector<std::string>(
