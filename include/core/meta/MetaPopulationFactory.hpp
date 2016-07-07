@@ -41,12 +41,14 @@ class MetaPopulationFactory {
 			PopulationNode *,
 			ApportionmentFunction *,
 			AggregationFunction *
-		>> nodes
+		>> nodes,
+		bool clobberExistingObjectives
 	);
 
 	public:
 	template<typename MetaNodeType, typename... params>
 	static PopulationNode * createMeta(
+		bool clobberExistingObjectives,
 		unsigned int populationSize,
 		std::vector<std::tuple<
 			PopulationNode *,
@@ -64,6 +66,7 @@ class MetaPopulationFactory {
 
 template<typename MetaNodeType, typename... params>
 PopulationNode * MetaPopulationFactory::createMeta(
+	bool clobberExistingObjectives,
 	unsigned int populationSize,
 	std::vector<std::tuple<
 		PopulationNode *,
@@ -100,6 +103,10 @@ PopulationNode * MetaPopulationFactory::createMeta(
 		as...
 	);
 
-	MetaPopulationFactory::addMetaApportionments(metaNode, nodes);
+	MetaPopulationFactory::addMetaApportionments(
+		metaNode,
+		nodes,
+		clobberExistingObjectives
+	);
 	return metaNode;
 }

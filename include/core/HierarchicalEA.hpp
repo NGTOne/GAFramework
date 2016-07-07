@@ -71,6 +71,7 @@ class HierarchicalEA {
 
 	template<typename MetaNodeType, typename... params>
 	void addMetaPopulation(
+		bool clobberExistingObjectives,
 		unsigned int populationSize,
 		std::tuple<
 			std::vector<std::string>,
@@ -86,6 +87,7 @@ class HierarchicalEA {
 
 	template<typename MetaNodeType, typename... params>
 	void addMetaPopulation(
+		bool clobberExistingObjectives,
 		unsigned int populationSize,
 		std::vector<std::tuple<
 			std::string,

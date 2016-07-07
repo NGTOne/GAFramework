@@ -3,6 +3,7 @@
 
 template<typename MetaNodeType, typename... params>
 void HierarchicalEA::addMetaPopulation(
+	bool clobberExistingObjectives,
 	unsigned int populationSize,
 	std::tuple<
 		std::vector<std::string>,
@@ -28,6 +29,7 @@ void HierarchicalEA::addMetaPopulation(
 		));
 
 	this->addMetaPopulation<MetaNodeType>(
+		clobberExistingObjectives,
 		populationSize,
 		fullNodes,
 		flattenedObjectives,
@@ -40,6 +42,7 @@ void HierarchicalEA::addMetaPopulation(
 
 template<typename MetaNodeType, typename... params>
 void HierarchicalEA::addMetaPopulation(
+	bool clobberExistingObjectives,
 	unsigned int populationSize,
 	std::vector<std::tuple<
 		std::string,
@@ -66,6 +69,7 @@ void HierarchicalEA::addMetaPopulation(
 
 	this->addNode(
 		MetaPopulationFactory::createMeta<MetaNodeType>(
+			clobberExistingObjectives,
 			populationSize,
 			trueNodes,
 			flattenedObjectives,
