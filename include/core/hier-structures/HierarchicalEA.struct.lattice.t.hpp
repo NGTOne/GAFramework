@@ -39,14 +39,16 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<bool> end,
 	params... as
 ) {
-	if (
-		names.size() != contextLoci.size()
-		|| (!objectives.empty() && names.size() != objectives.size())
-		|| names.size() != toStrings.size()
-		|| names.size() != conditions.size()
-		|| names.size() != print.size()
-		|| names.size() != end.size()
-	) throw MismatchedCountsException(); // TODO: Refactor this
+	if (!this->compareVectorLengths(
+		names,
+		contextLoci,
+		toStrings,
+		conditions,
+		print,
+		end
+	)) throw MismatchedCountsException();
+	if (!objectives.empty() && objectives.size() != names.size())
+		throw MismatchedCountsException();
 
 	std::vector<Locus*> levelLoci;
 	std::vector<PopulationNode*> levelNodes;

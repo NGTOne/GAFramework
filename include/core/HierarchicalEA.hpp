@@ -40,6 +40,9 @@ class HierarchicalEA {
 	void checkNodesExist(vector<string> names);
 	bool done(unsigned int currentEpoch);
 
+	template <typename vec, typename vec2, typename... params>
+	bool compareVectorLengths(vec initial, vec2 compare, params... vectors);
+
 	public:
 	HierarchicalEA();
 	HierarchicalEA(unsigned int maxEpochs);
@@ -179,3 +182,16 @@ class HierarchicalEA {
 		params... as
 	);
 };
+
+template <typename vec, typename vec2, typename... params>
+bool HierarchicalEA::compareVectorLengths(
+	vec initial,
+	vec2 compare,
+	params... vectors
+) {
+	if (initial.size() != compare.size()) return false;
+	if (sizeof...(vectors) >= 1)
+		return this->compareVectorLengths(initial, vectors...);
+
+	return true;
+}
