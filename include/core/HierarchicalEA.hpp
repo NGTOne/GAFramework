@@ -113,6 +113,22 @@ class HierarchicalEA {
 		params... as
 	);
 
+	template<typename NodeType, typename... params>
+	void addMigratoryTorus(
+		bool bidirectionalHorizontal,
+		bool bidirectionalVertical,
+		unsigned int n,
+		unsigned int populationSize,
+		std::vector<Locus*> loci,
+		std::vector<ObjectiveFunction*> objectives,
+		ToStringFunction * nodeToString,
+		std::vector<EndCondition*> conditions,
+		std::vector<std::vector<std::string>> names,
+		bool print,
+		bool end,
+		params... as
+	);
+
 	void addMigratoryRelationship(
 		string from,
 		string to,
