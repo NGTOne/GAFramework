@@ -98,6 +98,21 @@ class HierarchicalEA {
 		params... as
 	);
 
+	template<typename NodeType, typename... params>
+	void addMigratoryRing(
+		bool bidirectional,
+		unsigned int n,
+		unsigned int populationSize,
+		std::vector<Locus*> loci,
+		std::vector<ObjectiveFunction*> objectives,
+		ToStringFunction * nodeToString,
+		std::vector<EndCondition*> conditions,
+		std::vector<std::string> names,
+		bool print,
+		bool end,
+		params... as
+	);
+
 	void addMigratoryRelationship(
 		string from,
 		string to,
