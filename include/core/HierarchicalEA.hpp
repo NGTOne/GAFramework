@@ -1,4 +1,5 @@
 #include "PopulationNode.hpp"
+#include "PopulationFormula.hpp"
 #include "migration/MigratoryRelationship.hpp"
 #include "migration/TranslationFunction.hpp"
 #include "ApportionmentFunction.hpp"
@@ -149,5 +150,18 @@ class HierarchicalEA {
 		unsigned int n,
 		TranslationFunction toTranslate,
 		TranslationFunction fromTranslate
+	);
+
+	template <typename NodeType, typename... params>
+	void addConstructiveLattice(
+		PopulationFormula * formula,
+		std::vector<std::vector<Locus*>> contextLoci,
+		std::vector<std::vector<ObjectiveFunction*>> objectives,
+		std::vector<ToStringFunction*> toStrings,
+		std::vector<std::vector<EndCondition*>> conditions,
+		std::vector<std::vector<std::string>> names,
+		std::vector<bool> print,
+		std::vector<bool> end,
+		params... as
 	);
 };
