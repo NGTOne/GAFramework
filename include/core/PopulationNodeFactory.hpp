@@ -78,7 +78,7 @@ std::vector<PopulationNode *> PopulationNodeFactory::createNodes(
 			objectives,
 			populationToString,
 			conditions,
-			nodeName,
+			nodeNames[i],
 			accelerationFactor,
 			as...
 		));
