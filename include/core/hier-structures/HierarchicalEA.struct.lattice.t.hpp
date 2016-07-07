@@ -39,49 +39,21 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<bool> end,
 	params... as
 ) {
-	if (!this->compareVectorLengths(
+	std::vector<unsigned int> counts;
+	for (unsigned int i = 0; i < names.size(); i++)
+		counts.push_back(names[i].size());
+
+	this->addConstructiveLattice<NodeType>(
+		formula,
+		this->wrapForPass(contextLoci, counts),
+		this->wrapForPass(objectives, counts),
+		this->wrapForPass(toStrings, counts),
+		this->wrapForPass(conditions, counts),
 		names,
-		contextLoci,
-		toStrings,
-		conditions,
-		print,
-		end
-	)) throw MismatchedCountsException();
-	if (!objectives.empty() && objectives.size() != names.size())
-		throw MismatchedCountsException();
-
-	std::vector<Locus*> levelLoci;
-	std::vector<PopulationNode*> levelNodes;
-	for (unsigned int i = names.size() - 1; i >= 0; i--) {
-		levelLoci.insert(
-			levelLoci.end(),
-			contextLoci[i].begin(),
-			contextLoci[i].end()
-		);
-
-		levelNodes = PopulationNodeFactory::createNodes<NodeType>(
-			formula->getPopulationSize(levelLoci.size()),
-			levelLoci,
-			(!objectives.empty() ? objectives[i]
-				: std::vector<ObjectiveFunction*>({})),
-			toStrings[i],
-			conditions[i],
-			names[i],
-			as...
-		);
-
-		this->addNodes(levelNodes, print[i], end[i]);
-		levelLoci.clear();
-		for (unsigned int k = 0; k < levelNodes.size(); k++)
-			levelLoci.push_back(
-				new PopulationLocus(levelNodes[k])
-			);
-	}
-
-	// Clean up - otherwise the "head" nodes will have unused loci
-	// pointing to them
-	for (unsigned int i = 0; i < levelLoci.size(); i++)
-		delete(levelLoci[i]);
+		this->wrapForPass(print, counts),
+		this->wrapForPass(end, counts),
+		as...
+	);
 }
 
 template <typename NodeType, typename... params>
@@ -164,7 +136,8 @@ void HierarchicalEA::addConstructiveLattice(
 		levelNodes.clear();
 	}
 
-	// Cleanup
+	// Cleanup - this prevents the nodes at the top of the lattice from
+	// having dangling loci pointing to them that won't get dealloc'd later
 	for (unsigned int i = 0; i < levelLoci.size(); i++)
 		delete(levelLoci[i]);
 }

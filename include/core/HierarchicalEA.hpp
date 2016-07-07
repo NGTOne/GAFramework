@@ -43,6 +43,12 @@ class HierarchicalEA {
 	template <typename vec, typename vec2, typename... params>
 	bool compareVectorLengths(vec initial, vec2 compare, params... vectors);
 
+	template<typename vec>
+	std::vector<vec> wrapForPass(
+		vec original,
+		std::vector<unsigned int> counts
+	);
+
 	public:
 	HierarchicalEA();
 	HierarchicalEA(unsigned int maxEpochs);
@@ -209,4 +215,16 @@ bool HierarchicalEA::compareVectorLengths(
 		return this->compareVectorLengths(initial, vectors...);
 
 	return true;
+}
+
+template <typename vec>
+std::vector<vec> HierarchicalEA::wrapForPass(
+	vec original,
+	std::vector<unsigned int> counts
+) {
+	std::vector<vec> wrapped;
+	for (unsigned int i = 0; i < original.size(); i++)
+		wrapped.push_back(vec(counts[i], original[i]));
+
+	return wrapped;
 }
