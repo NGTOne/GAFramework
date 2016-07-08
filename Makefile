@@ -44,8 +44,8 @@ uninstall:
 	sudo rm -r /usr/include/*libHierGA*
 	sudo ldconfig
 
-library: obj-dir core objectives loci \
-		nodes endconditions exception gc
+library: obj-dir core objectives loci nodes endconditions exception \
+		pop-formulae gc
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
 
@@ -87,6 +87,9 @@ objectives: apportionment-func aggregators
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/fitness-noise/NonNoisyFitnessSource.cpp -o obj/objectives/noisy/fitness-noise/NonNoisyFitnessSource.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/fitness-noise/GaussianFitnessNoiseSource.cpp -o obj/objectives/noisy/fitness-noise/GaussianFitnessNoiseSource.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/fitness-noise/ZeroingFitnessNoiseSource.cpp -o obj/objectives/noisy/fitness-noise/ZeroingFitnessNoiseSource.o
+
+pop-formulae:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/pop-formulae/LocusMultiplierPopFormula.cpp -o obj/pop-formulae/LocusMultiplierPopFormula.o
 
 gc:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/PopulationNodeDeallocator.cpp -o obj/gc/PopulationNodeDeallocator.o
