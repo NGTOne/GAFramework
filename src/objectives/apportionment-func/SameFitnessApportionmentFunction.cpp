@@ -1,4 +1,4 @@
-#include "apportionment-func/SameFitnessApportionmentFunction.hpp"
+#include "objectives/apportionment-func/SameFitnessApportionmentFunction.hpp"
 
 float SameFitnessApportionmentFunction::apportionFitness(
 	Genome * recipient,

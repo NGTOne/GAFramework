@@ -44,7 +44,7 @@ uninstall:
 	sudo rm -r /usr/include/*libHierGA*
 	sudo ldconfig
 
-library: obj-dir core objectives loci aggregators apportionment-func \
+library: obj-dir core objectives loci aggregators \
 		nodes endconditions exception gc
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
@@ -77,7 +77,7 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/gc/NodeGarbageCollector.cpp -o obj/core/gc/NodeGarbageCollector.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/gc/NodeDeallocator.cpp -o obj/core/gc/NodeDeallocator.o
 
-objectives:
+objectives: apportionment-func
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/NoisyObjective.cpp -o obj/objectives/noisy/NoisyObjective.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/genetic-noise/GeneticNoiseSource.cpp -o obj/objectives/noisy/genetic-noise/GeneticNoiseSource.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/genetic-noise/NonNoisyGeneticSource.cpp -o obj/objectives/noisy/genetic-noise/NonNoisyGeneticSource.o
@@ -107,7 +107,7 @@ aggregators:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/aggregators/BestOfAggregator.cpp -o obj/aggregators/BestOfAggregator.o
 
 apportionment-func:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/apportionment-func/SameFitnessApportionmentFunction.cpp -o obj/apportionment-func/SameFitnessApportionmentFunction.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/apportionment-func/SameFitnessApportionmentFunction.cpp -o obj/objectives/apportionment-func/SameFitnessApportionmentFunction.o
 
 nodes: ea sa
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/NonOptimizingNode.cpp -o obj/nodes/NonOptimizingNode.o

@@ -1,4 +1,4 @@
-#include "../core/ApportionmentFunction.hpp"
+#include "../..//core/ApportionmentFunction.hpp"
 #pragma once
 
 class SameFitnessApportionmentFunction : public ApportionmentFunction {
