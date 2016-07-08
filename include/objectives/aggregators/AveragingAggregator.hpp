@@ -1,4 +1,4 @@
-#include "../core/AggregationFunction.hpp"
+#include "../../core/AggregationFunction.hpp"
 #pragma once
 
 class AveragingAggregator : public AggregationFunction {

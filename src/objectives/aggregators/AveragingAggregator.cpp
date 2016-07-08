@@ -1,4 +1,4 @@
-#include "aggregators/AveragingAggregator.hpp"
+#include "objectives/aggregators/AveragingAggregator.hpp"
 
 float AveragingAggregator::aggregateFitnesses(
 	std::vector<float> apportionedFitnesses

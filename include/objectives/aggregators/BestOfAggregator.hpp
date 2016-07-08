@@ -1,7 +1,7 @@
-#include "../core/AggregationFunction.hpp"
+#include "../../core/AggregationFunction.hpp"
 #pragma once
 
-class SummingAggregator : public AggregationFunction {
+class BestOfAggregator : public AggregationFunction {
 	private:
 
 	protected:

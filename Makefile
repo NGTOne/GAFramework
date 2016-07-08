@@ -44,7 +44,7 @@ uninstall:
 	sudo rm -r /usr/include/*libHierGA*
 	sudo ldconfig
 
-library: obj-dir core objectives loci aggregators \
+library: obj-dir core objectives loci \
 		nodes endconditions exception gc
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
@@ -77,7 +77,7 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/gc/NodeGarbageCollector.cpp -o obj/core/gc/NodeGarbageCollector.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/gc/NodeDeallocator.cpp -o obj/core/gc/NodeDeallocator.o
 
-objectives: apportionment-func
+objectives: apportionment-func aggregators
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/NoisyObjective.cpp -o obj/objectives/noisy/NoisyObjective.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/genetic-noise/GeneticNoiseSource.cpp -o obj/objectives/noisy/genetic-noise/GeneticNoiseSource.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/genetic-noise/NonNoisyGeneticSource.cpp -o obj/objectives/noisy/genetic-noise/NonNoisyGeneticSource.o
@@ -102,9 +102,9 @@ loci:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/FakePopulationLocus.cpp -o obj/loci/FakePopulationLocus.o
 
 aggregators:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/aggregators/AveragingAggregator.cpp -o obj/aggregators/AveragingAggregator.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/aggregators/SummingAggregator.cpp -o obj/aggregators/SummingAggregators.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/aggregators/BestOfAggregator.cpp -o obj/aggregators/BestOfAggregator.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/aggregators/AveragingAggregator.cpp -o obj/objectives/aggregators/AveragingAggregator.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/aggregators/SummingAggregator.cpp -o obj/objectives/aggregators/SummingAggregators.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/aggregators/BestOfAggregator.cpp -o obj/objectives/aggregators/BestOfAggregator.o
 
 apportionment-func:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/apportionment-func/SameFitnessApportionmentFunction.cpp -o obj/objectives/apportionment-func/SameFitnessApportionmentFunction.o

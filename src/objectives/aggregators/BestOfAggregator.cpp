@@ -1,4 +1,4 @@
-#include "aggregators/BestOfAggregator.hpp"
+#include "objectives/aggregators/BestOfAggregator.hpp"
 
 float BestOfAggregator::aggregateFitnesses(
 	std::vector<float> apportionedFitnesses
