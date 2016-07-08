@@ -90,6 +90,8 @@ objectives: apportionment-func aggregators
 
 pop-formulae:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/pop-formulae/LocusMultiplierPopFormula.cpp -o obj/pop-formulae/LocusMultiplierPopFormula.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/pop-formulae/LocusBasePopFormula.cpp -o obj/pop-formulae/LocusBasePopFormula.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/pop-formulae/LocusExponentPopFormula.cpp -o obj/pop-formulae/LocusExponentPopFormula.o
 
 gc:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/PopulationNodeDeallocator.cpp -o obj/gc/PopulationNodeDeallocator.o
