@@ -126,29 +126,29 @@ sa:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/SANode/SANode.cpp -o obj/nodes/SANode/SANode.o
 
 selections:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/selections/RandomSelection.cpp -o obj/selections/RandomSelection.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/selections/TournamentSelection.cpp -o obj/selections/TournamentSelection.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/selections/RandomSelection.cpp -o obj/nodes/EANode/selections/RandomSelection.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/selections/TournamentSelection.cpp -o obj/nodes/EANode/selections/TournamentSelection.o
 
 mutations:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/mutations/UniformMutation.cpp -o obj/mutations/UniformMutation.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/mutations/BoundaryMutation.cpp -o obj/mutations/BoundaryMutation.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/mutations/GaussianMutation.cpp -o obj/mutations/GaussianMutation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/UniformMutation.cpp -o obj/nodes/EANode/mutations/UniformMutation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/BoundaryMutation.cpp -o obj/nodes/EANode/mutations/BoundaryMutation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/GaussianMutation.cpp -o obj/nodes/EANode/mutations/GaussianMutation.o
 
 crossovers:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/crossovers/NPointCrossover.cpp -o obj/crossovers/NPointCrossover.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/crossovers/UniformCrossover.cpp -o obj/crossovers/UniformCrossover.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/crossovers/CutAndSpliceCrossover.cpp -o obj/crossovers/CutAndSpliceCrossover.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/crossovers/NPointCrossover.cpp -o obj/nodes/EANode/crossovers/NPointCrossover.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/crossovers/UniformCrossover.cpp -o obj/nodes/EANode/crossovers/UniformCrossover.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/crossovers/CutAndSpliceCrossover.cpp -o obj/nodes/EANode/crossovers/CutAndSpliceCrossover.o
 
 systems:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/GA.cpp -o obj/systems/GA.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ES.cpp -o obj/systems/ES.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/SSGA.cpp -o obj/systems/SSGA.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/AccelSSGA.cpp -o obj/systems/AccelSSGA.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/niching/NichingStrategy.cpp -o obj/systems/niching/NichingStrategy.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/niching/Crowding.cpp -o obj/systems/niching/Crowding.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/ReplacingGA.cpp -o obj/systems/ReplacingGA.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/StrongIterativeReplacingGA.cpp -o obj/systems/StrongIterativeReplacingGA.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/systems/WeakIterativeReplacingGA.cpp -o obj/systems/WeakIterativeReplacingGA.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/GA.cpp -o obj/nodes/EANode/systems/GA.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES.cpp -o obj/nodes/EANode/systems/ES.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/SSGA.cpp -o obj/nodes/EANode/systems/SSGA.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/AccelSSGA.cpp -o obj/nodes/EANode/systems/AccelSSGA.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/niching/NichingStrategy.cpp -o obj/nodes/EANode/systems/niching/NichingStrategy.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/niching/Crowding.cpp -o obj/nodes/EANode/systems/niching/Crowding.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ReplacingGA.cpp -o obj/nodes/EANode/systems/ReplacingGA.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/StrongIterativeReplacingGA.cpp -o obj/nodes/EANode/systems/StrongIterativeReplacingGA.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/WeakIterativeReplacingGA.cpp -o obj/nodes/EANode/systems/WeakIterativeReplacingGA.o
 
 endconditions:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/endconditions/FitnessMatchEnd.cpp -o obj/endconditions/FitnessMatchEnd.o

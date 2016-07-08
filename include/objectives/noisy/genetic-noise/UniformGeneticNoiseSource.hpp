@@ -1,5 +1,5 @@
 #include "GeneticNoiseSource.hpp"
-#include "../../../mutations/UniformMutation.hpp"
+#include "../../../nodes/EANode/mutations/UniformMutation.hpp"
 #pragma once
 
 class UniformGeneticNoiseSource: public GeneticNoiseSource {

@@ -4,8 +4,8 @@
 #include "nodes/EANode/CrossoverOperation.hpp"
 #include "nodes/EANode/MutationOperation.hpp"
 #include "nodes/EANode/SelectionStrategy.hpp"
-#include "systems/niching/NichingStrategy.hpp"
-#include "systems/SSGA.hpp"
+#include "nodes/EANode/systems/niching/NichingStrategy.hpp"
+#include "nodes/EANode/systems/SSGA.hpp"
 #include <set>
 
 EANodeDeallocator::EANodeDeallocator() {}

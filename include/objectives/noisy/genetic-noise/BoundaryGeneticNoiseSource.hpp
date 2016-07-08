@@ -1,5 +1,5 @@
 #include "GeneticNoiseSource.hpp"
-#include "../../../mutations/BoundaryMutation.hpp"
+#include "../../../nodes/EANode/mutations/BoundaryMutation.hpp"
 #pragma once
 
 class BoundaryGeneticNoiseSource: public GeneticNoiseSource {
