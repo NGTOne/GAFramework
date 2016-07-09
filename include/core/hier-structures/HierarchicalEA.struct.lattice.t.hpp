@@ -112,7 +112,11 @@ void HierarchicalEA::addConstructiveLattice(
 	// TODO TODO: Refactor this
 	std::vector<Locus*> levelLoci;
 	std::vector<PopulationNode*> levelNodes;
-	for (unsigned int i = names.size() - 1; i >= 0; i++) {
+	for (
+		unsigned int i = names.size() - 1;
+		i >= 0 && i < names.size(); // Counteracts unsigned overflow
+		i--
+	) {
 		if (!this->compareVectorLengths(
 			contextLoci[i],
 			objectives[i],
