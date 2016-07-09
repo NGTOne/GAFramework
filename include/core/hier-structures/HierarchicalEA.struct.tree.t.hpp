@@ -144,6 +144,7 @@ void HierarchicalEA::addConstructiveTree(
 					toStrings[i][k],
 					conditions[i][k],
 					names[i][k],
+					1,
 					as...
 				)
 			);

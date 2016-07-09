@@ -148,6 +148,7 @@ void HierarchicalEA::addConstructiveLattice(
 					toStrings[i][k],
 					conditions[i][k],
 					names[i][k],
+					1,
 					as...
 				)
 			);
