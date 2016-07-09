@@ -96,16 +96,52 @@ void HierarchicalEA::addConstructiveTree(
 	std::vector<std::vector<bool>> end,
 	params... as
 ) {
-	if (treeSpec.numLevels() < 2) throw ValueOutOfRangeException();
-	if (!this->compareVectorLengths(
+	std::vector<unsigned int> counts = treeSpec.getLevelSizes();
+
+	this->addConstructiveTree<NodeType>(
+		formula,
 		contextLoci,
 		objectives,
+		this->getNestedEmptyVector<ApportionmentFunction*>(counts, 1),
+		this->getNestedEmptyVector<AggregationFunction*>(counts, 1),
+		this->getNestedEmptyVector<unsigned int>(counts, 1),
 		toStrings,
 		conditions,
+		treeSpec,
 		print,
 		end,
-		treeSpec.getLevelSizes()
-	)) throw MismatchedCountsException();
+		as...
+	);
+}
+
+template <typename NodeType, typename... params>
+void HierarchicalEA::addConstructiveTree(
+	PopulationFormula * formula,
+	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
+	std::vector<std::vector<std::vector<ObjectiveFunction*>>> objectives,
+	std::vector<std::vector<std::vector<ApportionmentFunction*>>>
+		apportionments,
+	std::vector<std::vector<std::vector<AggregationFunction*>>>
+		aggregators,
+	std::vector<std::vector<std::vector<unsigned int>>> tryOns,
+	std::vector<std::vector<ToStringFunction*>> toStrings,
+	std::vector<std::vector<std::vector<EndCondition*>>> conditions,
+	TreeBuilder treeSpec,
+	std::vector<std::vector<bool>> print,
+	std::vector<std::vector<bool>> end,
+	params... as
+) {
+	if (treeSpec.numLevels() < 2) throw ValueOutOfRangeException();
+	if (
+		!this->compareVectorLengths(contextLoci, objectives, toStrings,
+			conditions, print, end, treeSpec.getLevelSizes())
+		|| !this->compareVectorLengths(
+			apportionments,
+			aggregators,
+			tryOns
+		)
+		|| apportionments.size() != treeSpec.numLevels() - 1
+	) throw MismatchedCountsException();
 
 	std::vector<PopulationNode*> previousLevelNodes, currentLevelNodes;
 	std::vector<Locus*> nodeLoci;
@@ -153,6 +189,17 @@ void HierarchicalEA::addConstructiveTree(
 				)
 			);
 		}
+
+		if (i < treeSpec.numLevels() - 1)
+			this->addApportionments(
+				currentLevelNodes,
+				previousLevelNodes,
+				counts,
+				apportionments[i],
+				aggregators[i],
+				tryOns[i]
+			);
+
 		this->addNodes(currentLevelNodes, print[i], end[i]);
 		previousLevelNodes = currentLevelNodes;
 		currentLevelNodes.clear();

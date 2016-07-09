@@ -57,6 +57,29 @@ class HierarchicalEA {
 		std::vector<unsigned int> counts
 	);
 
+	std::vector<ObjectiveFunction*> makeApportionments(
+		PopulationNode * upperNode,
+		std::vector<ApportionmentFunction*> functions,
+		std::vector<AggregationFunction*> aggregators,
+		std::vector<unsigned int> tryOns
+	);
+
+	void addApportionments(
+		std::vector<PopulationNode*> upperNodes,
+		std::vector<PopulationNode*> lowerNodes,
+		std::vector<unsigned int> counts,
+		std::vector<std::vector<ApportionmentFunction*>>
+			apportionments,
+		std::vector<std::vector<AggregationFunction*>> aggregators,
+		std::vector<std::vector<unsigned int>> tryOns
+	);
+
+	template <typename T>
+	std::vector<std::vector<std::vector<T>>> getNestedEmptyVector(
+		std::vector<unsigned int> counts,
+		unsigned int offset
+	);
+
 	public:
 	HierarchicalEA();
 	HierarchicalEA(unsigned int maxEpochs);
@@ -225,6 +248,26 @@ class HierarchicalEA {
 	);
 
 	template <typename NodeType, typename... params>
+	void addConstructiveTree(
+		PopulationFormula * formula,
+		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
+		std::vector<std::vector<std::vector<ObjectiveFunction*>>>
+			objectives,
+		std::vector<std::vector<std::vector<ApportionmentFunction*>>>
+			apportionments,
+		std::vector<std::vector<std::vector<AggregationFunction*>>>
+			aggregators,
+		std::vector<std::vector<std::vector<unsigned int>>> tryOns,
+		std::vector<std::vector<ToStringFunction*>> toStrings,
+		std::vector<std::vector<std::vector<EndCondition*>>>
+			conditions,
+		TreeBuilder treeSpec,
+		std::vector<std::vector<bool>> print,
+		std::vector<std::vector<bool>> end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
 	void addConstructiveLattice(
 		PopulationFormula * formula,
 		std::vector<std::vector<Locus*>> contextLoci,
@@ -303,4 +346,19 @@ std::vector<vec> HierarchicalEA::wrapForPass(
 		wrapped.push_back(vec(counts[i], original[i]));
 
 	return wrapped;
+}
+
+template <typename T>
+std::vector<std::vector<std::vector<T>>> HierarchicalEA::getNestedEmptyVector(
+	std::vector<unsigned int> counts,
+	unsigned int offset
+) {
+	std::vector<std::vector<std::vector<T>>> empty;
+	for (unsigned int i = offset; i < counts.size(); i++)
+		empty.push_back(std::vector<std::vector<T>>(
+			counts[i],
+			std::vector<T>()
+		));
+
+	return empty;
 }
