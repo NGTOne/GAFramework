@@ -7,7 +7,7 @@ LocusMultiplierPopFormula::LocusMultiplierPopFormula(unsigned int multiplier) {
 }
 
 unsigned int LocusMultiplierPopFormula::getPopulationSize(
-	unsigned int numLoci
+	std::vector<Locus*> loci
 ) {
-	return numLoci * this->multiplier;
+	return loci.size() * this->multiplier;
 }

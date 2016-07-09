@@ -9,5 +9,5 @@ class LocusMultiplierPopFormula: public PopulationFormula {
 
 	public:
 	LocusMultiplierPopFormula(unsigned int multiplier);
-	unsigned int getPopulationSize(unsigned int numLoci);
+	unsigned int getPopulationSize(std::vector<Locus*> loci);
 };

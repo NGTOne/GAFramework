@@ -7,6 +7,8 @@ LocusExponentPopFormula::LocusExponentPopFormula(unsigned int base) {
 	this->base = base;
 }
 
-unsigned int LocusExponentPopFormula::getPopulationSize(unsigned int numLoci) {
-	return std::pow(this->base, numLoci);
+unsigned int LocusExponentPopFormula::getPopulationSize(
+	std::vector<Locus*> loci
+) {
+	return std::pow(this->base, loci.size());
 }

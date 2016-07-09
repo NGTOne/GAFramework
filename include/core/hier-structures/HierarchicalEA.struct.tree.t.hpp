@@ -142,9 +142,7 @@ void HierarchicalEA::addConstructiveTree(
 
 			currentLevelNodes.push_back(
 				PopulationNodeFactory::createNode<NodeType>(
-					formula->getPopulationSize(
-						nodeLoci.size()
-					),
+					formula->getPopulationSize(nodeLoci),
 					nodeLoci,
 					objectives[i][k],
 					toStrings[i][k],

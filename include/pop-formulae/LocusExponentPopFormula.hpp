@@ -9,5 +9,5 @@ class LocusExponentPopFormula: public PopulationFormula {
 
 	public:
 	LocusExponentPopFormula(unsigned int base);
-	unsigned int getPopulationSize(unsigned int numLoci);
+	unsigned int getPopulationSize(std::vector<Locus*> loci);
 };
