@@ -87,6 +87,71 @@ void HierarchicalEA::addConstructiveTree(
 template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula * formula,
+	std::vector<std::vector<Locus*>> contextLoci,
+	ObjectiveFunction * topObjective,
+	std::vector<std::vector<ApportionmentFunction*>> apportionments,
+	std::vector<std::vector<AggregationFunction*>> aggregators,
+	std::vector<ToStringFunction*> toStrings,
+	std::vector<std::vector<EndCondition*>> conditions,
+	TreeBuilder treeSpec,
+	std::vector<bool> print,
+	std::vector<bool> end,
+	params... as
+) {
+	std::vector<unsigned int> counts = treeSpec.getLevelSizes();
+
+	this->addConstructiveTree<NodeType>(
+		formula,
+		this->wrapForPass(contextLoci, counts),
+		topObjective,
+		this->wrapForPass(apportionments, counts, 1),
+		this->wrapForPass(aggregators, counts, 1),
+		this->getNestedEmptyVector<unsigned int>(counts, 1),
+		this->wrapForPass(toStrings, counts),
+		this->wrapForPass(conditions, counts),
+		treeSpec,
+		this->wrapForPass(print, counts),
+		this->wrapForPass(end, counts),
+		as...
+	);
+}
+
+template <typename NodeType, typename... params>
+void HierarchicalEA::addConstructiveTree(
+	PopulationFormula * formula,
+	std::vector<std::vector<Locus*>> contextLoci,
+	ObjectiveFunction * topObjective,
+	std::vector<std::vector<ApportionmentFunction*>> apportionments,
+	std::vector<std::vector<AggregationFunction*>> aggregators,
+	std::vector<std::vector<unsigned int>> tryOns,
+	std::vector<ToStringFunction*> toStrings,
+	std::vector<std::vector<EndCondition*>> conditions,
+	TreeBuilder treeSpec,
+	std::vector<bool> print,
+	std::vector<bool> end,
+	params... as
+) {
+	std::vector<unsigned int> counts = treeSpec.getLevelSizes();
+
+	this->addConstructiveTree<NodeType>(
+		formula,
+		this->wrapForPass(contextLoci, counts),
+		topObjective,
+		this->wrapForPass(apportionments, counts, 1),
+		this->wrapForPass(aggregators, counts, 1),
+		this->wrapForPass(tryOns, counts, 1),
+		this->wrapForPass(toStrings, counts),
+		this->wrapForPass(conditions, counts),
+		treeSpec,
+		this->wrapForPass(print, counts),
+		this->wrapForPass(end, counts),
+		as...
+	);
+}
+
+template <typename NodeType, typename... params>
+void HierarchicalEA::addConstructiveTree(
+	PopulationFormula * formula,
 	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 	std::vector<std::vector<std::vector<ObjectiveFunction*>>> objectives,
 	std::vector<std::vector<ToStringFunction*>> toStrings,
@@ -105,6 +170,47 @@ void HierarchicalEA::addConstructiveTree(
 		this->getNestedEmptyVector<ApportionmentFunction*>(counts, 1),
 		this->getNestedEmptyVector<AggregationFunction*>(counts, 1),
 		this->getNestedEmptyVector<unsigned int>(counts, 1),
+		toStrings,
+		conditions,
+		treeSpec,
+		print,
+		end,
+		as...
+	);
+}
+
+template <typename NodeType, typename... params>
+void HierarchicalEA::addConstructiveTree(
+	PopulationFormula * formula,
+	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
+	ObjectiveFunction * topObjective,
+	std::vector<std::vector<std::vector<ApportionmentFunction*>>>
+		apportionments,
+	std::vector<std::vector<std::vector<AggregationFunction*>>>
+		aggregators,
+	std::vector<std::vector<std::vector<unsigned int>>> tryOns,
+	std::vector<std::vector<ToStringFunction*>> toStrings,
+	std::vector<std::vector<std::vector<EndCondition*>>> conditions,
+	TreeBuilder treeSpec,
+	std::vector<std::vector<bool>> print,
+	std::vector<std::vector<bool>> end,
+	params... as
+) {
+	std::vector<std::vector<
+		std::vector<ObjectiveFunction*>
+	>> objectives =	this->getNestedEmptyVector<ObjectiveFunction*>(
+		treeSpec.getLevelSizes()
+	);
+
+	objectives[0] = {{topObjective}};
+
+	this->addConstructiveTree<NodeType>(
+		formula,
+		contextLoci,
+		objectives,
+		apportionments,
+		aggregators,
+		tryOns,
 		toStrings,
 		conditions,
 		treeSpec,

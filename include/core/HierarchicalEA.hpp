@@ -54,7 +54,8 @@ class HierarchicalEA {
 	template<typename vec>
 	std::vector<vec> wrapForPass(
 		vec original,
-		std::vector<unsigned int> counts
+		std::vector<unsigned int> counts,
+		unsigned int offset
 	);
 
 	std::vector<ObjectiveFunction*> makeApportionments(
@@ -235,9 +236,61 @@ class HierarchicalEA {
 	template <typename NodeType, typename... params>
 	void addConstructiveTree(
 		PopulationFormula * formula,
+		std::vector<std::vector<Locus*>> contextLoci,
+		ObjectiveFunction * topObjective,
+		std::vector<std::vector<ApportionmentFunction*>>
+			apportionments,
+		std::vector<std::vector<AggregationFunction*>> aggregators,
+		std::vector<ToStringFunction*> toStrings,
+		std::vector<std::vector<EndCondition*>> conditions,
+		TreeBuilder treeSpec,
+		std::vector<bool> print,
+		std::vector<bool> end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	void addConstructiveTree(
+		PopulationFormula * formula,
+		std::vector<std::vector<Locus*>> contextLoci,
+		ObjectiveFunction * topObjective,
+		std::vector<std::vector<ApportionmentFunction*>>
+			apportionments,
+		std::vector<std::vector<AggregationFunction*>> aggregators,
+		std::vector<std::vector<unsigned int>> tryOns,
+		std::vector<ToStringFunction*> toStrings,
+		std::vector<std::vector<EndCondition*>> conditions,
+		TreeBuilder treeSpec,
+		std::vector<bool> print,
+		std::vector<bool> end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	void addConstructiveTree(
+		PopulationFormula * formula,
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 		std::vector<std::vector<std::vector<ObjectiveFunction*>>>
 			objectives,
+		std::vector<std::vector<ToStringFunction*>> toStrings,
+		std::vector<std::vector<std::vector<EndCondition*>>>
+			conditions,
+		TreeBuilder treeSpec,
+		std::vector<std::vector<bool>> print,
+		std::vector<std::vector<bool>> end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	void addConstructiveTree(
+		PopulationFormula * formula,
+		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
+		ObjectiveFunction * topObjective,
+		std::vector<std::vector<std::vector<ApportionmentFunction*>>>
+			apportionments,
+		std::vector<std::vector<std::vector<AggregationFunction*>>>
+			aggregators,
+		std::vector<std::vector<std::vector<unsigned int>>> tryOns,
 		std::vector<std::vector<ToStringFunction*>> toStrings,
 		std::vector<std::vector<std::vector<EndCondition*>>>
 			conditions,
@@ -339,10 +392,11 @@ bool HierarchicalEA::compareVectorLengths(vec initial, vec2 compare) {
 template <typename vec>
 std::vector<vec> HierarchicalEA::wrapForPass(
 	vec original,
-	std::vector<unsigned int> counts
+	std::vector<unsigned int> counts,
+	unsigned int offset = 0
 ) {
 	std::vector<vec> wrapped;
-	for (unsigned int i = 0; i < original.size(); i++)
+	for (unsigned int i = offset; i < original.size(); i++)
 		wrapped.push_back(vec(counts[i], original[i]));
 
 	return wrapped;
@@ -351,7 +405,7 @@ std::vector<vec> HierarchicalEA::wrapForPass(
 template <typename T>
 std::vector<std::vector<std::vector<T>>> HierarchicalEA::getNestedEmptyVector(
 	std::vector<unsigned int> counts,
-	unsigned int offset
+	unsigned int offset = 0
 ) {
 	std::vector<std::vector<std::vector<T>>> empty;
 	for (unsigned int i = offset; i < counts.size(); i++)
