@@ -70,7 +70,7 @@ void HierarchicalEA::addConstructiveTree(
 ) {
 	std::vector<unsigned int> counts = treeSpec.getLevelSizes();
 
-	this->addConstructiveLattice<NodeType>(
+	this->addConstructiveTree<NodeType>(
 		formula,
 		this->wrapForPass(contextLoci, counts),
 		this->wrapForPass(objectives, counts),
