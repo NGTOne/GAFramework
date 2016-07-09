@@ -22,5 +22,6 @@ class TreeBuilder {
 
 	unsigned int numLevels();
 	std::vector<unsigned int> getLevelSizes();
+	std::vector<unsigned int> getLevelCounts(unsigned int level);
 	std::vector<std::string> getLevel(unsigned int level);
 };

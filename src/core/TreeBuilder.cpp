@@ -83,6 +83,11 @@ std::vector<unsigned int> TreeBuilder::getLevelSizes() {
 	return sizes;
 }
 
+std::vector<unsigned int> TreeBuilder::getLevelCounts(unsigned int level) {
+	if (level >= this->numLevels()) throw ValueOutOfRangeException();
+	return this->counts[level];
+}
+
 std::vector<std::string> TreeBuilder::getLevel(unsigned int level) {
 	if (level >= this->numLevels()) throw ValueOutOfRangeException();
 	return this->names[level];
