@@ -8,46 +8,22 @@ using namespace std;
 
 int main(void) {
 	HierarchicalEA ea(100);
-	vector<Locus*> baseLoci(8, new IntLocus(0, 1));
-	vector<PopulationNode*> bottomNodes;
-	vector<Locus*> populationLoci;
 
-	for (int i = 0; i < 4; i++) {
-		stringstream name;
-		name << "P" << 5 - i;
-		bottomNodes.push_back(new EANode(
-			16,
-			baseLoci,
-			vector<ObjectiveFunction*>(
-				{new LongestFragmentFitness()}
-			),
-			new LongestFragmentToString(),
-			vector<EndCondition*>({new IterationCountEnd(100)}),
-			name.str(),
-			new GA(2, false, new TournamentSelection(0.95, 4)),
-			new NPointCrossover(2),
-			new UniformMutation(0.2)
-		));
-		populationLoci.push_back(new PopulationLocus(bottomNodes[i]));
-	}
-
-	ea.addNodes(bottomNodes, vector<bool>(4, false), vector<bool>(4, false));
-	ea.addNode(
-		new EANode(
-			8,
-			populationLoci,
-			vector<ObjectiveFunction*>(
-				{new LongestFragmentFitness()}
-			),
-			new LongestFragmentToString(),
-			vector<EndCondition*>({new IterationCountEnd(100)}),
-			"P1",
-			new GA(2, false, new TournamentSelection(0.95, 4)),
-			new NPointCrossover(2),
-			new UniformMutation(0.2)
-		),
-		true,
-		true
+	ea.addConstructiveTree<EANode>(
+		new LocusMultiplierPopFormula(2),
+		{{}, vector<Locus*>(8, new IntLocus(0, 1))},
+		{
+			{new LongestFragmentFitness()},
+			{new LongestFragmentFitness()}
+		},
+		{new LongestFragmentToString(), new LongestFragmentToString()},
+		{{new IterationCountEnd(100)}, {new IterationCountEnd(100)}},
+		TreeBuilder("P1").addSubNodes("P1", {"P2", "P3", "P4", "P5"}),
+		{true, false},
+		{true, false},
+		new GA(2, false, new TournamentSelection(0.95, 4)),
+		new NPointCrossover(2),
+		new UniformMutation(0.2)
 	);
 
 	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});
