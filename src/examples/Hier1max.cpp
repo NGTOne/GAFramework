@@ -12,38 +12,18 @@ int main(void) {
 	vector<PopulationNode*> bottomNodes;
 	vector<Locus*> populationLoci;
 
-	for (int i = 0; i < 4; i++) {
-		stringstream name;
-		name << "P" << 5 - i;
-		bottomNodes.push_back(new EANode(
-			16,
-			baseLoci,
-			vector<ObjectiveFunction*>({new OneMaxFitness()}),
-			new OneMaxToString(),
-			vector<EndCondition*>({new IterationCountEnd(100)}),
-			name.str(),
-			new GA(2, false, new TournamentSelection(0.95, 4)),
-			new NPointCrossover(2),
-			new UniformMutation(0.2)
-		));
-		populationLoci.push_back(new PopulationLocus(bottomNodes[i]));
-	}
-
-	ea.addNodes(bottomNodes, vector<bool>(4, false), vector<bool>(4, false));
-	ea.addNode(
-		new EANode(
-			8,
-			populationLoci,
-			vector<ObjectiveFunction*>({new OneMaxFitness()}),
-			new OneMaxToString(),
-			vector<EndCondition*>({new IterationCountEnd(100)}),
-			"P1",
-			new GA(2, false, new TournamentSelection(0.95, 4)),
-			new NPointCrossover(2),
-			new UniformMutation(0.2)
-		),
-		true,
-		true
+	ea.addConstructiveTree<EANode>(
+		new LocusMultiplierPopFormula(2),
+		{{}, baseLoci},
+		{{new OneMaxFitness()}},
+		{new OneMaxToString()},
+		{{new IterationCountEnd(100)}},
+		TreeBuilder("P1").addSubNodes("P1", {"P2", "P3", "P4", "P5"}),
+		{true, false},
+		{true, false},
+		new GA(2, false, new TournamentSelection(0.95, 4)),
+		new NPointCrossover(2),
+		new UniformMutation(0.2)
 	);
 
 	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});
