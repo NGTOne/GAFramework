@@ -15,9 +15,9 @@ int main(void) {
 	ea.addConstructiveTree<EANode>(
 		new LocusMultiplierPopFormula(2),
 		{{}, baseLoci},
-		{{new OneMaxFitness()}},
-		{new OneMaxToString()},
-		{{new IterationCountEnd(100)}},
+		{{new OneMaxFitness()}, {new OneMaxFitness()}},
+		{new OneMaxToString(), new OneMaxToString()},
+		{{new IterationCountEnd(100)}, {new IterationCountEnd(100)}},
 		TreeBuilder("P1").addSubNodes("P1", {"P2", "P3", "P4", "P5"}),
 		{true, false},
 		{true, false},
