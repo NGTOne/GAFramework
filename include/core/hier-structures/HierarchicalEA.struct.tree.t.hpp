@@ -107,7 +107,7 @@ void HierarchicalEA::addConstructiveTree(
 
 	std::vector<PopulationNode*> previousLevelNodes, currentLevelNodes;
 	std::vector<Locus*> nodeLoci;
-	for (unsigned int i = treeSpec.numLevels() - 1; i >= 0; i++) {
+	for (unsigned int i = treeSpec.numLevels() - 1; i >= 0; i--) {
 		std::vector<std::string> names = treeSpec.getLevel(i);
 		std::vector<unsigned int> counts = treeSpec.getLevelCounts(i);
 		unsigned int currentOffset = 0;
