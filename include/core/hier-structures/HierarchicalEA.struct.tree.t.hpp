@@ -159,4 +159,5 @@ void HierarchicalEA::addConstructiveTree(
 		previousLevelNodes = currentLevelNodes;
 		currentLevelNodes.clear();
 	}
+	delete(formula); // TODO: Find a better way to deal with this
 }

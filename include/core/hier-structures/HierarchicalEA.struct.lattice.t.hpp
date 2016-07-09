@@ -168,4 +168,5 @@ void HierarchicalEA::addConstructiveLattice(
 	// having dangling loci pointing to them that won't get dealloc'd later
 	for (unsigned int i = 0; i < levelLoci.size(); i++)
 		delete(levelLoci[i]);
+	delete(formula); // TODO: Find a better way to deal with this
 }
