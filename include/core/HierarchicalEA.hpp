@@ -6,6 +6,7 @@
 #include "AggregationFunction.hpp"
 #include "ObjectiveFunction.hpp"
 #include "ToStringFunction.hpp"
+#include "heir-structures/TreeBuilder.hpp"
 #include <vector>
 #include <tuple>
 #include <string>
@@ -161,6 +162,46 @@ class HierarchicalEA {
 		unsigned int n,
 		TranslationFunction toTranslate,
 		TranslationFunction fromTranslate
+	);
+
+	template <typename NodeType, typename... params>
+	void addConstructiveTree(
+		PopulationFormula * formula,
+		std::vector<std::vector<Locus*>> contextLoci,
+		std::vector<ToStringFunction*> toStrings,
+		std::vector<std::vector<EndCondition*>> conditions,
+		TreeBuilder treeSpec,
+		std::vector<bool> print,
+		std::vector<bool> end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	void addConstructiveTree(
+		PopulationFormula * formula,
+		std::vector<std::vector<Locus*>> contextLoci,
+		std::vector<std::vector<ObjectiveFunction*>> objectives,
+		std::vector<ToStringFunction*> toStrings,
+		std::vector<std::vector<EndCondition*>> conditions,
+		TreeBuilder spec,
+		std::vector<bool> print,
+		std::vector<bool> end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	void addConstructiveTree(
+		PopulationFormula * formula,
+		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
+		std::vector<std::vector<std::vector<ObjectiveFunction*>>>
+			objectives,
+		std::vector<std::vector<ToStringFunction*>> toStrings,
+		std::vector<std::vector<std::vector<EndCondition*>>>
+			conditions,
+		TreeBuilder spec,
+		std::vector<std::vector<bool>> print,
+		std::vector<std::vector<bool>> end,
+		params... as
 	);
 
 	template <typename NodeType, typename... params>
