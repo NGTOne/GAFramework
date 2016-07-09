@@ -42,7 +42,14 @@ class HierarchicalEA {
 	bool done(unsigned int currentEpoch);
 
 	template <typename vec, typename vec2, typename... params>
-	bool compareVectorLengths(vec initial, vec2 compare, params... vectors);
+	bool compareVectorLengths(
+		vec initial,
+		vec2 compare,
+		params... vectors
+	);
+
+	template <typename vec, typename vec2>
+	bool compareVectorLengths(vec initial, vec2 compare);
 
 	template<typename vec>
 	std::vector<vec> wrapForPass(
@@ -278,10 +285,12 @@ bool HierarchicalEA::compareVectorLengths(
 	params... vectors
 ) {
 	if (initial.size() != compare.size()) return false;
-	if (sizeof...(vectors) >= 1)
-		return this->compareVectorLengths(initial, vectors...);
+	return this->compareVectorLengths(initial, vectors...);
+}
 
-	return true;
+template <typename vec, typename vec2>
+bool HierarchicalEA::compareVectorLengths(vec initial, vec2 compare) {
+	return initial.size() == compare.size();
 }
 
 template <typename vec>
