@@ -143,7 +143,7 @@ void HierarchicalEA::addConstructiveTree(
 					objectives[i][k],
 					toStrings[i][k],
 					conditions[i][k],
-					names[i][k],
+					names[k],
 					1,
 					as...
 				)
