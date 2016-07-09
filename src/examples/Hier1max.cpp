@@ -8,13 +8,10 @@ using namespace std;
 
 int main(void) {
 	HierarchicalEA ea(100);
-	vector<Locus*> baseLoci(8, new IntLocus(0, 1));
-	vector<PopulationNode*> bottomNodes;
-	vector<Locus*> populationLoci;
 
 	ea.addConstructiveTree<EANode>(
 		new LocusMultiplierPopFormula(2),
-		{{}, baseLoci},
+		{{}, vector<Locus*>(8, new IntLocus(0, 1))},
 		{{new OneMaxFitness()}, {new OneMaxFitness()}},
 		{new OneMaxToString(), new OneMaxToString()},
 		{{new IterationCountEnd(100)}, {new IterationCountEnd(100)}},
