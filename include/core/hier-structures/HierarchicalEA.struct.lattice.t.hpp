@@ -34,6 +34,34 @@ template<typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveLattice(
 	PopulationFormula * formula,
 	std::vector<std::vector<Locus*>> contextLoci,
+	ObjectiveFunction * globalObjective,
+	std::vector<ToStringFunction*> toStrings,
+	std::vector<std::vector<EndCondition*>> conditions,
+	std::vector<std::vector<std::string>> names,
+	std::vector<bool> print,
+	std::vector<bool> end,
+	params... as
+) {
+	this->addConstructiveLattice<NodeType>(
+		formula,
+		contextLoci,
+		std::vector<std::vector<ObjectiveFunction*>>(
+			names.size(),
+			std::vector<ObjectiveFunction*>(1, globalObjective)
+		),
+		toStrings,
+		conditions,
+		names,
+		print,
+		end,
+		as...
+	);
+}
+
+template<typename NodeType, typename... params>
+void HierarchicalEA::addConstructiveLattice(
+	PopulationFormula * formula,
+	std::vector<std::vector<Locus*>> contextLoci,
 	std::vector<std::vector<ObjectiveFunction*>> objectives,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,

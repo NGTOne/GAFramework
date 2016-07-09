@@ -32,6 +32,34 @@ template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula * formula,
 	std::vector<std::vector<Locus*>> contextLoci,
+	ObjectiveFunction * globalObjective,
+	std::vector<ToStringFunction*> toStrings,
+	std::vector<std::vector<EndCondition*>> conditions,
+	TreeBuilder treeSpec,
+	std::vector<bool> print,
+	std::vector<bool> end,
+	params... as
+) {
+	this->addConstructiveTree<NodeType>(
+		formula,
+		contextLoci,
+		std::vector<std::vector<ObjectiveFunction*>>(
+			treeSpec.numLevels(),
+			std::vector<ObjectiveFunction*>(1, globalObjective)
+		),
+		toStrings,
+		conditions,
+		treeSpec,
+		print,
+		end,
+		as...
+	);
+}
+
+template <typename NodeType, typename... params>
+void HierarchicalEA::addConstructiveTree(
+	PopulationFormula * formula,
+	std::vector<std::vector<Locus*>> contextLoci,
 	std::vector<std::vector<ObjectiveFunction*>> objectives,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,

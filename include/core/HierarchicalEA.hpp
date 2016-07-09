@@ -180,6 +180,19 @@ class HierarchicalEA {
 	void addConstructiveTree(
 		PopulationFormula * formula,
 		std::vector<std::vector<Locus*>> contextLoci,
+		ObjectiveFunction * globalObjective,
+		std::vector<ToStringFunction*> toStrings,
+		std::vector<std::vector<EndCondition*>> conditions,
+		TreeBuilder treeSpec,
+		std::vector<bool> print,
+		std::vector<bool> end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	void addConstructiveTree(
+		PopulationFormula * formula,
+		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<std::vector<ObjectiveFunction*>> objectives,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
@@ -208,6 +221,19 @@ class HierarchicalEA {
 	void addConstructiveLattice(
 		PopulationFormula * formula,
 		std::vector<std::vector<Locus*>> contextLoci,
+		std::vector<ToStringFunction*> toStrings,
+		std::vector<std::vector<EndCondition*>> conditions,
+		std::vector<std::vector<std::string>> names,
+		std::vector<bool> print,
+		std::vector<bool> end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	void addConstructiveLattice(
+		PopulationFormula * formula,
+		std::vector<std::vector<Locus*>> contextLoci,
+		ObjectiveFunction * globalObjective,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
 		std::vector<std::vector<std::string>> names,
