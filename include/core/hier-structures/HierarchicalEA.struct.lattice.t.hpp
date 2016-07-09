@@ -17,7 +17,10 @@ void HierarchicalEA::addConstructiveLattice(
 	this->addConstructiveLattice<NodeType>(
 		formula,
 		contextLoci,
-		std::vector<ObjectiveFunction*>({}),
+		std::vector<std::vector<ObjectiveFunction*>>(
+			names.size(),
+			std::vector<ObjectiveFunction*>()
+		),
 		toStrings,
 		conditions,
 		names,
@@ -70,14 +73,13 @@ void HierarchicalEA::addConstructiveLattice(
 ) {
 	if (!this->compareVectorLengths(
 		contextLoci,
+		objectives,
 		toStrings,
 		conditions,
 		names,
 		print,
 		end
 	)) throw MismatchedCountsException();
-	if (!objectives.empty() && objectives.size() != names.size())
-		throw MismatchedCountsException();
 
 	// TODO TODO: Refactor this
 	std::vector<Locus*> levelLoci;
@@ -85,16 +87,13 @@ void HierarchicalEA::addConstructiveLattice(
 	for (unsigned int i = names.size() - 1; i >= 0; i++) {
 		if (!this->compareVectorLengths(
 			contextLoci[i],
+			objectives[i],
 			toStrings[i],
 			conditions[i],
 			names[i],
 			print[i],
 			end[i]
 		)) throw MismatchedCountsException();
-		if (
-			!objectives.empty()
-			&& objectives[i].size() != names[i].size()
-		) throw MismatchedCountsException();
 
 		levelNodes.clear();
 		std::vector<Locus*> nodeLoci;
@@ -117,11 +116,7 @@ void HierarchicalEA::addConstructiveLattice(
 						nodeLoci.size()
 					),
 					nodeLoci,
-					(!objectives.empty()
-						? objectives[i][k]
-						: std::vector<
-							ObjectiveFunction*
-						>({})),
+					objectives[i][k],
 					toStrings[i][k],
 					conditions[i][k],
 					names[i][k],
