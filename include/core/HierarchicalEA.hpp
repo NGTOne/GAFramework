@@ -246,7 +246,7 @@ class HierarchicalEA {
 	void addConstructiveTree(
 		PopulationFormula * formula,
 		std::vector<std::vector<Locus*>> contextLoci,
-		ObjectiveFunction * topObjective,
+		std::vector<ObjectiveFunction*> topObjectives,
 		std::vector<std::vector<ApportionmentFunction*>>
 			apportionments,
 		std::vector<std::vector<AggregationFunction*>> aggregators,
@@ -262,7 +262,7 @@ class HierarchicalEA {
 	void addConstructiveTree(
 		PopulationFormula * formula,
 		std::vector<std::vector<Locus*>> contextLoci,
-		ObjectiveFunction * topObjective,
+		std::vector<ObjectiveFunction*> topObjectives,
 		std::vector<std::vector<ApportionmentFunction*>>
 			apportionments,
 		std::vector<std::vector<AggregationFunction*>> aggregators,
@@ -294,7 +294,7 @@ class HierarchicalEA {
 	void addConstructiveTree(
 		PopulationFormula * formula,
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
-		ObjectiveFunction * topObjective,
+		std::vector<ObjectiveFunction*> topObjectives,
 		std::vector<std::vector<std::vector<ApportionmentFunction*>>>
 			apportionments,
 		std::vector<std::vector<std::vector<AggregationFunction*>>>

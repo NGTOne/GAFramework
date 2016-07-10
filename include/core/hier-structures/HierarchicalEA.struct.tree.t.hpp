@@ -88,7 +88,7 @@ template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula * formula,
 	std::vector<std::vector<Locus*>> contextLoci,
-	ObjectiveFunction * topObjective,
+	std::vector<ObjectiveFunction*> topObjectives,
 	std::vector<std::vector<ApportionmentFunction*>> apportionments,
 	std::vector<std::vector<AggregationFunction*>> aggregators,
 	std::vector<ToStringFunction*> toStrings,
@@ -103,7 +103,7 @@ void HierarchicalEA::addConstructiveTree(
 	this->addConstructiveTree<NodeType>(
 		formula,
 		this->wrapForPass(contextLoci, counts),
-		topObjective,
+		topObjectives,
 		this->wrapForPass(apportionments, counts, 1),
 		this->wrapForPass(aggregators, counts, 1),
 		this->getNestedEmptyVector<unsigned int>(counts, 1),
@@ -120,7 +120,7 @@ template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula * formula,
 	std::vector<std::vector<Locus*>> contextLoci,
-	ObjectiveFunction * topObjective,
+	std::vector<ObjectiveFunction *> topObjectives,
 	std::vector<std::vector<ApportionmentFunction*>> apportionments,
 	std::vector<std::vector<AggregationFunction*>> aggregators,
 	std::vector<std::vector<unsigned int>> tryOns,
@@ -136,7 +136,7 @@ void HierarchicalEA::addConstructiveTree(
 	this->addConstructiveTree<NodeType>(
 		formula,
 		this->wrapForPass(contextLoci, counts),
-		topObjective,
+		topObjectives,
 		this->wrapForPass(apportionments, counts, 1),
 		this->wrapForPass(aggregators, counts, 1),
 		this->wrapForPass(tryOns, counts, 1),
@@ -183,7 +183,7 @@ template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula * formula,
 	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
-	ObjectiveFunction * topObjective,
+	std::vector<ObjectiveFunction *> topObjectives,
 	std::vector<std::vector<std::vector<ApportionmentFunction*>>>
 		apportionments,
 	std::vector<std::vector<std::vector<AggregationFunction*>>>
@@ -202,7 +202,7 @@ void HierarchicalEA::addConstructiveTree(
 		treeSpec.getLevelSizes()
 	);
 
-	objectives[0] = {{topObjective}};
+	objectives[0] = {topObjectives};
 
 	this->addConstructiveTree<NodeType>(
 		formula,
