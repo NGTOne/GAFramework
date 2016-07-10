@@ -91,6 +91,7 @@ void PopulationNode::createLoci(vector<Locus*> loci) {
 	for (unsigned int i = 0; i < this->initialPopulationSize; i++)
 		this->population.push_back(new Genome(loci, this->nodeName));
 	this->evaluateFitnesses();
+	this->canonicalLoci = loci;
 }
 
 void PopulationNode::addObjective(ObjectiveFunction * objective) {
@@ -134,10 +135,8 @@ void PopulationNode::setEndConditions(vector<EndCondition*> conditions) {
 }
 
 void PopulationNode::addLoci(vector<Locus*> loci) {
-	vector<Locus*> templateLoci = this->population[0]->getLoci();
-	for (unsigned int i = 0; i < loci.size(); i++)
-		templateLoci.push_back(loci[i]);
-
+	std::vector<Locus*> templateLoci = this->canonicalLoci;
+	templateLoci.insert(templateLoci.end(), loci.begin(), loci.end());
 	this->createLoci(templateLoci);
 }
 
@@ -250,23 +249,24 @@ string PopulationNode::toString() {
 }
 
 set<Locus*> PopulationNode::getLoci() {
-	set<Locus*> loci;
-	for (unsigned int i = 0; i < this->population.size(); i++) {
-		vector<Locus*> temp = this->population[i]->getLoci();
-		loci.insert(temp.begin(), temp.end());
-	}
-
-	return loci;
+	return std::set<Locus*>(
+		this->canonicalLoci.begin(),
+		this->canonicalLoci.end()
+	);
 }
 
 set<Locus*> PopulationNode::getConstructiveLoci() {
 	set<Locus*> loci;
-	for (unsigned int i = 0; i < this->population.size(); i++) {
-		set<Locus*> temp = this->population[i]->getConstructiveLoci();
-		loci.insert(temp.begin(), temp.end());
-	}
+	for (unsigned int i = 0; i < this->canonicalLoci.size(); i++)
+		if (this->canonicalLoci[i]->isConstructive()) loci.insert(
+			this->canonicalLoci[i]
+		);
 
 	return loci;
+}
+
+std::vector<Locus*> PopulationNode::getCanonicalLoci() {
+	return this->canonicalLoci;
 }
 
 vector<EndCondition*> PopulationNode::getConditions() {

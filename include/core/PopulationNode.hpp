@@ -21,6 +21,7 @@ class PopulationNode {
 	unsigned int currentIteration;
 	unsigned int accelerationFactor;
 	unsigned int initialPopulationSize;
+	std::vector<Locus*> canonicalLoci;
 	std::vector<EndCondition *> conditions;
 
 	std::vector<ObjectiveFunction*> objectives;
@@ -103,6 +104,7 @@ class PopulationNode {
 
 	std::set<Locus*> getLoci();
 	std::set<Locus*> getConstructiveLoci();
+	std::vector<Locus*> getCanonicalLoci();
 	std::vector<EndCondition*> getConditions();
 	std::vector<ObjectiveFunction*> getObjectives();
 	ToStringFunction * getToString();
