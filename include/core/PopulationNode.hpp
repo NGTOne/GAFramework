@@ -109,4 +109,6 @@ class PopulationNode {
 	std::vector<ObjectiveFunction*> getObjectives();
 	ToStringFunction * getToString();
 	float getFitnessAtIndex(unsigned int index);
+
+	virtual PopulationNode * duplicate(std::string newNodeName)=0;
 };
