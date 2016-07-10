@@ -99,3 +99,18 @@ CrossoverOperation * EANode::getCrossover() {
 MutationOperation * EANode::getMutation() {
 	return this->mutation;
 }
+
+PopulationNode * EANode::duplicate(std::string newNodeName) {
+	return new EANode(
+		this->populationSize(),
+		this->getCanonicalLoci(),
+		this->getObjectives(),
+		this->getToString(),
+		this->getConditions(),
+		newNodeName,
+		this->accelerationFactor,
+		this->getSystem(),
+		this->getCrossover(),
+		this->getMutation()
+	);
+}

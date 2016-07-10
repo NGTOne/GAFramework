@@ -250,3 +250,17 @@ node_type_t SANode::type() {
 TemperatureSchedule * SANode::getSchedule() {
 	return this->schedule;
 }
+
+PopulationNode * SANode::duplicate(std::string newNodeName) {
+	return new SANode(
+		this->populationSize(),
+		this->getCanonicalLoci(),
+		this->getObjectives(),
+		this->getToString(),
+		this->getConditions(),
+		newNodeName,
+		this->accelerationFactor,
+		this->getSchedule(),
+		this->maximize
+	);
+}

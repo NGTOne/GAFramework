@@ -19,5 +19,8 @@ class NonOptimizingNode : public PopulationNode {
 	);
 
 	void nextIteration();
+	std::vector<Genome*> getNextPopulation();
 	node_type_t type();
+
+	PopulationNode * duplicate(std::string newNodeName);
 };

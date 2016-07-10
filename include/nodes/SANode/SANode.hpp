@@ -77,4 +77,6 @@ class SANode : public PopulationNode {
 	node_type_t type();
 
 	TemperatureSchedule * getSchedule();
+
+	PopulationNode * duplicate(std::string newNodeName);
 };

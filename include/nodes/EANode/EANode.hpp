@@ -54,4 +54,6 @@ class EANode : public PopulationNode {
 	EvolutionarySystem * getSystem();
 	CrossoverOperation * getCrossover();
 	MutationOperation * getMutation();
+
+	PopulationNode * duplicate(std::string newNodeName);
 };
