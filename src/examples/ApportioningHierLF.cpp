@@ -12,7 +12,7 @@ int main(void) {
 	ea.addConstructiveTree<EANode>(
 		new LocusMultiplierPopFormula(2),
 		{{}, vector<Locus*>(8, new IntLocus(0, 1))},
-		new LongestFragmentFitness(),
+		{new LongestFragmentFitness()},
 		{{new LongestFragmentApportionment()}},
 		{{new BestOfAggregator()}},
 		{new LongestFragmentToString(), new LongestFragmentToString()},
