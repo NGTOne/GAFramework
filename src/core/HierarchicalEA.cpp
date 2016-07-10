@@ -293,17 +293,30 @@ void HierarchicalEA::addApportionments(
 	std::vector<std::vector<AggregationFunction*>> aggregators,
 	std::vector<std::vector<unsigned int>> tryOns
 ) {
-	if (!this->compareVectorLengths(apportionments, aggregators, tryOns))
-		throw MismatchedCountsException();
+	if (!this->compareVectorLengths(
+		apportionments,
+		aggregators,
+		tryOns,
+		lowerNodes
+	)) throw MismatchedCountsException();
 
-	for (unsigned int i = 0; i < upperNodes.size(); i++)
-		for (unsigned int k = 0; k < lowerNodes.size(); k++)
-			lowerNodes[k]->addObjectives(this->makeApportionments(
-				upperNodes[i],
-				apportionments[k],
-				aggregators[k],
-				tryOns[k]
+	for (unsigned int i = 0; i < lowerNodes.size(); i++) {
+		if (!this->compareVectorLengths(
+			apportionments[i],
+			aggregators[i],
+			tryOns[i],
+			upperNodes
+		)) throw MismatchedCountsException();
+
+		for (unsigned int k = 0; k < apportionments[i].size(); k++) {
+			lowerNodes[i]->addObjective(new Apportionment(
+				upperNodes[k],
+				apportionments[i][k],
+				aggregators[i][k],
+				tryOns[i][k]
 			));
+		}
+	}
 }
 
 void HierarchicalEA::addApportionments(
