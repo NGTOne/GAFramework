@@ -90,6 +90,75 @@ void HierarchicalEA::addConstructiveLattice(
 template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveLattice(
 	PopulationFormula * formula,
+	std::vector<std::vector<Locus*>> contextLoci,
+	std::vector<ObjectiveFunction*> topObjectives,
+	std::vector<std::vector<ApportionmentFunction*>> apportionments,
+	std::vector<std::vector<AggregationFunction*>> aggregators,
+	std::vector<ToStringFunction*> toStrings,
+	std::vector<std::vector<EndCondition*>> conditions,
+	std::vector<std::vector<std::string>> names,
+	std::vector<bool> print,
+	std::vector<bool> end,
+	params... as
+) {
+	std::vector<unsigned int> counts;
+	for (unsigned int i = 0; i < names.size(); i++)
+		counts.push_back(names[i].size());
+
+	this->addConstructiveLattice<NodeType>(
+		formula,
+		this->wrapForPass(contextLoci, counts),
+		topObjectives,
+		this->wrapForPass(apportionments, counts, 1),
+		this->wrapForPass(aggregators, counts, 1),
+		this->getNestedEmptyVector<unsigned int>(counts, 1),
+		this->wrapForPass(toStrings, counts),
+		this->wrapForPass(conditions, counts),
+		names,
+		this->wrapForPass(print, counts),
+		this->wrapForPass(end, counts),
+		as...
+	);
+}
+
+template <typename NodeType, typename... params>
+void HierarchicalEA::addConstructiveLattice(
+	PopulationFormula * formula,
+	std::vector<std::vector<Locus*>> contextLoci,
+	std::vector<ObjectiveFunction *> topObjectives,
+	std::vector<std::vector<ApportionmentFunction*>> apportionments,
+	std::vector<std::vector<AggregationFunction*>> aggregators,
+	std::vector<std::vector<unsigned int>> tryOns,
+	std::vector<ToStringFunction*> toStrings,
+	std::vector<std::vector<EndCondition*>> conditions,
+	std::vector<std::vector<std::string>> names,
+	std::vector<bool> print,
+	std::vector<bool> end,
+	params... as
+) {
+	std::vector<unsigned int> counts;
+	for (unsigned int i = 0; i < names.size(); i++)
+		counts.push_back(names[i].size());
+
+	this->addConstructiveLattice<NodeType>(
+		formula,
+		this->wrapForPass(contextLoci, counts),
+		topObjectives,
+		this->wrapForPass(apportionments, counts, 1),
+		this->wrapForPass(aggregators, counts, 1),
+		this->wrapForPass(tryOns, counts, 1),
+		this->wrapForPass(toStrings, counts),
+		this->wrapForPass(conditions, counts),
+		names,
+		this->wrapForPass(print, counts),
+		this->wrapForPass(end, counts),
+		as...
+	);
+}
+
+template <typename NodeType, typename... params>
+void HierarchicalEA::addConstructiveLattice(
+	PopulationFormula * formula,
 	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 	std::vector<std::vector<std::vector<ObjectiveFunction*>>> objectives,
 	std::vector<std::vector<ToStringFunction*>> toStrings,
@@ -110,6 +179,52 @@ void HierarchicalEA::addConstructiveLattice(
 		this->getNestedEmptyVector<ApportionmentFunction*>(counts),
 		this->getNestedEmptyVector<AggregationFunction*>(counts),
 		this->getNestedEmptyVector<unsigned int>(counts),
+		toStrings,
+		conditions,
+		names,
+		print,
+		end,
+		as...
+	);
+}
+
+template <typename NodeType, typename... params>
+void HierarchicalEA::addConstructiveLattice(
+	PopulationFormula * formula,
+	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
+	std::vector<ObjectiveFunction *> topObjectives,
+	std::vector<std::vector<std::vector<ApportionmentFunction*>>>
+		apportionments,
+	std::vector<std::vector<std::vector<AggregationFunction*>>>
+		aggregators,
+	std::vector<std::vector<std::vector<unsigned int>>> tryOns,
+	std::vector<std::vector<ToStringFunction*>> toStrings,
+	std::vector<std::vector<std::vector<EndCondition*>>> conditions,
+	std::vector<std::vector<std::string>> names,
+	std::vector<std::vector<bool>> print,
+	std::vector<std::vector<bool>> end,
+	params... as
+) {
+	std::vector<unsigned int> counts;
+	for (unsigned int i = 1; i < names.size(); i++)
+		counts.push_back(names[i].size());
+
+	std::vector<std::vector<
+		std::vector<ObjectiveFunction*>
+	>> objectives =	this->getNestedEmptyVector<ObjectiveFunction*>(counts);
+
+	objectives[0] =	std::vector<std::vector<ObjectiveFunction*>>(
+		names[0].size(),
+		objectives
+	);
+
+	this->addConstructiveLattice<NodeType>(
+		formula,
+		contextLoci,
+		objectives,
+		apportionments,
+		aggregators,
+		tryOns,
 		toStrings,
 		conditions,
 		names,
