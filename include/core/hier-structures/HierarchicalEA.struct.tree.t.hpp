@@ -296,7 +296,7 @@ void HierarchicalEA::addConstructiveTree(
 			);
 		}
 
-		if (i < treeSpec.numLevels() - 1)
+		if (!previousLevelNodes.empty())
 			this->addApportionments(
 				currentLevelNodes,
 				previousLevelNodes,
