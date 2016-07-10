@@ -289,6 +289,26 @@ std::vector<ObjectiveFunction*> HierarchicalEA::makeApportionments(
 void HierarchicalEA::addApportionments(
 	std::vector<PopulationNode*> upperNodes,
 	std::vector<PopulationNode*> lowerNodes,
+	std::vector<std::vector<ApportionmentFunction*>> apportionments,
+	std::vector<std::vector<AggregationFunction*>> aggregators,
+	std::vector<std::vector<unsigned int>> tryOns
+) {
+	if (!this->compareVectorLengths(apportionments, aggregators, tryOns))
+		throw MismatchedCountsException();
+
+	for (unsigned int i = 0; i < upperNodes.size(); i++)
+		for (unsigned int k = 0; k < lowerNodes.size(); k++)
+			lowerNodes[k]->addObjectives(this->makeApportionments(
+				upperNodes[i],
+				apportionments[k],
+				aggregators[k],
+				tryOns[k]
+			));
+}
+
+void HierarchicalEA::addApportionments(
+	std::vector<PopulationNode*> upperNodes,
+	std::vector<PopulationNode*> lowerNodes,
 	std::vector<unsigned int> counts,
 	std::vector<std::vector<ApportionmentFunction*>> apportionments,
 	std::vector<std::vector<AggregationFunction*>> aggregators,

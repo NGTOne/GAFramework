@@ -68,6 +68,15 @@ class HierarchicalEA {
 	void addApportionments(
 		std::vector<PopulationNode*> upperNodes,
 		std::vector<PopulationNode*> lowerNodes,
+		std::vector<std::vector<ApportionmentFunction*>>
+			apportionments,
+		std::vector<std::vector<AggregationFunction*>> aggregators,
+		std::vector<std::vector<unsigned int>> tryOns
+	);
+
+	void addApportionments(
+		std::vector<PopulationNode*> upperNodes,
+		std::vector<PopulationNode*> lowerNodes,
 		std::vector<unsigned int> counts,
 		std::vector<std::vector<ApportionmentFunction*>>
 			apportionments,
@@ -364,6 +373,26 @@ class HierarchicalEA {
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 		std::vector<std::vector<std::vector<ObjectiveFunction*>>>
 			objectives,
+		std::vector<std::vector<ToStringFunction*>> toStrings,
+		std::vector<std::vector<std::vector<EndCondition*>>>
+			conditions,
+		std::vector<std::vector<std::string>> names,
+		std::vector<std::vector<bool>> print,
+		std::vector<std::vector<bool>> end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	void addConstructiveLattice(
+		PopulationFormula * formula,
+		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
+		std::vector<std::vector<std::vector<ObjectiveFunction*>>>
+			objectives,
+		std::vector<std::vector<std::vector<ApportionmentFunction*>>>
+			apportionments,
+		std::vector<std::vector<std::vector<AggregationFunction*>>>
+			aggregators,
+		std::vector<std::vector<std::vector<unsigned int>>> tryOns,
 		std::vector<std::vector<ToStringFunction*>> toStrings,
 		std::vector<std::vector<std::vector<EndCondition*>>>
 			conditions,
