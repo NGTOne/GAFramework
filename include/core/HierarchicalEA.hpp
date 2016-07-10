@@ -396,8 +396,8 @@ std::vector<vec> HierarchicalEA::wrapForPass(
 	unsigned int offset = 0
 ) {
 	std::vector<vec> wrapped;
-	for (unsigned int i = offset; i < original.size(); i++)
-		wrapped.push_back(vec(counts[i], original[i]));
+	for (unsigned int i = offset; i < counts.size(); i++)
+		wrapped.push_back(vec(counts[i], original[i-offset]));
 
 	return wrapped;
 }
