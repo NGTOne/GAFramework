@@ -210,6 +210,19 @@ class HierarchicalEA {
 		TranslationFunction fromTranslate
 	);
 
+	void addMigratoryRing(
+		std::vector<std::string> nodes,
+		bool bidirectional,
+		unsigned int n
+	);
+
+	void addMigratoryRing(
+		std::string originalNode,
+		std::vector<std::string> newNodeNames,
+		bool bidirectional,
+		unsigned int n
+	);
+
 	template <typename NodeType, typename... params>
 	void addConstructiveTree(
 		PopulationFormula * formula,

@@ -296,6 +296,44 @@ void HierarchicalEA::addMigratoryRelationship(
 	));
 }
 
+void HierarchicalEA::addMigratoryRing(
+	std::vector<std::string> nodes,
+	bool bidirectional,
+	unsigned int n
+) {
+	for (unsigned int i = 0; i < nodes.size() - 1; i++)
+		this->addMigratoryRelationship(
+			nodes[i],
+			nodes[i+1],
+			bidirectional,
+			n
+		);
+
+	this->addMigratoryRelationship(
+		nodes[nodes.size()-1],
+		nodes[0],
+		bidirectional,
+		n
+	);
+}
+
+void HierarchicalEA::addMigratoryRing(
+	std::string originalNode,
+	std::vector<std::string> newNodeNames,
+	bool bidirectional,
+	unsigned int n
+) {
+	this->duplicateNode(originalNode, newNodeNames);
+	std::vector<std::string> allNodes({originalNode});
+	allNodes.insert(
+		allNodes.end(),
+		newNodeNames.begin(),
+		newNodeNames.end()
+	);
+
+	this->addMigratoryRing(allNodes, bidirectional, n);
+}
+
 std::vector<ObjectiveFunction*> HierarchicalEA::makeApportionments(
 	PopulationNode * upperNode,
 	std::vector<ApportionmentFunction*> apportionments,
