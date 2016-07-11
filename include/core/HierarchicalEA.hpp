@@ -6,7 +6,7 @@
 #include "AggregationFunction.hpp"
 #include "ObjectiveFunction.hpp"
 #include "ToStringFunction.hpp"
-#include "hier-structures/TreeBuilder.hpp"
+#include "builders/TreeBuilder.hpp"
 #include <vector>
 #include <tuple>
 #include <string>

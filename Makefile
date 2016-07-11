@@ -73,7 +73,7 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationApportionment.cpp -o obj/core/meta/MetaPopulationApportionment.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationObjective.cpp -o obj/core/meta/MetaPopulationObjective.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationToString.cpp -o obj/core/meta/MetaPopulationToString.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/TreeBuilder.cpp -o obj/core/TreeBuilder.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/TreeBuilder.cpp -o obj/core/builders/TreeBuilder.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierarchicalEA.cpp -o obj/core/HierarchicalEA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/gc/NodeGarbageCollector.cpp -o obj/core/gc/NodeGarbageCollector.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/gc/NodeDeallocator.cpp -o obj/core/gc/NodeDeallocator.o

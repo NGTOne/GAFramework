@@ -1,4 +1,4 @@
-#include "core/hier-structures/TreeBuilder.hpp"
+#include "core/builders/TreeBuilder.hpp"
 #include "exception/InvalidNodeException.hpp"
 #include "exception/NodeAlreadyExistsException.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
