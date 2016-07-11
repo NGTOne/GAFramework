@@ -9,7 +9,7 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<std::vector<Locus*>> contextLoci,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,
-	std::vector<std::vector<std::string>> names,
+	LatticeBuilder latticeSpec,
 	std::vector<bool> print,
 	std::vector<bool> end,
 	params... as
@@ -18,12 +18,12 @@ void HierarchicalEA::addConstructiveLattice(
 		formula,
 		contextLoci,
 		std::vector<std::vector<ObjectiveFunction*>>(
-			names.size(),
+			latticeSpec.numLevels(),
 			std::vector<ObjectiveFunction*>()
 		),
 		toStrings,
 		conditions,
-		names,
+		latticeSpec,
 		print,
 		end,
 		as...
@@ -37,7 +37,7 @@ void HierarchicalEA::addConstructiveLattice(
 	ObjectiveFunction * globalObjective,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,
-	std::vector<std::vector<std::string>> names,
+	LatticeBuilder latticeSpec,
 	std::vector<bool> print,
 	std::vector<bool> end,
 	params... as
@@ -46,12 +46,12 @@ void HierarchicalEA::addConstructiveLattice(
 		formula,
 		contextLoci,
 		std::vector<std::vector<ObjectiveFunction*>>(
-			names.size(),
+			latticeSpec.numLevels(),
 			std::vector<ObjectiveFunction*>(1, globalObjective)
 		),
 		toStrings,
 		conditions,
-		names,
+		latticeSpec,
 		print,
 		end,
 		as...
@@ -65,14 +65,12 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<std::vector<ObjectiveFunction*>> objectives,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,
-	std::vector<std::vector<std::string>> names,
+	LatticeBuilder latticeSpec,
 	std::vector<bool> print,
 	std::vector<bool> end,
 	params... as
 ) {
-	std::vector<unsigned int> counts;
-	for (unsigned int i = 0; i < names.size(); i++)
-		counts.push_back(names[i].size());
+	std::vector<unsigned int> counts = latticeSpec.getLevelSizes();
 
 	this->addConstructiveLattice<NodeType>(
 		formula,
@@ -80,7 +78,7 @@ void HierarchicalEA::addConstructiveLattice(
 		this->wrapForPass(objectives, counts),
 		this->wrapForPass(toStrings, counts),
 		this->wrapForPass(conditions, counts),
-		names,
+		latticeSpec,
 		this->wrapForPass(print, counts),
 		this->wrapForPass(end, counts),
 		as...
@@ -96,14 +94,12 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<std::vector<AggregationFunction*>> aggregators,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,
-	std::vector<std::vector<std::string>> names,
+	LatticeBuilder latticeSpec,
 	std::vector<bool> print,
 	std::vector<bool> end,
 	params... as
 ) {
-	std::vector<unsigned int> counts;
-	for (unsigned int i = 0; i < names.size(); i++)
-		counts.push_back(names[i].size());
+	std::vector<unsigned int> counts = latticeSpec.getLevelSizes();
 
 	this->addConstructiveLattice<NodeType>(
 		formula,
@@ -114,7 +110,7 @@ void HierarchicalEA::addConstructiveLattice(
 		this->getNestedEmptyVector<unsigned int>(counts, 1),
 		this->wrapForPass(toStrings, counts),
 		this->wrapForPass(conditions, counts),
-		names,
+		latticeSpec,
 		this->wrapForPass(print, counts),
 		this->wrapForPass(end, counts),
 		as...
@@ -131,14 +127,12 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<std::vector<unsigned int>> tryOns,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,
-	std::vector<std::vector<std::string>> names,
+	LatticeBuilder latticeSpec,
 	std::vector<bool> print,
 	std::vector<bool> end,
 	params... as
 ) {
-	std::vector<unsigned int> counts;
-	for (unsigned int i = 0; i < names.size(); i++)
-		counts.push_back(names[i].size());
+	std::vector<unsigned int> counts = latticeSpec.getLevelSizes();
 
 	this->addConstructiveLattice<NodeType>(
 		formula,
@@ -149,7 +143,7 @@ void HierarchicalEA::addConstructiveLattice(
 		this->wrapForPass(tryOns, counts, 1),
 		this->wrapForPass(toStrings, counts),
 		this->wrapForPass(conditions, counts),
-		names,
+		latticeSpec,
 		this->wrapForPass(print, counts),
 		this->wrapForPass(end, counts),
 		as...
@@ -163,25 +157,23 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<std::vector<std::vector<ObjectiveFunction*>>> objectives,
 	std::vector<std::vector<ToStringFunction*>> toStrings,
 	std::vector<std::vector<std::vector<EndCondition*>>> conditions,
-	std::vector<std::vector<std::string>> names,
+	LatticeBuilder latticeSpec,
 	std::vector<std::vector<bool>> print,
 	std::vector<std::vector<bool>> end,
 	params... as
 ) {
-	std::vector<unsigned int> counts;
-	for (unsigned int i = 1; i < names.size(); i++)
-		counts.push_back(names[i].size());
+	std::vector<unsigned int> counts = latticeSpec.getLevelSizes();
 
 	this->addConstructiveLattice<NodeType>(
 		formula,
 		contextLoci,
 		objectives,
-		this->getNestedEmptyVector<ApportionmentFunction*>(counts),
-		this->getNestedEmptyVector<AggregationFunction*>(counts),
-		this->getNestedEmptyVector<unsigned int>(counts),
+		this->getNestedEmptyVector<ApportionmentFunction*>(counts, 1),
+		this->getNestedEmptyVector<AggregationFunction*>(counts, 1),
+		this->getNestedEmptyVector<unsigned int>(counts, 1),
 		toStrings,
 		conditions,
-		names,
+		latticeSpec,
 		print,
 		end,
 		as...
@@ -200,21 +192,19 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<std::vector<std::vector<unsigned int>>> tryOns,
 	std::vector<std::vector<ToStringFunction*>> toStrings,
 	std::vector<std::vector<std::vector<EndCondition*>>> conditions,
-	std::vector<std::vector<std::string>> names,
+	LatticeBuilder latticeSpec,
 	std::vector<std::vector<bool>> print,
 	std::vector<std::vector<bool>> end,
 	params... as
 ) {
-	std::vector<unsigned int> counts;
-	for (unsigned int i = 1; i < names.size(); i++)
-		counts.push_back(names[i].size());
+	std::vector<unsigned int> counts = latticeSpec.getLevelSizes();
 
 	std::vector<std::vector<
 		std::vector<ObjectiveFunction*>
 	>> objectives =	this->getNestedEmptyVector<ObjectiveFunction*>(counts);
 
 	objectives[0] =	std::vector<std::vector<ObjectiveFunction*>>(
-		names[0].size(),
+		counts[0],
 		objectives
 	);
 
@@ -227,7 +217,7 @@ void HierarchicalEA::addConstructiveLattice(
 		tryOns,
 		toStrings,
 		conditions,
-		names,
+		latticeSpec,
 		print,
 		end,
 		as...
@@ -246,25 +236,26 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<std::vector<std::vector<unsigned int>>> tryOns,
 	std::vector<std::vector<ToStringFunction*>> toStrings,
 	std::vector<std::vector<std::vector<EndCondition*>>> conditions,
-	std::vector<std::vector<std::string>> names,
+	LatticeBuilder latticeSpec,
 	std::vector<std::vector<bool>> print,
 	std::vector<std::vector<bool>> end,
 	params... as
 ) {
 	if (
 		!this->compareVectorLengths(contextLoci, objectives, toStrings,
-			conditions, names, print, end)
+			conditions, print, end)
 		|| !this->compareVectorLengths(apportionments, aggregators,
 			tryOns)
-		|| apportionments.size() != names.size() - 1
+		|| apportionments.size() != latticeSpec.numLevels() - 1
+		|| contextLoci.size() != latticeSpec.numLevels()
 	) throw MismatchedCountsException();
 
 	// TODO TODO: Refactor this
 	std::vector<Locus*> levelLoci;
 	std::vector<PopulationNode*> currentLevelNodes, previousLevelNodes;
 	for (
-		unsigned int i = names.size() - 1;
-		i >= 0 && i < names.size(); // Counteracts unsigned overflow
+		unsigned int i = latticeSpec.numLevels() - 1;
+		i >= 0 && i < latticeSpec.numLevels(); // Counteracts overflow
 		i--
 	) {
 		levelLoci.clear();
@@ -273,7 +264,7 @@ void HierarchicalEA::addConstructiveLattice(
 			objectives[i],
 			toStrings[i],
 			conditions[i],
-			names[i],
+			latticeSpec.getLevel(i),
 			print[i],
 			end[i]
 		)) throw MismatchedCountsException();
@@ -284,7 +275,8 @@ void HierarchicalEA::addConstructiveLattice(
 			));
 
 		std::vector<Locus*> nodeLoci;
-		for (unsigned int k = 0; k < names[i].size(); k++) {
+		std::vector<std::string> names = latticeSpec.getLevel(i);
+		for (unsigned int k = 0; k < names.size(); k++) {
 			nodeLoci.clear();
 			nodeLoci.insert(
 				nodeLoci.end(),
@@ -304,7 +296,7 @@ void HierarchicalEA::addConstructiveLattice(
 					objectives[i][k],
 					toStrings[i][k],
 					conditions[i][k],
-					names[i][k],
+					names[k],
 					1,
 					as...
 				)

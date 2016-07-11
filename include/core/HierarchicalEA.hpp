@@ -7,6 +7,7 @@
 #include "ObjectiveFunction.hpp"
 #include "ToStringFunction.hpp"
 #include "builders/TreeBuilder.hpp"
+#include "builders/LatticeBuilder.hpp"
 #include <vector>
 #include <tuple>
 #include <string>
@@ -354,7 +355,7 @@ class HierarchicalEA {
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
-		std::vector<std::vector<std::string>> names,
+		LatticeBuilder latticeSpec,
 		std::vector<bool> print,
 		std::vector<bool> end,
 		params... as
@@ -367,7 +368,7 @@ class HierarchicalEA {
 		ObjectiveFunction * globalObjective,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
-		std::vector<std::vector<std::string>> names,
+		LatticeBuilder latticeSpec,
 		std::vector<bool> print,
 		std::vector<bool> end,
 		params... as
@@ -380,7 +381,7 @@ class HierarchicalEA {
 		std::vector<std::vector<ObjectiveFunction*>> objectives,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
-		std::vector<std::vector<std::string>> names,
+		LatticeBuilder latticeSpec,
 		std::vector<bool> print,
 		std::vector<bool> end,
 		params... as
@@ -396,7 +397,7 @@ class HierarchicalEA {
 		std::vector<std::vector<AggregationFunction*>> aggregators,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
-		std::vector<std::vector<std::string>> names,
+		LatticeBuilder latticeSpec,
 		std::vector<bool> print,
 		std::vector<bool> end,
 		params... as
@@ -413,7 +414,7 @@ class HierarchicalEA {
 		std::vector<std::vector<unsigned int>> tryOns,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
-		std::vector<std::vector<std::string>> names,
+		LatticeBuilder latticeSpec,
 		std::vector<bool> print,
 		std::vector<bool> end,
 		params... as
@@ -428,7 +429,7 @@ class HierarchicalEA {
 		std::vector<std::vector<ToStringFunction*>> toStrings,
 		std::vector<std::vector<std::vector<EndCondition*>>>
 			conditions,
-		std::vector<std::vector<std::string>> names,
+		LatticeBuilder latticeSpec,
 		std::vector<std::vector<bool>> print,
 		std::vector<std::vector<bool>> end,
 		params... as
@@ -447,7 +448,7 @@ class HierarchicalEA {
 		std::vector<std::vector<ToStringFunction*>> toStrings,
 		std::vector<std::vector<std::vector<EndCondition*>>>
 			conditions,
-		std::vector<std::vector<std::string>> names,
+		LatticeBuilder latticeSpec,
 		std::vector<std::vector<bool>> print,
 		std::vector<std::vector<bool>> end,
 		params... as
@@ -467,7 +468,7 @@ class HierarchicalEA {
 		std::vector<std::vector<ToStringFunction*>> toStrings,
 		std::vector<std::vector<std::vector<EndCondition*>>>
 			conditions,
-		std::vector<std::vector<std::string>> names,
+		LatticeBuilder latticeSpec,
 		std::vector<std::vector<bool>> print,
 		std::vector<std::vector<bool>> end,
 		params... as
