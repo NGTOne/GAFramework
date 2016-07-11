@@ -47,48 +47,7 @@ TreeBuilder TreeBuilder::addSubNodes(
 	return *this;
 }
 
-std::tuple<unsigned int, unsigned int> TreeBuilder::findNode(
-	std::string node
-) {
-	for (unsigned int i = 0; i < this->names.size(); i++)
-		for (unsigned int k = 0; k < this->names[i].size(); k++)
-			if (names[i][k] == node) return std::make_tuple(i, k);
-
-	throw InvalidNodeException();
-}
-
-bool TreeBuilder::nodeExists(std::string node) {
-	std::vector<std::string> allNodes;
-	for (unsigned int i = 0; i < this->names.size(); i++)
-		allNodes.insert(
-			allNodes.end(),
-			this->names[i].begin(),
-			this->names[i].end()
-		);
-
-	for (unsigned int i = 0; i < allNodes.size(); i++)
-		if (node == allNodes[i]) return true;
-	return false;
-}
-
-unsigned int TreeBuilder::numLevels() {
-	return this->names.size();
-}
-
-std::vector<unsigned int> TreeBuilder::getLevelSizes() {
-	std::vector<unsigned int> sizes;
-	for (unsigned int i = 0; i < this->names.size(); i++)
-		sizes.push_back(this->names[i].size());
-
-	return sizes;
-}
-
 std::vector<unsigned int> TreeBuilder::getLevelCounts(unsigned int level) {
 	if (level >= this->numLevels()) throw ValueOutOfRangeException();
 	return this->counts[level];
-}
-
-std::vector<std::string> TreeBuilder::getLevel(unsigned int level) {
-	if (level >= this->numLevels()) throw ValueOutOfRangeException();
-	return this->names[level];
 }

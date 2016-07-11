@@ -52,7 +52,7 @@ library: obj-dir core objectives loci nodes endconditions exception \
 obj-dir:
 	./compile-scripts/make-obj-dir.sh
 
-core:
+core: builders
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Genome.cpp -o obj/core/Genome.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/FakeGenome.cpp -o obj/core/FakeGenome.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/GenomeTemplate.cpp -o obj/core/GenomeTemplate.o
@@ -73,10 +73,13 @@ core:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationApportionment.cpp -o obj/core/meta/MetaPopulationApportionment.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationObjective.cpp -o obj/core/meta/MetaPopulationObjective.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationToString.cpp -o obj/core/meta/MetaPopulationToString.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/TreeBuilder.cpp -o obj/core/builders/TreeBuilder.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierarchicalEA.cpp -o obj/core/HierarchicalEA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/gc/NodeGarbageCollector.cpp -o obj/core/gc/NodeGarbageCollector.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/gc/NodeDeallocator.cpp -o obj/core/gc/NodeDeallocator.o
+
+builders:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/StructureBuilder.cpp -o obj/core/builders/StructureBuilder.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/TreeBuilder.cpp -o obj/core/builders/TreeBuilder.o
 
 objectives: apportionment-func aggregators
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/NoisyObjective.cpp -o obj/objectives/noisy/NoisyObjective.o
