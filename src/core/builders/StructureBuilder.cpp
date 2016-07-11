@@ -26,6 +26,12 @@ bool StructureBuilder::nodeExists(std::string node) {
 	return false;
 }
 
+bool StructureBuilder::nodesExist(std::vector<std::string> nodes) {
+	for (unsigned int i = 0; i < nodes.size(); i++)
+		if (this->nodeExists(nodes[i])) return true;
+	return false;
+}
+
 unsigned int StructureBuilder::numLevels() {
 	return this->names.size();
 }

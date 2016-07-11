@@ -10,6 +10,7 @@ class StructureBuilder {
 
 	std::tuple<unsigned int, unsigned int> findNode(std::string node);
 	bool nodeExists(std::string node);
+	bool nodesExist(std::vector<std::string> nodes);
 
 	public:
 	unsigned int numLevels();

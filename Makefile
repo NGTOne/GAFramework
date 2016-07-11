@@ -80,6 +80,7 @@ core: builders
 builders:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/StructureBuilder.cpp -o obj/core/builders/StructureBuilder.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/TreeBuilder.cpp -o obj/core/builders/TreeBuilder.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/LatticeBuilder.cpp -o obj/core/builders/LatticeBuilder.o
 
 objectives: apportionment-func aggregators
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/NoisyObjective.cpp -o obj/objectives/noisy/NoisyObjective.o
