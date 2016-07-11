@@ -68,6 +68,22 @@ void HierarchicalEA::addNodes(
 		this->addNode(nodes[i], print[i], end[i]);
 }
 
+void HierarchicalEA::duplicateNode(
+	std::string original,
+	std::vector<std::string> newNames
+) {
+	PopulationNode * originalNode = this->getNodeByName(original);
+	bool print = this->isNodePrinted(original);
+	bool end = this->isNodeEndDictator(original);
+
+	for (unsigned int i = 0; i < newNames.size(); i++)
+		this->addNode(
+			originalNode->duplicate(newNames[i]),
+			print,
+			end
+		);
+}
+
 // TODO: Refactor this a bit
 void HierarchicalEA::removeNode(string name) {
 	PopulationNode * node = this->getNodeByName(name);
@@ -170,6 +186,22 @@ bool HierarchicalEA::done(unsigned int currentEpoch) {
 		<< " population nodes reported reaching their ending conditions.\n";
 
 	return done;
+}
+
+bool HierarchicalEA::isNodePrinted(std::string node) {
+	return std::find(
+		this->nodesToPrint.begin(),
+		this->nodesToPrint.end(),
+		node
+	) != this->nodesToPrint.end();
+}
+
+bool HierarchicalEA::isNodeEndDictator(std::string node) {
+	return std::find(
+		this->endDictators.begin(),
+		this->endDictators.end(),
+		node
+	) != this->endDictators.end();
 }
 
 // TODO: Make verbosity option actually mean something

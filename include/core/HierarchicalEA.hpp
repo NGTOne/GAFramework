@@ -40,6 +40,8 @@ class HierarchicalEA {
 
 	void checkNodesExist(vector<string> names);
 	bool done(unsigned int currentEpoch);
+	bool isNodePrinted(std::string node);
+	bool isNodeEndDictator(std::string node);
 
 	template <typename vec, typename vec2, typename... params>
 	bool compareVectorLengths(
@@ -111,6 +113,10 @@ class HierarchicalEA {
 		vector<PopulationNode*> nodes,
 		vector<bool> print,
 		vector<bool> end
+	);
+	void duplicateNode(
+		std::string original,
+		std::vector<std::string> newNames
 	);
 	void removeNode(string name);
 
