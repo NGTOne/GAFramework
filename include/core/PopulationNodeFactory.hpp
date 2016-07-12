@@ -15,7 +15,6 @@ class PopulationNodeFactory {
 		ToStringFunction * populationToString,
 		std::vector<EndCondition*> conditions,
 		std::string nodeName,
-		unsigned int accelerationFactor,
 		params... as
 	);
 
@@ -27,7 +26,6 @@ class PopulationNodeFactory {
 		ToStringFunction * populationToString,
 		std::vector<EndCondition*> conditions,
 		std::vector<std::string> nodeNames,
-		unsigned int accelerationFactor,
 		params... as
 	);
 };
@@ -40,7 +38,6 @@ PopulationNode * PopulationNodeFactory::createNode(
 	ToStringFunction * populationToString,
 	std::vector<EndCondition*> conditions,
 	std::string nodeName,
-	unsigned int accelerationFactor,
 	params... as
 ) {
 	static_assert(
@@ -54,7 +51,6 @@ PopulationNode * PopulationNodeFactory::createNode(
 		populationToString,
 		conditions,
 		nodeName,
-		accelerationFactor,
 		as...
 	);
 }
@@ -67,7 +63,6 @@ std::vector<PopulationNode *> PopulationNodeFactory::createNodes(
 	ToStringFunction * populationToString,
 	std::vector<EndCondition*> conditions,
 	std::vector<std::string> nodeNames,
-	unsigned int accelerationFactor,
 	params... as
 ) {
 	std::vector<PopulationNode*> nodes;
@@ -79,7 +74,6 @@ std::vector<PopulationNode *> PopulationNodeFactory::createNodes(
 			populationToString,
 			conditions,
 			nodeNames[i],
-			accelerationFactor,
 			as...
 		));
 
