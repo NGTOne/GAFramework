@@ -1,6 +1,7 @@
 #include "../core/gc/NodeDeallocator.hpp"
 #include "../nodes/SANode/SANode.hpp"
 #include <vector>
+#pragma once
 
 class SANodeDeallocator : public NodeDeallocator {
 	private:

@@ -1,6 +1,7 @@
 #include "../PopulationNode.hpp"
 #include "NodeDeallocator.hpp"
 #include <vector>
+#pragma once
 
 class NodeGarbageCollector {
 	private:

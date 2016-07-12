@@ -1,6 +1,7 @@
 #include "../core/gc/NodeDeallocator.hpp"
 #include "../nodes/EANode/EANode.hpp"
 #include <vector>
+#pragma once
 
 class EANodeDeallocator : public NodeDeallocator {
 	private:

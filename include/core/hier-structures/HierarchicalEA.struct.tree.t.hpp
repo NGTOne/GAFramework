@@ -1,6 +1,7 @@
 #include "../HierarchicalEA.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
 #include "../../exception/ValueOutOfRangeException.hpp"
+#pragma once
 
 template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveTree(

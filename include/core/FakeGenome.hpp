@@ -1,4 +1,5 @@
 #include "Genome.hpp"
+#pragma once
 
 class FakeGenome : public Genome {
 	private:

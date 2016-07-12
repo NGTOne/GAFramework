@@ -1,6 +1,7 @@
 #include "../core/gc/NodeDeallocator.hpp"
 #include "../core/PopulationNode.hpp"
 #include <vector>
+#pragma once
 
 /*
 * This deallocator does something a little different - rather than deleting the

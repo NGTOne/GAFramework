@@ -1,5 +1,6 @@
 #include "../HierarchicalEA.hpp"
 #include "../meta/MetaPopulationFactory.hpp"
+#pragma once
 
 template<typename MetaNodeType, typename... params>
 void HierarchicalEA::addMetaPopulation(

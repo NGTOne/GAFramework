@@ -1,5 +1,6 @@
 #include "FitnessNoiseSource.hpp"
 #include <random>
+#pragma once
 
 class GaussianFitnessNoiseSource: public FitnessNoiseSource {
 	private:
