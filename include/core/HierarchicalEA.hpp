@@ -225,6 +225,51 @@ class HierarchicalEA {
 	);
 
 	template <typename NodeType, typename... params>
+	void addCooperativeCoevolution(
+		std::vector<ObjectiveFunction*> overallObjectives,
+		std::vector<EndCondition*> overallConditions,
+		unsigned int numThreads,
+		unsigned int populationSize,
+		std::vector<Locus*> loci,
+		ApportionmentFunction * apportionment,
+		AggregationFunction * aggregator,
+		ToStringFunction * toString,
+		std::vector<EndCondition*> condition,
+		std::vector<std::string> names,
+		bool print,
+		bool end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	void addCooperativeCoevolution(
+		std::vector<ObjectiveFunction*> overallObjectives,
+		std::vector<EndCondition*> overallConditions,
+		unsigned int numThreads,
+		std::vector<unsigned int> populationSizes,
+		std::vector<std::vector<Locus*>> loci,
+		std::vector<ApportionmentFunction*> apportionments,
+		std::vector<AggregationFunction*> aggregators,
+		std::vector<ToStringFunction*> toStrings,
+		std::vector<std::vector<EndCondition*>> conditions,
+		std::vector<std::string> names,
+		std::vector<bool> print,
+		std::vector<bool> end,
+		params... as
+	);
+
+	template <typename MetaNodeType, typename... params>
+	void addCooperativeCoevMetaNode(
+		std::vector<std::string> coopNodes,
+		unsigned int numThreads,
+		std::vector<ObjectiveFunction*> objectives,
+		ToStringFunction * toString,
+		std::vector<EndCondition*> conditions,
+		std::string metaNodeName,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
 	void addConstructiveTree(
 		PopulationFormula * formula,
 		std::vector<std::vector<Locus*>> contextLoci,
