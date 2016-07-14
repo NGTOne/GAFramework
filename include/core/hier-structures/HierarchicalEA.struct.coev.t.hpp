@@ -2,8 +2,6 @@
 #include "../../nodes/NonOptimizingNode.hpp"
 #pragma once
 
-#define OVERALL_COEV_NAME "Overall Coevolution"
-
 template <typename NodeType, typename... params>
 void HierarchicalEA::addCooperativeCoevolution(
 	std::vector<ObjectiveFunction*> overallObjectives,

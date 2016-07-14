@@ -12,6 +12,9 @@
 
 #include <iostream>
 #include <algorithm>
+#include <regex>
+#include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string/predicate.hpp>
 
 HierarchicalEA::HierarchicalEA() {}
 
@@ -465,4 +468,31 @@ PopulationNode * HierarchicalEA::findCoevRootNode(
 	}
 
 	throw CoevConstructionException("Unable to find coevolutionary structure from supplied nodes. Has it been set up yet?");
+}
+
+unsigned int HierarchicalEA::findHighestCoevIndex() {
+	unsigned int highestIndex = 0;
+	for (unsigned int i = 0; i < this->nodes.size(); i++) {
+		if (boost::starts_with(
+			this->nodes[i]->name(),
+			OVERALL_COEV_NAME
+		)) {
+			std::smatch match;
+			const std::string name = this->nodes[i]->name();
+			if(std::regex_search(
+				name.begin(),
+				name.end(),
+				match,
+				std::regex("(\\d+)^")
+			)) {
+				unsigned int newIndex = boost::lexical_cast<
+					unsigned int
+				>(match[1]);
+				if (newIndex > highestIndex)
+					highestIndex = newIndex;
+			}
+		}
+	}
+
+	return highestIndex;
 }

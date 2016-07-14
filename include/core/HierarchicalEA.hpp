@@ -15,6 +15,8 @@
 
 using namespace std;
 
+#define OVERALL_COEV_NAME "Overall Coevolution"
+
 class HierarchicalEA {
 	private:
 
@@ -44,6 +46,7 @@ class HierarchicalEA {
 	bool isNodePrinted(std::string node);
 	bool isNodeEndDictator(std::string node);
 
+	unsigned int findHighestCoevIndex();
 	PopulationNode * findCoevRootNode(std::vector<std::string> coevNodes);
 
 	template <typename vec, typename vec2, typename... params>
