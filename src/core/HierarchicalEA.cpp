@@ -496,3 +496,9 @@ unsigned int HierarchicalEA::findHighestCoevIndex() {
 
 	return highestIndex;
 }
+
+std::string HierarchicalEA::getNextCoevName() {
+	stringstream ss;
+	ss << OVERALL_COEV_NAME << " " << this->findHighestCoevIndex() + 1;
+	return ss.str();
+}

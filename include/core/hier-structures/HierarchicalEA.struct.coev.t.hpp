@@ -82,6 +82,7 @@ void HierarchicalEA::addCooperativeCoevolution(
 			new PopulationLocus(this->getNodeByName(nodeNames[i]))
 		);
 
+	std::string coevNodeName = this->getNextCoevName();
 	this->addNode(
 		PopulationNodeFactory::createNode<NonOptimizingNode>(
 			numThreads,
@@ -89,7 +90,7 @@ void HierarchicalEA::addCooperativeCoevolution(
 			overallObjectives,
 			overallToString,
 			overallConditions,
-			OVERALL_COEV_NAME
+			coevNodeName
 		),
 		true,
 		overallConditions.empty()
@@ -98,7 +99,7 @@ void HierarchicalEA::addCooperativeCoevolution(
 	for (unsigned int i = 0; i < apportionments.size(); i++)
 		this->getNodeByName(nodeNames[i])->addObjective(
 			new Apportionment(
-				this->getNodeByName(OVERALL_COEV_NAME),
+				this->getNodeByName(coevNodeName),
 				apportionments[i],
 				aggregators[i],
 				1

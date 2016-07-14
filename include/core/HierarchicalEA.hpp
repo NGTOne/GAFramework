@@ -47,6 +47,7 @@ class HierarchicalEA {
 	bool isNodeEndDictator(std::string node);
 
 	unsigned int findHighestCoevIndex();
+	std::string getNextCoevName();
 	PopulationNode * findCoevRootNode(std::vector<std::string> coevNodes);
 
 	template <typename vec, typename vec2, typename... params>
