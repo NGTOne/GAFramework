@@ -67,7 +67,7 @@ class HierarchicalEA {
 	std::vector<vec> wrapForPass(
 		vec original,
 		std::vector<unsigned int> counts,
-		unsigned int offset
+		unsigned int offset = 0
 	);
 
 	std::vector<ObjectiveFunction*> makeApportionments(
@@ -99,7 +99,7 @@ class HierarchicalEA {
 	template <typename T>
 	std::vector<std::vector<std::vector<T>>> getNestedEmptyVector(
 		std::vector<unsigned int> counts,
-		unsigned int offset
+		unsigned int offset = 0
 	);
 
 	public:
@@ -555,7 +555,7 @@ template <typename vec>
 std::vector<vec> HierarchicalEA::wrapForPass(
 	vec original,
 	std::vector<unsigned int> counts,
-	unsigned int offset = 0
+	unsigned int offset
 ) {
 	std::vector<vec> wrapped;
 	for (unsigned int i = offset; i < counts.size(); i++)
@@ -567,7 +567,7 @@ std::vector<vec> HierarchicalEA::wrapForPass(
 template <typename T>
 std::vector<std::vector<std::vector<T>>> HierarchicalEA::getNestedEmptyVector(
 	std::vector<unsigned int> counts,
-	unsigned int offset = 0
+	unsigned int offset
 ) {
 	std::vector<std::vector<std::vector<T>>> empty;
 	for (unsigned int i = offset; i < counts.size(); i++)

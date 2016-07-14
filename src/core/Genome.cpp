@@ -95,7 +95,7 @@ int Genome::difference(Genome * otherGenome) {
 	);
 
 	for (unsigned int i = 0; i < shorterGenome; i++)
-		difference += abs(this->genes[i] - otherGenes[i]);
+		difference += abs((int)this->genes[i] - (int)otherGenes[i]);
 
 	// We want to account for genes of different lengths somehow
 	if (longerGenome != shorterGenome)

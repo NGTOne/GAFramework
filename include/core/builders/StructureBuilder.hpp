@@ -1,5 +1,6 @@
 #include <vector>
 #include <tuple>
+#include <string>
 #pragma once
 
 class StructureBuilder {
