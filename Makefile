@@ -16,7 +16,11 @@ endif
 DYNAMICLIB = $(LIBNAME).$(MAJORVERSION).$(MINORVERSION)
 LIBOBJS = $$(find obj -name *.o | grep -v examples)
 
+ifeq ($(PLATFORM), Linux)
 SHAREDLIB = -lHierGA
+else ifeq ($(PLATFORM), Darwin)
+SHAREDLIB = -L/usr/local/lib -lHierGA
+endif
 
 info:
 	@echo "Usage:"
