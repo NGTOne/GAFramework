@@ -54,6 +54,9 @@ class HierarchicalEA {
 	template <typename vec, typename vec2>
 	bool compareVectorLengths(vec initial, vec2 compare);
 
+	template <typename T>
+	std::vector<T> wrapForPass(T original, unsigned int count);
+
 	template<typename vec>
 	std::vector<vec> wrapForPass(
 		vec original,
@@ -234,8 +237,8 @@ class HierarchicalEA {
 		ApportionmentFunction * apportionment,
 		AggregationFunction * aggregator,
 		ToStringFunction * toString,
-		std::vector<EndCondition*> condition,
-		std::vector<std::string> names,
+		std::vector<EndCondition*> conditions,
+		std::vector<std::string> nodeNames,
 		bool print,
 		bool end,
 		params... as
@@ -252,7 +255,7 @@ class HierarchicalEA {
 		std::vector<AggregationFunction*> aggregators,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
-		std::vector<std::string> names,
+		std::vector<std::string> nodeNames,
 		std::vector<bool> print,
 		std::vector<bool> end,
 		params... as
@@ -533,6 +536,11 @@ bool HierarchicalEA::compareVectorLengths(
 template <typename vec, typename vec2>
 bool HierarchicalEA::compareVectorLengths(vec initial, vec2 compare) {
 	return initial.size() == compare.size();
+}
+
+template <typename T>
+std::vector<T> HierarchicalEA::wrapForPass(T original, unsigned int count) {
+	return std::vector<T>(count, original);
 }
 
 template <typename vec>
