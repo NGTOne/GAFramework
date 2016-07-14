@@ -107,3 +107,16 @@ void HierarchicalEA::addCooperativeCoevolution(
 			)
 		);
 }
+
+template <typename MetaNodeType, typename... params>
+void HierarchicalEA::addCooperativeCoevMetaNode(
+	std::vector<std::string> coopNodes,
+	unsigned int numThreads,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction * toString,
+	std::vector<EndCondition*> conditions,
+	std::string metaNodeName,
+	params... as
+) {
+	PopulationNode * coevRoot = this->findCoevRootNode(coopNodes);
+}

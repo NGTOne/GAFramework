@@ -4,8 +4,11 @@
 #include "exception/NoNodesException.hpp"
 #include "exception/NoEvolutionOrderException.hpp"
 #include "exception/MismatchedCountsException.hpp"
+#include "exception/CoevConstructionException.hpp"
 #include "core/gc/NodeGarbageCollector.hpp"
 #include "core/Apportionment.hpp"
+#include "loci/PopulationLocus.hpp"
+#include "nodes/NonOptimizingNode.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -413,4 +416,53 @@ void HierarchicalEA::addApportionments(
 			);
 			currentOffset++;
 		}
+}
+
+PopulationNode * HierarchicalEA::findCoevRootNode(
+	std::vector<std::string> coevNodes
+) {
+	std::vector<PopulationNode*> realCoevNodes;
+	for (unsigned int i = 0; i < coevNodes.size(); i++)
+		realCoevNodes.push_back(this->getNodeByName(coevNodes[i]));
+
+	for (unsigned int i = 0; i < this->nodes.size(); i++) {
+		PopulationNode * node = this->nodes[i];
+
+		if (
+			node->type() != NON_OPT_TYPE
+			|| std::find(
+				realCoevNodes.begin(),
+				realCoevNodes.end(),
+				node
+			) != realCoevNodes.end()
+		) continue;
+
+		std::vector<Locus*> coevRootLoci = node->getCanonicalLoci();
+
+		if (coevRootLoci.size() != realCoevNodes.size()) continue;
+
+		bool match = true;
+		for (unsigned int k = 0; k < coevRootLoci.size(); k++) {
+			if (!coevRootLoci[k]->isConstructive()) {
+				match = false;
+				break;
+			}
+			PopulationNode * locusNode =
+				((PopulationLocus*)coevRootLoci[i])->getNode();
+
+			if (std::find(
+				realCoevNodes.begin(),
+				realCoevNodes.end(),
+				locusNode
+			) == realCoevNodes.end()) {
+				match = false;
+				break;
+			}
+		}
+		if (!match) continue;
+
+		return node;
+	}
+
+	throw CoevConstructionException("Unable to find coevolutionary structure from supplied nodes. Has it been set up yet?");
 }
