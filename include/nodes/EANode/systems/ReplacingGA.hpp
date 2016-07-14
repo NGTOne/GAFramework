@@ -11,7 +11,6 @@
 
 class ReplacingGA : public EvolutionarySystem {
 	private:
-	double replacementRate;
 
 	protected:
 	void removeUnusedIndividuals(
