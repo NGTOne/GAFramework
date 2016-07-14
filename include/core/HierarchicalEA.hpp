@@ -231,6 +231,7 @@ class HierarchicalEA {
 	void addCooperativeCoevolution(
 		std::vector<ObjectiveFunction*> overallObjectives,
 		std::vector<EndCondition*> overallConditions,
+		ToStringFunction * overallToString,
 		unsigned int numThreads,
 		unsigned int populationSize,
 		std::vector<Locus*> loci,
@@ -248,6 +249,7 @@ class HierarchicalEA {
 	void addCooperativeCoevolution(
 		std::vector<ObjectiveFunction*> overallObjectives,
 		std::vector<EndCondition*> overallConditions,
+		ToStringFunction * overallToString,
 		unsigned int numThreads,
 		std::vector<unsigned int> populationSizes,
 		std::vector<std::vector<Locus*>> loci,
