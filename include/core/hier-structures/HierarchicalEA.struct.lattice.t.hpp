@@ -205,7 +205,7 @@ void HierarchicalEA::addConstructiveLattice(
 
 	objectives[0] =	std::vector<std::vector<ObjectiveFunction*>>(
 		counts[0],
-		objectives
+		topObjectives
 	);
 
 	this->addConstructiveLattice<NodeType>(

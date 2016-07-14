@@ -1,5 +1,7 @@
 #include "../HierarchicalEA.hpp"
 #include "../../nodes/NonOptimizingNode.hpp"
+#include "../../exception/MismatchedCountsException.hpp"
+#include "../../loci/PopulationLocus.hpp"
 #pragma once
 
 template <typename NodeType, typename... params>
