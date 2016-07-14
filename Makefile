@@ -6,6 +6,7 @@ STATICLIB = libs/libHierGA.a
 MAJORVERSION = 2
 MINORVERSION = 0
 
+SHELL := /bin/bash
 PLATFORM := $(shell uname -s)
 ifeq ($(PLATFORM), Linux)
 LIBNAME = libHierGA.so
