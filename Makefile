@@ -60,6 +60,7 @@ core: builders
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/ObjectiveFunction.cpp -o obj/core/ObjectiveFunction.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/NestedObjective.cpp -o obj/core/NestedObjective.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/ToStringFunction.cpp -o obj/core/ToStringFunction.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PopulationFormula.cpp -o obj/core/PopulationFormula.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Apportionment.cpp -o obj/core/Apportionment.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/ApportionmentFunction.cpp -o obj/core/ApportionmentFunction.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/AggregationFunction.cpp -o obj/core/AggregationFunction.o
