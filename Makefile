@@ -1,6 +1,7 @@
 CPPC = g++
 CPPFLAGS = -c -g -std=gnu++0x -fPIC -Wall
 INCLUDE = -Iinclude -I/usr/local/include
+EXAMPLEINCLUDE = -I/usr/local/include -Isrc/examples/include
 STATICLIB = libs/libHierGA.a
 MAJORVERSION = 2
 MINORVERSION = 0
@@ -27,11 +28,11 @@ info:
 all: library
 
 install: all-header
-	sudo cp libs/$(LIBNAME) /usr/lib
-	sudo chmod 0755 /usr/lib/$(LIBNAME)
-	sudo mkdir /usr/include/libHierGA
-	sudo cp -r include/* /usr/include/libHierGA
-	sudo ldconfig
+	sudo cp libs/$(LIBNAME) /usr/local/lib
+	sudo chmod 0755 /usr/local/lib/$(LIBNAME)
+	sudo mkdir /usr/local/include/libHierGA
+	sudo cp -r include/* /usr/local/include/libHierGA
+	if [[ "$$(uname -s)" == "Linux" ]]; then sudo ldconfig; fi
 
 all-header:
 	find include -name *.hpp | grep -v HierGA | sed 's/^include\///g' | \
@@ -40,9 +41,9 @@ all-header:
 	
 
 uninstall:
-	sudo rm /usr/lib/*libHierGA*
-	sudo rm -r /usr/include/*libHierGA*
-	sudo ldconfig
+	sudo rm /usr/local/lib/*libHierGA*
+	sudo rm -r /usr/local/include/*libHierGA*
+	if [[ "$$(uname -s)" == "Linux" ]]; then sudo ldconfig; fi
 
 library: obj-dir core objectives loci nodes endconditions exception \
 		pop-formulae gc
@@ -180,12 +181,12 @@ exception:
 
 # Examples
 examples: example-fitnesses
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/1max.cpp -o obj/examples/1max.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/Hier1max.cpp -o obj/examples/Hier1max.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/LongestFragment.cpp -o obj/examples/LongestFragment.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/HierLongestFragment.cpp -o obj/examples/HierLongestFragment.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/ApportioningHierLF.cpp -o obj/examples/ApportioningHierLF.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/MetaHierLF.cpp -o obj/examples/MetaHierLF.o
+	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/1max.cpp -o obj/examples/1max.o
+	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/Hier1max.cpp -o obj/examples/Hier1max.o
+	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/LongestFragment.cpp -o obj/examples/LongestFragment.o
+	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/HierLongestFragment.cpp -o obj/examples/HierLongestFragment.o
+	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/ApportioningHierLF.cpp -o obj/examples/ApportioningHierLF.o
+	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/MetaHierLF.cpp -o obj/examples/MetaHierLF.o
 	$(CPPC) -o examples/1max obj/examples/1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
 	$(CPPC) -o examples/Hier1max obj/examples/Hier1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
 	$(CPPC) -o examples/LongestFragment obj/examples/LongestFragment.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
@@ -194,8 +195,8 @@ examples: example-fitnesses
 	$(CPPC) -o examples/MetaHierLF obj/examples/MetaHierLF.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
 
 example-fitnesses:
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/fitnesses/1maxFitness.cpp -o obj/examples/fitnesses/1maxFitness.o
-	$(CPPC) $(CPPFLAGS) -Isrc/examples/include src/examples/fitnesses/LongestFragmentFitness.cpp -o obj/examples/fitnesses/LongestFragmentFitness.o
+	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/fitnesses/1maxFitness.cpp -o obj/examples/fitnesses/1maxFitness.o
+	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/fitnesses/LongestFragmentFitness.cpp -o obj/examples/fitnesses/LongestFragmentFitness.o
 
 hier3longestfragment:
 	$(CPPC) $(CPPFLAGS) -Isrc/examples/Hier3LongestFragment src/examples/Hier3LongestFragment/LongestFragmentFitness.cpp -o obj/examples/Hier3LongestFragment/LongestFragmentFitness.o
