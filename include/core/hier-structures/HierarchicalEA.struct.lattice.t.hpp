@@ -255,7 +255,7 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<PopulationNode*> currentLevelNodes, previousLevelNodes;
 	for (
 		unsigned int i = latticeSpec.numLevels() - 1;
-		i >= 0 && i < latticeSpec.numLevels(); // Counteracts overflow
+		i < latticeSpec.numLevels(); // Overflow means we're done
 		i--
 	) {
 		levelLoci.clear();

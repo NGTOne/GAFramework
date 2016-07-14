@@ -254,7 +254,7 @@ void HierarchicalEA::addConstructiveTree(
 	std::vector<Locus*> nodeLoci;
 	for (
 		unsigned int i = treeSpec.numLevels() - 1;
-		i >= 0 && i < treeSpec.numLevels(); // Counteracts wrap-around
+		i < treeSpec.numLevels(); // Overflow means we're done
 		i--
 	) {
 		std::vector<std::string> names = treeSpec.getLevel(i);
