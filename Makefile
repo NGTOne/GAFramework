@@ -5,7 +5,14 @@ EXAMPLEINCLUDE = -I/usr/local/include -Isrc/examples/include
 STATICLIB = libs/libHierGA.a
 MAJORVERSION = 2
 MINORVERSION = 0
+
+PLATFORM := $(shell uname -s)
+ifeq ($(PLATFORM), Linux)
 LIBNAME = libHierGA.so
+else ifeq ($(PLATFORM), Darwin)
+LIBNAME = libHierGA.dylib
+endif
+
 DYNAMICLIB = $(LIBNAME).$(MAJORVERSION).$(MINORVERSION)
 LIBOBJS = $$(find obj -name *.o | grep -v examples)
 
@@ -38,7 +45,6 @@ all-header:
 	find include -name *.hpp | grep -v HierGA | sed 's/^include\///g' | \
 		awk '{print "#include \"" $$1 "\""}' > include/HierGA.hpp
 	echo "#pragma once" >> include/HierGA.hpp
-	
 
 uninstall:
 	sudo rm /usr/local/lib/*libHierGA*
