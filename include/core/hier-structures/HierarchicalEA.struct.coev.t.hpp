@@ -118,4 +118,47 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 	params... as
 ) {
 	PopulationNode * coevRoot = this->findCoevRootNode(coopNodes);
+	coopNodes.push_back(coevRoot->name());
+	std::vector<ApportionmentFunction*> apportionments;
+	std::vector<AggregationFunction*> aggregators;
+
+	for (unsigned int i = 0; i < coopNodes.size(); i++) {
+		Apportionment * apportionment =
+			((Apportionment*)this->getNodeByName(coopNodes[i])
+			->getObjectives()[0]);
+		apportionments.push_back(
+			apportionment->getApportionmentFunction()
+		);
+		aggregators.push_back(apportionment->getAggregationFunction());
+	}
+
+	std::vector<std::tuple<
+		std::string,
+		ApportionmentFunction *,
+		AggregationFunction *
+	>> blanketNodes;
+
+	for (unsigned int i = 0; i < coopNodes.size() - 1; i++)
+		blanketNodes.push_back(std::make_tuple(
+			coopNodes[i],
+			apportionments[i],
+			aggregators[i]
+		));
+
+	blanketNodes.push_back(std::make_tuple(
+		coopNodes[coopNodes.size() - 1],
+		(ApportionmentFunction*)NULL,
+		(AggregationFunction*)NULL
+	));
+
+	this->addMetaPopulation<MetaNodeType>(
+		true,
+		numThreads,
+		blanketNodes,
+		objectives,
+		toString,
+		conditions,
+		metaNodeName,
+		as...
+	);
 }

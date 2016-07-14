@@ -95,11 +95,17 @@ void MetaPopulationFactory::addMetaApportionments(
 	bool clobberExistingObjectives
 ) {
 	for (unsigned int i = 0; i < nodes.size(); i++) {
-		ObjectiveFunction * apportion = new MetaPopulationApportionment(
-			metaNode,
-			std::get<1>(nodes[i]),
-			std::get<2>(nodes[i])
-		);
+		if (
+			std::get<1>(nodes[i]) == NULL
+			|| std::get<2>(nodes[i]) == NULL
+		) continue;
+
+		ObjectiveFunction * apportion =
+			new MetaPopulationApportionment(
+				metaNode,
+				std::get<1>(nodes[i]),
+				std::get<2>(nodes[i])
+			);
 
 		if (clobberExistingObjectives) {
 			std::get<0>(nodes[i])->setObjective(apportion);
