@@ -23,23 +23,9 @@ else ifeq ($(PLATFORM), Darwin)
 SHAREDLIB = -L/usr/local/lib -lHierGA
 endif
 
-info:
-	@echo "Usage:"
-	@echo "make library: Rebuilds the library from scratch"
-	@echo "make install: Installs the compiled library and header files into /usr"
-	@echo "make examples: Produces a series of examples GAs and hierarchical GAs using the shared library. Requires make install to be run first."
-	@echo "make uninstall: Uninstalls the library and header files"
-	@echo "make clean: Cleans up all compiled binaries and object files"
-	@echo "make core: Produces the object files for the \"core\" components"
-	@echo "make selections: Produces the object files for the selection strategies"
-	@echo "make mutations: Produces the object files for the mutation operators"
-	@echo "make crossovers: Produces the object files for the crossover operators"
-	@echo ""
-	@echo "Any GA/HGA needs at least core, and one component from each of selections, mutations, and crossovers in order to function."
-
 all: library
 
-install: all-header
+install: uninstall all-header
 	sudo cp libs/$(LIBNAME) /usr/local/lib
 	sudo chmod 0755 /usr/local/lib/$(LIBNAME)
 	sudo mkdir /usr/local/include/libHierGA
@@ -52,8 +38,8 @@ all-header:
 	echo "#pragma once" >> include/HierGA.hpp
 
 uninstall:
-	sudo rm /usr/local/lib/*libHierGA*
-	sudo rm -r /usr/local/include/*libHierGA*
+	sudo rm -f /usr/local/lib/*libHierGA*
+	sudo rm -rf /usr/local/include/*libHierGA*
 	if [[ "$$(uname -s)" == "Linux" ]]; then sudo ldconfig; fi
 
 library: obj-dir core objectives loci nodes endconditions exception \
