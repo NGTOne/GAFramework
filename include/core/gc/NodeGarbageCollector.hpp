@@ -1,6 +1,5 @@
 #ifndef CORE_GC_NodeGC
 #define CORE_GC_NodeGC
-#include "../PopulationNode.hpp"
 #include "../EABehaviourObject.hpp"
 #include <vector>
 #include <set>
