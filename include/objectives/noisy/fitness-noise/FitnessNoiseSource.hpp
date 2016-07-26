@@ -1,7 +1,8 @@
 #include <random>
+#include "../../../core/EABehaviourObject.hpp"
 #pragma once
 
-class FitnessNoiseSource {
+class FitnessNoiseSource : public EABehaviourObject {
 	private:
 
 	protected:
@@ -11,5 +12,6 @@ class FitnessNoiseSource {
 	FitnessNoiseSource(unsigned int seed);
 
 	public:
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 	virtual float addNoise(float cleanFitness)=0;
 };

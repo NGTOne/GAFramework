@@ -25,6 +25,12 @@ NoisyObjective::NoisyObjective(
 	this->init(geneticSource, fitnessSource);
 }
 
+void NoisyObjective::registerInternalObjects(NodeGarbageCollector & collector) {
+	NestedObjective::registerInternalObjects(collector);
+	collector.registerObject(this->geneticSource);
+	collector.registerObject(this->fitnessSource);
+}
+
 void NoisyObjective::init(
 	GeneticNoiseSource * geneticSource,
 	FitnessNoiseSource * fitnessSource

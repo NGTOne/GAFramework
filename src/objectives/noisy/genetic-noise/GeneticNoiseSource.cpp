@@ -8,8 +8,12 @@ GeneticNoiseSource::GeneticNoiseSource(MutationOperation * mutator) {
 	this->mutator = mutator;
 }
 
-GeneticNoiseSource::~GeneticNoiseSource() {
-	delete(this->mutator);
+GeneticNoiseSource::~GeneticNoiseSource() {}
+
+void GeneticNoiseSource::registerInternalObjects(
+	NodeGarbageCollector & collector
+) {
+	collector.registerObject(this->mutator);
 }
 
 Genome GeneticNoiseSource::addNoise(Genome * target) {

@@ -1,9 +1,10 @@
 #include <vector>
 #include <random>
 #include "../../../nodes/EANode/MutationOperation.hpp"
+#include "../../../core/EABehaviourObject.hpp"
 #pragma once
 
-class GeneticNoiseSource {
+class GeneticNoiseSource : public EABehaviourObject {
 	private:
 
 	protected:
@@ -14,6 +15,7 @@ class GeneticNoiseSource {
 
 	public:
 	~GeneticNoiseSource();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual Genome addNoise(Genome * target);
 	Genome addNoise(Genome target);

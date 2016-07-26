@@ -10,3 +10,7 @@ FitnessNoiseSource::FitnessNoiseSource() {
 FitnessNoiseSource::FitnessNoiseSource(unsigned int seed) {
 	this->generator = std::mt19937(seed);
 }
+
+void FitnessNoiseSource::registerInternalObjects(
+	NodeGarbageCollector & collector
+) {}
