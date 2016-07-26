@@ -4,6 +4,13 @@ NestedObjective::NestedObjective(ObjectiveFunction * innerObjective) {
 	this->innerObjective = innerObjective;
 }
 
+void NestedObjective::registerInternalObjects(
+	NodeGarbageCollector & collector
+) {
+	ObjectiveFunction::registerInternalObjects(collector);
+	collector.registerObject(this->innerObjective);
+}
+
 bool NestedObjective::isNested() {
 	return true;
 }
