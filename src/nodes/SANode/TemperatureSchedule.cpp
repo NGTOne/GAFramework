@@ -19,6 +19,10 @@ TemperatureSchedule::TemperatureSchedule(
 
 TemperatureSchedule::~TemperatureSchedule() {}
 
+void TemperatureSchedule::registerInternalObjects(
+	NodeGarbageCollector & collector
+) {}
+
 string TemperatureSchedule::toString() {
 	stringstream ss;
 

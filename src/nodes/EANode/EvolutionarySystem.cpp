@@ -30,6 +30,14 @@ EvolutionarySystem::EvolutionarySystem(
 
 EvolutionarySystem::~EvolutionarySystem() {}
 
+void EvolutionarySystem::registerInternalObjects(
+	NodeGarbageCollector & collector
+) {
+	collector.registerObject(this->strategy);
+	collector.registerObject(this->cross);
+	collector.registerObject(this->mutation);
+}
+
 void EvolutionarySystem::init(
 	SelectionStrategy * strategy,
 	CrossoverOperation * cross,

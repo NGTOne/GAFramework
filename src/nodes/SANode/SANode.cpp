@@ -90,6 +90,11 @@ SANode::SANode(
 	init(schedule, maximize);
 }
 
+void SANode::registerInternalObjects(NodeGarbageCollector & collector) {
+	PopulationNode::registerInternalObjects(collector);
+	collector.registerObject(this->schedule);
+}
+
 void SANode::init(TemperatureSchedule * schedule, bool maximize) {
 	this->maximize = maximize;
 	this->schedule = schedule;

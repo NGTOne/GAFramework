@@ -1,10 +1,11 @@
 #include "../../core/Genome.hpp"
+#include "../../core/EABehaviourObject.hpp"
 #include <random>
 #include <string>
 #include <vector>
 #pragma once
 
-class SelectionStrategy {
+class SelectionStrategy : public EABehaviourObject {
 	private:
 
 	protected:
@@ -31,6 +32,7 @@ class SelectionStrategy {
 	SelectionStrategy(double crossoverRate);
 	SelectionStrategy(double crossoverRate, unsigned int seed);
 	virtual ~SelectionStrategy();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual unsigned int getParent(
 		std::vector<Genome*> population,

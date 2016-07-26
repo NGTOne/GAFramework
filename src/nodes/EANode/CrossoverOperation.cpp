@@ -32,6 +32,10 @@ CrossoverOperation::CrossoverOperation(
 
 CrossoverOperation::~CrossoverOperation() {}
 
+void CrossoverOperation::registerInternalObjects(
+	NodeGarbageCollector & collector
+) {}
+
 void CrossoverOperation::init(unsigned int numOffspring, unsigned int seed) {
 	this->numOffspring = numOffspring;
 	this->seed = seed;

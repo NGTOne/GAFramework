@@ -27,6 +27,10 @@ MutationOperation::MutationOperation(double mutationRate, unsigned int seed) {
 
 MutationOperation::~MutationOperation() {}
 
+void MutationOperation::registerInternalObjects(
+	NodeGarbageCollector & collector
+) {}
+
 void MutationOperation::init(double mutationRate, unsigned int seed) {
 	this->mutationRate = mutationRate;
 	this->seed = seed;

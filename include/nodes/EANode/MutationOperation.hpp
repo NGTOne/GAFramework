@@ -1,6 +1,7 @@
 #pragma once
 #include "../../core/Genome.hpp"
 #include "../../core/GenomeTemplate.hpp"
+#include "../../core/EABehaviourObject.hpp"
 #include <random>
 #include <string>
 
@@ -9,7 +10,7 @@
 * desired.
 */
 
-class MutationOperation {
+class MutationOperation : public EABehaviourObject {
 	private:
 
 	protected:
@@ -32,6 +33,7 @@ class MutationOperation {
 	MutationOperation(double mutationRate);
 	MutationOperation(double mutationRate, unsigned int seed);
 	virtual ~MutationOperation();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual Genome * mutate(Genome * initialGenome);
 	GenomeTemplate mutate(GenomeTemplate initial);

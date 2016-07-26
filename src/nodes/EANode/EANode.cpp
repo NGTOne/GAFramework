@@ -43,6 +43,11 @@ EANode::EANode(
 	init(system);
 }
 
+void EANode::registerInternalObjects(NodeGarbageCollector & collector) {
+	PopulationNode::registerInternalObjects(collector);
+	collector.registerObject(this->system);
+}
+
 void EANode::init(EvolutionarySystem * system) {
 	this->system = system;
 }

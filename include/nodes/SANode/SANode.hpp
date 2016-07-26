@@ -71,6 +71,7 @@ class SANode : public PopulationNode {
 		TemperatureSchedule * schedule,
 		bool maximize
 	);
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual std::vector<Genome*> getNextPopulation();
 	std::string toString();

@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
+#include "../../core/EABehaviourObject.hpp"
 
-class TemperatureSchedule {
+class TemperatureSchedule : public EABehaviourObject {
 	private:
 
 	protected:
@@ -20,6 +21,7 @@ class TemperatureSchedule {
 
 	public:
 	virtual ~TemperatureSchedule();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 	virtual float currentTemp(unsigned int currentIteration)=0;
 	virtual std::string toString();
 };

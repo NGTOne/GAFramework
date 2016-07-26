@@ -1,6 +1,7 @@
 #pragma once
 #include "../../core/Genome.hpp"
 #include "../../core/GenomeTemplate.hpp"
+#include "../../core/EABehaviourObject.hpp"
 #include <random>
 #include <string>
 #include <vector>
@@ -12,7 +13,7 @@
 * us to create whatever crossover operators we need to.
 */
 
-class CrossoverOperation {
+class CrossoverOperation : public EABehaviourObject {
 	private:
 
 	protected:
@@ -42,6 +43,7 @@ class CrossoverOperation {
 	CrossoverOperation(unsigned int numOffspring);
 	CrossoverOperation(unsigned int numOffspring, unsigned int seed);
 	virtual ~CrossoverOperation();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	std::vector<Genome*> crossOver(
 		std::vector<Genome*> parents,

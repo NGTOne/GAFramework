@@ -2,13 +2,14 @@
 #include "SelectionStrategy.hpp"
 #include "CrossoverOperation.hpp"
 #include "../../core/ObjectiveFunction.hpp"
+#include "../../core/EABehaviourObject.hpp"
 #include "MutationOperation.hpp"
 #include <random>
 #include <string>
 #include <vector>
 #pragma once
 
-class EvolutionarySystem {
+class EvolutionarySystem : public EABehaviourObject {
 	private:
 
 	protected:
@@ -56,6 +57,7 @@ class EvolutionarySystem {
 		unsigned int seed
 	);
 	virtual ~EvolutionarySystem();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
