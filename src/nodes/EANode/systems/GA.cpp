@@ -9,25 +9,31 @@ using namespace std;
 GA::GA(
 	unsigned int numElites,
 	bool randomElitePlacement,
-	SelectionStrategy * strategy
-) : EvolutionarySystem(strategy) {
-	init(numElites, randomElitePlacement);
+	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) : EvolutionarySystem(strategy, cross, mutation) {
+	this->init(numElites, randomElitePlacement);
 }
 
 GA::GA(
 	unsigned int numElites,
-	SelectionStrategy * strategy
-) : EvolutionarySystem(strategy) {
-	init(numElites, false);
+	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) : EvolutionarySystem(strategy, cross, mutation) {
+	this->init(numElites, false);
 }
 
 GA::GA(
 	unsigned int numElites,
 	bool randomElitePlacement,
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	unsigned int seed
-) : EvolutionarySystem(strategy, seed) {
-	init(numElites, randomElitePlacement);
+) : EvolutionarySystem(strategy, cross, mutation, seed) {
+	this->init(numElites, randomElitePlacement);
 }
 
 void GA::init(unsigned int numElites, bool randomElitePlacement) {
@@ -103,8 +109,6 @@ vector<unsigned int> GA::findElites(vector<float> fitnesses) {
 vector<Genome*> GA::breedMutateSelect(
 	vector<Genome*> initialPopulation,
 	vector<float> & populationFitnesses,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
@@ -128,12 +132,7 @@ vector<Genome*> GA::breedMutateSelect(
 			)]
 		);
 
-		children = this->produceChildren(
-			parents,
-			cross,
-			mutation,
-			speciesNode
-		);
+		children = this->produceChildren(parents, speciesNode);
 
 		for (unsigned int i = 0; i < children.size(); i++) {
 			while (newPopulation[numOffspring] != NULL)

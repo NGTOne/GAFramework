@@ -6,29 +6,41 @@
 
 using namespace std;
 
-EvolutionarySystem::EvolutionarySystem(SelectionStrategy * strategy) {
+EvolutionarySystem::EvolutionarySystem(
+	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) {
 	this->init(
 		strategy,
+		cross,
+		mutation,
 		chrono::system_clock::now().time_since_epoch().count()
 	);
 }
 
 EvolutionarySystem::EvolutionarySystem(
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	unsigned int seed
 ) {
-	this->init(strategy, seed);
+	this->init(strategy, cross, mutation, seed);
 }
 
 EvolutionarySystem::~EvolutionarySystem() {}
 
 void EvolutionarySystem::init(
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	unsigned int seed
 ) {
 	this->seed = seed;
 	this->generator = mt19937(seed);
 	this->strategy = strategy;
+	this->cross = cross;
+	this->mutation = mutation;
 }
 
 void EvolutionarySystem::sortPopulation(
@@ -69,14 +81,12 @@ unsigned int EvolutionarySystem::getParent(
 
 vector<Genome*> EvolutionarySystem::produceChildren(
 	vector<Genome*> parents,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
 	std::string speciesNode
 ) {
-	vector<Genome*> children = cross->crossOver(parents, speciesNode);
+	vector<Genome*> children = this->cross->crossOver(parents, speciesNode);
 	for (unsigned int i = 0; i < children.size(); i++) {
 		Genome * temp = children[i];
-		children[i] = mutation->mutate(children[i]);
+		children[i] = this->mutation->mutate(children[i]);
 		delete(temp);
 	}
 
@@ -88,7 +98,7 @@ string EvolutionarySystem::toString() {
 	
 	ss << "Random seed: " << seed << "\nSelection Strategy Info:\n";
 
-	if (strategy) {
+	if (this->strategy) {
 		ss << this->strategy->toString();
 	} else {
 		ss << "Not using any selection strategy\n";
@@ -99,6 +109,14 @@ string EvolutionarySystem::toString() {
 
 SelectionStrategy * EvolutionarySystem::getSelectionStrategy() {
 	return this->strategy;
+}
+
+CrossoverOperation * EvolutionarySystem::getCrossover() {
+	return this->cross;
+}
+
+MutationOperation * EvolutionarySystem::getMutation() {
+	return this->mutation;
 }
 
 bool EvolutionarySystem::hasNiching() {

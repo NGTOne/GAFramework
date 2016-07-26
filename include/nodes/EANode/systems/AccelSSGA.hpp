@@ -20,15 +20,28 @@ class AccelSSGA : public SSGA {
 	protected:
 
 	public:
-	AccelSSGA(SelectionStrategy * strategy);
-	AccelSSGA(SelectionStrategy * strategy, unsigned int seed);
 	AccelSSGA(
 		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+	AccelSSGA(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		unsigned int seed
+	);
+	AccelSSGA(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
 		NichingStrategy * niching
 	);
 
 	AccelSSGA(
 		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
 		NichingStrategy * niching,
 		unsigned int seed
 	);
@@ -36,8 +49,6 @@ class AccelSSGA : public SSGA {
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
 		std::vector<float> & populationFitnesses,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);

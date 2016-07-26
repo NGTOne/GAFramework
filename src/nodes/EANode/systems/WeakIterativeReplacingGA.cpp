@@ -4,19 +4,21 @@
 using namespace std;
 
 WeakIterativeReplacingGA::WeakIterativeReplacingGA(
-	SelectionStrategy * strategy
-) : ReplacingGA(strategy) {}
+	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) : ReplacingGA(strategy, cross, mutation) {}
 
 WeakIterativeReplacingGA::WeakIterativeReplacingGA(
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	unsigned int seed
-) : ReplacingGA(strategy, seed) {}
+) : ReplacingGA(strategy, cross, mutation, seed) {}
 
 vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 	vector<Genome*> initialPopulation,
 	vector<float> & populationFitnesses,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
@@ -39,12 +41,7 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 		for (unsigned int k = 0; k < parentIndices.size(); k++)
 			parents.push_back(initialPopulation[parentIndices[k]]);
 
-		children = this->produceChildren(
-			parents,
-			cross,
-			mutation,
-			speciesNode
-		);
+		children = this->produceChildren(parents, speciesNode);
 
 		for (unsigned int k = 0; k < children.size(); k++)
 			possibleContenders[parentIndices[k]].push_back(

@@ -28,30 +28,59 @@ class ES : public EvolutionarySystem {
 	Genome * getCrossoverChild(
 		vector<Genome*> initialPopulation,
 		vector<float> populationFitnesses,
-		CrossoverOperation * cross,
 		std::string speciesNode
 	);
 
 	public:
-	ES();
-	ES(SelectionStrategy * strategy);
-	ES(unsigned seed);
-	ES(SelectionStrategy * strategy, unsigned int seed);
-	ES(double muRatio, double rhoRatio);
-	ES(double muRatio, double rhoRatio, unsigned int seed);
-	ES(double muRatio, double rhoRatio, SelectionStrategy * strategy);
+	ES(CrossoverOperation * cross, MutationOperation * mutation);
+	ES(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+	ES(
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		unsigned seed
+	);
+	ES(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		unsigned int seed
+	);
+	ES(
+		double muRatio,
+		double rhoRatio,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+	ES(
+		double muRatio,
+		double rhoRatio,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		unsigned int seed
+	);
 	ES(
 		double muRatio,
 		double rhoRatio,
 		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+	ES(
+		double muRatio,
+		double rhoRatio,
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
 		unsigned int seed
 	);
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
 		std::vector<float> & populationFitnesses,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);

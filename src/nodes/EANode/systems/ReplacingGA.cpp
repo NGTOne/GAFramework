@@ -3,13 +3,17 @@
 using namespace std;
 
 ReplacingGA::ReplacingGA(
-	SelectionStrategy * strategy
-) : EvolutionarySystem(strategy) {}
+	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) : EvolutionarySystem(strategy, cross, mutation) {}
 
 ReplacingGA::ReplacingGA(
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	unsigned int seed
-) : EvolutionarySystem(strategy, seed) {}
+) : EvolutionarySystem(strategy, cross, mutation, seed) {}
 
 bool ReplacingGA::inPopulation(Genome * target, vector<Genome*> population) {
 	for (unsigned int i = 0; i < population.size(); i++)
@@ -33,8 +37,6 @@ void ReplacingGA::removeUnusedIndividuals(
 vector<Genome*> ReplacingGA::breedMutateSelect(
 	vector<Genome*> initialPopulation,
 	vector<float> & populationFitnesses,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
@@ -54,12 +56,7 @@ vector<Genome*> ReplacingGA::breedMutateSelect(
 			parents.push_back(initialPopulation[parentIndices[k]]);
 		}
 
-		children = this->produceChildren(
-			parents,
-			cross,
-			mutation,
-			speciesNode
-		);
+		children = this->produceChildren(parents, speciesNode);
 		parents.clear();
 
 		for (unsigned int k = 0; k < children.size(); k++) {

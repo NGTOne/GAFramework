@@ -15,8 +15,15 @@ class EvolutionarySystem {
 	unsigned int seed;
 	std::mt19937 generator;
 	SelectionStrategy * strategy;
+	CrossoverOperation * cross;
+	MutationOperation * mutation;
 
-	void init(SelectionStrategy * strategy, unsigned int seed);
+	void init(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		unsigned int seed
+	);
 	void sortPopulation(
 		std::vector<Genome*> & population,
 		std::vector<float> & fitnesses
@@ -33,26 +40,33 @@ class EvolutionarySystem {
 
 	std::vector<Genome*> produceChildren(
 		std::vector<Genome*> parents,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
 		std::string speciesNode
 	);
 
 	public:
-	EvolutionarySystem(SelectionStrategy * strategy);
-	EvolutionarySystem(SelectionStrategy * strategy, unsigned int seed);
+	EvolutionarySystem(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+	EvolutionarySystem(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		unsigned int seed
+	);
 	virtual ~EvolutionarySystem();
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
 		std::vector<float> & populationFitnesses,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	)=0;
 
 	std::string toString();
 	SelectionStrategy * getSelectionStrategy();
+	CrossoverOperation * getCrossover();
+	MutationOperation * getMutation();
 	virtual bool hasNiching();
 };

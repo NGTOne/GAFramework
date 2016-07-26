@@ -15,17 +15,21 @@ class WeakIterativeReplacingGA : public ReplacingGA {
 	protected:
 
 	public:
-	WeakIterativeReplacingGA(SelectionStrategy * strategy);
 	WeakIterativeReplacingGA(
 		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+	WeakIterativeReplacingGA(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
 		unsigned int seed
 	);
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
 		std::vector<float> & populationFitnesses,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);

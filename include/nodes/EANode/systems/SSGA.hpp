@@ -19,11 +19,27 @@ class SSGA : public EvolutionarySystem {
 	NichingStrategy * niching;
 
 	public:
-	SSGA(SelectionStrategy * strategy);
-	SSGA(SelectionStrategy * strategy, unsigned int seed);
-	SSGA(SelectionStrategy * strategy, NichingStrategy * niching);
 	SSGA(
 		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+	SSGA(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		unsigned int seed
+	);
+	SSGA(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		NichingStrategy * niching
+	);
+	SSGA(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
 		NichingStrategy * niching,
 		unsigned int seed
 	);
@@ -31,8 +47,6 @@ class SSGA : public EvolutionarySystem {
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
 		std::vector<float> & populationFitnesses,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);

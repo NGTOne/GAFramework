@@ -24,14 +24,21 @@ class ReplacingGA : public EvolutionarySystem {
 	);
 
 	public:
-	ReplacingGA(SelectionStrategy * strategy);
-	ReplacingGA(SelectionStrategy * strategy, unsigned int seed);
+	ReplacingGA(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+	ReplacingGA(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
+		unsigned int seed
+	);
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
 		std::vector<float> & populationFitnesses,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);

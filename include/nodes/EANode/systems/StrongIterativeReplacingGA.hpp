@@ -21,17 +21,27 @@ class StrongIterativeReplacingGA : public ReplacingGA {
 	);
 
 	public:
-	StrongIterativeReplacingGA(SelectionStrategy * strategy);
 	StrongIterativeReplacingGA(
 		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
+	StrongIterativeReplacingGA(
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
 		unsigned int seed
 	);
 	StrongIterativeReplacingGA(
 		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
 		bool scramble
 	);
 	StrongIterativeReplacingGA(
 		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
 		bool scramble,
 		unsigned int seed
 	);
@@ -39,8 +49,6 @@ class StrongIterativeReplacingGA : public ReplacingGA {
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
 		std::vector<float> & populationFitness,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);

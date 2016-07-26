@@ -34,23 +34,28 @@ class GA : public EvolutionarySystem {
 	GA(
 		unsigned int numElites,
 		bool randomElitePlacement,
-		SelectionStrategy * strategy
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
 	);
-
-	GA(unsigned int numElites, SelectionStrategy * strategy);
-
+	GA(
+		unsigned int numElites,
+		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation
+	);
 	GA(
 		unsigned int numElites,
 		bool randomElitePlacement,
 		SelectionStrategy * strategy,
+		CrossoverOperation * cross,
+		MutationOperation * mutation,
 		unsigned int seed
 	);
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
 		std::vector<float> & populationFitnesses,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);

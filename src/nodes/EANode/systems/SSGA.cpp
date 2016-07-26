@@ -4,36 +4,45 @@
 
 using namespace std;
 
-SSGA::SSGA(SelectionStrategy * strategy) : EvolutionarySystem(strategy) {
+SSGA::SSGA(
+	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) : EvolutionarySystem(strategy, cross, mutation) {
 	this->niching = NULL;
 }
 
 SSGA::SSGA(
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	unsigned int seed
-) : EvolutionarySystem(strategy, seed) {
+) : EvolutionarySystem(strategy, cross, mutation, seed) {
 	this->niching = NULL;
 }
+
 SSGA::SSGA(
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	NichingStrategy * niching
-) : EvolutionarySystem(strategy) {
+) : EvolutionarySystem(strategy, cross, mutation) {
 	this->niching = niching;
 }
 
 SSGA::SSGA(
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	NichingStrategy * niching,
 	unsigned int seed
-) : EvolutionarySystem(strategy, seed) {
+) : EvolutionarySystem(strategy, cross, mutation, seed) {
 	this->niching = niching;
 }
 
 vector<Genome*> SSGA::breedMutateSelect(
 	vector<Genome*> initialPopulation,
 	vector<float> & populationFitnesses,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
@@ -49,12 +58,7 @@ vector<Genome*> SSGA::breedMutateSelect(
 		parents.push_back(initialPopulation[parentIndices[i]]);
 	}
 
-	children = this->produceChildren(
-		parents,
-		cross,
-		mutation,
-		speciesNode
-	);
+	children = this->produceChildren(parents, speciesNode);
 
 	vector<unsigned int> replacementIndices = parentIndices;
 	if (niching != NULL)

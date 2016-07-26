@@ -4,30 +4,38 @@
 using namespace std;
 
 StrongIterativeReplacingGA::StrongIterativeReplacingGA(
-	SelectionStrategy * strategy
-) : ReplacingGA(strategy) {
+	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) : ReplacingGA(strategy, cross, mutation) {
 	this->scramble = false;
 }
 
 StrongIterativeReplacingGA::StrongIterativeReplacingGA(
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	unsigned int seed
-) : ReplacingGA(strategy, seed) {
+) : ReplacingGA(strategy, cross, mutation, seed) {
 	this->scramble = false;
 }
 
 StrongIterativeReplacingGA::StrongIterativeReplacingGA(
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	bool scramble
-) : ReplacingGA(strategy) {
+) : ReplacingGA(strategy, cross, mutation) {
 	this->scramble = scramble;
 }
 
 StrongIterativeReplacingGA::StrongIterativeReplacingGA(
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	bool scramble,
 	unsigned int seed
-) : ReplacingGA(strategy, seed) {
+) : ReplacingGA(strategy, cross, mutation, seed) {
 	this->scramble = scramble;
 }
 
@@ -57,8 +65,6 @@ void StrongIterativeReplacingGA::scramblePopulation(
 vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 	vector<Genome*> initialPopulation,
 	vector<float> & populationFitnesses,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
@@ -79,12 +85,7 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 		for (unsigned int k = 0; k < parentIndices.size(); k++)
 			parents.push_back(initialPopulation[parentIndices[k]]);
 
-		children = this->produceChildren(
-			parents,
-			cross,
-			mutation,
-			speciesNode
-		);
+		children = this->produceChildren(parents, speciesNode);
 
 		for (unsigned int k = 0; k < children.size(); k++) {
 			float childFitness = this->evaluateFitness(

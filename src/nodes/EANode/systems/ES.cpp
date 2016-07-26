@@ -7,57 +7,76 @@
 
 using namespace std;
 
-ES::ES() : EvolutionarySystem(new RandomSelection()) {
-	init(1, 1);
+ES::ES(
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) : EvolutionarySystem(new RandomSelection(), cross, mutation) {
+	this->init(1, 1);
 }
 
-ES::ES(unsigned int seed) : EvolutionarySystem(new RandomSelection(), seed) {
-	init(1, 1);
-}
-
-ES::ES(SelectionStrategy * strategy) : EvolutionarySystem(strategy) {
-	init(1, 1);
+ES::ES(
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
+	unsigned int seed
+) : EvolutionarySystem(new RandomSelection(), cross, mutation, seed) {
+	this->init(1, 1);
 }
 
 ES::ES(
 	SelectionStrategy * strategy,
-	unsigned int seed
-) : EvolutionarySystem(strategy, seed) {
-	init(1, 1);
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) : EvolutionarySystem(strategy, cross, mutation) {
+	this->init(1, 1);
 }
 
 ES::ES(
-	double muRatio,
-	double rhoRatio
-) : EvolutionarySystem(
-	new RandomSelection()
-) {
-	init(muRatio, rhoRatio);
+	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
+	unsigned int seed
+) : EvolutionarySystem(strategy, cross, mutation, seed) {
+	this->init(1, 1);
 }
 
 ES::ES(
 	double muRatio,
 	double rhoRatio,
-	unsigned int seed
-) : EvolutionarySystem(new RandomSelection(), seed) {
-	init(muRatio, rhoRatio);
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) : EvolutionarySystem(new RandomSelection(), cross, mutation) {
+	this->init(muRatio, rhoRatio);
 }
 
 ES::ES(
 	double muRatio,
 	double rhoRatio,
-	SelectionStrategy * strategy
-) : EvolutionarySystem(strategy) {
-	init(muRatio, rhoRatio);
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
+	unsigned int seed
+) : EvolutionarySystem(new RandomSelection(), cross, mutation, seed) {
+	this->init(muRatio, rhoRatio);
 }
 
 ES::ES(
 	double muRatio,
 	double rhoRatio,
 	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation
+) : EvolutionarySystem(strategy, cross, mutation) {
+	this->init(muRatio, rhoRatio);
+}
+
+ES::ES(
+	double muRatio,
+	double rhoRatio,
+	SelectionStrategy * strategy,
+	CrossoverOperation * cross,
+	MutationOperation * mutation,
 	unsigned int seed
-) : EvolutionarySystem(strategy, seed) {
-	init(muRatio, rhoRatio);
+) : EvolutionarySystem(strategy, cross, mutation, seed) {
+	this->init(muRatio, rhoRatio);
 }
 
 void ES::init(double muRatio, double rhoRatio) {
@@ -68,7 +87,6 @@ void ES::init(double muRatio, double rhoRatio) {
 Genome* ES::getCrossoverChild(
 	vector<Genome*> initialPopulation,
 	vector<float> populationFitnesses,
-	CrossoverOperation * cross,
 	std::string speciesNode
 ) {
 	vector<Genome*> parents, children;
@@ -79,7 +97,7 @@ Genome* ES::getCrossoverChild(
 		)]);
 	}
 
-	children = cross->crossOver(parents, speciesNode);
+	children = this->cross->crossOver(parents, speciesNode);
 	uniform_int_distribution<unsigned int> childIndexDist(
 		0,
 		children.size() - 1
@@ -94,8 +112,6 @@ Genome* ES::getCrossoverChild(
 vector<Genome*> ES::breedMutateSelect(
 	vector<Genome*> initialPopulation,
 	vector<float> & populationFitnesses,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
 	vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
@@ -107,7 +123,7 @@ vector<Genome*> ES::breedMutateSelect(
 
 	for (unsigned int i = 0; i < numMutants; i++) {
 		mutantChildren.push_back(
-			mutation->mutate(initialPopulation[
+			this->mutation->mutate(initialPopulation[
 				this->getParent(
 					initialPopulation,
 					populationFitnesses
@@ -120,7 +136,6 @@ vector<Genome*> ES::breedMutateSelect(
 		crossChildren.push_back(this->getCrossoverChild(
 			initialPopulation,
 			populationFitnesses,
-			cross,
 			speciesNode
 		));
 	}
