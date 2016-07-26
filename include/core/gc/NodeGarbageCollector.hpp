@@ -6,6 +6,8 @@
 #include <set>
 #pragma once
 
+class EABehaviourObject;
+
 class NodeGarbageCollector {
 	private:
 

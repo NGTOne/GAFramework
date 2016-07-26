@@ -1,16 +1,18 @@
+#ifndef CORE_PopulationNode
+#define CORE_PopulationNode
 #include "Genome.hpp"
 #include "ObjectiveFunction.hpp"
 #include "EndCondition.hpp"
 #include "ObjectiveFunction.hpp"
 #include "ToStringFunction.hpp"
 #include "Locus.hpp"
+#include "EABehaviourObject.hpp"
 #include <vector>
 #include <set>
-#pragma once
 
 typedef std::string node_type_t;
 
-class PopulationNode {
+class PopulationNode : public EABehaviourObject {
 	private:
 
 	protected:
@@ -65,6 +67,7 @@ class PopulationNode {
 	);
 
 	virtual ~PopulationNode();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	void addObjective(ObjectiveFunction * objective);
 	void addObjectives(std::vector<ObjectiveFunction*> objectives);
@@ -112,3 +115,6 @@ class PopulationNode {
 
 	virtual PopulationNode * duplicate(std::string newNodeName)=0;
 };
+
+#endif
+#pragma once

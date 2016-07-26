@@ -48,6 +48,14 @@ PopulationNode::~PopulationNode() {
 		delete(this->population[i]);
 }
 
+void PopulationNode::registerInternalObjects(
+	NodeGarbageCollector & collector
+) {
+	collector.registerObjects(this->objectives);
+	collector.registerObjects(this->conditions);
+	collector.registerObject(this->populationToString);
+}
+
 void PopulationNode::init(
 	unsigned int populationSize,
 	vector<Locus*> loci,

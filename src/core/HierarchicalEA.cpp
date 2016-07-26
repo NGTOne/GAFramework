@@ -25,8 +25,7 @@ HierarchicalEA::HierarchicalEA(unsigned int maxEpochs) {
 HierarchicalEA::~HierarchicalEA() {}
 
 void HierarchicalEA::deleteAllNodes() {
-	NodeGarbageCollector gc;
-	gc.cleanUp();
+	this->gc.cleanUp();
 
 	this->nodesToPrint.clear();
 	this->evolutionOrder.clear();
@@ -51,6 +50,8 @@ void HierarchicalEA::addNode(
 	this->nodes.push_back(node);
 	if (print) this->nodesToPrint.push_back(node->name());
 	if (end) this->endDictators.push_back(node->name());
+
+	this->gc.registerObject(node);
 }
 
 void HierarchicalEA::addNodes(
