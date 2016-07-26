@@ -1,8 +1,11 @@
-#include "Genome.hpp"
-#include <vector>
-#pragma once
+#ifndef CORE_EndCondition
+#define CORE_EndCondition
 
-class EndCondition {
+#include "Genome.hpp"
+#include "EABehaviourObject.hpp"
+#include <vector>
+
+class EndCondition : public EABehaviourObject {
 	private:
 
 	protected:
@@ -11,6 +14,7 @@ class EndCondition {
 	public:
 	EndCondition();
 	virtual ~EndCondition();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual bool checkCondition(
 		std::vector<Genome*> genomes,
@@ -18,3 +22,5 @@ class EndCondition {
 		unsigned int currentIteration
 	)=0;
 };
+
+#endif

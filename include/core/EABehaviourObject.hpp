@@ -17,4 +17,3 @@ class EABehaviourObject {
 };
 
 #endif
-#pragma once

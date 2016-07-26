@@ -20,8 +20,17 @@ class NodeGarbageCollector {
 	void cleanUp();
 
 	void registerObject(EABehaviourObject * object);
-	void registerObjects(std::vector<EABehaviourObject*> objects);
+
+	template <typename T>
+	void registerObjects(std::vector<T*> objects);
 };
+
+template <typename T>
+void NodeGarbageCollector::registerObjects(std::vector<T*> objects) {
+	if (std::is_base_of<EABehaviourObject, T>::value)
+		for (unsigned int i = 0; i < objects.size(); i++)
+			this->registerObject(objects[i]);
+}
 
 #endif
 #pragma once
