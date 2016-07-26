@@ -12,13 +12,9 @@ class EANode : public PopulationNode {
 
 	protected:
 	EvolutionarySystem * system;
-	CrossoverOperation * cross;
-	MutationOperation * mutation;
 
 	void init(
-		EvolutionarySystem * system,
-		CrossoverOperation * cross,
-		MutationOperation * mutation
+		EvolutionarySystem * system
 	);
 
 	public:
@@ -29,9 +25,7 @@ class EANode : public PopulationNode {
 		ToStringFunction * populationToString,
 		std::vector<EndCondition *> conditions,
 		std::string name,
-		EvolutionarySystem * system,
-		CrossoverOperation * cross,
-		MutationOperation * mutation
+		EvolutionarySystem * system
 	);
 
 	EANode(
@@ -42,9 +36,7 @@ class EANode : public PopulationNode {
 		std::vector<EndCondition *> conditions,
 		std::string name,
 		unsigned int accelerationFactor,
-		EvolutionarySystem * system,
-		CrossoverOperation * cross,
-		MutationOperation * mutation
+		EvolutionarySystem * system
 	);
 
 	virtual std::vector<Genome*> getNextPopulation();
@@ -52,8 +44,6 @@ class EANode : public PopulationNode {
 	node_type_t type();
 
 	EvolutionarySystem * getSystem();
-	CrossoverOperation * getCrossover();
-	MutationOperation * getMutation();
 
 	PopulationNode * duplicate(std::string newNodeName);
 };

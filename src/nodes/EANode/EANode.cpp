@@ -10,9 +10,7 @@ EANode::EANode(
 	ToStringFunction * populationToString,
 	vector<EndCondition*> conditions,
 	string name,
-	EvolutionarySystem * system,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	EvolutionarySystem * system
 ) : PopulationNode(
 	populationSize,
 	loci,
@@ -21,7 +19,7 @@ EANode::EANode(
 	conditions,
 	name
 ) {
-	init(system, cross, mutation);
+	this->init(system);
 }
 
 EANode::EANode(
@@ -32,9 +30,7 @@ EANode::EANode(
 	vector<EndCondition*> conditions,
 	string name,
 	unsigned int accelerationFactor,
-	EvolutionarySystem * system,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	EvolutionarySystem * system
 ) : PopulationNode(
 	populationSize,
 	loci,
@@ -44,25 +40,17 @@ EANode::EANode(
 	name,
 	accelerationFactor
 ) {
-	init(system, cross, mutation);
+	init(system);
 }
 
-void EANode::init(
-	EvolutionarySystem * system,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
-) {
+void EANode::init(EvolutionarySystem * system) {
 	this->system = system;
-	this->cross = cross;
-	this->mutation = mutation;
 }
 
 vector<Genome*> EANode::getNextPopulation() {
 	return this->system->breedMutateSelect(
 		this->population,
 		this->fitnesses,
-		this->cross,
-		this->mutation,
 		this->objectives,
 		this->nodeName
 	);
@@ -75,12 +63,10 @@ string EANode::toString() {
 	ss << populationStrings();
 
 	if (this->readOnce == false) {
-	        ss << "Selection Info:\n" << this->system->toString();
-	        ss << "Crossover Info:\n" << this->cross->toString();
-	        ss << "Mutation Info:\n" << this->mutation->toString();
+	        ss << "System Info:\n" << this->system->toString();
 	}
 
-	readOnce = true;
+	this->readOnce = true;
 	return ss.str();
 }
 
@@ -92,14 +78,6 @@ EvolutionarySystem * EANode::getSystem() {
 	return this->system;
 }
 
-CrossoverOperation * EANode::getCrossover() {
-	return this->cross;
-}
-
-MutationOperation * EANode::getMutation() {
-	return this->mutation;
-}
-
 PopulationNode * EANode::duplicate(std::string newNodeName) {
 	return new EANode(
 		this->populationSize(),
@@ -109,8 +87,6 @@ PopulationNode * EANode::duplicate(std::string newNodeName) {
 		this->getConditions(),
 		newNodeName,
 		this->accelerationFactor,
-		this->getSystem(),
-		this->getCrossover(),
-		this->getMutation()
+		this->getSystem()
 	);
 }
