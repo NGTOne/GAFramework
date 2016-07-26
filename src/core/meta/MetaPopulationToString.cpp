@@ -7,6 +7,13 @@ MetaPopulationToString::MetaPopulationToString(
 	this->flattenedToString = flattenedToString;
 }
 
+void MetaPopulationToString::registerInternalObjects(
+	NodeGarbageCollector & collector
+) {
+	ToStringFunction::registerInternalObjects(collector);
+	collector.registerObject(this->flattenedToString);
+}
+
 std::string MetaPopulationToString::toString(Genome * genome) {
 	Genome resolved = BlanketResolver::resolveBlanket(genome);
 	return this->flattenedToString->toString(&resolved);
