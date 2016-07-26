@@ -27,6 +27,12 @@ Apportionment::Apportionment(
 
 Apportionment::~Apportionment() {}
 
+void Apportionment::registerInternalObjects(NodeGarbageCollector & collector) {
+	ObjectiveFunction::registerInternalObjects(collector);
+	collector.registerObject(this->apportionment);
+	collector.registerObject(this->aggregator);
+}
+
 void Apportionment::init(
 	PopulationNode * upperNode,
 	ApportionmentFunction * apportionment,

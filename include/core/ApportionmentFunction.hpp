@@ -1,14 +1,16 @@
 #include "Genome.hpp"
+#include "EABehaviourObject.hpp"
 #include <vector>
 #pragma once
 
-class ApportionmentFunction {
+class ApportionmentFunction : public EABehaviourObject {
 	private:
 
 	protected:
 
 	public:
 	virtual ~ApportionmentFunction();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual float apportionFitness(
 		Genome * recipient,

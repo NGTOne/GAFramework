@@ -56,6 +56,7 @@ class Apportionment : public ObjectiveFunction {
 	);
 
 	virtual ~Apportionment();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	float checkFitness(Genome * genome);
 
