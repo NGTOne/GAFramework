@@ -43,7 +43,7 @@ uninstall:
 	if [[ "$$(uname -s)" == "Linux" ]]; then sudo ldconfig; fi
 
 library: obj-dir core objectives loci nodes endconditions exception \
-		pop-formulae gc
+		pop-formulae
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
 
@@ -74,7 +74,6 @@ core: builders
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationToString.cpp -o obj/core/meta/MetaPopulationToString.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierarchicalEA.cpp -o obj/core/HierarchicalEA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/gc/NodeGarbageCollector.cpp -o obj/core/gc/NodeGarbageCollector.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/gc/NodeDeallocator.cpp -o obj/core/gc/NodeDeallocator.o
 
 builders:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/StructureBuilder.cpp -o obj/core/builders/StructureBuilder.o
@@ -97,12 +96,6 @@ pop-formulae:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/pop-formulae/LocusBasePopFormula.cpp -o obj/pop-formulae/LocusBasePopFormula.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/pop-formulae/LocusExponentPopFormula.cpp -o obj/pop-formulae/LocusExponentPopFormula.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/pop-formulae/ConstructiveLocusCountPopFormula.cpp -o obj/pop-formulae/ConstructiveLocusCountPopFormula.o
-
-gc:
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/PopulationNodeDeallocator.cpp -o obj/gc/PopulationNodeDeallocator.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/NonOptimizingNodeDeallocator.cpp -o obj/gc/NonOptimizingNodeDeallocator.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/EANodeDeallocator.cpp -o obj/gc/EANodeDeallocator.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/gc/SANodeDeallocator.cpp -o obj/gc/SANodeDeallocator.o
 
 loci:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/BoolLocus.cpp -o obj/loci/BoolLocus.o

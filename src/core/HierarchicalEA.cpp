@@ -26,7 +26,7 @@ HierarchicalEA::~HierarchicalEA() {}
 
 void HierarchicalEA::deleteAllNodes() {
 	NodeGarbageCollector gc;
-	gc.deleteNodes(this->nodes);
+	gc.cleanUp();
 
 	this->nodesToPrint.clear();
 	this->evolutionOrder.clear();
