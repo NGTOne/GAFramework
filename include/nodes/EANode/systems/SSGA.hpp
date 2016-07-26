@@ -44,6 +44,8 @@ class SSGA : public EvolutionarySystem {
 		unsigned int seed
 	);
 
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
+
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
 		std::vector<float> & populationFitnesses,

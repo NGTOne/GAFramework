@@ -40,6 +40,11 @@ SSGA::SSGA(
 	this->niching = niching;
 }
 
+void SSGA::registerInternalObjects(NodeGarbageCollector & collector) {
+	EvolutionarySystem::registerInternalObjects(collector);
+	collector.registerObject(this->niching);
+}
+
 vector<Genome*> SSGA::breedMutateSelect(
 	vector<Genome*> initialPopulation,
 	vector<float> & populationFitnesses,
