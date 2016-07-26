@@ -1,14 +1,16 @@
 #include "Locus.hpp"
+#include "EABehaviourObject.hpp"
 #include <vector>
 #pragma once
 
-class PopulationFormula {
+class PopulationFormula : public EABehaviourObject {
 	private:
 
 	protected:
 
 	public:
 	virtual ~PopulationFormula();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	// I don't like it being this simple, but I can't think of how to
 	// extend it
