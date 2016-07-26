@@ -20,9 +20,13 @@ int main(void) {
 		TreeBuilder("P1").addSubNodes("P1", {"P2", "P3", "P4", "P5"}),
 		{true, false},
 		{true, false},
-		new GA(2, false, new TournamentSelection(0.95, 4)),
-		new NPointCrossover(2),
-		new UniformMutation(0.2)
+		new GA(
+			2,
+			false,
+			new TournamentSelection(0.95, 4),
+			new NPointCrossover(2),
+			new UniformMutation(0.2)
+		)
 	);
 
 	ea.setEvolutionOrder({"P5", "P4", "P3", "P2", "P1"});

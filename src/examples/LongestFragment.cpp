@@ -13,13 +13,17 @@ int main(void) {
 		new EANode(
 			64,
 			baseLoci,
-			vector<ObjectiveFunction*>({new LongestFragmentFitness()}),
+			{new LongestFragmentFitness()},
 			new LongestFragmentToString(),
-			vector<EndCondition*>({new IterationCountEnd(100)}),
+			{new IterationCountEnd(100)},
 			"P1",
-			new GA(2, false, new TournamentSelection(0.95, 4)),
-			new NPointCrossover(2),
-			new UniformMutation(0.2)
+			new GA(
+				2,
+				false,
+				new TournamentSelection(0.95, 4),
+				new NPointCrossover(2),
+				new UniformMutation(0.2)
+			)
 		),
 		true,
 		true
