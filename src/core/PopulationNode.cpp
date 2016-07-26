@@ -53,6 +53,7 @@ void PopulationNode::registerInternalObjects(
 ) {
 	collector.registerObjects(this->objectives);
 	collector.registerObjects(this->conditions);
+	collector.registerObjects(this->canonicalLoci);
 	collector.registerObject(this->populationToString);
 }
 

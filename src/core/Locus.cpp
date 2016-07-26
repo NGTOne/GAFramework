@@ -29,6 +29,8 @@ boost::any Locus::getIndex(unsigned int index) {
 
 Locus::~Locus() {}
 
+void Locus::registerInternalObjects(NodeGarbageCollector & collector) {}
+
 unsigned int Locus::topIndex() {
 	return this->population.size() - 1;
 }

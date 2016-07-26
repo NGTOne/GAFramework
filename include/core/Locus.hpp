@@ -2,9 +2,10 @@
 #include <vector>
 #include <random>
 #include <boost/any.hpp>
+#include "EABehaviourObject.hpp"
 #pragma once
 
-class Locus {
+class Locus : public EABehaviourObject {
 	private:
 
 	protected:
@@ -19,6 +20,7 @@ class Locus {
 
 	public:
 	virtual ~Locus();
+	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual unsigned int randomIndex();
 	virtual unsigned int topIndex();
