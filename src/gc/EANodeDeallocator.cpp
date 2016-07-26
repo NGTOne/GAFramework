@@ -27,8 +27,8 @@ void EANodeDeallocator::deleteNodes() {
 
 		EvolutionarySystem * system = temp->getSystem();
 		systems.insert(system);
-		crossovers.insert(temp->getCrossover());
-		mutations.insert(temp->getMutation());
+		crossovers.insert(system->getCrossover());
+		mutations.insert(system->getMutation());
 		selections.insert(system->getSelectionStrategy());
 
 		if (system->hasNiching())
