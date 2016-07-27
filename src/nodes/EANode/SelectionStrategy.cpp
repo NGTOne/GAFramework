@@ -7,31 +7,14 @@
 using namespace std;
 
 SelectionStrategy::SelectionStrategy(double crossoverRate) {
-	this->seed = chrono::system_clock::now().time_since_epoch().count();
-	this->init(crossoverRate, seed, "Unknown");
-}
-
-SelectionStrategy::SelectionStrategy(double crossoverRate, unsigned seed)  {
-	this->init(crossoverRate, seed, "Unknown");
+	this->init(crossoverRate, "Unknown");
 }
 
 SelectionStrategy::SelectionStrategy(
 	double crossoverRate,
 	string name
 ) {
-	init(
-		crossoverRate,
-		chrono::system_clock::now().time_since_epoch().count(),
-		name
-	);
-}
-
-SelectionStrategy::SelectionStrategy(
-	unsigned seed,
-	double crossoverRate,
-	string name
-) {
-	init(crossoverRate, seed, name);
+	this->init(crossoverRate, name);
 }
 
 SelectionStrategy::~SelectionStrategy() {}
@@ -42,18 +25,15 @@ void SelectionStrategy::registerInternalObjects(
 
 void SelectionStrategy::init(
 	double crossoverRate,
-	unsigned seed,
 	string name
 ) {
-	this->seed = seed;
 	this->crossoverRate = crossoverRate;
-	this->generator = mt19937(seed);
 	this->name = name;
 }
 
 string SelectionStrategy::toString() {
 	stringstream ss;
-	ss << "Name: " << name << "\nRandom seed: " << seed
+	ss << "Name: " << name
 		<< "\nCrossover Rate: " << crossoverRate << "\n";
 	return ss.str();
 }

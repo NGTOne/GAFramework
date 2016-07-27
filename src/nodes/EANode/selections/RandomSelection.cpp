@@ -1,4 +1,5 @@
 #include "nodes/EANode/selections/RandomSelection.hpp"
+#include "core/HierRNG.hpp"
 #include <random>
 #include <sstream>
 
@@ -8,19 +9,13 @@ unsigned int RandomSelection::getParent(
 	std::vector<Genome*> population,
 	std::vector<float> fitnesses
 ) {
-	std::uniform_int_distribution<unsigned int> parentDist(
-		0,
-		population.size() - 1
-	);
-	return parentDist(this->generator);
+	return HierRNG::uniformRandomNumber<
+		unsigned int
+	>(0, population.size() - 1);
 }
 
 std::string RandomSelection::toString() {
 	stringstream ss;
-
-	ss << "Name: " << this->name
-		<< " Random Seed: " << this->seed
-		<<"\n";
-
+	ss << "Name: " << this->name <<"\n";
 	return ss.str();
 }

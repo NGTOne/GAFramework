@@ -1,10 +1,8 @@
 #include "nodes/EANode/selections/TournamentSelection.hpp"
+#include "core/HierRNG.hpp"
 #include <random>
 #include <sstream>
 #include <algorithm>
-
-//TEMP
-#include <iostream>
 
 using namespace std;
 
@@ -24,14 +22,6 @@ TournamentSelection::TournamentSelection(
 	crossoverRate,
 	"Tournament"
 ) {
-	this->init(tournamentSize);
-}
-
-TournamentSelection::TournamentSelection(
-	double crossoverRate,
-	unsigned int tournamentSize,
-	unsigned int seed
-) : SelectionStrategy(seed, crossoverRate, "Tournament") {
 	this->init(tournamentSize);
 }
 
@@ -69,14 +59,10 @@ unsigned int TournamentSelection::getParent(
 	vector<unsigned int> indexes;
 	unsigned int index;
 
-        uniform_real_distribution<double> selectionDist(0,1);
-	uniform_int_distribution<unsigned int> indexDist(
-		0,
-		fitnesses.size() - 1
-	);
-
 	for (unsigned int i = 0; i < tournamentSize; i++) {
-		index = indexDist(this->generator);
+		index = HierRNG::uniformRandomNumber<
+			unsigned int
+		>(0, fitnesses.size() - 1);
 		tempFitnesses.push_back(fitnesses[index]);
 		indexes.push_back(index);
 	}
@@ -84,7 +70,7 @@ unsigned int TournamentSelection::getParent(
 	this->sortByFitness(indexes, tempFitnesses);
 
 	for (unsigned int i = 0; i < indexes.size(); i++)
-		if (selectionDist(generator) < this->crossoverRate)
+		if (HierRNG::zeroOne() < this->crossoverRate)
 			return indexes[i];
 
 	return indexes[indexes.size() - 1];
@@ -95,7 +81,6 @@ string TournamentSelection::toString() {
 
 	ss << "Name: " << this->name
 	<< "\nTournament size: " << this->tournamentSize
-	<< "\nRandom seed: " << this->seed
 	<< "\nCrossover Rate: " << this->crossoverRate
 	<< "\n";
 
