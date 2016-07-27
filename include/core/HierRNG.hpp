@@ -25,11 +25,11 @@ class HierRNG {
 	>::type;
 
 	template <typename T>
-	static T getUniformRandomNumber(T lower, T upper);
+	static T uniformRandomNumber(T lower, T upper);
 };
 
 template <typename T>
-T HierRNG::getUniformRandomNumber(T lower, T upper) {
+T HierRNG::uniformRandomNumber(T lower, T upper) {
 	autoUniformDist<T> dist(lower, upper);
 	return dist(HierRNG::generator);
 }

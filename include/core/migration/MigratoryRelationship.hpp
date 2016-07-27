@@ -13,8 +13,6 @@ class MigratoryRelationship {
 	TranslationFunction fromTranslate;
 	unsigned int n;
 
-	std::mt19937 generator;
-
 	void init(
 		PopulationNode * fromNode,
 		PopulationNode * toNode,

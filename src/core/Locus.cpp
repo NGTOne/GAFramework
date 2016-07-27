@@ -29,9 +29,7 @@ unsigned int Locus::topIndex() {
 }
 
 unsigned int Locus::randomIndex() {
-	return HierRNG::getUniformRandomNumber<
-		unsigned int
-	>(0, this->topIndex());
+	return HierRNG::uniformRandomNumber<unsigned int>(0, this->topIndex());
 }
 
 bool Locus::isConstructive() {

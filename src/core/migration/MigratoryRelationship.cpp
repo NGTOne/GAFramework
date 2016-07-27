@@ -1,6 +1,7 @@
 #include "core/migration/MigratoryRelationship.hpp"
 #include "core/migration/NullTranslationFunction.hpp"
 #include "core/PopulationNode.hpp"
+#include "core/HierRNG.hpp"
 #include <random>
 #include <chrono>
 
@@ -57,9 +58,6 @@ void MigratoryRelationship::init(
 	this->n = n;
 	this->toTranslate = toTranslate;
 	this->fromTranslate = fromTranslate;
-	this->generator = mt19937(
-		chrono::system_clock::now().time_since_epoch().count()
-	);
 }
 
 void MigratoryRelationship::swap(
@@ -105,12 +103,14 @@ void MigratoryRelationship::migrate() {
 	unsigned int fromNodeSize = fromNode->populationSize();
 	unsigned int toNodeSize = toNode->populationSize();
 	unsigned int fromIndex, toIndex;
-	uniform_int_distribution<unsigned int> fromNodeDist(0, fromNodeSize);
-	uniform_int_distribution<unsigned int> toNodeDist(0, toNodeSize);
 
 	for (unsigned int i = 0; i < n; i++) {
-		fromIndex = fromNodeDist(generator);
-		toIndex = toNodeDist(generator);
+		fromIndex = HierRNG::uniformRandomNumber<
+			unsigned int
+		>(0, fromNodeSize);
+		toIndex = HierRNG::uniformRandomNumber<
+			unsigned int>
+		(0, toNodeSize);
 
 		fromTranslate.isNull() ? oneWayMigrate(fromIndex, toIndex) :
 			swap(fromIndex, toIndex);
