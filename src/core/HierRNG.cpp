@@ -24,3 +24,7 @@ double HierRNG::gaussian(double mean, double stdDev) {
 unsigned int HierRNG::index(unsigned int maxIndex) {
 	return HierRNG::uniform<unsigned int>(0, maxIndex);
 }
+
+bool HierRNG::binary() {
+	return HierRNG::zeroOne<unsigned int>();
+}

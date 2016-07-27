@@ -32,6 +32,7 @@ class HierRNG {
 
 	static double gaussian(double mean, double stdDev);
 	static unsigned int index(unsigned int maxIndex);
+	static bool binary();
 };
 
 template <typename T>
