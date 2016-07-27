@@ -24,10 +24,4 @@ class GaussianMutation : public MutationOperation {
 	GaussianMutation(bool endReflection);
 	GaussianMutation(double mutationRate);
 	GaussianMutation(double mutationRate, bool endReflection);
-	GaussianMutation(double mutationRate, unsigned int seed);
-	GaussianMutation(
-		double mutationRate,
-		bool endReflection,
-		unsigned int seed
-	);
 };

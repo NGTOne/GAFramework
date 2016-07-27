@@ -14,9 +14,7 @@ class MutationOperation : public EABehaviourObject {
 	private:
 
 	protected:
-	unsigned int seed;
         double mutationRate;
-	std::mt19937 generator;
 
 	virtual unsigned int getNewLocusValue(
 		unsigned int currentValue,
@@ -26,12 +24,11 @@ class MutationOperation : public EABehaviourObject {
 		std::tuple<unsigned int, Locus*> existing
 	);
 
-	void init(double mutationRate, unsigned int seed);
+	void init(double mutationRate);
 
 	public:
 	MutationOperation();
 	MutationOperation(double mutationRate);
-	MutationOperation(double mutationRate, unsigned int seed);
 	virtual ~MutationOperation();
 	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 

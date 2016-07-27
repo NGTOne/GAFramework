@@ -1,4 +1,5 @@
 #include "nodes/EANode/mutations/GaussianMutation.hpp"
+#include "core/HierRNG.hpp"
 #include <chrono>
 #include <random>
 
@@ -27,21 +28,6 @@ GaussianMutation::GaussianMutation(
 	this->init(endReflection);
 }
 
-GaussianMutation::GaussianMutation(
-	double mutationRate,
-	unsigned int seed
-) : MutationOperation(mutationRate, seed) {
-	init(false);
-}
-
-GaussianMutation::GaussianMutation(
-	double mutationRate,
-	bool endReflection,
-	unsigned int seed
-) : MutationOperation(mutationRate, seed) {
-	this->init(endReflection);
-}
-
 void GaussianMutation::init(bool endReflection) {
 	this->endReflection = endReflection;
 }
@@ -50,8 +36,9 @@ unsigned int GaussianMutation::getNewLocusValue(
 	unsigned int currentValue,
 	unsigned int largestPossibleValue
 ) {
-	normal_distribution<double> addendDist(0, largestPossibleValue/3);
-	int addend = (int)addendDist(generator);
+	int addend = int(
+		HierRNG::gaussianRandomNumber(0, largestPossibleValue/3)
+	);
 	int newValue = currentValue - addend;
 
 	if (newValue < 0 && !this->endReflection) return 0;

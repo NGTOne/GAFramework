@@ -1,4 +1,5 @@
 #include "nodes/EANode/mutations/BoundaryMutation.hpp"
+#include "core/HierRNG.hpp"
 #include <chrono>
 #include <random>
 
@@ -10,17 +11,13 @@ BoundaryMutation::BoundaryMutation(
 	double mutationRate
 ) : MutationOperation(mutationRate) {}
 
-BoundaryMutation::BoundaryMutation(
-	double mutationRate,
-	unsigned int seed
-) : MutationOperation(mutationRate, seed) {}
-
 unsigned int BoundaryMutation::getNewLocusValue(
 	unsigned int currentValue,
 	unsigned int largestPossibleValue
 ) {
-	uniform_int_distribution<unsigned int> newValueDist(0, 1);
-	unsigned int newValue = newValueDist(generator);
+	unsigned int newValue = HierRNG::uniformRandomNumber<
+		unsigned int
+	>(0, 1);
 
 	return (newValue == 0 ? 0 : largestPossibleValue);
 }

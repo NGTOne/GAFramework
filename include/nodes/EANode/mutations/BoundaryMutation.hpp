@@ -19,5 +19,4 @@ class BoundaryMutation : public MutationOperation {
 	public:
 	BoundaryMutation();
 	BoundaryMutation(double mutationRate);
-	BoundaryMutation(double mutationRate, unsigned int seed);
 };

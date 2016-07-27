@@ -9,5 +9,4 @@ class BoundaryGeneticNoiseSource: public GeneticNoiseSource {
 
 	public:
 	BoundaryGeneticNoiseSource(double mutationRate);
-	BoundaryGeneticNoiseSource(double mutationRate, unsigned int seed);
 };

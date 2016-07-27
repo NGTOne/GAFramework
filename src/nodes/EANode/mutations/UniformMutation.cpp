@@ -1,4 +1,5 @@
 #include "nodes/EANode/mutations/UniformMutation.hpp"
+#include "core/HierRNG.hpp"
 #include <chrono>
 #include <random>
 
@@ -10,19 +11,11 @@ UniformMutation::UniformMutation(
 	double mutationRate
 ) : MutationOperation(mutationRate) {}
 
-UniformMutation::UniformMutation(
-	double mutationRate,
-	unsigned int seed
-) : MutationOperation(mutationRate, seed) {}
-
-
 unsigned int UniformMutation::getNewLocusValue(
 	unsigned int currentValue,
 	unsigned int largestPossibleValue
 ) {
-	uniform_int_distribution<unsigned int> newValueDist(
-		0,
-		largestPossibleValue
-	);
-	return newValueDist(generator);
+	return HierRNG::uniformRandomNumber<
+		unsigned int
+	>(0, largestPossibleValue);
 }

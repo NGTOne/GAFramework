@@ -9,5 +9,4 @@ class UniformGeneticNoiseSource: public GeneticNoiseSource {
 
 	public:
 	UniformGeneticNoiseSource(double mutationRate);
-	UniformGeneticNoiseSource(double mutationRate, unsigned int seed);
 };
