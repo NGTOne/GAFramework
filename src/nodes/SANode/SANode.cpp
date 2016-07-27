@@ -101,90 +101,66 @@ void SANode::init(TemperatureSchedule * schedule, bool maximize) {
 	this->schedule = schedule;
 }
 
-int SANode::compareNeighbourliness(Genome * base, Genome * target) {
-	Genome flattenedBase = base->flattenGenome();
-	Genome flattenedTarget = target->flattenGenome();
+int SANode::compareNeighbourliness(GenomeTemplate base, GenomeTemplate target) {
+	Genome flattenedBase = Genome(base, 0).flattenGenome();
+	Genome flattenedTarget = Genome(target, 0).flattenGenome();
 	return flattenedBase.difference(&flattenedTarget);
 }
 
-// TODO: Break this down further at some point
-// TODO: Make this more efficient
-vector<Genome*> SANode::getAllNeighbours(Genome * target) {
-	vector<Genome*> neighbours;
-	vector<Locus*> loci = target->getLoci();
-	vector<unsigned int> rawGenes = target->getGenome();
-	vector<unsigned int> tempGenes = rawGenes;
+std::vector<Genome*> SANode::getLocusNeighbours(
+	Genome * target,
+	unsigned int index
+) {
+	std::vector<Genome*> neighbours;
+	GenomeTemplate templ = target->getTemplate();
+	Locus * locus = templ.getLocus(index);
 
-	for (unsigned int i = 0; i < target->genomeLength(); i++) {
-		if (loci[i]->isConstructive()) {
-			Genome * nearestKnownNeighbour, * tempGenome;
-			unsigned int top = loci[i]->topIndex();
-			int lowestDiff = 0, diff = 0;
+	unsigned int gene = templ.getGene(index);
+	if (!locus->isConstructive()) {
+		if (gene < templ.getLocus(index)->topIndex())
+			neighbours.push_back(new Genome(
+				GenomeTemplate(templ).set(gene + 1, index),
+				target->getSpeciesNode()
+			));
+		if (gene > 0)
+			neighbours.push_back(new Genome(
+				GenomeTemplate(templ).set(gene - 1, index),
+				target->getSpeciesNode()
+			));
+	} else {
+		Genome * nearestKnownNeighbour;
+		unsigned int top = templ.getLocus(index)->topIndex();
+		int lowestDiff = 0, diff = 0;
+		for (unsigned int i = 0; i <= top; i++) {
+			if (i == gene) continue;
+			GenomeTemplate newTempl = GenomeTemplate(templ)
+				.set(i, index);
+			diff = this->compareNeighbourliness(templ, newTempl);
 
-			for (unsigned int k = 0; k <= top; k++) {
-				// So we're not checking against ourselves
-				if (rawGenes[i] == k && k++ >= top) break;
-
-				tempGenes = rawGenes;
-				tempGenes[i] = k;
-				tempGenome = new Genome(
-					tempGenes,
-					loci,
+			if ((diff < lowestDiff && diff > 0)
+				|| lowestDiff == 0
+			) {
+				delete(nearestKnownNeighbour);
+				nearestKnownNeighbour = new Genome(
+					newTempl,
 					target->getSpeciesNode()
 				);
-
-				diff = this->compareNeighbourliness(
-					target,
-					tempGenome
-				);
-
-				if ((diff < lowestDiff && diff > 0)
-					|| lowestDiff == 0
-				) {
-					delete(nearestKnownNeighbour);
-					nearestKnownNeighbour = tempGenome;
-					lowestDiff = diff;
-				} else {
-					delete(tempGenome);
-				}
-			}
-
-			if (lowestDiff > 0) {
-				neighbours.push_back(nearestKnownNeighbour);
-			}
-		} else {
-			// For simple locus types, just increment/decrement
-			// and be done with it
-			if (!loci[i]->outOfRange(rawGenes[i]+1)) {
-				tempGenes[i]++;
-				neighbours.push_back(
-					new Genome(
-						rawGenes,
-						loci,
-						target->getSpeciesNode()
-					)
-				);
-			}
-
-			tempGenes = rawGenes;
-			if (!loci[i]->outOfRange(rawGenes[i]-1)) {
-				tempGenes[i]--;
-				neighbours.push_back(
-					new Genome(
-						rawGenes,
-						loci,
-						target->getSpeciesNode()
-					)
-				);
+				lowestDiff = diff;
 			}
 		}
+
+		neighbours.push_back(lowestDiff > 0 ?
+			nearestKnownNeighbour : new Genome(target));
 	}
 
 	return neighbours;
 }
 
 Genome * SANode::getNeighbour(Genome * target) {
-	vector<Genome*> neighbours = this->getAllNeighbours(target);
+	vector<Genome*> neighbours = this->getLocusNeighbours(
+		target,
+		HierRNG::index(target->genomeLength() - 1)
+	);
 	unsigned int choice = HierRNG::index(neighbours.size() - 1);
 	Genome * neighbour = neighbours[choice];
 
