@@ -1,4 +1,5 @@
 #include "objectives/noisy/fitness-noise/GaussianFitnessNoiseSource.hpp"
+#include "core/HierRNG.hpp"
 
 GaussianFitnessNoiseSource::GaussianFitnessNoiseSource(
 	double stdDev
@@ -13,18 +14,14 @@ GaussianFitnessNoiseSource::GaussianFitnessNoiseSource(
 	this->init(mean, stdDev);
 }
 
-GaussianFitnessNoiseSource::GaussianFitnessNoiseSource(
-	double mean,
-	double stdDev,
-	unsigned int seed
-) : FitnessNoiseSource(seed) {
-	this->init(mean, stdDev);
-}
-
 void GaussianFitnessNoiseSource::init(double mean, double stdDev) {
-	this->modifierDist = std::normal_distribution<double>(mean, stdDev);
+	this->mean = mean;
+	this->stdDev = stdDev;
 }
 
 float GaussianFitnessNoiseSource::addNoise(float cleanFitness) {
-	return cleanFitness + this->modifierDist(this->generator);
+	return cleanFitness + HierRNG::gaussianRandomNumber(
+		this->mean,
+		this->stdDev
+	);
 }

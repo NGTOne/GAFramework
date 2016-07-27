@@ -8,7 +8,6 @@ class NonNoisyFitnessSource: public FitnessNoiseSource {
 
 	public:
 	NonNoisyFitnessSource();
-	NonNoisyFitnessSource(unsigned int seed);
 
 	float addNoise(float cleanFitness);
 };

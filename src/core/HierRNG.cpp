@@ -20,3 +20,7 @@ double HierRNG::gaussianRandomNumber(double mean, double stdDev) {
 	std::normal_distribution<double> dist(mean, stdDev);
 	return dist(HierRNG::generator);
 }
+
+double HierRNG::zeroOne() {
+	return HierRNG::uniformRandomNumber<double>(0, 1);
+}

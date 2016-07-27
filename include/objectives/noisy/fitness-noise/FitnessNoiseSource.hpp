@@ -6,10 +6,7 @@ class FitnessNoiseSource : public EABehaviourObject {
 	private:
 
 	protected:
-	std::mt19937 generator;
-
 	FitnessNoiseSource();
-	FitnessNoiseSource(unsigned int seed);
 
 	public:
 	virtual void registerInternalObjects(NodeGarbageCollector & collector);

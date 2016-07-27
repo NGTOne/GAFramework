@@ -28,6 +28,7 @@ class HierRNG {
 	static T uniformRandomNumber(T lower, T upper);
 
 	static double gaussianRandomNumber(double mean, double stdDev);
+	static double zeroOne();
 };
 
 template <typename T>
