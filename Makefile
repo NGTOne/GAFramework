@@ -74,6 +74,7 @@ core: builders
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationToString.cpp -o obj/core/meta/MetaPopulationToString.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierarchicalEA.cpp -o obj/core/HierarchicalEA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/gc/NodeGarbageCollector.cpp -o obj/core/gc/NodeGarbageCollector.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierRNG.cpp -o obj/core/gc/HierRNG.o
 
 builders:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/StructureBuilder.cpp -o obj/core/builders/StructureBuilder.o

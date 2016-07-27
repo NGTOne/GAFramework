@@ -9,6 +9,7 @@
 #include "core/Apportionment.hpp"
 #include "loci/PopulationLocus.hpp"
 #include "nodes/NonOptimizingNode.hpp"
+#include "core/HierRNG.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -16,10 +17,17 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 
-HierarchicalEA::HierarchicalEA() {}
-
 HierarchicalEA::HierarchicalEA(unsigned int maxEpochs) {
 	this->maxEpochs = maxEpochs;
+	HierRNG::initialize();
+}
+
+HierarchicalEA::HierarchicalEA(
+	unsigned int maxEpochs,
+	unsigned int globalSeed
+) {
+	this->maxEpochs = maxEpochs;
+	HierRNG::initialize(globalSeed);
 }
 
 HierarchicalEA::~HierarchicalEA() {}

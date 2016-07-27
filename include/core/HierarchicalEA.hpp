@@ -105,8 +105,8 @@ class HierarchicalEA {
 	);
 
 	public:
-	HierarchicalEA();
 	HierarchicalEA(unsigned int maxEpochs);
+	HierarchicalEA(unsigned int maxEpochs, unsigned int globalSeed);
 	~HierarchicalEA();
 
 	// Kept separate from the destructor because we might want to keep them
