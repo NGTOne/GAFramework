@@ -36,9 +36,7 @@ unsigned int GaussianMutation::getNewLocusValue(
 	unsigned int currentValue,
 	unsigned int largestPossibleValue
 ) {
-	int addend = int(
-		HierRNG::gaussianRandomNumber(0, largestPossibleValue/3)
-	);
+	int addend = int(HierRNG::gaussian(0, largestPossibleValue/3));
 	int newValue = currentValue - addend;
 
 	if (newValue < 0 && !this->endReflection) return 0;

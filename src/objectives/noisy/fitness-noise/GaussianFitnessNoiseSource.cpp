@@ -20,8 +20,5 @@ void GaussianFitnessNoiseSource::init(double mean, double stdDev) {
 }
 
 float GaussianFitnessNoiseSource::addNoise(float cleanFitness) {
-	return cleanFitness + HierRNG::gaussianRandomNumber(
-		this->mean,
-		this->stdDev
-	);
+	return cleanFitness + HierRNG::gaussian(this->mean, this->stdDev);
 }

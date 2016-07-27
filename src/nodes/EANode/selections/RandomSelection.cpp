@@ -9,9 +9,7 @@ unsigned int RandomSelection::getParent(
 	std::vector<Genome*> population,
 	std::vector<float> fitnesses
 ) {
-	return HierRNG::uniformRandomNumber<
-		unsigned int
-	>(0, population.size() - 1);
+	return HierRNG::index(population.size() - 1);
 }
 
 std::string RandomSelection::toString() {

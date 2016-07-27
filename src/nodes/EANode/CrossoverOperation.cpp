@@ -51,9 +51,7 @@ vector<unsigned int> CrossoverOperation::getParents(
 	do {
 		for (unsigned int i = 0; i < desiredParents; i++) {
 			do {
-				parent = HierRNG::uniformRandomNumber<
-					unsigned int
-				>(0, numAvailableParents - 1);
+				parent = HierRNG::index(numAvailableParents-1);
 			} while (find(
 				pairing.begin(), pairing.end(), parent
 			) != pairing.end());

@@ -30,9 +30,7 @@ void StrongIterativeReplacingGA::scramblePopulation(
 	float tempFitness;
 
 	for (unsigned int i = 0; i < population.size(); i++) {
-		index = HierRNG::uniformRandomNumber<
-			unsigned int
-		>(0, population.size() - 1);
+		index = HierRNG::index(population.size() - 1);
 		temp = population[i];
 		tempFitness = fitnesses[i];
 		population[i] = population[index];

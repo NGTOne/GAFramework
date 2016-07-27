@@ -185,9 +185,7 @@ vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 
 Genome * SANode::getNeighbour(Genome * target) {
 	vector<Genome*> neighbours = this->getAllNeighbours(target);
-	unsigned int choice = HierRNG::uniformRandomNumber<
-		unsigned int
-	>(0, neighbours.size() - 1);
+	unsigned int choice = HierRNG::index(neighbours.size() - 1);
 	Genome * neighbour = neighbours[choice];
 
 	for (unsigned int i = 0; i < neighbours.size(); i++) {
@@ -215,7 +213,7 @@ Genome * SANode::getNeighbour(Genome * target) {
 
 		float probability = exp(delta/currentTemp);
 
-		if (HierRNG::zeroOne() < probability) {
+		if (HierRNG::zeroOne<double>() < probability) {
 			return neighbour;
 		} else {
 			return new Genome(target);

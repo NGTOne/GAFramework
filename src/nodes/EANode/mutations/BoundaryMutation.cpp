@@ -15,9 +15,6 @@ unsigned int BoundaryMutation::getNewLocusValue(
 	unsigned int currentValue,
 	unsigned int largestPossibleValue
 ) {
-	unsigned int newValue = HierRNG::uniformRandomNumber<
-		unsigned int
-	>(0, 1);
-
+	unsigned int newValue = HierRNG::zeroOne<unsigned int>();
 	return (newValue == 0 ? 0 : largestPossibleValue);
 }

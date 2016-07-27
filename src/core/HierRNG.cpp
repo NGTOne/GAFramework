@@ -16,11 +16,11 @@ void HierRNG::initialize(unsigned int seed) {
 	HierRNG::generator = std::mt19937(HierRNG::seed);
 }
 
-double HierRNG::gaussianRandomNumber(double mean, double stdDev) {
+double HierRNG::gaussian(double mean, double stdDev) {
 	std::normal_distribution<double> dist(mean, stdDev);
 	return dist(HierRNG::generator);
 }
 
-double HierRNG::zeroOne() {
-	return HierRNG::uniformRandomNumber<double>(0, 1);
+unsigned int HierRNG::index(unsigned int maxIndex) {
+	return HierRNG::uniform<unsigned int>(0, maxIndex);
 }

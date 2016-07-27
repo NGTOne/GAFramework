@@ -44,9 +44,7 @@ GenomeTemplate MutationOperation::mutate(GenomeTemplate initial) {
 	std::vector<unsigned int> newGenome;
 
 	for (unsigned int i = 0; i < initial.genomeLength(); i++)
-		if (
-			HierRNG::uniformRandomNumber<double>(0, 1)						< this->mutationRate
-		) {
+		if (HierRNG::zeroOne<double>() < this->mutationRate) {
 			newGenome.push_back(
 				this->getNewLocusValue(initial.getIndex(i))
 			);

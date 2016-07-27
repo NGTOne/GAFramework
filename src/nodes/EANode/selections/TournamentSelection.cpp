@@ -60,9 +60,7 @@ unsigned int TournamentSelection::getParent(
 	unsigned int index;
 
 	for (unsigned int i = 0; i < tournamentSize; i++) {
-		index = HierRNG::uniformRandomNumber<
-			unsigned int
-		>(0, fitnesses.size() - 1);
+		index = HierRNG::index(fitnesses.size() - 1);
 		tempFitnesses.push_back(fitnesses[index]);
 		indexes.push_back(index);
 	}
@@ -70,7 +68,7 @@ unsigned int TournamentSelection::getParent(
 	this->sortByFitness(indexes, tempFitnesses);
 
 	for (unsigned int i = 0; i < indexes.size(); i++)
-		if (HierRNG::zeroOne() < this->crossoverRate)
+		if (HierRNG::zeroOne<double>() < this->crossoverRate)
 			return indexes[i];
 
 	return indexes[indexes.size() - 1];

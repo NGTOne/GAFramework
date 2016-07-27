@@ -52,9 +52,9 @@ void GA::placeElites(
 			unsigned int index;
 
 			do {
-				index = HierRNG::uniformRandomNumber<
-					unsigned int
-				>(0, initialPopulation.size() - 1);
+				index = HierRNG::index(
+					initialPopulation.size() - 1
+				);
 			} while (newPopulation[index] != NULL);
 			newPopulation[index] = new Genome(
 				initialPopulation[eliteLocations[i]]

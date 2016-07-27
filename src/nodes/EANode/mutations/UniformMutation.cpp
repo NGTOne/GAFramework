@@ -15,7 +15,5 @@ unsigned int UniformMutation::getNewLocusValue(
 	unsigned int currentValue,
 	unsigned int largestPossibleValue
 ) {
-	return HierRNG::uniformRandomNumber<
-		unsigned int
-	>(0, largestPossibleValue);
+	return HierRNG::uniform<unsigned int>(0, largestPossibleValue);
 }

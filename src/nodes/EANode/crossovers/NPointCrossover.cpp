@@ -24,9 +24,7 @@ vector<unsigned int> NPointCrossover::getPoints(unsigned int maxPoint) {
 	vector<unsigned int> points;
 
 	for (unsigned int i = 0; i < this->numPoints; i++) 
-		points.push_back(HierRNG::uniformRandomNumber<
-			unsigned int
-		>(0, maxPoint));
+		points.push_back(HierRNG::index(maxPoint));
 
 	sort(points.begin(), points.begin() + this->numPoints);
 
@@ -68,9 +66,7 @@ std::vector<GenomeTemplate> NPointCrossover::crossOver(
 	if (children.size() > this->numOffspring) {
 		unsigned int numToDelete = children.size() - numOffspring;
 		for (unsigned int i = 0; i < numToDelete; i++) {
-			unsigned int index = HierRNG::uniformRandomNumber<
-				unsigned int
-			>(0, children.size() - 1);
+			unsigned int index = HierRNG::index(children.size()-1);
 			children.erase(children.begin() + index);
 		}
 	}

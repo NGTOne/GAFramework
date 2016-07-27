@@ -25,16 +25,24 @@ class HierRNG {
 	>::type;
 
 	template <typename T>
-	static T uniformRandomNumber(T lower, T upper);
+	static T uniform(T lower, T upper);
 
-	static double gaussianRandomNumber(double mean, double stdDev);
-	static double zeroOne();
+	template <typename T>
+	static T zeroOne();
+
+	static double gaussian(double mean, double stdDev);
+	static unsigned int index(unsigned int maxIndex);
 };
 
 template <typename T>
-T HierRNG::uniformRandomNumber(T lower, T upper) {
+T HierRNG::uniform(T lower, T upper) {
 	autoUniformDist<T> dist(lower, upper);
 	return dist(HierRNG::generator);
+}
+
+template <typename T>
+T HierRNG::zeroOne() {
+	return HierRNG::uniform<T>(0, 1);
 }
 
 #endif

@@ -134,9 +134,7 @@ float Apportionment::checkFitness(Genome * genome) {
 
 	unsigned int index;
 	while (triedOn < realTryOns) {
-		index = HierRNG::uniformRandomNumber<
-			unsigned int
-		>(0, untriedIndices.size() - 1);
+		index = HierRNG::index(untriedIndices.size() - 1);
 
 		Genome * provider = this->upperNode
 			->getIndex(untriedIndices[index])

@@ -105,12 +105,8 @@ void MigratoryRelationship::migrate() {
 	unsigned int fromIndex, toIndex;
 
 	for (unsigned int i = 0; i < n; i++) {
-		fromIndex = HierRNG::uniformRandomNumber<
-			unsigned int
-		>(0, fromNodeSize);
-		toIndex = HierRNG::uniformRandomNumber<
-			unsigned int>
-		(0, toNodeSize);
+		fromIndex = HierRNG::index(fromNodeSize);
+		toIndex = HierRNG::index(toNodeSize);
 
 		fromTranslate.isNull() ? oneWayMigrate(fromIndex, toIndex) :
 			swap(fromIndex, toIndex);

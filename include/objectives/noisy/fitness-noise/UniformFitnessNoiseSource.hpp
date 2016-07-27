@@ -27,8 +27,5 @@ UniformFitnessNoiseSource<T>::UniformFitnessNoiseSource(
 
 template <typename T>
 float UniformFitnessNoiseSource<T>::addNoise(float cleanFitness) {
-	return cleanFitness + HierRNG::uniformRandomNumber<T>(
-		this->low,
-		this->high
-	);
+	return cleanFitness + HierRNG::uniform<T>(this->low, this->high);
 }

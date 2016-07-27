@@ -42,9 +42,7 @@ std::vector<GenomeTemplate> CutAndSpliceCrossover::crossOver(
 
 	for (unsigned int i = 0; i < genomes.size(); i++) {
 		genomeLengths.push_back(genomes[i]->genomeLength());
-		points.push_back(HierRNG::uniformRandomNumber<
-			unsigned int
-		>(0, genomeLengths[i]));
+		points.push_back(HierRNG::index(genomeLengths[i]));
 	}
 
 	unsigned int numPairings = this->maxPairings(genomes.size(), 2);
