@@ -16,27 +16,8 @@ SSGA::SSGA(
 	SelectionStrategy * strategy,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
-	unsigned int seed
-) : EvolutionarySystem(strategy, cross, mutation, seed) {
-	this->niching = NULL;
-}
-
-SSGA::SSGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
 	NichingStrategy * niching
 ) : EvolutionarySystem(strategy, cross, mutation) {
-	this->niching = niching;
-}
-
-SSGA::SSGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	NichingStrategy * niching,
-	unsigned int seed
-) : EvolutionarySystem(strategy, cross, mutation, seed) {
 	this->niching = niching;
 }
 

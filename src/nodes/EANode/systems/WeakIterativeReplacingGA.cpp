@@ -1,5 +1,6 @@
 #include <random>
 #include "nodes/EANode/systems/WeakIterativeReplacingGA.hpp"
+#include "core/HierRNG.hpp"
 
 using namespace std;
 
@@ -8,13 +9,6 @@ WeakIterativeReplacingGA::WeakIterativeReplacingGA(
 	CrossoverOperation * cross,
 	MutationOperation * mutation
 ) : ReplacingGA(strategy, cross, mutation) {}
-
-WeakIterativeReplacingGA::WeakIterativeReplacingGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	unsigned int seed
-) : ReplacingGA(strategy, cross, mutation, seed) {}
 
 vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 	vector<Genome*> initialPopulation,
@@ -50,11 +44,9 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 	}
 
 	for (unsigned int i = 0; i < initialPopulation.size(); i++) {
-		uniform_int_distribution<unsigned int> childSelectionDist(
-			0,
-			possibleContenders[i].size() - 1
-		);
-		unsigned int index = childSelectionDist(generator);
+		unsigned int index = HierRNG::uniformRandomNumber<
+			unsigned int
+		>(0, possibleContenders[i].size() - 1);
 		Genome * child = possibleContenders[i][index];
 		float childFitness = this->evaluateFitness(child, objectives);
 

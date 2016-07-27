@@ -20,12 +20,6 @@ class WeakIterativeReplacingGA : public ReplacingGA {
 		CrossoverOperation * cross,
 		MutationOperation * mutation
 	);
-	WeakIterativeReplacingGA(
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
-		unsigned int seed
-	);
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,

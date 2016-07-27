@@ -44,14 +44,6 @@ class GA : public EvolutionarySystem {
 		CrossoverOperation * cross,
 		MutationOperation * mutation
 	);
-	GA(
-		unsigned int numElites,
-		bool randomElitePlacement,
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
-		unsigned int seed
-	);
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,

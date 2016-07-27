@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include "nodes/EANode/systems/GA.hpp"
+#include "core/HierRNG.hpp"
 
 using namespace std;
 
@@ -23,17 +24,6 @@ GA::GA(
 	MutationOperation * mutation
 ) : EvolutionarySystem(strategy, cross, mutation) {
 	this->init(numElites, false);
-}
-
-GA::GA(
-	unsigned int numElites,
-	bool randomElitePlacement,
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	unsigned int seed
-) : EvolutionarySystem(strategy, cross, mutation, seed) {
-	this->init(numElites, randomElitePlacement);
 }
 
 void GA::init(unsigned int numElites, bool randomElitePlacement) {
@@ -59,14 +49,12 @@ void GA::placeElites(
 			newPopulationFitnesses[i] =
 				initialPopulationFitnesses[eliteLocations[i]];
 		} else {
-			uniform_int_distribution<unsigned int> dist(
-				0,
-				initialPopulation.size()-1
-			);
 			unsigned int index;
 
 			do {
-				index = dist(generator);
+				index = HierRNG::uniformRandomNumber<
+					unsigned int
+				>(0, initialPopulation.size() - 1);
 			} while (newPopulation[index] != NULL);
 			newPopulation[index] = new Genome(
 				initialPopulation[eliteLocations[i]]

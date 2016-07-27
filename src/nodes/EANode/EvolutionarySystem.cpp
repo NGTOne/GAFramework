@@ -14,18 +14,8 @@ EvolutionarySystem::EvolutionarySystem(
 	this->init(
 		strategy,
 		cross,
-		mutation,
-		chrono::system_clock::now().time_since_epoch().count()
+		mutation
 	);
-}
-
-EvolutionarySystem::EvolutionarySystem(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	unsigned int seed
-) {
-	this->init(strategy, cross, mutation, seed);
 }
 
 EvolutionarySystem::~EvolutionarySystem() {}
@@ -41,11 +31,8 @@ void EvolutionarySystem::registerInternalObjects(
 void EvolutionarySystem::init(
 	SelectionStrategy * strategy,
 	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	unsigned int seed
+	MutationOperation * mutation
 ) {
-	this->seed = seed;
-	this->generator = mt19937(seed);
 	this->strategy = strategy;
 	this->cross = cross;
 	this->mutation = mutation;
@@ -104,7 +91,7 @@ vector<Genome*> EvolutionarySystem::produceChildren(
 string EvolutionarySystem::toString() {
         stringstream ss;
 	
-	ss << "Random seed: " << seed << "\nSelection Strategy Info:\n";
+	ss << "Selection Strategy Info:\n";
 
 	if (this->strategy) {
 		ss << this->strategy->toString();

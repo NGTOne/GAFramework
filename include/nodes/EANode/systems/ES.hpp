@@ -39,17 +39,6 @@ class ES : public EvolutionarySystem {
 		MutationOperation * mutation
 	);
 	ES(
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
-		unsigned seed
-	);
-	ES(
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
-		unsigned int seed
-	);
-	ES(
 		double muRatio,
 		double rhoRatio,
 		CrossoverOperation * cross,
@@ -58,24 +47,9 @@ class ES : public EvolutionarySystem {
 	ES(
 		double muRatio,
 		double rhoRatio,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
-		unsigned int seed
-	);
-	ES(
-		double muRatio,
-		double rhoRatio,
 		SelectionStrategy * strategy,
 		CrossoverOperation * cross,
 		MutationOperation * mutation
-	);
-	ES(
-		double muRatio,
-		double rhoRatio,
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
-		unsigned int seed
 	);
 
 	std::vector<Genome*> breedMutateSelect(

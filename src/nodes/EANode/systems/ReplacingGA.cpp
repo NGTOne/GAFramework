@@ -8,13 +8,6 @@ ReplacingGA::ReplacingGA(
 	MutationOperation * mutation
 ) : EvolutionarySystem(strategy, cross, mutation) {}
 
-ReplacingGA::ReplacingGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	unsigned int seed
-) : EvolutionarySystem(strategy, cross, mutation, seed) {}
-
 bool ReplacingGA::inPopulation(Genome * target, vector<Genome*> population) {
 	for (unsigned int i = 0; i < population.size(); i++)
 		if (population[i] == target) return true;

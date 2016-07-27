@@ -28,20 +28,7 @@ class SSGA : public EvolutionarySystem {
 		SelectionStrategy * strategy,
 		CrossoverOperation * cross,
 		MutationOperation * mutation,
-		unsigned int seed
-	);
-	SSGA(
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
 		NichingStrategy * niching
-	);
-	SSGA(
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
-		NichingStrategy * niching,
-		unsigned int seed
 	);
 
 	virtual void registerInternalObjects(NodeGarbageCollector & collector);

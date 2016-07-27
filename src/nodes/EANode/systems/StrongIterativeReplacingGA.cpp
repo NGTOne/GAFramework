@@ -1,5 +1,6 @@
 #include <random>
 #include "nodes/EANode/systems/StrongIterativeReplacingGA.hpp"
+#include "core/HierRNG.hpp"
 
 using namespace std;
 
@@ -15,27 +16,8 @@ StrongIterativeReplacingGA::StrongIterativeReplacingGA(
 	SelectionStrategy * strategy,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
-	unsigned int seed
-) : ReplacingGA(strategy, cross, mutation, seed) {
-	this->scramble = false;
-}
-
-StrongIterativeReplacingGA::StrongIterativeReplacingGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
 	bool scramble
 ) : ReplacingGA(strategy, cross, mutation) {
-	this->scramble = scramble;
-}
-
-StrongIterativeReplacingGA::StrongIterativeReplacingGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	bool scramble,
-	unsigned int seed
-) : ReplacingGA(strategy, cross, mutation, seed) {
 	this->scramble = scramble;
 }
 
@@ -43,16 +25,14 @@ void StrongIterativeReplacingGA::scramblePopulation(
 	std::vector<Genome*> & population,
 	std::vector<float> & fitnesses
 ) {
-	uniform_int_distribution<unsigned int> placementDist(
-		0,
-		population.size() - 1
-	);
 	Genome * temp;
 	unsigned int index;
 	float tempFitness;
 
 	for (unsigned int i = 0; i < population.size(); i++) {
-		index = placementDist(this->generator);
+		index = HierRNG::uniformRandomNumber<
+			unsigned int
+		>(0, population.size() - 1);
 		temp = population[i];
 		tempFitness = fitnesses[i];
 		population[i] = population[index];

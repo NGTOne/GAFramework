@@ -4,6 +4,7 @@
 #include <sstream>
 #include "nodes/EANode/systems/ES.hpp"
 #include "nodes/EANode/selections/RandomSelection.hpp"
+#include "core/HierRNG.hpp"
 
 using namespace std;
 
@@ -15,27 +16,10 @@ ES::ES(
 }
 
 ES::ES(
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	unsigned int seed
-) : EvolutionarySystem(new RandomSelection(), cross, mutation, seed) {
-	this->init(1, 1);
-}
-
-ES::ES(
 	SelectionStrategy * strategy,
 	CrossoverOperation * cross,
 	MutationOperation * mutation
 ) : EvolutionarySystem(strategy, cross, mutation) {
-	this->init(1, 1);
-}
-
-ES::ES(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	unsigned int seed
-) : EvolutionarySystem(strategy, cross, mutation, seed) {
 	this->init(1, 1);
 }
 
@@ -51,31 +35,10 @@ ES::ES(
 ES::ES(
 	double muRatio,
 	double rhoRatio,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	unsigned int seed
-) : EvolutionarySystem(new RandomSelection(), cross, mutation, seed) {
-	this->init(muRatio, rhoRatio);
-}
-
-ES::ES(
-	double muRatio,
-	double rhoRatio,
 	SelectionStrategy * strategy,
 	CrossoverOperation * cross,
 	MutationOperation * mutation
 ) : EvolutionarySystem(strategy, cross, mutation) {
-	this->init(muRatio, rhoRatio);
-}
-
-ES::ES(
-	double muRatio,
-	double rhoRatio,
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	unsigned int seed
-) : EvolutionarySystem(strategy, cross, mutation, seed) {
 	this->init(muRatio, rhoRatio);
 }
 
@@ -98,11 +61,9 @@ Genome* ES::getCrossoverChild(
 	}
 
 	children = this->cross->crossOver(parents, speciesNode);
-	uniform_int_distribution<unsigned int> childIndexDist(
-		0,
-		children.size() - 1
-	);
-	unsigned int index = childIndexDist(this->generator);
+	unsigned int index = HierRNG::uniformRandomNumber<
+		unsigned int
+	>(0, children.size() - 1);
 
 	Genome * child = new Genome(children[index]);
 	for (unsigned int i = 0; i < children.size(); i++) delete(children[i]);

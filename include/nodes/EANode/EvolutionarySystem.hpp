@@ -13,8 +13,6 @@ class EvolutionarySystem : public EABehaviourObject {
 	private:
 
 	protected:
-	unsigned int seed;
-	std::mt19937 generator;
 	SelectionStrategy * strategy;
 	CrossoverOperation * cross;
 	MutationOperation * mutation;
@@ -22,8 +20,7 @@ class EvolutionarySystem : public EABehaviourObject {
 	void init(
 		SelectionStrategy * strategy,
 		CrossoverOperation * cross,
-		MutationOperation * mutation,
-		unsigned int seed
+		MutationOperation * mutation
 	);
 	void sortPopulation(
 		std::vector<Genome*> & population,
@@ -49,12 +46,6 @@ class EvolutionarySystem : public EABehaviourObject {
 		SelectionStrategy * strategy,
 		CrossoverOperation * cross,
 		MutationOperation * mutation
-	);
-	EvolutionarySystem(
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
-		unsigned int seed
 	);
 	virtual ~EvolutionarySystem();
 	virtual void registerInternalObjects(NodeGarbageCollector & collector);

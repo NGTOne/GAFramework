@@ -10,23 +10,8 @@ AccelSSGA::AccelSSGA(
 	SelectionStrategy * strategy,
 	CrossoverOperation * cross,
 	MutationOperation * mutation,
-	unsigned int seed
-) : SSGA(strategy, cross, mutation, seed) {}
-
-AccelSSGA::AccelSSGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
 	NichingStrategy * niching
 ) : SSGA(strategy, cross, mutation, niching) {}
-
-AccelSSGA::AccelSSGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	NichingStrategy * niching,
-	unsigned int seed
-) : SSGA(strategy, cross, mutation, niching, seed) {}
 
 std::vector<Genome*> AccelSSGA::breedMutateSelect(
 	std::vector<Genome*> initialPopulation,
