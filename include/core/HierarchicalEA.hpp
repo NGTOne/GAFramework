@@ -137,6 +137,45 @@ class HierarchicalEA {
 	void setEndConditionDictatorNodes(vector<string> names);
 	PopulationNode * getNodeByName(string name);
 
+	template <typename NodeType, typename... params>
+	void addNode(
+		unsigned int populationSize,
+		std::vector<Locus*> loci,
+		std::vector<ObjectiveFunction*> objectives,
+		ToStringFunction * populationToString,
+		std::vector<EndCondition*> conditions,
+		std::string nodeName,
+		bool print,
+		bool end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	void addNodes(
+		unsigned int populationSize,
+		std::vector<Locus*> loci,
+		std::vector<ObjectiveFunction*> objectives,
+		ToStringFunction * populationToString,
+		std::vector<EndCondition*> conditions,
+		std::vector<std::string> nodeNames,
+		bool print,
+		bool end,
+		params... as
+	);
+
+	template <typename NodeType, typename... params>
+	void addNodes(
+		std::vector<unsigned int> populationSizes,
+		std::vector<std::vector<Locus*>> loci,
+		std::vector<std::vector<ObjectiveFunction*>> objectives,
+		std::vector<ToStringFunction*> populationToString,
+		std::vector<std::vector<EndCondition*>> conditions,
+		std::vector<std::string> nodeNames,
+		std::vector<bool> print,
+		std::vector<bool> end,
+		params... as
+	);
+
 	template<typename MetaNodeType, typename... params>
 	void addMetaPopulation(
 		bool clobberExistingObjectives,
