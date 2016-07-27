@@ -15,8 +15,6 @@ class SANode : public PopulationNode {
 	TemperatureSchedule * schedule;
 	bool maximize;
 
-	unsigned int seed;
-	mt19937 generator;
 	bool readOnce;
 
 	int compareNeighbourliness(Genome * base, Genome * target);

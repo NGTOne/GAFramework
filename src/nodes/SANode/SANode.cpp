@@ -1,5 +1,6 @@
 #include "nodes/SANode/SANode.hpp"
 #include "core/Locus.hpp"
+#include "core/HierRNG.hpp"
 #include <string>
 #include <sstream>
 #include <random>
@@ -184,11 +185,9 @@ vector<Genome*> SANode::getAllNeighbours(Genome * target) {
 
 Genome * SANode::getNeighbour(Genome * target) {
 	vector<Genome*> neighbours = this->getAllNeighbours(target);
-	uniform_int_distribution<unsigned int> neighbourDist(
-		0,
-		neighbours.size() - 1
-	);
-	unsigned int choice = neighbourDist(generator);
+	unsigned int choice = HierRNG::uniformRandomNumber<
+		unsigned int
+	>(0, neighbours.size() - 1);
 	Genome * neighbour = neighbours[choice];
 
 	for (unsigned int i = 0; i < neighbours.size(); i++) {
@@ -216,9 +215,7 @@ Genome * SANode::getNeighbour(Genome * target) {
 
 		float probability = exp(delta/currentTemp);
 
-		uniform_real_distribution<float> goingWrongWayDist(0, 1);
-
-		if (goingWrongWayDist(this->generator) < probability) {
+		if (HierRNG::zeroOne() < probability) {
 			return neighbour;
 		} else {
 			return new Genome(target);
@@ -241,9 +238,6 @@ string SANode::toString() {
 
 	ss << "Population size: " << population.size() << "\n";
 	ss << populationStrings();
-
-	if (!this->readOnce) ss << "Seed: " << this->seed << "\n";
-	readOnce = true;
 
 	return ss.str();
 }
