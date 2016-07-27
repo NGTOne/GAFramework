@@ -11,16 +11,18 @@ GenomeTemplate::GenomeTemplate(
 	std::vector<Locus*> loci
 ) : std::tuple<std::vector<unsigned int>, std::vector<Locus*>>(genes, loci) {}
 
-void GenomeTemplate::add(unsigned int gene, Locus * locus) {
+GenomeTemplate GenomeTemplate::add(unsigned int gene, Locus * locus) {
 	this->updateVector<0, unsigned int>(gene);
 	this->updateVector<1, Locus*>(locus);
+	return *this;
 }
 
-void GenomeTemplate::add(std::tuple<unsigned int, Locus*> newGene) {
+GenomeTemplate GenomeTemplate::add(std::tuple<unsigned int, Locus*> newGene) {
 	this->add(std::get<0>(newGene), std::get<1>(newGene));
+	return *this;
 }
 
-void GenomeTemplate::add(
+GenomeTemplate GenomeTemplate::add(
 	std::vector<unsigned int> genes,
 	std::vector<Locus*> loci
 ) {
@@ -28,10 +30,32 @@ void GenomeTemplate::add(
 
 	for (unsigned int i = 0; i < genes.size(); i++)
 		this->add(genes[i], loci[i]);
+	return *this;
 }
 
-void GenomeTemplate::add(GenomeTemplate other) {
+GenomeTemplate GenomeTemplate::add(GenomeTemplate other) {
 	this->add(other.getGenes(), other.getLoci());
+	return *this;
+}
+
+GenomeTemplate GenomeTemplate::set(unsigned int value, unsigned int index) {
+	this->updateVector<0, unsigned int>(value, index);
+	return *this;
+}
+
+GenomeTemplate GenomeTemplate::set(Locus * locus, unsigned int index) {
+	this->updateVector<1, Locus*>(locus, index);
+	return *this;
+}
+
+GenomeTemplate GenomeTemplate::set(
+	unsigned int value,
+	Locus * locus,
+	unsigned int index
+) {
+	this->set(value, index);
+	this->set(locus, index);
+	return *this;
 }
 
 std::vector<unsigned int> GenomeTemplate::getGenes() {
