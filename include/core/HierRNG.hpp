@@ -25,7 +25,7 @@ class HierRNG {
 	>::type;
 
 	template <typename T>
-	T getUniformRandomNumber(T lower, T upper);
+	static T getUniformRandomNumber(T lower, T upper);
 };
 
 template <typename T>

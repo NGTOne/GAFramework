@@ -10,12 +10,9 @@ class Locus : public EABehaviourObject {
 
 	protected:
 	std::vector<boost::any> population;
-	std::mt19937 generator;
-	unsigned int seed;
 
 	Locus();
 	Locus(std::vector<boost::any> population);
-	void init(unsigned int seed);
 	void setPopulation(std::vector<boost::any> population);
 
 	public:

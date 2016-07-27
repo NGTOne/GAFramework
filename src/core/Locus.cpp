@@ -1,22 +1,15 @@
 #include "core/Locus.hpp"
+#include "core/HierRNG.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
 #include <chrono>
 #include <sstream>
 
 using namespace std;
 
-Locus::Locus() {
-	init(chrono::system_clock::now().time_since_epoch().count());
-}
+Locus::Locus() {}
 
 Locus::Locus(vector<boost::any> population) {
 	this->population = population;
-	init(chrono::system_clock::now().time_since_epoch().count());
-}
-
-void Locus::init(unsigned int seed) {
-	this->seed = seed;
-	this->generator = mt19937(seed);
 }
 
 void Locus::setPopulation(vector<boost::any> population) {
@@ -36,11 +29,9 @@ unsigned int Locus::topIndex() {
 }
 
 unsigned int Locus::randomIndex() {
-	uniform_int_distribution<unsigned int> dist(
-		0,
-		this->population.size() - 1
-	);
-	return dist(this->generator);
+	return HierRNG::getUniformRandomNumber<
+		unsigned int
+	>(0, this->topIndex());
 }
 
 bool Locus::isConstructive() {
