@@ -1,33 +1,18 @@
-//This is an abstract class for crossover operations. Lets us define any 
-//crossover we like, and use it for a given Individual.
-
 #include <random>
 #include <chrono>
 #include <string>
 #include <sstream>
 #include <algorithm>
 #include "nodes/EANode/CrossoverOperation.hpp"
+#include "core/HierRNG.hpp"
 using namespace std;
 
 CrossoverOperation::CrossoverOperation() {
-	this->init(
-		DEFAULT_NUM_OFFSPRING,
-		chrono::system_clock::now().time_since_epoch().count()
-	);
+	this->init(DEFAULT_NUM_OFFSPRING);
 }
 
 CrossoverOperation::CrossoverOperation(unsigned int numOffspring) {
-	this->init(
-		numOffspring,
-		chrono::system_clock::now().time_since_epoch().count()
-	);
-}
-
-CrossoverOperation::CrossoverOperation(
-	unsigned int numOffspring,
-	unsigned int seed
-) {
-	this->init(numOffspring, seed);
+	this->init(numOffspring);
 }
 
 CrossoverOperation::~CrossoverOperation() {}
@@ -36,10 +21,8 @@ void CrossoverOperation::registerInternalObjects(
 	NodeGarbageCollector & collector
 ) {}
 
-void CrossoverOperation::init(unsigned int numOffspring, unsigned int seed) {
+void CrossoverOperation::init(unsigned int numOffspring) {
 	this->numOffspring = numOffspring;
-	this->seed = seed;
-	this->generator = mt19937(seed);
 }
 
 unsigned int CrossoverOperation::maxPairings(
@@ -61,10 +44,6 @@ vector<unsigned int> CrossoverOperation::getParents(
 	unsigned int desiredParents,
 	vector<vector<unsigned int>> & previousPairings
 ) {
-	uniform_int_distribution<unsigned int> parentDist(
-		0,
-		numAvailableParents - 1
-	);
 	vector<unsigned int> pairing;
 
 	bool alreadySeen = false;
@@ -72,7 +51,9 @@ vector<unsigned int> CrossoverOperation::getParents(
 	do {
 		for (unsigned int i = 0; i < desiredParents; i++) {
 			do {
-				parent = parentDist(this->generator);
+				parent = HierRNG::uniformRandomNumber<
+					unsigned int
+				>(0, numAvailableParents - 1);
 			} while (find(
 				pairing.begin(), pairing.end(), parent
 			) != pairing.end());

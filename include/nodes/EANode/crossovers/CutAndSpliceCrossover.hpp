@@ -34,7 +34,6 @@ class CutAndSpliceCrossover : public CrossoverOperation {
 	public:
 	CutAndSpliceCrossover();
 	CutAndSpliceCrossover(unsigned int numOffspring);
-	CutAndSpliceCrossover(unsigned int numOffspring, unsigned int seed);
 	
 	std::string toString();
 };

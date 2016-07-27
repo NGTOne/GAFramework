@@ -2,14 +2,11 @@
 #include <sstream>
 #include <algorithm>
 #include "nodes/EANode/crossovers/CutAndSpliceCrossover.hpp"
+#include "core/HierRNG.hpp"
 
 using namespace std;
 
 CutAndSpliceCrossover::CutAndSpliceCrossover() : CrossoverOperation() {}
-
-CutAndSpliceCrossover::CutAndSpliceCrossover(
-	unsigned int seed
-) : CrossoverOperation(seed) {}
 
 GenomeTemplate CutAndSpliceCrossover::createOffspring(
 	vector<Genome*> parents,
@@ -45,8 +42,9 @@ std::vector<GenomeTemplate> CutAndSpliceCrossover::crossOver(
 
 	for (unsigned int i = 0; i < genomes.size(); i++) {
 		genomeLengths.push_back(genomes[i]->genomeLength());
-		uniform_int_distribution<int> pointDist(0, genomeLengths[i]);
-		points.push_back(pointDist(this->generator));
+		points.push_back(HierRNG::uniformRandomNumber<
+			unsigned int
+		>(0, genomeLengths[i]));
 	}
 
 	unsigned int numPairings = this->maxPairings(genomes.size(), 2);
@@ -70,7 +68,6 @@ std::vector<GenomeTemplate> CutAndSpliceCrossover::crossOver(
 
 string CutAndSpliceCrossover::toString() {
 	stringstream ss;
-	ss << "Type: Cut and Splice Crossover\nRandom Seed: "
-		<< this->seed << "\n";
+	ss << "Type: Cut and Splice Crossover\n";
 	return ss.str();
 }

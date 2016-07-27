@@ -12,7 +12,6 @@ class UniformCrossover : public CrossoverOperation {
 	public:
 	UniformCrossover();
 	UniformCrossover(unsigned int numOffspring);
-	UniformCrossover(unsigned int numOffspring, unsigned int seed);
 
 	std::string toString();
 };

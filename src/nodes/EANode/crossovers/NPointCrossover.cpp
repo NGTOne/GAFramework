@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <sstream>
 #include "nodes/EANode/crossovers/NPointCrossover.hpp"
+#include "core/HierRNG.hpp"
 
 using namespace std;
 
@@ -19,20 +20,13 @@ NPointCrossover::NPointCrossover(
 	this->numPoints = numPoints;
 }
 
-NPointCrossover::NPointCrossover(
-	unsigned int numPoints,
-	unsigned int numOffspring,
-	unsigned int seed
-) : CrossoverOperation(numOffspring, seed) {
-	this->numPoints = numPoints;
-}
-
 vector<unsigned int> NPointCrossover::getPoints(unsigned int maxPoint) {
 	vector<unsigned int> points;
-	uniform_int_distribution<unsigned int> pointsDist(0, maxPoint);
 
 	for (unsigned int i = 0; i < this->numPoints; i++) 
-		points.push_back(pointsDist(this->generator));
+		points.push_back(HierRNG::uniformRandomNumber<
+			unsigned int
+		>(0, maxPoint));
 
 	sort(points.begin(), points.begin() + this->numPoints);
 
@@ -74,12 +68,9 @@ std::vector<GenomeTemplate> NPointCrossover::crossOver(
 	if (children.size() > this->numOffspring) {
 		unsigned int numToDelete = children.size() - numOffspring;
 		for (unsigned int i = 0; i < numToDelete; i++) {
-			uniform_int_distribution<unsigned int> removalDist(
-				0,
-				children.size()
-			);
-
-			unsigned int index = removalDist(this->generator);
+			unsigned int index = HierRNG::uniformRandomNumber<
+				unsigned int
+			>(0, children.size() - 1);
 			children.erase(children.begin() + index);
 		}
 	}
@@ -90,7 +81,7 @@ std::vector<GenomeTemplate> NPointCrossover::crossOver(
 string NPointCrossover::toString() {
 	stringstream ss;
 
-	ss << "Type: N-Point Crossover\nRandom Seed: " << this->seed
+	ss << "Type: N-Point Crossover"
 		<< "\nNumber of points: " << this->numPoints << "\n";
 
 	return ss.str();

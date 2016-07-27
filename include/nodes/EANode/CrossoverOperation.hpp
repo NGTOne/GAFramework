@@ -17,11 +17,9 @@ class CrossoverOperation : public EABehaviourObject {
 	private:
 
 	protected:
-	unsigned int seed;
 	unsigned int numOffspring;
-	std::mt19937 generator;
 
-	void init(unsigned int numOffspring, unsigned int seed);
+	void init(unsigned int numOffspring);
 	unsigned int maxPairings(
 		unsigned int numParents,
 		unsigned int pairingSize
@@ -41,7 +39,6 @@ class CrossoverOperation : public EABehaviourObject {
 	public:
 	CrossoverOperation();
 	CrossoverOperation(unsigned int numOffspring);
-	CrossoverOperation(unsigned int numOffspring, unsigned int seed);
 	virtual ~CrossoverOperation();
 	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 

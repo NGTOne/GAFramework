@@ -31,11 +31,6 @@ class NPointCrossover : public CrossoverOperation {
 	public:
 	NPointCrossover(unsigned int numPoints);
 	NPointCrossover(unsigned int numPoints, unsigned int numOffspring);
-	NPointCrossover(
-		unsigned int numPoints,
-		unsigned int numOffspring,
-		unsigned int seed
-	);
 	
 	std::string toString();
 
