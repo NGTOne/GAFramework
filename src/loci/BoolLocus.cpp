@@ -24,7 +24,6 @@ string BoolLocus::toString() {
 
 	for (unsigned int i = 0; i < this->population.size(); i++)
 		ss << this->getIndex(i) << " ";
-	ss << "\nRandom Seed: " << this->seed << "\n";
 
 	return ss.str();
 }

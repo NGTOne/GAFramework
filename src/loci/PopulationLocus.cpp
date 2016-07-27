@@ -20,14 +20,6 @@ unsigned int PopulationLocus::topIndex() {
 	return this->node->populationSize() - 1;
 }
 
-unsigned int PopulationLocus::randomIndex() {
-	uniform_int_distribution<unsigned int> dist(
-		0,
-		this->node->populationSize()-1
-	);
-	return dist(this->generator);
-}
-
 bool PopulationLocus::outOfRange(unsigned int i) {
 	return i >= this->node->populationSize();
 }
@@ -42,8 +34,7 @@ bool PopulationLocus::isFake() {
 
 string PopulationLocus::toString() {
 	stringstream ss;
-	ss << "Locus uses node " << this->nodeName() << "\n"
-		<< "\nRandom Seed: " << this->seed << "\n";
+	ss << "Locus uses node " << this->nodeName() << "\n";
 	return ss.str();
 }
 

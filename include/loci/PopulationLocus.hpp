@@ -15,7 +15,6 @@ class PopulationLocus: public Locus {
 	~PopulationLocus();
 
 	virtual Genome * getIndex(unsigned int index);
-	virtual unsigned int randomIndex();
 	virtual unsigned int topIndex();
 	virtual bool outOfRange(unsigned int i);
 	bool isConstructive();
