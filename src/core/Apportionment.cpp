@@ -1,4 +1,5 @@
 #include "core/Apportionment.hpp"
+#include "core/HierRNG.hpp"
 #include <algorithm>
 #include <random>
 
@@ -126,9 +127,6 @@ float Apportionment::checkFitness(Genome * genome) {
 	for (unsigned int i = 0; i < tried.size(); i++)
 		if (!tried[i]) untriedIndices.push_back(i);
 
-	// TODO: Refactor this into the class def
-	mt19937 generator;
-
 	unsigned int realTryOns = std::min(
 		this->upperNode->populationSize(),
 		this->tryOns
@@ -136,11 +134,9 @@ float Apportionment::checkFitness(Genome * genome) {
 
 	unsigned int index;
 	while (triedOn < realTryOns) {
-		uniform_int_distribution<unsigned int> selDist(
-			0,
-			untriedIndices.size() - 1
-		);
-		index = selDist(generator);
+		index = HierRNG::uniformRandomNumber<
+			unsigned int
+		>(0, untriedIndices.size() - 1);
 
 		Genome * provider = this->upperNode
 			->getIndex(untriedIndices[index])
