@@ -181,17 +181,14 @@ Genome * PopulationNode::getIndex(unsigned int index) {
 
 bool PopulationNode::done() {
 	// TODO: Allow logical operations (AND/OR) of end conditions
-	for (unsigned int i = 0; i < this->conditions.size(); i++) {
+	for (unsigned int i = 0; i < this->conditions.size(); i++)
 		if (this->conditions[i]->checkCondition(
 			this->population,
 			this->fitnesses,
 			this->currentIteration
-		) == false) {
-			return false;
-		}
-	}
+		)) return true;
 
-	return true;
+	return false;
 }
 
 // Since our n is reasonably small, the O(n^2) bubblesort will suffice
