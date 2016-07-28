@@ -18,7 +18,6 @@ class SANode : public PopulationNode {
 
 	bool readOnce;
 
-	int compareNeighbourliness(Genome * base, Genome * target);
 	int compareNeighbourliness(GenomeTemplate base, GenomeTemplate target);
 	Genome * getNeighbour(Genome * target);
 	std::vector<Genome*> getLocusNeighbours(
