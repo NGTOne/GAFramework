@@ -38,7 +38,7 @@ class EANode : public PopulationNode {
 		unsigned int accelerationFactor,
 		EvolutionarySystem * system
 	);
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
+	virtual void registerInternalObjects();
 
 	virtual std::vector<Genome*> getNextPopulation();
 	std::string toString();

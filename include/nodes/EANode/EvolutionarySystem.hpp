@@ -48,7 +48,7 @@ class EvolutionarySystem : public EABehaviourObject {
 		MutationOperation * mutation
 	);
 	virtual ~EvolutionarySystem();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
+	virtual void registerInternalObjects();
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,

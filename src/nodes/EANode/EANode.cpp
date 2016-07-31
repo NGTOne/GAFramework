@@ -1,4 +1,5 @@
 #include "nodes/EANode/EANode.hpp"
+#include "core/HierGC.hpp"
 #include <sstream>
 
 using namespace std;
@@ -43,9 +44,9 @@ EANode::EANode(
 	init(system);
 }
 
-void EANode::registerInternalObjects(NodeGarbageCollector & collector) {
-	PopulationNode::registerInternalObjects(collector);
-	collector.registerObject(this->system);
+void EANode::registerInternalObjects() {
+	PopulationNode::registerInternalObjects();
+	HierGC::registerObject(this->system);
 }
 
 void EANode::init(EvolutionarySystem * system) {

@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include "nodes/EANode/EvolutionarySystem.hpp"
+#include "core/HierGC.hpp"
 
 using namespace std;
 
@@ -20,12 +21,10 @@ EvolutionarySystem::EvolutionarySystem(
 
 EvolutionarySystem::~EvolutionarySystem() {}
 
-void EvolutionarySystem::registerInternalObjects(
-	NodeGarbageCollector & collector
-) {
-	collector.registerObject(this->strategy);
-	collector.registerObject(this->cross);
-	collector.registerObject(this->mutation);
+void EvolutionarySystem::registerInternalObjects() {
+	HierGC::registerObject(this->strategy);
+	HierGC::registerObject(this->cross);
+	HierGC::registerObject(this->mutation);
 }
 
 void EvolutionarySystem::init(

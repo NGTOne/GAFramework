@@ -21,7 +21,6 @@ class TemperatureSchedule : public EABehaviourObject {
 
 	public:
 	virtual ~TemperatureSchedule();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 	virtual float currentTemp(unsigned int currentIteration)=0;
 	virtual std::string toString();
 };

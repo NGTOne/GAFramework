@@ -23,7 +23,6 @@ class SelectionStrategy : public EABehaviourObject {
 	public:
 	SelectionStrategy(double crossoverRate);
 	virtual ~SelectionStrategy();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual unsigned int getParent(
 		std::vector<Genome*> population,

@@ -10,7 +10,6 @@ class NichingStrategy : public EABehaviourObject {
 
 	public:
 	virtual ~NichingStrategy();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual std::vector<unsigned int> getIndices(
 		std::vector<Genome*> initialPopulation,

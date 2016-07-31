@@ -1,6 +1,7 @@
 #include <random>
 #include <sstream>
 #include "nodes/EANode/systems/SSGA.hpp"
+#include "core/HierGC.hpp"
 
 using namespace std;
 
@@ -21,9 +22,9 @@ SSGA::SSGA(
 	this->niching = niching;
 }
 
-void SSGA::registerInternalObjects(NodeGarbageCollector & collector) {
-	EvolutionarySystem::registerInternalObjects(collector);
-	collector.registerObject(this->niching);
+void SSGA::registerInternalObjects() {
+	EvolutionarySystem::registerInternalObjects();
+	HierGC::registerObject(this->niching);
 }
 
 vector<Genome*> SSGA::breedMutateSelect(

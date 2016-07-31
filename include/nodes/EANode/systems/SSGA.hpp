@@ -31,7 +31,7 @@ class SSGA : public EvolutionarySystem {
 		NichingStrategy * niching
 	);
 
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
+	virtual void registerInternalObjects();
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,

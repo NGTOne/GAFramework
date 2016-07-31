@@ -19,10 +19,6 @@ SelectionStrategy::SelectionStrategy(
 
 SelectionStrategy::~SelectionStrategy() {}
 
-void SelectionStrategy::registerInternalObjects(
-	NodeGarbageCollector & collector
-) {}
-
 void SelectionStrategy::init(
 	double crossoverRate,
 	string name

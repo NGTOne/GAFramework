@@ -1,6 +1,7 @@
 #include "nodes/SANode/SANode.hpp"
 #include "core/Locus.hpp"
 #include "core/HierRNG.hpp"
+#include "core/HierGC.hpp"
 #include <string>
 #include <sstream>
 #include <random>
@@ -91,9 +92,9 @@ SANode::SANode(
 	init(schedule, maximize);
 }
 
-void SANode::registerInternalObjects(NodeGarbageCollector & collector) {
-	PopulationNode::registerInternalObjects(collector);
-	collector.registerObject(this->schedule);
+void SANode::registerInternalObjects() {
+	PopulationNode::registerInternalObjects();
+	HierGC::registerObject(this->schedule);
 }
 
 void SANode::init(TemperatureSchedule * schedule, bool maximize) {

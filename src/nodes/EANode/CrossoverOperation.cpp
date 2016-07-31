@@ -17,10 +17,6 @@ CrossoverOperation::CrossoverOperation(unsigned int numOffspring) {
 
 CrossoverOperation::~CrossoverOperation() {}
 
-void CrossoverOperation::registerInternalObjects(
-	NodeGarbageCollector & collector
-) {}
-
 void CrossoverOperation::init(unsigned int numOffspring) {
 	this->numOffspring = numOffspring;
 }

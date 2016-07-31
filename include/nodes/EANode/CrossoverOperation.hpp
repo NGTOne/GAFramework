@@ -40,7 +40,6 @@ class CrossoverOperation : public EABehaviourObject {
 	CrossoverOperation();
 	CrossoverOperation(unsigned int numOffspring);
 	virtual ~CrossoverOperation();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	std::vector<Genome*> crossOver(
 		std::vector<Genome*> parents,
