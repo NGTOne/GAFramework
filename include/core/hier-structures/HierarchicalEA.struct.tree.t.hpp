@@ -1,4 +1,5 @@
 #include "../HierarchicalEA.hpp"
+#include "../HierGC.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
 #include "../../exception/ValueOutOfRangeException.hpp"
 #pragma once
@@ -312,5 +313,5 @@ void HierarchicalEA::addConstructiveTree(
 		currentLevelNodes.clear();
 	}
 
-	this->gc.registerObject(formula);
+	HierGC::registerObject(formula);
 }

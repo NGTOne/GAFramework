@@ -1,4 +1,5 @@
 #include "../HierarchicalEA.hpp"
+#include "../HierGC.hpp"
 #include "../PopulationNodeFactory.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
 #pragma once
@@ -317,5 +318,5 @@ void HierarchicalEA::addConstructiveLattice(
 		currentLevelNodes.clear();
 	}
 
-	this->gc.registerObject(formula);
+	HierGC::registerObject(formula);
 }
