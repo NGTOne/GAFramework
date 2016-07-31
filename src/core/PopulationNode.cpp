@@ -100,16 +100,19 @@ void PopulationNode::createLoci(vector<Locus*> loci) {
 		this->population.push_back(new Genome(loci, this->nodeName));
 	this->evaluateFitnesses();
 	this->canonicalLoci = loci;
+	HierGC::registerObjects(loci);
 }
 
 void PopulationNode::addObjective(ObjectiveFunction * objective) {
 	this->objectives.push_back(objective);
+	HierGC::registerObject(objective);
 	this->evaluateFitnesses();
 }
 
 void PopulationNode::addObjectives(vector<ObjectiveFunction*> objectives) {
 	for (unsigned int i = 0; i < objectives.size(); i++)
 		this->objectives.push_back(objectives[i]);
+	HierGC::registerObjects(objectives);
 	this->evaluateFitnesses();
 }
 
@@ -125,11 +128,13 @@ void PopulationNode::setObjectives(vector<ObjectiveFunction*> objectives) {
 
 void PopulationNode::addEndCondition(EndCondition * condition) {
 	this->conditions.push_back(condition);
+	HierGC::registerObject(condition);
 }
 
 void PopulationNode::addEndConditions(vector<EndCondition*> conditions) {
 	for (unsigned int i = 0; i < conditions.size(); i++)
 		this->conditions.push_back(conditions[i]);
+	HierGC::registerObjects(conditions);
 }
 
 void PopulationNode::setEndCondition(EndCondition * condition) {
@@ -154,6 +159,7 @@ void PopulationNode::setLoci(vector<Locus*> loci) {
 
 void PopulationNode::setToString(ToStringFunction * populationToString) {
 	this->populationToString = populationToString;
+	HierGC::registerObject(this->populationToString);
 }
 
 void PopulationNode::replacePopulation() {
