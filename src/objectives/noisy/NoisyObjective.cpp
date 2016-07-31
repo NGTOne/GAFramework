@@ -1,6 +1,7 @@
 #include "objectives/noisy/NoisyObjective.hpp"
 #include "objectives/noisy/genetic-noise/NonNoisyGeneticSource.hpp"
 #include "objectives/noisy/fitness-noise/NonNoisyFitnessSource.hpp"
+#include "core/HierGC.hpp"
 #include <chrono>
 
 NoisyObjective::NoisyObjective(
@@ -25,10 +26,10 @@ NoisyObjective::NoisyObjective(
 	this->init(geneticSource, fitnessSource);
 }
 
-void NoisyObjective::registerInternalObjects(NodeGarbageCollector & collector) {
-	NestedObjective::registerInternalObjects(collector);
-	collector.registerObject(this->geneticSource);
-	collector.registerObject(this->fitnessSource);
+void NoisyObjective::registerInternalObjects() {
+	NestedObjective::registerInternalObjects();
+	HierGC::registerObject(this->geneticSource);
+	HierGC::registerObject(this->fitnessSource);
 }
 
 void NoisyObjective::init(

@@ -33,7 +33,7 @@ class NoisyObjective: public NestedObjective {
 		GeneticNoiseSource * geneticSource,
 		FitnessNoiseSource * fitnessSource
 	);
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
+	virtual void registerInternalObjects();
 
 	float checkFitness(Genome * genome);
 };

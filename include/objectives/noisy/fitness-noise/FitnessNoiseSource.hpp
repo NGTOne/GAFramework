@@ -9,6 +9,5 @@ class FitnessNoiseSource : public EABehaviourObject {
 	FitnessNoiseSource();
 
 	public:
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 	virtual float addNoise(float cleanFitness)=0;
 };

@@ -15,7 +15,7 @@ class GeneticNoiseSource : public EABehaviourObject {
 
 	public:
 	~GeneticNoiseSource();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
+	virtual void registerInternalObjects();
 
 	virtual Genome addNoise(Genome * target);
 	Genome addNoise(Genome target);

@@ -2,7 +2,3 @@
 #include <chrono>
 
 FitnessNoiseSource::FitnessNoiseSource() {}
-
-void FitnessNoiseSource::registerInternalObjects(
-	NodeGarbageCollector & collector
-) {}

@@ -16,10 +16,6 @@ MutationOperation::MutationOperation(double mutationRate) {
 
 MutationOperation::~MutationOperation() {}
 
-void MutationOperation::registerInternalObjects(
-	NodeGarbageCollector & collector
-) {}
-
 void MutationOperation::init(double mutationRate) {
 	this->mutationRate = mutationRate;
 }

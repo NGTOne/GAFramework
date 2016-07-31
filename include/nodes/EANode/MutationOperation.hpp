@@ -30,7 +30,6 @@ class MutationOperation : public EABehaviourObject {
 	MutationOperation();
 	MutationOperation(double mutationRate);
 	virtual ~MutationOperation();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual Genome * mutate(Genome * initialGenome);
 	GenomeTemplate mutate(GenomeTemplate initial);
