@@ -10,7 +10,7 @@ class EABehaviourObject {
 	protected:
 
 	public:
-	virtual ~EABehaviourObject()=0;
+	virtual ~EABehaviourObject() {};
 	virtual void registerInternalObjects() {};
 };
 
