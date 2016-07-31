@@ -14,7 +14,6 @@ class EndCondition : public EABehaviourObject {
 	public:
 	EndCondition();
 	virtual ~EndCondition();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual bool checkCondition(
 		std::vector<Genome*> genomes,

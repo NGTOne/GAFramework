@@ -32,8 +32,6 @@ class HierarchicalEA {
 	vector<PopulationNode *> printNodes;
 	vector<PopulationNode *> endConditionDictatorNodes;
 
-	NodeGarbageCollector gc;
-
 	void buildNodeSet(
 		vector<string> targetNames,
 		vector <PopulationNode *> & targetSet

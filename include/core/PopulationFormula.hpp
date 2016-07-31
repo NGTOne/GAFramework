@@ -10,7 +10,6 @@ class PopulationFormula : public EABehaviourObject {
 
 	public:
 	virtual ~PopulationFormula();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	// I don't like it being this simple, but I can't think of how to
 	// extend it

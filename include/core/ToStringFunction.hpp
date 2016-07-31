@@ -12,7 +12,6 @@ class ToStringFunction : public EABehaviourObject {
 
 	public:
 	virtual ~ToStringFunction();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 	virtual std::string toString(Genome * genome)=0;
 	virtual bool isNested();
 };

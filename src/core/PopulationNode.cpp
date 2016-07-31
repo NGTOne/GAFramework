@@ -1,4 +1,5 @@
 #include "core/PopulationNode.hpp"
+#include "core/HierGC.hpp"
 #include <sstream>
 #include <iostream>
 
@@ -48,13 +49,11 @@ PopulationNode::~PopulationNode() {
 		delete(this->population[i]);
 }
 
-void PopulationNode::registerInternalObjects(
-	NodeGarbageCollector & collector
-) {
-	collector.registerObjects(this->objectives);
-	collector.registerObjects(this->conditions);
-	collector.registerObjects(this->canonicalLoci);
-	collector.registerObject(this->populationToString);
+void PopulationNode::registerInternalObjects() {
+	HierGC::registerObjects(this->objectives);
+	HierGC::registerObjects(this->conditions);
+	HierGC::registerObjects(this->canonicalLoci);
+	HierGC::registerObject(this->populationToString);
 }
 
 void PopulationNode::init(

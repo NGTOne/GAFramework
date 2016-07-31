@@ -5,11 +5,11 @@
 #include "exception/NoEvolutionOrderException.hpp"
 #include "exception/MismatchedCountsException.hpp"
 #include "exception/CoevConstructionException.hpp"
-#include "core/gc/NodeGarbageCollector.hpp"
 #include "core/Apportionment.hpp"
 #include "loci/PopulationLocus.hpp"
 #include "nodes/NonOptimizingNode.hpp"
 #include "core/HierRNG.hpp"
+#include "core/HierGC.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -33,7 +33,7 @@ HierarchicalEA::HierarchicalEA(
 HierarchicalEA::~HierarchicalEA() {}
 
 void HierarchicalEA::deleteAllNodes() {
-	this->gc.cleanUp();
+	HierGC::cleanUp();
 
 	this->nodesToPrint.clear();
 	this->evolutionOrder.clear();
@@ -59,7 +59,7 @@ void HierarchicalEA::addNode(
 	if (print) this->nodesToPrint.push_back(node->name());
 	if (end) this->endDictators.push_back(node->name());
 
-	this->gc.registerObject(node);
+	HierGC::registerObject(node);
 }
 
 void HierarchicalEA::addNodes(

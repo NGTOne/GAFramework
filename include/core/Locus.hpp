@@ -17,7 +17,6 @@ class Locus : public EABehaviourObject {
 
 	public:
 	virtual ~Locus();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual unsigned int randomIndex();
 	virtual unsigned int topIndex();

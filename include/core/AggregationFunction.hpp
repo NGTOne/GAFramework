@@ -9,7 +9,6 @@ class AggregationFunction : public EABehaviourObject {
 
 	public:
 	virtual ~AggregationFunction();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual float aggregateFitnesses(std::vector<float> fitnesses)=0;
 };

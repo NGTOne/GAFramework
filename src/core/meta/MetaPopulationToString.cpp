@@ -1,5 +1,6 @@
 #include "core/meta/MetaPopulationToString.hpp"
 #include "core/meta/BlanketResolver.hpp"
+#include "core/HierGC.hpp"
 
 MetaPopulationToString::MetaPopulationToString(
 	ToStringFunction * flattenedToString
@@ -7,11 +8,9 @@ MetaPopulationToString::MetaPopulationToString(
 	this->flattenedToString = flattenedToString;
 }
 
-void MetaPopulationToString::registerInternalObjects(
-	NodeGarbageCollector & collector
-) {
-	ToStringFunction::registerInternalObjects(collector);
-	collector.registerObject(this->flattenedToString);
+void MetaPopulationToString::registerInternalObjects() {
+	ToStringFunction::registerInternalObjects();
+	HierGC::registerObject(this->flattenedToString);
 }
 
 std::string MetaPopulationToString::toString(Genome * genome) {

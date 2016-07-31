@@ -9,7 +9,3 @@ bool ObjectiveFunction::isApportioning() {
 bool ObjectiveFunction::isNested() {
 	return false;
 }
-
-void ObjectiveFunction::registerInternalObjects(
-	NodeGarbageCollector & collector
-) {}

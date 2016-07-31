@@ -67,7 +67,7 @@ class PopulationNode : public EABehaviourObject {
 	);
 
 	virtual ~PopulationNode();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
+	virtual void registerInternalObjects();
 
 	void addObjective(ObjectiveFunction * objective);
 	void addObjectives(std::vector<ObjectiveFunction*> objectives);

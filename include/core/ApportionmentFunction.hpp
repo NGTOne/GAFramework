@@ -10,7 +10,6 @@ class ApportionmentFunction : public EABehaviourObject {
 
 	public:
 	virtual ~ApportionmentFunction();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 
 	virtual float apportionFitness(
 		Genome * recipient,

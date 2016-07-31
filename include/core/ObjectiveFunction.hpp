@@ -12,7 +12,6 @@ class ObjectiveFunction : public EABehaviourObject {
 
 	public:
 	virtual ~ObjectiveFunction();
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
 	virtual float checkFitness(Genome * genome)=0;
 	virtual bool isApportioning();
 	virtual bool isNested();

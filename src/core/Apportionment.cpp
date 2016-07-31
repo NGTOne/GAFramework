@@ -1,5 +1,6 @@
 #include "core/Apportionment.hpp"
 #include "core/HierRNG.hpp"
+#include "core/HierGC.hpp"
 #include <algorithm>
 #include <random>
 
@@ -28,10 +29,10 @@ Apportionment::Apportionment(
 
 Apportionment::~Apportionment() {}
 
-void Apportionment::registerInternalObjects(NodeGarbageCollector & collector) {
-	ObjectiveFunction::registerInternalObjects(collector);
-	collector.registerObject(this->apportionment);
-	collector.registerObject(this->aggregator);
+void Apportionment::registerInternalObjects() {
+	ObjectiveFunction::registerInternalObjects();
+	HierGC::registerObject(this->apportionment);
+	HierGC::registerObject(this->aggregator);
 }
 
 void Apportionment::init(

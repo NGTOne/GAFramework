@@ -1,14 +1,13 @@
 #include "core/NestedObjective.hpp"
+#include "core/HierGC.hpp"
 
 NestedObjective::NestedObjective(ObjectiveFunction * innerObjective) {
 	this->innerObjective = innerObjective;
 }
 
-void NestedObjective::registerInternalObjects(
-	NodeGarbageCollector & collector
-) {
-	ObjectiveFunction::registerInternalObjects(collector);
-	collector.registerObject(this->innerObjective);
+void NestedObjective::registerInternalObjects() {
+	ObjectiveFunction::registerInternalObjects();
+	HierGC::registerObject(this->innerObjective);
 }
 
 bool NestedObjective::isNested() {

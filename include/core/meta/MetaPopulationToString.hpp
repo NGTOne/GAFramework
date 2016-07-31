@@ -10,7 +10,7 @@ class MetaPopulationToString : public ToStringFunction {
 
 	public:
 	MetaPopulationToString(ToStringFunction * flattenedToString);
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
+	virtual void registerInternalObjects();
 	std::string toString(Genome * genome);
 	bool isNested();
 	std::vector<ToStringFunction*> getNested();

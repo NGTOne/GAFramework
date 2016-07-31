@@ -1,8 +1,8 @@
 #ifndef core_EA_BehaviourObject
 #define core_EA_BehaviourObject
 
-#include "gc/NodeGarbageCollector.hpp"
-class NodeGarbageCollector;
+#include "HierGC.hpp"
+class HierGC;
 
 class EABehaviourObject {
 	private:
@@ -10,10 +10,8 @@ class EABehaviourObject {
 	protected:
 
 	public:
-	virtual ~EABehaviourObject() {};
-	virtual void registerInternalObjects(
-		NodeGarbageCollector & collector
-	)=0;
+	virtual ~EABehaviourObject()=0;
+	virtual void registerInternalObjects() {};
 };
 
 #endif

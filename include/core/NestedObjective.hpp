@@ -11,7 +11,7 @@ class NestedObjective: public ObjectiveFunction {
 
 	public:
 	NestedObjective(ObjectiveFunction * innerObjective);
-	virtual void registerInternalObjects(NodeGarbageCollector & collector);
+	virtual void registerInternalObjects();
 	bool isNested();
 	std::vector<ObjectiveFunction*> getInner();
 };
