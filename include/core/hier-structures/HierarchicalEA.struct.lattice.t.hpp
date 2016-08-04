@@ -2,6 +2,7 @@
 #include "../HierGC.hpp"
 #include "../PopulationNodeFactory.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
+#include "../../loci/PopulationLocus.hpp"
 #pragma once
 
 template<typename NodeType, typename... params>

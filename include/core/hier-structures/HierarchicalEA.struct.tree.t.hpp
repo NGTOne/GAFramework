@@ -2,6 +2,7 @@
 #include "../HierGC.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
 #include "../../exception/ValueOutOfRangeException.hpp"
+#include "../../loci/PopulationLocus.hpp"
 #pragma once
 
 template <typename NodeType, typename... params>
