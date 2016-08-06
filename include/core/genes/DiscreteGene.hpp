@@ -11,13 +11,16 @@ class DiscreteGene : public Gene {
 	void add(double addend);
 	void set(double value);
 
-	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
-	double round(T value);
-
 	public:
 	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
-	DiscreteGene(Locus * target, T index);
-	DiscreteGene(Gene * other);
+	DiscreteGene(Locus* target, T index);
+	DiscreteGene(Gene* other);
 };
+
+template<typename T, class>
+DiscreteGene::DiscreteGene(
+	Locus* target,
+	T index
+) : Gene(target, std::round(index)) {}
 
 #endif
