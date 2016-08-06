@@ -51,6 +51,7 @@ obj-dir:
 	./compile-scripts/make-obj-dir.sh
 
 core: builders
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/genes/Gene.cpp -o obj/core/genes/Gene.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Genome.cpp -o obj/core/Genome.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/FakeGenome.cpp -o obj/core/FakeGenome.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/GenomeTemplate.cpp -o obj/core/GenomeTemplate.o
