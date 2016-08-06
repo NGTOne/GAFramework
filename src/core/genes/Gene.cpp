@@ -21,6 +21,10 @@ Gene::Gene(Gene * other) {
 	this->index = other->getIndex();
 }
 
+bool Gene::validValue(double newIndex) {
+	return this->target->outOfRange(newIndex);
+}
+
 double Gene::getIndex() {
 	return this->index;
 }

@@ -2,6 +2,9 @@
 #define CORE_GENES_Gene
 
 #include "../Locus.hpp"
+#include <boost/any.hpp>
+
+class Locus;
 
 class Gene {
 	private:
@@ -30,5 +33,10 @@ class Gene {
 	template <typename T>
 	T getValue();
 };
+
+template <typename T>
+T Gene::getValue() {
+	return boost::any_cast<T>(this->target->getIndex(this));
+}
 
 #endif
