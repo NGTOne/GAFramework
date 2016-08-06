@@ -18,12 +18,6 @@ class DiscreteGene : public Gene {
 	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
 	DiscreteGene(Locus * target, T index);
 	DiscreteGene(Gene * other);
-
-	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
-	void addToIndex(T addend);
-
-	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
-	void setIndex(T newValue);
 };
 
 #endif

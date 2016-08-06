@@ -16,11 +16,6 @@ class ContinuousGene : public Gene {
 	ContinuousGene(Locus * target, T index);
 	ContinuousGene(Gene * other);
 
-	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
-	void addToIndex(T addend);
-
-	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
-	void setIndex(T value);
 };
 
 template<typename T, class>
@@ -28,15 +23,5 @@ ContinuousGene::ContinuousGene(
 	Locus * target,
 	T index
 ) : Gene(target, (double)index) {}
-
-template<typename T, class>
-void ContinuousGene::addToIndex(T addend) {
-	this->add((double)addend);
-}
-
-template<typename T, class>
-void ContinuousGene::setIndex(T value) {
-	this->set((double)value);
-}
 
 #endif
