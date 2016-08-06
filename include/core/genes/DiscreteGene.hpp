@@ -2,6 +2,7 @@
 #define CORE_GENES_DiscreteGene
 
 #include "Gene.hpp"
+#include "../utils/templates.hpp"
 
 class DiscreteGene : public Gene {
 	private:
@@ -10,21 +11,18 @@ class DiscreteGene : public Gene {
 	void add(double addend);
 	void set(double value);
 
-	template<typename T, typename = enableIfNumber<T>>
+	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
 	double round(T value);
 
 	public:
-	template<typename T, typename = enableIfNumber<T>>
-	DiscreteGene(
-		Locus * target,
-		T index
-	) : Gene(target, this->round(index)) {}
+	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
+	DiscreteGene(Locus * target, T index);
 	DiscreteGene(Gene * other);
 
-	template <typename T, typename = enableIfNumber<T>>
+	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
 	void addToIndex(T addend);
 
-	template <typename T, typename = enableIfNumber<T>>
+	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
 	void setIndex(T newValue);
 };
 

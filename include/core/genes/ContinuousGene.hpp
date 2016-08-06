@@ -2,6 +2,7 @@
 #define CORE_GENES_ContinuousGene
 
 #include "Gene.hpp"
+#include "../utils/templates.hpp"
 
 class ContinuousGene : public Gene {
 	private:
@@ -11,11 +12,8 @@ class ContinuousGene : public Gene {
 	void set(double value);
 
 	public:
-	template<typename T, typename = enableIfNumber<T>>
-	ContinuousGene(
-		Locus * target,
-		T index
-	) : Gene(target, (double)index)  {}
+	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
+	ContinuousGene(Locus * target, T index);
 	ContinuousGene(Gene * other);
 };
 

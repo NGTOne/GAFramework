@@ -21,12 +21,6 @@ class Gene {
 	Gene(Locus * target, double index);
 	Gene(Gene * other);
 
-	template <typename T>
-	using enableIfNumber = typename std::enable_if<
-		std::is_arithmetic<T>::value,
-		T
-	>::type;
-
 	virtual void add(double addend)=0;
 	virtual void set(double value)=0;
 
