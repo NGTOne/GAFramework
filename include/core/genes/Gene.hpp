@@ -13,7 +13,7 @@ class Gene {
 	Locus * target;
 	double index;
 
-	bool validValue(double newIndex);
+	bool valueOutOfRange(double newIndex);
 	double getIndex();
 	Locus * getTarget();
 
@@ -21,15 +21,16 @@ class Gene {
 	Gene(Locus * target, double index);
 	Gene(Gene * other);
 
-	public:
-	virtual void add(unsigned int addend)=0;
+	template <typename T>
+	using enableIfNumber = typename std::enable_if<
+		std::is_arithmetic<T>::value,
+		T
+	>::type;
+
 	virtual void add(double addend)=0;
-	virtual void add(int addend)=0;
-
-	virtual void set(unsigned int value)=0;
 	virtual void set(double value)=0;
-	virtual void set(int value)=0;
 
+	public:
 	template <typename T>
 	T getValue();
 };

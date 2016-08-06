@@ -9,7 +9,7 @@ Gene::Gene(Locus * target) {
 
 Gene::Gene(Locus * target, double index) {
 	this->target = target;
-	if (this->validValue(index)) {
+	if (this->valueOutOfRange(index)) {
 		this->index = index;
 	} else {
 		throw ValueOutOfRangeException();
@@ -21,7 +21,7 @@ Gene::Gene(Gene * other) {
 	this->index = other->getIndex();
 }
 
-bool Gene::validValue(double newIndex) {
+bool Gene::valueOutOfRange(double newIndex) {
 	return this->target->outOfRange(newIndex);
 }
 

@@ -28,6 +28,7 @@ class Locus : public EABehaviourObject {
 	virtual double randomIndex()=0;
 	virtual double topIndex()=0;
 	virtual double bottomIndex()=0;
+	virtual double closestIndex(double index)=0;
 	virtual bool outOfRange(double i);
 	virtual bool isConstructive();
 	virtual std::string toString()=0;
