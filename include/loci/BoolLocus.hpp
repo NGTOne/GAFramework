@@ -1,20 +1,19 @@
-#include "../core/Locus.hpp"
+#include "CollectionLocus.hpp"
 #include <vector>
 #include <string>
 #pragma once
 
-class BoolLocus: public Locus {
+class BoolLocus: public CollectionLocus {
 	private:
 
 	protected:
 
 	public:
 	BoolLocus();
-
-	bool getIndex(unsigned int index);
-
 	~BoolLocus();
 
+	bool getIndex(Gene* index);
+
 	std::string toString();
-	std::string flatten(unsigned int index);
+	std::string flatten(Gene* index);
 };
