@@ -14,11 +14,7 @@ class Locus : public EABehaviourObject {
 	private:
 
 	protected:
-	std::vector<boost::any> population;
-
 	Locus();
-	Locus(std::vector<boost::any> population);
-	void setPopulation(std::vector<boost::any> population);
 
 	public:
 	virtual ~Locus();
@@ -29,11 +25,11 @@ class Locus : public EABehaviourObject {
 	virtual double topIndex()=0;
 	virtual double bottomIndex()=0;
 	virtual double closestIndex(double index)=0;
-	virtual bool outOfRange(double i);
+	virtual bool outOfRange(double index)=0;
 	virtual bool isConstructive();
 	virtual std::string toString()=0;
 	virtual std::string flatten(Gene* index)=0;
-	boost::any getIndex(Gene* index);
+	virtual boost::any getIndex(Gene* index)=0;
 };
 
 #endif
