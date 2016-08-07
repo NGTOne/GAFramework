@@ -1,5 +1,5 @@
 #include "Locus.hpp"
-#include "Gene.hpp"
+#include "genes/Gene.hpp"
 #include "../exception/ValueOutOfRangeException.hpp"
 #include <vector>
 #include <tuple>
