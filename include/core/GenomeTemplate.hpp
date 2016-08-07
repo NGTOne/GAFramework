@@ -14,7 +14,7 @@ class GenomeTemplate {
 	public:
 	GenomeTemplate();
 	GenomeTemplate(
-		std::vector<float> genes,
+		std::vector<double> genes,
 		std::vector<Locus*> loci
 	);
 	GenomeTemplate(std::vector<Gene*> genes);
@@ -32,13 +32,13 @@ class GenomeTemplate {
 	GenomeTemplate set(double value, unsigned int index);
 	GenomeTemplate set(Locus* locus, unsigned int index);
 	GenomeTemplate set(double value, Locus * locus, unsigned int index);
+	GenomeTemplate set(Gene* gene, unsigned int index);
 
 	std::vector<Gene*> getGenes();
 	std::vector<Locus*> getLoci();
 
 	Gene* getGene(unsigned int index);
 	Locus* getLocus(unsigned int index);
-	std::tuple<double, Locus*> getIndex(unsigned int index);
 
 	unsigned int genomeLength();
 };

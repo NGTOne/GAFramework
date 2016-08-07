@@ -1,29 +1,34 @@
 #include "core/GenomeTemplate.hpp"
 #include "exception/MismatchedCountsException.hpp"
 
-GenomeTemplate::GenomeTemplate() : std::tuple<
-	std::vector<unsigned int>,
-	std::vector<Locus*>
->() {}
+GenomeTemplate::GenomeTemplate() {}
 
 GenomeTemplate::GenomeTemplate(
-	std::vector<unsigned int> genes,
+	std::vector<double> genes,
 	std::vector<Locus*> loci
-) : std::tuple<std::vector<unsigned int>, std::vector<Locus*>>(genes, loci) {}
+) {
+	if (genes.size() != loci.size()) throw MismatchedCountsException();
+	for (unsigned int i = 0; i < genes.size(); i++)
+		this->genes.push_back(loci[i]->getGene(genes[i]));
+}
 
-GenomeTemplate GenomeTemplate::add(unsigned int gene, Locus * locus) {
-	this->updateVector<0, unsigned int>(gene);
-	this->updateVector<1, Locus*>(locus);
+GenomeTemplate::GenomeTemplate(std::vector<Gene*> genes) {
+	for (unsigned int i = 0; i < genes.size(); i++)
+		this->genes.push_back(genes[i]->copy());
+}
+
+GenomeTemplate GenomeTemplate::add(double gene, Locus* locus) {
+	this->genes.push_back(locus->getGene(gene));
 	return *this;
 }
 
-GenomeTemplate GenomeTemplate::add(std::tuple<unsigned int, Locus*> newGene) {
+GenomeTemplate GenomeTemplate::add(std::tuple<double, Locus*> newGene) {
 	this->add(std::get<0>(newGene), std::get<1>(newGene));
 	return *this;
 }
 
 GenomeTemplate GenomeTemplate::add(
-	std::vector<unsigned int> genes,
+	std::vector<double> genes,
 	std::vector<Locus*> loci
 ) {
 	if (genes.size() != loci.size()) throw MismatchedCountsException();
@@ -34,53 +39,62 @@ GenomeTemplate GenomeTemplate::add(
 }
 
 GenomeTemplate GenomeTemplate::add(GenomeTemplate other) {
-	this->add(other.getGenes(), other.getLoci());
+	this->add(other.getGenes());
 	return *this;
 }
 
-GenomeTemplate GenomeTemplate::set(unsigned int value, unsigned int index) {
-	this->updateVector<0, unsigned int>(value, index);
+GenomeTemplate GenomeTemplate::add(Gene* newGene) {
+	this->genes.push_back(newGene->copy());
+	return *this;
+}
+
+GenomeTemplate GenomeTemplate::add(std::vector<Gene*> newGenes) {
+	for (unsigned int i = 0; i < newGenes.size(); i++)
+		this->add(newGenes[i]);
+	return *this;
+}
+
+GenomeTemplate GenomeTemplate::set(double value, unsigned int index) {
+	this->genes[index]->setIndex(value);
 	return *this;
 }
 
 GenomeTemplate GenomeTemplate::set(Locus * locus, unsigned int index) {
-	this->updateVector<1, Locus*>(locus, index);
+	Gene* gene = locus->getGene(this->genes[index]->getIndex());
+	delete(this->genes[index]);
+	this->genes[index] = gene;
 	return *this;
 }
 
 GenomeTemplate GenomeTemplate::set(
-	unsigned int value,
+	double value,
 	Locus * locus,
 	unsigned int index
 ) {
-	this->set(value, index);
-	this->set(locus, index);
+	delete(this->genes[index]);
+	this->genes[index] = locus->getGene(value);
 	return *this;
 }
 
-std::vector<unsigned int> GenomeTemplate::getGenes() {
-	return std::get<0>(*this);
+std::vector<Gene*> GenomeTemplate::getGenes() {
+	return this->genes;
 }
 
 std::vector<Locus*> GenomeTemplate::getLoci() {
-	return std::get<1>(*this);
+	std::vector<Locus*> loci;
+	for (unsigned int i = 0; i < this->genes.size(); i++)
+		loci.push_back(this->genes[i]->getLocus());
+	return loci;
 }
 
-unsigned int GenomeTemplate::getGene(unsigned int index) {
-	return std::get<0>(this->getIndex(index));
+Gene* GenomeTemplate::getGene(unsigned int index) {
+	return this->genes[index];
 }
 
-Locus * GenomeTemplate::getLocus(unsigned int index) {
-	return std::get<1>(this->getIndex(index));
-}
-
-std::tuple<unsigned int, Locus*> GenomeTemplate::getIndex(unsigned int index) {
-	return std::make_tuple(
-		this->getGenes()[index],
-		this->getLoci()[index]
-	);
+Locus* GenomeTemplate::getLocus(unsigned int index) {
+	return this->genes[index]->getLocus();
 }
 
 unsigned int GenomeTemplate::genomeLength() {
-	return this->getGenes().size();
+	return this->genes.size();
 }
