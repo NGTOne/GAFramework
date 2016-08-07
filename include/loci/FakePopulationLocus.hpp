@@ -24,14 +24,12 @@ class FakePopulationLocus: public PopulationLocus {
 	FakePopulationLocus(FakePopulationLocus * target);
 	~FakePopulationLocus();
 
-	Genome * getIndex(unsigned int index);
-	unsigned int randomIndex();
-	unsigned int topIndex();
-	bool outOfRange(unsigned int i);
 	bool isFake();
 	bool genomeIsFake();
 
 	std::string toString();
-	std::string flatten(unsigned int index);
-	Genome flattenToGenome(unsigned int index);
+	std::string nodeName();
+	std::string flatten(Gene* index);
+
+	boost::any getIndex(Gene* index);
 };

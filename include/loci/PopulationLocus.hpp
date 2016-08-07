@@ -8,21 +8,30 @@ class PopulationLocus: public Locus {
 	private:
 
 	protected:
-	PopulationNode * node;
+	PopulationNode* node;
 
 	public:
-	PopulationLocus(PopulationNode * node);
+	PopulationLocus(PopulationNode* node);
 	~PopulationLocus();
 
-	virtual Genome * getIndex(unsigned int index);
-	virtual unsigned int topIndex();
-	virtual bool outOfRange(unsigned int i);
+	Gene* getGene();
+	Gene* getGene(double index);
+
+	double randomIndex();
+	double topIndex();
+	double bottomIndex();
+	double closestIndex(double index);
+	bool outOfRange(double index);
+
 	bool isConstructive();
 	virtual bool isFake();
-	bool usesSpecies(Genome * target);
+
+	bool usesSpecies(Genome* target);
 
 	virtual std::string toString();
 	virtual std::string nodeName();
-	virtual std::string flatten(unsigned int index);
-	PopulationNode * getNode();
+	virtual std::string flatten(Gene* index);
+
+	virtual boost::any getIndex(Gene* index);
+	PopulationNode* getNode();
 };
