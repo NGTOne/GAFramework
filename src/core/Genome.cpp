@@ -1,4 +1,5 @@
 #include "core/Genome.hpp"
+#include "core/genes/Gene.t.hpp"
 #include "core/FakeGenome.hpp"
 #include "core/Locus.hpp"
 #include "loci/PopulationLocus.hpp"

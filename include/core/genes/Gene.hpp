@@ -11,19 +11,20 @@ class Gene {
 	private:
 
 	protected:
-	Locus * target;
+	Locus* target;
 	double index;
 
 	bool valueOutOfRange(double newIndex);
 
-	Gene(Locus * target);
-	Gene(Locus * target, double index);
-	Gene(Gene * other);
+	Gene(Locus* target);
+	Gene(Locus* target, double index);
+	Gene(Gene* other);
 
 	virtual void add(double addend)=0;
 	virtual void set(double value)=0;
 
 	public:
+	virtual ~Gene() {}
 	template <typename T>
 	T getValue();
 
@@ -34,26 +35,11 @@ class Gene {
 	void setIndex(T value);
 
 	double getIndex();
-	Locus * getLocus();
+	Locus* getLocus();
 	bool isConstructive();
 
 	std::string flatten();
-	virtual Gene * copy()=0;
+	virtual Gene* copy()=0;
 };
-
-template <typename T>
-T Gene::getValue() {
-	return boost::any_cast<T>(this->target->getIndex(this));
-}
-
-template<typename T, class>
-void Gene::addToIndex(T addend) {
-	this->add((double)addend);
-}
-
-template<typename T, class>
-void Gene::setIndex(T value) {
-	this->set((double)value);
-}
 
 #endif
