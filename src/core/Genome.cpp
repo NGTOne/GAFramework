@@ -162,23 +162,23 @@ Genome* Genome::replaceComponent(Genome* target) {
 	std::vector<Gene*> newGenes;
 	for (unsigned int i = 0; i < this->genes.size(); i++) {
 		if (this->genes[i]->isConstructive()) {
-			PopulationLocus * temp =
+			PopulationLocus* temp =
 				(PopulationLocus*)this->genes[i]->getLocus();
 
 			if (temp->usesSpecies(target)) {
-				newGenes.push_back(new FakePopulationLocus(
+				newGenes.push_back((new FakePopulationLocus(
 					target,
 					temp,
 					false
-				)->getGene());
+				))->getGene());
 			} else {
 				Genome* replaced = this->getIndex<Genome*>(i)
 					->replaceComponent(target);
-				newGenes.push_back(new FakePopulationLocus(
+				newGenes.push_back((new FakePopulationLocus(
 					replaced,
 					temp,
 					true
-				)->getGene());
+				))->getGene());
 				delete(replaced);
 			}
 		} else {

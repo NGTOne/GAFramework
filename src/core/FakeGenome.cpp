@@ -13,9 +13,9 @@ FakeGenome::FakeGenome(Genome* other) : Genome(other) {
 			this->genes[i]->isConstructive()
 			&& ((PopulationLocus*)this->genes[i]->getLocus())
 				->isFake()
-		) this->genes[i] = new FakePopulationLocus(
-			this->genes[i]->getLocus()
-		)->getGene();
+		) this->genes[i] = (new FakePopulationLocus(
+			(FakePopulationLocus*)this->genes[i]->getLocus()
+		))->getGene();
 }
 
 FakeGenome::~FakeGenome() {
