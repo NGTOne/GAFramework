@@ -15,8 +15,6 @@ class Gene {
 	double index;
 
 	bool valueOutOfRange(double newIndex);
-	double getIndex();
-	Locus * getTarget();
 
 	Gene(Locus * target);
 	Gene(Locus * target, double index);
@@ -34,6 +32,13 @@ class Gene {
 
 	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
 	void setIndex(T value);
+
+	double getIndex();
+	Locus * getLocus();
+	bool isConstructive();
+
+	std::string flatten();
+	virtual Gene * copy()=0;
 };
 
 template <typename T>

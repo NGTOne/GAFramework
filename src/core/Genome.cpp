@@ -10,63 +10,59 @@
 
 using namespace std;
 
-Genome::Genome(vector<Locus*> loci, std::string speciesNode) {
-	this->loci = loci;
+Genome::Genome(std::vector<Locus*> loci, std::string speciesNode) {
 	this->speciesNode = speciesNode;
-	generateRandomGenes();
+	this->generateRandomGenes(loci);
 }
 
 Genome::Genome(
-	vector<unsigned int> genes,
-	vector<Locus*> loci,
+	std::vector<double> genes,
+	std::vector<Locus*> loci,
 	std::string speciesNode
 ) {
+	std::vector<Gene*> completeGenes;
+	for (unsigned int i = 0; i < genes.size(); i++)
+		completeGenes.push_back(loci[i]->getGene(genes[i]));
+	this->genes = completeGenes;
+	this->speciesNode = speciesNode;
+}
+
+Genome::Genome(std::vector<Gene*> genes, std::string speciesNode) {
 	this->genes = genes;
-	this->loci = loci;
 	this->speciesNode = speciesNode;
 }
 
 Genome::Genome(GenomeTemplate geneTemplate, std::string speciesNode) {
 	this->genes = geneTemplate.getGenes();
-	this->loci = geneTemplate.getLoci();
 	this->speciesNode = speciesNode;
 }
 
-Genome::Genome(Genome * other) {
-	this->loci = other->getLoci();
+Genome::Genome(Genome* other) {
 	this->genes = other->getGenome();
 	this->speciesNode = other->getSpeciesNode();
 }
 
-Genome::Genome(Genome * other, bool randomize) {
-	this->loci = other->getLoci();
+Genome::Genome(Genome* other, bool randomize) {
 	this->speciesNode = other->getSpeciesNode();
 	if (randomize) {
-		this->generateRandomGenes();
+		this->generateRandomGenes(other->getLoci());
 	} else {
 		this->genes = other->getGenome();
 	}
 }
 
-Genome::Genome(Genome * other, unsigned int rawGenes[]) {
-	this->loci = other->getLoci();
-	this->speciesNode = other->getSpeciesNode();
-	vector<unsigned int> genes(rawGenes, rawGenes + loci.size());
-	for (unsigned int i = 0; i < genes.size(); i++)
-		if (this->loci[i]->outOfRange(genes[i]))
-			throw ValueOutOfRangeException();
-	this->genes = genes;
+Genome::~Genome() {
+	for (unsigned int i = 0; i < this->genes.size(); i++)
+		delete(this->genes[i]);
 }
 
-Genome::~Genome() {}
-
-void Genome::generateRandomGenes() {
-	genes.clear();
+void Genome::generateRandomGenes(std::vector<Locus*> loci) {
+	this->clearGenome();
 	for (unsigned int i = 0; i < loci.size(); i++)
-		genes.push_back(loci[i]->randomIndex());
+		this->genes.push_back(loci[i]->getGene());
 }
 
-vector<unsigned int> Genome::getGenome() {
+std::vector<Gene*> Genome::getGenome() {
 	return this->genes;
 }
 
@@ -74,7 +70,10 @@ unsigned int Genome::genomeLength() {
 	return this->genes.size();
 }
 
-vector<Locus*> Genome::getLoci() {
+std::vector<Locus*> Genome::getLoci() {
+	std::vector<Locus*> loci;
+	for (unsigned int i = 0; i < this->genes.size(); i++)
+		loci.push_back(this->genes[i]->getLocus());
 	return loci;
 }
 
@@ -82,9 +81,9 @@ std::string Genome::getSpeciesNode() {
 	return this->speciesNode;
 }
 
-int Genome::difference(Genome * otherGenome) {
-	vector<unsigned int> otherGenes = otherGenome->getGenome();
-	int difference = 0;
+double Genome::difference(Genome* otherGenome) {
+	std::vector<Gene*> otherGenes = otherGenome->getGenome();
+	double difference = 0;
 	unsigned int shorterGenome = fmin(
 		this->genes.size(),
 		otherGenes.size()
@@ -95,7 +94,9 @@ int Genome::difference(Genome * otherGenome) {
 	);
 
 	for (unsigned int i = 0; i < shorterGenome; i++)
-		difference += abs((int)this->genes[i] - (int)otherGenes[i]);
+		difference += std::abs(
+			this->genes[i]->getIndex() - otherGenes[i]->getIndex()
+		);
 
 	// We want to account for genes of different lengths somehow
 	if (longerGenome != shorterGenome)
@@ -104,117 +105,98 @@ int Genome::difference(Genome * otherGenome) {
 	return difference;
 }
 
-string Genome::flatten() {
+std::string Genome::flatten() {
 	stringstream ss;
 
 	for (unsigned int i = 0; i < this->genes.size(); i++)
-		ss << this->loci[i]->flatten(this->genes[i]) << " ";
+		ss << this->genes[i]->flatten() << " ";
 
 	return ss.str();
 }
 
-template <>
-Genome * Genome::getIndex<Genome*>(unsigned int index) {
-	return ((PopulationLocus*)this->loci[index])
-		->getIndex(this->genes[index]);
-}
-
-Genome Genome::flattenGenome(Genome * target, bool exclude) {
-	vector<unsigned int> rawGenome;
-	vector<Locus*> rawLoci;
+Genome Genome::flattenGenome(Genome* target, bool exclude) {
+	std::vector<Gene*> rawGenome;
 
 	for (unsigned int i = 0; i < this->genomeLength(); i++) {
-		Locus * tempLocus = this->loci[i];
-		if (!tempLocus->isConstructive()) {
-			rawGenome.push_back(this->genes[i]);
-			rawLoci.push_back(this->loci[i]);
+		Gene* temp = this->genes[i];
+		if (!temp->isConstructive()) {
+			rawGenome.push_back(this->genes[i]->copy());
 		} else {
-			Genome * temp = ((PopulationLocus*)tempLocus)->getIndex(
-				this->genes[i]
-			);
+			Genome* tempGenome = temp->getValue<Genome*>();
 
-			if (temp == target) {
-				if (!exclude) {
-					rawGenome.push_back(this->genes[i]);
-					rawLoci.push_back(this->loci[i]);
-				}
+			if (tempGenome == target) {
+				if (!exclude)
+					rawGenome.push_back(
+						this->genes[i]->copy()
+					);
 			} else {
-				Genome tempFlattened = temp->flattenGenome();
-				vector<unsigned int> tempGenome =
-					tempFlattened.getGenome();
-				vector<Locus*> tempLoci =
-					tempFlattened.getLoci();
+				std::vector<Gene*> tempGenes =
+					temp->flattenGenome().getGenome();
 
 				for (
 					unsigned int k = 0;
-					k < tempGenome.size();
+					k < tempGenes.size();
 					k++
-				) {
-					rawGenome.push_back(tempGenome[k]);
-					rawLoci.push_back(tempLoci[k]);
-				}
+				) rawGenome.push_back(tempGenes[k]->copy());
 			}
 		}
 	}
 
-	return Genome(rawGenome, rawLoci, this->speciesNode);
+	return Genome(rawGenome, this->speciesNode);
 }
 
 Genome Genome::flattenGenome() {
 	return this->flattenGenome(NULL, false);
 }
 
-Genome Genome::flattenExceptFor(Genome * target) {
+Genome Genome::flattenExceptFor(Genome* target) {
 	return this->flattenGenome(target, false);
 }
 
-Genome Genome::flattenWithout(Genome * target) {
+Genome Genome::flattenWithout(Genome* target) {
 	return this->flattenGenome(target, true);
 }
 
-Genome * Genome::replaceComponent(Genome * target) {
-	std::vector<unsigned int> newGenes;
-	std::vector<Locus*> newLoci;
-	for (unsigned int i = 0; i < this->loci.size(); i++) {
-		if (this->loci[i]->isConstructive()) {
+Genome* Genome::replaceComponent(Genome* target) {
+	std::vector<Gene*> newGenes;
+	for (unsigned int i = 0; i < this->genes.size(); i++) {
+		if (this->genes[i]->isConstructive()) {
 			PopulationLocus * temp =
-				(PopulationLocus*)this->loci[i];
+				(PopulationLocus*)this->genes[i]->getLocus();
 
 			if (temp->usesSpecies(target)) {
-				newLoci.push_back(new FakePopulationLocus(
+				newGenes.push_back(new FakePopulationLocus(
 					target,
 					temp,
 					false
-				));
+				)->getGene());
 			} else {
-				Genome * replaced = this->getIndex<Genome*>(i)
+				Genome* replaced = this->getIndex<Genome*>(i)
 					->replaceComponent(target);
-				newLoci.push_back(new FakePopulationLocus(
+				newGenes.push_back(new FakePopulationLocus(
 					replaced,
 					temp,
 					true
-				));
+				)->getGene());
 				delete(replaced);
 			}
 		} else {
-			newLoci.push_back(this->loci[i]);
+			newGenes.push_back(this->genes[i]->copy());
 		}
-		newGenes.push_back(this->genes[i]);
 	}
-	return new FakeGenome(newGenes, newLoci, this->speciesNode);
+	return new FakeGenome(newGenes, this->speciesNode);
 }
 
 std::vector<unsigned int> Genome::getFlattenedIndices(
-	Genome * target,
-	std::function<bool(Genome *, Genome *)> compare
+	Genome* target,
+	std::function<bool(Genome*, Genome*)> compare
 ) {
 	std::vector<unsigned int> indices;
 	unsigned int currentIndex = 0;
 
 	for (unsigned int i = 0; i < this->genes.size(); i++) {
-		if (this->loci[i]->isConstructive()) {
-			Genome * temp = ((PopulationLocus*)this->loci[i])
-				->getIndex(this->genes[i]);
+		if (this->genes[i]->isConstructive()) {
+			Genome* temp = this->genes[i]->getValue<Genome*>();
 			if (compare(target, temp)) {
 				indices.push_back(currentIndex);
 			} else {
@@ -241,19 +223,19 @@ std::vector<unsigned int> Genome::getFlattenedIndices(
 	return indices;
 }
 
-std::vector<unsigned int> Genome::getFlattenedIndices(Genome * target) {
+std::vector<unsigned int> Genome::getFlattenedIndices(Genome* target) {
 	return this->getFlattenedIndices(
 		target,
-		[] (Genome * target, Genome * compare) -> bool {
+		[] (Genome* target, Genome* compare) -> bool {
 			return target == compare;
 		}
 	);
 }
 
-std::vector<unsigned int> Genome::getFlattenedSpeciesIndices(Genome * target) {
+std::vector<unsigned int> Genome::getFlattenedSpeciesIndices(Genome* target) {
 	return this->getFlattenedIndices(
 		target,
-		[] (Genome * target, Genome * compare) -> bool {
+		[] (Genome* target, Genome* compare) -> bool {
 			return target->getSpeciesNode()
 				== compare->getSpeciesNode();
 		}
@@ -264,17 +246,14 @@ unsigned int Genome::flattenedGenomeLength() {
 	return this->flattenGenome().genomeLength();
 }
 
-bool Genome::isSameSpecies(Genome * target) {
+bool Genome::isSameSpecies(Genome* target) {
 	return this->speciesNode == target->getSpeciesNode();
 }
 
-bool Genome::usesComponent(Genome * component) {
-	for (unsigned int i = 0; i < this->loci.size(); i++) {
-		Locus * locus = this->loci[i];
-		if (locus->isConstructive()) {
-			Genome * temp = ((PopulationLocus*)locus)->getIndex(
-				this->genes[i]
-			);
+bool Genome::usesComponent(Genome* component) {
+	for (unsigned int i = 0; i < this->genes.size(); i++) {
+		if (this->genes[i]->isConstructive()) {
+			Genome* temp = this->genes[i]->getValue<Genome*>();
 
 			if (
 				temp == component
@@ -286,15 +265,15 @@ bool Genome::usesComponent(Genome * component) {
 	return false;
 }
 
-set<Locus*> Genome::getConstructiveLoci() {
-	set<Locus*> constructiveLoci;
-	for (unsigned int i = 0; i < this->loci.size(); i++)
-		if (this->loci[i]->isConstructive())
-			constructiveLoci.insert(this->loci[i]);
+std::set<Locus*> Genome::getConstructiveLoci() {
+	std::set<Locus*> constructiveLoci;
+	for (unsigned int i = 0; i < this->genes.size(); i++)
+		if (this->genes[i]->isConstructive())
+			constructiveLoci.insert(this->genes[i]->getLocus());
 
 	return constructiveLoci;
 }
 
 GenomeTemplate Genome::getTemplate() {
-	return GenomeTemplate(this->genes, this->loci);
+	return GenomeTemplate(this->genes);
 }

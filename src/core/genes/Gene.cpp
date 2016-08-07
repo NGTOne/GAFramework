@@ -17,7 +17,7 @@ Gene::Gene(Locus * target, double index) {
 }
 
 Gene::Gene(Gene * other) {
-	this->target = other->getTarget();
+	this->target = other->getLocus();
 	this->index = other->getIndex();
 }
 
@@ -29,6 +29,14 @@ double Gene::getIndex() {
 	return this->index;
 }
 
-Locus * Gene::getTarget() {
+Locus * Gene::getLocus() {
 	return this->target;
+}
+
+bool Gene::isConstructive() {
+	return this->target->isConstructive();
+}
+
+std::string Gene::flatten() {
+	return this->target->flatten(this);
 }

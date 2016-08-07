@@ -1,6 +1,7 @@
 #pragma once
 #include "Locus.hpp"
 #include "GenomeTemplate.hpp"
+#include "genes/Gene.hpp"
 #include <vector>
 #include <set>
 #include <functional>
@@ -12,50 +13,49 @@ class Genome {
 	private:
 
 	protected:
-	std::vector<unsigned int> genes;
-	std::vector<Locus *> loci;
+	std::vector<Gene*> genes;
 	std::string speciesNode;
 
-	void generateRandomGenes();
-	Genome flattenGenome(Genome * target, bool exclude);
+	void generateRandomGenes(std::vector<Locus*> loci);
+	void clearGenome();
+	Genome flattenGenome(Genome* target, bool exclude);
 
 	std::vector<unsigned int> getFlattenedIndices(
-		Genome * target,
-		std::function<bool(Genome *, Genome *)> compare
+		Genome* target,
+		std::function<bool(Genome*, Genome*)> compare
 	);
 
 	public:
-	Genome(std::vector<Locus *> loci, std::string speciesNode);
+	Genome(std::vector<Locus*> loci, std::string speciesNode);
 	Genome(
-		std::vector<unsigned int> genes,
-		std::vector<Locus *> loci,
+		std::vector<double> genes,
+		std::vector<Locus*> loci,
 		std::string speciesNode
 	);
+	Genome(std::vector<Gene*> genes, std::string speciesNode);
 	Genome(GenomeTemplate geneTemplate, std::string speciesNode);
-	Genome(Genome * other);
-	Genome(Genome * other, bool randomize);
-	Genome(Genome * other, unsigned int rawGenes[]);
-	Genome(Genome * other, std::vector<unsigned int> rawGenes);
+	Genome(Genome* other);
+	Genome(Genome* other, bool randomize);
 
 	virtual ~Genome();
 
-	std::vector<unsigned int> getGenome();
+	std::vector<Gene*> getGenome();
+	std::vector<Locus*> getLoci();
 	unsigned int genomeLength();
 	unsigned int flattenedGenomeLength();
-	std::vector<Locus *> getLoci();
 	std::string getSpeciesNode();
-	int difference(Genome * otherGenome);
+	double difference(Genome* otherGenome);
 
 	std::string flatten();
 	Genome flattenGenome();
-	Genome flattenExceptFor(Genome * target);
-	Genome flattenWithout(Genome * target);
-	Genome * replaceComponent(Genome * target);
-	std::vector<unsigned int> getFlattenedIndices(Genome * target);
-	std::vector<unsigned int> getFlattenedSpeciesIndices(Genome * target);
+	Genome flattenExceptFor(Genome* target);
+	Genome flattenWithout(Genome* target);
+	Genome * replaceComponent(Genome* target);
+	std::vector<unsigned int> getFlattenedIndices(Genome* target);
+	std::vector<unsigned int> getFlattenedSpeciesIndices(Genome* target);
 
-	bool isSameSpecies(Genome * other);
-	bool usesComponent(Genome * component);
+	bool isSameSpecies(Genome* other);
+	bool usesComponent(Genome* component);
 	set<Locus*> getConstructiveLoci();
 	GenomeTemplate getTemplate();
 
@@ -68,15 +68,10 @@ class Genome {
 
 template <typename T>
 bool Genome::indexIs(unsigned int index, T target) {
-	T value = boost::any_cast<T>(
-		this->loci[index]->getIndex(this->genes[index])
-	);
-	return value == target;
+	return this->genes[index]->getValue<T>() == target;
 }
 
 template <typename T>
 T Genome::getIndex(unsigned int index) {
-	return boost::any_cast<T>(
-		this->loci[index]->getIndex(this->genes[index])
-	);
+	return this->genes[index]->getValue<T>();
 }
