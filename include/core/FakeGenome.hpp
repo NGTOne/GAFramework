@@ -7,12 +7,8 @@ class FakeGenome : public Genome {
 	protected:
 
 	public:
-	FakeGenome(
-		std::vector<unsigned int> genes,
-		std::vector<Locus *> loci,
-		std::string speciesNode
-	);
-	FakeGenome(Genome * other);
+	FakeGenome(std::vector<Gene*> genes, std::string speciesNode);
+	FakeGenome(Genome* other);
 
 	~FakeGenome();
 };
