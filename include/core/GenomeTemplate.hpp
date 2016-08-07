@@ -1,66 +1,44 @@
 #include "Locus.hpp"
+#include "Gene.hpp"
 #include "../exception/ValueOutOfRangeException.hpp"
 #include <vector>
 #include <tuple>
 #pragma once
 
-class GenomeTemplate: public std::tuple<
-	std::vector<unsigned int>,
-	std::vector<Locus*>
-> {
+class GenomeTemplate {
 	private:
 
 	protected:
-	template<unsigned int i, typename T>
-	void updateVector(T newValue);
-
-	template<unsigned int i, typename T>
-	void updateVector(T newValue, unsigned int index);
+	std::vector<Gene*> genes;
 
 	public:
 	GenomeTemplate();
 	GenomeTemplate(
-		std::vector<unsigned int> genes,
+		std::vector<float> genes,
 		std::vector<Locus*> loci
 	);
+	GenomeTemplate(std::vector<Gene*> genes);
 
-	GenomeTemplate add(unsigned int gene, Locus * locus);
-	GenomeTemplate add(std::tuple<unsigned int, Locus*> newGene);
+	GenomeTemplate add(double gene, Locus* locus);
+	GenomeTemplate add(std::tuple<double, Locus*> newGene);
 	GenomeTemplate add(
-		std::vector<unsigned int> genes,
+		std::vector<double> genes,
 		std::vector<Locus*> loci
 	);
 	GenomeTemplate add(GenomeTemplate other);
+	GenomeTemplate add(Gene* newGene);
+	GenomeTemplate add(std::vector<Gene*> newGenes);
 
-	GenomeTemplate set(unsigned int value, unsigned int index);
+	GenomeTemplate set(double value, unsigned int index);
 	GenomeTemplate set(Locus* locus, unsigned int index);
-	GenomeTemplate set(
-		unsigned int value,
-		Locus * locus,
-		unsigned int index
-	);
+	GenomeTemplate set(double value, Locus * locus, unsigned int index);
 
-	std::vector<unsigned int> getGenes();
+	std::vector<Gene*> getGenes();
 	std::vector<Locus*> getLoci();
 
-	unsigned int getGene(unsigned int index);
-	Locus * getLocus(unsigned int index);
-	std::tuple<unsigned int, Locus*> getIndex(unsigned int index);
+	Gene* getGene(unsigned int index);
+	Locus* getLocus(unsigned int index);
+	std::tuple<double, Locus*> getIndex(unsigned int index);
 
 	unsigned int genomeLength();
 };
-
-template <unsigned int i, typename T>
-void GenomeTemplate::updateVector(T newValue) {
-	std::vector<T> oldVector = std::get<i>(*this);
-	oldVector.push_back(newValue);
-	std::get<i>(*this) = oldVector;
-}
-
-template <unsigned int i, typename T>
-void GenomeTemplate::updateVector(T newValue, unsigned int index) {
-	std::vector<T> oldVector = std::get<i>(*this);
-	if (index >= oldVector.size()) throw ValueOutOfRangeException();
-	oldVector[index] = newValue;
-	std::get<i>(*this) = oldVector;
-}
