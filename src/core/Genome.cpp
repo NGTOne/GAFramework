@@ -132,7 +132,7 @@ Genome Genome::flattenGenome(Genome* target, bool exclude) {
 					);
 			} else {
 				std::vector<Gene*> tempGenes =
-					temp->flattenGenome().getGenome();
+					tempGenome->flattenGenome().getGenome();
 
 				for (
 					unsigned int k = 0;
