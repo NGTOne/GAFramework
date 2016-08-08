@@ -7,11 +7,11 @@ class TranslationFunction {
 	private:
 
 	protected:
-	virtual GenomeTemplate translate(Genome * target);
+	virtual GenomeTemplate translate(GenomeTemplate target);
 
 	public:
-	virtual Genome * createTranslatedGenome(
-		Genome * target,
+	virtual Genome* createTranslatedGenome(
+		Genome* target,
 		std::string targetNode
 	);
 	virtual bool isNull();

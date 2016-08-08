@@ -1,11 +1,11 @@
 #include "core/migration/NullTranslationFunction.hpp"
 
-GenomeTemplate NullTranslationFunction::translate(Genome * target) {
+GenomeTemplate NullTranslationFunction::translate(GenomeTemplate target) {
 	return GenomeTemplate();
 }
 
-Genome * NullTranslationFunction::createTranslatedGenome(
-	Genome * target,
+Genome* NullTranslationFunction::createTranslatedGenome(
+	Genome* target,
 	std::string targetNode
 ) {
 	return NULL;
