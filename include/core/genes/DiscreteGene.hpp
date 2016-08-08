@@ -15,6 +15,8 @@ class DiscreteGene : public Gene {
 	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
 	DiscreteGene(Locus* target, T index);
 	DiscreteGene(Gene* other);
+
+	Gene* copy();
 };
 
 template<typename T, class>

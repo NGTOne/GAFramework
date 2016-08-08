@@ -10,3 +10,7 @@ void ContinuousGene::add(double addend) {
 void ContinuousGene::set(double value) {
 	this->index = this->target->closestIndex(value);
 }
+
+Gene* ContinuousGene::copy() {
+	return new ContinuousGene(this);
+}

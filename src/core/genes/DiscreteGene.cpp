@@ -11,3 +11,7 @@ void DiscreteGene::add(double addend) {
 void DiscreteGene::set(double value) {
 	this->index = std::round(this->target->closestIndex(value));
 }
+
+Gene* DiscreteGene::copy() {
+	return new DiscreteGene(this);
+}
