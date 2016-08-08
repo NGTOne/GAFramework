@@ -3,35 +3,25 @@
 #include <boost/any.hpp>
 #include <sstream>
 
-using namespace std;
-
 BoolLocus::BoolLocus() {
-	vector<boost::any> newPopulation;
-	newPopulation.push_back(false);
-	newPopulation.push_back(true);
-
-	Locus::setPopulation(newPopulation);
-}
-
-bool BoolLocus::getIndex(unsigned int index) {
-	return boost::any_cast<bool>(Locus::getIndex(index));
+	CollectionLocus::setPopulation({false, true});
 }
 
 BoolLocus::~BoolLocus() {}
 
-string BoolLocus::toString() {
-	stringstream ss;
+std::string BoolLocus::toString() {
+	std::stringstream ss;
 
 	for (unsigned int i = 0; i < this->population.size(); i++)
-		ss << this->getIndex(i) << " ";
+		ss << boost::any_cast<bool>(this->getIndex(i)) << " ";
 
 	return ss.str();
 }
 
-string BoolLocus::flatten(unsigned int index) {
+std::string BoolLocus::flatten(Gene* index) {
 	if (this->outOfRange(index)) throw ValueOutOfRangeException();
 
-	stringstream ss;
-	ss << this->getIndex(index);
+	std::stringstream ss;
+	ss << boost::any_cast<bool>(this->getIndex(index));
 	return ss.str();
 }

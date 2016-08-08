@@ -12,8 +12,6 @@ class BoolLocus: public CollectionLocus {
 	BoolLocus();
 	~BoolLocus();
 
-	bool getIndex(Gene* index);
-
 	std::string toString();
 	std::string flatten(Gene* index);
 };

@@ -10,6 +10,7 @@ class CollectionLocus : public Locus {
 	CollectionLocus();
 	CollectionLocus(std::vector<boost::any> population);
 	void setPopulation(std::vector<boost::any> population);
+	virtual boost::any getIndex(double index);
 
 	public:
 	virtual ~CollectionLocus();
@@ -21,7 +22,8 @@ class CollectionLocus : public Locus {
 	virtual double bottomIndex();
 	virtual double closestIndex(double index);
 	virtual bool outOfRange(double index);
+	virtual bool outOfRange(Gene* index);
 	virtual std::string toString()=0;
 	virtual std::string flatten(Gene* index)=0;
 	virtual boost::any getIndex(Gene* index);
-}
+};
