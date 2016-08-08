@@ -105,7 +105,6 @@ loci:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/CollectionLocus.cpp -o obj/loci/CollectionLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/BoolLocus.cpp -o obj/loci/BoolLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/IntCollectionLocus.cpp -o obj/loci/IntCollectionLocus.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/FloatLocus.cpp -o obj/loci/FloatLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/PopulationLocus.cpp -o obj/loci/PopulationLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/FakePopulationLocus.cpp -o obj/loci/FakePopulationLocus.o
 
