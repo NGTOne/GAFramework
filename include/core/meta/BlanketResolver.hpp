@@ -7,16 +7,16 @@
 
 class BlanketResolver {
 	private:
-	static std::vector<Genome*> getBlanketGenomes(Genome * blanket);
+	static std::vector<Genome*> getBlanketGenomes(Genome* blanket);
 
 	static unsigned int findMetaComponentIndex(
-		std::vector<Genome *> blanketGenomes,
+		std::vector<Genome*> blanketGenomes,
 		std::vector<bool> & usedGenomes,
-		PopulationNode * node
+		PopulationNode* node
 	);
 
 	static GenomeTemplate resolve(
-		std::vector<Genome *> blanketGenomes,
+		std::vector<Genome*> blanketGenomes,
 		std::vector<bool> & usedGenomes,
 		unsigned int target
 	);
@@ -25,9 +25,9 @@ class BlanketResolver {
 
 	public:
 	static std::vector<unsigned int> getIndices(
-		Genome * blanket,
-		Genome * target
+		Genome* blanket,
+		Genome* target
 	);
-	static unsigned int findHeadIndex(Genome * blanket);
-	static Genome resolveBlanket(Genome * blanket);
+	static unsigned int findHeadIndex(Genome* blanket);
+	static Genome resolveBlanket(Genome* blanket);
 };

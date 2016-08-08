@@ -4,9 +4,7 @@
 #include "loci/PopulationLocus.hpp"
 #include "exception/InvalidBlanketException.hpp"
 
-std::vector<Genome*> BlanketResolver::getBlanketGenomes(
-	Genome * blanket
-) {
+std::vector<Genome*> BlanketResolver::getBlanketGenomes(Genome* blanket) {
 	std::vector<Genome*> blanketGenomes;
 	for (unsigned int i = 0; i < blanket->genomeLength(); i++)
 		blanketGenomes.push_back(blanket->getIndex<Genome*>(i));
@@ -14,7 +12,7 @@ std::vector<Genome*> BlanketResolver::getBlanketGenomes(
 	return blanketGenomes;
 }
 
-unsigned int BlanketResolver::findHeadIndex(Genome * blanket) {
+unsigned int BlanketResolver::findHeadIndex(Genome* blanket) {
 	std::vector<bool> matched(blanket->genomeLength(), false);
 	std::vector<Genome*> blanketGenomes =
 		BlanketResolver::getBlanketGenomes(blanket);
@@ -45,9 +43,9 @@ unsigned int BlanketResolver::findHeadIndex(Genome * blanket) {
 // TODO: Make sure this works for more complex structures (where node is
 // repeated)
 unsigned int BlanketResolver::findMetaComponentIndex(
-	std::vector<Genome *> blanketGenomes,
+	std::vector<Genome*> blanketGenomes,
 	std::vector<bool> & usedGenomes,
-	PopulationNode * node
+	PopulationNode* node
 ) {
 	for (unsigned int i = 0; i < blanketGenomes.size(); i++)
 		if (!usedGenomes[i] && node->usesSpecies(blanketGenomes[i])) {
@@ -62,13 +60,13 @@ unsigned int BlanketResolver::findMetaComponentIndex(
 #include <iostream>
 
 std::vector<unsigned int> BlanketResolver::getIndices(
-	Genome * blanket,
-	Genome * target
+	Genome* blanket,
+	Genome* target
 ) {
 	std::vector<unsigned int> indices;
 	unsigned int currentIndex = 0;
 	for (unsigned int i = 0; i < blanket->genomeLength(); i++) {
-		Genome * temp = blanket->getIndex<Genome*>(i);
+		Genome* temp = blanket->getIndex<Genome*>(i);
 		if (temp == target) indices.push_back(currentIndex);
 		if (temp->isSameSpecies(target)) currentIndex++;
 	}
@@ -77,7 +75,7 @@ std::vector<unsigned int> BlanketResolver::getIndices(
 }
 
 GenomeTemplate BlanketResolver::resolve(
-	std::vector<Genome *> blanketGenomes,
+	std::vector<Genome*> blanketGenomes,
 	std::vector<bool> & usedGenomes,
 	unsigned int target
 ) {
@@ -87,7 +85,7 @@ GenomeTemplate BlanketResolver::resolve(
 	for (unsigned int i = 0; i < unresolved.genomeLength(); i++) {
 		Locus * temp = unresolved.getLocus(i);
 		if (!temp->isConstructive()) {
-			resolved.add(unresolved.getIndex(i));
+			resolved.add(unresolved.getGene(i));
 		} else {
 			resolved.add(BlanketResolver::resolve(
 				blanketGenomes,
@@ -104,7 +102,7 @@ GenomeTemplate BlanketResolver::resolve(
 	return resolved;
 }
 
-Genome BlanketResolver::resolveBlanket(Genome * blanket) {
+Genome BlanketResolver::resolveBlanket(Genome* blanket) {
 	unsigned int head = BlanketResolver::findHeadIndex(blanket);
 	std::vector<bool> used(blanket->genomeLength(), false);
 	return Genome(
