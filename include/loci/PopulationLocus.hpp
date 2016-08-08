@@ -22,6 +22,7 @@ class PopulationLocus: public Locus {
 	double bottomIndex();
 	double closestIndex(double index);
 	bool outOfRange(double index);
+	bool outOfRange(Gene* index);
 
 	bool isConstructive();
 	virtual bool isFake();
