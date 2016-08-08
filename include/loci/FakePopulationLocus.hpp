@@ -11,24 +11,23 @@ class FakePopulationLocus: public PopulationLocus {
 	private:
 
 	protected:
-	Genome * target;
+	Genome* target;
 	bool fakeGenome;
 
 	public:
 	FakePopulationLocus(
-		Genome * target,
-		PopulationLocus * original,
+		Genome* target,
+		PopulationLocus* original,
 		bool fakeGenome
 	);
-	FakePopulationLocus(Genome target, PopulationLocus * original);
-	FakePopulationLocus(FakePopulationLocus * target);
+	FakePopulationLocus(Genome target, PopulationLocus* original);
+	FakePopulationLocus(FakePopulationLocus* target);
 	~FakePopulationLocus();
 
 	bool isFake();
 	bool genomeIsFake();
 
 	std::string toString();
-	std::string nodeName();
 	std::string flatten(Gene* index);
 
 	boost::any getIndex(Gene* index);
