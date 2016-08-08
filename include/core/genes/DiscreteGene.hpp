@@ -17,6 +17,7 @@ class DiscreteGene : public Gene {
 	DiscreteGene(Gene* other);
 
 	Gene* copy();
+	Gene* copy(double newIndex);
 };
 
 template<typename T, class>

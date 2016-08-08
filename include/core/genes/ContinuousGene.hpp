@@ -17,6 +17,7 @@ class ContinuousGene : public Gene {
 	ContinuousGene(Gene * other);
 
 	Gene* copy();
+	Gene* copy(double newIndex);
 };
 
 template<typename T, class>

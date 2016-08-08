@@ -14,3 +14,10 @@ void ContinuousGene::set(double value) {
 Gene* ContinuousGene::copy() {
 	return new ContinuousGene(this);
 }
+
+Gene* ContinuousGene::copy(double newIndex) {
+	return new ContinuousGene(
+		this->target,
+		this->target->closestIndex(newIndex)
+	);
+}

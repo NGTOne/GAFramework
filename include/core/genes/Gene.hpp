@@ -40,6 +40,7 @@ class Gene {
 
 	std::string flatten();
 	virtual Gene* copy()=0;
+	virtual Gene* copy(double newIndex)=0;
 };
 
 #endif

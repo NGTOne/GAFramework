@@ -15,3 +15,10 @@ void DiscreteGene::set(double value) {
 Gene* DiscreteGene::copy() {
 	return new DiscreteGene(this);
 }
+
+Gene* DiscreteGene::copy(double newIndex) {
+	return new DiscreteGene(
+		this->target,
+		this->target->closestIndex(newIndex)
+	);
+}
