@@ -102,6 +102,7 @@ pop-formulae:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/pop-formulae/ConstructiveLocusCountPopFormula.cpp -o obj/pop-formulae/ConstructiveLocusCountPopFormula.o
 
 loci:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/CollectionLocus.cpp -o obj/loci/CollectionLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/BoolLocus.cpp -o obj/loci/BoolLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/IntLocus.cpp -o obj/loci/IntLocus.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/loci/FloatLocus.cpp -o obj/loci/FloatLocus.o
