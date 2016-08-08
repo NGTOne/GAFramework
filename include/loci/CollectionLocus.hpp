@@ -1,3 +1,6 @@
+#ifndef LOCI_CollectionLocus
+#define LOCI_CollectionLocus
+
 #include "../core/Locus.hpp"
 #include <vector>
 
@@ -27,3 +30,5 @@ class CollectionLocus : public Locus {
 	virtual std::string flatten(Gene* index)=0;
 	virtual boost::any getIndex(Gene* index);
 };
+
+#endif
