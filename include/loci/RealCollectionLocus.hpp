@@ -1,5 +1,4 @@
 #include "CollectionLocus.hpp"
-#include "../core/utils/templates.hpp"
 #include "../exception/ValueOutOfRangeException.hpp"
 #include <boost/any.hpp>
 #include <sstream>
@@ -8,8 +7,12 @@
 #include <string>
 #pragma once
 
-template <typename T, typename = EnableIf<std::is_floating_point<T>>>
+template <typename T>
 class RealCollectionLocus: public CollectionLocus {
+	static_assert(
+		std::is_floating_point<T>::value,
+		"Type provided to RealCollectionLocus must be a floating-point type!"
+	);
 	private:
 
 	protected:
@@ -25,8 +28,8 @@ class RealCollectionLocus: public CollectionLocus {
 	std::string flatten(Gene* index);
 };
 
-template <typename T, class N>
-RealCollectionLocus<T, N>::RealCollectionLocus(T bottom, T top, T resolution) {
+template <typename T>
+RealCollectionLocus<T>::RealCollectionLocus(T bottom, T top, T resolution) {
 	std::vector<boost::any> newPopulation;
 
 	for (unsigned int i = 0; bottom + ((T)i * resolution) <= top; i++)
@@ -35,15 +38,15 @@ RealCollectionLocus<T, N>::RealCollectionLocus(T bottom, T top, T resolution) {
 	CollectionLocus::setPopulation(newPopulation);
 }
 
-template <typename T, class N>
-RealCollectionLocus<T, N>::RealCollectionLocus(std::vector<T> values) {
+template <typename T>
+RealCollectionLocus<T>::RealCollectionLocus(std::vector<T> values) {
 	CollectionLocus::setPopulation(
 		std::vector<boost::any>(values.begin(), values.end())
 	);
 }
 
-template <typename T, class N>
-RealCollectionLocus<T, N>::RealCollectionLocus(
+template <typename T>
+RealCollectionLocus<T>::RealCollectionLocus(
 	std::initializer_list<T> values
 ) {
 	CollectionLocus::setPopulation(
@@ -51,11 +54,11 @@ RealCollectionLocus<T, N>::RealCollectionLocus(
 	);
 }
 
-template <typename T, class N>
-RealCollectionLocus<T, N>::~RealCollectionLocus() {}
+template <typename T>
+RealCollectionLocus<T>::~RealCollectionLocus() {}
 
-template <typename T, class N>
-std::string RealCollectionLocus<T, N>::toString() {
+template <typename T>
+std::string RealCollectionLocus<T>::toString() {
 	std::stringstream ss;
 
 	for (unsigned int i = 0; i < this->population.size(); i++)
@@ -64,8 +67,8 @@ std::string RealCollectionLocus<T, N>::toString() {
 	return ss.str();
 }
 
-template <typename T, class N>
-std::string RealCollectionLocus<T, N>::flatten(Gene* index) {
+template <typename T>
+std::string RealCollectionLocus<T>::flatten(Gene* index) {
 	if (this->outOfRange(index)) throw ValueOutOfRangeException();
 
 	std::stringstream ss;
