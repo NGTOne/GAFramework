@@ -8,45 +8,45 @@
 #pragma once
 
 template <typename T>
-class RealCollectionLocus: public CollectionLocus {
+class NumericCollectionLocus: public CollectionLocus {
 	static_assert(
-		std::is_floating_point<T>::value,
-		"Type provided to RealCollectionLocus must be a floating-point type!"
+		std::is_arithmetic<T>::value,
+		"Type provided to NumericCollectionLocus must be numeric."
 	);
 	private:
 
 	protected:
 
 	public:
-	RealCollectionLocus(T bottom, T top, T resolution);
-	RealCollectionLocus(std::vector<T> values);
-	RealCollectionLocus(std::initializer_list<T> values);
+	NumericCollectionLocus(T bottom, T top, T interval);
+	NumericCollectionLocus(std::vector<T> values);
+	NumericCollectionLocus(std::initializer_list<T> values);
 
-	~RealCollectionLocus();
+	~NumericCollectionLocus();
 
 	std::string toString();
 	std::string flatten(Gene* index);
 };
 
 template <typename T>
-RealCollectionLocus<T>::RealCollectionLocus(T bottom, T top, T resolution) {
+NumericCollectionLocus<T>::NumericCollectionLocus(T bottom, T top, T interval) {
 	std::vector<boost::any> newPopulation;
 
-	for (unsigned int i = 0; bottom + ((T)i * resolution) <= top; i++)
-		newPopulation.push_back(bottom + ((T)i * resolution));
+	for (unsigned int i = 0; bottom + ((T)i * interval) <= top; i++)
+		newPopulation.push_back(bottom + ((T)i * interval));
 
 	CollectionLocus::setPopulation(newPopulation);
 }
 
 template <typename T>
-RealCollectionLocus<T>::RealCollectionLocus(std::vector<T> values) {
+NumericCollectionLocus<T>::NumericCollectionLocus(std::vector<T> values) {
 	CollectionLocus::setPopulation(
 		std::vector<boost::any>(values.begin(), values.end())
 	);
 }
 
 template <typename T>
-RealCollectionLocus<T>::RealCollectionLocus(
+NumericCollectionLocus<T>::NumericCollectionLocus(
 	std::initializer_list<T> values
 ) {
 	CollectionLocus::setPopulation(
@@ -55,10 +55,10 @@ RealCollectionLocus<T>::RealCollectionLocus(
 }
 
 template <typename T>
-RealCollectionLocus<T>::~RealCollectionLocus() {}
+NumericCollectionLocus<T>::~NumericCollectionLocus() {}
 
 template <typename T>
-std::string RealCollectionLocus<T>::toString() {
+std::string NumericCollectionLocus<T>::toString() {
 	std::stringstream ss;
 
 	for (unsigned int i = 0; i < this->population.size(); i++)
@@ -68,7 +68,7 @@ std::string RealCollectionLocus<T>::toString() {
 }
 
 template <typename T>
-std::string RealCollectionLocus<T>::flatten(Gene* index) {
+std::string NumericCollectionLocus<T>::flatten(Gene* index) {
 	if (this->outOfRange(index)) throw ValueOutOfRangeException();
 
 	std::stringstream ss;
