@@ -11,10 +11,7 @@ class BoundaryMutation : public MutationOperation {
 	private:
 
 	protected:
-	virtual unsigned int getNewLocusValue(
-		unsigned int currentValue,
-		unsigned int largestPossibleValue
-	);
+	virtual Gene* newLocusValue(Gene* current);
 
 	public:
 	BoundaryMutation();

@@ -11,9 +11,6 @@ UniformMutation::UniformMutation(
 	double mutationRate
 ) : MutationOperation(mutationRate) {}
 
-unsigned int UniformMutation::getNewLocusValue(
-	unsigned int currentValue,
-	unsigned int largestPossibleValue
-) {
-	return HierRNG::uniform<unsigned int>(0, largestPossibleValue);
+Gene* UniformMutation::newLocusValue(Gene* current) {
+	return current->copy(current->getLocus()->randomIndex());
 }

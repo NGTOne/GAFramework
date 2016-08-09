@@ -5,49 +5,65 @@
 
 using namespace std;
 
-GaussianMutation::GaussianMutation() : MutationOperation() {
-	this->init(false);
+GaussianMutation::GaussianMutation(double stdDev) {
+	this->init(0, stdDev, false);
 }
 
 GaussianMutation::GaussianMutation(
+	double mean,
+	double stdDev
+) : MutationOperation() {
+	this->init(mean, stdDev, false);
+}
+
+GaussianMutation::GaussianMutation(
+	double mean,
+	double stdDev,
 	bool endReflection
 ) : MutationOperation() {
-	this->init(endReflection);
+	this->init(mean, stdDev, endReflection);
 }
 
 GaussianMutation::GaussianMutation(
+	double mean,
+	double stdDev,
 	double mutationRate
 ) : MutationOperation(mutationRate) {
-	this->init(false);
+	this->init(mean, stdDev, false);
 }
 
 GaussianMutation::GaussianMutation(
-	double mutationRate,
-	bool endReflection
+	double mean,
+	double stdDev,
+	bool endReflection,
+	double mutationRate
 ) : MutationOperation(mutationRate) {
-	this->init(endReflection);
+	this->init(mean, stdDev, endReflection);
 }
 
-void GaussianMutation::init(bool endReflection) {
+void GaussianMutation::init(double mean, double stdDev, bool endReflection) {
+	this->mean = mean;
+	this->stdDev = stdDev;
 	this->endReflection = endReflection;
 }
 
-unsigned int GaussianMutation::getNewLocusValue(
-	unsigned int currentValue,
-	unsigned int largestPossibleValue
-) {
-	int addend = int(HierRNG::gaussian(0, largestPossibleValue/3));
-	int newValue = currentValue - addend;
+Gene* GaussianMutation::newLocusValue(Gene* current) {
+	double addend = HierRNG::gaussian(this->mean, this->stdDev);
+	double newIndex = current->getIndex() + addend;
 
-	if (newValue < 0 && !this->endReflection) return 0;
-	if (newValue < 0) return 0 - newValue;
-	if (
-		(unsigned int)newValue > largestPossibleValue
-		&& !this->endReflection
-	) return largestPossibleValue;
+	Locus* locus = current->getLocus();
+	if (!this->endReflection)
+		return current->copy(locus->closestIndex(newIndex));
 
-	if ((unsigned int)newValue > largestPossibleValue)
-		return largestPossibleValue - (newValue-largestPossibleValue);
+	while (locus->outOfRange(newIndex)) {
+		double topIndex = locus->topIndex();
+		double bottomIndex = locus->bottomIndex();
+		if (newIndex > topIndex) {
+			newIndex = topIndex - (newIndex - topIndex);
+		} else if (newIndex < bottomIndex) {
+			newIndex = bottomIndex - (newIndex - bottomIndex);
+		}
+	}
 
-	return newValue;
+	return current->copy(newIndex);
 }

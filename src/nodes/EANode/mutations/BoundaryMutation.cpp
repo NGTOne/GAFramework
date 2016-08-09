@@ -11,9 +11,9 @@ BoundaryMutation::BoundaryMutation(
 	double mutationRate
 ) : MutationOperation(mutationRate) {}
 
-unsigned int BoundaryMutation::getNewLocusValue(
-	unsigned int currentValue,
-	unsigned int largestPossibleValue
-) {
-	return (HierRNG::binary() ? 0 : largestPossibleValue);
+Gene* BoundaryMutation::newLocusValue(Gene* current) {
+	Locus* locus = current->getLocus();
+	return current->copy(
+		HierRNG::binary() ? locus->bottomIndex() : locus->topIndex()
+	);
 }

@@ -11,17 +11,21 @@ class GaussianMutation : public MutationOperation {
 
 	protected:
 	bool endReflection;
+	double mean;
+	double stdDev;
 
-	virtual unsigned int getNewLocusValue(
-		unsigned int currentValue,
-		unsigned int largestPossibleValue
-	);
-
-	void init(bool endReflection);
+	virtual Gene* newLocusValue(Gene* current);
+	void init(double mean, double stdDev, bool endReflection);
 
 	public:
-	GaussianMutation();
-	GaussianMutation(bool endReflection);
-	GaussianMutation(double mutationRate);
-	GaussianMutation(double mutationRate, bool endReflection);
+	GaussianMutation(double stdDev);
+	GaussianMutation(double mean, double stdDev);
+	GaussianMutation(double mean, double stdDev, bool endReflection);
+	GaussianMutation(double mean, double stdDev, double mutationRate);
+	GaussianMutation(
+		double mean,
+		double stdDev,
+		bool endReflection,
+		double mutationRate
+	);
 };

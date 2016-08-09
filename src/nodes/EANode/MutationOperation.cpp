@@ -20,35 +20,24 @@ void MutationOperation::init(double mutationRate) {
 	this->mutationRate = mutationRate;
 }
 
-Genome * MutationOperation::mutate(Genome * initialGenome) {
+Genome* MutationOperation::mutate(Genome* initialGenome) {
 	return new Genome(
 		this->mutate(initialGenome->getTemplate()),
 		initialGenome->getSpeciesNode()
 	);
 }
 
-unsigned int MutationOperation::getNewLocusValue(
-	std::tuple<unsigned int, Locus*> existing
-) {
-	return this->getNewLocusValue(
-		std::get<0>(existing),
-		std::get<1>(existing)->topIndex()
-	);
-}
-
 GenomeTemplate MutationOperation::mutate(GenomeTemplate initial) {
-	std::vector<unsigned int> newGenome;
+	std::vector<Gene*> newGenome;
 
 	for (unsigned int i = 0; i < initial.genomeLength(); i++)
-		if (HierRNG::zeroOne<double>() < this->mutationRate) {
-			newGenome.push_back(
-				this->getNewLocusValue(initial.getIndex(i))
-			);
-		} else {
-			newGenome.push_back(initial.getGene(i));
-		}
+		newGenome.push_back(
+			HierRNG::zeroOne<double>() < this->mutationRate
+				? this->newLocusValue(initial.getGene(i))
+				: initial.getGene(i)
+		);
 
-	return GenomeTemplate(newGenome, initial.getLoci());
+	return GenomeTemplate(newGenome);
 }
 
 string MutationOperation::toString() {

@@ -16,14 +16,7 @@ class MutationOperation : public EABehaviourObject {
 	protected:
         double mutationRate;
 
-	virtual unsigned int getNewLocusValue(
-		unsigned int currentValue,
-		unsigned int largestPossibleValue
-	)=0;
-	unsigned int getNewLocusValue(
-		std::tuple<unsigned int, Locus*> existing
-	);
-
+	virtual Gene* newLocusValue(Gene* current)=0;
 	void init(double mutationRate);
 
 	public:
@@ -31,7 +24,7 @@ class MutationOperation : public EABehaviourObject {
 	MutationOperation(double mutationRate);
 	virtual ~MutationOperation();
 
-	virtual Genome * mutate(Genome * initialGenome);
+	virtual Genome* mutate(Genome* initialGenome);
 	GenomeTemplate mutate(GenomeTemplate initial);
 
 	std::string toString();
