@@ -119,10 +119,6 @@ nodes: ea sa
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/NonOptimizingNode.cpp -o obj/nodes/NonOptimizingNode.o
 
 ea: selections mutations crossovers systems
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/CrossoverOperation.cpp -o obj/nodes/EANode/CrossoverOperation.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/MutationOperation.cpp -o obj/nodes/EANode/MutationOperation.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/SelectionStrategy.cpp -o obj/nodes/EANode/SelectionStrategy.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/EvolutionarySystem.cpp -o obj/nodes/EANode/EvolutionarySystem.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/EANode.cpp -o obj/nodes/EANode/EANode.o
 
 sa:
@@ -132,20 +128,24 @@ sa:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/SANode/SANode.cpp -o obj/nodes/SANode/SANode.o
 
 selections:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/SelectionStrategy.cpp -o obj/nodes/EANode/SelectionStrategy.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/selections/RandomSelection.cpp -o obj/nodes/EANode/selections/RandomSelection.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/selections/TournamentSelection.cpp -o obj/nodes/EANode/selections/TournamentSelection.o
 
 mutations:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/MutationOperation.cpp -o obj/nodes/EANode/MutationOperation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/UniformMutation.cpp -o obj/nodes/EANode/mutations/UniformMutation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/BoundaryMutation.cpp -o obj/nodes/EANode/mutations/BoundaryMutation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/GaussianMutation.cpp -o obj/nodes/EANode/mutations/GaussianMutation.o
 
 crossovers:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/CrossoverOperation.cpp -o obj/nodes/EANode/CrossoverOperation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/crossovers/NPointCrossover.cpp -o obj/nodes/EANode/crossovers/NPointCrossover.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/crossovers/UniformCrossover.cpp -o obj/nodes/EANode/crossovers/UniformCrossover.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/crossovers/CutAndSpliceCrossover.cpp -o obj/nodes/EANode/crossovers/CutAndSpliceCrossover.o
 
 systems:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/EvolutionarySystem.cpp -o obj/nodes/EANode/EvolutionarySystem.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/GA.cpp -o obj/nodes/EANode/systems/GA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES.cpp -o obj/nodes/EANode/systems/ES.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/SSGA.cpp -o obj/nodes/EANode/systems/SSGA.o
