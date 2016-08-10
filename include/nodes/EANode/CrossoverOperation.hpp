@@ -33,7 +33,7 @@ class CrossoverOperation : public EABehaviourObject {
 	std::vector<GenomeTemplate> getTemplates(std::vector<Genome*> parents);
 	unsigned int shortestGenome(std::vector<Genome*> genomes);
 	virtual std::vector<GenomeTemplate> crossOver(
-		std::vector<Genome*> genomes
+		std::vector<GenomeTemplate> parents
 	)=0;
 
 	public:
