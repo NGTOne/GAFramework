@@ -76,6 +76,12 @@ GenomeTemplate GenomeTemplate::set(
 	return *this;
 }
 
+GenomeTemplate GenomeTemplate::set(Gene* gene, unsigned int index) {
+	delete(this->genes[index]);
+	this->genes[index] = gene;
+	return *this;
+}
+
 std::vector<Gene*> GenomeTemplate::getGenes() {
 	return this->genes;
 }
