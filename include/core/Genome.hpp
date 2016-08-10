@@ -37,6 +37,8 @@ class Genome {
 	Genome(GenomeTemplate geneTemplate, std::string speciesNode);
 	Genome(Genome* other);
 	Genome(Genome* other, bool randomize);
+	Genome(Genome&& other);
+	Genome(Genome& other);
 
 	virtual ~Genome();
 

@@ -52,6 +52,16 @@ Genome::Genome(Genome* other, bool randomize) {
 	}
 }
 
+Genome::Genome(Genome&& other) {
+	this->speciesNode = other.getSpeciesNode();
+	this->setGenes(other.getGenome());
+}
+
+Genome::Genome(Genome& other) {
+	this->speciesNode = other.getSpeciesNode();
+	this->setGenes(other.getGenome());
+}
+
 Genome::~Genome() {
 	for (unsigned int i = 0; i < this->genes.size(); i++)
 		delete(this->genes[i]);
@@ -139,8 +149,9 @@ Genome Genome::flattenGenome(Genome* target, bool exclude) {
 			if (tempGenome == target) {
 				if (!exclude) rawGenome.push_back(temp->copy());
 			} else {
+				Genome flattened = tempGenome->flattenGenome();
 				std::vector<Gene*> tempGenes =
-					tempGenome->flattenGenome().getGenome();
+					flattened.getGenome();
 
 				for (
 					unsigned int k = 0;
