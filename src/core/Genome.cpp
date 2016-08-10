@@ -132,15 +132,12 @@ Genome Genome::flattenGenome(Genome* target, bool exclude) {
 	for (unsigned int i = 0; i < this->genomeLength(); i++) {
 		Gene* temp = this->genes[i];
 		if (!temp->isConstructive()) {
-			rawGenome.push_back(this->genes[i]->copy());
+			rawGenome.push_back(temp->copy());
 		} else {
 			Genome* tempGenome = temp->getValue<Genome*>();
 
 			if (tempGenome == target) {
-				if (!exclude)
-					rawGenome.push_back(
-						this->genes[i]->copy()
-					);
+				if (!exclude) rawGenome.push_back(temp->copy());
 			} else {
 				std::vector<Gene*> tempGenes =
 					tempGenome->flattenGenome().getGenome();
