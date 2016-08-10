@@ -21,10 +21,14 @@ void MutationOperation::init(double mutationRate) {
 }
 
 Genome* MutationOperation::mutate(Genome* initialGenome) {
-	return new Genome(
-		this->mutate(initialGenome->getTemplate()),
+	GenomeTemplate initial = initialGenome->getTemplate();
+	GenomeTemplate result = this->mutate(initial);
+	Genome* resultGenome = new Genome(
+		result,
 		initialGenome->getSpeciesNode()
 	);
+	GenomeTemplate::clearTemplates({initial, result});
+	return resultGenome;
 }
 
 GenomeTemplate MutationOperation::mutate(GenomeTemplate initial) {
@@ -34,10 +38,14 @@ GenomeTemplate MutationOperation::mutate(GenomeTemplate initial) {
 		newGenome.push_back(
 			HierRNG::zeroOne<double>() < this->mutationRate
 				? this->newLocusValue(initial.getGene(i))
-				: initial.getGene(i)
+				: initial.getGene(i)->copy()
 		);
 
-	return GenomeTemplate(newGenome);
+	GenomeTemplate result(newGenome);
+	for (unsigned int i = 0; i < newGenome.size(); i++)
+		delete(newGenome[i]);
+
+	return result;
 }
 
 string MutationOperation::toString() {

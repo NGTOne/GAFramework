@@ -34,12 +34,12 @@ Genome::Genome(std::vector<Gene*> genes, std::string speciesNode) {
 }
 
 Genome::Genome(GenomeTemplate geneTemplate, std::string speciesNode) {
-	this->genes = geneTemplate.getGenes();
+	this->setGenes(geneTemplate.getGenes());
 	this->speciesNode = speciesNode;
 }
 
 Genome::Genome(Genome* other) {
-	this->genes = other->getGenome();
+	this->setGenes(other->getGenome());
 	this->speciesNode = other->getSpeciesNode();
 }
 
@@ -48,13 +48,19 @@ Genome::Genome(Genome* other, bool randomize) {
 	if (randomize) {
 		this->generateRandomGenes(other->getLoci());
 	} else {
-		this->genes = other->getGenome();
+		this->setGenes(other->getGenome());
 	}
 }
 
 Genome::~Genome() {
 	for (unsigned int i = 0; i < this->genes.size(); i++)
 		delete(this->genes[i]);
+}
+
+void Genome::setGenes(std::vector<Gene*> genes) {
+	this->genes.clear();
+	for (unsigned int i = 0; i < genes.size(); i++)
+		this->genes.push_back(genes[i]->copy());
 }
 
 void Genome::generateRandomGenes(std::vector<Locus*> loci) {

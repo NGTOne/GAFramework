@@ -19,6 +19,8 @@ class GenomeTemplate {
 	);
 	GenomeTemplate(std::vector<Gene*> genes);
 
+	void clearGenes();
+
 	GenomeTemplate add(double gene, Locus* locus);
 	GenomeTemplate add(std::tuple<double, Locus*> newGene);
 	GenomeTemplate add(
@@ -41,4 +43,6 @@ class GenomeTemplate {
 	Locus* getLocus(unsigned int index);
 
 	unsigned int genomeLength();
+
+	static void clearTemplates(std::vector<GenomeTemplate> templates);
 };

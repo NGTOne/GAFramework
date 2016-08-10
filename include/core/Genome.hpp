@@ -16,6 +16,7 @@ class Genome {
 	std::vector<Gene*> genes;
 	std::string speciesNode;
 
+	void setGenes(std::vector<Gene*> genes);
 	void generateRandomGenes(std::vector<Locus*> loci);
 	void clearGenome();
 	Genome flattenGenome(Genome* target, bool exclude);

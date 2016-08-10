@@ -9,7 +9,7 @@ Gene::Gene(Locus * target) {
 
 Gene::Gene(Locus * target, double index) {
 	this->target = target;
-	if (this->valueOutOfRange(index)) {
+	if (!this->valueOutOfRange(index)) {
 		this->index = index;
 	} else {
 		throw ValueOutOfRangeException();

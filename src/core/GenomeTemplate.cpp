@@ -18,6 +18,11 @@ GenomeTemplate::GenomeTemplate(std::vector<Gene*> genes) {
 		this->genes.push_back(genes[i]->copy());
 }
 
+void GenomeTemplate::clearGenes() {
+	for (unsigned int i = 0; i < this->genes.size(); i++)
+		delete(this->genes[i]);
+}
+
 GenomeTemplate GenomeTemplate::add(double gene, Locus* locus) {
 	this->genes.push_back(locus->getGene(gene));
 	return *this;
@@ -104,4 +109,9 @@ Locus* GenomeTemplate::getLocus(unsigned int index) {
 
 unsigned int GenomeTemplate::genomeLength() {
 	return this->genes.size();
+}
+
+void GenomeTemplate::clearTemplates(std::vector<GenomeTemplate> templates) {
+	for (unsigned int i = 0; i < templates.size(); i++)
+		templates[i].clearGenes();
 }
