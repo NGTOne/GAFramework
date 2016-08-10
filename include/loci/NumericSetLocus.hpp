@@ -1,10 +1,10 @@
 #ifndef LOCI_NumericSetLocus
 #define LOCI_NumericSetLocus
 
-#include "core/Locus.hpp"
-#include "core/HierRNG.hpp"
-#include "core/genes/DiscreteGene.hpp"
-#include "core/genes/ContinuousGene.hpp"
+#include "../core/Locus.hpp"
+#include "../core/HierRNG.hpp"
+#include "../core/genes/DiscreteGene.hpp"
+#include "../core/genes/ContinuousGene.hpp"
 #include <limits>
 #include <boost/type_index.hpp>
 
