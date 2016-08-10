@@ -108,32 +108,39 @@ int SANode::compareNeighbourliness(GenomeTemplate base, GenomeTemplate target) {
 	return flattenedBase.difference(&flattenedTarget);
 }
 
+// TODO: Generalize for real-valued genomes
 std::vector<Genome*> SANode::getLocusNeighbours(
-	Genome * target,
+	Genome* target,
 	unsigned int index
 ) {
 	std::vector<Genome*> neighbours;
 	GenomeTemplate templ = target->getTemplate();
-	Locus * locus = templ.getLocus(index);
 
-	unsigned int gene = templ.getGene(index);
-	if (!locus->isConstructive()) {
-		if (gene < templ.getLocus(index)->topIndex())
+	Gene* gene = templ.getGene(index);
+	if (!gene->isConstructive()) {
+		if (gene->getIndex() < gene->getLocus()->topIndex() - 1)
 			neighbours.push_back(new Genome(
-				GenomeTemplate(templ).set(gene + 1, index),
+				GenomeTemplate(templ).set(
+					gene->copy(gene->getIndex() + 1),
+					index
+				),
 				target->getSpeciesNode()
 			));
-		if (gene > 0)
+		if (gene->getIndex() > gene->getLocus()->bottomIndex() + 1)
 			neighbours.push_back(new Genome(
-				GenomeTemplate(templ).set(gene - 1, index),
+				GenomeTemplate(templ).set(
+					gene->copy(gene->getIndex() - 1),
+					index
+				),
 				target->getSpeciesNode()
 			));
 	} else {
-		Genome * nearestKnownNeighbour;
-		unsigned int top = templ.getLocus(index)->topIndex();
+		Genome* nearestKnownNeighbour;
+		double bottom = templ.getLocus(index)->bottomIndex();
+		double top = templ.getLocus(index)->topIndex();
 		int lowestDiff = 0, diff = 0;
-		for (unsigned int i = 0; i <= top; i++) {
-			if (i == gene) continue;
+		for (unsigned int i = bottom; i <= top; i++) {
+			if (i == templ.getGene(index)->getIndex()) continue;
 			GenomeTemplate newTempl = GenomeTemplate(templ)
 				.set(i, index);
 			diff = this->compareNeighbourliness(templ, newTempl);
