@@ -19,16 +19,18 @@
 * within a few generations. Use this operator with great care.
 */
 
+// TODO: Figure out whether I should keep this operator at all
+
 class CutAndSpliceCrossover : public CrossoverOperation {
 	private:
 
 	protected:
 	GenomeTemplate createOffspring(
-		vector<Genome*> parents,
-		vector<unsigned int> points
+		std::vector<GenomeTemplate> parents,
+		std::vector<unsigned int> points
 	);
 	std::vector<GenomeTemplate> crossOver(
-		std::vector<Genome*> genomes
+		std::vector<GenomeTemplate> parents
 	);
 
 	public:

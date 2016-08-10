@@ -6,7 +6,7 @@ class UniformCrossover : public CrossoverOperation {
 
 	protected:
 	std::vector<GenomeTemplate> crossOver(
-		std::vector<Genome*> genomes
+		std::vector<GenomeTemplate> parents
 	);
 	
 	public:

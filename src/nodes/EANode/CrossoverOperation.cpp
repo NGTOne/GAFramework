@@ -92,12 +92,18 @@ std::vector<Genome*> CrossoverOperation::crossOver(
 }
 
 unsigned int CrossoverOperation::shortestGenome(vector<Genome*> genomes) {
+	return this->shortestGenome(this->getTemplates(genomes));
+}
+
+unsigned int CrossoverOperation::shortestGenome(
+	std::vector<GenomeTemplate> genomes
+) {
 	unsigned int shortestGenomeLength = 0;
 
 	for (unsigned int i = 0; i < genomes.size(); i++)
-		if (genomes[i]->genomeLength() < shortestGenomeLength
+		if (genomes[i].genomeLength() < shortestGenomeLength
 			|| shortestGenomeLength == 0)
-			shortestGenomeLength = genomes[i]->genomeLength();
+			shortestGenomeLength = genomes[i].genomeLength();
 
 	return shortestGenomeLength;
 }
