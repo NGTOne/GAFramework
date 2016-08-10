@@ -63,6 +63,11 @@ void Genome::generateRandomGenes(std::vector<Locus*> loci) {
 		this->genes.push_back(loci[i]->getGene());
 }
 
+void Genome::clearGenome() {
+	for (unsigned int i = 0; i < this->genes.size(); i++)
+		delete(this->genes[i]);
+}
+
 std::vector<Gene*> Genome::getGenome() {
 	return this->genes;
 }

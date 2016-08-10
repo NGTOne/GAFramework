@@ -1,5 +1,6 @@
 #include "core/GenomeTemplate.hpp"
 #include "exception/MismatchedCountsException.hpp"
+#include "core/genes/Gene.t.hpp"
 
 GenomeTemplate::GenomeTemplate() {}
 

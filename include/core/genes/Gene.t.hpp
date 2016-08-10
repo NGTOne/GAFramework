@@ -9,13 +9,21 @@ T Gene::getValue() {
 	return boost::any_cast<T>(this->target->getIndex(this));
 }
 
-template<typename T, class>
+template<typename T>
 void Gene::addToIndex(T addend) {
+	static_assert(
+		std::is_arithmetic<T>::value,
+		"Value added to index must be a number."
+	);
 	this->add((double)addend);
 }
 
-template<typename T, class>
+template<typename T>
 void Gene::setIndex(T value) {
+	static_assert(
+		std::is_arithmetic<T>::value,
+		"Value designated as index must be a number."
+	);
 	this->set((double)value);
 }
 

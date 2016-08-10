@@ -3,7 +3,6 @@
 
 #include "../Locus.hpp"
 #include <boost/any.hpp>
-#include "../utils/templates.hpp"
 
 class Locus;
 
@@ -28,10 +27,10 @@ class Gene {
 	template <typename T>
 	T getValue();
 
-	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
+	template<typename T>
 	void addToIndex(T addend);
 
-	template<typename T, typename = EnableIf<std::is_arithmetic<T>>>
+	template<typename T>
 	void setIndex(T value);
 
 	double getIndex();
