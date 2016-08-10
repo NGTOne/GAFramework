@@ -3,7 +3,7 @@
 #include "loci/FakePopulationLocus.hpp"
 
 FakeGenome::FakeGenome(
-	std::vector<Gene*> loci,
+	std::vector<Gene*> genes,
 	std::string speciesNode
 ) : Genome(genes, speciesNode) {}
 
