@@ -11,7 +11,10 @@ int main(void) {
 
 	ea.addConstructiveTree<EANode>(
 		new LocusMultiplierPopFormula(2),
-		{{}, vector<Locus*>(8, new IntLocus(0, 1))},
+		{{}, vector<Locus*>(
+			8,
+			new NumericCollectionLocus<int>({0, 1})
+		)},
 		{{new OneMaxFitness()}, {new OneMaxFitness()}},
 		{new OneMaxToString(), new OneMaxToString()},
 		{{new IterationCountEnd(100)}, {new IterationCountEnd(100)}},

@@ -12,8 +12,14 @@ int main(void) {
 	ea.addConstructiveTree<EANode>(
 		new ConstructiveLocusCountPopFormula(),
 		{
-			vector<Locus*>(16, new IntLocus(0, 1)),
-			vector<Locus*>(8, new IntLocus(0, 1))
+			vector<Locus*>(
+				16,
+				new NumericCollectionLocus<int>({0, 1})
+			),
+			vector<Locus*>(
+				8,
+				new NumericCollectionLocus<int>({0, 1})
+			)
 		},
 		{new LongestFragmentToString(), new LongestFragmentToString()},
 		{{new IterationCountEnd(100)}, {new IterationCountEnd(100)}},

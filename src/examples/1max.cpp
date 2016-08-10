@@ -7,7 +7,7 @@ using namespace std;
 
 int main(void) {
 	HierarchicalEA ea(100);
-	vector<Locus*> baseLoci(32, new IntLocus(0, 1));
+	vector<Locus*> baseLoci(32, new NumericCollectionLocus<int>({0, 1}));
 	ea.addNode<EANode>(
 		64,
 		baseLoci,

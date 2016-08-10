@@ -11,7 +11,10 @@ int main(void) {
 
 	ea.addConstructiveTree<EANode>(
 		new LocusMultiplierPopFormula(2),
-		{{}, vector<Locus*>(8, new IntLocus(0, 1))},
+		{{}, vector<Locus*>(
+			8,
+			new NumericCollectionLocus<int>({0, 1})
+		)},
 		{
 			{new LongestFragmentFitness()},
 			{new LongestFragmentFitness()}
