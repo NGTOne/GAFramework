@@ -18,7 +18,7 @@ NPointCrossover::NPointCrossover(
 	this->numPoints = numPoints;
 }
 
-vector<unsigned int> NPointCrossover::getPoints(unsigned int maxPoint) {
+std::vector<unsigned int> NPointCrossover::getPoints(unsigned int maxPoint) {
 	std::vector<unsigned int> points;
 
 	for (unsigned int i = 0; i < this->numPoints; i++) 
@@ -39,7 +39,8 @@ std::vector<GenomeTemplate> NPointCrossover::crossOver(
 	std::vector<GenomeTemplate> parents
 ) {
 	unsigned int shortestGenomeLength = this->shortestGenome(parents);
-	std::vector<unsigned int> points = this->getPoints(shortestGenomeLength);
+	std::vector<unsigned int> points =
+		this->getPoints(shortestGenomeLength);
 	unsigned int currentPoint = 0, currentParent = 0;
 	std::vector<GenomeTemplate> children(parents.size(), GenomeTemplate());
 
@@ -72,8 +73,8 @@ std::vector<GenomeTemplate> NPointCrossover::crossOver(
 	return children;
 }
 
-string NPointCrossover::toString() {
-	stringstream ss;
+std::string NPointCrossover::toString() {
+	std::stringstream ss;
 
 	ss << "Type: N-Point Crossover"
 		<< "\nNumber of points: " << this->numPoints << "\n";

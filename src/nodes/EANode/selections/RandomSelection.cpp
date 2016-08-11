@@ -13,7 +13,7 @@ unsigned int RandomSelection::getParent(
 }
 
 std::string RandomSelection::toString() {
-	stringstream ss;
+	std::stringstream ss;
 	ss << "Name: " << this->name <<"\n";
 	return ss.str();
 }

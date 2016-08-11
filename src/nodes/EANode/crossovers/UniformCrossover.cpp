@@ -29,7 +29,7 @@ std::vector<GenomeTemplate> UniformCrossover::crossOver(
 }
 
 std::string UniformCrossover::toString() {
-	stringstream ss;
+	std::stringstream ss;
 	ss << "Type: Uniform Crossover"
 		<< "\nNumber of offspring: " << this->numOffspring << "\n";
 	return ss.str();

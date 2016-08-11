@@ -59,8 +59,8 @@ std::vector<GenomeTemplate> CutAndSpliceCrossover::crossOver(
 	return offspring;
 }
 
-string CutAndSpliceCrossover::toString() {
-	stringstream ss;
+std::string CutAndSpliceCrossover::toString() {
+	std::stringstream ss;
 	ss << "Type: Cut and Splice Crossover\n";
 	return ss.str();
 }

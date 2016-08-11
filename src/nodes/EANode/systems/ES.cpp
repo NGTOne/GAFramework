@@ -6,19 +6,17 @@
 #include "nodes/EANode/selections/RandomSelection.hpp"
 #include "core/HierRNG.hpp"
 
-using namespace std;
-
 ES::ES(
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) : EvolutionarySystem(new RandomSelection(), cross, mutation) {
 	this->init(1, 1);
 }
 
 ES::ES(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) : EvolutionarySystem(strategy, cross, mutation) {
 	this->init(1, 1);
 }
@@ -26,8 +24,8 @@ ES::ES(
 ES::ES(
 	double muRatio,
 	double rhoRatio,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) : EvolutionarySystem(new RandomSelection(), cross, mutation) {
 	this->init(muRatio, rhoRatio);
 }
@@ -35,9 +33,9 @@ ES::ES(
 ES::ES(
 	double muRatio,
 	double rhoRatio,
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) : EvolutionarySystem(strategy, cross, mutation) {
 	this->init(muRatio, rhoRatio);
 }
@@ -48,39 +46,38 @@ void ES::init(double muRatio, double rhoRatio) {
 }
 
 Genome* ES::getCrossoverChild(
-	vector<Genome*> initialPopulation,
-	vector<float> populationFitnesses,
+	std::vector<Genome*> initialPopulation,
+	std::vector<float> populationFitnesses,
 	std::string speciesNode
 ) {
-	vector<Genome*> parents, children;
-	for (int i = 0; i < 2; i++) {
+	std::vector<Genome*> parents, children;
+	for (int i = 0; i < 2; i++)
 		parents.push_back(initialPopulation[this->getParent(
 			initialPopulation,
 			populationFitnesses
 		)]);
-	}
 
 	children = this->cross->crossOver(parents, speciesNode);
 	unsigned int index = HierRNG::index(children.size() - 1);
 
-	Genome * child = new Genome(children[index]);
+	Genome* child = new Genome(children[index]);
 	for (unsigned int i = 0; i < children.size(); i++) delete(children[i]);
 	return child;
 }
 
-vector<Genome*> ES::breedMutateSelect(
-	vector<Genome*> initialPopulation,
-	vector<float> & populationFitnesses,
-	vector<ObjectiveFunction*> objectives,
+std::vector<Genome*> ES::breedMutateSelect(
+	std::vector<Genome*> initialPopulation,
+	std::vector<float>& populationFitnesses,
+	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
 	unsigned int initialPopSize = initialPopulation.size();
 	unsigned int numMutants = initialPopSize * rhoRatio;
 	unsigned int numCrossChildren = initialPopSize * muRatio;
-	vector<Genome*> crossChildren, mutantChildren, overallPopulation;
-	vector<float> finalPopulationFitnesses;
+	std::vector<Genome*> crossChildren, mutantChildren, overallPopulation;
+	std::vector<float> finalPopulationFitnesses;
 
-	for (unsigned int i = 0; i < numMutants; i++) {
+	for (unsigned int i = 0; i < numMutants; i++)
 		mutantChildren.push_back(
 			this->mutation->mutate(initialPopulation[
 				this->getParent(
@@ -89,15 +86,13 @@ vector<Genome*> ES::breedMutateSelect(
 				)
 			])
 		);
-	}
 
-	for (unsigned int i = 0; i < numCrossChildren; i++) {
+	for (unsigned int i = 0; i < numCrossChildren; i++)
 		crossChildren.push_back(this->getCrossoverChild(
 			initialPopulation,
 			populationFitnesses,
 			speciesNode
 		));
-	}
 
 	for (unsigned int i = 0; i < initialPopSize; i++) {
 		overallPopulation.push_back(initialPopulation[i]);
@@ -123,7 +118,7 @@ vector<Genome*> ES::breedMutateSelect(
 		finalPopulationFitnesses
 	);
 
-	vector<Genome*> finalPopulation;
+	std::vector<Genome*> finalPopulation;
 
 	//Since they're sorted, the best of the new generation can simply be
 	//pulled from the top of the list

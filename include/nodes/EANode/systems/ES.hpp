@@ -25,36 +25,36 @@ class ES : public EvolutionarySystem {
 
 	void init(double muRatio, double rhoRatio);
 
-	Genome * getCrossoverChild(
-		vector<Genome*> initialPopulation,
-		vector<float> populationFitnesses,
+	Genome* getCrossoverChild(
+		std::vector<Genome*> initialPopulation,
+		std::vector<float> populationFitnesses,
 		std::string speciesNode
 	);
 
 	public:
 	ES(CrossoverOperation * cross, MutationOperation * mutation);
 	ES(
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation
+		SelectionStrategy* strategy,
+		CrossoverOperation* cross,
+		MutationOperation* mutation
 	);
 	ES(
 		double muRatio,
 		double rhoRatio,
-		CrossoverOperation * cross,
-		MutationOperation * mutation
+		CrossoverOperation* cross,
+		MutationOperation* mutation
 	);
 	ES(
 		double muRatio,
 		double rhoRatio,
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation
+		SelectionStrategy* strategy,
+		CrossoverOperation* cross,
+		MutationOperation* mutation
 	);
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
-		std::vector<float> & populationFitnesses,
+		std::vector<float>& populationFitnesses,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);
