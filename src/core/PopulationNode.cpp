@@ -3,15 +3,13 @@
 #include <sstream>
 #include <iostream>
 
-using namespace std;
-
 PopulationNode::PopulationNode(
 	unsigned int populationSize,
-	vector<Locus*> loci,
-	vector<ObjectiveFunction*> objectives,
-	ToStringFunction * populationToString,
-	vector<EndCondition*> conditions,
-	string nodeName
+	std::vector<Locus*> loci,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction* populationToString,
+	std::vector<EndCondition*> conditions,
+	std::string nodeName
 ) {
 	this->init(
 		populationSize,
@@ -26,11 +24,11 @@ PopulationNode::PopulationNode(
 
 PopulationNode::PopulationNode(
 	unsigned int populationSize,
-	vector<Locus*> loci,
-	vector<ObjectiveFunction*> objectives,
-	ToStringFunction * populationToString,
-	vector<EndCondition*> conditions,
-	string nodeName,
+	std::vector<Locus*> loci,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction* populationToString,
+	std::vector<EndCondition*> conditions,
+	std::string nodeName,
 	unsigned int accelerationFactor
 ) {
 	this->init(
@@ -58,11 +56,11 @@ void PopulationNode::registerInternalObjects() {
 
 void PopulationNode::init(
 	unsigned int populationSize,
-	vector<Locus*> loci,
-	vector<ObjectiveFunction*> objectives,
-	ToStringFunction * populationToString,
-	vector<EndCondition*> conditions,
-	string nodeName,
+	std::vector<Locus*> loci,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction* populationToString,
+	std::vector<EndCondition*> conditions,
+	std::string nodeName,
 	unsigned int accelerationFactor
 ) {
 	this->initialPopulationSize = populationSize;
@@ -77,7 +75,7 @@ void PopulationNode::init(
 	this->createLoci(loci);
 }
 
-float PopulationNode::evaluateFitness(Genome * target) {
+float PopulationNode::evaluateFitness(Genome* target) {
 	float total = 0;
 	for (unsigned int i = 0; i < this->objectives.size(); i++)
 		total += this->objectives[i]->checkFitness(target);
@@ -86,15 +84,15 @@ float PopulationNode::evaluateFitness(Genome * target) {
 }
 
 float PopulationNode::evaluateFitness(unsigned int solutionIndex) {
-	Genome * genome = this->getIndex(solutionIndex);
+	Genome* genome = this->getIndex(solutionIndex);
 	return this->evaluateFitness(genome);
 }
 
-void PopulationNode::createLoci(vector<Locus*> loci) {
+void PopulationNode::createLoci(std::vector<Locus*> loci) {
 	for (unsigned int i = 0; i < this->population.size(); i++) 
 		delete(this->population[i]);
 	this->population.clear();
-	this->fitnesses = vector<float>(this->initialPopulationSize, 0);
+	this->fitnesses = std::vector<float>(this->initialPopulationSize, 0);
 
 	for (unsigned int i = 0; i < this->initialPopulationSize; i++)
 		this->population.push_back(new Genome(loci, this->nodeName));
@@ -103,71 +101,69 @@ void PopulationNode::createLoci(vector<Locus*> loci) {
 	HierGC::registerObjects(loci);
 }
 
-void PopulationNode::addObjective(ObjectiveFunction * objective) {
+void PopulationNode::addObjective(ObjectiveFunction* objective) {
 	this->objectives.push_back(objective);
 	HierGC::registerObject(objective);
 	this->evaluateFitnesses();
 }
 
-void PopulationNode::addObjectives(vector<ObjectiveFunction*> objectives) {
+void PopulationNode::addObjectives(std::vector<ObjectiveFunction*> objectives) {
 	for (unsigned int i = 0; i < objectives.size(); i++)
 		this->objectives.push_back(objectives[i]);
 	HierGC::registerObjects(objectives);
 	this->evaluateFitnesses();
 }
 
-void PopulationNode::setObjective(ObjectiveFunction * objective) {
+void PopulationNode::setObjective(ObjectiveFunction* objective) {
 	this->objectives.clear();
 	this->addObjective(objective);
 }
 
-void PopulationNode::setObjectives(vector<ObjectiveFunction*> objectives) {
+void PopulationNode::setObjectives(std::vector<ObjectiveFunction*> objectives) {
 	this->objectives.clear();
 	this->addObjectives(objectives);
 }
 
-void PopulationNode::addEndCondition(EndCondition * condition) {
+void PopulationNode::addEndCondition(EndCondition* condition) {
 	this->conditions.push_back(condition);
 	HierGC::registerObject(condition);
 }
 
-void PopulationNode::addEndConditions(vector<EndCondition*> conditions) {
+void PopulationNode::addEndConditions(std::vector<EndCondition*> conditions) {
 	for (unsigned int i = 0; i < conditions.size(); i++)
 		this->conditions.push_back(conditions[i]);
 	HierGC::registerObjects(conditions);
 }
 
-void PopulationNode::setEndCondition(EndCondition * condition) {
+void PopulationNode::setEndCondition(EndCondition* condition) {
 	this->conditions.clear();
 	this->addEndCondition(condition);
 }
 
-void PopulationNode::setEndConditions(vector<EndCondition*> conditions) {
+void PopulationNode::setEndConditions(std::vector<EndCondition*> conditions) {
 	this->conditions.clear();
 	this->addEndConditions(conditions);
 }
 
-void PopulationNode::addLoci(vector<Locus*> loci) {
+void PopulationNode::addLoci(std::vector<Locus*> loci) {
 	std::vector<Locus*> templateLoci = this->canonicalLoci;
 	templateLoci.insert(templateLoci.end(), loci.begin(), loci.end());
 	this->createLoci(templateLoci);
 }
 
-void PopulationNode::setLoci(vector<Locus*> loci) {
+void PopulationNode::setLoci(std::vector<Locus*> loci) {
 	this->createLoci(loci);
 }
 
-void PopulationNode::setToString(ToStringFunction * populationToString) {
+void PopulationNode::setToString(ToStringFunction* populationToString) {
 	this->populationToString = populationToString;
 	HierGC::registerObject(this->populationToString);
 }
 
 void PopulationNode::replacePopulation() {
-	vector<Genome*> tempPopulation = this->getNextPopulation();
-
+	std::vector<Genome*> tempPopulation = this->getNextPopulation();
 	for (unsigned int i = 0; i < this->population.size(); i++)
 		delete(this->population[i]);
-
 	this->population = tempPopulation;
 }
 
@@ -180,7 +176,7 @@ void PopulationNode::nextIteration() {
 	}
 }
 
-Genome * PopulationNode::getIndex(unsigned int index) {
+Genome* PopulationNode::getIndex(unsigned int index) {
 	return this->population[index];
 }
 
@@ -202,7 +198,7 @@ void PopulationNode::sortPopulation() {
 		for (unsigned int k = 0; k < this->population.size(); k++) {
 			if (this->fitnesses[i] > this->fitnesses[k]) {
 				float tempFitness = fitnesses[i];
-				Genome * tempSolution = population[i];
+				Genome* tempSolution = population[i];
 
 				this->fitnesses[i] = this->fitnesses[k];
 				this->population[i] = this->population[k];
@@ -219,12 +215,12 @@ void PopulationNode::evaluateFitnesses() {
 		this->fitnesses[i] = this->evaluateFitness(i);
 }
 
-void PopulationNode::insert(unsigned int index, Genome * target) {
+void PopulationNode::insert(unsigned int index, Genome* target) {
 	delete(this->population[index]);
 	this->evaluateFitness(index);
 }
 
-string PopulationNode::name() {
+std::string PopulationNode::name() {
 	return this->nodeName;
 }
 
@@ -233,9 +229,9 @@ unsigned int PopulationNode::populationSize() {
 		this->initialPopulationSize : this->population.size();
 }
 
-string PopulationNode::populationStrings() {
-	stringstream ss;
-	string populationString;
+std::string PopulationNode::populationStrings() {
+	std::stringstream ss;
+	std::string populationString;
 	
 	for (unsigned int i = 0; i < population.size(); i++) {
 		populationString = this->populationToString->toString(
@@ -249,8 +245,8 @@ string PopulationNode::populationStrings() {
 	return ss.str();
 }
 
-string PopulationNode::toString() {
-	stringstream ss;
+std::string PopulationNode::toString() {
+	std::stringstream ss;
 
 	ss << "Population size: " << this->population.size() << "\n";
 	ss << this->populationStrings();
@@ -259,15 +255,15 @@ string PopulationNode::toString() {
 	return ss.str();
 }
 
-set<Locus*> PopulationNode::getLoci() {
+std::set<Locus*> PopulationNode::getLoci() {
 	return std::set<Locus*>(
 		this->canonicalLoci.begin(),
 		this->canonicalLoci.end()
 	);
 }
 
-set<Locus*> PopulationNode::getConstructiveLoci() {
-	set<Locus*> loci;
+std::set<Locus*> PopulationNode::getConstructiveLoci() {
+	std::set<Locus*> loci;
 	for (unsigned int i = 0; i < this->canonicalLoci.size(); i++)
 		if (this->canonicalLoci[i]->isConstructive()) loci.insert(
 			this->canonicalLoci[i]
@@ -280,11 +276,11 @@ std::vector<Locus*> PopulationNode::getCanonicalLoci() {
 	return this->canonicalLoci;
 }
 
-vector<EndCondition*> PopulationNode::getConditions() {
+std::vector<EndCondition*> PopulationNode::getConditions() {
 	return this->conditions;
 }
 
-vector<ObjectiveFunction*> PopulationNode::getObjectives() {
+std::vector<ObjectiveFunction*> PopulationNode::getObjectives() {
 	return this->objectives;
 }
 
@@ -296,12 +292,12 @@ float PopulationNode::getFitnessAtIndex(unsigned int index) {
 	return this->fitnesses[index];
 }
 
-bool PopulationNode::contains(Genome * target) {
+bool PopulationNode::contains(Genome* target) {
 	for (unsigned int i = 0; i < this->population.size(); i++)
 		if (this->population[i] == target) return true;
 	return false;
 }
 
-bool PopulationNode::usesSpecies(Genome * target) {
+bool PopulationNode::usesSpecies(Genome* target) {
 	return this->nodeName == target->getSpeciesNode();
 }
