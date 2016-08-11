@@ -5,11 +5,9 @@
 #include <random>
 #include <chrono>
 
-using namespace std;
-
 MigratoryRelationship::MigratoryRelationship(
-	PopulationNode * fromNode,
-	PopulationNode * toNode,
+	PopulationNode* fromNode,
+	PopulationNode* toNode,
 	unsigned int n
 ) {
 	this->init(
@@ -22,8 +20,8 @@ MigratoryRelationship::MigratoryRelationship(
 }
 
 MigratoryRelationship::MigratoryRelationship(
-	PopulationNode * fromNode,
-	PopulationNode * toNode,
+	PopulationNode* fromNode,
+	PopulationNode* toNode,
 	unsigned int n,
 	TranslationFunction toTranslate
 ) {
@@ -37,8 +35,8 @@ MigratoryRelationship::MigratoryRelationship(
 }
 
 MigratoryRelationship::MigratoryRelationship(
-	PopulationNode * fromNode,
-	PopulationNode * toNode,
+	PopulationNode* fromNode,
+	PopulationNode* toNode,
 	unsigned int n,
 	TranslationFunction toTranslate,
 	TranslationFunction fromTranslate
@@ -47,8 +45,8 @@ MigratoryRelationship::MigratoryRelationship(
 }
 
 void MigratoryRelationship::init(
-	PopulationNode * fromNode,
-	PopulationNode * toNode,
+	PopulationNode* fromNode,
+	PopulationNode* toNode,
 	unsigned int n,
 	TranslationFunction toTranslate,
 	TranslationFunction fromTranslate
@@ -64,7 +62,7 @@ void MigratoryRelationship::swap(
 	unsigned int fromNodeIndex,
 	unsigned int toNodeIndex
 ) {
-	Genome * fromNodeInsert,
+	Genome* fromNodeInsert,
 		* toNodeInsert,
 		* fromNodeOriginal,
 		* toNodeOriginal;
@@ -89,7 +87,7 @@ void MigratoryRelationship::oneWayMigrate(
 	unsigned int fromNodeIndex,
 	unsigned int toNodeIndex
 ) {
-	Genome * original, * insert;
+	Genome* original, * insert;
 
 	original = fromNode->getIndex(fromNodeIndex);
 	insert = toTranslate.createTranslatedGenome(
