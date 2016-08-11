@@ -360,7 +360,7 @@ std::vector<ObjectiveFunction*> HierarchicalEA::makeApportionments(
 	std::vector<AggregationFunction*> aggregators,
 	std::vector<unsigned int> tryOns
 ) {
-	if (!this->compareVectorLengths(apportionments, aggregators, tryOns))
+	if (!this->compareVectorLengths(apportionments, aggregators))
 		throw MismatchedCountsException();
 
 	std::vector<ObjectiveFunction*> finished;
