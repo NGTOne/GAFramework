@@ -1,15 +1,13 @@
 #include "nodes/NonOptimizingNode.hpp"
 #include <sstream>
 
-using namespace std;
-
 NonOptimizingNode::NonOptimizingNode(
 	unsigned int populationSize,
-	vector<Locus*> loci,
-	vector<ObjectiveFunction*> objectives,
-	ToStringFunction * populationToString,
-	vector<EndCondition*> conditions,
-	string nodeName
+	std::vector<Locus*> loci,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction* populationToString,
+	std::vector<EndCondition*> conditions,
+	std::string nodeName
 ) : PopulationNode(
 	populationSize,
 	loci,
@@ -31,7 +29,7 @@ node_type_t NonOptimizingNode::type() {
 	return NON_OPT_TYPE;
 }
 
-PopulationNode * NonOptimizingNode::duplicate(std::string newNodeName) {
+PopulationNode* NonOptimizingNode::duplicate(std::string newNodeName) {
 	return new NonOptimizingNode(
 		this->populationSize(),
 		this->getCanonicalLoci(),
