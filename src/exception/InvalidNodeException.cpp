@@ -1,5 +1,10 @@
 #include "exception/InvalidNodeException.hpp"
 
-const char * InvalidNodeException::what() const throw() {
-	return "This node does not exist! Try creating it before using it.";
-}
+InvalidNodeException::InvalidNodeException() :
+	CustomMessageException(
+		"This node does not exist! Try creating it before using it."
+	) {}
+
+InvalidNodeException::InvalidNodeException(
+	std::string message
+) : CustomMessageException(message) {}

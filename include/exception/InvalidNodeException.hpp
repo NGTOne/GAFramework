@@ -1,6 +1,8 @@
-#include <exception>
+#include "CustomMessageException.hpp"
 #pragma once
 
-class InvalidNodeException : public std::exception {
-	virtual const char * what() const throw();
+class InvalidNodeException : public CustomMessageException {
+	public:
+	InvalidNodeException();
+	InvalidNodeException(std::string message);
 };

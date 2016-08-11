@@ -1,6 +1,8 @@
-#include <exception>
+#include "CustomMessageException.hpp"
 #pragma once
 
-class ValueOutOfRangeException : public std::exception {
-	virtual const char * what() const throw();
+class ValueOutOfRangeException : public CustomMessageException {
+	public:
+	ValueOutOfRangeException();
+	ValueOutOfRangeException(std::string message);
 };

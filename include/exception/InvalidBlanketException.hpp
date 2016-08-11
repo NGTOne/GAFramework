@@ -1,6 +1,8 @@
-#include <exception>
+#include "CustomMessageException.hpp"
 #pragma once
 
-class InvalidBlanketException : public std::exception {
-	virtual const char * what() const throw();
+class InvalidBlanketException : public CustomMessageException {
+	public:
+	InvalidBlanketException();
+	InvalidBlanketException(std::string message);
 };

@@ -1,6 +1,8 @@
-#include <exception>
+#include "CustomMessageException.hpp"
 #pragma once
 
-class MismatchedCountsException : public std::exception {
-	virtual const char * what() const throw();
+class MismatchedCountsException : public CustomMessageException {
+	public:
+	MismatchedCountsException();
+	MismatchedCountsException(std::string message);
 };

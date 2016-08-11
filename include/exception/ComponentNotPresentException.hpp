@@ -1,6 +1,8 @@
-#include <exception>
+#include "CustomMessageException.hpp"
 #pragma once
 
-class ComponentNotPresentException : public std::exception {
-	virtual const char * what() const throw();
+class ComponentNotPresentException : public CustomMessageException {
+	public:
+	ComponentNotPresentException();
+	ComponentNotPresentException(std::string message);
 };

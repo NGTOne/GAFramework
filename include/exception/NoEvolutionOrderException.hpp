@@ -1,6 +1,8 @@
-#include <exception>
+#include "CustomMessageException.hpp"
 #pragma once
 
-class NoEvolutionOrderException : public std::exception {
-	virtual const char * what() const throw();
+class NoEvolutionOrderException : public CustomMessageException {
+	public:
+	NoEvolutionOrderException();
+	NoEvolutionOrderException(std::string message);
 };

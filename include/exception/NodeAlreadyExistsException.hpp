@@ -1,6 +1,8 @@
-#include <exception>
+#include "CustomMessageException.hpp"
 #pragma once
 
-class NodeAlreadyExistsException : public std::exception {
-	virtual const char * what() const throw();
+class NodeAlreadyExistsException : public CustomMessageException {
+	public:
+	NodeAlreadyExistsException();
+	NodeAlreadyExistsException(std::string message);
 };

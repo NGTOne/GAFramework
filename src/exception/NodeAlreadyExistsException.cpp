@@ -1,5 +1,10 @@
 #include "exception/NodeAlreadyExistsException.hpp"
 
-const char * NodeAlreadyExistsException::what() const throw() {
-	return "A node with this name already exists.";
-}
+NodeAlreadyExistsException::NodeAlreadyExistsException() :
+	CustomMessageException(
+		"A node with this name already exists."
+	) {}
+
+NodeAlreadyExistsException::NodeAlreadyExistsException(
+	std::string message
+) : CustomMessageException(message) {}
