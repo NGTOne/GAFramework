@@ -13,42 +13,40 @@
 #include <string>
 #pragma once
 
-using namespace std;
-
 #define OVERALL_COEV_NAME "Overall Coevolution"
 
 class HierarchicalEA {
 	private:
 
 	protected:
-	vector<PopulationNode *> nodes;
-	vector<string> nodesToPrint;
-	vector<string> evolutionOrder;
-	vector<string> endDictators;
-	vector<MigratoryRelationship> migrations;
+	std::vector<PopulationNode*> nodes;
+	std::vector<std::string> nodesToPrint;
+	std::vector<std::string> evolutionOrder;
+	std::vector<std::string> endDictators;
+	std::vector<MigratoryRelationship> migrations;
 	unsigned int maxEpochs;
 
-	vector<PopulationNode *> evolutionNodes;
-	vector<PopulationNode *> printNodes;
-	vector<PopulationNode *> endConditionDictatorNodes;
+	std::vector<PopulationNode*> evolutionNodes;
+	std::vector<PopulationNode*> printNodes;
+	std::vector<PopulationNode*> endConditionDictatorNodes;
 
 	void buildNodeSet(
-		vector<string> targetNames,
-		vector <PopulationNode *> & targetSet
+		std::vector<std::string> targetNames,
+		std::vector<PopulationNode*>& targetSet
 	);
 	void buildEvolutionNodes();
 	void buildPrintNodes();
 	void buildEndDictators();
 	void migrate();
 
-	void checkNodesExist(vector<string> names);
+	void checkNodesExist(std::vector<std::string> names);
 	bool done(unsigned int currentEpoch);
 	bool isNodePrinted(std::string node);
 	bool isNodeEndDictator(std::string node);
 
 	unsigned int findHighestCoevIndex();
 	std::string getNextCoevName();
-	PopulationNode * findCoevRootNode(std::vector<std::string> coevNodes);
+	PopulationNode* findCoevRootNode(std::vector<std::string> coevNodes);
 
 	template <typename vec, typename vec2, typename... params>
 	bool compareVectorLengths(
@@ -71,7 +69,7 @@ class HierarchicalEA {
 	);
 
 	std::vector<ObjectiveFunction*> makeApportionments(
-		PopulationNode * upperNode,
+		PopulationNode* upperNode,
 		std::vector<ApportionmentFunction*> functions,
 		std::vector<AggregationFunction*> aggregators,
 		std::vector<unsigned int> tryOns
@@ -112,28 +110,28 @@ class HierarchicalEA {
 
 	void run(bool verbose);
 
-	void addNode(PopulationNode * node, bool print);
-	void addNode(PopulationNode * node, bool print, bool end);
+	void addNode(PopulationNode* node, bool print);
+	void addNode(PopulationNode* node, bool print, bool end);
 	void addNodes(
 		std::vector<PopulationNode*> nodes,
 		bool print,
 		bool end
 	);
 	void addNodes(
-		vector<PopulationNode*> nodes,
-		vector<bool> print,
-		vector<bool> end
+		std::vector<PopulationNode*> nodes,
+		std::vector<bool> print,
+		std::vector<bool> end
 	);
 	void duplicateNode(
 		std::string original,
 		std::vector<std::string> newNames
 	);
-	void removeNode(string name);
+	void removeNode(std::string name);
 
-	void setNodesToPrint(vector<string> names);
-	void setEvolutionOrder(vector<string> names);
-	void setEndConditionDictatorNodes(vector<string> names);
-	PopulationNode * getNodeByName(string name);
+	void setNodesToPrint(std::vector<std::string> names);
+	void setEvolutionOrder(std::vector<std::string> names);
+	void setEndConditionDictatorNodes(std::vector<std::string> names);
+	PopulationNode* getNodeByName(std::string name);
 
 	template <typename NodeType, typename... params>
 	void addNode(
@@ -180,11 +178,11 @@ class HierarchicalEA {
 		unsigned int populationSize,
 		std::tuple<
 			std::vector<std::string>,
-			ApportionmentFunction *,
-			AggregationFunction *
+			ApportionmentFunction*,
+			AggregationFunction*
 		> nodes,
 		std::vector<ObjectiveFunction*> flattenedObjectives,
-		ToStringFunction * flattenedToString,
+		ToStringFunction* flattenedToString,
 		std::vector<EndCondition*> conditions,
 		std::string metaNodeName,
 		params... as
@@ -196,11 +194,11 @@ class HierarchicalEA {
 		unsigned int populationSize,
 		std::vector<std::tuple<
 			std::string,
-			ApportionmentFunction *,
-			AggregationFunction *
+			ApportionmentFunction*,
+			AggregationFunction*
 		>> nodes,
 		std::vector<ObjectiveFunction*> flattenedObjectives,
-		ToStringFunction * flattenedToString,
+		ToStringFunction* flattenedToString,
 		std::vector<EndCondition*> conditions,
 		std::string metaNodeName,
 		params... as
@@ -213,7 +211,7 @@ class HierarchicalEA {
 		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
-		ToStringFunction * nodeToString,
+		ToStringFunction* nodeToString,
 		std::vector<EndCondition*> conditions,
 		std::vector<std::string> names,
 		bool print,
@@ -229,7 +227,7 @@ class HierarchicalEA {
 		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		std::vector<ObjectiveFunction*> objectives,
-		ToStringFunction * nodeToString,
+		ToStringFunction* nodeToString,
 		std::vector<EndCondition*> conditions,
 		std::vector<std::vector<std::string>> names,
 		bool print,
@@ -276,13 +274,13 @@ class HierarchicalEA {
 	void addCooperativeCoevolution(
 		std::vector<ObjectiveFunction*> overallObjectives,
 		std::vector<EndCondition*> overallConditions,
-		ToStringFunction * overallToString,
+		ToStringFunction* overallToString,
 		unsigned int numThreads,
 		unsigned int populationSize,
 		std::vector<Locus*> loci,
-		ApportionmentFunction * apportionment,
-		AggregationFunction * aggregator,
-		ToStringFunction * toString,
+		ApportionmentFunction* apportionment,
+		AggregationFunction* aggregator,
+		ToStringFunction* toString,
 		std::vector<EndCondition*> conditions,
 		std::vector<std::string> nodeNames,
 		bool print,
@@ -294,7 +292,7 @@ class HierarchicalEA {
 	void addCooperativeCoevolution(
 		std::vector<ObjectiveFunction*> overallObjectives,
 		std::vector<EndCondition*> overallConditions,
-		ToStringFunction * overallToString,
+		ToStringFunction* overallToString,
 		unsigned int numThreads,
 		std::vector<unsigned int> populationSizes,
 		std::vector<std::vector<Locus*>> loci,
@@ -313,7 +311,7 @@ class HierarchicalEA {
 		std::vector<std::string> coopNodes,
 		unsigned int numThreads,
 		std::vector<ObjectiveFunction*> objectives,
-		ToStringFunction * toString,
+		ToStringFunction* toString,
 		std::vector<EndCondition*> conditions,
 		std::string metaNodeName,
 		params... as
@@ -321,7 +319,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveTree(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
@@ -333,9 +331,9 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveTree(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
-		ObjectiveFunction * globalObjective,
+		ObjectiveFunction* globalObjective,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
 		TreeBuilder treeSpec,
@@ -346,7 +344,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveTree(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<std::vector<ObjectiveFunction*>> objectives,
 		std::vector<ToStringFunction*> toStrings,
@@ -359,7 +357,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveTree(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<ObjectiveFunction*> topObjectives,
 		std::vector<std::vector<ApportionmentFunction*>>
@@ -375,7 +373,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveTree(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<ObjectiveFunction*> topObjectives,
 		std::vector<std::vector<ApportionmentFunction*>>
@@ -392,7 +390,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveTree(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 		std::vector<std::vector<std::vector<ObjectiveFunction*>>>
 			objectives,
@@ -407,7 +405,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveTree(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 		std::vector<ObjectiveFunction*> topObjectives,
 		std::vector<std::vector<std::vector<ApportionmentFunction*>>>
@@ -426,7 +424,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveTree(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 		std::vector<std::vector<std::vector<ObjectiveFunction*>>>
 			objectives,
@@ -446,7 +444,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveLattice(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
@@ -458,9 +456,9 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveLattice(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
-		ObjectiveFunction * globalObjective,
+		ObjectiveFunction* globalObjective,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
 		LatticeBuilder latticeSpec,
@@ -471,7 +469,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveLattice(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<std::vector<ObjectiveFunction*>> objectives,
 		std::vector<ToStringFunction*> toStrings,
@@ -484,7 +482,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveLattice(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<ObjectiveFunction*> topObjectives,
 		std::vector<std::vector<ApportionmentFunction*>>
@@ -500,7 +498,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveLattice(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<ObjectiveFunction *> topObjectives,
 		std::vector<std::vector<ApportionmentFunction*>>
@@ -517,7 +515,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveLattice(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 		std::vector<std::vector<std::vector<ObjectiveFunction*>>>
 			objectives,
@@ -532,7 +530,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveLattice(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 		std::vector<ObjectiveFunction *> topObjectives,
 		std::vector<std::vector<std::vector<ApportionmentFunction*>>>
@@ -551,7 +549,7 @@ class HierarchicalEA {
 
 	template <typename NodeType, typename... params>
 	void addConstructiveLattice(
-		PopulationFormula * formula,
+		PopulationFormula* formula,
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 		std::vector<std::vector<std::vector<ObjectiveFunction*>>>
 			objectives,

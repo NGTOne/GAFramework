@@ -7,7 +7,7 @@
 
 template<typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveLattice(
-	PopulationFormula * formula,
+	PopulationFormula* formula,
 	std::vector<std::vector<Locus*>> contextLoci,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,
@@ -34,9 +34,9 @@ void HierarchicalEA::addConstructiveLattice(
 
 template<typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveLattice(
-	PopulationFormula * formula,
+	PopulationFormula* formula,
 	std::vector<std::vector<Locus*>> contextLoci,
-	ObjectiveFunction * globalObjective,
+	ObjectiveFunction* globalObjective,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,
 	LatticeBuilder latticeSpec,
@@ -62,7 +62,7 @@ void HierarchicalEA::addConstructiveLattice(
 
 template<typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveLattice(
-	PopulationFormula * formula,
+	PopulationFormula* formula,
 	std::vector<std::vector<Locus*>> contextLoci,
 	std::vector<std::vector<ObjectiveFunction*>> objectives,
 	std::vector<ToStringFunction*> toStrings,
@@ -89,7 +89,7 @@ void HierarchicalEA::addConstructiveLattice(
 
 template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveLattice(
-	PopulationFormula * formula,
+	PopulationFormula* formula,
 	std::vector<std::vector<Locus*>> contextLoci,
 	std::vector<ObjectiveFunction*> topObjectives,
 	std::vector<std::vector<ApportionmentFunction*>> apportionments,
@@ -121,9 +121,9 @@ void HierarchicalEA::addConstructiveLattice(
 
 template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveLattice(
-	PopulationFormula * formula,
+	PopulationFormula* formula,
 	std::vector<std::vector<Locus*>> contextLoci,
-	std::vector<ObjectiveFunction *> topObjectives,
+	std::vector<ObjectiveFunction*> topObjectives,
 	std::vector<std::vector<ApportionmentFunction*>> apportionments,
 	std::vector<std::vector<AggregationFunction*>> aggregators,
 	std::vector<std::vector<unsigned int>> tryOns,
@@ -154,7 +154,7 @@ void HierarchicalEA::addConstructiveLattice(
 
 template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveLattice(
-	PopulationFormula * formula,
+	PopulationFormula* formula,
 	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 	std::vector<std::vector<std::vector<ObjectiveFunction*>>> objectives,
 	std::vector<std::vector<ToStringFunction*>> toStrings,
@@ -184,9 +184,9 @@ void HierarchicalEA::addConstructiveLattice(
 
 template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveLattice(
-	PopulationFormula * formula,
+	PopulationFormula* formula,
 	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
-	std::vector<ObjectiveFunction *> topObjectives,
+	std::vector<ObjectiveFunction*> topObjectives,
 	std::vector<std::vector<std::vector<ApportionmentFunction*>>>
 		apportionments,
 	std::vector<std::vector<std::vector<AggregationFunction*>>>
@@ -228,7 +228,7 @@ void HierarchicalEA::addConstructiveLattice(
 
 template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveLattice(
-	PopulationFormula * formula,
+	PopulationFormula* formula,
 	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 	std::vector<std::vector<std::vector<ObjectiveFunction*>>> objectives,
 	std::vector<std::vector<std::vector<ApportionmentFunction*>>>

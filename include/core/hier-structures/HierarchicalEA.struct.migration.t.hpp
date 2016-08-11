@@ -9,7 +9,7 @@ void HierarchicalEA::addMigratoryRing(
 	unsigned int populationSize,
 	std::vector<Locus*> loci,
 	std::vector<ObjectiveFunction*> objectives,
-	ToStringFunction * nodeToString,
+	ToStringFunction* nodeToString,
 	std::vector<EndCondition*> conditions,
 	std::vector<std::string> names,
 	bool print,
@@ -17,7 +17,7 @@ void HierarchicalEA::addMigratoryRing(
 	params... as
 ) {
 	std::vector<
-		PopulationNode *
+		PopulationNode*
 	> nodes = PopulationNodeFactory::createNodes<NodeType>(
 		populationSize,
 		loci,
@@ -53,7 +53,7 @@ void HierarchicalEA::addMigratoryTorus(
 	unsigned int populationSize,
 	std::vector<Locus*> loci,
 	std::vector<ObjectiveFunction*> objectives,
-	ToStringFunction * nodeToString,
+	ToStringFunction* nodeToString,
 	std::vector<EndCondition*> conditions,
 	std::vector<std::vector<std::string>> names,
 	bool print,

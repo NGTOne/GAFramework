@@ -8,11 +8,11 @@ void HierarchicalEA::addMetaPopulation(
 	unsigned int populationSize,
 	std::tuple<
 		std::vector<std::string>,
-		ApportionmentFunction *,
-		AggregationFunction *
+		ApportionmentFunction*,
+		AggregationFunction*
 	> nodes,
 	std::vector<ObjectiveFunction*> flattenedObjectives,
-	ToStringFunction * flattenedToString,
+	ToStringFunction* flattenedToString,
 	std::vector<EndCondition*> conditions,
 	std::string metaNodeName,
 	params... as
@@ -47,11 +47,11 @@ void HierarchicalEA::addMetaPopulation(
 	unsigned int populationSize,
 	std::vector<std::tuple<
 		std::string,
-		ApportionmentFunction *,
-		AggregationFunction *
+		ApportionmentFunction*,
+		AggregationFunction*
 	>> nodes,
 	std::vector<ObjectiveFunction*> flattenedObjectives,
-	ToStringFunction * flattenedToString,
+	ToStringFunction* flattenedToString,
 	std::vector<EndCondition*> conditions,
 	std::string metaNodeName,
 	params... as
@@ -59,7 +59,7 @@ void HierarchicalEA::addMetaPopulation(
 	std::vector<std::tuple<
 		PopulationNode*,
 		ApportionmentFunction*,
-		AggregationFunction *
+		AggregationFunction*
 	>> trueNodes;
 	for (unsigned int i = 0; i < nodes.size(); i++)
 		trueNodes.push_back(std::make_tuple(

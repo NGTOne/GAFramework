@@ -8,13 +8,13 @@ template <typename NodeType, typename... params>
 void HierarchicalEA::addCooperativeCoevolution(
 	std::vector<ObjectiveFunction*> overallObjectives,
 	std::vector<EndCondition*> overallConditions,
-	ToStringFunction * overallToString,
+	ToStringFunction* overallToString,
 	unsigned int numThreads,
 	unsigned int populationSize,
 	std::vector<Locus*> loci,
-	ApportionmentFunction * apportionment,
-	AggregationFunction * aggregator,
-	ToStringFunction * toString,
+	ApportionmentFunction* apportionment,
+	AggregationFunction* aggregator,
+	ToStringFunction* toString,
 	std::vector<EndCondition*> conditions,
 	std::vector<std::string> nodeNames,
 	bool print,
@@ -45,7 +45,7 @@ template <typename NodeType, typename... params>
 void HierarchicalEA::addCooperativeCoevolution(
 	std::vector<ObjectiveFunction*> overallObjectives,
 	std::vector<EndCondition*> overallConditions,
-	ToStringFunction * overallToString,
+	ToStringFunction* overallToString,
 	unsigned int numThreads,
 	std::vector<unsigned int> populationSizes,
 	std::vector<std::vector<Locus*>> loci,
@@ -114,18 +114,18 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 	std::vector<std::string> coopNodes,
 	unsigned int numThreads,
 	std::vector<ObjectiveFunction*> objectives,
-	ToStringFunction * toString,
+	ToStringFunction* toString,
 	std::vector<EndCondition*> conditions,
 	std::string metaNodeName,
 	params... as
 ) {
-	PopulationNode * coevRoot = this->findCoevRootNode(coopNodes);
+	PopulationNode* coevRoot = this->findCoevRootNode(coopNodes);
 	coopNodes.push_back(coevRoot->name());
 	std::vector<ApportionmentFunction*> apportionments;
 	std::vector<AggregationFunction*> aggregators;
 
 	for (unsigned int i = 0; i < coopNodes.size(); i++) {
-		Apportionment * apportionment =
+		Apportionment* apportionment =
 			((Apportionment*)this->getNodeByName(coopNodes[i])
 			->getObjectives()[0]);
 		apportionments.push_back(
@@ -136,8 +136,8 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 
 	std::vector<std::tuple<
 		std::string,
-		ApportionmentFunction *,
-		AggregationFunction *
+		ApportionmentFunction*,
+		AggregationFunction*
 	>> blanketNodes;
 
 	for (unsigned int i = 0; i < coopNodes.size() - 1; i++)
