@@ -3,8 +3,6 @@
 #include <chrono>
 #include <random>
 
-using namespace std;
-
 UniformMutation::UniformMutation() : MutationOperation() {}
 
 UniformMutation::UniformMutation(

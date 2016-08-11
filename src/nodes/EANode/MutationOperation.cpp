@@ -4,8 +4,6 @@
 #include "nodes/EANode/MutationOperation.hpp"
 #include "core/HierRNG.hpp"
 
-using namespace std;
-
 MutationOperation::MutationOperation() {
 	this->init(0);
 }
@@ -47,8 +45,8 @@ GenomeTemplate MutationOperation::mutate(GenomeTemplate initial) {
 	return result;
 }
 
-string MutationOperation::toString() {
-	stringstream ss;
+std::string MutationOperation::toString() {
+	std::stringstream ss;
 	ss << "\nMutation rate: " << this->mutationRate << "\n";
 	return ss.str();
 }

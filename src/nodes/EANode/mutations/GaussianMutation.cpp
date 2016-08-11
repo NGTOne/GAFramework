@@ -3,8 +3,6 @@
 #include <chrono>
 #include <random>
 
-using namespace std;
-
 GaussianMutation::GaussianMutation(double stdDev) {
 	this->init(0, stdDev, false);
 }
