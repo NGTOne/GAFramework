@@ -2,16 +2,14 @@
 #include "core/HierGC.hpp"
 #include <sstream>
 
-using namespace std;
-
 EANode::EANode(
 	unsigned int populationSize,
-	vector<Locus*> loci,
-	vector<ObjectiveFunction*> objectives,
-	ToStringFunction * populationToString,
-	vector<EndCondition*> conditions,
-	string name,
-	EvolutionarySystem * system
+	std::vector<Locus*> loci,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction* populationToString,
+	std::vector<EndCondition*> conditions,
+	std::string name,
+	EvolutionarySystem* system
 ) : PopulationNode(
 	populationSize,
 	loci,
@@ -25,13 +23,13 @@ EANode::EANode(
 
 EANode::EANode(
 	unsigned int populationSize,
-	vector<Locus*> loci,
-	vector<ObjectiveFunction*> objectives,
-	ToStringFunction * populationToString,
-	vector<EndCondition*> conditions,
-	string name,
+	std::vector<Locus*> loci,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction* populationToString,
+	std::vector<EndCondition*> conditions,
+	std::string name,
 	unsigned int accelerationFactor,
-	EvolutionarySystem * system
+	EvolutionarySystem* system
 ) : PopulationNode(
 	populationSize,
 	loci,
@@ -49,11 +47,11 @@ void EANode::registerInternalObjects() {
 	HierGC::registerObject(this->system);
 }
 
-void EANode::init(EvolutionarySystem * system) {
+void EANode::init(EvolutionarySystem* system) {
 	this->system = system;
 }
 
-vector<Genome*> EANode::getNextPopulation() {
+std::vector<Genome*> EANode::getNextPopulation() {
 	return this->system->breedMutateSelect(
 		this->population,
 		this->fitnesses,
@@ -62,15 +60,14 @@ vector<Genome*> EANode::getNextPopulation() {
 	);
 }
 
-string EANode::toString() {
-	stringstream ss;
+std::string EANode::toString() {
+	std::stringstream ss;
 
-	ss << "Population size: " << this->population.size() << "\n";
-	ss << populationStrings();
+	ss << "Population size: " << this->population.size() << "\n"
+		<< this->populationStrings();
 
-	if (this->readOnce == false) {
+	if (this->readOnce == false)
 	        ss << "System Info:\n" << this->system->toString();
-	}
 
 	this->readOnce = true;
 	return ss.str();
@@ -80,11 +77,11 @@ node_type_t EANode::type() {
 	return EA_TYPE;
 }
 
-EvolutionarySystem * EANode::getSystem() {
+EvolutionarySystem* EANode::getSystem() {
 	return this->system;
 }
 
-PopulationNode * EANode::duplicate(std::string newNodeName) {
+PopulationNode* EANode::duplicate(std::string newNodeName) {
 	return new EANode(
 		this->populationSize(),
 		this->getCanonicalLoci(),
