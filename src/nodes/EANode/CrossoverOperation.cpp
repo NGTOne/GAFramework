@@ -78,17 +78,13 @@ std::vector<Genome*> CrossoverOperation::crossOver(
 	std::vector<Genome*> parents,
 	std::string speciesNode
 ) {
-	std::vector<GenomeTemplate> templates = this->getTemplates(parents);
 	std::vector<GenomeTemplate> offspringTemplates = this->crossOver(
-		templates
+		this->getTemplates(parents)
 	);
-
 	std::vector<Genome*> offspring;
 
-	for (unsigned int i = 0; i < offspringTemplates.size(); i++)
-		offspring.push_back(
-			new Genome(offspringTemplates[i], speciesNode)
-		);
+	for (auto templ: offspringTemplates)
+		offspring.push_back(new Genome(templ, speciesNode));
 
 	return offspring;
 }
