@@ -236,22 +236,22 @@ class HierarchicalEA {
 	);
 
 	void addMigratoryRelationship(
-		string from,
-		string to,
+		std::string from,
+		std::string to,
 		bool bidirectional,
 		unsigned int n
 	);
 
 	void addMigratoryRelationship(
-		string from,
-		string to,
+		std::string from,
+		std::string to,
 		unsigned int n,
 		TranslationFunction toTranslate
 	);
 
 	void addMigratoryRelationship(
-		string from,
-		string to,
+		std::string from,
+		std::string to,
 		unsigned int n,
 		TranslationFunction toTranslate,
 		TranslationFunction fromTranslate

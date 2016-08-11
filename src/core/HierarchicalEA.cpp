@@ -185,7 +185,7 @@ void HierarchicalEA::migrate() {
 bool HierarchicalEA::done(unsigned int currentEpoch) {
 	bool done = true;
 	if (currentEpoch >= this->maxEpochs - 1) {
-		cout << "Hierarchical EA ended because maximum epoch count"
+		std::cout << "Hierarchical EA ended because maximum epoch count"
 			<< " was reached.\n";
 		return done;
 	}
@@ -251,7 +251,7 @@ void HierarchicalEA::run(bool verbose) {
 
 		// Because humans count from 1, we add 1 to our epoch counter
 		std::cout << "After epoch " << i+1 << ":\n";
-		std::cout << string(80, '=') << "\n";
+		std::cout << std::string(80, '=') << "\n";
 		for (unsigned int k = 0; k < this->printNodes.size(); k++) {
 			std::cout << "Node " << this->nodesToPrint[k] << ":\n";
 			std::cout << this->printNodes[k]->toString();
@@ -512,7 +512,7 @@ unsigned int HierarchicalEA::findHighestCoevIndex() {
 }
 
 std::string HierarchicalEA::getNextCoevName() {
-	stringstream ss;
+	std::stringstream ss;
 	ss << OVERALL_COEV_NAME << " " << this->findHighestCoevIndex() + 1;
 	return ss.str();
 }
