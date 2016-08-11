@@ -8,16 +8,14 @@
 #include <cmath>
 #include <chrono>
 
-using namespace std;
-
 SANode::SANode(
 	unsigned int populationSize,
-	vector<Locus*> loci,
-	vector<ObjectiveFunction*> objectives,
-	ToStringFunction * populationToString,
-	vector<EndCondition*> conditions,
-	string name,
-	TemperatureSchedule * schedule,
+	std::vector<Locus*> loci,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction* populationToString,
+	std::vector<EndCondition*> conditions,
+	std::string name,
+	TemperatureSchedule* schedule,
 	bool maximize
 ) : PopulationNode(
 	populationSize,
@@ -27,18 +25,18 @@ SANode::SANode(
 	conditions,
 	name
 ) {
-	init(schedule, maximize);
+	this->init(schedule, maximize);
 }
 
 SANode::SANode(
 	unsigned int populationSize,
-	vector<Locus*> loci,
-	vector<ObjectiveFunction*> objectives,
-	ToStringFunction * populationToString,
-	vector<EndCondition*> conditions,
-	string name,
+	std::vector<Locus*> loci,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction* populationToString,
+	std::vector<EndCondition*> conditions,
+	std::string name,
 	unsigned int accelerationFactor,
-	TemperatureSchedule * schedule,
+	TemperatureSchedule* schedule,
 	bool maximize
 ) : PopulationNode(
 	populationSize,
@@ -49,16 +47,16 @@ SANode::SANode(
 	name,
 	accelerationFactor
 ) {
-	init(schedule, maximize);
+	this->init(schedule, maximize);
 }
 
 SANode::SANode(
-	vector<Locus*> loci,
-	vector<ObjectiveFunction*> objectives,
-	ToStringFunction * populationToString,
-	vector<EndCondition*> conditions,
-	string name,
-	TemperatureSchedule * schedule,
+	std::vector<Locus*> loci,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction* populationToString,
+	std::vector<EndCondition*> conditions,
+	std::string name,
+	TemperatureSchedule* schedule,
 	bool maximize
 ) : PopulationNode(
 	1,
@@ -68,17 +66,17 @@ SANode::SANode(
 	conditions,
 	name
 ) {
-	init(schedule, maximize);
+	this->init(schedule, maximize);
 }
 
 SANode::SANode(
-	vector<Locus*> loci,
-	vector<ObjectiveFunction*> objectives,
-	ToStringFunction * populationToString,
-	vector<EndCondition*> conditions,
-	string name,
+	std::vector<Locus*> loci,
+	std::vector<ObjectiveFunction*> objectives,
+	ToStringFunction* populationToString,
+	std::vector<EndCondition*> conditions,
+	std::string name,
 	unsigned int accelerationFactor,
-	TemperatureSchedule * schedule,
+	TemperatureSchedule* schedule,
 	bool maximize
 ) : PopulationNode(
 	1,
@@ -89,7 +87,7 @@ SANode::SANode(
 	name,
 	accelerationFactor
 ) {
-	init(schedule, maximize);
+	this->init(schedule, maximize);
 }
 
 void SANode::registerInternalObjects() {
@@ -97,7 +95,7 @@ void SANode::registerInternalObjects() {
 	HierGC::registerObject(this->schedule);
 }
 
-void SANode::init(TemperatureSchedule * schedule, bool maximize) {
+void SANode::init(TemperatureSchedule* schedule, bool maximize) {
 	this->maximize = maximize;
 	this->schedule = schedule;
 }
@@ -164,17 +162,16 @@ std::vector<Genome*> SANode::getLocusNeighbours(
 	return neighbours;
 }
 
-Genome * SANode::getNeighbour(Genome * target) {
-	vector<Genome*> neighbours = this->getLocusNeighbours(
+Genome* SANode::getNeighbour(Genome* target) {
+	std::vector<Genome*> neighbours = this->getLocusNeighbours(
 		target,
 		HierRNG::index(target->genomeLength() - 1)
 	);
 	unsigned int choice = HierRNG::index(neighbours.size() - 1);
-	Genome * neighbour = neighbours[choice];
+	Genome* neighbour = neighbours[choice];
 
-	for (unsigned int i = 0; i < neighbours.size(); i++) {
+	for (unsigned int i = 0; i < neighbours.size(); i++)
 		if (i != choice) delete(neighbours[i]);
-	}
 
 	float neighbourFitness = this->evaluateFitness(neighbour);
 	float targetFitness = this->evaluateFitness(target);
@@ -205,8 +202,8 @@ Genome * SANode::getNeighbour(Genome * target) {
 	}
 }
 
-vector<Genome*> SANode::getNextPopulation() {
-	vector<Genome*> newPopulation;
+std::vector<Genome*> SANode::getNextPopulation() {
+	std::vector<Genome*> newPopulation;
 	for (unsigned int i = 0; i < population.size(); i++) {
 		newPopulation.push_back(getNeighbour(population[i]));
 		delete(population[i]);
@@ -215,11 +212,11 @@ vector<Genome*> SANode::getNextPopulation() {
 	return newPopulation;
 }
 
-string SANode::toString() {
-	stringstream ss;
+std::string SANode::toString() {
+	std::stringstream ss;
 
 	ss << "Population size: " << population.size() << "\n";
-	ss << populationStrings();
+	ss << this->populationStrings();
 
 	return ss.str();
 }
@@ -228,11 +225,11 @@ node_type_t SANode::type() {
 	return SA_TYPE;
 }
 
-TemperatureSchedule * SANode::getSchedule() {
+TemperatureSchedule* SANode::getSchedule() {
 	return this->schedule;
 }
 
-PopulationNode * SANode::duplicate(std::string newNodeName) {
+PopulationNode* SANode::duplicate(std::string newNodeName) {
 	return new SANode(
 		this->populationSize(),
 		this->getCanonicalLoci(),

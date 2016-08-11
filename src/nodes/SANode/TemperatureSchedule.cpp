@@ -2,13 +2,11 @@
 #include <string>
 #include <sstream>
 
-using namespace std;
-
 TemperatureSchedule::TemperatureSchedule(
 	float initialTemp,
 	unsigned int hoverTime,
 	unsigned int iterationsToZero,
-	string name
+	std::string name
 ) {
 	this->initialTemp = initialTemp;
 	this->hoverTime = hoverTime;
@@ -19,12 +17,12 @@ TemperatureSchedule::TemperatureSchedule(
 
 TemperatureSchedule::~TemperatureSchedule() {}
 
-string TemperatureSchedule::toString() {
-	stringstream ss;
+std::string TemperatureSchedule::toString() {
+	std::stringstream ss;
 
-	ss << "Name: " << name
-	<< "\nInitial temperature: " << initialTemp
-	<< "\nFreezing time: " << iterationsToZero << " iterations"
+	ss << "Name: " << this->name
+	<< "\nInitial temperature: " << this->initialTemp
+	<< "\nFreezing time: " << this->iterationsToZero << " iterations"
 	<< "\n";
 
 	return ss.str();
