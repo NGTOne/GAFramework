@@ -5,7 +5,6 @@
 #include <algorithm>
 #include "nodes/EANode/CrossoverOperation.hpp"
 #include "core/HierRNG.hpp"
-using namespace std;
 
 CrossoverOperation::CrossoverOperation() {
 	this->init(DEFAULT_NUM_OFFSPRING);
@@ -35,12 +34,12 @@ unsigned int CrossoverOperation::maxPairings(
 }
 
 // TODO: Refactor to make this work for n parents
-vector<unsigned int> CrossoverOperation::getParents(
+std::vector<unsigned int> CrossoverOperation::getParents(
 	unsigned int numAvailableParents,
 	unsigned int desiredParents,
-	vector<vector<unsigned int>> & previousPairings
+	std::vector<std::vector<unsigned int>>& previousPairings
 ) {
-	vector<unsigned int> pairing;
+	std::vector<unsigned int> pairing;
 
 	bool alreadySeen = false;
 	unsigned int parent;
@@ -89,7 +88,7 @@ std::vector<Genome*> CrossoverOperation::crossOver(
 	return offspring;
 }
 
-unsigned int CrossoverOperation::shortestGenome(vector<Genome*> genomes) {
+unsigned int CrossoverOperation::shortestGenome(std::vector<Genome*> genomes) {
 	return this->shortestGenome(this->getTemplates(genomes));
 }
 
