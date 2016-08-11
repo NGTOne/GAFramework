@@ -27,7 +27,6 @@ Genome* MutationOperation::mutate(Genome* initialGenome) {
 		result,
 		initialGenome->getSpeciesNode()
 	);
-	GenomeTemplate::clearTemplates({initial, result});
 	return resultGenome;
 }
 

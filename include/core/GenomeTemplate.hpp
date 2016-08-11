@@ -10,6 +10,9 @@ class GenomeTemplate {
 
 	protected:
 	std::vector<Gene*> genes;
+	void addToGenome(Gene* gene);
+	void addToGenome(std::vector<Gene*> genes);
+	void setGene(Gene* gene, unsigned int index);
 
 	public:
 	GenomeTemplate();
@@ -18,6 +21,16 @@ class GenomeTemplate {
 		std::vector<Locus*> loci
 	);
 	GenomeTemplate(std::vector<Gene*> genes);
+	GenomeTemplate(GenomeTemplate& other);
+	GenomeTemplate(GenomeTemplate&& other);
+	GenomeTemplate(const GenomeTemplate& other);
+	GenomeTemplate(const GenomeTemplate&& other);
+	~GenomeTemplate();
+
+	GenomeTemplate& operator=(GenomeTemplate& other);
+	GenomeTemplate& operator=(GenomeTemplate&& other);
+	GenomeTemplate& operator=(const GenomeTemplate& other);
+	GenomeTemplate& operator=(const GenomeTemplate&& other);
 
 	void clearGenes();
 

@@ -90,9 +90,6 @@ std::vector<Genome*> CrossoverOperation::crossOver(
 			new Genome(offspringTemplates[i], speciesNode)
 		);
 
-	GenomeTemplate::clearTemplates(templates);
-	GenomeTemplate::clearTemplates(offspringTemplates);
-
 	return offspring;
 }
 

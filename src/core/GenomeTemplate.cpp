@@ -18,18 +18,65 @@ GenomeTemplate::GenomeTemplate(std::vector<Gene*> genes) {
 		this->genes.push_back(genes[i]->copy());
 }
 
+GenomeTemplate::GenomeTemplate(GenomeTemplate& other) {
+	this->addToGenome(other.getGenes());
+}
+
+GenomeTemplate::GenomeTemplate(GenomeTemplate&& other) {
+	this->genes = other.getGenes();
+	other.genes.clear();
+}
+
+GenomeTemplate::GenomeTemplate(const GenomeTemplate& other) {
+	this->addToGenome(other.genes);
+}
+
+GenomeTemplate::GenomeTemplate(const GenomeTemplate&& other) {
+	this->addToGenome(other.genes);
+}
+
+GenomeTemplate::~GenomeTemplate() {
+	this->clearGenes();
+}
+
+GenomeTemplate& GenomeTemplate::operator=(GenomeTemplate& other) {
+	this->clearGenes();
+	this->addToGenome(other.getGenes());
+	return *this;
+}
+
+GenomeTemplate& GenomeTemplate::operator=(GenomeTemplate&& other) {
+	this->clearGenes();
+	this->genes = other.getGenes();
+	other.genes.clear();
+	return *this;
+}
+
+GenomeTemplate& GenomeTemplate::operator=(const GenomeTemplate& other) {
+	this->clearGenes();
+	this->addToGenome(other.genes);
+	return *this;
+}
+
+GenomeTemplate& GenomeTemplate::operator=(const GenomeTemplate&& other) {
+	this->clearGenes();
+	this->addToGenome(other.genes);
+	return *this;
+}
+
 void GenomeTemplate::clearGenes() {
 	for (unsigned int i = 0; i < this->genes.size(); i++)
 		delete(this->genes[i]);
+	this->genes.clear();
 }
 
 GenomeTemplate GenomeTemplate::add(double gene, Locus* locus) {
-	this->genes.push_back(locus->getGene(gene));
+	this->addToGenome(locus->getGene(gene));
 	return *this;
 }
 
 GenomeTemplate GenomeTemplate::add(std::tuple<double, Locus*> newGene) {
-	this->add(std::get<0>(newGene), std::get<1>(newGene));
+	this->addToGenome(std::get<1>(newGene)->getGene(std::get<0>(newGene)));
 	return *this;
 }
 
@@ -40,35 +87,33 @@ GenomeTemplate GenomeTemplate::add(
 	if (genes.size() != loci.size()) throw MismatchedCountsException();
 
 	for (unsigned int i = 0; i < genes.size(); i++)
-		this->add(genes[i], loci[i]);
+		this->addToGenome(loci[i]->getGene(genes[i]));
 	return *this;
 }
 
 GenomeTemplate GenomeTemplate::add(GenomeTemplate other) {
-	this->add(other.getGenes());
+	this->addToGenome(other.getGenes());
 	return *this;
 }
 
 GenomeTemplate GenomeTemplate::add(Gene* newGene) {
-	this->genes.push_back(newGene->copy());
+	this->addToGenome(newGene->copy());
 	return *this;
 }
 
 GenomeTemplate GenomeTemplate::add(std::vector<Gene*> newGenes) {
 	for (unsigned int i = 0; i < newGenes.size(); i++)
-		this->add(newGenes[i]);
+		this->addToGenome(newGenes[i]->copy());
 	return *this;
 }
 
 GenomeTemplate GenomeTemplate::set(double value, unsigned int index) {
-	this->genes[index]->setIndex(value);
+	this->setGene(this->genes[index]->getLocus()->getGene(value), index);
 	return *this;
 }
 
 GenomeTemplate GenomeTemplate::set(Locus * locus, unsigned int index) {
-	Gene* gene = locus->getGene(this->genes[index]->getIndex());
-	delete(this->genes[index]);
-	this->genes[index] = gene;
+	this->setGene(locus->getGene(this->genes[index]->getIndex()), index);
 	return *this;
 }
 
@@ -77,14 +122,12 @@ GenomeTemplate GenomeTemplate::set(
 	Locus * locus,
 	unsigned int index
 ) {
-	delete(this->genes[index]);
-	this->genes[index] = locus->getGene(value);
+	this->setGene(locus->getGene(value), index);
 	return *this;
 }
 
 GenomeTemplate GenomeTemplate::set(Gene* gene, unsigned int index) {
-	delete(this->genes[index]);
-	this->genes[index] = gene;
+	this->setGene(gene->copy(), index);
 	return *this;
 }
 
@@ -114,4 +157,18 @@ unsigned int GenomeTemplate::genomeLength() {
 void GenomeTemplate::clearTemplates(std::vector<GenomeTemplate> templates) {
 	for (unsigned int i = 0; i < templates.size(); i++)
 		templates[i].clearGenes();
+}
+
+void GenomeTemplate::addToGenome(Gene* gene) {
+	this->genes.push_back(gene);
+}
+
+void GenomeTemplate::addToGenome(std::vector<Gene*> genes) {
+	for (unsigned int i = 0; i < genes.size(); i++)
+		this->addToGenome(genes[i]->copy());
+}
+
+void GenomeTemplate::setGene(Gene* gene, unsigned int index) {
+	delete(this->genes[index]);
+	this->genes[index] = gene;
 }
