@@ -7,8 +7,6 @@
 #include <functional>
 #include <boost/any.hpp>
 
-using namespace std;
-
 class Genome {
 	private:
 
@@ -59,7 +57,7 @@ class Genome {
 
 	bool isSameSpecies(Genome* other);
 	bool usesComponent(Genome* component);
-	set<Locus*> getConstructiveLoci();
+	std::set<Locus*> getConstructiveLoci();
 	GenomeTemplate getTemplate();
 
 	template <typename T>
