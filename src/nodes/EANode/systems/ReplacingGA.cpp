@@ -1,14 +1,15 @@
 #include "nodes/EANode/systems/ReplacingGA.hpp"
 
-using namespace std;
-
 ReplacingGA::ReplacingGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) : EvolutionarySystem(strategy, cross, mutation) {}
 
-bool ReplacingGA::inPopulation(Genome * target, vector<Genome*> population) {
+bool ReplacingGA::inPopulation(
+	Genome * target,
+	std::vector<Genome*> population
+) {
 	for (unsigned int i = 0; i < population.size(); i++)
 		if (population[i] == target) return true;
 
@@ -16,8 +17,8 @@ bool ReplacingGA::inPopulation(Genome * target, vector<Genome*> population) {
 }
 
 void ReplacingGA::removeUnusedIndividuals(
-	vector<Genome*> initialPopulation,
-	vector<Genome*> newPopulation
+	std::vector<Genome*> initialPopulation,
+	std::vector<Genome*> newPopulation
 ) {
 	for (unsigned int i = 0; i < initialPopulation.size(); i++) {
 		if (!this->inPopulation(
@@ -27,15 +28,15 @@ void ReplacingGA::removeUnusedIndividuals(
 	}
 }
 
-vector<Genome*> ReplacingGA::breedMutateSelect(
-	vector<Genome*> initialPopulation,
-	vector<float> & populationFitnesses,
-	vector<ObjectiveFunction*> objectives,
+std::vector<Genome*> ReplacingGA::breedMutateSelect(
+	std::vector<Genome*> initialPopulation,
+	std::vector<float>& populationFitnesses,
+	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
-	vector<Genome*> newPopulation, children, parents;
-	vector<unsigned int> parentIndices(2, 0);
-	vector<float> newFitnesses(populationFitnesses);
+	std::vector<Genome*> newPopulation, children, parents;
+	std::vector<unsigned int> parentIndices(2, 0);
+	std::vector<float> newFitnesses(populationFitnesses);
 
 	for (unsigned int i = 0; i < initialPopulation.size(); i++)
 		newPopulation.push_back(new Genome(initialPopulation[i]));

@@ -2,20 +2,18 @@
 #include "nodes/EANode/systems/StrongIterativeReplacingGA.hpp"
 #include "core/HierRNG.hpp"
 
-using namespace std;
-
 StrongIterativeReplacingGA::StrongIterativeReplacingGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) : ReplacingGA(strategy, cross, mutation) {
 	this->scramble = false;
 }
 
 StrongIterativeReplacingGA::StrongIterativeReplacingGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation,
 	bool scramble
 ) : ReplacingGA(strategy, cross, mutation) {
 	this->scramble = scramble;
@@ -25,7 +23,7 @@ void StrongIterativeReplacingGA::scramblePopulation(
 	std::vector<Genome*> & population,
 	std::vector<float> & fitnesses
 ) {
-	Genome * temp;
+	Genome* temp;
 	unsigned int index;
 	float tempFitness;
 
@@ -40,14 +38,14 @@ void StrongIterativeReplacingGA::scramblePopulation(
 	}
 }
 
-vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
-	vector<Genome*> initialPopulation,
-	vector<float> & populationFitnesses,
-	vector<ObjectiveFunction*> objectives,
+std::vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
+	std::vector<Genome*> initialPopulation,
+	std::vector<float>& populationFitnesses,
+	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
-	vector<Genome*> newPopulation, children;
-	vector<unsigned int> parentIndices(2, 0);
+	std::vector<Genome*> newPopulation, children;
+	std::vector<unsigned int> parentIndices(2, 0);
 
 	for (unsigned int i = 0; i < initialPopulation.size(); i++)
 		newPopulation.push_back(new Genome(initialPopulation[i]));
@@ -59,7 +57,7 @@ vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 			populationFitnesses
 		);
 
-		vector<Genome*> parents;
+		std::vector<Genome*> parents;
 		for (unsigned int k = 0; k < parentIndices.size(); k++)
 			parents.push_back(initialPopulation[parentIndices[k]]);
 

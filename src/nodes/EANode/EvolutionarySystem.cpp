@@ -5,12 +5,10 @@
 #include "nodes/EANode/EvolutionarySystem.hpp"
 #include "core/HierGC.hpp"
 
-using namespace std;
-
 EvolutionarySystem::EvolutionarySystem(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) {
 	this->init(
 		strategy,
@@ -28,9 +26,9 @@ void EvolutionarySystem::registerInternalObjects() {
 }
 
 void EvolutionarySystem::init(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) {
 	this->strategy = strategy;
 	this->cross = cross;
@@ -38,48 +36,46 @@ void EvolutionarySystem::init(
 }
 
 void EvolutionarySystem::sortPopulation(
-	std::vector<Genome*> & population,
-	std::vector<float> & fitnesses
+	std::vector<Genome*>& population,
+	std::vector<float>& fitnesses
 ) {
-	for (unsigned int i = 0; i < population.size(); i++) {
-		for (unsigned int k = 0; k < population.size(); k++) {
+	for (unsigned int i = 0; i < population.size(); i++)
+		for (unsigned int k = 0; k < population.size(); k++)
 			if (fitnesses[i] > fitnesses[k]) {
 				float tempFitness = fitnesses[i];
-				Genome * tempSolution = population[i];
+				Genome* tempSolution = population[i];
 				fitnesses[i] = fitnesses[k];
 				population[i] = population[k];
 				fitnesses[k] = tempFitness;
 				population[k] = tempSolution;
 			}
-		}
-	}
 }
 
 float EvolutionarySystem::evaluateFitness(
-	Genome * target,
-	vector<ObjectiveFunction*> objectives
+	Genome* target,
+	std::vector<ObjectiveFunction*> objectives
 ) {
 	float finalFitness = 0;
 	for (unsigned int i = 0; i < objectives.size(); i++)
 		finalFitness += objectives[i]->checkFitness(target);
-
 	return finalFitness;
 }
 
 unsigned int EvolutionarySystem::getParent(
-	vector<Genome*> population,
-	vector<float> fitnesses
+	std::vector<Genome*> population,
+	std::vector<float> fitnesses
 ) {
 	return this->strategy->getParent(population, fitnesses);
 }
 
-vector<Genome*> EvolutionarySystem::produceChildren(
-	vector<Genome*> parents,
+std::vector<Genome*> EvolutionarySystem::produceChildren(
+	std::vector<Genome*> parents,
 	std::string speciesNode
 ) {
-	vector<Genome*> children = this->cross->crossOver(parents, speciesNode);
+	std::vector<Genome*> children =
+		this->cross->crossOver(parents, speciesNode);
 	for (unsigned int i = 0; i < children.size(); i++) {
-		Genome * temp = children[i];
+		Genome* temp = children[i];
 		children[i] = this->mutation->mutate(children[i]);
 		delete(temp);
 	}
@@ -87,8 +83,8 @@ vector<Genome*> EvolutionarySystem::produceChildren(
 	return children;
 }
 
-string EvolutionarySystem::toString() {
-        stringstream ss;
+std::string EvolutionarySystem::toString() {
+        std::stringstream ss;
 	
 	ss << "Selection Strategy Info:\n";
 
@@ -101,15 +97,15 @@ string EvolutionarySystem::toString() {
 	return ss.str();
 }
 
-SelectionStrategy * EvolutionarySystem::getSelectionStrategy() {
+SelectionStrategy* EvolutionarySystem::getSelectionStrategy() {
 	return this->strategy;
 }
 
-CrossoverOperation * EvolutionarySystem::getCrossover() {
+CrossoverOperation* EvolutionarySystem::getCrossover() {
 	return this->cross;
 }
 
-MutationOperation * EvolutionarySystem::getMutation() {
+MutationOperation* EvolutionarySystem::getMutation() {
 	return this->mutation;
 }
 

@@ -2,30 +2,28 @@
 #include "nodes/EANode/systems/WeakIterativeReplacingGA.hpp"
 #include "core/HierRNG.hpp"
 
-using namespace std;
-
 WeakIterativeReplacingGA::WeakIterativeReplacingGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) : ReplacingGA(strategy, cross, mutation) {}
 
-vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
-	vector<Genome*> initialPopulation,
-	vector<float> & populationFitnesses,
-	vector<ObjectiveFunction*> objectives,
+std::vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
+	std::vector<Genome*> initialPopulation,
+	std::vector<float>& populationFitnesses,
+	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
-	vector<vector<Genome*>> possibleContenders(
+	std::vector<std::vector<Genome*>> possibleContenders(
 		initialPopulation.size(),
-		vector<Genome*>()
+		std::vector<Genome*>()
 	);
-	vector<Genome*> newPopulation(initialPopulation.size(), NULL);
-	vector<float> newFitnesses(initialPopulation.size(), 0);
+	std::vector<Genome*> newPopulation(initialPopulation.size(), NULL);
+	std::vector<float> newFitnesses(initialPopulation.size(), 0);
 
 	for (unsigned int i = 0; i < initialPopulation.size(); i++) {
-		vector<unsigned int> parentIndices;
-		vector<Genome*> parents, children;
+		std::vector<unsigned int> parentIndices;
+		std::vector<Genome*> parents, children;
 		parentIndices.push_back(i);
 		parentIndices.push_back(this->getParent(
 			initialPopulation,
@@ -47,7 +45,7 @@ vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 		unsigned int index = HierRNG::index(
 			possibleContenders[i].size() - 1
 		);
-		Genome * child = possibleContenders[i][index];
+		Genome* child = possibleContenders[i][index];
 		float childFitness = this->evaluateFitness(child, objectives);
 
 		if (childFitness > populationFitnesses[i]) {

@@ -5,23 +5,21 @@
 #include "nodes/EANode/systems/GA.hpp"
 #include "core/HierRNG.hpp"
 
-using namespace std;
-
 GA::GA(
 	unsigned int numElites,
 	bool randomElitePlacement,
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) : EvolutionarySystem(strategy, cross, mutation) {
 	this->init(numElites, randomElitePlacement);
 }
 
 GA::GA(
 	unsigned int numElites,
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) : EvolutionarySystem(strategy, cross, mutation) {
 	this->init(numElites, false);
 }
@@ -32,12 +30,12 @@ void GA::init(unsigned int numElites, bool randomElitePlacement) {
 }
 
 void GA::placeElites(
-	vector<Genome*> initialPopulation,
-	vector<float> initialPopulationFitnesses,
-	vector<Genome*> & newPopulation,
-	vector<float> & newPopulationFitnesses
+	std::vector<Genome*> initialPopulation,
+	std::vector<float> initialPopulationFitnesses,
+	std::vector<Genome*>& newPopulation,
+	std::vector<float>& newPopulationFitnesses
 ) {
-	vector<unsigned int> eliteLocations = this->findElites(
+	std::vector<unsigned int> eliteLocations = this->findElites(
 		initialPopulationFitnesses
 	);
 
@@ -65,11 +63,11 @@ void GA::placeElites(
 	}
 }
 
-vector<unsigned int> GA::findElites(vector<float> fitnesses) {
+std::vector<unsigned int> GA::findElites(std::vector<float> fitnesses) {
 	unsigned int populationSize = fitnesses.size(), bestFitnessIndex = 0;
 	float bestFitness;
 	bool eliteLocations[populationSize];
-	vector<unsigned int> eliteIndexes;
+	std::vector<unsigned int> eliteIndexes;
 	for (unsigned int i = 0; i < populationSize; i++)
 		eliteLocations[i] = false;
 	unsigned int trueNumElites = this->numElites >= fitnesses.size() ?
@@ -94,14 +92,14 @@ vector<unsigned int> GA::findElites(vector<float> fitnesses) {
 	return eliteIndexes;
 }
 
-vector<Genome*> GA::breedMutateSelect(
-	vector<Genome*> initialPopulation,
-	vector<float> & populationFitnesses,
-	vector<ObjectiveFunction*> objectives,
+std::vector<Genome*> GA::breedMutateSelect(
+	std::vector<Genome*> initialPopulation,
+	std::vector<float>& populationFitnesses,
+	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
-	vector<Genome*> newPopulation(initialPopulation.size(), NULL);
-	vector<float> newFitnesses(initialPopulation.size(), 0);
+	std::vector<Genome*> newPopulation(initialPopulation.size(), NULL);
+	std::vector<float> newFitnesses(initialPopulation.size(), 0);
 
 	this->placeElites(
 		initialPopulation,
@@ -112,7 +110,7 @@ vector<Genome*> GA::breedMutateSelect(
 
 	unsigned int numOffspring = 0;
 	while(numOffspring < initialPopulation.size()) {
-		vector<Genome*> parents, children;
+		std::vector<Genome*> parents, children;
 		for (int i = 0; i < 2; i++) parents.push_back(
 			initialPopulation[this->getParent(
 				initialPopulation,

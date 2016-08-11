@@ -3,21 +3,19 @@
 #include "nodes/EANode/systems/SSGA.hpp"
 #include "core/HierGC.hpp"
 
-using namespace std;
-
 SSGA::SSGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation
 ) : EvolutionarySystem(strategy, cross, mutation) {
 	this->niching = NULL;
 }
 
 SSGA::SSGA(
-	SelectionStrategy * strategy,
-	CrossoverOperation * cross,
-	MutationOperation * mutation,
-	NichingStrategy * niching
+	SelectionStrategy* strategy,
+	CrossoverOperation* cross,
+	MutationOperation* mutation,
+	NichingStrategy* niching
 ) : EvolutionarySystem(strategy, cross, mutation) {
 	this->niching = niching;
 }
@@ -27,15 +25,15 @@ void SSGA::registerInternalObjects() {
 	HierGC::registerObject(this->niching);
 }
 
-vector<Genome*> SSGA::breedMutateSelect(
-	vector<Genome*> initialPopulation,
-	vector<float> & populationFitnesses,
-	vector<ObjectiveFunction*> objectives,
+std::vector<Genome*> SSGA::breedMutateSelect(
+	std::vector<Genome*> initialPopulation,
+	std::vector<float>& populationFitnesses,
+	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
-	vector<Genome*> finalPopulation(initialPopulation.size(), NULL);
-	vector<unsigned int> parentIndices;
-	vector<Genome*> parents, children;
+	std::vector<Genome*> finalPopulation(initialPopulation.size(), NULL);
+	std::vector<unsigned int> parentIndices;
+	std::vector<Genome*> parents, children;
 
 	for (int i = 0; i < 2; i++) {
 		parentIndices.push_back(this->getParent(
@@ -47,14 +45,14 @@ vector<Genome*> SSGA::breedMutateSelect(
 
 	children = this->produceChildren(parents, speciesNode);
 
-	vector<unsigned int> replacementIndices = parentIndices;
+	std::vector<unsigned int> replacementIndices = parentIndices;
 	if (niching != NULL)
 		replacementIndices = this->niching->getIndices(
 			initialPopulation,
 			children
 		);
 
-	vector<float> newFitnesses;
+	std::vector<float> newFitnesses;
 
 	for (unsigned int i = 0; i < children.size(); i++) {
 		newFitnesses.push_back(this->evaluateFitness(
@@ -84,6 +82,6 @@ bool SSGA::hasNiching() {
 	return true;
 }
 
-NichingStrategy * SSGA::getNiching() {
+NichingStrategy* SSGA::getNiching() {
 	return this->niching;
 }
