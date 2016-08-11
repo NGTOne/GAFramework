@@ -8,14 +8,18 @@ FakeGenome::FakeGenome(
 ) : Genome(genes, speciesNode) {}
 
 FakeGenome::FakeGenome(Genome* other) : Genome(other) {
-	for (unsigned int i = 0; i < this->genes.size(); i++)
+	for (unsigned int i = 0; i < this->genes.size(); i++) {
+		Gene* temp = this->genes[i];
 		if (
-			this->genes[i]->isConstructive()
-			&& ((PopulationLocus*)this->genes[i]->getLocus())
-				->isFake()
-		) this->genes[i] = (new FakePopulationLocus(
-			(FakePopulationLocus*)this->genes[i]->getLocus()
-		))->getGene();
+			temp->isConstructive()
+			&& ((PopulationLocus*)temp->getLocus())->isFake()
+		) {
+			this->genes[i] = (new FakePopulationLocus(
+				(FakePopulationLocus*)temp->getLocus()
+			))->getGene();
+			delete(temp);
+		}
+	}
 }
 
 FakeGenome::~FakeGenome() {
