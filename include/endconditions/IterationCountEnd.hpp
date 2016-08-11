@@ -16,8 +16,8 @@ class IterationCountEnd : public EndCondition {
 	IterationCountEnd(unsigned int maxIterations);
 
 	virtual bool checkCondition(
-		vector<Genome*> genomes,
-		vector<float> fitnesses,
+		std::vector<Genome*> genomes,
+		std::vector<float> fitnesses,
 		unsigned int currentIteration
 	);
 };

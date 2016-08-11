@@ -14,8 +14,8 @@ MaxFitnessConvergenceEnd::MaxFitnessConvergenceEnd(
 }
 
 bool MaxFitnessConvergenceEnd::checkCondition(
-	vector<Genome*> genomes,
-	vector<float> fitnesses,
+	std::vector<Genome*> genomes,
+	std::vector<float> fitnesses,
 	unsigned int currentIteration
 ) {
 	float proportion = 0;

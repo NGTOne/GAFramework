@@ -20,8 +20,8 @@ class MaxFitnessConvergenceEnd : public FitnessMatchEnd {
 	);
 
 	virtual bool checkCondition(
-		vector<Genome*> genomes,
-		vector<float> fitnesses,
+		std::vector<Genome*> genomes,
+		std::vector<float> fitnesses,
 		unsigned int currentIteration
 	);
 };
