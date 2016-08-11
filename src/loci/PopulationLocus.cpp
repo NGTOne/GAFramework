@@ -60,17 +60,17 @@ bool PopulationLocus::usesSpecies(Genome* target) {
 	return this->node->name() == target->getSpeciesNode();
 }
 
-string PopulationLocus::toString() {
+std::string PopulationLocus::toString() {
 	std::stringstream ss;
 	ss << "Locus uses node " << this->nodeName() << "\n";
 	return ss.str();
 }
 
-string PopulationLocus::nodeName() {
+std::string PopulationLocus::nodeName() {
 	return this->node->name();
 }
 
-string PopulationLocus::flatten(Gene* index) {
+std::string PopulationLocus::flatten(Gene* index) {
 	if (this->outOfRange(index)) throw ValueOutOfRangeException();
 
 	std::stringstream ss;
