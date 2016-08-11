@@ -9,8 +9,6 @@
 #include <cmath>
 #include <sstream>
 
-using namespace std;
-
 Genome::Genome(std::vector<Locus*> loci, std::string speciesNode) {
 	this->speciesNode = speciesNode;
 	this->generateRandomGenes(loci);
@@ -128,7 +126,7 @@ double Genome::difference(Genome* otherGenome) {
 }
 
 std::string Genome::flatten() {
-	stringstream ss;
+	std::stringstream ss;
 
 	for (unsigned int i = 0; i < this->genes.size(); i++)
 		ss << this->genes[i]->flatten() << " ";
