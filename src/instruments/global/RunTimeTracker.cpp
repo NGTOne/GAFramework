@@ -22,7 +22,7 @@ void RunTimeTracker::endReport() {
 
 	std::stringstream ss;
 	ss << "Run took " << std::chrono::duration_cast<
-		std::chrono::seconds
-	>(endTime - this->startTime).count() << " seconds\n";
+		std::chrono::milliseconds
+	>(endTime - this->startTime).count() << " milliseconds\n";
 	this->write(ss.str());
 }
