@@ -229,6 +229,10 @@ unsigned int PopulationNode::populationSize() {
 		this->initialPopulationSize : this->population.size();
 }
 
+unsigned int PopulationNode::currentGeneration() {
+	return this->currentIteration;
+}
+
 std::string PopulationNode::populationStrings() {
 	std::stringstream ss;
 	std::string populationString;
@@ -290,6 +294,10 @@ ToStringFunction * PopulationNode::getToString() {
 
 float PopulationNode::getFitnessAtIndex(unsigned int index) {
 	return this->fitnesses[index];
+}
+
+std::vector<float> PopulationNode::getFitnesses() {
+	return this->fitnesses;
 }
 
 bool PopulationNode::contains(Genome* target) {

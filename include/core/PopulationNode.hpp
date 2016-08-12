@@ -98,6 +98,7 @@ class PopulationNode : public EABehaviourObject {
 
 	std::string name();
 	unsigned int populationSize();
+	unsigned int currentGeneration();
 	bool contains(Genome * target);
 	bool usesSpecies(Genome * target);
 
@@ -112,6 +113,7 @@ class PopulationNode : public EABehaviourObject {
 	std::vector<ObjectiveFunction*> getObjectives();
 	ToStringFunction * getToString();
 	float getFitnessAtIndex(unsigned int index);
+	std::vector<float> getFitnesses();
 
 	virtual PopulationNode * duplicate(std::string newNodeName)=0;
 };
