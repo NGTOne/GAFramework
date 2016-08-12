@@ -31,6 +31,8 @@ class HierarchicalEA {
 	std::vector<PopulationNode*> printNodes;
 	std::vector<PopulationNode*> endConditionDictatorNodes;
 
+	std::vector<HierInstrument*> instruments;
+
 	void buildNodeSet(
 		std::vector<std::string> targetNames,
 		std::vector<PopulationNode*>& targetSet
@@ -133,6 +135,7 @@ class HierarchicalEA {
 	void setEvolutionOrder(std::vector<std::string> names);
 	void setEndConditionDictatorNodes(std::vector<std::string> names);
 	PopulationNode* getNodeByName(std::string name);
+	std::vector<std::string> getNodeNames();
 
 	template <typename NodeType, typename... params>
 	void addNode(

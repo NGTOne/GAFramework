@@ -150,6 +150,13 @@ PopulationNode* HierarchicalEA::getNodeByName(std::string name) {
 	return NULL;
 }
 
+std::vector<std::string> HierarchicalEA::getNodeNames() {
+	std::vector<std::string> names;
+	for (unsigned int i = 0; i < this->nodes.size(); i++)
+		names.push_back(this->nodes[i]->name());
+	return names;
+}
+
 void HierarchicalEA::buildNodeSet(
 	std::vector<std::string> targetNames,
 	std::vector<PopulationNode*> & targetSet
