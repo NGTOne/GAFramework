@@ -20,9 +20,9 @@ void RunTimeTracker::runtimeReport() {}
 void RunTimeTracker::endReport() {
 	auto endTime = std::chrono::high_resolution_clock::now();
 
+	std::chrono::duration<double> duration = endTime - this->startTime;
+
 	std::stringstream ss;
-	ss << "Run took " << std::chrono::duration_cast<
-		std::chrono::milliseconds
-	>(endTime - this->startTime).count() << " milliseconds\n";
+	ss << "Run took " << duration.count() << " seconds\n";
 	this->write(ss.str());
 }
