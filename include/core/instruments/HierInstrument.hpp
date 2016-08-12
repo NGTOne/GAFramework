@@ -13,6 +13,7 @@ class HierInstrument {
 	void write(std::string message);
 
 	public:
+	virtual ~HierInstrument();
 	virtual void initialReport()=0;
 	virtual void runtimeReport()=0;
 	virtual void endReport()=0;
