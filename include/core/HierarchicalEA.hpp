@@ -573,27 +573,27 @@ class HierarchicalEA {
 	);
 
 	template <typename InstrType>
-	void addInstrumentation(
+	void addGlobalInstrumentation(
 		std::string outFile,
 		bool runImmediately = false
 	);
 
 	template <typename InstrType>
-	void addInstrumentation(
+	void addPopulationInstrumentation(
 		std::string node,
 		std::string outFile,
 		bool runImmediately = false
 	);
 
 	template <typename InstrType>
-	void addInstrumentation(
+	void addPopulationInstrumentation(
 		std::vector<std::string> nodes,
 		std::string outFile,
 		bool runImmediately = false
 	);
 
 	template <typename InstrType>
-	void addInstrumentation(
+	void addPopulationInstrumentation(
 		std::vector<std::string> nodes,
 		std::vector<std::string> outFiles,
 		bool runImmediately = false

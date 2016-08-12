@@ -8,7 +8,7 @@
 #include "../../exception/MismatchedCountsException.hpp"
 
 template <typename InstrType>
-void HierarchicalEA::addInstrumentation(
+void HierarchicalEA::addGlobalInstrumentation(
 	std::string outFile,
 	bool runImmediately
 ) {
@@ -23,21 +23,25 @@ void HierarchicalEA::addInstrumentation(
 }
 
 template <typename InstrType>
-void HierarchicalEA::addInstrumentation(
+void HierarchicalEA::addPopulationInstrumentation(
 	std::string node,
 	std::string outFile,
 	bool runImmediately
 ) {
-	this->addInstrumentation<InstrType>({node}, {outFile}, runImmediately);
+	this->addPopulationInstrumentation<InstrType>(
+		std::vector<std::string>({node}),
+		std::vector<std::string>({outFile}),
+		runImmediately
+	);
 }
 
 template<typename InstrType>
-void HierarchicalEA::addInstrumentation(
+void HierarchicalEA::addPopulationInstrumentation(
 	std::vector<std::string> nodes,
 	std::string outFile,
 	bool runImmediately
 ) {
-	this->addInstrumentation<InstrType>(
+	this->addPopulationInstrumentation<InstrType>(
 		nodes,
 		std::vector<std::string>(nodes.size(), outFile),
 		runImmediately
@@ -45,7 +49,7 @@ void HierarchicalEA::addInstrumentation(
 }
 
 template <typename InstrType>
-void HierarchicalEA::addInstrumentation(
+void HierarchicalEA::addPopulationInstrumentation(
 	std::vector<std::string> nodes,
 	std::vector<std::string> outFiles,
 	bool runImmediately
