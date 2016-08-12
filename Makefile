@@ -184,6 +184,7 @@ exception:
 instruments:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/global/RunTimeTracker.cpp -o obj/instruments/global/RunTimeTracker.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/BestFitnessAppearanceGeneration.cpp -o obj/instruments/population/BestFitnessAppearanceGeneration.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/CSVInstrument.cpp -o obj/instruments/population/CSVInstrument.o
 
 # Examples
 examples: example-fitnesses
