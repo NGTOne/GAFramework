@@ -50,7 +50,7 @@ library: obj-dir core objectives loci nodes endconditions exception \
 obj-dir:
 	./compile-scripts/make-obj-dir.sh
 
-core: builders
+core: builders utils
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/genes/Gene.cpp -o obj/core/genes/Gene.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/genes/DiscreteGene.cpp -o obj/core/genes/DiscreteGene.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/genes/ContinuousGene.cpp -o obj/core/genes/ContinuousGene.o
@@ -78,11 +78,15 @@ core: builders
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierarchicalEA.cpp -o obj/core/HierarchicalEA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierGC.cpp -o obj/core/HierGC.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierRNG.cpp -o obj/core/HierRNG.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/instruments/HierInstrument.cpp -o obj/core/instruments/HierInstrument.o
 
 builders:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/StructureBuilder.cpp -o obj/core/builders/StructureBuilder.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/TreeBuilder.cpp -o obj/core/builders/TreeBuilder.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/LatticeBuilder.cpp -o obj/core/builders/LatticeBuilder.o
+
+utils:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/utils/HierLogger.cpp -o obj/core/utils/HierLogger.o
 
 objectives: apportionment-func aggregators
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/NoisyObjective.cpp -o obj/objectives/noisy/NoisyObjective.o
