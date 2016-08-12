@@ -5,6 +5,6 @@ HierInstrument::HierInstrument(std::string outFile) {
 	this->outFile = outFile;
 }
 
-void HierInstrument::writeOut(std::string message) {
+void HierInstrument::write(std::string message) {
 	HierLogger::log(message, this->outFile);
 }

@@ -10,7 +10,7 @@ class HierInstrument {
 	std::string outFile;
 
 	HierInstrument(std::string outFile);
-	void writeOut(std::string message);
+	void write(std::string message);
 
 	public:
 	virtual void initialReport()=0;

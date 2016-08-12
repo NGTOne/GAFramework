@@ -43,7 +43,7 @@ uninstall:
 	if [[ "$$(uname -s)" == "Linux" ]]; then sudo ldconfig; fi
 
 library: obj-dir core objectives loci nodes endconditions exception \
-		pop-formulae
+		pop-formulae instruments
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
 	ar -cvq $(STATICLIB) $(LIBOBJS)
 
@@ -178,6 +178,9 @@ exception:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/ComponentNotPresentException.cpp -o obj/exception/ComponentNotPresentException.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/InvalidBlanketException.cpp -o obj/exception/InvalidBlanketException.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/exception/CoevConstructionException.cpp -o obj/exception/CoevConstructionException.o
+
+instruments:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/global/RunTimeTracker.cpp -o obj/instruments/global/RunTimeTracker.o
 
 # Examples
 examples: example-fitnesses
