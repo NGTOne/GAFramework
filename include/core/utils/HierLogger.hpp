@@ -1,12 +1,12 @@
 #ifndef CORE_UTILS_HierLogger
 #define CORE_UTILS_HierLogger
 
-#include <iostream>
+#include "HierLoggerStream.hpp"
 #include <map>
 
 class HierLogger {
 	private:
-	static std::map<std::string, std::ofstream&> streams;
+	static std::map<std::string, HierLoggerStream*> streams;
 
 	static bool alreadyOpen(std::string filename);
 	static void open(std::string filename);

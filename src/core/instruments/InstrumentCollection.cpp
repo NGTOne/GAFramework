@@ -7,7 +7,7 @@ InstrumentCollection::~InstrumentCollection() {
 }
 
 void InstrumentCollection::add(HierInstrument* instrument) {
-	this->add({instrument});
+	this->instruments.push_back(instrument);
 }
 
 void InstrumentCollection::add(std::vector<HierInstrument*> instruments) {

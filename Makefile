@@ -90,6 +90,7 @@ builders:
 
 utils:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/utils/HierLogger.cpp -o obj/core/utils/HierLogger.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/utils/HierLoggerStream.cpp -o obj/core/utils/HierLoggerStream.o
 
 objectives: apportionment-func aggregators
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/objectives/noisy/NoisyObjective.cpp -o obj/objectives/noisy/NoisyObjective.o

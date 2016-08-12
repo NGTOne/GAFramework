@@ -2,28 +2,28 @@
 #include <iostream>
 #include <fstream>
 
-std::map<std::string, std::ofstream&> HierLogger::streams;
+std::map<std::string, HierLoggerStream*> HierLogger::streams;
 
 bool HierLogger::alreadyOpen(std::string filename) {
 	return HierLogger::streams.find(filename) != HierLogger::streams.end();
 }
 
 void HierLogger::open(std::string filename) {
-	std::ofstream stream;
-	stream.open(filename);
 	if (!HierLogger::alreadyOpen(filename))
-		HierLogger::streams.emplace(filename, stream);
+		HierLogger::streams.emplace(
+			filename,
+			new HierLoggerStream(filename)
+		);
 }
 
 void HierLogger::log(std::string message, std::string filename) {
 	HierLogger::open(filename);
-	std::ofstream& stream = HierLogger::streams.at(filename);
-	stream << message;
+	HierLogger::streams.at(filename)->write(message);
 }
 
 void HierLogger::close(std::string filename) {
 	if (HierLogger::alreadyOpen(filename)) {
-		std::ofstream& stream = HierLogger::streams.at(filename);
-		stream.close();
+		delete(HierLogger::streams.at(filename));
+		HierLogger::streams.erase(filename);
 	}
 }
