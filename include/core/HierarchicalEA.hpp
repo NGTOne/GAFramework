@@ -8,6 +8,7 @@
 #include "ToStringFunction.hpp"
 #include "builders/TreeBuilder.hpp"
 #include "builders/LatticeBuilder.hpp"
+#include "instruments/HierInstrument.hpp"
 #include <vector>
 #include <tuple>
 #include <string>
@@ -565,6 +566,33 @@ class HierarchicalEA {
 		std::vector<std::vector<bool>> print,
 		std::vector<std::vector<bool>> end,
 		params... as
+	);
+
+	template <typename InstrType>
+	void addInstrumentation(
+		std::string outFile,
+		bool runImmediately = false
+	);
+
+	template <typename InstrType>
+	void addInstrumentation(
+		std::string node,
+		std::string outFile,
+		bool runImmediately = false
+	);
+
+	template <typename InstrType>
+	void addInstrumentation(
+		std::vector<std::string> nodes,
+		std::string outFile,
+		bool runImmediately = false
+	);
+
+	template <typename InstrType>
+	void addInstrumentation(
+		std::vector<std::string> nodes,
+		std::vector<std::string> outFiles,
+		bool runImmediately = false
 	);
 };
 
