@@ -9,6 +9,7 @@
 #include "builders/TreeBuilder.hpp"
 #include "builders/LatticeBuilder.hpp"
 #include "instruments/HierInstrument.hpp"
+#include "instruments/InstrumentCollection.hpp"
 #include <vector>
 #include <tuple>
 #include <string>
@@ -31,7 +32,7 @@ class HierarchicalEA {
 	std::vector<PopulationNode*> printNodes;
 	std::vector<PopulationNode*> endConditionDictatorNodes;
 
-	std::vector<HierInstrument*> instruments;
+	InstrumentCollection instruments;
 
 	void buildNodeSet(
 		std::vector<std::string> targetNames,

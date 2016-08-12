@@ -81,6 +81,7 @@ core: builders utils
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/instruments/HierInstrument.cpp -o obj/core/instruments/HierInstrument.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/instruments/PopulationInstrument.cpp -o obj/core/instruments/PopulationInstrument.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/instruments/GlobalInstrument.cpp -o obj/core/instruments/GlobalInstrument.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/instruments/InstrumentCollection.cpp -o obj/core/instruments/InstrumentCollection.o
 
 builders:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/StructureBuilder.cpp -o obj/core/builders/StructureBuilder.o

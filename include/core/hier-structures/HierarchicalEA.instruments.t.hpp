@@ -21,7 +21,7 @@ void HierarchicalEA::addInstrumentation(
 	// TODO: Find a better way to do this
 	if (std::is_base_of<GlobalInstrument, InstrType>::value) {
 		HierInstrument* instrument = new InstrType(this, outFile);
-		this->instruments.push_back(instrument);
+		this->instruments.add(instrument);
 		if (runImmediately) instrument->initialReport();
 	} else if (std::is_base_of<PopulationInstrument, InstrType>::value) {
 		this->addInstrumentation<InstrType>(
@@ -75,11 +75,7 @@ void HierarchicalEA::addInstrumentation(
 			outFiles[i]
 		));
 
-	this->instruments.insert(
-		this->instruments.end(),
-		newInstruments.begin(),
-		newInstruments.end()
-	);
+	this->instruments.add(newInstruments);
 
 	if (runImmediately)
 		for (auto instr: newInstruments) instr->initialReport();
