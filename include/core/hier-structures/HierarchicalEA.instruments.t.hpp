@@ -13,23 +13,13 @@ void HierarchicalEA::addInstrumentation(
 	bool runImmediately
 ) {
 	static_assert(
-		std::is_base_of<HierInstrument, InstrType>::value,
-		"Type provided to addInstrumentation() is not an instrument type!"
+		std::is_base_of<GlobalInstrument, InstrType>::value,
+		"Type provided to addInstrumentation() does not operate globally!"
 	);
 
-	// A little WTF here, but oh well
-	// TODO: Find a better way to do this
-	if (std::is_base_of<GlobalInstrument, InstrType>::value) {
-		HierInstrument* instrument = new InstrType(this, outFile);
-		this->instruments.add(instrument);
-		if (runImmediately) instrument->initialReport();
-	} else if (std::is_base_of<PopulationInstrument, InstrType>::value) {
-		this->addInstrumentation<InstrType>(
-			this->getNodeNames(),
-			outFile,
-			runImmediately
-		);
-	}
+	HierInstrument* instrument = new InstrType(this, outFile);
+	this->instruments.add(instrument);
+	if (runImmediately) instrument->initialReport();
 }
 
 template <typename InstrType>
