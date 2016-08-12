@@ -243,6 +243,7 @@ void HierarchicalEA::run(bool verbose) {
 		std::cout << this->printNodes[i]->toString();
 		std::cout << std::string(80, '-') << "\n";
 	}
+	this->instruments->runInitial();
 
 	for (unsigned int i = 0; i < this->maxEpochs; i++) {
 		for (unsigned int k = 0; k < this->evolutionNodes.size(); k++)
@@ -264,9 +265,11 @@ void HierarchicalEA::run(bool verbose) {
 			std::cout << this->printNodes[k]->toString();
 			std::cout << std::string(80, '-') << "\n";
 		}
+		this->instruments->runRuntime();
 
 		if (this->done(i)) break;
 	}
+	this->instruments->runEnd();
 }
 
 void HierarchicalEA::addMigratoryRelationship(
