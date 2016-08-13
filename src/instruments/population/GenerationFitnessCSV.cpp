@@ -51,6 +51,5 @@ void GenerationFitnessCSV::runtimeReport() {
 	this->reportFitnesses();
 }
 
-void GenerationFitnessCSV::endReport() {
-	this->reportFitnesses();
-}
+// The same as the runtime report after the last generation
+void GenerationFitnessCSV::endReport() {}
