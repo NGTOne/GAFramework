@@ -7,52 +7,50 @@
 #include "../instruments/GlobalInstrument.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
 
-template <typename InstrType>
+template <typename InstrType, typename... params>
 void HierarchicalEA::addGlobalInstrumentation(
 	std::string outFile,
-	bool runImmediately
+	params... as
 ) {
 	static_assert(
 		std::is_base_of<GlobalInstrument, InstrType>::value,
 		"Type provided to addInstrumentation() does not operate globally!"
 	);
 
-	HierInstrument* instrument = new InstrType(this, outFile);
-	this->instruments.add(instrument);
-	if (runImmediately) instrument->initialReport();
+	this->instruments.add(new InstrType(this, outFile, as...));
 }
 
-template <typename InstrType>
+template <typename InstrType, typename... params>
 void HierarchicalEA::addPopulationInstrumentation(
 	std::string node,
 	std::string outFile,
-	bool runImmediately
+	params... as
 ) {
 	this->addPopulationInstrumentation<InstrType>(
 		std::vector<std::string>({node}),
 		std::vector<std::string>({outFile}),
-		runImmediately
+		as...
 	);
 }
 
-template<typename InstrType>
+template<typename InstrType, typename... params>
 void HierarchicalEA::addPopulationInstrumentation(
 	std::vector<std::string> nodes,
 	std::string outFile,
-	bool runImmediately
+	params... as
 ) {
 	this->addPopulationInstrumentation<InstrType>(
 		nodes,
 		std::vector<std::string>(nodes.size(), outFile),
-		runImmediately
+		as...
 	);
 }
 
-template <typename InstrType>
+template <typename InstrType, typename... params>
 void HierarchicalEA::addPopulationInstrumentation(
 	std::vector<std::string> nodes,
 	std::vector<std::string> outFiles,
-	bool runImmediately
+	params... as
 ) {
 	static_assert(
 		std::is_base_of<PopulationInstrument, InstrType>::value,
@@ -62,17 +60,12 @@ void HierarchicalEA::addPopulationInstrumentation(
 	if (!this->compareVectorLengths(nodes, outFiles))
 		throw MismatchedCountsException("Number of nodes specified does not match number of output files for instrumentation.");
 
-	std::vector<HierInstrument*> newInstruments;
 	for (unsigned int i = 0; i < nodes.size(); i++)
-		newInstruments.push_back(new InstrType(
+		this->instruments.add(new InstrType(
 			this->getNodeByName(nodes[i]),
-			outFiles[i]
+			outFiles[i],
+			as...
 		));
-
-	this->instruments.add(newInstruments);
-
-	if (runImmediately)
-		for (auto instr: newInstruments) instr->initialReport();
 }
 
 #endif
