@@ -32,8 +32,8 @@ class CSVInstrument: public PopulationInstrument {
 template <typename T>
 void CSVInstrument::write(std::vector<T> values, T defaultValue) {
 	if (!this->headerWritten) {
-		this->write(this->header, std::string());
 		this->headerWritten = true;
+		this->write(this->header, std::string());
 	}
 
 	std::stringstream ss;
@@ -50,6 +50,7 @@ void CSVInstrument::write(std::vector<T> values, T defaultValue) {
 		) ss << defaultValue << ",";
 		ss << defaultValue;
 	}
+	ss << "\n";
 
 	HierInstrument::write(ss.str());
 }
