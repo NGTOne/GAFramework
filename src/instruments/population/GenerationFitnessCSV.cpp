@@ -10,12 +10,15 @@ GenerationFitnessCSV::GenerationFitnessCSV(
 	float resolution
 ) : CSVInstrument(target, outFile) {
 	std::vector<float> buckets;
-	for (float i = bottomFitness; i <= topFitness; i+= resolution)
+	std::vector<std::string> headerBuckets;
+	for (float i = bottomFitness; i <= topFitness; i+= resolution) {
 		buckets.push_back(i);
+		headerBuckets.push_back(std::to_string(i));
+	}
 	this->buckets = buckets;
 	this->resolution = resolution;
 	this->addToHeader("Generation");
-	this->addToHeader(this->buckets);
+	this->addToHeader(headerBuckets);
 }
 
 float GenerationFitnessCSV::bucket(float actual) {
