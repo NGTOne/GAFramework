@@ -30,7 +30,7 @@ class CSVInstrument: public PopulationInstrument {
 	void addToHeader(T value);
 
 	template <typename T>
-	void addToHeader(std::vector<T> values);
+	void addVToHeader(std::vector<T> values);
 
 	public:
 };
@@ -96,11 +96,11 @@ void CSVInstrument::setHeader(std::vector<T> values) {
 
 template <typename T>
 void CSVInstrument::addToHeader(T value) {
-	this->addToHeader(std::vector<T>({value}));
+	this->addVToHeader(std::vector<T>({value}));
 }
 
 template <typename T>
-void CSVInstrument::addToHeader(std::vector<T> values) {
+void CSVInstrument::addVToHeader(std::vector<T> values) {
 	std::vector<std::string> headerValues = this->makeStringVector(values);
 	this->header.insert(
 		this->header.end(),
