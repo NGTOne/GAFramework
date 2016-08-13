@@ -3,4 +3,6 @@
 CSVInstrument::CSVInstrument(
 	PopulationNode* target,
 	std::string outFile
-) : PopulationInstrument(target, outFile) {}
+) : PopulationInstrument(target, outFile) {
+	this->headerWritten = false;
+}
