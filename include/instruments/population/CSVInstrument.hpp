@@ -8,6 +8,8 @@
 
 class CSVInstrument: public PopulationInstrument {
 	private:
+	template <typename T>
+	std::vector<std::string> makeStringVector(std::vector<T> values);
 
 	protected:
 	std::vector<std::string> header;
@@ -24,8 +26,27 @@ class CSVInstrument: public PopulationInstrument {
 	template <typename T>
 	void setHeader(std::vector<T> values);
 
+	template <typename T>
+	void addToHeader(T value);
+
+	template <typename T>
+	void addToHeader(std::vector<T> values);
+
 	public:
 };
+
+template <typename T>
+std::vector<std::string> CSVInstrument::makeStringVector(std::vector<T> values) {
+	std::stringstream ss;
+	std::vector<std::string> strings;
+	for (auto it = values.begin(); it != values.end(); it++) {
+		ss.str("");
+		ss << *it;
+		strings.push_back(ss.str());
+	}
+
+	return strings;
+}
 
 template <typename T>
 void CSVInstrument::write(std::vector<T> values, T defaultValue) {
@@ -70,15 +91,22 @@ void CSVInstrument::write(std::map<std::string, Val> values, Val defaultValue) {
 
 template <typename T>
 void CSVInstrument::setHeader(std::vector<T> values) {
-	std::stringstream ss;
-	std::vector<std::string> header;
-	for (auto it = values.begin(); it != values.end(); it++) {
-		ss.str("");
-		ss << it;
-		header.push_back(ss.str());
-	}
+	this->header = this->makeStringVector(values);
+}
 
-	this->header = header;	
+template <typename T>
+void CSVInstrument::addToHeader(T value) {
+	this->addToHeader(std::vector<T>({value}));
+}
+
+template <typename T>
+void CSVInstrument::addToHeader(std::vector<T> values) {
+	std::vector<std::string> headerValues = this->makeStringVector(values);
+	this->header.insert(
+		this->header.end(),
+		headerValues.begin(),
+		headerValues.end()
+	);
 }
 
 #endif
