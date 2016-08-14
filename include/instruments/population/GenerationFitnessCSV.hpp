@@ -1,11 +1,11 @@
 #ifndef INSTRUMENTS_POPULATION_GenerationFitnessCSV
 #define INSTRUMENTS_POPULATION_GenerationFitnessCSV
 
-#include "CSVInstrument.hpp"
+#include "GenerationalCSVInstrument.hpp"
 #include <vector>
 #include <map>
 
-class GenerationFitnessCSV: public CSVInstrument {
+class GenerationFitnessCSV: public GenerationalCSVInstrument {
 	private:
 
 	protected:
@@ -13,8 +13,7 @@ class GenerationFitnessCSV: public CSVInstrument {
 	float resolution;
 
 	float bucket(float actual);
-
-	void reportFitnesses();
+	void report();
 
 	public:
 	GenerationFitnessCSV(
@@ -24,10 +23,6 @@ class GenerationFitnessCSV: public CSVInstrument {
 		float topFitness,
 		float resolution = 1
 	);
-
-	void initialReport();
-	void runtimeReport();
-	void endReport();
 };
 
 #endif

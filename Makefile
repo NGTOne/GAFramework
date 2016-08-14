@@ -185,6 +185,7 @@ instruments:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/global/RunTimeTracker.cpp -o obj/instruments/global/RunTimeTracker.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/BestFitnessAppearanceGeneration.cpp -o obj/instruments/population/BestFitnessAppearanceGeneration.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/CSVInstrument.cpp -o obj/instruments/population/CSVInstrument.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/GenerationalCSVInstrument.cpp -o obj/instruments/population/GenerationalCSVInstrument.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/GenerationFitnessCSV.cpp -o obj/instruments/population/GenerationFitnessCSV.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/GenerationHammingDistanceCSV.cpp -o obj/instruments/population/GenerationHammingDistanceCSV.o
 

@@ -1,18 +1,18 @@
 #ifndef INSTRUMENTS_POPULATION_GenerationHammingDistanceCSV
 #define INSTRUMENTS_POPULATION_GenerationHammingDistanceCSV
 
-#include "CSVInstrument.hpp"
+#include "GenerationalCSVInstrument.hpp"
 #include <vector>
 #include <map>
 
-class GenerationHammingDistanceCSV: public CSVInstrument {
+class GenerationHammingDistanceCSV: public GenerationalCSVInstrument {
 	private:
 
 	protected:
 	std::vector<std::string> targetString;
 
 	unsigned int checkHammingDistance(Genome* target);
-	void reportDistances();
+	void report();
 
 	public:
 	GenerationHammingDistanceCSV(
@@ -20,10 +20,6 @@ class GenerationHammingDistanceCSV: public CSVInstrument {
 		std::string outFile,
 		std::vector<std::string> targetString
 	);
-
-	void initialReport();
-	void runtimeReport();
-	void endReport();
 };
 
 #endif
