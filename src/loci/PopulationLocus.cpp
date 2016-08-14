@@ -1,7 +1,7 @@
 #include "loci/PopulationLocus.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
 #include "core/genes/DiscreteGene.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 #include <boost/any.hpp>
 #include <sstream>
 

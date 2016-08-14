@@ -1,7 +1,7 @@
 #include <random>
 #include <sstream>
 #include "nodes/EANode/systems/SSGA.hpp"
-#include "core/HierGC.hpp"
+#include "core/utils/HierGC.hpp"
 
 SSGA::SSGA(
 	SelectionStrategy* strategy,

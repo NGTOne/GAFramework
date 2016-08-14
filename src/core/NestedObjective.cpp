@@ -1,5 +1,5 @@
 #include "core/NestedObjective.hpp"
-#include "core/HierGC.hpp"
+#include "core/utils/HierGC.hpp"
 
 NestedObjective::NestedObjective(ObjectiveFunction * innerObjective) {
 	this->innerObjective = innerObjective;

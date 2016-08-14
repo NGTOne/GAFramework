@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <sstream>
 #include "nodes/EANode/crossovers/NPointCrossover.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 
 NPointCrossover::NPointCrossover (
 	unsigned int numPoints

@@ -1,6 +1,6 @@
 #ifndef CORE_NodeGC
 #define CORE_NodeGC
-#include "EABehaviourObject.hpp"
+#include "../EABehaviourObject.hpp"
 #include <vector>
 #include <set>
 #pragma once

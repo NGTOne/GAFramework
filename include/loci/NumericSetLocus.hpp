@@ -2,7 +2,7 @@
 #define LOCI_NumericSetLocus
 
 #include "../core/Locus.hpp"
-#include "../core/HierRNG.hpp"
+#include "../core/utils/HierRNG.hpp"
 #include "../core/genes/DiscreteGene.hpp"
 #include "../core/genes/ContinuousGene.hpp"
 #include <limits>

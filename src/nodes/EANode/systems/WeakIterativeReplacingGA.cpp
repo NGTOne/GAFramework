@@ -1,6 +1,6 @@
 #include <random>
 #include "nodes/EANode/systems/WeakIterativeReplacingGA.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 
 WeakIterativeReplacingGA::WeakIterativeReplacingGA(
 	SelectionStrategy* strategy,

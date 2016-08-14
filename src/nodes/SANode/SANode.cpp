@@ -1,7 +1,7 @@
 #include "nodes/SANode/SANode.hpp"
 #include "core/Locus.hpp"
-#include "core/HierRNG.hpp"
-#include "core/HierGC.hpp"
+#include "core/utils/HierRNG.hpp"
+#include "core/utils/HierGC.hpp"
 #include <string>
 #include <sstream>
 #include <random>

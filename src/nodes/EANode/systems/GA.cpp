@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 #include "nodes/EANode/systems/GA.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 
 GA::GA(
 	unsigned int numElites,

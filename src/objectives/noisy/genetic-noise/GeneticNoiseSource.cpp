@@ -1,5 +1,5 @@
 #include "objectives/noisy/genetic-noise/GeneticNoiseSource.hpp"
-#include "core/HierGC.hpp"
+#include "core/utils/HierGC.hpp"
 
 GeneticNoiseSource::GeneticNoiseSource() {
 	this->mutator = NULL;

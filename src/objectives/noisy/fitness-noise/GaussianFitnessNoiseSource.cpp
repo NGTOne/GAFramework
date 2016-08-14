@@ -1,5 +1,5 @@
 #include "objectives/noisy/fitness-noise/GaussianFitnessNoiseSource.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 
 GaussianFitnessNoiseSource::GaussianFitnessNoiseSource(
 	double stdDev

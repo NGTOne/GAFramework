@@ -2,7 +2,7 @@
 #include <chrono>
 #include <sstream>
 #include "nodes/EANode/crossovers/UniformCrossover.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 
 UniformCrossover::UniformCrossover() : CrossoverOperation() {}
 

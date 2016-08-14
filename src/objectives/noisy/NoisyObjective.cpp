@@ -1,7 +1,7 @@
 #include "objectives/noisy/NoisyObjective.hpp"
 #include "objectives/noisy/genetic-noise/NonNoisyGeneticSource.hpp"
 #include "objectives/noisy/fitness-noise/NonNoisyFitnessSource.hpp"
-#include "core/HierGC.hpp"
+#include "core/utils/HierGC.hpp"
 #include <chrono>
 
 NoisyObjective::NoisyObjective(

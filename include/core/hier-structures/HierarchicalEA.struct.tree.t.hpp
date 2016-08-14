@@ -1,5 +1,5 @@
 #include "../HierarchicalEA.hpp"
-#include "../HierGC.hpp"
+#include "../utils/HierGC.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
 #include "../../exception/ValueOutOfRangeException.hpp"
 #include "../../loci/PopulationLocus.hpp"

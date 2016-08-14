@@ -1,5 +1,5 @@
 #include "nodes/EANode/EANode.hpp"
-#include "core/HierGC.hpp"
+#include "core/utils/HierGC.hpp"
 #include <sstream>
 
 EANode::EANode(

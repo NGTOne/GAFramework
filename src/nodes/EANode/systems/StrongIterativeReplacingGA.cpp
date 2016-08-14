@@ -1,6 +1,6 @@
 #include <random>
 #include "nodes/EANode/systems/StrongIterativeReplacingGA.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 
 StrongIterativeReplacingGA::StrongIterativeReplacingGA(
 	SelectionStrategy* strategy,

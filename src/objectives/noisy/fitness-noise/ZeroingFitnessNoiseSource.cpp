@@ -1,5 +1,5 @@
 #include "objectives/noisy/fitness-noise/ZeroingFitnessNoiseSource.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 
 ZeroingFitnessNoiseSource::ZeroingFitnessNoiseSource(
 	double zeroChance

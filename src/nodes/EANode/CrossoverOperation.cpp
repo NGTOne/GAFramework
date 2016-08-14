@@ -4,7 +4,7 @@
 #include <sstream>
 #include <algorithm>
 #include "nodes/EANode/CrossoverOperation.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 
 CrossoverOperation::CrossoverOperation() {
 	this->init(DEFAULT_NUM_OFFSPRING);

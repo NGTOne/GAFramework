@@ -1,6 +1,6 @@
 #include "loci/CollectionLocus.hpp"
 #include "core/genes/DiscreteGene.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
 
 CollectionLocus::CollectionLocus() {}

@@ -1,7 +1,7 @@
 #include "core/migration/MigratoryRelationship.hpp"
 #include "core/migration/NullTranslationFunction.hpp"
 #include "core/PopulationNode.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 #include <random>
 #include <chrono>
 

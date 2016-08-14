@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 #include "nodes/EANode/EvolutionarySystem.hpp"
-#include "core/HierGC.hpp"
+#include "core/utils/HierGC.hpp"
 
 EvolutionarySystem::EvolutionarySystem(
 	SelectionStrategy* strategy,

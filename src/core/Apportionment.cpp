@@ -1,6 +1,6 @@
 #include "core/Apportionment.hpp"
-#include "core/HierRNG.hpp"
-#include "core/HierGC.hpp"
+#include "core/utils/HierRNG.hpp"
+#include "core/utils/HierGC.hpp"
 #include <algorithm>
 #include <random>
 

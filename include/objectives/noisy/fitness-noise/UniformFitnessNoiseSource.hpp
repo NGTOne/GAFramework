@@ -1,5 +1,5 @@
 #include "FitnessNoiseSource.hpp"
-#include "../../../core/HierRNG.hpp"
+#include "../../../core/utils/HierRNG.hpp"
 #pragma once
 
 template <typename T>

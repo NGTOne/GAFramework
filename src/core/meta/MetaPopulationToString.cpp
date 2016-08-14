@@ -1,6 +1,6 @@
 #include "core/meta/MetaPopulationToString.hpp"
 #include "core/meta/BlanketResolver.hpp"
-#include "core/HierGC.hpp"
+#include "core/utils/HierGC.hpp"
 
 MetaPopulationToString::MetaPopulationToString(
 	ToStringFunction * flattenedToString

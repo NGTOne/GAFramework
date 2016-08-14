@@ -76,8 +76,6 @@ core: builders utils
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationObjective.cpp -o obj/core/meta/MetaPopulationObjective.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/meta/MetaPopulationToString.cpp -o obj/core/meta/MetaPopulationToString.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierarchicalEA.cpp -o obj/core/HierarchicalEA.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierGC.cpp -o obj/core/HierGC.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/HierRNG.cpp -o obj/core/HierRNG.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/instruments/HierInstrument.cpp -o obj/core/instruments/HierInstrument.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/instruments/PopulationInstrument.cpp -o obj/core/instruments/PopulationInstrument.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/instruments/GlobalInstrument.cpp -o obj/core/instruments/GlobalInstrument.o
@@ -89,6 +87,8 @@ builders:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/builders/LatticeBuilder.cpp -o obj/core/builders/LatticeBuilder.o
 
 utils:
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/utils/HierGC.cpp -o obj/core/utils/HierGC.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/utils/HierRNG.cpp -o obj/core/utils/HierRNG.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/utils/HierLogger.cpp -o obj/core/utils/HierLogger.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/utils/HierLoggerStream.cpp -o obj/core/utils/HierLoggerStream.o
 

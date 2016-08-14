@@ -2,7 +2,7 @@
 #include <sstream>
 #include <algorithm>
 #include "nodes/EANode/crossovers/CutAndSpliceCrossover.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 
 CutAndSpliceCrossover::CutAndSpliceCrossover() : CrossoverOperation() {}
 

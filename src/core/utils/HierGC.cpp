@@ -1,4 +1,4 @@
-#include "core/HierGC.hpp"
+#include "core/utils/HierGC.hpp"
 #include <algorithm>
 
 std::set<EABehaviourObject*> HierGC::objects = std::set<EABehaviourObject*>();

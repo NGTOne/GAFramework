@@ -2,7 +2,7 @@
 #include <chrono>
 #include <sstream>
 #include "nodes/EANode/MutationOperation.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 
 MutationOperation::MutationOperation() {
 	this->init(0);

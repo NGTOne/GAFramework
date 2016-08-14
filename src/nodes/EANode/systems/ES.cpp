@@ -4,7 +4,7 @@
 #include <sstream>
 #include "nodes/EANode/systems/ES.hpp"
 #include "nodes/EANode/selections/RandomSelection.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 
 ES::ES(
 	CrossoverOperation* cross,

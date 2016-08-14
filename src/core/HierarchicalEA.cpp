@@ -8,8 +8,8 @@
 #include "core/Apportionment.hpp"
 #include "loci/PopulationLocus.hpp"
 #include "nodes/NonOptimizingNode.hpp"
-#include "core/HierRNG.hpp"
-#include "core/HierGC.hpp"
+#include "core/utils/HierRNG.hpp"
+#include "core/utils/HierGC.hpp"
 
 #include <iostream>
 #include <algorithm>

@@ -1,5 +1,5 @@
 #include "nodes/EANode/mutations/GaussianMutation.hpp"
-#include "core/HierRNG.hpp"
+#include "core/utils/HierRNG.hpp"
 #include <chrono>
 #include <random>
 

@@ -1,5 +1,5 @@
 #include "core/PopulationNode.hpp"
-#include "core/HierGC.hpp"
+#include "core/utils/HierGC.hpp"
 #include <sstream>
 #include <iostream>
 
