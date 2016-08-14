@@ -2,8 +2,8 @@
 #define CORE_ToStringFunction
 
 #include <string>
-#include "Genome.hpp"
-#include "EABehaviourObject.hpp"
+#include "../Genome.hpp"
+#include "../EABehaviourObject.hpp"
 
 class ToStringFunction : public EABehaviourObject {
 	private:

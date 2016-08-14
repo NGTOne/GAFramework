@@ -1,7 +1,7 @@
 #include "ObjectiveFunction.hpp"
 #include "ApportionmentFunction.hpp"
 #include "AggregationFunction.hpp"
-#include "PopulationNode.hpp"
+#include "../PopulationNode.hpp"
 #pragma once
 
 class Apportionment : public ObjectiveFunction {

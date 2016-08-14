@@ -57,13 +57,13 @@ core: builders utils
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Genome.cpp -o obj/core/Genome.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/FakeGenome.cpp -o obj/core/FakeGenome.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/GenomeTemplate.cpp -o obj/core/GenomeTemplate.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/ObjectiveFunction.cpp -o obj/core/ObjectiveFunction.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/NestedObjective.cpp -o obj/core/NestedObjective.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/ToStringFunction.cpp -o obj/core/ToStringFunction.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/eval/ObjectiveFunction.cpp -o obj/core/eval/ObjectiveFunction.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/eval/NestedObjective.cpp -o obj/core/eval/NestedObjective.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/eval/ToStringFunction.cpp -o obj/core/eval/ToStringFunction.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PopulationFormula.cpp -o obj/core/PopulationFormula.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Apportionment.cpp -o obj/core/Apportionment.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/ApportionmentFunction.cpp -o obj/core/ApportionmentFunction.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/AggregationFunction.cpp -o obj/core/AggregationFunction.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/eval/Apportionment.cpp -o obj/core/eval/Apportionment.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/eval/ApportionmentFunction.cpp -o obj/core/eval/ApportionmentFunction.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/eval/AggregationFunction.cpp -o obj/core/eval/AggregationFunction.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/PopulationNode.cpp -o obj/core/PopulationNode.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/EndCondition.cpp -o obj/core/EndCondition.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/core/Locus.cpp -o obj/core/Locus.o

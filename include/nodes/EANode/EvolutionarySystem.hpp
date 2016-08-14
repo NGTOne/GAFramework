@@ -1,7 +1,7 @@
 #include "../../core/Genome.hpp"
 #include "SelectionStrategy.hpp"
 #include "CrossoverOperation.hpp"
-#include "../../core/ObjectiveFunction.hpp"
+#include "../../core/eval/ObjectiveFunction.hpp"
 #include "../../core/EABehaviourObject.hpp"
 #include "MutationOperation.hpp"
 #include <random>

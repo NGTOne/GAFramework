@@ -1,4 +1,4 @@
-#include "core/NestedObjective.hpp"
+#include "core/eval/NestedObjective.hpp"
 #include "core/utils/HierGC.hpp"
 
 NestedObjective::NestedObjective(ObjectiveFunction * innerObjective) {

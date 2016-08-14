@@ -1,5 +1,5 @@
-#include "Genome.hpp"
-#include "EABehaviourObject.hpp"
+#include "../Genome.hpp"
+#include "../EABehaviourObject.hpp"
 #include <vector>
 #pragma once
 

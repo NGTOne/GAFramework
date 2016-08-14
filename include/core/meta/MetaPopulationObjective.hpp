@@ -1,4 +1,4 @@
-#include "../NestedObjective.hpp"
+#include "../eval/NestedObjective.hpp"
 #pragma once
 
 class MetaPopulationObjective : public NestedObjective {

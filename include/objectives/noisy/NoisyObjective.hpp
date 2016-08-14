@@ -1,4 +1,4 @@
-#include "../../core/NestedObjective.hpp"
+#include "../../core/eval/NestedObjective.hpp"
 #include "genetic-noise/GeneticNoiseSource.hpp"
 #include "fitness-noise/FitnessNoiseSource.hpp"
 #include <random>

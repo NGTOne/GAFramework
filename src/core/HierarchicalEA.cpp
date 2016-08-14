@@ -5,7 +5,7 @@
 #include "exception/NoEvolutionOrderException.hpp"
 #include "exception/MismatchedCountsException.hpp"
 #include "exception/CoevConstructionException.hpp"
-#include "core/Apportionment.hpp"
+#include "core/eval/Apportionment.hpp"
 #include "loci/PopulationLocus.hpp"
 #include "nodes/NonOptimizingNode.hpp"
 #include "core/utils/HierRNG.hpp"

@@ -1,4 +1,4 @@
-#include "../../core/AggregationFunction.hpp"
+#include "../../core/eval/AggregationFunction.hpp"
 #pragma once
 
 class BestOfAggregator : public AggregationFunction {

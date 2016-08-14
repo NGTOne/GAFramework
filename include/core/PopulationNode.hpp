@@ -1,10 +1,9 @@
 #ifndef CORE_PopulationNode
 #define CORE_PopulationNode
 #include "Genome.hpp"
-#include "ObjectiveFunction.hpp"
+#include "eval/ObjectiveFunction.hpp"
 #include "EndCondition.hpp"
-#include "ObjectiveFunction.hpp"
-#include "ToStringFunction.hpp"
+#include "eval/ToStringFunction.hpp"
 #include "Locus.hpp"
 #include "EABehaviourObject.hpp"
 #include <vector>

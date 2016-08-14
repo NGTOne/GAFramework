@@ -1,5 +1,5 @@
 #include <vector>
-#include "EABehaviourObject.hpp"
+#include "../EABehaviourObject.hpp"
 #pragma once
 
 class AggregationFunction : public EABehaviourObject {

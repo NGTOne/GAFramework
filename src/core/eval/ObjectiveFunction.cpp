@@ -1,4 +1,4 @@
-#include "core/ObjectiveFunction.hpp"
+#include "core/eval/ObjectiveFunction.hpp"
 
 ObjectiveFunction::~ObjectiveFunction() {}
 

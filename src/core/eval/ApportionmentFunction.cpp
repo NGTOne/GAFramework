@@ -1,3 +1,3 @@
-#include "core/ApportionmentFunction.hpp"
+#include "core/eval/ApportionmentFunction.hpp"
 
 ApportionmentFunction::~ApportionmentFunction() {}

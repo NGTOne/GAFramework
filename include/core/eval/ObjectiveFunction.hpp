@@ -2,8 +2,8 @@
 #define CORE_ObjectiveFunction
 
 #include <string>
-#include "Genome.hpp"
-#include "EABehaviourObject.hpp"
+#include "../Genome.hpp"
+#include "../EABehaviourObject.hpp"
 
 class ObjectiveFunction : public EABehaviourObject {
 	private:

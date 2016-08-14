@@ -1,8 +1,7 @@
-#include "core/Apportionment.hpp"
+#include "core/eval/Apportionment.hpp"
 #include "core/utils/HierRNG.hpp"
 #include "core/utils/HierGC.hpp"
 #include <algorithm>
-#include <random>
 
 Apportionment::Apportionment(
 	PopulationNode * upperNode,
