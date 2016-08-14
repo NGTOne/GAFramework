@@ -8,11 +8,11 @@ GenerationHammingDistanceCSV::GenerationHammingDistanceCSV(
 ) : CSVInstrument(target, outFile) {
 	this->targetString = targetString;
 
-	std::vector<std::string> header;
-	header.push_back("Generation");
-	for (unsigned int i = 0; i <= targetString.size(); i++)
-		header.push_back(std::to_string(i));
-	this->setHeader(header);
+	std::vector<unsigned int> header(targetString.size() + 1);
+	std::iota(header.begin(), header.end(), 0);
+
+	this->addToHeader("Generation");
+	this->addToHeader(header);
 }
 
 unsigned int GenerationHammingDistanceCSV::checkHammingDistance(
@@ -28,10 +28,7 @@ unsigned int GenerationHammingDistanceCSV::checkHammingDistance(
 void GenerationHammingDistanceCSV::reportDistances() {
 	std::vector<unsigned int> distances(this->targetString.size() + 1);
 	std::iota(distances.begin(), distances.end(), 0);
-	std::map<std::string, unsigned int> output = this->buildEmptyMap(
-		distances,
-		(unsigned int)0
-	);
+	auto output = this->buildEmptyMap(distances, (unsigned int)0);
 	output.emplace("Generation", this->target->currentGeneration());
 
 	for (unsigned int i = 0; i < this->target->populationSize(); i++)

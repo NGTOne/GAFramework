@@ -16,9 +16,12 @@ class CSVInstrument: public PopulationInstrument {
 
 	CSVInstrument(PopulationNode* target, std::string outFile);
 
+	template <typename T>
+	std::vector<std::string> stringifyVector(std::vector<T> values);
+
 	template <typename Key, typename Val>
 	std::map<std::string, Val> buildEmptyMap(
-		std::vector<Key>& keys,
+		std::vector<Key> keys,
 		Val emptyValue
 	);
 
@@ -28,26 +31,39 @@ class CSVInstrument: public PopulationInstrument {
 	template <typename Val>
 	void write(std::map<std::string, Val> values, Val defaultValue);
 
-	void setHeader(std::vector<std::string> values);
-	void addToHeader(std::string value);
-	void addToHeader(std::vector<std::string> values);
+	template <typename T>
+	void setHeader(std::vector<T> values);
+
+	template <typename T>
+	void addToHeader(T value);
+
+	template <typename T>
+	void addToHeader(std::vector<T> values);
 
 	public:
 };
 
-template <typename Key, typename Val>
-std::map<std::string, Val> CSVInstrument::buildEmptyMap(
-	std::vector<Key>& keys,
-	Val emptyValue
+template <typename T>
+std::vector<std::string> CSVInstrument::stringifyVector(
+	std::vector<T> values
 ) {
-	std::vector<std::string> stringKeys;
+	std::vector<std::string> output;
 	std::stringstream ss;
-	for (Key key: keys) {
+	for (T value: values) {
 		ss.str("");
-		ss << key;
-		stringKeys.push_back(ss.str());
+		ss << value;
+		output.push_back(ss.str());
 	}
 
+	return output;
+}
+
+template <typename Key, typename Val>
+std::map<std::string, Val> CSVInstrument::buildEmptyMap(
+	std::vector<Key> keys,
+	Val emptyValue
+) {
+	std::vector<std::string> stringKeys = this->stringifyVector(keys);
 	std::map<std::string, Val> emptyValues;
 	for (std::string key: stringKeys) emptyValues.emplace(key, emptyValue);
 	return emptyValues;
@@ -93,6 +109,29 @@ void CSVInstrument::write(std::map<std::string, Val> values, Val defaultValue) {
 	}
 
 	this->write(valuesToWrite, defaultValue);
+}
+
+template <typename T>
+void CSVInstrument::setHeader(std::vector<T> values) {
+	std::vector<std::string> stringValues = this->stringifyVector(values);
+	this->header = stringValues;
+}
+
+template <typename T>
+void CSVInstrument::addToHeader(T value) {
+	std::vector<T> vecVal({value});
+	std::vector<std::string> stringValues = this->stringifyVector(vecVal);
+	this->addToHeader<std::string>(stringValues);
+}
+
+template <typename T>
+void CSVInstrument::addToHeader(std::vector<T> values) {
+	std::vector<std::string> stringValues = this->stringifyVector(values);
+	this->header.insert(
+		this->header.end(),
+		stringValues.begin(),
+		stringValues.end()
+	);
 }
 
 #endif
