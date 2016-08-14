@@ -16,6 +16,12 @@ class CSVInstrument: public PopulationInstrument {
 
 	CSVInstrument(PopulationNode* target, std::string outFile);
 
+	template <typename Key, typename Val>
+	std::map<std::string, Val> buildEmptyMap(
+		std::vector<Key>& keys,
+		Val emptyValue
+	);
+
 	template <typename T>
 	void write(std::vector<T> values, T defaultValue);
 
@@ -28,6 +34,24 @@ class CSVInstrument: public PopulationInstrument {
 
 	public:
 };
+
+template <typename Key, typename Val>
+std::map<std::string, Val> CSVInstrument::buildEmptyMap(
+	std::vector<Key>& keys,
+	Val emptyValue
+) {
+	std::vector<std::string> stringKeys;
+	std::stringstream ss;
+	for (Key key: keys) {
+		ss.str("");
+		ss << key;
+		stringKeys.push_back(ss.str());
+	}
+
+	std::map<std::string, Val> emptyValues;
+	for (std::string key: stringKeys) emptyValues.emplace(key, emptyValue);
+	return emptyValues;
+}
 
 template <typename T>
 void CSVInstrument::write(std::vector<T> values, T defaultValue) {

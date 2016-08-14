@@ -28,15 +28,11 @@ float GenerationFitnessCSV::bucket(float actual) {
 		actual - mod : actual - mod + resolution);
 }
 
-std::map<std::string, unsigned int> GenerationFitnessCSV::buildEmptyMap() {
-	std::map<std::string, unsigned int> counts;
-	for (float fitness: this->buckets)
-		counts.emplace(std::to_string(fitness), 0);
-	return counts;
-}
-
 void GenerationFitnessCSV::reportFitnesses() {
-	std::map<std::string, unsigned int> output = this->buildEmptyMap();
+	std::map<std::string, unsigned int> output = this->buildEmptyMap(
+		this->buckets,
+		(unsigned int)0
+	);
 	output.emplace("Generation", this->target->currentGeneration());
 	std::vector<float> fitnesses = this->target->getFitnesses();
 	for (float fitness: fitnesses) output[std::to_string(fitness)]++;

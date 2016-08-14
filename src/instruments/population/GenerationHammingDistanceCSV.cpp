@@ -15,16 +15,6 @@ GenerationHammingDistanceCSV::GenerationHammingDistanceCSV(
 	this->setHeader(header);
 }
 
-std::map<
-	std::string,
-	unsigned int
-> GenerationHammingDistanceCSV::buildEmptyMap() {
-	std::map<std::string, unsigned int> counts;
-	for (unsigned int i = 0; i <= this->targetString.size(); i++)
-		counts.emplace(std::to_string(i), 0);
-	return counts;
-}
-
 unsigned int GenerationHammingDistanceCSV::checkHammingDistance(
 	Genome* target
 ) {
@@ -36,8 +26,14 @@ unsigned int GenerationHammingDistanceCSV::checkHammingDistance(
 }
 
 void GenerationHammingDistanceCSV::reportDistances() {
-	std::map<std::string, unsigned int> output = this->buildEmptyMap();
+	std::vector<unsigned int> distances(this->targetString.size() + 1);
+	std::iota(distances.begin(), distances.end(), 0);
+	std::map<std::string, unsigned int> output = this->buildEmptyMap(
+		distances,
+		(unsigned int)0
+	);
 	output.emplace("Generation", this->target->currentGeneration());
+
 	for (unsigned int i = 0; i < this->target->populationSize(); i++)
 		output[std::to_string(
 			this->checkHammingDistance(this->target->getIndex(i))

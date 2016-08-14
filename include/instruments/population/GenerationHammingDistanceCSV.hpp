@@ -11,7 +11,6 @@ class GenerationHammingDistanceCSV: public CSVInstrument {
 	protected:
 	std::vector<std::string> targetString;
 
-	std::map<std::string, unsigned int> buildEmptyMap();
 	unsigned int checkHammingDistance(Genome* target);
 	void reportDistances();
 

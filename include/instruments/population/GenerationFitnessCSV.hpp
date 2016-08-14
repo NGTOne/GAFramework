@@ -13,7 +13,6 @@ class GenerationFitnessCSV: public CSVInstrument {
 	float resolution;
 
 	float bucket(float actual);
-	std::map<std::string, unsigned int> buildEmptyMap();
 
 	void reportFitnesses();
 
