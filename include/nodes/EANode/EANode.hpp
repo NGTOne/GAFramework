@@ -1,9 +1,11 @@
+#ifndef NODES_EANODE_EANode
+#define NODES_EANODE_EANode
+
 #include "../../core/PopulationNode.hpp"
 #include "EvolutionarySystem.hpp"
 #include "CrossoverOperation.hpp"
 #include "MutationOperation.hpp"
 #include <string>
-#pragma once
 
 #define EA_TYPE "evolutionary"
 
@@ -48,3 +50,5 @@ class EANode : public PopulationNode {
 
 	PopulationNode * duplicate(std::string newNodeName);
 };
+
+#endif

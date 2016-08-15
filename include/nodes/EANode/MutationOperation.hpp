@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NODES_EANODE_MutationOperation
+#define NODES_EANODE_MutationOperation
+
 #include "../../core/Genome.hpp"
 #include "../../core/GenomeTemplate.hpp"
 #include "../../core/EABehaviourObject.hpp"
@@ -29,3 +31,5 @@ class MutationOperation : public EABehaviourObject {
 
 	std::string toString();
 };
+
+#endif

@@ -1,6 +1,8 @@
+#ifndef CORE_HIER_STRUCTURES_HierarchicalEA_struct_migration_t
+#define CORE_HIER_STRUCTURES_HierarchicalEA_struct_migration_t
+
 #include "../HierarchicalEA.hpp"
 #include "../PopulationNodeFactory.hpp"
-#pragma once
 
 template<typename NodeType, typename... params>
 void HierarchicalEA::addMigratoryRing(
@@ -97,3 +99,5 @@ void HierarchicalEA::addMigratoryTorus(
 			n
 		);
 }
+
+#endif

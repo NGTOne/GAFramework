@@ -1,6 +1,8 @@
+#ifndef CORE_BUILDERS_TreeBuilder
+#define CORE_BUILDERS_TreeBuilder
+
 #include <vector>
 #include "StructureBuilder.hpp"
-#pragma once
 
 class TreeBuilder: public StructureBuilder {
 	private:
@@ -18,3 +20,5 @@ class TreeBuilder: public StructureBuilder {
 
 	std::vector<unsigned int> getLevelCounts(unsigned int level);
 };
+
+#endif

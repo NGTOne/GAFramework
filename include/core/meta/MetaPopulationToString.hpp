@@ -1,6 +1,8 @@
+#ifndef CORE_META_MetaPopulationToString
+#define CORE_META_MetaPopulationToString
+
 #include "../eval/ToStringFunction.hpp"
 #include <vector>
-#pragma once
 
 class MetaPopulationToString : public ToStringFunction {
 	private:
@@ -15,3 +17,5 @@ class MetaPopulationToString : public ToStringFunction {
 	bool isNested();
 	std::vector<ToStringFunction*> getNested();
 };
+
+#endif

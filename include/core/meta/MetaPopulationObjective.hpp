@@ -1,5 +1,7 @@
+#ifndef CORE_META_MetaPopulationObjective
+#define CORE_META_MetaPopulationObjective
+
 #include "../eval/NestedObjective.hpp"
-#pragma once
 
 class MetaPopulationObjective : public NestedObjective {
 	private:
@@ -10,3 +12,5 @@ class MetaPopulationObjective : public NestedObjective {
 	MetaPopulationObjective(ObjectiveFunction * flattenedObjective);
 	float checkFitness(Genome * genome);
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef CORE_HierarchicalEA
+#define CORE_HierarchicalEA
+
 #include "PopulationNode.hpp"
 #include "PopulationFormula.hpp"
 #include "migration/MigratoryRelationship.hpp"
@@ -13,7 +16,6 @@
 #include <vector>
 #include <tuple>
 #include <string>
-#pragma once
 
 #define OVERALL_COEV_NAME "Overall Coevolution"
 
@@ -647,3 +649,5 @@ std::vector<std::vector<std::vector<T>>> HierarchicalEA::getNestedEmptyVector(
 
 	return empty;
 }
+
+#endif

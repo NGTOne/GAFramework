@@ -1,8 +1,10 @@
+#ifndef LOCI_PopulationLocus
+#define LOCI_PopulationLocus
+
 #include "../core/Locus.hpp"
 #include "../core/PopulationNode.hpp"
 #include <vector>
 #include <string>
-#pragma once
 
 class PopulationLocus: public Locus {
 	private:
@@ -36,3 +38,5 @@ class PopulationLocus: public Locus {
 	virtual boost::any getIndex(Gene* index);
 	PopulationNode* getNode();
 };
+
+#endif

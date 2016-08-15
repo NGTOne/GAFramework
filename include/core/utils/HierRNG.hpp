@@ -1,5 +1,5 @@
-#ifndef CORE_HierRNG
-#define CORE_HierRNG
+#ifndef CORE_UTILS_HierRNG
+#define CORE_UTILS_HierRNG
 #include <random>
 
 class HierRNG {

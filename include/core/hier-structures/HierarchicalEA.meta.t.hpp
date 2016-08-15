@@ -1,6 +1,8 @@
+#ifndef CORE_HIER_STRUCTURES_HierarchicalEA_meta_t
+#define CORE_HIER_STRUCTURES_HierarchicalEA_meta_t
+
 #include "../HierarchicalEA.hpp"
 #include "../meta/MetaPopulationFactory.hpp"
-#pragma once
 
 template<typename MetaNodeType, typename... params>
 void HierarchicalEA::addMetaPopulation(
@@ -84,3 +86,5 @@ void HierarchicalEA::addMetaPopulation(
 		false
 	);
 }
+
+#endif

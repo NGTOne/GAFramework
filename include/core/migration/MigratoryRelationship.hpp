@@ -1,7 +1,9 @@
+#ifndef CORE_MIGRATION_MigratoryRelationship
+#define CORE_MIGRATION_MigratoryRelationship
+
 #include "../PopulationNode.hpp"
 #include "TranslationFunction.hpp"
 #include <random>
-#pragma once
 
 class MigratoryRelationship {
 	private:
@@ -49,3 +51,5 @@ class MigratoryRelationship {
 
 	void migrate();
 };
+
+#endif

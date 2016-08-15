@@ -1,5 +1,7 @@
+#ifndef OBJECTIVES_NOISY_FITNESS_NOISE_NonNoisyFitnessSource
+#define OBJECTIVES_NOISY_FITNESS_NOISE_NonNoisyFitnessSource
+
 #include "FitnessNoiseSource.hpp"
-#pragma once
 
 class NonNoisyFitnessSource: public FitnessNoiseSource {
 	private:
@@ -11,3 +13,5 @@ class NonNoisyFitnessSource: public FitnessNoiseSource {
 
 	float addNoise(float cleanFitness);
 };
+
+#endif

@@ -1,7 +1,9 @@
+#ifndef NODES_EANODE_SELECTIONS_TournamentSelection
+#define NODES_EANODE_SELECTIONS_TournamentSelection
+
 #include "../SelectionStrategy.hpp"
 #include <string>
 #include <vector>
-#pragma once
 
 #define DEFAULT_TOURNAMENT_SIZE 2
 
@@ -32,3 +34,5 @@ class TournamentSelection : public SelectionStrategy {
 	);
 	std::string toString();
 };
+
+#endif

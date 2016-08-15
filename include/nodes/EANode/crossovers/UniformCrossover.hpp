@@ -1,5 +1,7 @@
+#ifndef NODES_EANODE_CROSSOVERS_UniformCrossover
+#define NODES_EANODE_CROSSOVERS_UniformCrossover
+
 #include "../CrossoverOperation.hpp"
-#pragma once
 
 class UniformCrossover : public CrossoverOperation {
 	private:
@@ -15,3 +17,5 @@ class UniformCrossover : public CrossoverOperation {
 
 	std::string toString();
 };
+
+#endif

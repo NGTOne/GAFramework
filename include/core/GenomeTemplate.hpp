@@ -1,9 +1,11 @@
+#ifndef CORE_GenomeTemplate
+#define CORE_GenomeTemplate
+
 #include "Locus.hpp"
 #include "genes/Gene.hpp"
 #include "../exception/ValueOutOfRangeException.hpp"
 #include <vector>
 #include <tuple>
-#pragma once
 
 class GenomeTemplate {
 	private:
@@ -59,3 +61,5 @@ class GenomeTemplate {
 
 	static void clearTemplates(std::vector<GenomeTemplate> templates);
 };
+
+#endif

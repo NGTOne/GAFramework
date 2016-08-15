@@ -1,7 +1,9 @@
+#ifndef NODES_EANODE_SYSTEMS_AccelSSGA
+#define NODES_EANODE_SYSTEMS_AccelSSGA
+
 #include "SSGA.hpp"
 #include "niching/NichingStrategy.hpp"
 #include <vector>
-#pragma once
 
 /*
 * The "Accelerated SSGA" model uses the steady-state GA model, in which one pair
@@ -39,3 +41,5 @@ class AccelSSGA : public SSGA {
 		std::string speciesNode
 	);
 };
+
+#endif

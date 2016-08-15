@@ -1,5 +1,7 @@
+#ifndef ENDCONDITIONS_MaxFitnessConvergenceEnd
+#define ENDCONDITIONS_MaxFitnessConvergenceEnd
+
 #include "./FitnessMatchEnd.hpp"
-#pragma once
 
 /*
 * This ending condition will terminate the GA if more than a given proportion
@@ -25,3 +27,5 @@ class MaxFitnessConvergenceEnd : public FitnessMatchEnd {
 		unsigned int currentIteration
 	);
 };
+
+#endif

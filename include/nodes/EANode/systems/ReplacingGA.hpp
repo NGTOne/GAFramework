@@ -1,6 +1,8 @@
+#ifndef NODES_EANODE_SYSTEMS_ReplacingGA
+#define NODES_EANODE_SYSTEMS_ReplacingGA
+
 #include "../EvolutionarySystem.hpp"
 #include <string>
-#pragma once
 
 /*
 * The ReplacingGA model represents a "classical" GA model,
@@ -37,3 +39,5 @@ class ReplacingGA : public EvolutionarySystem {
 		std::string speciesNode
 	);
 };
+
+#endif

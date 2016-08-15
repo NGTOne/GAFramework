@@ -1,5 +1,5 @@
-#ifndef CORE_HIER_STRUCTURES_HierarchicalEA_Instruments_t
-#define CORE_HIER_STRUCTURES_HierarchicalEA_Instruments_t
+#ifndef CORE_HIER_STRUCTURES_HierarchicalEA_instruments_t
+#define CORE_HIER_STRUCTURES_HierarchicalEA_instruments_t
 
 #include "../HierarchicalEA.hpp"
 #include "../instruments/HierInstrument.hpp"

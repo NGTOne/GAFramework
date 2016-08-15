@@ -1,5 +1,7 @@
+#ifndef OBJECTIVES_NOISY_GENETIC_NOISE_NonNoisyGeneticSource
+#define OBJECTIVES_NOISY_GENETIC_NOISE_NonNoisyGeneticSource
+
 #include "GeneticNoiseSource.hpp"
-#pragma once
 
 class NonNoisyGeneticSource: public GeneticNoiseSource {
 	private:
@@ -10,3 +12,5 @@ class NonNoisyGeneticSource: public GeneticNoiseSource {
 	NonNoisyGeneticSource();
 	Genome addNoise(Genome * target);
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef NODES_SANODE_SANode
+#define NODES_SANODE_SANode
+
 #include "TemperatureSchedule.hpp"
 #include "../../core/PopulationNode.hpp"
 #include "../../core/Genome.hpp"
@@ -5,7 +8,6 @@
 #include <string>
 #include <vector>
 #include <random>
-#pragma once
 
 #define SA_TYPE "annealer"
 
@@ -83,3 +85,5 @@ class SANode : public PopulationNode {
 
 	PopulationNode * duplicate(std::string newNodeName);
 };
+
+#endif

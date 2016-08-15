@@ -1,5 +1,5 @@
-#ifndef core_EA_BehaviourObject
-#define core_EA_BehaviourObject
+#ifndef core_EABehaviourObject
+#define core_EABehaviourObject
 
 #include "utils/HierGC.hpp"
 class HierGC;

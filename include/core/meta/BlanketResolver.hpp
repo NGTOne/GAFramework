@@ -1,9 +1,11 @@
+#ifndef CORE_META_BlanketResolver
+#define CORE_META_BlanketResolver
+
 #include "../Genome.hpp"
 #include "../GenomeTemplate.hpp"
 #include "../Locus.hpp"
 #include "../PopulationNode.hpp"
 #include <vector>
-#pragma once
 
 class BlanketResolver {
 	private:
@@ -31,3 +33,5 @@ class BlanketResolver {
 	static unsigned int findHeadIndex(Genome* blanket);
 	static Genome resolveBlanket(Genome* blanket);
 };
+
+#endif

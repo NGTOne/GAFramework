@@ -1,9 +1,11 @@
+#ifndef NODES_EANODE_SelectionStrategy
+#define NODES_EANODE_SelectionStrategy
+
 #include "../../core/Genome.hpp"
 #include "../../core/EABehaviourObject.hpp"
 #include <random>
 #include <string>
 #include <vector>
-#pragma once
 
 class SelectionStrategy : public EABehaviourObject {
 	private:
@@ -31,3 +33,5 @@ class SelectionStrategy : public EABehaviourObject {
 
 	virtual std::string toString();
 };
+
+#endif

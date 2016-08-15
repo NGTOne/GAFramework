@@ -1,7 +1,9 @@
+#ifndef CORE_BUILDERS_StructureBuilder
+#define CORE_BUILDERS_StructureBuilder
+
 #include <vector>
 #include <tuple>
 #include <string>
-#pragma once
 
 class StructureBuilder {
 	private:
@@ -18,3 +20,5 @@ class StructureBuilder {
 	std::vector<unsigned int> getLevelSizes();
 	std::vector<std::string> getLevel(unsigned int level);
 };
+
+#endif

@@ -1,9 +1,9 @@
-#ifndef CORE_NodeGC
-#define CORE_NodeGC
+#ifndef CORE_UTILS_NodeGC
+#define CORE_UTILS_NodeGC
+
 #include "../EABehaviourObject.hpp"
 #include <vector>
 #include <set>
-#pragma once
 
 class EABehaviourObject;
 
@@ -30,4 +30,3 @@ void HierGC::registerObjects(std::vector<T*> objects) {
 }
 
 #endif
-#pragma once

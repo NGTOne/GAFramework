@@ -1,5 +1,5 @@
-#ifndef CORE_ObjectiveFunction
-#define CORE_ObjectiveFunction
+#ifndef CORE_EVAL_ObjectiveFunction
+#define CORE_EVAL_ObjectiveFunction
 
 #include <string>
 #include "../Genome.hpp"

@@ -1,8 +1,10 @@
+#ifndef CORE_HIER_STRUCTURES_HierarchicalEA_struct_coev_t
+#define CORE_HIER_STRUCTURES_HierarchicalEA_struct_coev_t
+
 #include "../HierarchicalEA.hpp"
 #include "../../nodes/NonOptimizingNode.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
 #include "../../loci/PopulationLocus.hpp"
-#pragma once
 
 template <typename NodeType, typename... params>
 void HierarchicalEA::addCooperativeCoevolution(
@@ -164,3 +166,5 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 		as...
 	);
 }
+
+#endif

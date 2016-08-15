@@ -1,6 +1,8 @@
+#ifndef CORE_META_MetaPopulationApportionment
+#define CORE_META_MetaPopulationApportionment
+
 #include "../eval/Apportionment.hpp"
 #include "../PopulationNode.hpp"
-#pragma once
 
 class MetaPopulationApportionment : public Apportionment {
 	private:
@@ -24,3 +26,5 @@ class MetaPopulationApportionment : public Apportionment {
 		AggregationFunction * aggregation
 	);
 };
+
+#endif

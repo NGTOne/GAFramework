@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NODES_SANODE_SCHEDULES_ExponentialTempSchedule
+#define NODES_SANODE_SCHEDULES_ExponentialTempSchedule
+
 #include "../TemperatureSchedule.hpp"
 
 class ExponentialTempSchedule : public TemperatureSchedule {
@@ -17,3 +19,5 @@ class ExponentialTempSchedule : public TemperatureSchedule {
 
 	float currentTemp(unsigned int currentIteration);
 };
+
+#endif

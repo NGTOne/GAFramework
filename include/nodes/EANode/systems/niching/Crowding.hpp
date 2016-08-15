@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NODES_EANODE_SYSTEMS_NICHING_Crowding
+#define NODES_EANODE_SYSTEMS_NICHING_Crowding
+
 #include "NichingStrategy.hpp"
 
 class Crowding : public NichingStrategy {
@@ -12,3 +14,5 @@ class Crowding : public NichingStrategy {
 		std::vector<Genome*> newPopulation
 	);
 };
+
+#endif

@@ -1,5 +1,6 @@
 #ifndef CORE_PopulationNode
 #define CORE_PopulationNode
+
 #include "Genome.hpp"
 #include "eval/ObjectiveFunction.hpp"
 #include "EndCondition.hpp"
@@ -118,4 +119,3 @@ class PopulationNode : public EABehaviourObject {
 };
 
 #endif
-#pragma once

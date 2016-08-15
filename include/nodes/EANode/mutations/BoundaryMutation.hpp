@@ -1,5 +1,7 @@
+#ifndef NODES_EANODE_MUTATIONS_BoundaryMutation
+#define NODES_EANODE_MUTATIONS_BoundaryMutation
+
 #include "../MutationOperation.hpp"
-#pragma once
 
 /*
 * The boundary mutation operator randomly decides whether or not to mutate
@@ -17,3 +19,5 @@ class BoundaryMutation : public MutationOperation {
 	BoundaryMutation();
 	BoundaryMutation(double mutationRate);
 };
+
+#endif

@@ -1,5 +1,7 @@
+#ifndef NODES_EANODE_MUTATIONS_GaussianMutation
+#define NODES_EANODE_MUTATIONS_GaussianMutation
+
 #include "../MutationOperation.hpp"
-#pragma once
 
 /*
 * Gaussian mutation changes the value of the allele by randomly generating
@@ -29,3 +31,5 @@ class GaussianMutation : public MutationOperation {
 		double mutationRate
 	);
 };
+
+#endif

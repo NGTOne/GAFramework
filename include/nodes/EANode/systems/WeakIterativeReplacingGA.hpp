@@ -1,6 +1,8 @@
+#ifndef NODES_EANODE_SYSTEMS_WeakIterativeReplacingGA
+#define NODES_EANODE_SYSTEMS_WeakIterativeReplacingGA
+
 #include "ReplacingGA.hpp"
 #include <vector>
-#pragma once
 
 /*
 * The ReplacingGA model represents a "classical" GA model,
@@ -28,3 +30,5 @@ class WeakIterativeReplacingGA : public ReplacingGA {
 		std::string speciesNode
 	);
 };
+
+#endif

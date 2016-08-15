@@ -1,6 +1,8 @@
+#ifndef NODES_EANODE_CROSSOVERS_CutAndSpliceCrossover
+#define NODES_EANODE_CROSSOVERS_CutAndSpliceCrossover
+
 #include "../CrossoverOperation.hpp"
 #include <vector>
-#pragma once
 
 /*
 * Cut-and-splice crossover takes the two parents, selects different,
@@ -39,3 +41,5 @@ class CutAndSpliceCrossover : public CrossoverOperation {
 	
 	std::string toString();
 };
+
+#endif

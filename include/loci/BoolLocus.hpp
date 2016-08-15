@@ -1,7 +1,9 @@
+#ifndef LOCI_BoolLocus
+#define LOCI_BoolLocus
+
 #include "CollectionLocus.hpp"
 #include <vector>
 #include <string>
-#pragma once
 
 class BoolLocus: public CollectionLocus {
 	private:
@@ -15,3 +17,5 @@ class BoolLocus: public CollectionLocus {
 	std::string toString();
 	std::string flatten(Gene* index);
 };
+
+#endif

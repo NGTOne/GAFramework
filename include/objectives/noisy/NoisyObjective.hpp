@@ -1,8 +1,10 @@
+#ifndef OBJECTIVES_NOISY_NoisyObjective
+#define OBJECTIVES_NOISY_NoisyObjective
+
 #include "../../core/eval/NestedObjective.hpp"
 #include "genetic-noise/GeneticNoiseSource.hpp"
 #include "fitness-noise/FitnessNoiseSource.hpp"
 #include <random>
-#pragma once
 
 class NoisyObjective: public NestedObjective {
 	private:
@@ -37,3 +39,5 @@ class NoisyObjective: public NestedObjective {
 
 	float checkFitness(Genome * genome);
 };
+
+#endif

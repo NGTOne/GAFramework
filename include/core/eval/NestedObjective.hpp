@@ -1,6 +1,8 @@
+#ifndef CORE_EVAL_NestedObjective
+#define CORE_EVAL_NestedObjective
+
 #include "ObjectiveFunction.hpp"
 #include <vector>
-#pragma once
 
 class NestedObjective: public ObjectiveFunction {
 	private:
@@ -15,3 +17,5 @@ class NestedObjective: public ObjectiveFunction {
 	bool isNested();
 	std::vector<ObjectiveFunction*> getInner();
 };
+
+#endif

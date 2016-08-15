@@ -1,5 +1,7 @@
+#ifndef NODES_NonOptimizingNode
+#define NODES_NonOptimizingNode
+
 #include "../core/PopulationNode.hpp"
-#pragma once
 
 #define NON_OPT_TYPE "non"
 
@@ -24,3 +26,5 @@ class NonOptimizingNode : public PopulationNode {
 
 	PopulationNode * duplicate(std::string newNodeName);
 };
+
+#endif

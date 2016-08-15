@@ -1,7 +1,9 @@
+#ifndef CORE_HIER_STRUCTURES_HierarchicalEA_nodes_t
+#define CORE_HIER_STRUCTURES_HierarchicalEA_nodes_t
+
 #include "../HierarchicalEA.hpp"
 #include "../PopulationNodeFactory.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
-#pragma once
 
 template <typename NodeType, typename... params>
 void HierarchicalEA::addNode(
@@ -95,3 +97,5 @@ void HierarchicalEA::addNodes(
 			end[i]
 		);
 }
+
+#endif

@@ -1,5 +1,7 @@
+#ifndef NODES_EANODE_CROSSOVERS_NPointCrossover
+#define NODES_EANODE_CROSSOVERS_NPointCrossover
+
 #include "../CrossoverOperation.hpp"
-#pragma once
 
 /*
 * The n-point crossover operator selects up to n different points along the
@@ -35,3 +37,5 @@ class NPointCrossover : public CrossoverOperation {
 	std::string toString();
 
 };
+
+#endif

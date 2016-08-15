@@ -1,8 +1,12 @@
+#ifndef EXCEPTION_ComponentNotPresentException
+#define EXCEPTION_ComponentNotPresentException
+
 #include "CustomMessageException.hpp"
-#pragma once
 
 class ComponentNotPresentException : public CustomMessageException {
 	public:
 	ComponentNotPresentException();
 	ComponentNotPresentException(std::string message);
 };
+
+#endif

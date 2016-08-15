@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CORE_GENOME
+#define CORE_GENOME
+
 #include "Locus.hpp"
 #include "GenomeTemplate.hpp"
 #include "genes/Gene.hpp"
@@ -76,3 +78,5 @@ template <typename T>
 T Genome::getIndex(unsigned int index) {
 	return this->genes[index]->getValue<T>();
 }
+
+#endif

@@ -1,5 +1,5 @@
-#ifndef CORE_ToStringFunction
-#define CORE_ToStringFunction
+#ifndef CORE_EVAL_ToStringFunction
+#define CORE_EVAL_ToStringFunction
 
 #include <string>
 #include "../Genome.hpp"

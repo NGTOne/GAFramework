@@ -1,6 +1,8 @@
+#ifndef OBJECTIVES_NOISY_GENETIC_NOISE_UniformGeneticNoiseSource
+#define OBJECTIVES_NOISY_GENETIC_NOISE_UniformGeneticNoiseSource
+
 #include "GeneticNoiseSource.hpp"
 #include "../../../nodes/EANode/mutations/UniformMutation.hpp"
-#pragma once
 
 class UniformGeneticNoiseSource: public GeneticNoiseSource {
 	private:
@@ -10,3 +12,5 @@ class UniformGeneticNoiseSource: public GeneticNoiseSource {
 	public:
 	UniformGeneticNoiseSource(double mutationRate);
 };
+
+#endif

@@ -1,7 +1,9 @@
+#ifndef CORE_EVAL_ApportionmentFunction
+#define CORE_EVAL_ApportionmentFunction
+
 #include "../Genome.hpp"
 #include "../EABehaviourObject.hpp"
 #include <vector>
-#pragma once
 
 class ApportionmentFunction : public EABehaviourObject {
 	private:
@@ -19,3 +21,5 @@ class ApportionmentFunction : public EABehaviourObject {
 		float providerFitness
 	)=0;
 };
+
+#endif

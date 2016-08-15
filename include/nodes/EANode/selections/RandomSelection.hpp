@@ -1,7 +1,9 @@
+#ifndef NODES_EANODE_SELECTIONS_RandomSelection
+#define NODES_EANODE_SELECTIONS_RandomSelection
+
 #include "../SelectionStrategy.hpp"
 #include <string>
 #include <vector>
-#pragma once
 
 class RandomSelection : public SelectionStrategy {
 	private:
@@ -17,3 +19,5 @@ class RandomSelection : public SelectionStrategy {
 	);
 	std::string toString();
 };
+
+#endif

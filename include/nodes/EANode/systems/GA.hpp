@@ -1,7 +1,9 @@
+#ifndef NODES_EANODE_SYSTEMS_GA
+#define NODES_EANODE_SYSTEMS_GA
+
 #include "../EvolutionarySystem.hpp"
 #include <string>
 #include <vector>
-#pragma once
 
 /*
 * The GA model reflects the "classic" GA, as popularized by the work
@@ -52,3 +54,5 @@ class GA : public EvolutionarySystem {
 		std::string speciesNode
 	);
 };
+
+#endif

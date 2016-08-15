@@ -1,9 +1,11 @@
+#ifndef CORE_HIER_STRUCTURES_HierarchicalEA_struct_tree_t
+#define CORE_HIER_STRUCTURES_HierarchicalEA_struct_tree_t
+
 #include "../HierarchicalEA.hpp"
 #include "../utils/HierGC.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
 #include "../../exception/ValueOutOfRangeException.hpp"
 #include "../../loci/PopulationLocus.hpp"
-#pragma once
 
 template <typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveTree(
@@ -316,3 +318,5 @@ void HierarchicalEA::addConstructiveTree(
 
 	HierGC::registerObject(formula);
 }
+
+#endif

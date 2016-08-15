@@ -1,6 +1,8 @@
+#ifndef OBJECTIVES_NOISY_FITNESS_NOISE_UniformFitnessNoiseSource
+#define OBJECTIVES_NOISY_FITNESS_NOISE_UniformFitnessNoiseSource
+
 #include "FitnessNoiseSource.hpp"
 #include "../../../core/utils/HierRNG.hpp"
-#pragma once
 
 template <typename T>
 class UniformFitnessNoiseSource: public FitnessNoiseSource {
@@ -29,3 +31,5 @@ template <typename T>
 float UniformFitnessNoiseSource<T>::addNoise(float cleanFitness) {
 	return cleanFitness + HierRNG::uniform<T>(this->low, this->high);
 }
+
+#endif

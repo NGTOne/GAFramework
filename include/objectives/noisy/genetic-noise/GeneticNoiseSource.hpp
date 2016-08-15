@@ -1,8 +1,10 @@
+#ifndef OBJECTIVES_NOISY_GENETIC_NOISE_GeneticNoiseSource
+#define OBJECTIVES_NOISY_GENETIC_NOISE_GeneticNoiseSource
+
 #include <vector>
 #include <random>
 #include "../../../nodes/EANode/MutationOperation.hpp"
 #include "../../../core/EABehaviourObject.hpp"
-#pragma once
 
 class GeneticNoiseSource : public EABehaviourObject {
 	private:
@@ -20,3 +22,5 @@ class GeneticNoiseSource : public EABehaviourObject {
 	virtual Genome addNoise(Genome * target);
 	Genome addNoise(Genome target);
 };
+
+#endif

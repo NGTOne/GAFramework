@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NODES_EANODE_CrossoverOperation
+#define NODES_EANODE_CrossoverOperation
+
 #include "../../core/Genome.hpp"
 #include "../../core/GenomeTemplate.hpp"
 #include "../../core/EABehaviourObject.hpp"
@@ -50,3 +52,4 @@ class CrossoverOperation : public EABehaviourObject {
 	virtual std::string toString()=0;
 };
 
+#endif

@@ -1,5 +1,7 @@
+#ifndef OBJECTIVES_APPORTIONMENT_FUNC_SameFitnessApportionmentFunction
+#define OBJECTIVES_APPORTIONMENT_FUNC_SameFitnessApportionmentFunction
+
 #include "../../core/eval/ApportionmentFunction.hpp"
-#pragma once
 
 class SameFitnessApportionmentFunction : public ApportionmentFunction {
 	private:
@@ -15,3 +17,5 @@ class SameFitnessApportionmentFunction : public ApportionmentFunction {
 		float providerFitness
 	);
 };
+
+#endif

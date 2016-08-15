@@ -1,3 +1,6 @@
+#ifndef CORE_META_MetaPopulationFactory
+#define CORE_META_MetaPopulationFactory
+
 #include "../PopulationNode.hpp"
 #include "../PopulationNodeFactory.hpp"
 #include "../eval/Apportionment.hpp"
@@ -8,7 +11,6 @@
 #include "MetaPopulationToString.hpp"
 #include <vector>
 #include <tuple>
-#pragma once
 
 class MetaPopulationFactory {
 	private:
@@ -110,3 +112,5 @@ PopulationNode * MetaPopulationFactory::createMeta(
 	);
 	return metaNode;
 }
+
+#endif

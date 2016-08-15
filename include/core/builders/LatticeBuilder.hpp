@@ -1,6 +1,8 @@
+#ifndef CORE_BUILDERS_LatticeBuilder
+#define CORE_BUILDERS_LatticeBuilder
+
 #include "StructureBuilder.hpp"
 #include <vector>
-#pragma once
 
 class LatticeBuilder: public StructureBuilder {
 	private:
@@ -47,3 +49,5 @@ class LatticeBuilder: public StructureBuilder {
 		unsigned int row
 	);
 };
+
+#endif

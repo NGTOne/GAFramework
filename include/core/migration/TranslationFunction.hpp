@@ -1,7 +1,9 @@
+#ifndef CORE_MIGRATION_TranslationFunction
+#define CORE_MIGRATION_TranslationFunction
+
 #include "../Genome.hpp"
 #include "../GenomeTemplate.hpp"
 #include <vector>
-#pragma once
 
 class TranslationFunction {
 	private:
@@ -16,3 +18,5 @@ class TranslationFunction {
 	);
 	virtual bool isNull();
 };
+
+#endif

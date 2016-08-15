@@ -1,8 +1,10 @@
+#ifndef NODES_EANODE_SYSTEMS_ES
+#define NODES_EANODE_SYSTEMS_ES
+
 #include "../EvolutionarySystem.hpp"
 #include <random>
 #include <string>
 #include <vector>
-#pragma once
 
 /*
 * The ES model uses the (mu/rho+, lambda)-ES model, which is an
@@ -59,3 +61,5 @@ class ES : public EvolutionarySystem {
 		std::string speciesNode
 	);
 };
+
+#endif

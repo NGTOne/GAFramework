@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NODES_SANODE_SCHEDULES_LinearTempSchedule
+#define NODES_SANODE_SCHEDULES_LinearTempSchedule
+
 #include "../TemperatureSchedule.hpp"
 
 class LinearTempSchedule : public TemperatureSchedule {
@@ -15,3 +17,5 @@ class LinearTempSchedule : public TemperatureSchedule {
 
 	float currentTemp(unsigned int currentIteration);
 };
+
+#endif

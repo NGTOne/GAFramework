@@ -1,3 +1,6 @@
+#ifndef NODES_EANODE_EvolutionarySystem
+#define NODES_EANODE_EvolutionarySystem
+
 #include "../../core/Genome.hpp"
 #include "SelectionStrategy.hpp"
 #include "CrossoverOperation.hpp"
@@ -7,7 +10,6 @@
 #include <random>
 #include <string>
 #include <vector>
-#pragma once
 
 class EvolutionarySystem : public EABehaviourObject {
 	private:
@@ -63,3 +65,5 @@ class EvolutionarySystem : public EABehaviourObject {
 	MutationOperation * getMutation();
 	virtual bool hasNiching();
 };
+
+#endif

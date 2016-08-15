@@ -1,7 +1,9 @@
+#ifndef CORE_PopulationFormula
+#define CORE_PopulationFormula
+
 #include "Locus.hpp"
 #include "EABehaviourObject.hpp"
 #include <vector>
-#pragma once
 
 class PopulationFormula : public EABehaviourObject {
 	private:
@@ -16,3 +18,5 @@ class PopulationFormula : public EABehaviourObject {
 	// TODO: Think of additional possible parameters
 	virtual unsigned int getPopulationSize(std::vector<Locus*> loci)=0;
 };
+
+#endif

@@ -1,5 +1,7 @@
+#ifndef POP_FORMULAE_ConstructiveLocusCountPopFormula
+#define POP_FORMULAE_ConstructiveLocusCountPopFormula
+
 #include "../core/PopulationFormula.hpp"
-#pragma once
 
 class ConstructiveLocusCountPopFormula: public PopulationFormula {
 	private:
@@ -10,3 +12,5 @@ class ConstructiveLocusCountPopFormula: public PopulationFormula {
 	public:
 	unsigned int getPopulationSize(std::vector<Locus*> loci);
 };
+
+#endif

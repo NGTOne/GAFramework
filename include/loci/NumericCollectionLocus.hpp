@@ -1,3 +1,6 @@
+#ifndef LOCI_NumericCollectionLocus
+#define LOCI_NumericCollectionLocus
+
 #include "CollectionLocus.hpp"
 #include "../exception/ValueOutOfRangeException.hpp"
 #include <boost/any.hpp>
@@ -5,7 +8,6 @@
 #include <vector>
 #include <initializer_list>
 #include <string>
-#pragma once
 
 template <typename T>
 class NumericCollectionLocus: public CollectionLocus {
@@ -75,3 +77,5 @@ std::string NumericCollectionLocus<T>::flatten(Gene* index) {
 	ss << boost::any_cast<T>(this->getIndex(index));
 	return ss.str();
 }
+
+#endif

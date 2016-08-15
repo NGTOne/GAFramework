@@ -1,5 +1,7 @@
+#ifndef POP_FORMULAE_LocusExponentPopFormula
+#define POP_FORMULAE_LocusExponentPopFormula
+
 #include "../core/PopulationFormula.hpp"
-#pragma once
 
 class LocusExponentPopFormula: public PopulationFormula {
 	private:
@@ -11,3 +13,5 @@ class LocusExponentPopFormula: public PopulationFormula {
 	LocusExponentPopFormula(unsigned int base);
 	unsigned int getPopulationSize(std::vector<Locus*> loci);
 };
+
+#endif

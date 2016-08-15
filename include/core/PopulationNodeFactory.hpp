@@ -1,5 +1,7 @@
+#ifndef CORE_PopulationNodeFactory
+#define CORE_PopulationNodeFactory
+
 #include "PopulationNode.hpp"
-#pragma once
 
 class PopulationNodeFactory {
 	private:
@@ -79,3 +81,5 @@ std::vector<PopulationNode *> PopulationNodeFactory::createNodes(
 
 	return nodes;
 }
+
+#endif

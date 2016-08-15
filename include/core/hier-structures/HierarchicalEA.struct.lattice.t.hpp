@@ -1,9 +1,11 @@
+#ifndef CORE_HIER_STRUCTURES_HierarchicalEA_struct_lattice_t
+#define CORE_HIER_STRUCTURES_HierarchicalEA_struct_lattice_t
+
 #include "../HierarchicalEA.hpp"
 #include "../utils/HierGC.hpp"
 #include "../PopulationNodeFactory.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
 #include "../../loci/PopulationLocus.hpp"
-#pragma once
 
 template<typename NodeType, typename... params>
 void HierarchicalEA::addConstructiveLattice(
@@ -321,3 +323,5 @@ void HierarchicalEA::addConstructiveLattice(
 
 	HierGC::registerObject(formula);
 }
+
+#endif

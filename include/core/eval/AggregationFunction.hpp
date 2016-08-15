@@ -1,6 +1,8 @@
+#ifndef CORE_EVAL_AggregationFunction
+#define CORE_EVAL_AggregationFunction
+
 #include <vector>
 #include "../EABehaviourObject.hpp"
-#pragma once
 
 class AggregationFunction : public EABehaviourObject {
 	private:
@@ -12,3 +14,5 @@ class AggregationFunction : public EABehaviourObject {
 
 	virtual float aggregateFitnesses(std::vector<float> fitnesses)=0;
 };
+
+#endif

@@ -1,8 +1,10 @@
+#ifndef CORE_EVAL_Apportionment
+#define CORE_EVAL_Apportionment
+
 #include "ObjectiveFunction.hpp"
 #include "ApportionmentFunction.hpp"
 #include "AggregationFunction.hpp"
 #include "../PopulationNode.hpp"
-#pragma once
 
 class Apportionment : public ObjectiveFunction {
 	private:
@@ -64,3 +66,5 @@ class Apportionment : public ObjectiveFunction {
 	ApportionmentFunction * getApportionmentFunction();
 	AggregationFunction * getAggregationFunction();
 };
+
+#endif

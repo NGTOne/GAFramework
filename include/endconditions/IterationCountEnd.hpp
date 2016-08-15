@@ -1,5 +1,7 @@
+#ifndef ENDCONDITIONS_IterationCountEnd
+#define ENDCONDITIONS_IterationCountEnd
+
 #include "../core/EndCondition.hpp"
-#pragma once
 
 /*
 * This end condition will return true if the number of elapsed iterations of
@@ -21,3 +23,5 @@ class IterationCountEnd : public EndCondition {
 		unsigned int currentIteration
 	);
 };
+
+#endif

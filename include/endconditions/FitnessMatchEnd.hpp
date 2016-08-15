@@ -1,5 +1,7 @@
+#ifndef ENDCONDITIONS_FitnessMatchEnd
+#define ENDCONDITIONS_FitnessMatchEnd
+
 #include "../core/EndCondition.hpp"
-#pragma once
 
 /*
 * The fitness matching end condition returns true if any individual in the
@@ -24,3 +26,5 @@ class FitnessMatchEnd : public EndCondition {
 		unsigned int currentIteration
 	);
 };
+
+#endif

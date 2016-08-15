@@ -1,9 +1,11 @@
+#ifndef NODES_EANODE_SYSTEMS_SSGA
+#define NODES_EANODE_SYSTEMS_SSGA
+
 #include "../EvolutionarySystem.hpp"
 #include "niching/NichingStrategy.hpp"
 #include <random>
 #include <string>
 #include <vector>
-#pragma once
 
 /*
 * In the steady-state GA model, in which one pair
@@ -43,3 +45,5 @@ class SSGA : public EvolutionarySystem {
 	bool hasNiching();
 	NichingStrategy * getNiching();
 };
+
+#endif

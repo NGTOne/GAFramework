@@ -1,5 +1,7 @@
+#ifndef NODES_EANODE_MUTATIONS_UniformMutation
+#define NODES_EANODE_MUTATIONS_UniformMutation
+
 #include "../MutationOperation.hpp"
-#pragma once
 
 /*
 * The uniform mutation operator randomly decides whether or not to mutate
@@ -17,3 +19,5 @@ class UniformMutation : public MutationOperation {
 	UniformMutation();
 	UniformMutation(double mutationRate);
 };
+
+#endif

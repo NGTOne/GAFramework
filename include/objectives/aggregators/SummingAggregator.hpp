@@ -1,5 +1,7 @@
+#ifndef OBJECTIVES_AGGREGATORS_SummingAggregator
+#define OBJECTIVES_AGGREGATORS_SummingAggregator
+
 #include "../../core/eval/AggregationFunction.hpp"
-#pragma once
 
 class SummingAggregator : public AggregationFunction {
 	private:
@@ -9,3 +11,5 @@ class SummingAggregator : public AggregationFunction {
 
 	public:
 };
+
+#endif

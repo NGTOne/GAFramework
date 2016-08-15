@@ -1,6 +1,8 @@
+#ifndef EXCEPTION_CustomMessageException
+#define EXCEPTION_CustomMessageException
+
 #include <exception>
 #include <string>
-#pragma once
 
 class CustomMessageException : public std::exception {
 	private:
@@ -12,3 +14,5 @@ class CustomMessageException : public std::exception {
 	explicit CustomMessageException(std::string message);
 	virtual const char * what() const throw();
 };
+
+#endif

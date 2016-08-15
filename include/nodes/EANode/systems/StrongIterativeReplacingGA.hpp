@@ -1,6 +1,8 @@
+#ifndef NODES_EANODE_SYSTEMS_StrongIterativeReplacingGA
+#define NODES_EANODE_SYSTEMS_StrongIterativeReplacingGA
+
 #include "ReplacingGA.hpp"
 #include <vector>
-#pragma once
 
 /*
 * The ReplacingGA model represents a "classical" GA model,
@@ -40,3 +42,5 @@ class StrongIterativeReplacingGA : public ReplacingGA {
 		std::string speciesNode
 	);
 };
+
+#endif

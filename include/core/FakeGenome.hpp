@@ -1,5 +1,7 @@
+#ifndef CORE_FakeGenome
+#define CORE_FakeGenome
+
 #include "Genome.hpp"
-#pragma once
 
 class FakeGenome : public Genome {
 	private:
@@ -12,3 +14,5 @@ class FakeGenome : public Genome {
 
 	~FakeGenome();
 };
+
+#endif
