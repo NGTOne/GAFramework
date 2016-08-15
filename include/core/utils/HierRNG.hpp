@@ -30,6 +30,9 @@ class HierRNG {
 	template <typename T>
 	static T zeroOne();
 
+	template <template<class...> class Cont, typename Val>
+	static Val choose(Cont<Val> values);
+
 	static double gaussian(double mean, double stdDev);
 	static unsigned int index(unsigned int maxIndex);
 	static bool binary();
@@ -44,6 +47,11 @@ T HierRNG::uniform(T lower, T upper) {
 template <typename T>
 T HierRNG::zeroOne() {
 	return HierRNG::uniform<T>(0, 1);
+}
+
+template <template<class...> class Cont, typename Val>
+Val HierRNG::choose(Cont<Val> values) {
+	return *(values.begin() + HierRNG::index(values.size() - 1));
 }
 
 #endif
