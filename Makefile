@@ -33,9 +33,11 @@ install: uninstall all-header
 	if [[ "$$(uname -s)" == "Linux" ]]; then sudo ldconfig; fi
 
 all-header:
+	echo "#ifndef HIERGA" > include/HierGA.hpp
+	echo "#define HIERGA" >> include/HierGA.hpp
 	find include -name *.hpp | grep -v HierGA | sed 's/^include\///g' | \
-		awk '{print "#include \"" $$1 "\""}' > include/HierGA.hpp
-	echo "#pragma once" >> include/HierGA.hpp
+		awk '{print "#include \"" $$1 "\""}' >> include/HierGA.hpp
+	echo "#endif" >> include/HierGA.hpp
 
 uninstall:
 	sudo rm -f /usr/local/lib/*libHierGA*
