@@ -2,6 +2,7 @@
 #define CORE_UTILS_HierRNG
 #include <random>
 #include <vector>
+#include <algorithm>
 #include "../../exception/MismatchedCountsException.hpp"
 
 class HierRNG {
