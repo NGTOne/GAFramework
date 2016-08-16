@@ -1,6 +1,8 @@
 #ifndef CORE_UTILS_HierRNG
 #define CORE_UTILS_HierRNG
 #include <random>
+#include <vector>
+#include "../../exception/MismatchedCountsException.hpp"
 
 class HierRNG {
 	private:
@@ -33,6 +35,13 @@ class HierRNG {
 	template <template<class...> class Cont, typename Val>
 	static Val choose(Cont<Val> values);
 
+	template <template<class...> class Cont, typename Val>
+	static std::vector<Val> choose(
+		Cont<Val> values,
+		unsigned int count,
+		bool unique = true
+	);
+
 	static double gaussian(double mean, double stdDev);
 	static unsigned int index(unsigned int maxIndex);
 	static bool binary();
@@ -52,6 +61,26 @@ T HierRNG::zeroOne() {
 template <template<class...> class Cont, typename Val>
 Val HierRNG::choose(Cont<Val> values) {
 	return *(values.begin() + HierRNG::index(values.size() - 1));
+}
+
+template <template<class...> class Cont, typename Val>
+std::vector<Val> HierRNG::choose(
+	Cont<Val> values,
+	unsigned int count,
+	bool unique
+) {
+	if (unique && count > values.size()) throw MismatchedCountsException("Trying to select too many items from container!");
+	if (unique && count == values.size())
+		return std::vector<Val>(values.begin(), values.end());
+	if (count == 0) return std::vector<Val>();
+
+	std::vector<Val> returnValues({HierRNG::choose(values)}), recur;
+	if (unique) values.erase(
+		std::find(values.begin(), values.end(), returnValues[0])
+	);
+	recur = HierRNG::choose(values, count - 1, unique);
+	returnValues.insert(returnValues.end(), recur.begin(), recur.end());
+	return returnValues;
 }
 
 #endif
