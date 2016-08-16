@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include "../../exception/MismatchedCountsException.hpp"
+#include "../../exception/ValueOutOfRangeException.hpp"
 
 class HierRNG {
 	private:
@@ -89,6 +90,7 @@ std::vector<Val> HierRNG::choose(
 
 template <typename T>
 T HierRNG::chooseWithProb(double probability, T first, T second) {
+	if (probability < 0 || probability > 1) throw ValueOutOfRangeException("Probability must be a valid value (between 0 and 1).");
 	return HierRNG::zeroOne<double>() < probability ? first : second;
 }
 
