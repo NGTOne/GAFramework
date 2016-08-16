@@ -36,6 +36,9 @@ class HierRNG {
 	template <template<class...> class Cont, typename Val>
 	static Val choose(Cont<Val> values);
 
+	template <typename T>
+	static T chooseWithProb(double probability, T first, T second);
+
 	template <template<class...> class Cont, typename Val>
 	static std::vector<Val> choose(
 		Cont<Val> values,
@@ -82,6 +85,11 @@ std::vector<Val> HierRNG::choose(
 	recur = HierRNG::choose(values, count - 1, unique);
 	returnValues.insert(returnValues.end(), recur.begin(), recur.end());
 	return returnValues;
+}
+
+template <typename T>
+T HierRNG::chooseWithProb(double probability, T first, T second) {
+	return HierRNG::zeroOne<double>() > probability ? first : second;
 }
 
 #endif
