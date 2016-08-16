@@ -12,6 +12,5 @@ void ZeroingFitnessNoiseSource::init(double zeroChance) {
 }
 
 float ZeroingFitnessNoiseSource::addNoise(float cleanFitness) {
-	return (HierRNG::zeroOne<double>() > this->zeroChance ?
-		cleanFitness : 0);
+	return HierRNG::chooseWithProb<float>(this->zeroChance, 0, cleanFitness);
 }

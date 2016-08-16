@@ -89,7 +89,7 @@ std::vector<Val> HierRNG::choose(
 
 template <typename T>
 T HierRNG::chooseWithProb(double probability, T first, T second) {
-	return HierRNG::zeroOne<double>() > probability ? first : second;
+	return HierRNG::zeroOne<double>() < probability ? first : second;
 }
 
 #endif
