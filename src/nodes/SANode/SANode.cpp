@@ -167,11 +167,10 @@ Genome* SANode::getNeighbour(Genome* target) {
 		target,
 		HierRNG::index(target->genomeLength() - 1)
 	);
-	unsigned int choice = HierRNG::index(neighbours.size() - 1);
-	Genome* neighbour = neighbours[choice];
+	Genome* neighbour = HierRNG::choose(neighbours);
 
 	for (unsigned int i = 0; i < neighbours.size(); i++)
-		if (i != choice) delete(neighbours[i]);
+		if (neighbours[i] != neighbour) delete(neighbours[i]);
 
 	float neighbourFitness = this->evaluateFitness(neighbour);
 	float targetFitness = this->evaluateFitness(target);

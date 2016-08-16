@@ -18,10 +18,8 @@ std::vector<GenomeTemplate> UniformCrossover::crossOver(
 
 	for (unsigned int i = 0; i < this->numOffspring; i++) {
 		GenomeTemplate child;
-		for (unsigned int k = 0; k < shortestGenomeLength; k++) {
-			unsigned int parent = HierRNG::index(parents.size()-1);
-			child.add(parents[parent].getGene(k));
-		}
+		for (unsigned int k = 0; k < shortestGenomeLength; k++)
+			child.add(HierRNG::choose(parents).getGene(k));
 		children.push_back(child);
 	}
 

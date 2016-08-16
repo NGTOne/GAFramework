@@ -58,9 +58,8 @@ Genome* ES::getCrossoverChild(
 		)]);
 
 	children = this->cross->crossOver(parents, speciesNode);
-	unsigned int index = HierRNG::index(children.size() - 1);
 
-	Genome* child = new Genome(children[index]);
+	Genome* child = new Genome(HierRNG::choose(children));
 	for (unsigned int i = 0; i < children.size(); i++) delete(children[i]);
 	return child;
 }

@@ -42,10 +42,7 @@ std::vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 	}
 
 	for (unsigned int i = 0; i < initialPopulation.size(); i++) {
-		unsigned int index = HierRNG::index(
-			possibleContenders[i].size() - 1
-		);
-		Genome* child = possibleContenders[i][index];
+		Genome* child = HierRNG::choose(possibleContenders[i]);
 		float childFitness = this->evaluateFitness(child, objectives);
 
 		if (childFitness > populationFitnesses[i]) {
