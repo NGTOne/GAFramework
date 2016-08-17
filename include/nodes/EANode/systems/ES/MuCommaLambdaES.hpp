@@ -11,6 +11,14 @@ class MuCommaLambdaES: public MuLambdaES {
 	private:
 
 	protected:
+	std::vector<Genome*> doReplacement(
+		std::vector<Genome*> parents,
+		std::vector<Genome*> offspring,
+		std::vector<float>& populationFitnesses,
+		std::vector<ObjectiveFunction*> objectives
+	);
+
+	public:
 	MuCommaLambdaES(MutationOperation* mutation, unsigned int lambda = 1);
 	MuCommaLambdaES(
 		MutationOperation* mutation,
@@ -30,15 +38,6 @@ class MuCommaLambdaES: public MuLambdaES {
 		unsigned int lambda = 1,
 		unsigned int rho = 2
 	);
-
-	std::vector<Genome*> doReplacement(
-		std::vector<Genome*> parents,
-		std::vector<Genome*> offspring,
-		std::vector<float>& populationFitnesses,
-		std::vector<ObjectiveFunction*> objectives
-	);
-
-	public:
 };
 
 #endif
