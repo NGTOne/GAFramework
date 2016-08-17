@@ -159,6 +159,7 @@ systems:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/GA.cpp -o obj/nodes/EANode/systems/GA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES.cpp -o obj/nodes/EANode/systems/ES.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES/MuLambdaES.cpp -o obj/nodes/EANode/systems/ES/MuLambdaES.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES/MuPlusLambdaES.cpp -o obj/nodes/EANode/systems/ES/MuPlusLambdaES.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/SSGA.cpp -o obj/nodes/EANode/systems/SSGA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/AccelSSGA.cpp -o obj/nodes/EANode/systems/AccelSSGA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/niching/NichingStrategy.cpp -o obj/nodes/EANode/systems/niching/NichingStrategy.o
