@@ -1,4 +1,5 @@
 #include "nodes/EANode/systems/ES/MuCommaLambdaES.hpp"
+#include "exception/ValueOutOfRangeException.hpp"
 
 MuCommaLambdaES::MuCommaLambdaES(
 	MutationOperation* mutation,
@@ -32,6 +33,7 @@ std::vector<Genome*> MuCommaLambdaES::doReplacement(
 	std::vector<float>& populationFitnesses,
 	std::vector<ObjectiveFunction*> objectives
 ) {
+	if (offspring.size() < parents.size()) throw ValueOutOfRangeException("A (mu, lambda)-ES must have a lambda of at least mu in order to function properly. Increase the lambda parameter.");
 	std::vector<Genome*> result;
 	std::vector<float> offspringFitnesses;
 
