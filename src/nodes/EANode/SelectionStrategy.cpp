@@ -25,6 +25,23 @@ void SelectionStrategy::init(
 	this->name = name;
 }
 
+std::vector<Genome*> SelectionStrategy::chooseParents(
+	std::vector<Genome*> population,
+	std::vector<float> fitnesses,
+	unsigned int count
+) {
+	if (count >= population.size()) return population;
+	std::vector<Genome*> parents;
+
+	for (unsigned int i = 0; i < count; i++)
+		parents.push_back(population[this->getParent(
+			population,
+			fitnesses
+		)]);
+
+	return parents;
+}
+
 std::string SelectionStrategy::toString() {
 	std::stringstream ss;
 	ss << "Name: " << this->name

@@ -3,7 +3,6 @@
 
 #include "../../core/Genome.hpp"
 #include "../../core/EABehaviourObject.hpp"
-#include <random>
 #include <string>
 #include <vector>
 
@@ -25,6 +24,12 @@ class SelectionStrategy : public EABehaviourObject {
 	public:
 	SelectionStrategy(double crossoverRate);
 	virtual ~SelectionStrategy();
+
+	std::vector<Genome*> chooseParents(
+		std::vector<Genome*> population,
+		std::vector<float> fitnesses,
+		unsigned int count
+	);
 
 	virtual unsigned int getParent(
 		std::vector<Genome*> population,
