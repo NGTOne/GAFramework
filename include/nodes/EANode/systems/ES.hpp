@@ -19,6 +19,7 @@ class ES : public EvolutionarySystem {
 
 	virtual std::vector<Genome*> getOffspring(
 		std::vector<Genome*> parents,
+		std::vector<float> parentFitnesses,
 		std::string speciesNode
 	)=0;
 	virtual std::vector<Genome*> doReplacement(
