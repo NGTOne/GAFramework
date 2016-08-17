@@ -50,6 +50,7 @@ class HierRNG {
 	static double gaussian(double mean, double stdDev);
 	static unsigned int index(unsigned int maxIndex);
 	static bool binary();
+	static bool chooseWithProb(double probability);
 };
 
 template <typename T>

@@ -28,3 +28,7 @@ unsigned int HierRNG::index(unsigned int maxIndex) {
 bool HierRNG::binary() {
 	return HierRNG::zeroOne<unsigned int>();
 }
+
+bool HierRNG::chooseWithProb(double probability) {
+	return HierRNG::chooseWithProb(probability, true, false);
+}
