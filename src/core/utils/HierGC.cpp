@@ -9,6 +9,8 @@ void HierGC::cleanUp() {
 }
 
 void HierGC::registerObject(EABehaviourObject * object) {
-	object->registerInternalObjects();
-	HierGC::objects.insert(object);
+	if (object != NULL) {
+		object->registerInternalObjects();
+		HierGC::objects.insert(object);
+	}
 }
