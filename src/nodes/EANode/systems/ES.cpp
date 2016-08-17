@@ -28,8 +28,8 @@ std::vector<Genome*> ES::breedMutateSelect(
 		speciesNode
 	);
 	std::vector<Genome*> results = this->doReplacement(
-		offspring,
 		initialPopulation,
+		offspring,
 		populationFitnesses,
 		objectives
 	);
