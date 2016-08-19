@@ -85,3 +85,18 @@ std::vector<Genome*> MuLambdaES::getOffspring(
 
 	return offspring;
 }
+
+MuLambdaES::AdjustableESMutation::AdjustableESMutation(
+	std::vector<unsigned int> stdDevIndices
+) {
+	this->stdDevIndices = stdDevIndices;
+	this->fixedMutations = std::map<unsigned int, MutationOperation*>();
+}
+
+MuLambdaES::AdjustableESMutation::AdjustableESMutation(
+	std::map<unsigned int, MutationOperation*> fixedMutations,
+	std::vector<unsigned int> stdDevIndices
+) {
+	this->fixedMutations = fixedMutations;
+	this->stdDevIndices = stdDevIndices;
+}

@@ -6,6 +6,7 @@
 #include "../../SelectionStrategy.hpp"
 #include "../ES.hpp"
 #include <vector>
+#include <map>
 
 class MuLambdaES: public ES {
 	private:
@@ -14,6 +15,32 @@ class MuLambdaES: public ES {
 
 	void init(unsigned int lambda);
 	void init(unsigned int lambda, unsigned int rho);
+
+	class AdjustableESMutation: public MutationOperation {
+		private:
+		std::map<unsigned int, MutationOperation*> fixedMutations;
+		std::vector<unsigned int> stdDevIndices;
+
+		protected:
+		Gene* newLocusValue(Gene* current);
+		Gene* newLocusValue(Gene* current, MutationOperation* mutation);
+		std::vector<MutationOperation*> getMutationSet(
+			unsigned int genomeLength
+		);
+
+		public:
+		AdjustableESMutation(std::vector<unsigned int> stdDevIndices);
+		AdjustableESMutation(
+			std::map<
+				unsigned int,
+				MutationOperation*
+			> fixedMutations,
+			std::vector<unsigned int> stdDevIndices
+		);
+		void registerInternalObjects();
+
+		Genome* mutate(Genome* initialGenome);
+	};
 
 	protected:
 	MuLambdaES(MutationOperation* mutation, unsigned int lambda = 1);
