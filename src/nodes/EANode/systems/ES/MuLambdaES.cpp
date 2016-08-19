@@ -135,11 +135,20 @@ Gene* MuLambdaES::AdjustableESMutation::newLocusValue(
 	MutationOperation* mutation
 ) {
 	std::vector<Gene*> genes = current->getGenome();
-	Genome* temp = new Genome({genes[index]}, current->getSpeciesNode());
-	Genome* result = mutation->mutate(temp);
-	Gene* resultGene = result->getGenome()[0]->copy();
-	delete(result);
-	return resultGene;
+	if (std::find(
+		this->stdDevIndices.begin(),
+		this->stdDevIndices.end(),
+		index
+	) == this->stdDevIndices.end()) {
+		Genome* temp =
+			new Genome({genes[index]}, current->getSpeciesNode());
+		Genome* result = mutation->mutate(temp);
+		Gene* resultGene = result->getGenome()[0]->copy();
+		delete(result);
+		return resultGene;
+	} else {
+		return genes[index]->copy();
+	}
 }
 
 std::vector<MutationOperation*> MuLambdaES::AdjustableESMutation::getMutations(
