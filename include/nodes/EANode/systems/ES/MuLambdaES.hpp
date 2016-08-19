@@ -9,14 +9,13 @@
 
 class MuLambdaES: public ES {
 	private:
-
-	protected:
 	unsigned int lambda;
 	unsigned int rho;
 
 	void init(unsigned int lambda);
 	void init(unsigned int lambda, unsigned int rho);
 
+	protected:
 	MuLambdaES(MutationOperation* mutation, unsigned int lambda = 1);
 	MuLambdaES(
 		MutationOperation* mutation,
