@@ -1,6 +1,8 @@
 #include "nodes/EANode/systems/ES/MuLambdaES.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
 #include "core/utils/HierRNG.hpp"
+#include "core/utils/HierGC.hpp"
+#include "nodes/EANode/mutations/GaussianMutation.hpp"
 
 MuLambdaES::MuLambdaES(
 	MutationOperation* mutation,
@@ -99,4 +101,59 @@ MuLambdaES::AdjustableESMutation::AdjustableESMutation(
 ) {
 	this->fixedMutations = fixedMutations;
 	this->stdDevIndices = stdDevIndices;
+}
+
+void MuLambdaES::AdjustableESMutation::registerInternalObjects() {
+	for (
+		auto value = this->fixedMutations.begin();
+		value != this->fixedMutations.end();
+		value++
+	) {
+		HierGC::registerObject(value->second);
+	}
+}
+
+Gene* MuLambdaES::AdjustableESMutation::newLocusValue(Gene* current) {
+	return NULL;
+}
+
+Gene* MuLambdaES::AdjustableESMutation::newLocusValue(
+	Genome* current,
+	unsigned int index,
+	MutationOperation* mutation
+) {
+	std::vector<Gene*> genes = current->getGenome();
+	Genome* temp = new Genome({genes[index]}, current->getSpeciesNode());
+	Genome* result = mutation->mutate(temp);
+	Gene* resultGene = result->getGenome()[0]->copy();
+	delete(result);
+	return resultGene;
+}
+
+std::vector<MutationOperation*> MuLambdaES::AdjustableESMutation::getMutations(
+	Genome* target
+) {
+	std::vector<MutationOperation*> mutations;
+	unsigned int stdDevIndex = 0;
+
+	for (unsigned int i = 0; i < target->genomeLength(); i++)
+		if (this->fixedMutations.find(i) != this->fixedMutations.end()) {
+			mutations.push_back(this->fixedMutations.at(i));
+		} else {
+			mutations.push_back(new GaussianMutation(
+				target->getIndex<double>(
+					this->stdDevIndices[stdDevIndex++]
+				)
+			));
+		}
+
+	return mutations;
+}
+
+void MuLambdaES::AdjustableESMutation::cleanUpMutations(
+	std::vector<MutationOperation*> mutations
+) {
+	for (unsigned int i = 0; i < mutations.size(); i++)
+		if (this->fixedMutations.find(i) == this->fixedMutations.end())
+			delete(mutations[i]);
 }

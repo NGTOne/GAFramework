@@ -23,10 +23,13 @@ class MuLambdaES: public ES {
 
 		protected:
 		Gene* newLocusValue(Gene* current);
-		Gene* newLocusValue(Gene* current, MutationOperation* mutation);
-		std::vector<MutationOperation*> getMutationSet(
-			unsigned int genomeLength
+		Gene* newLocusValue(
+			Genome* current,
+			unsigned int index,
+			MutationOperation* mutation
 		);
+		std::vector<MutationOperation*> getMutations(Genome* target);
+		void cleanUpMutations(std::vector<MutationOperation*> mutations);
 
 		public:
 		AdjustableESMutation(std::vector<unsigned int> stdDevIndices);
