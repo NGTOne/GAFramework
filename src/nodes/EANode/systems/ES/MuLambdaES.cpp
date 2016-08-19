@@ -113,6 +113,18 @@ void MuLambdaES::AdjustableESMutation::registerInternalObjects() {
 	}
 }
 
+Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
+	std::vector<MutationOperation*> mutations =
+		this->getMutations(initialGenome);
+	std::vector<Gene*> results;
+	for (unsigned int i = 0; i < initialGenome->genomeLength(); i++)
+		results.push_back(
+			this->newLocusValue(initialGenome, i, mutations[i])
+		);
+	this->cleanUpMutations(mutations);
+	return new Genome(results, initialGenome->getSpeciesNode());
+}
+
 Gene* MuLambdaES::AdjustableESMutation::newLocusValue(Gene* current) {
 	return NULL;
 }
