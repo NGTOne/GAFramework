@@ -3,6 +3,7 @@
 #include "core/utils/HierRNG.hpp"
 #include "core/utils/HierGC.hpp"
 #include "nodes/EANode/mutations/GaussianMutation.hpp"
+#include "loci/NumericSetLocus.hpp"
 #include <math.h>
 
 MuLambdaES::MuLambdaES(
@@ -92,6 +93,7 @@ std::vector<Genome*> MuLambdaES::getOffspring(
 MuLambdaES::AdjustableESMutation::AdjustableESMutation() {
 	this->initialGenomeLength = 0;
 	this->targetGenomeLength = 0;
+	this->tausCalculated = false;
 }
 
 MuLambdaES::AdjustableESMutation::AdjustableESMutation(
@@ -102,6 +104,7 @@ MuLambdaES::AdjustableESMutation::AdjustableESMutation(
 	this->targetGenomeLength = 0;
 	this->tau = tau;
 	this->tauPrime = tauPrime;
+	this->tausCalculated = true;
 }
 
 Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
@@ -156,6 +159,37 @@ Gene* MuLambdaES::AdjustableESMutation::newLocusValue(
 	} else {
 		return genes[index]->copy();
 	}
+}
+
+void MuLambdaES::AdjustableESMutation::calculateTaus(Genome* initial) {
+	this->tau = pow(sqrt(2 * sqrt(initial->genomeLength())), -1);
+	this->tauPrime = pow(sqrt(2 * initial->genomeLength()), -1);
+	this->tausCalculated = true;
+}
+
+Genome* MuLambdaES::AdjustableESMutation::addStdDevs(Genome* target) {
+	std::vector<Gene*> initialGenes = target->getGenome();
+
+	if (!this->tausCalculated) this->calculateTaus(target);
+	if (this->initialGenomeLength == 0) {
+		this->initialGenomeLength = target->genomeLength();
+		this->targetGenomeLength = 2 * target->genomeLength();
+	}
+
+	for (unsigned int i = 0; i < initialGenes.size(); i++) {
+		initialGenes.push_back(
+			(new NumericSetLocus<double>())->getGene()
+		);
+		if (this->stdDevIndices.size() < this->initialGenomeLength)
+			this->stdDevIndices.push_back(
+				this->initialGenomeLength + i
+			);
+		HierGC::registerObject(
+			initialGenes[initialGenes.size() + i]->getLocus()
+		);
+	}
+
+	return new Genome(initialGenes, target->getSpeciesNode());
 }
 
 std::vector<Gene*> MuLambdaES::AdjustableESMutation::adjustStdDevs(
