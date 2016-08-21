@@ -7,6 +7,7 @@
 #include "../core/genes/ContinuousGene.hpp"
 #include <limits>
 #include <boost/type_index.hpp>
+#include <sstream>
 
 template <typename T>
 class NumericSetLocus : public Locus {
