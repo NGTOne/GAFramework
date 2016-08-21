@@ -46,6 +46,45 @@ class MuLambdaES: public ES {
 	};
 
 	protected:
+	MuLambdaES(unsigned int lambda = 1);
+	MuLambdaES(double tau, double tauPrime, unsigned int lambda = 1);
+
+	MuLambdaES(SelectionStrategy* selection, unsigned int lambda = 1);
+	MuLambdaES(
+		SelectionStrategy* selection,
+		double tau,
+		double tauPrime,
+		unsigned int lambda = 1
+	);
+
+	MuLambdaES(
+		CrossoverOperation* cross,
+		unsigned int lambda = 1,
+		unsigned int rho = 2
+	);
+	MuLambdaES(
+		CrossoverOperation* cross,
+		double tau,
+		double tauPrime,
+		unsigned int lambda = 1,
+		unsigned int rho = 2
+	);
+
+	MuLambdaES(
+		SelectionStrategy* selection,
+		CrossoverOperation* cross,
+		unsigned int lambda = 1,
+		unsigned int rho = 2
+	);
+	MuLambdaES(
+		SelectionStrategy* selection,
+		CrossoverOperation* cross,
+		double tau,
+		double tauPrime,
+		unsigned int lambda = 1,
+		unsigned int rho = 2
+	);
+
 	MuLambdaES(MutationOperation* mutation, unsigned int lambda = 1);
 	MuLambdaES(
 		MutationOperation* mutation,
