@@ -8,6 +8,7 @@ MuLambdaES::AdjustableESMutation::AdjustableESMutation() {
 	this->initialGenomeLength = 0;
 	this->targetGenomeLength = 0;
 	this->tausCalculated = false;
+	this->stdDevLocus = new NumericSetLocus<double>();
 }
 
 MuLambdaES::AdjustableESMutation::AdjustableESMutation(
@@ -19,12 +20,13 @@ MuLambdaES::AdjustableESMutation::AdjustableESMutation(
 	this->tau = tau;
 	this->tauPrime = tauPrime;
 	this->tausCalculated = true;
+	this->stdDevLocus = new NumericSetLocus<double>();
 }
 
 Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
 	Genome* realInitial = initialGenome;
 	if (
-		this->initialGenomeLength == 0
+		this->targetGenomeLength == 0
 		|| initialGenome->genomeLength() < this->targetGenomeLength
 	) initialGenome = this->addStdDevs(initialGenome);
 
@@ -34,7 +36,6 @@ Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
 		new Genome(adjusted, initialGenome->getSpeciesNode());
 	std::vector<MutationOperation*> mutations =
 		this->getMutations(adjustedGenome);
-
 
 	std::vector<Gene*> results;
 	for (unsigned int i = 0; i < initialGenome->genomeLength(); i++)
@@ -49,6 +50,10 @@ Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
 	return new Genome(results, realInitial->getSpeciesNode());
 }
 
+void MuLambdaES::AdjustableESMutation::registerInternalObjects() {
+	HierGC::registerObject(this->stdDevLocus);
+}
+
 Gene* MuLambdaES::AdjustableESMutation::newLocusValue(Gene* current) {
 	return NULL;
 }
@@ -59,11 +64,7 @@ Gene* MuLambdaES::AdjustableESMutation::newLocusValue(
 	MutationOperation* mutation
 ) {
 	std::vector<Gene*> genes = current->getGenome();
-	if (std::find(
-		this->stdDevIndices.begin(),
-		this->stdDevIndices.end(),
-		index
-	) == this->stdDevIndices.end()) {
+	if (index < this->stdDevIndices[0]) {
 		Genome* temp =
 			new Genome({genes[index]}, current->getSpeciesNode());
 		Genome* result = mutation->mutate(temp);
@@ -82,7 +83,7 @@ void MuLambdaES::AdjustableESMutation::calculateTaus(Genome* initial) {
 }
 
 Genome* MuLambdaES::AdjustableESMutation::addStdDevs(Genome* target) {
-	std::vector<Gene*> initialGenes = target->getGenome();
+	std::vector<Gene*> initialGenes = target->getGenomeCopy();
 
 	if (!this->tausCalculated) this->calculateTaus(target);
 	if (this->initialGenomeLength == 0) {
@@ -90,17 +91,12 @@ Genome* MuLambdaES::AdjustableESMutation::addStdDevs(Genome* target) {
 		this->targetGenomeLength = 2 * target->genomeLength();
 	}
 
-	for (unsigned int i = 0; i < initialGenes.size(); i++) {
-		initialGenes.push_back(
-			(new NumericSetLocus<double>())->getGene()
-		);
+	for (unsigned int i = 0; i < this->initialGenomeLength; i++) {
+		initialGenes.push_back(this->stdDevLocus->getGene());
 		if (this->stdDevIndices.size() < this->initialGenomeLength)
 			this->stdDevIndices.push_back(
 				this->initialGenomeLength + i
 			);
-		HierGC::registerObject(
-			initialGenes[initialGenes.size() + i]->getLocus()
-		);
 	}
 
 	return new Genome(initialGenes, target->getSpeciesNode());
@@ -110,11 +106,8 @@ std::vector<Gene*> MuLambdaES::AdjustableESMutation::adjustStdDevs(
 	std::vector<Gene*> genes
 ) {
 	std::vector<Gene*> results;
-	results.insert(
-		results.begin(),
-		genes.begin(),
-		genes.begin() + this->initialGenomeLength
-	);
+	for (unsigned int i = 0; i < this->initialGenomeLength; i++)
+		results.push_back(genes[i]->copy());
 
 	double rhoZero = HierRNG::zeroOne<double>();
 
