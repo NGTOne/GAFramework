@@ -122,7 +122,10 @@ Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
 			this->newLocusValue(initialGenome, i, mutations[i])
 		);
 	this->cleanUpMutations(mutations);
-	return new Genome(results, initialGenome->getSpeciesNode());
+	return new Genome(
+		this->adjustStdDevs(results),
+		initialGenome->getSpeciesNode()
+	);
 }
 
 Gene* MuLambdaES::AdjustableESMutation::newLocusValue(Gene* current) {
@@ -148,6 +151,14 @@ Gene* MuLambdaES::AdjustableESMutation::newLocusValue(
 		return resultGene;
 	} else {
 		return genes[index]->copy();
+	}
+}
+
+std::vector<Gene*> MuLambdaES::AdjustableESMutation::adjustStdDevs(
+	std::vector<Gene*> genes
+) {
+	for (unsigned int index: this->stdDevIndices) {
+		Gene* target = genes[index];
 	}
 }
 

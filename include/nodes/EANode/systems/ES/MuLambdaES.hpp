@@ -28,8 +28,11 @@ class MuLambdaES: public ES {
 			unsigned int index,
 			MutationOperation* mutation
 		);
+		std::vector<Gene*> adjustStdDevs(std::vector<Gene*> genes);
+
 		std::vector<MutationOperation*> getMutations(Genome* target);
 		void cleanUpMutations(std::vector<MutationOperation*> mutations);
+
 
 		public:
 		AdjustableESMutation(std::vector<unsigned int> stdDevIndices);
