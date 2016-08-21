@@ -86,6 +86,13 @@ std::vector<Gene*> Genome::getGenome() {
 	return this->genes;
 }
 
+std::vector<Gene*> Genome::getGenomeCopy() {
+	std::vector<Gene*> genes;
+	for (unsigned int i = 0; i < this->genes.size(); i++)
+		genes.push_back(this->genes[i]->copy());
+	return genes;
+}
+
 unsigned int Genome::genomeLength() {
 	return this->genes.size();
 }

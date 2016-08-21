@@ -44,6 +44,7 @@ class Genome {
 	virtual ~Genome();
 
 	std::vector<Gene*> getGenome();
+	std::vector<Gene*> getGenomeCopy();
 	std::vector<Locus*> getLoci();
 	unsigned int genomeLength();
 	unsigned int flattenedGenomeLength();
