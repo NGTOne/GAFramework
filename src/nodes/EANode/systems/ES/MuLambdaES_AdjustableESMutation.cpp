@@ -24,16 +24,20 @@ MuLambdaES::AdjustableESMutation::AdjustableESMutation(
 }
 
 Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
-	Genome* realInitial = initialGenome;
+	Genome* realInitial;
 	if (
 		this->targetGenomeLength == 0
 		|| initialGenome->genomeLength() < this->targetGenomeLength
-	) initialGenome = this->addStdDevs(initialGenome);
+	) {
+		realInitial = this->addStdDevs(initialGenome);
+	} else {
+		realInitial = new Genome(initialGenome);
+	}
 
 	std::vector<Gene*> adjusted =
-		this->adjustStdDevs(initialGenome->getGenome());
+		this->adjustStdDevs(realInitial->getGenome());
 	Genome* adjustedGenome =
-		new Genome(adjusted, initialGenome->getSpeciesNode());
+		new Genome(adjusted, realInitial->getSpeciesNode());
 	std::vector<MutationOperation*> mutations =
 		this->getMutations(adjustedGenome);
 
@@ -44,10 +48,10 @@ Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
 		);
 
 	this->cleanUpMutations(mutations);
-	delete(initialGenome);
+	delete(realInitial);
 	delete(adjustedGenome);
 
-	return new Genome(results, realInitial->getSpeciesNode());
+	return new Genome(results, initialGenome->getSpeciesNode());
 }
 
 void MuLambdaES::AdjustableESMutation::registerInternalObjects() {
@@ -65,11 +69,14 @@ Gene* MuLambdaES::AdjustableESMutation::newLocusValue(
 ) {
 	std::vector<Gene*> genes = current->getGenome();
 	if (index < this->stdDevIndices[0]) {
-		Genome* temp =
-			new Genome({genes[index]}, current->getSpeciesNode());
+		Genome* temp = new Genome(
+			{genes[index]->copy()},
+			current->getSpeciesNode()
+		);
 		Genome* result = mutation->mutate(temp);
 		Gene* resultGene = result->getGenome()[0]->copy();
 		delete(result);
+		delete(temp);
 		return resultGene;
 	} else {
 		return genes[index]->copy();
@@ -133,9 +140,11 @@ std::vector<MutationOperation*> MuLambdaES::AdjustableESMutation::getMutations(
 
 	for (unsigned int i = 0; i < this->initialGenomeLength; i++)
 		mutations.push_back(new GaussianMutation(
+			0.0,
 			target->getIndex<double>(
 				this->stdDevIndices[stdDevIndex++]
-			)
+			),
+			1.0
 		));
 
 	return mutations;
