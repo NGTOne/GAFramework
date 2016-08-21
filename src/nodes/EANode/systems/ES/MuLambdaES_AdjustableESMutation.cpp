@@ -34,24 +34,9 @@ Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
 		realInitial = new Genome(initialGenome);
 	}
 
-	std::vector<Gene*> adjusted =
-		this->adjustStdDevs(realInitial->getGenome());
-	Genome* adjustedGenome =
-		new Genome(adjusted, realInitial->getSpeciesNode());
-	std::vector<MutationOperation*> mutations =
-		this->getMutations(adjustedGenome);
-
-	std::vector<Gene*> results;
-	for (unsigned int i = 0; i < initialGenome->genomeLength(); i++)
-		results.push_back(
-			this->newLocusValue(adjustedGenome, i, mutations[i])
-		);
-
-	this->cleanUpMutations(mutations);
+	Genome* mutated = this->mutateProper(realInitial);
 	delete(realInitial);
-	delete(adjustedGenome);
-
-	return new Genome(results, initialGenome->getSpeciesNode());
+	return mutated;
 }
 
 void MuLambdaES::AdjustableESMutation::registerInternalObjects() {
@@ -60,27 +45,6 @@ void MuLambdaES::AdjustableESMutation::registerInternalObjects() {
 
 Gene* MuLambdaES::AdjustableESMutation::newLocusValue(Gene* current) {
 	return NULL;
-}
-
-Gene* MuLambdaES::AdjustableESMutation::newLocusValue(
-	Genome* current,
-	unsigned int index,
-	MutationOperation* mutation
-) {
-	std::vector<Gene*> genes = current->getGenome();
-	if (index < this->stdDevIndices[0]) {
-		Genome* temp = new Genome(
-			{genes[index]->copy()},
-			current->getSpeciesNode()
-		);
-		Genome* result = mutation->mutate(temp);
-		Gene* resultGene = result->getGenome()[0]->copy();
-		delete(result);
-		delete(temp);
-		return resultGene;
-	} else {
-		return genes[index]->copy();
-	}
 }
 
 void MuLambdaES::AdjustableESMutation::calculateTaus(Genome* initial) {
@@ -109,14 +73,13 @@ Genome* MuLambdaES::AdjustableESMutation::addStdDevs(Genome* target) {
 	return new Genome(initialGenes, target->getSpeciesNode());
 }
 
-std::vector<Gene*> MuLambdaES::AdjustableESMutation::adjustStdDevs(
-	std::vector<Gene*> genes
-) {
+Genome* MuLambdaES::AdjustableESMutation::mutateProper(Genome* target) {
+	std::vector<Gene*> genes = target->getGenome();
 	std::vector<Gene*> results;
 	for (unsigned int i = 0; i < this->initialGenomeLength; i++)
 		results.push_back(genes[i]->copy());
 
-	double rhoZero = HierRNG::zeroOne<double>();
+	double rhoZero = HierRNG::gaussian(0, 1);
 
 	for (unsigned int index: this->stdDevIndices) {
 		Gene* target = genes[index];
@@ -124,35 +87,23 @@ std::vector<Gene*> MuLambdaES::AdjustableESMutation::adjustStdDevs(
 		stdDev = pow(
 			stdDev,
 			this->tauPrime * rhoZero
-				+ this->tau * HierRNG::zeroOne<double>()
+				+ this->tau * HierRNG::gaussian(0, 1)
 		);
 		results.push_back(target->copy(stdDev));
 	}
 
-	return results;
-}
+	for (unsigned int i = 0; i < this->initialGenomeLength; i++) {
+		Gene* original = results[i];
+		double newIndex = original->getIndex();
+		newIndex =
+			newIndex
+				+ results[
+					this->initialGenomeLength + i
+				]->getIndex()
+				* HierRNG::gaussian(0, 1);
+		results[i] = original->copy(newIndex);
+		delete(original);
+	}
 
-std::vector<MutationOperation*> MuLambdaES::AdjustableESMutation::getMutations(
-	Genome* target
-) {
-	std::vector<MutationOperation*> mutations;
-	unsigned int stdDevIndex = 0;
-
-	for (unsigned int i = 0; i < this->initialGenomeLength; i++)
-		mutations.push_back(new GaussianMutation(
-			0.0,
-			target->getIndex<double>(
-				this->stdDevIndices[stdDevIndex++]
-			),
-			1.0
-		));
-
-	return mutations;
-}
-
-void MuLambdaES::AdjustableESMutation::cleanUpMutations(
-	std::vector<MutationOperation*> mutations
-) {
-	for (unsigned int i = 0; i < mutations.size(); i++)
-		delete(mutations[i]);
+	return new Genome(results, target->getSpeciesNode());
 }

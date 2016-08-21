@@ -28,17 +28,10 @@ class MuLambdaES: public ES {
 
 		protected:
 		Gene* newLocusValue(Gene* current);
-		Gene* newLocusValue(
-			Genome* current,
-			unsigned int index,
-			MutationOperation* mutation
-		);
 
 		void calculateTaus(Genome* initial);
 		Genome* addStdDevs(Genome* target);
-		std::vector<Gene*> adjustStdDevs(std::vector<Gene*> genes);
-		std::vector<MutationOperation*> getMutations(Genome* target);
-		void cleanUpMutations(std::vector<MutationOperation*> mutations);
+		Genome* mutateProper(Genome* target);
 
 		public:
 		AdjustableESMutation();
