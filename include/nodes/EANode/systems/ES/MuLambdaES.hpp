@@ -41,6 +41,8 @@ class MuLambdaES: public ES {
 	};
 
 	protected:
+
+	public:
 	MuLambdaES(unsigned int lambda = 1);
 	MuLambdaES(double tau, double tauPrime, unsigned int lambda = 1);
 
@@ -105,8 +107,6 @@ class MuLambdaES: public ES {
 		std::vector<float> parentFitnesses,
 		std::string speciesNode
 	);
-
-	public:
 };
 
 #endif
