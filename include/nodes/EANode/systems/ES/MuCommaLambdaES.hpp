@@ -19,25 +19,7 @@ class MuCommaLambdaES: public MuLambdaES {
 	);
 
 	public:
-	MuCommaLambdaES(MutationOperation* mutation, unsigned int lambda = 1);
-	MuCommaLambdaES(
-		MutationOperation* mutation,
-		SelectionStrategy* selection,
-		unsigned int lambda = 1
-	);
-	MuCommaLambdaES(
-		CrossoverOperation* cross,
-		MutationOperation* mutation,
-		unsigned int lambda = 1,
-		unsigned int rho = 2
-	);
-	MuCommaLambdaES(
-		SelectionStrategy* strategy,
-		CrossoverOperation* cross,
-		MutationOperation* mutation,
-		unsigned int lambda = 1,
-		unsigned int rho = 2
-	);
+	using MuLambdaES::MuLambdaES;
 };
 
 #endif

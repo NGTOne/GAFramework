@@ -19,25 +19,7 @@ class MuPlusLambdaES: public MuLambdaES {
 	);
 
 	public:
-	MuPlusLambdaES(MutationOperation* mutation, unsigned int lambda = 1);
-	MuPlusLambdaES(
-		MutationOperation* mutation,
-		SelectionStrategy* selection,
-		unsigned int lambda = 1
-	);
-	MuPlusLambdaES(
-		CrossoverOperation* cross,
-		MutationOperation* mutation,
-		unsigned int lambda = 1,
-		unsigned int rho = 2
-	);
-	MuPlusLambdaES(
-		SelectionStrategy* strategy,
-		CrossoverOperation* cross,
-		MutationOperation* mutation,
-		unsigned int lambda = 1,
-		unsigned int rho = 2
-	);
+	using MuLambdaES::MuLambdaES;
 };
 
 #endif

@@ -1,32 +1,6 @@
 #include "nodes/EANode/systems/ES/MuCommaLambdaES.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
 
-MuCommaLambdaES::MuCommaLambdaES(
-	MutationOperation* mutation,
-	unsigned int lambda
-) : MuLambdaES(mutation, lambda) {}
-
-MuCommaLambdaES::MuCommaLambdaES(
-	MutationOperation* mutation,
-	SelectionStrategy* selection,
-	unsigned int lambda
-) : MuLambdaES(mutation, lambda) {}
-
-MuCommaLambdaES::MuCommaLambdaES(
-	CrossoverOperation* cross,
-	MutationOperation* mutation,
-	unsigned int lambda,
-	unsigned int rho
-) : MuLambdaES(cross, mutation, lambda, rho) {}
-
-MuCommaLambdaES::MuCommaLambdaES(
-	SelectionStrategy* strategy,
-	CrossoverOperation* cross,
-	MutationOperation* mutation,
-	unsigned int lambda,
-	unsigned int rho
-) : MuLambdaES(strategy, cross, mutation, lambda, rho) {}
-
 std::vector<Genome*> MuCommaLambdaES::doReplacement(
 	std::vector<Genome*> parents,
 	std::vector<Genome*> offspring,

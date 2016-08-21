@@ -1,31 +1,5 @@
 #include "nodes/EANode/systems/ES/MuPlusLambdaES.hpp"
 
-MuPlusLambdaES::MuPlusLambdaES(
-	MutationOperation* mutation,
-	unsigned int lambda
-) : MuLambdaES(mutation, lambda) {}
-
-MuPlusLambdaES::MuPlusLambdaES(
-	MutationOperation* mutation,
-	SelectionStrategy* selection,
-	unsigned int lambda
-) : MuLambdaES(mutation, lambda) {}
-
-MuPlusLambdaES::MuPlusLambdaES(
-	CrossoverOperation* cross,
-	MutationOperation* mutation,
-	unsigned int lambda,
-	unsigned int rho
-) : MuLambdaES(cross, mutation, lambda, rho) {}
-
-MuPlusLambdaES::MuPlusLambdaES(
-	SelectionStrategy* strategy,
-	CrossoverOperation* cross,
-	MutationOperation* mutation,
-	unsigned int lambda,
-	unsigned int rho
-) : MuLambdaES(strategy, cross, mutation, lambda, rho) {}
-
 std::vector<Genome*> MuPlusLambdaES::doReplacement(
 	std::vector<Genome*> parents,
 	std::vector<Genome*> offspring,
