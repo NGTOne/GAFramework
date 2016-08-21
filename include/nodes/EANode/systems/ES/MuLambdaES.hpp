@@ -18,8 +18,11 @@ class MuLambdaES: public ES {
 
 	class AdjustableESMutation: public MutationOperation {
 		private:
-		std::map<unsigned int, MutationOperation*> fixedMutations;
 		std::vector<unsigned int> stdDevIndices;
+		unsigned int initialGenomeLength;
+		unsigned int targetGenomeLength;
+		double tau;
+		double tauPrime;
 
 		protected:
 		Gene* newLocusValue(Gene* current);
@@ -28,23 +31,15 @@ class MuLambdaES: public ES {
 			unsigned int index,
 			MutationOperation* mutation
 		);
-		std::vector<Gene*> adjustStdDevs(std::vector<Gene*> genes);
 
+		Genome* addStdDevs(Genome* target);
+		std::vector<Gene*> adjustStdDevs(std::vector<Gene*> genes);
 		std::vector<MutationOperation*> getMutations(Genome* target);
 		void cleanUpMutations(std::vector<MutationOperation*> mutations);
 
-
 		public:
-		AdjustableESMutation(std::vector<unsigned int> stdDevIndices);
-		AdjustableESMutation(
-			std::map<
-				unsigned int,
-				MutationOperation*
-			> fixedMutations,
-			std::vector<unsigned int> stdDevIndices
-		);
-		void registerInternalObjects();
-
+		AdjustableESMutation();
+		AdjustableESMutation(double tau, double tauPrime);
 		Genome* mutate(Genome* initialGenome);
 	};
 
