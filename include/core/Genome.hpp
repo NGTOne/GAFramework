@@ -4,6 +4,7 @@
 #include "Locus.hpp"
 #include "GenomeTemplate.hpp"
 #include "genes/Gene.hpp"
+#include "genes/Gene.t.hpp"
 #include <vector>
 #include <set>
 #include <functional>
