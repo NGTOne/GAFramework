@@ -9,6 +9,7 @@ MuLambdaES::AdjustableESMutation::AdjustableESMutation() {
 	this->targetGenomeLength = 0;
 	this->tausCalculated = false;
 	this->stdDevLocus = NULL;
+	this->setupDone = false;
 }
 
 MuLambdaES::AdjustableESMutation::AdjustableESMutation(
@@ -21,9 +22,12 @@ MuLambdaES::AdjustableESMutation::AdjustableESMutation(
 	this->tauPrime = tauPrime;
 	this->tausCalculated = true;
 	this->stdDevLocus = NULL;
+	this->setupDone = false;
 }
 
 Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
+	if (!this->setupDone) this->setupInternals(initialGenome);
+
 	Genome* realInitial;
 	if (
 		this->targetGenomeLength == 0
@@ -39,7 +43,22 @@ Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
 	return mutated;
 }
 
-void MuLambdaES::AdjustableESMutation::registerInternalObjects() {}
+void MuLambdaES::AdjustableESMutation::setupInternals(Genome* firstTarget) {
+	if (!this->tausCalculated) this->calculateTaus(firstTarget);
+	if (!this->stdDevLocus) {
+		this->stdDevLocus = new NumericSetLocus<double>(
+			0,
+			firstTarget->genomeLength()
+		);
+		HierGC::registerObject(this->stdDevLocus);
+	}
+	if (this->initialGenomeLength == 0) {
+		this->initialGenomeLength = firstTarget->genomeLength();
+		this->targetGenomeLength = 2 * firstTarget->genomeLength();
+	}
+
+	this->setupDone = true;
+}
 
 Gene* MuLambdaES::AdjustableESMutation::newLocusValue(Gene* current) {
 	return NULL;
@@ -53,17 +72,6 @@ void MuLambdaES::AdjustableESMutation::calculateTaus(Genome* initial) {
 
 Genome* MuLambdaES::AdjustableESMutation::addStdDevs(Genome* target) {
 	std::vector<Gene*> initialGenes = target->getGenomeCopy();
-
-	if (!this->tausCalculated) this->calculateTaus(target);
-	if (!this->stdDevLocus)
-		this->stdDevLocus = new NumericSetLocus<double>(
-			0,
-			target->genomeLength()
-		);
-	if (this->initialGenomeLength == 0) {
-		this->initialGenomeLength = target->genomeLength();
-		this->targetGenomeLength = 2 * target->genomeLength();
-	}
 
 	for (unsigned int i = 0; i < this->initialGenomeLength; i++) {
 		initialGenes.push_back(this->stdDevLocus->getGene());

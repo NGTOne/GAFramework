@@ -26,6 +26,10 @@ class MuLambdaES: public ES {
 		bool tausCalculated;
 		Locus* stdDevLocus;
 
+		bool setupDone;
+
+		void setupInternals(Genome* firstTarget);
+
 		protected:
 		Gene* newLocusValue(Gene* current);
 
@@ -37,7 +41,6 @@ class MuLambdaES: public ES {
 		AdjustableESMutation();
 		AdjustableESMutation(double tau, double tauPrime);
 		Genome* mutate(Genome* initialGenome);
-		virtual void registerInternalObjects();
 	};
 
 	protected:
