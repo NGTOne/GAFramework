@@ -19,7 +19,7 @@ int main(void) {
 		true,
 		new MuPlusLambdaES(
 			new UniformCrossover(),
-			6
+			24
 		)
 	);
 
