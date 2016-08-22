@@ -7,7 +7,7 @@ using namespace std;
 
 int main(void) {
 	HierarchicalEA ea(100);
-	vector<Locus*> baseLoci(32, new NumericSetLocus<double>());
+	vector<Locus*> baseLoci(32, new NumericSetLocus<double>(-50, 50));
 	ea.addNode<EANode>(
 		6,
 		baseLoci,
