@@ -23,7 +23,6 @@ class NumericSetLocus : public Locus {
 	T bottom;
 
 	public:
-	NumericSetLocus();
 	NumericSetLocus(T bottom, T top);
 
 	Gene* getGene();
@@ -46,12 +45,6 @@ class NumericSetLocus : public Locus {
 		ContinuousGene
 	>::type;
 };
-
-template <typename T>
-NumericSetLocus<T>::NumericSetLocus() {
-	this->bottom = std::numeric_limits<T>::lowest();
-	this->top = std::numeric_limits<T>::max();
-}
 
 template <typename T>
 NumericSetLocus<T>::NumericSetLocus(T bottom, T top) {
