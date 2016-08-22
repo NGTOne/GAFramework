@@ -198,12 +198,14 @@ instruments:
 # Examples
 examples: example-fitnesses
 	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/1max.cpp -o obj/examples/1max.o
+	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/Sphere.cpp -o obj/examples/Sphere.o
 	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/Hier1max.cpp -o obj/examples/Hier1max.o
 	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/LongestFragment.cpp -o obj/examples/LongestFragment.o
 	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/HierLongestFragment.cpp -o obj/examples/HierLongestFragment.o
 	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/ApportioningHierLF.cpp -o obj/examples/ApportioningHierLF.o
 	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/MetaHierLF.cpp -o obj/examples/MetaHierLF.o
 	$(CPPC) -o examples/1max obj/examples/1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
+	$(CPPC) -o examples/Sphere obj/examples/Sphere.o obj/examples/fitnesses/SphereFitness.o $(SHAREDLIB)
 	$(CPPC) -o examples/Hier1max obj/examples/Hier1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
 	$(CPPC) -o examples/LongestFragment obj/examples/LongestFragment.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
 	$(CPPC) -o examples/HierLongestFragment obj/examples/HierLongestFragment.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
@@ -212,6 +214,7 @@ examples: example-fitnesses
 
 example-fitnesses:
 	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/fitnesses/1maxFitness.cpp -o obj/examples/fitnesses/1maxFitness.o
+	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/fitnesses/SphereFitness.cpp -o obj/examples/fitnesses/SphereFitness.o
 	$(CPPC) $(CPPFLAGS) $(EXAMPLEINCLUDE) src/examples/fitnesses/LongestFragmentFitness.cpp -o obj/examples/fitnesses/LongestFragmentFitness.o
 
 hier3longestfragment:
