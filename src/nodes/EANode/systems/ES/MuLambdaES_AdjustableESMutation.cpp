@@ -8,7 +8,7 @@ MuLambdaES::AdjustableESMutation::AdjustableESMutation() {
 	this->initialGenomeLength = 0;
 	this->targetGenomeLength = 0;
 	this->tausCalculated = false;
-	this->stdDevLocus = new NumericSetLocus<double>();
+	this->stdDevLocus = NULL;
 }
 
 MuLambdaES::AdjustableESMutation::AdjustableESMutation(
@@ -20,7 +20,7 @@ MuLambdaES::AdjustableESMutation::AdjustableESMutation(
 	this->tau = tau;
 	this->tauPrime = tauPrime;
 	this->tausCalculated = true;
-	this->stdDevLocus = new NumericSetLocus<double>();
+	this->stdDevLocus = NULL;
 }
 
 Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
@@ -39,9 +39,7 @@ Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
 	return mutated;
 }
 
-void MuLambdaES::AdjustableESMutation::registerInternalObjects() {
-	HierGC::registerObject(this->stdDevLocus);
-}
+void MuLambdaES::AdjustableESMutation::registerInternalObjects() {}
 
 Gene* MuLambdaES::AdjustableESMutation::newLocusValue(Gene* current) {
 	return NULL;
@@ -57,6 +55,11 @@ Genome* MuLambdaES::AdjustableESMutation::addStdDevs(Genome* target) {
 	std::vector<Gene*> initialGenes = target->getGenomeCopy();
 
 	if (!this->tausCalculated) this->calculateTaus(target);
+	if (!this->stdDevLocus)
+		this->stdDevLocus = new NumericSetLocus<double>(
+			0,
+			target->genomeLength()
+		);
 	if (this->initialGenomeLength == 0) {
 		this->initialGenomeLength = target->genomeLength();
 		this->targetGenomeLength = 2 * target->genomeLength();
