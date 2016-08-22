@@ -84,7 +84,7 @@ Genome* MuLambdaES::AdjustableESMutation::mutateProper(Genome* target) {
 	for (unsigned int index: this->stdDevIndices) {
 		Gene* target = genes[index];
 		double stdDev = target->getIndex();
-		stdDev = pow(
+		stdDev = stdDev * pow(
 			stdDev,
 			this->tauPrime * rhoZero
 				+ this->tau * HierRNG::gaussian(0, 1)
@@ -95,12 +95,9 @@ Genome* MuLambdaES::AdjustableESMutation::mutateProper(Genome* target) {
 	for (unsigned int i = 0; i < this->initialGenomeLength; i++) {
 		Gene* original = results[i];
 		double newIndex = original->getIndex();
-		newIndex =
-			newIndex
-				+ results[
-					this->initialGenomeLength + i
-				]->getIndex()
-				* HierRNG::gaussian(0, 1);
+		newIndex = newIndex
+			+ results[this->initialGenomeLength + i]->getIndex()
+			* HierRNG::gaussian(0, 1);
 		results[i] = original->copy(newIndex);
 		delete(original);
 	}
