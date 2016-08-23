@@ -3,6 +3,7 @@
 #include "nodes/EANode/mutations/GaussianMutation.hpp"
 #include "loci/NumericSetLocus.hpp"
 #include <math.h>
+#include <limits>
 
 MuLambdaES::AdjustableESMutation::AdjustableESMutation() {
 	this->initialGenomeLength = 0;
@@ -48,7 +49,7 @@ void MuLambdaES::AdjustableESMutation::setupInternals(Genome* firstTarget) {
 	if (!this->stdDevLocus) {
 		this->stdDevLocus = new NumericSetLocus<double>(
 			0,
-			firstTarget->genomeLength()
+			std::numeric_limits<double>::max()
 		);
 		HierGC::registerObject(this->stdDevLocus);
 	}
@@ -74,7 +75,7 @@ Genome* MuLambdaES::AdjustableESMutation::addStdDevs(Genome* target) {
 	std::vector<Gene*> initialGenes = target->getGenomeCopy();
 
 	for (unsigned int i = 0; i < this->initialGenomeLength; i++) {
-		initialGenes.push_back(this->stdDevLocus->getGene());
+		initialGenes.push_back(this->stdDevLocus->getGene(1));
 		if (this->stdDevIndices.size() < this->initialGenomeLength)
 			this->stdDevIndices.push_back(
 				this->initialGenomeLength + i
