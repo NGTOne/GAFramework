@@ -1,32 +1,18 @@
 #include "nodes/EANode/systems/ES/MuLambdaES.hpp"
+#include "nodes/EANode/mutations/AdaptiveRealValueMutation.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
 #include "core/utils/HierRNG.hpp"
 
-MuLambdaES::MuLambdaES(unsigned int lambda) : ES(new AdjustableESMutation()) {
-	this->init(lambda);
-}
-
 MuLambdaES::MuLambdaES(
-	double tau,
-	double tauPrime,
 	unsigned int lambda
-) : ES(new AdjustableESMutation(tau, tauPrime)) {
+) : ES(new AdaptiveRealValueMutation()) {
 	this->init(lambda);
 }
 
 MuLambdaES::MuLambdaES(
 	SelectionStrategy* selection,
 	unsigned int lambda
-) : ES(selection, NULL, new AdjustableESMutation()) {
-	this->init(lambda);
-}
-
-MuLambdaES::MuLambdaES(
-	SelectionStrategy* selection,
-	double tau,
-	double tauPrime,
-	unsigned int lambda
-) : ES(selection, NULL, new AdjustableESMutation(tau, tauPrime)) {
+) : ES(selection, NULL, new AdaptiveRealValueMutation()) {
 	this->init(lambda);
 }
 
@@ -34,17 +20,7 @@ MuLambdaES::MuLambdaES(
 	CrossoverOperation* cross,
 	unsigned int lambda,
 	unsigned int rho
-) : ES(cross, new AdjustableESMutation()) {
-	this->init(lambda, rho);
-}
-
-MuLambdaES::MuLambdaES(
-	CrossoverOperation* cross,
-	double tau,
-	double tauPrime,
-	unsigned int lambda,
-	unsigned int rho
-) : ES(cross, new AdjustableESMutation(tau, tauPrime)) {
+) : ES(cross, new AdaptiveRealValueMutation()) {
 	this->init(lambda, rho);
 }
 
@@ -53,18 +29,7 @@ MuLambdaES::MuLambdaES(
 	CrossoverOperation* cross,
 	unsigned int lambda,
 	unsigned int rho
-) : ES(selection, cross, new AdjustableESMutation()) {
-	this->init(lambda, rho);
-}
-
-MuLambdaES::MuLambdaES(
-	SelectionStrategy* selection,
-	CrossoverOperation* cross,
-	double tau,
-	double tauPrime,
-	unsigned int lambda,
-	unsigned int rho
-) : ES(selection, cross, new AdjustableESMutation(tau, tauPrime)) {
+) : ES(selection, cross, new AdaptiveRealValueMutation()) {
 	this->init(lambda, rho);
 }
 
