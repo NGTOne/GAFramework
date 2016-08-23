@@ -1,42 +1,38 @@
-#include "nodes/EANode/mutations/CovarianceMatrixSelfAdaptiveMutation.hpp"
+#include "nodes/EANode/systems/ES/CMSA_ES.hpp"
 #include <math.h>
 
-CovarianceMatrixSelfAdaptiveMutation::CovarianceMatrixSelfAdaptiveMutation(
-	unsigned int mu,
+CMSA_ES::CMSAMutation::CMSAMutation(
 	unsigned int lambda
 ) : AdaptiveRealValueMutation() {
-	this->mu = mu;
 	this->lambda = lambda;
 }
 
-CovarianceMatrixSelfAdaptiveMutation::CovarianceMatrixSelfAdaptiveMutation(
-	unsigned int mu,
+CMSA_ES::CMSAMutation::CMSAMutation(
 	unsigned int lambda,
 	double tau,
 	double tauC
 ) : AdaptiveRealValueMutation() {
-	this->mu = mu;
 	this->lambda = lambda;
 	this->tau = tau;
 	this->tauC = tauC;
 	this->tausCalculated = true;
 }
 
-void CovarianceMatrixSelfAdaptiveMutation::calculateTaus(Genome* initial) {
+void CMSA_ES::CMSAMutation::calculateTaus(Genome* initial) {
 	unsigned int n = initial->genomeLength();
 	this->tau = 1/sqrt(2 * n);
 	this->tauC = 1 + n * (n + 1)/(2 * this->mu);
 	this->tausCalculated = true;
 }
 
-void CovarianceMatrixSelfAdaptiveMutation::calculateProperGenomeLengths(
+void CMSA_ES::CMSAMutation::calculateProperGenomeLengths(
 	Genome* initial
 ) {
 	this->initialGenomeLength = initial->genomeLength();
 	this->targetGenomeLength = initial->genomeLength() + 1;
 }
 
-Genome* CovarianceMatrixSelfAdaptiveMutation::addStdDevs(Genome* target) {
+Genome* CMSA_ES::CMSAMutation::addStdDevs(Genome* target) {
 	std::vector<Gene*> newGenes = target->getGenomeCopy();
 	newGenes.push_back(this->stdDevLocus->getGene(1));
 
@@ -46,7 +42,11 @@ Genome* CovarianceMatrixSelfAdaptiveMutation::addStdDevs(Genome* target) {
 	return new Genome(newGenes, target->getSpeciesNode());
 }
 
-void CovarianceMatrixSelfAdaptiveMutation::otherSetupSteps(Genome* initial) {
+void CMSA_ES::CMSAMutation::otherSetupSteps(Genome* initial) {
 	unsigned int n = initial->genomeLength();
 	this->C = Eigen::MatrixXd::Identity(n, n);
+}
+
+void CMSA_ES::CMSAMutation::setMu(unsigned int mu) {
+	this->mu = mu;
 }
