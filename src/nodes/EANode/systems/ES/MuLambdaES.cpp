@@ -1,18 +1,18 @@
 #include "nodes/EANode/systems/ES/MuLambdaES.hpp"
-#include "nodes/EANode/mutations/AdaptiveRealValueMutation.hpp"
+#include "nodes/EANode/mutations/SelfAdaptiveMutation.hpp"
 #include "exception/ValueOutOfRangeException.hpp"
 #include "core/utils/HierRNG.hpp"
 
 MuLambdaES::MuLambdaES(
 	unsigned int lambda
-) : ES(new AdaptiveRealValueMutation()) {
+) : ES(new SelfAdaptiveMutation()) {
 	this->init(lambda);
 }
 
 MuLambdaES::MuLambdaES(
 	SelectionStrategy* selection,
 	unsigned int lambda
-) : ES(selection, NULL, new AdaptiveRealValueMutation()) {
+) : ES(selection, NULL, new SelfAdaptiveMutation()) {
 	this->init(lambda);
 }
 
@@ -20,7 +20,7 @@ MuLambdaES::MuLambdaES(
 	CrossoverOperation* cross,
 	unsigned int lambda,
 	unsigned int rho
-) : ES(cross, new AdaptiveRealValueMutation()) {
+) : ES(cross, new SelfAdaptiveMutation()) {
 	this->init(lambda, rho);
 }
 
@@ -29,7 +29,7 @@ MuLambdaES::MuLambdaES(
 	CrossoverOperation* cross,
 	unsigned int lambda,
 	unsigned int rho
-) : ES(selection, cross, new AdaptiveRealValueMutation()) {
+) : ES(selection, cross, new SelfAdaptiveMutation()) {
 	this->init(lambda, rho);
 }
 
