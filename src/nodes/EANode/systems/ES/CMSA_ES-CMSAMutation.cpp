@@ -77,7 +77,10 @@ void CMSA_ES::CMSAMutation::calculateAverages(std::vector<Genome*> population) {
 		this->xAvg.push_back(xSums[i]/this->mu);
 
 	if (!this->skCollection.empty()) {
-		Eigen::MatrixXd SAvg;
+		Eigen::MatrixXd SAvg = Eigen::MatrixXd::Zero(
+			this->initialGenomeLength,
+			this->initialGenomeLength
+		);
 
 		for (unsigned int i = 0; i < this->skCollection.size(); i++) {
 			Eigen::VectorXd sk = this->skCollection[i];
@@ -85,7 +88,6 @@ void CMSA_ES::CMSAMutation::calculateAverages(std::vector<Genome*> population) {
 		}
 
 		SAvg /= this->lambda;
-
 		this->skCollection.clear();
 		this->C = (1 - 1/this->tauC) * this->C + SAvg/this->tauC;
 	}
@@ -114,6 +116,5 @@ Genome* CMSA_ES::CMSAMutation::mutateProper(Genome* target) {
 	}
 
 	this->skCollection.push_back(sk);
-
 	return new Genome(newGenes, target->getSpeciesNode());
 }
