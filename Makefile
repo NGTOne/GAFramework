@@ -2,7 +2,7 @@ CPPC = g++
 CPPFLAGS = -c -g -std=gnu++0x -fPIC -Wall
 INCLUDE = -Iinclude -I/usr/local/include
 EIGENINCLUDE = -I/usr/include/eigen3
-EXAMPLEINCLUDE = -I/usr/local/include -Isrc/examples/include
+EXAMPLEINCLUDE = -I/usr/local/include -Isrc/examples/include $(EIGENINCLUDE)
 STATICLIB = libs/libHierGA.a
 MAJORVERSION = 2
 MINORVERSION = 0
