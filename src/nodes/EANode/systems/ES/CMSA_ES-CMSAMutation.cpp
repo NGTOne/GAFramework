@@ -61,7 +61,7 @@ void CMSA_ES::CMSAMutation::calculateAverages(std::vector<Genome*> population) {
 	for (unsigned int i = 0; i < population.size(); i++) {
 		// Since the stdDevs haven't necessarily been set up yet, we
 		// need to account for that
-		sigmaSum += this->setupDone ?
+		sigmaSum += !this->stdDevIndices.empty() ?
 			population[i]->getIndex<double>(this->stdDevIndices[0]) :
 			1;
 
