@@ -45,3 +45,8 @@ Genome* CovarianceMatrixSelfAdaptiveMutation::addStdDevs(Genome* target) {
 
 	return new Genome(newGenes, target->getSpeciesNode());
 }
+
+void CovarianceMatrixSelfAdaptiveMutation::otherSetupSteps(Genome* initial) {
+	unsigned int n = initial->genomeLength();
+	this->C = Eigen::MatrixXd::Identity(n, n);
+}

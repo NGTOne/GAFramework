@@ -42,8 +42,11 @@ void AdaptiveRealValueMutation::setupInternals(Genome* firstTarget) {
 	if (this->initialGenomeLength == 0) 
 		this->calculateProperGenomeLengths(firstTarget);
 
+	this->otherSetupSteps(firstTarget);
 	this->setupDone = true;
 }
+
+void AdaptiveRealValueMutation::otherSetupSteps(Genome* target) {}
 
 Gene* AdaptiveRealValueMutation::newLocusValue(Gene* current) {
 	return NULL;

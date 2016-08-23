@@ -24,6 +24,7 @@ class AdaptiveRealValueMutation: public MutationOperation {
 	virtual void setupInternals(Genome* firstTarget);
 	virtual void calculateTaus(Genome* initial)=0;
 	virtual void calculateProperGenomeLengths(Genome* initial)=0;
+	virtual void otherSetupSteps(Genome* initial);
 
 	virtual Genome* addStdDevs(Genome* target)=0;
 	virtual Genome* mutateProper(Genome* target)=0;

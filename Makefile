@@ -1,6 +1,7 @@
 CPPC = g++
 CPPFLAGS = -c -g -std=gnu++0x -fPIC -Wall
 INCLUDE = -Iinclude -I/usr/local/include
+EIGENINCLUDE = -I/usr/include/eigen3
 EXAMPLEINCLUDE = -I/usr/local/include -Isrc/examples/include
 STATICLIB = libs/libHierGA.a
 MAJORVERSION = 2
@@ -149,7 +150,7 @@ mutations:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/GaussianMutation.cpp -o obj/nodes/EANode/mutations/GaussianMutation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/AdaptiveRealValueMutation.cpp -o obj/nodes/EANode/mutations/AdaptiveRealValueMutation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/SelfAdaptiveMutation.cpp -o obj/nodes/EANode/mutations/SelfAdaptiveMutation.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/CovarianceMatrixSelfAdaptiveMutation.cpp -o obj/nodes/EANode/mutations/CovarianceMatrixSelfAdaptiveMutation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) $(EIGENINCLUDE) src/nodes/EANode/mutations/CovarianceMatrixSelfAdaptiveMutation.cpp -o obj/nodes/EANode/mutations/CovarianceMatrixSelfAdaptiveMutation.o
 
 crossovers:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/CrossoverOperation.cpp -o obj/nodes/EANode/CrossoverOperation.o
