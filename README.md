@@ -13,6 +13,6 @@ instance, the simplest example, 1max, outputs around 8,000 lines of text.
 
 ### Dependencies
 
-gcc 4.6.3 or later (requires support for --std=gnu++0x)
-Boost 1.58 or later
-Eigen 3.2.2-3 or later
+- gcc 4.6.3 or later (requires support for --std=gnu++0x)
+- Boost 1.58 or later
+- Eigen 3.2.2-3 or later
