@@ -1,8 +1,6 @@
 CPPC = g++
 CPPFLAGS = -c -g -std=gnu++0x -fPIC -Wall
 INCLUDE = -Iinclude -I/usr/local/include
-EIGENINCLUDE = -I/usr/include/eigen3
-EXAMPLEINCLUDE = -I/usr/local/include -Isrc/examples/include $(EIGENINCLUDE)
 STATICLIB = libs/libHierGA.a
 MAJORVERSION = 2
 MINORVERSION = 0
@@ -14,6 +12,14 @@ LIBNAME = libHierGA.so
 else ifeq ($(PLATFORM), Darwin)
 LIBNAME = libHierGA.dylib
 endif
+
+ifeq ($(PLATFORM), Linux)
+EIGENINCLUDE = -I/usr/include/eigen3
+else ifeq ($(PLATFORM), Darwin)
+EIGENINCLUDE = -I/usr/local/include/eigen3
+endif
+
+EXAMPLEINCLUDE = -I/usr/local/include -Isrc/examples/include $(EIGENINCLUDE)
 
 DYNAMICLIB = $(LIBNAME).$(MAJORVERSION).$(MINORVERSION)
 LIBOBJS = $$(find obj -name *.o | grep -v examples)
