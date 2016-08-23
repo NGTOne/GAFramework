@@ -1,11 +1,10 @@
-#include "nodes/EANode/systems/ES/MuLambdaES.hpp"
+#include "nodes/EANode/mutations/AdaptiveRealValueMutation.hpp"
 #include "core/utils/HierGC.hpp"
-#include "nodes/EANode/mutations/GaussianMutation.hpp"
 #include "loci/NumericSetLocus.hpp"
 #include <math.h>
 #include <limits>
 
-MuLambdaES::AdjustableESMutation::AdjustableESMutation() {
+AdaptiveRealValueMutation::AdaptiveRealValueMutation() {
 	this->initialGenomeLength = 0;
 	this->targetGenomeLength = 0;
 	this->tausCalculated = false;
@@ -13,7 +12,7 @@ MuLambdaES::AdjustableESMutation::AdjustableESMutation() {
 	this->setupDone = false;
 }
 
-MuLambdaES::AdjustableESMutation::AdjustableESMutation(
+AdaptiveRealValueMutation::AdaptiveRealValueMutation(
 	double tau,
 	double tauPrime
 ) {
@@ -26,7 +25,7 @@ MuLambdaES::AdjustableESMutation::AdjustableESMutation(
 	this->setupDone = false;
 }
 
-Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
+Genome* AdaptiveRealValueMutation::mutate(Genome* initialGenome) {
 	if (!this->setupDone) this->setupInternals(initialGenome);
 
 	Genome* realInitial;
@@ -44,7 +43,7 @@ Genome* MuLambdaES::AdjustableESMutation::mutate(Genome* initialGenome) {
 	return mutated;
 }
 
-void MuLambdaES::AdjustableESMutation::setupInternals(Genome* firstTarget) {
+void AdaptiveRealValueMutation::setupInternals(Genome* firstTarget) {
 	if (!this->tausCalculated) this->calculateTaus(firstTarget);
 	if (!this->stdDevLocus) {
 		this->stdDevLocus = new NumericSetLocus<double>(
@@ -61,17 +60,17 @@ void MuLambdaES::AdjustableESMutation::setupInternals(Genome* firstTarget) {
 	this->setupDone = true;
 }
 
-Gene* MuLambdaES::AdjustableESMutation::newLocusValue(Gene* current) {
+Gene* AdaptiveRealValueMutation::newLocusValue(Gene* current) {
 	return NULL;
 }
 
-void MuLambdaES::AdjustableESMutation::calculateTaus(Genome* initial) {
+void AdaptiveRealValueMutation::calculateTaus(Genome* initial) {
 	this->tau = pow(sqrt(2 * sqrt(initial->genomeLength())), -1);
 	this->tauPrime = pow(sqrt(2 * initial->genomeLength()), -1);
 	this->tausCalculated = true;
 }
 
-Genome* MuLambdaES::AdjustableESMutation::addStdDevs(Genome* target) {
+Genome* AdaptiveRealValueMutation::addStdDevs(Genome* target) {
 	std::vector<Gene*> initialGenes = target->getGenomeCopy();
 
 	for (unsigned int i = 0; i < this->initialGenomeLength; i++) {
@@ -85,7 +84,7 @@ Genome* MuLambdaES::AdjustableESMutation::addStdDevs(Genome* target) {
 	return new Genome(initialGenes, target->getSpeciesNode());
 }
 
-Genome* MuLambdaES::AdjustableESMutation::mutateProper(Genome* target) {
+Genome* AdaptiveRealValueMutation::mutateProper(Genome* target) {
 	std::vector<Gene*> genes = target->getGenome();
 	std::vector<Gene*> results;
 	for (unsigned int i = 0; i < this->initialGenomeLength; i++)

@@ -16,33 +16,6 @@ class MuLambdaES: public ES {
 	void init(unsigned int lambda);
 	void init(unsigned int lambda, unsigned int rho);
 
-	class AdjustableESMutation: public MutationOperation {
-		private:
-		std::vector<unsigned int> stdDevIndices;
-		unsigned int initialGenomeLength;
-		unsigned int targetGenomeLength;
-		double tau;
-		double tauPrime;
-		bool tausCalculated;
-		Locus* stdDevLocus;
-
-		bool setupDone;
-
-		void setupInternals(Genome* firstTarget);
-
-		protected:
-		Gene* newLocusValue(Gene* current);
-
-		void calculateTaus(Genome* initial);
-		Genome* addStdDevs(Genome* target);
-		Genome* mutateProper(Genome* target);
-
-		public:
-		AdjustableESMutation();
-		AdjustableESMutation(double tau, double tauPrime);
-		Genome* mutate(Genome* initialGenome);
-	};
-
 	protected:
 
 	public:
