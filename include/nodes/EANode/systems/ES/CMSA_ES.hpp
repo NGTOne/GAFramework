@@ -3,7 +3,7 @@
 
 #include "MuCommaLambdaES.hpp"
 #include "../../mutations/AdaptiveRealValueMutation.hpp"
-#include <Eigen/Dense>
+#include <Eigen/Core>
 
 class CMSA_ES: public MuCommaLambdaES {
 	private:
