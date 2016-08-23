@@ -148,6 +148,7 @@ mutations:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/BoundaryMutation.cpp -o obj/nodes/EANode/mutations/BoundaryMutation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/GaussianMutation.cpp -o obj/nodes/EANode/mutations/GaussianMutation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/AdaptiveRealValueMutation.cpp -o obj/nodes/EANode/mutations/AdaptiveRealValueMutation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/SelfAdaptiveMutation.cpp -o obj/nodes/EANode/mutations/SelfAdaptiveMutation.o
 
 crossovers:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/CrossoverOperation.cpp -o obj/nodes/EANode/CrossoverOperation.o

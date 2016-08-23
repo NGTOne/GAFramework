@@ -8,28 +8,28 @@
 
 class AdaptiveRealValueMutation: public MutationOperation {
 	private:
+
+	protected:
 	std::vector<unsigned int> stdDevIndices;
 	unsigned int initialGenomeLength;
 	unsigned int targetGenomeLength;
 	double tau;
-	double tauPrime;
 	bool tausCalculated;
 	Locus* stdDevLocus;
 
 	bool setupDone;
 
-	void setupInternals(Genome* firstTarget);
+	Gene* newLocusValue(Gene* current); // stub
 
-	protected:
-	Gene* newLocusValue(Gene* current);
+	virtual void setupInternals(Genome* firstTarget);
+	virtual void calculateTaus(Genome* initial)=0;
+	virtual void calculateProperGenomeLengths(Genome* initial)=0;
 
-	void calculateTaus(Genome* initial);
-	Genome* addStdDevs(Genome* target);
-	Genome* mutateProper(Genome* target);
+	virtual Genome* addStdDevs(Genome* target)=0;
+	virtual Genome* mutateProper(Genome* target)=0;
 
 	public:
 	AdaptiveRealValueMutation();
-	AdaptiveRealValueMutation(double tau, double tauPrime);
 	Genome* mutate(Genome* initialGenome);
 };
 
