@@ -53,7 +53,7 @@ class MuLambdaES: public ES {
 		unsigned int rho = 2
 	);
 
-	std::vector<Genome*> getOffspring(
+	virtual std::vector<Genome*> getOffspring(
 		std::vector<Genome*> parents,
 		std::vector<float> parentFitnesses,
 		std::string speciesNode

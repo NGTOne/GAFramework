@@ -30,7 +30,7 @@ class ES : public EvolutionarySystem {
 	)=0;
 
 	public:
-	std::vector<Genome*> breedMutateSelect(
+	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
 		std::vector<float>& populationFitnesses,
 		std::vector<ObjectiveFunction*> objectives,

@@ -50,3 +50,27 @@ void CMSA_ES::CMSAMutation::otherSetupSteps(Genome* initial) {
 void CMSA_ES::CMSAMutation::setMu(unsigned int mu) {
 	this->mu = mu;
 }
+
+void CMSA_ES::CMSAMutation::calculateAverages(std::vector<Genome*> population) {
+	unsigned int n = population[0]->genomeLength();
+	double sigmaSum;
+	std::vector<double> xSums(n, 0);
+
+	for (unsigned int i = 0; i < population.size(); i++) {
+		// Since the stdDevs haven't necessarily been set up yet, we
+		// need to account for that
+		sigmaSum += this->setupDone
+			? population[i]->getIndex<double>(this->stdDevIndices[0])
+			: 1;
+
+		std::vector<Gene*> genes = population[i]->getGenome();
+		for (unsigned int k = 0; k < n; k++)
+			xSums[k] += genes[k]->getIndex();
+	}
+
+	this->sigmaAvg = sigmaSum/this->mu;
+
+	this->xAvg.clear();
+	for (unsigned int i = 0; i < xSums.size(); i++)
+		this->xAvg.push_back(xSums[i]/this->mu);
+}

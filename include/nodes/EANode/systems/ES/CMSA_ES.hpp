@@ -23,15 +23,15 @@ class CMSA_ES: public MuCommaLambdaES {
 		void calculateProperGenomeLengths(Genome* initial);
 		void otherSetupSteps(Genome* initial);
 
-		void setMu(unsigned int mu);
-		void calculateAverages(std::vector<Genome*> population);
-
 		Genome* addStdDevs(Genome* target);
 		Genome* mutateProper(Genome* target);
 
 		public:
 		CMSAMutation(unsigned int lambda);
 		CMSAMutation(unsigned int lambda, double tau, double tauC);
+
+		void setMu(unsigned int mu);
+		void calculateAverages(std::vector<Genome*> population);
 	};
 
 	protected:
@@ -39,6 +39,13 @@ class CMSA_ES: public MuCommaLambdaES {
 	public:
 	CMSA_ES(unsigned int lambda);
 	CMSA_ES(unsigned int lambda, double tau, double tauC);
+
+	std::vector<Genome*> breedMutateSelect(
+		std::vector<Genome*> initialPopulation,
+		std::vector<float>& populationFitnesses,
+		std::vector<ObjectiveFunction*> objectives,
+		std::string speciesNode
+	);
 };
 
 #endif
