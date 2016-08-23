@@ -1,5 +1,7 @@
 #include "nodes/EANode/systems/ES/CMSA_ES.hpp"
+#include "core/utils/HierRNG.hpp"
 #include <math.h>
+#include <unsupported/Eigen/MatrixFunctions>
 
 CMSA_ES::CMSAMutation::CMSAMutation(
 	unsigned int lambda
@@ -59,9 +61,9 @@ void CMSA_ES::CMSAMutation::calculateAverages(std::vector<Genome*> population) {
 	for (unsigned int i = 0; i < population.size(); i++) {
 		// Since the stdDevs haven't necessarily been set up yet, we
 		// need to account for that
-		sigmaSum += this->setupDone
-			? population[i]->getIndex<double>(this->stdDevIndices[0])
-			: 1;
+		sigmaSum += this->setupDone ?
+			population[i]->getIndex<double>(this->stdDevIndices[0]) :
+			1;
 
 		std::vector<Gene*> genes = population[i]->getGenome();
 		for (unsigned int k = 0; k < n; k++)
@@ -73,4 +75,45 @@ void CMSA_ES::CMSAMutation::calculateAverages(std::vector<Genome*> population) {
 	this->xAvg.clear();
 	for (unsigned int i = 0; i < xSums.size(); i++)
 		this->xAvg.push_back(xSums[i]/this->mu);
+
+	if (!this->skCollection.empty()) {
+		Eigen::MatrixXd SAvg;
+
+		for (unsigned int i = 0; i < this->skCollection.size(); i++) {
+			Eigen::VectorXd sk = this->skCollection[i];
+			SAvg += sk * sk.transpose();
+		}
+
+		SAvg /= this->lambda;
+
+		this->skCollection.clear();
+		this->C = (1 - 1/this->tauC) * this->C + SAvg/this->tauC;
+	}
+}
+
+Genome* CMSA_ES::CMSAMutation::mutateProper(Genome* target) {
+	std::vector<Gene*> newGenes = target->getGenomeCopy();
+
+	Gene* stdDevGene = newGenes[this->stdDevIndices[0]];
+	double sigmaK = this->sigmaAvg
+		* exp(HierRNG::gaussian(0, 1) * this->tau);
+	newGenes[this->stdDevIndices[0]] = stdDevGene->copy(sigmaK);
+	delete(stdDevGene);
+
+	Eigen::VectorXd R(this->initialGenomeLength);
+	for (unsigned int i = 0; i < this->initialGenomeLength; i++)
+		R[i] = HierRNG::gaussian(0, 1);
+
+	Eigen::VectorXd sk = this->C.sqrt() * R;
+	Eigen::VectorXd zk = sigmaK * sk;
+
+	for (unsigned int i = 0; i < this->initialGenomeLength; i++) {
+		Gene* originalGene = newGenes[i];
+		newGenes[i] = originalGene->copy(this->xAvg[i] + zk[i]);
+		delete(originalGene);
+	}
+
+	this->skCollection.push_back(sk);
+
+	return new Genome(newGenes, target->getSpeciesNode());
 }

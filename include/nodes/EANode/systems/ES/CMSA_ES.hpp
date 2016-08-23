@@ -18,6 +18,7 @@ class CMSA_ES: public MuCommaLambdaES {
 
 		double sigmaAvg;
 		std::vector<double> xAvg;
+		std::vector<Eigen::VectorXd> skCollection;
 
 		void calculateTaus(Genome* initial);
 		void calculateProperGenomeLengths(Genome* initial);
