@@ -8,6 +8,7 @@ class SelfAdaptiveMutation: public AdaptiveRealValueMutation {
 
 	protected:
 	double tauPrime;
+	bool useTauPlusOneCorrection;
 
 	void calculateTaus(Genome* initial);
 	void calculateProperGenomeLengths(Genome* initial);
@@ -16,8 +17,12 @@ class SelfAdaptiveMutation: public AdaptiveRealValueMutation {
 	Genome* mutateProper(Genome* target);
 
 	public:
-	SelfAdaptiveMutation();
-	SelfAdaptiveMutation(double tau, double tauPrime);
+	SelfAdaptiveMutation(bool useTauPlusOneCorrection = true);
+	SelfAdaptiveMutation(
+		double tau,
+		double tauPrime,
+		bool useTauPlusOneCorrection = true
+	);
 };
 
 #endif

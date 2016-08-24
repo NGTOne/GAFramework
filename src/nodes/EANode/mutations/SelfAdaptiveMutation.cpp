@@ -2,14 +2,20 @@
 #include "core/utils/HierRNG.hpp"
 #include "loci/NumericSetLocus.hpp"
 
-SelfAdaptiveMutation::SelfAdaptiveMutation() : AdaptiveRealValueMutation() {}
+SelfAdaptiveMutation::SelfAdaptiveMutation(
+	bool useTauPlusOneCorrection
+) : AdaptiveRealValueMutation() {
+	this->useTauPlusOneCorrection = useTauPlusOneCorrection;
+}
 
 SelfAdaptiveMutation::SelfAdaptiveMutation(
 	double tau,
-	double tauPrime
+	double tauPrime,
+	bool useTauPlusOneCorrection
 ) : AdaptiveRealValueMutation() {
 	this->tau = tau;
 	this->tauPrime = tauPrime;
+	this->useTauPlusOneCorrection = useTauPlusOneCorrection;
 	this->tausCalculated = true;
 }
 
@@ -49,11 +55,10 @@ Genome* SelfAdaptiveMutation::mutateProper(Genome* target) {
 	for (unsigned int index: this->stdDevIndices) {
 		Gene* target = genes[index];
 		double stdDev = target->getIndex();
-		stdDev = stdDev * pow(
-			stdDev,
-			this->tauPrime * rhoZero
-				+ this->tau * HierRNG::gaussian(0, 1)
-		);
+		double tauResult = this->tauPrime * rhoZero
+			+ this->tau * HierRNG::gaussian(0, 1);
+		stdDev *= this->useTauPlusOneCorrection ?
+			pow(stdDev, tauResult) : exp(tauResult);
 		results.push_back(target->copy(stdDev));
 	}
 
