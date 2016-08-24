@@ -15,6 +15,7 @@ class CMSA_ES: public MuCommaLambdaES {
 		unsigned int mu;
 		unsigned int lambda;
 		Eigen::MatrixXd C;
+		Eigen::MatrixXd sqrtC;
 
 		double sigmaAvg;
 		std::vector<double> xAvg;

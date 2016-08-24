@@ -47,6 +47,7 @@ Genome* CMSA_ES::CMSAMutation::addStdDevs(Genome* target) {
 void CMSA_ES::CMSAMutation::otherSetupSteps(Genome* initial) {
 	unsigned int n = initial->genomeLength();
 	this->C = Eigen::MatrixXd::Identity(n, n);
+	this->sqrtC = this->C.sqrt();
 }
 
 void CMSA_ES::CMSAMutation::setMu(unsigned int mu) {
@@ -90,6 +91,7 @@ void CMSA_ES::CMSAMutation::calculateAverages(std::vector<Genome*> population) {
 		SAvg /= this->lambda;
 		this->skCollection.clear();
 		this->C = (1 - 1/this->tauC) * this->C + SAvg/this->tauC;
+		this->sqrtC = this->C.sqrt();
 	}
 }
 
@@ -106,7 +108,7 @@ Genome* CMSA_ES::CMSAMutation::mutateProper(Genome* target) {
 	for (unsigned int i = 0; i < this->initialGenomeLength; i++)
 		R[i] = HierRNG::gaussian(0, 1);
 
-	Eigen::VectorXd sk = this->C.sqrt() * R;
+	Eigen::VectorXd sk = this->sqrtC * R;
 	Eigen::VectorXd zk = sigmaK * sk;
 
 	for (unsigned int i = 0; i < this->initialGenomeLength; i++) {
