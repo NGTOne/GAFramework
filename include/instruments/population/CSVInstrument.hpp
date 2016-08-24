@@ -17,6 +17,9 @@ class CSVInstrument: public PopulationInstrument {
 	CSVInstrument(PopulationNode* target, std::string outFile);
 
 	template <typename T>
+	std::string stringify(T value);
+
+	template <typename T>
 	std::vector<std::string> stringifyVector(std::vector<T> values);
 
 	template <typename Key, typename Val>
@@ -44,17 +47,18 @@ class CSVInstrument: public PopulationInstrument {
 };
 
 template <typename T>
+std::string CSVInstrument::stringify(T value) {
+	std::stringstream ss;
+	ss << value;
+	return ss.str();
+}
+
+template <typename T>
 std::vector<std::string> CSVInstrument::stringifyVector(
 	std::vector<T> values
 ) {
 	std::vector<std::string> output;
-	std::stringstream ss;
-	for (T value: values) {
-		ss.str("");
-		ss << value;
-		output.push_back(ss.str());
-	}
-
+	for (T value: values) output.push_back(this->stringify(value));
 	return output;
 }
 

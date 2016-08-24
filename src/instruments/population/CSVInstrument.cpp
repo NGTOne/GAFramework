@@ -6,3 +6,8 @@ CSVInstrument::CSVInstrument(
 ) : PopulationInstrument(target, outFile) {
 	this->headerWritten = false;
 }
+
+template <>
+std::string CSVInstrument::stringify<bool>(bool value) {
+	return value ? "true" : "false";
+}

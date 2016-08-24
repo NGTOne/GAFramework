@@ -1,9 +1,9 @@
-#ifndef INSTRUMENTS_POPULATION_BestFitnessAppearanceGeneration
-#define INSTRUMENTS_POPULATION_BestFitnessAppearanceGeneration
+#ifndef INSTRUMENTS_POPULATION_TargetReachedGeneration
+#define INSTRUMENTS_POPULATION_TargetReachedGeneration
 
-#include "../../core/instruments/PopulationInstrument.hpp"
+#include "CSVInstrument.hpp"
 
-class BestFitnessAppearanceGeneration: public PopulationInstrument {
+class TargetReachedGeneration: public CSVInstrument {
 	private:
 	class GenerationInfo {
 		private:
@@ -23,12 +23,20 @@ class BestFitnessAppearanceGeneration: public PopulationInstrument {
 	unsigned int numAppearances;
 	double bestFitness;
 
+	double targetFitness;
+	double epsilon;
+	unsigned int targetReachedGeneration;
+	bool targetReached;
+
 	GenerationInfo evaluateNode();
+	void checkTargetReached(GenerationInfo info);
 
 	public:
-	BestFitnessAppearanceGeneration(
+	TargetReachedGeneration(
 		PopulationNode* target,
-		std::string outFile
+		std::string outFile,
+		double targetFitness,
+		double epsilon = 0
 	);
 
 	void initialReport();
