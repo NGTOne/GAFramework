@@ -161,6 +161,7 @@ crossovers:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/CrossoverOperation.cpp -o obj/nodes/EANode/CrossoverOperation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/crossovers/NPointCrossover.cpp -o obj/nodes/EANode/crossovers/NPointCrossover.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/crossovers/UniformCrossover.cpp -o obj/nodes/EANode/crossovers/UniformCrossover.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/crossovers/BlendedCrossover.cpp -o obj/nodes/EANode/crossovers/BlendedCrossover.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/crossovers/CutAndSpliceCrossover.cpp -o obj/nodes/EANode/crossovers/CutAndSpliceCrossover.o
 
 systems:
