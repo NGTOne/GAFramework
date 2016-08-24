@@ -39,7 +39,7 @@ Genome* CMSA_ES::CMSAMutation::addStdDevs(Genome* target) {
 	newGenes.push_back(this->stdDevLocus->getGene(1));
 
 	if (this->stdDevIndices.empty())
-		stdDevIndices.push_back(target->genomeLength());
+		this->stdDevIndices.push_back(target->genomeLength());
 
 	return new Genome(newGenes, target->getSpeciesNode());
 }
@@ -55,7 +55,7 @@ void CMSA_ES::CMSAMutation::setMu(unsigned int mu) {
 
 void CMSA_ES::CMSAMutation::calculateAverages(std::vector<Genome*> population) {
 	unsigned int n = population[0]->genomeLength();
-	double sigmaSum;
+	double sigmaSum = 0;
 	std::vector<double> xSums(n, 0);
 
 	for (unsigned int i = 0; i < population.size(); i++) {
