@@ -76,12 +76,13 @@ Val HierRNG::choose(Cont<Val> values) {
 template <template<class...> class Cont, typename Val>
 Val HierRNG::choose(Cont<Val> values, std::vector<double> probabilities) {
 	double probSum = 0;
+	double val = HierRNG::uniform<double>(0, 1);
 	for (unsigned int i = 0; i < probabilities.size(); i++) {
 		probSum += probabilities[i];
-		if (HierRNG::uniform<double>(0, 1) < probSum)
-			return values[i];
+		if (val < probSum) return values[i];
 	}
 
+	// Shouldn't get here
 	return values[values.size() - 1];
 }
 
