@@ -20,6 +20,10 @@ GenerationFitnessCSV::GenerationFitnessCSV(
 }
 
 float GenerationFitnessCSV::bucket(float actual) {
+	if (actual < this->buckets[0]) return this->buckets[0];
+	if (actual > this->buckets[this->buckets.size() - 1])
+		return this->buckets[this->buckets.size() - 1];
+
 	float mod = fmod(actual, this->resolution);
 
 	return (mod < this->resolution/2 ?
