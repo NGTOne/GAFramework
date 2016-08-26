@@ -29,7 +29,7 @@ float GenerationFitnessCSV::bucket(float actual) {
 void GenerationFitnessCSV::report() {
 	auto output = this->buildEmptyMap(this->buckets, (unsigned int)0);
 	output.emplace("Generation", this->target->currentGeneration());
-	for (auto fitness: this->stringifyVector(this->target->getFitnesses()))
-		output[fitness]++;
+	for (auto fitness: this->target->getFitnesses())
+		output[this->stringify(this->bucket(fitness))]++;
 	this->write(output, (unsigned int)0);
 }
