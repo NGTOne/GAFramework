@@ -2,39 +2,9 @@
 #define NODES_EANODE_SYSTEMS_ES_VEDA_ES
 
 #include "MuPlusLambdaES.hpp"
-#include "../../mutations/AdaptiveRealValueMutation.hpp"
-#include <Eigen/Core>
 
 class VEDA_ES: public MuPlusLambdaES {
 	private:
-	class VEDAMutation : public AdaptiveRealValueMutation {
-		private:
-
-		protected:
-		double tauC;
-		unsigned int mu;
-		unsigned int lambda;
-		Eigen::MatrixXd C;
-		Eigen::MatrixXd sqrtC;
-
-		double sigmaAvg;
-		std::vector<double> xAvg;
-		std::vector<Eigen::VectorXd> skCollection;
-
-		void calculateTaus(Genome* initial);
-		void calculateProperGenomeLengths(Genome* initial);
-		void otherSetupSteps(Genome* initial);
-
-		Genome* addStdDevs(Genome* target);
-		Genome* mutateProper(Genome* target);
-
-		public:
-		VEDAMutation(unsigned int lambda);
-		VEDAMutation(unsigned int lambda, double tau, double tauC);
-
-		void setMu(unsigned int mu);
-		void calculateAverages(std::vector<Genome*> population);
-	};
 
 	protected:
 

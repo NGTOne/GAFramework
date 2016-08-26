@@ -1,4 +1,5 @@
 #include "nodes/EANode/systems/ES/VEDA_ES.hpp"
+#include "nodes/EANode/mutations/VEDAMutation.hpp"
 
 VEDA_ES::VEDA_ES(
 	unsigned int lambda,

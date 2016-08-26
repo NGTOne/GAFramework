@@ -156,6 +156,7 @@ mutations:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/GaussianMutation.cpp -o obj/nodes/EANode/mutations/GaussianMutation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/AdaptiveRealValueMutation.cpp -o obj/nodes/EANode/mutations/AdaptiveRealValueMutation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/mutations/SelfAdaptiveMutation.cpp -o obj/nodes/EANode/mutations/SelfAdaptiveMutation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) $(EIGENINCLUDE) src/nodes/EANode/mutations/VEDAMutation.cpp -o obj/nodes/EANode/mutations/VEDAMutation.o
 
 crossovers:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/CrossoverOperation.cpp -o obj/nodes/EANode/CrossoverOperation.o
@@ -172,7 +173,6 @@ systems:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES/MuPlusLambdaES.cpp -o obj/nodes/EANode/systems/ES/MuPlusLambdaES.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES/MuCommaLambdaES.cpp -o obj/nodes/EANode/systems/ES/MuCommaLambdaES.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) $(EIGENINCLUDE) src/nodes/EANode/systems/ES/VEDA_ES.cpp -o obj/nodes/EANode/systems/ES/VEDA_ES.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) $(EIGENINCLUDE) src/nodes/EANode/systems/ES/VEDA_ES-VEDAMutation.cpp -o obj/nodes/EANode/systems/ES/VEDA_ES-VEDAMutation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/SSGA.cpp -o obj/nodes/EANode/systems/SSGA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/AccelSSGA.cpp -o obj/nodes/EANode/systems/AccelSSGA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/niching/NichingStrategy.cpp -o obj/nodes/EANode/systems/niching/NichingStrategy.o
