@@ -4,6 +4,7 @@
 #include <sstream>
 #include "nodes/EANode/systems/GA.hpp"
 #include "core/utils/HierRNG.hpp"
+#include <limits>
 
 GA::GA(
 	unsigned int numElites,
@@ -74,7 +75,7 @@ std::vector<unsigned int> GA::findElites(std::vector<float> fitnesses) {
 		fitnesses.size()/2 : this->numElites;
 
 	for (unsigned int i = 0; i < trueNumElites; i++) {
-		bestFitness = 0;
+		bestFitness = std::numeric_limits<float>::lowest();
 		for (unsigned int k = 0; k < populationSize; k++) {
 			if (
 				fitnesses[k] > bestFitness
