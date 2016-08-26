@@ -6,22 +6,21 @@
 
 class UniformCrossover : public CrossoverOperation {
 	private:
+	void init(std::vector<double> parentProbabilities);
 
 	protected:
-	std::vector<double> parentCrossoverProbabilities;
+	std::vector<double> parentProbabilities;
 	std::vector<GenomeTemplate> crossOver(
 		std::vector<GenomeTemplate> parents
 	);
 	
 	public:
 	UniformCrossover(
-		std::vector<double> parentCrossoverProbabilities =
-			std::vector<double>()
+		std::vector<double> parentProbabilities = std::vector<double>()
 	);
 	UniformCrossover(
 		unsigned int numOffspring,
-		std::vector<double> parentCrossoverProbabilities =
-			std::vector<double>()
+		std::vector<double> parentProbabilities = std::vector<double>()
 	);
 
 	std::string toString();
