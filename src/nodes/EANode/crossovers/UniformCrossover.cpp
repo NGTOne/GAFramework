@@ -37,7 +37,7 @@ std::vector<GenomeTemplate> UniformCrossover::crossOver(
 	if (
 		!this->parentProbabilities.empty() &&
 		this->parentProbabilities.size() < parents.size()
-	) throw MismatchedCountsException("Number of probabilities needs to match the genome length!");
+	) throw MismatchedCountsException("Number of probabilities needs to match the number of parents!");
 	std::vector<GenomeTemplate> children;
 
 	for (unsigned int i = 0; i < this->numOffspring; i++) {
