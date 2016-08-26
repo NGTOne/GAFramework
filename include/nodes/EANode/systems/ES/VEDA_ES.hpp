@@ -1,11 +1,11 @@
 #ifndef NODES_EANODE_SYSTEMS_ES_VEDA_ES
 #define NODES_EANODE_SYSTEMS_ES_VEDA_ES
 
-#include "MuCommaLambdaES.hpp"
+#include "MuPlusLambdaES.hpp"
 #include "../../mutations/AdaptiveRealValueMutation.hpp"
 #include <Eigen/Core>
 
-class VEDA_ES: public MuCommaLambdaES {
+class VEDA_ES: public MuPlusLambdaES {
 	private:
 	class VEDAMutation : public AdaptiveRealValueMutation {
 		private:
