@@ -1,7 +1,6 @@
 CPPC = g++
 CPPFLAGS = -c -g -std=gnu++0x -fPIC -Wall
 INCLUDE = -Iinclude -I/usr/local/include
-STATICLIB = libs/libHierGA.a
 MAJORVERSION = 2
 MINORVERSION = 0
 
@@ -54,7 +53,6 @@ uninstall:
 library: obj-dir core objectives loci nodes endconditions exception \
 		pop-formulae instruments
 	g++ -shared -o libs/$(LIBNAME) $(LIBOBJS)
-	ar -cvq $(STATICLIB) $(LIBOBJS)
 
 obj-dir:
 	./compile-scripts/make-obj-dir.sh
