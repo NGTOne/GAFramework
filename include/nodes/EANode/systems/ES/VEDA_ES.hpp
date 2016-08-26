@@ -39,8 +39,13 @@ class VEDA_ES: public MuCommaLambdaES {
 	protected:
 
 	public:
-	VEDA_ES(unsigned int lambda);
-	VEDA_ES(unsigned int lambda, double tau, double tauC);
+	VEDA_ES(unsigned int lambda, CrossoverOperation* cross = NULL);
+	VEDA_ES(
+		unsigned int lambda,
+		double tau,
+		double tauC,
+		CrossoverOperation* cross = NULL
+	);
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
