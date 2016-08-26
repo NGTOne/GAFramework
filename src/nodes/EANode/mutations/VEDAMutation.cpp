@@ -3,6 +3,8 @@
 #include <math.h>
 #include <unsupported/Eigen/MatrixFunctions>
 
+VEDAMutation::VEDAMutation() {}
+
 VEDAMutation::VEDAMutation(
 	unsigned int lambda
 ) : AdaptiveRealValueMutation() {
@@ -48,6 +50,10 @@ void VEDAMutation::otherSetupSteps(Genome* initial) {
 	unsigned int n = initial->genomeLength();
 	this->C = Eigen::MatrixXd::Identity(n, n);
 	this->sqrtC = this->C.sqrt();
+}
+
+void VEDAMutation::setLambda(unsigned int lambda) {
+	this->lambda = lambda;
 }
 
 void VEDAMutation::setMu(unsigned int mu) {

@@ -26,9 +26,11 @@ class VEDAMutation : public AdaptiveRealValueMutation {
 	Genome* mutateProper(Genome* target);
 
 	public:
+	VEDAMutation();
 	VEDAMutation(unsigned int lambda);
 	VEDAMutation(unsigned int lambda, double tau, double tauC);
 
+	void setLambda(unsigned int lambda);
 	void setMu(unsigned int mu);
 	void calculateAverages(std::vector<Genome*> population);
 };

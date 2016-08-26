@@ -168,6 +168,7 @@ crossovers:
 systems:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/EvolutionarySystem.cpp -o obj/nodes/EANode/EvolutionarySystem.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/GA.cpp -o obj/nodes/EANode/systems/GA.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) $(EIGENINCLUDE) src/nodes/EANode/systems/VEDA_GA.cpp -o obj/nodes/EANode/systems/VEDA_GA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES.cpp -o obj/nodes/EANode/systems/ES.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES/MuLambdaES.cpp -o obj/nodes/EANode/systems/ES/MuLambdaES.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES/MuPlusLambdaES.cpp -o obj/nodes/EANode/systems/ES/MuPlusLambdaES.o
