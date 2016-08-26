@@ -1,15 +1,15 @@
-#include "nodes/EANode/systems/ES/CMSA_ES.hpp"
+#include "nodes/EANode/systems/ES/VEDA_ES.hpp"
 #include "core/utils/HierRNG.hpp"
 #include <math.h>
 #include <unsupported/Eigen/MatrixFunctions>
 
-CMSA_ES::CMSAMutation::CMSAMutation(
+VEDA_ES::VEDAMutation::VEDAMutation(
 	unsigned int lambda
 ) : AdaptiveRealValueMutation() {
 	this->lambda = lambda;
 }
 
-CMSA_ES::CMSAMutation::CMSAMutation(
+VEDA_ES::VEDAMutation::VEDAMutation(
 	unsigned int lambda,
 	double tau,
 	double tauC
@@ -20,21 +20,21 @@ CMSA_ES::CMSAMutation::CMSAMutation(
 	this->tausCalculated = true;
 }
 
-void CMSA_ES::CMSAMutation::calculateTaus(Genome* initial) {
+void VEDA_ES::VEDAMutation::calculateTaus(Genome* initial) {
 	unsigned int n = initial->genomeLength();
 	this->tau = 1/sqrt(2 * n);
 	this->tauC = 1 + n * (n + 1)/(2 * this->mu);
 	this->tausCalculated = true;
 }
 
-void CMSA_ES::CMSAMutation::calculateProperGenomeLengths(
+void VEDA_ES::VEDAMutation::calculateProperGenomeLengths(
 	Genome* initial
 ) {
 	this->initialGenomeLength = initial->genomeLength();
 	this->targetGenomeLength = initial->genomeLength() + 1;
 }
 
-Genome* CMSA_ES::CMSAMutation::addStdDevs(Genome* target) {
+Genome* VEDA_ES::VEDAMutation::addStdDevs(Genome* target) {
 	std::vector<Gene*> newGenes = target->getGenomeCopy();
 	newGenes.push_back(this->stdDevLocus->getGene(1));
 
@@ -44,17 +44,17 @@ Genome* CMSA_ES::CMSAMutation::addStdDevs(Genome* target) {
 	return new Genome(newGenes, target->getSpeciesNode());
 }
 
-void CMSA_ES::CMSAMutation::otherSetupSteps(Genome* initial) {
+void VEDA_ES::VEDAMutation::otherSetupSteps(Genome* initial) {
 	unsigned int n = initial->genomeLength();
 	this->C = Eigen::MatrixXd::Identity(n, n);
 	this->sqrtC = this->C.sqrt();
 }
 
-void CMSA_ES::CMSAMutation::setMu(unsigned int mu) {
+void VEDA_ES::VEDAMutation::setMu(unsigned int mu) {
 	this->mu = mu;
 }
 
-void CMSA_ES::CMSAMutation::calculateAverages(std::vector<Genome*> population) {
+void VEDA_ES::VEDAMutation::calculateAverages(std::vector<Genome*> population) {
 	unsigned int n = population[0]->genomeLength();
 	double sigmaSum = 0;
 	std::vector<double> xSums(n, 0);
@@ -95,7 +95,7 @@ void CMSA_ES::CMSAMutation::calculateAverages(std::vector<Genome*> population) {
 	}
 }
 
-Genome* CMSA_ES::CMSAMutation::mutateProper(Genome* target) {
+Genome* VEDA_ES::VEDAMutation::mutateProper(Genome* target) {
 	std::vector<Gene*> newGenes = target->getGenomeCopy();
 
 	Gene* stdDevGene = newGenes[this->stdDevIndices[0]];

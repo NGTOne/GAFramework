@@ -1,13 +1,13 @@
-#ifndef NODES_EANODE_SYSTEMS_ES_CMSA_ES
-#define NODES_EANODE_SYSTEMS_ES_CMSA_ES
+#ifndef NODES_EANODE_SYSTEMS_ES_VEDA_ES
+#define NODES_EANODE_SYSTEMS_ES_VEDA_ES
 
 #include "MuCommaLambdaES.hpp"
 #include "../../mutations/AdaptiveRealValueMutation.hpp"
 #include <Eigen/Core>
 
-class CMSA_ES: public MuCommaLambdaES {
+class VEDA_ES: public MuCommaLambdaES {
 	private:
-	class CMSAMutation : public AdaptiveRealValueMutation {
+	class VEDAMutation : public AdaptiveRealValueMutation {
 		private:
 
 		protected:
@@ -29,8 +29,8 @@ class CMSA_ES: public MuCommaLambdaES {
 		Genome* mutateProper(Genome* target);
 
 		public:
-		CMSAMutation(unsigned int lambda);
-		CMSAMutation(unsigned int lambda, double tau, double tauC);
+		VEDAMutation(unsigned int lambda);
+		VEDAMutation(unsigned int lambda, double tau, double tauC);
 
 		void setMu(unsigned int mu);
 		void calculateAverages(std::vector<Genome*> population);
@@ -39,8 +39,8 @@ class CMSA_ES: public MuCommaLambdaES {
 	protected:
 
 	public:
-	CMSA_ES(unsigned int lambda);
-	CMSA_ES(unsigned int lambda, double tau, double tauC);
+	VEDA_ES(unsigned int lambda);
+	VEDA_ES(unsigned int lambda, double tau, double tauC);
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,

@@ -171,8 +171,8 @@ systems:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES/MuLambdaES.cpp -o obj/nodes/EANode/systems/ES/MuLambdaES.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES/MuPlusLambdaES.cpp -o obj/nodes/EANode/systems/ES/MuPlusLambdaES.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/ES/MuCommaLambdaES.cpp -o obj/nodes/EANode/systems/ES/MuCommaLambdaES.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) $(EIGENINCLUDE) src/nodes/EANode/systems/ES/CMSA_ES.cpp -o obj/nodes/EANode/systems/ES/CMSA_ES.o
-	$(CPPC) $(CPPFLAGS) $(INCLUDE) $(EIGENINCLUDE) src/nodes/EANode/systems/ES/CMSA_ES-CMSAMutation.cpp -o obj/nodes/EANode/systems/ES/CMSA_ES-CMSAMutation.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) $(EIGENINCLUDE) src/nodes/EANode/systems/ES/VEDA_ES.cpp -o obj/nodes/EANode/systems/ES/VEDA_ES.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) $(EIGENINCLUDE) src/nodes/EANode/systems/ES/VEDA_ES-VEDAMutation.cpp -o obj/nodes/EANode/systems/ES/VEDA_ES-VEDAMutation.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/SSGA.cpp -o obj/nodes/EANode/systems/SSGA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/AccelSSGA.cpp -o obj/nodes/EANode/systems/AccelSSGA.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/nodes/EANode/systems/niching/NichingStrategy.cpp -o obj/nodes/EANode/systems/niching/NichingStrategy.o
