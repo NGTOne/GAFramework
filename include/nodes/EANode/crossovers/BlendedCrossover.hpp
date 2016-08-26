@@ -7,12 +7,16 @@ class BlendedCrossover : public CrossoverOperation {
 	private:
 
 	protected:
+	std::vector<double> parentWeights;
+
 	std::vector<GenomeTemplate> crossOver(
 		std::vector<GenomeTemplate> parents
 	);
 	
 	public:
-	BlendedCrossover();
+	BlendedCrossover(
+		std::vector<double> parentWeights = std::vector<double>()
+	);
 	std::string toString();
 };
 
