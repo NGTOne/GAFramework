@@ -62,7 +62,7 @@ void VEDAMutation::setMu(unsigned int mu) {
 
 void VEDAMutation::calculateAverages(std::vector<Genome*> population) {
 	if (!this->setupDone) this->setupInternals(population[0]);
-	unsigned int n = population[0]->genomeLength();
+	unsigned int n = this->initialGenomeLength;
 	double sigmaSum = 0;
 	std::vector<double> xSums(n, 0);
 
