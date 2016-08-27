@@ -101,6 +101,7 @@ class PopulationNode : public EABehaviourObject {
 	unsigned int currentGeneration();
 	bool contains(Genome * target);
 	bool usesSpecies(Genome * target);
+	bool isHierarchical();
 
 	std::string populationStrings();
 	virtual std::string toString();

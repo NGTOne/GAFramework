@@ -253,7 +253,8 @@ void HierarchicalEA::run(bool verbose) {
 		// There's too many evaluations required right now in order to
 		// do everything
 		for (unsigned int k = 0; k < this->evolutionNodes.size(); k++)
-			this->evolutionNodes[k]->evaluateFitnesses();
+			if (this->evolutionNodes[k]->isHierarchical())
+				this->evolutionNodes[k]->evaluateFitnesses();
 
 		this->migrate();
 

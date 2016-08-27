@@ -170,7 +170,7 @@ void PopulationNode::replacePopulation() {
 void PopulationNode::nextIteration() {
 	unsigned int i = 0;
 	while (!done() && i++ < this->accelerationFactor) {
-		this->evaluateFitnesses();
+		if (this->isHierarchical()) this->evaluateFitnesses();
 		this->replacePopulation();
 		this->currentIteration++;
 	}
@@ -308,4 +308,8 @@ bool PopulationNode::contains(Genome* target) {
 
 bool PopulationNode::usesSpecies(Genome* target) {
 	return this->nodeName == target->getSpeciesNode();
+}
+
+bool PopulationNode::isHierarchical() {
+	return this->getConstructiveLoci().empty();
 }
