@@ -38,7 +38,7 @@ std::vector<GenomeTemplate> BlendedCrossover::crossOver(
 		result.push_back(rawGenes[0][i]->copy(avgIndex));
 	}
 
-	return {GenomeTemplate(result)};
+	return {GenomeTemplate(result, false)};
 }
 
 std::string BlendedCrossover::toString() {

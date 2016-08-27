@@ -22,7 +22,7 @@ class GenomeTemplate {
 		std::vector<double> genes,
 		std::vector<Locus*> loci
 	);
-	GenomeTemplate(std::vector<Gene*> genes);
+	GenomeTemplate(std::vector<Gene*> genes, bool copy = true);
 	GenomeTemplate(GenomeTemplate& other);
 	GenomeTemplate(GenomeTemplate&& other);
 	GenomeTemplate(const GenomeTemplate& other);

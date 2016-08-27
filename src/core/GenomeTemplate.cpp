@@ -13,9 +13,9 @@ GenomeTemplate::GenomeTemplate(
 		this->genes.push_back(loci[i]->getGene(genes[i]));
 }
 
-GenomeTemplate::GenomeTemplate(std::vector<Gene*> genes) {
+GenomeTemplate::GenomeTemplate(std::vector<Gene*> genes, bool copy) {
 	for (unsigned int i = 0; i < genes.size(); i++)
-		this->genes.push_back(genes[i]->copy());
+		this->genes.push_back(copy ? genes[i]->copy() : genes[i]);
 }
 
 GenomeTemplate::GenomeTemplate(GenomeTemplate& other) {
