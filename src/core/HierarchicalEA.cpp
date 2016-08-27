@@ -236,12 +236,14 @@ void HierarchicalEA::run(bool verbose) {
 	this->buildEvolutionNodes();
 	this->buildPrintNodes();
 	this->buildEndDictators();
-	std::cout << "Before:\n";
-	std::cout << std::string(80, '=') << "\n";
-	for (unsigned int i = 0; i < this->printNodes.size(); i++) {
-		std::cout << "Node " << this->nodesToPrint[i] << ":\n";
-		std::cout << this->printNodes[i]->toString();
-		std::cout << std::string(80, '-') << "\n";
+	if (verbose) {
+		std::cout << "Before:\n";
+		std::cout << std::string(80, '=') << "\n";
+		for (unsigned int i = 0; i < this->printNodes.size(); i++) {
+			std::cout << "Node " << this->nodesToPrint[i] << ":\n";
+			std::cout << this->printNodes[i]->toString();
+			std::cout << std::string(80, '-') << "\n";
+		}
 	}
 	this->instruments.runInitial();
 
@@ -258,13 +260,21 @@ void HierarchicalEA::run(bool verbose) {
 
 		this->migrate();
 
-		// Because humans count from 1, we add 1 to our epoch counter
-		std::cout << "After epoch " << i+1 << ":\n";
-		std::cout << std::string(80, '=') << "\n";
-		for (unsigned int k = 0; k < this->printNodes.size(); k++) {
-			std::cout << "Node " << this->nodesToPrint[k] << ":\n";
-			std::cout << this->printNodes[k]->toString();
-			std::cout << std::string(80, '-') << "\n";
+		if (verbose) {
+			// Because humans count from 1, we add 1 to our epoch
+			// counter
+			std::cout << "After epoch " << i+1 << ":\n";
+			std::cout << std::string(80, '=') << "\n";
+			for (
+				unsigned int k = 0;
+				k < this->printNodes.size();
+				k++
+			) {
+				std::cout << "Node "
+					<< this->nodesToPrint[k] << ":\n";
+				std::cout << this->printNodes[k]->toString();
+				std::cout << std::string(80, '-') << "\n";
+			}
 		}
 		this->instruments.runRuntime();
 
