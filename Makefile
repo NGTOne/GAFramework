@@ -203,6 +203,7 @@ instruments:
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/CSVInstrument.cpp -o obj/instruments/population/CSVInstrument.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/GenerationalCSVInstrument.cpp -o obj/instruments/population/GenerationalCSVInstrument.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/GenerationFitnessCSV.cpp -o obj/instruments/population/GenerationFitnessCSV.o
+	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/GenerationBestFitnessCSV.cpp -o obj/instruments/population/GenerationBestFitnessCSV.o
 	$(CPPC) $(CPPFLAGS) $(INCLUDE) src/instruments/population/GenerationHammingDistanceCSV.cpp -o obj/instruments/population/GenerationHammingDistanceCSV.o
 
 # Examples
