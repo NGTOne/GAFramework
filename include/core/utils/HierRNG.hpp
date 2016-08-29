@@ -32,11 +32,17 @@ class HierRNG {
 	static T uniform(T lower, T upper);
 
 	template <typename T>
+	static std::vector<T> uniformVector(
+		T lower,
+		T upper,
+		unsigned int count
+	);
+
+	template <typename T>
 	static T zeroOne();
 
 	template <template<class...> class Cont, typename Val>
 	static Val choose(Cont<Val> values);
-
 	
 	template <template<class...> class Cont, typename Val>
 	static Val choose(Cont<Val> values, std::vector<double> probabilities);
@@ -52,6 +58,11 @@ class HierRNG {
 	);
 
 	static double gaussian(double mean, double stdDev);
+	static std::vector<double> gaussianVector(
+		double mean,
+		double stdDev,
+		unsigned int count
+	);
 	static unsigned int index(unsigned int maxIndex);
 	static bool binary();
 	static bool chooseWithProb(double probability);
@@ -61,6 +72,15 @@ template <typename T>
 T HierRNG::uniform(T lower, T upper) {
 	autoUniformDist<T> dist(lower, upper);
 	return dist(HierRNG::generator);
+}
+
+template <typename T>
+std::vector<T> HierRNG::uniformVector(
+	T lower,
+	T upper,
+	unsigned int count
+) {
+	return std::vector<T>(HierRNG::uniform<T>(lower, upper), count);
 }
 
 template <typename T>

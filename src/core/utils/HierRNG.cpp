@@ -21,6 +21,14 @@ double HierRNG::gaussian(double mean, double stdDev) {
 	return dist(HierRNG::generator);
 }
 
+std::vector<double> HierRNG::gaussianVector(
+	double mean,
+	double stdDev,
+	unsigned int count
+) {
+	return std::vector<double>(HierRNG::gaussian(mean, stdDev), count);
+}
+
 unsigned int HierRNG::index(unsigned int maxIndex) {
 	return HierRNG::uniform<unsigned int>(0, maxIndex);
 }
