@@ -1,5 +1,5 @@
 CPPC = g++
-CPPFLAGS = -c -g -std=gnu++0x -fPIC -Wall
+CPPFLAGS = -c -g -std=gnu++0x -fPIC -Wall -Werror -pedantic-errors
 INCLUDE = -Iinclude -I/usr/local/include
 MAJORVERSION = 2
 MINORVERSION = 0
