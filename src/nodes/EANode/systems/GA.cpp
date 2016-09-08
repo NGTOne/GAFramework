@@ -67,10 +67,8 @@ void GA::placeElites(
 std::vector<unsigned int> GA::findElites(std::vector<float> fitnesses) {
 	unsigned int populationSize = fitnesses.size(), bestFitnessIndex = 0;
 	float bestFitness;
-	bool eliteLocations[populationSize];
+	std::vector<bool> eliteLocations(populationSize, false);
 	std::vector<unsigned int> eliteIndexes;
-	for (unsigned int i = 0; i < populationSize; i++)
-		eliteLocations[i] = false;
 	unsigned int trueNumElites = this->numElites >= fitnesses.size() ?
 		fitnesses.size()/2 : this->numElites;
 
