@@ -17,12 +17,15 @@ float OneMaxFitness::checkFitness(Genome * genome) {
 	return total;
 }
 
-string OneMaxToString::toString(Genome * genome) {
+OneMaxToString::OneMaxToString(
+	HierarchicalToString::mode printMode
+) : HierarchicalToString(printMode) {}
+
+std::string OneMaxToString::stringifySegment(std::vector<Gene*> genes) {
 	stringstream ss;
-	Genome flattened = genome->flattenGenome();
 	
-	for (unsigned int i = 0; i < 32; i++)
-		ss << flattened.getIndex<int>(i);
+	for (unsigned int i = 0; i < genes.size(); i++)
+		ss << genes[i]->getValue<int>();
 		
 	return ss.str();
 }

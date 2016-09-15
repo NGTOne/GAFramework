@@ -43,12 +43,17 @@ float LongestFragmentFitness::checkFitness(Genome * genome) {
 	return findLongestPath(genome, bitBucket);
 }
 
-string LongestFragmentToString::toString(Genome * genome) {
-	stringstream ss;
-	Genome flattened = genome->flattenGenome();
+LongestFragmentToString::LongestFragmentToString(
+	HierarchicalToString::mode printMode
+) : HierarchicalToString(printMode) {}
 
-	for (unsigned int i = 0; i < flattened.genomeLength(); i++)
-		ss << flattened.getIndex<int>(i);
+std::string LongestFragmentToString::stringifySegment(
+	std::vector<Gene*> genes
+) {
+	stringstream ss;
+
+	for (unsigned int i = 0; i < genes.size(); i++)
+		ss << genes[i]->getValue<int>();
 
 	return ss.str();
 }

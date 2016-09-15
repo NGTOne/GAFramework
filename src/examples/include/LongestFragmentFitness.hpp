@@ -12,13 +12,17 @@ class LongestFragmentFitness : public ObjectiveFunction {
 	float checkFitness(Genome * target);
 };
 
-class LongestFragmentToString : public ToStringFunction {
+class LongestFragmentToString : public HierarchicalToString {
 	private:
 
 	protected:
 
 	public:
-	std::string toString(Genome * target);
+	LongestFragmentToString(
+		HierarchicalToString::mode printMode
+			= HierarchicalToString::flatten
+	);
+	std::string stringifySegment(std::vector<Gene*> segment);
 };
 
 class LongestFragmentApportionment : public ApportionmentFunction {

@@ -12,11 +12,15 @@ class OneMaxFitness : public ObjectiveFunction {
 	float checkFitness(Genome * genome);
 };
 
-class OneMaxToString : public ToStringFunction {
+class OneMaxToString : public HierarchicalToString {
 	private:
 
 	protected:
 
 	public:
-	std::string toString(Genome * genome);
+	OneMaxToString(
+		HierarchicalToString::mode printMode
+			= HierarchicalToString::flatten
+	);
+	std::string stringifySegment(std::vector<Gene*> segment);
 };
