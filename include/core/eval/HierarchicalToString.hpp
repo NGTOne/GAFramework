@@ -8,14 +8,16 @@
 class HierarchicalToString : public ToStringFunction {
 	private:
 
-	protected:
-	bool printPlaceholders;
-
 	public:
-	HierarchicalToString(bool printPlaceholders);
+	enum mode {flatten, printPlaceholders, omitPlaceholders};
+
+	HierarchicalToString(mode printMode);
 	virtual ~HierarchicalToString();
 	std::string toString(Genome* genome);
 	virtual std::string stringifySegment(std::vector<Gene*> genes)=0;
+
+	protected:
+	mode printMode;
 };
 
 #endif

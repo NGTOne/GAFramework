@@ -2,13 +2,20 @@
 #include "loci/PopulationLocus.hpp"
 #include <sstream>
 
-HierarchicalToString::HierarchicalToString(bool printPlaceholders) {
-	this->printPlaceholders = printPlaceholders;
+HierarchicalToString::HierarchicalToString(
+	HierarchicalToString::mode printMode
+) {
+	this->printMode = printMode;
 }
 
 HierarchicalToString::~HierarchicalToString() {}
 
 std::string HierarchicalToString::toString(Genome* genome) {
+	if (this->printMode == HierarchicalToString::flatten)
+		return this->stringifySegment(
+			genome->flattenGenome().getGenome()
+		);
+
 	std::vector<Gene*> genes = genome->getGenome();
 	std::stringstream ss;
 
@@ -19,12 +26,18 @@ std::string HierarchicalToString::toString(Genome* genome) {
 		} else {
 			ss << this->stringifySegment(segment);
 			segment.clear();
-			if (this->printPlaceholders) ss << " ["
-				<< ((PopulationLocus*)genes[i]->getLocus())
-					->nodeName()
-				<< ":"
-				<< genes[i]->getIndex()
-				<< "] ";
+			if (
+				this->printMode ==
+					HierarchicalToString::printPlaceholders
+			) {
+				ss << " ["
+					<< ((PopulationLocus*)genes[i]
+						->getLocus()
+					)->nodeName()
+					<< ":"
+					<< genes[i]->getIndex()
+					<< "] ";
+			}
 		}
 	}
 
