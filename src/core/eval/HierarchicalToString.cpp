@@ -41,5 +41,7 @@ std::string HierarchicalToString::toString(Genome* genome) {
 		}
 	}
 
+	ss << this->stringifySegment(segment);
+
 	return ss.str();
 }
