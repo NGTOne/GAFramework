@@ -14,6 +14,7 @@ class ToStringFunction : public EABehaviourObject {
 	virtual ~ToStringFunction();
 	virtual std::string toString(Genome * genome)=0;
 	virtual bool isNested();
+	virtual bool isHierarchical();
 };
 
 #endif

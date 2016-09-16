@@ -45,3 +45,11 @@ std::string HierarchicalToString::toString(Genome* genome) {
 
 	return ss.str();
 }
+
+HierarchicalToString::mode HierarchicalToString::getPrintMode() {
+	return this->printMode;
+}
+
+bool HierarchicalToString::isHierarchical() {
+	return true;
+}

@@ -1,6 +1,7 @@
 #include "core/meta/MetaPopulationToString.hpp"
 #include "core/meta/BlanketResolver.hpp"
 #include "core/utils/HierGC.hpp"
+#include "core/eval/HierarchicalToString.hpp"
 
 MetaPopulationToString::MetaPopulationToString(
 	ToStringFunction * flattenedToString
@@ -13,9 +14,18 @@ void MetaPopulationToString::registerInternalObjects() {
 	HierGC::registerObject(this->flattenedToString);
 }
 
-std::string MetaPopulationToString::toString(Genome * genome) {
-	Genome resolved = BlanketResolver::resolveBlanket(genome);
-	return this->flattenedToString->toString(&resolved);
+std::string MetaPopulationToString::toString(Genome* genome) {
+	if (
+		this->flattenedToString->isHierarchical() &&
+			((HierarchicalToString*)this->flattenedToString)
+				->getPrintMode()
+			!= HierarchicalToString::flatten
+	) {
+		return this->flattenedToString->toString(genome);
+	} else {
+		Genome resolved = BlanketResolver::resolveBlanket(genome);
+		return this->flattenedToString->toString(&resolved);
+	}
 }
 
 bool MetaPopulationToString::isNested() {

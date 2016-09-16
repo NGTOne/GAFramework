@@ -16,6 +16,9 @@ class HierarchicalToString : public ToStringFunction {
 	std::string toString(Genome* genome);
 	virtual std::string stringifySegment(std::vector<Gene*> genes)=0;
 
+	bool isHierarchical();
+	mode getPrintMode();
+
 	protected:
 	mode printMode;
 };
