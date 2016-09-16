@@ -32,11 +32,11 @@ GenomeTemplate MutationOperation::mutate(GenomeTemplate initial) {
 	std::vector<Gene*> newGenome;
 
 	for (unsigned int i = 0; i < initial.genomeLength(); i++)
-		newGenome.push_back(HierRNG::chooseWithProb(
-			this->mutationRate,
-			this->newLocusValue(initial.getGene(i)),
-			initial.getGene(i)->copy()
-		));
+		newGenome.push_back(
+			HierRNG::chooseWithProb(this->mutationRate) ?
+				this->newLocusValue(initial.getGene(i)) :
+				initial.getGene(i)->copy()
+		);
 
 	GenomeTemplate result(newGenome);
 	for (unsigned int i = 0; i < newGenome.size(); i++)

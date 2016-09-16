@@ -11,7 +11,7 @@ float OneMaxFitness::checkFitness(Genome * genome) {
 	unsigned total = 0;
 	Genome flattened = genome->flattenGenome();
 
-	for (unsigned int i = 0; i < 32; i++)
+	for (unsigned int i = 0; i < 32 && i < genome->genomeLength(); i++)
 		total += flattened.getIndex<int>(i);
 
 	return total;
