@@ -21,7 +21,12 @@ int main(void) {
 				new NumericCollectionLocus<int>({0, 1})
 			)
 		},
-		{new LongestFragmentToString(), new LongestFragmentToString()},
+		{
+			new LongestFragmentToString(
+				HierarchicalToString::omitPlaceholders
+			),
+			new LongestFragmentToString()
+		},
 		{{new IterationCountEnd(100)}, {new IterationCountEnd(100)}},
 		TreeBuilder("P1").addSubNodes("P1", {"P2", "P3", "P4", "P5"}),
 		{true, false},
@@ -46,7 +51,9 @@ int main(void) {
 			new BestOfAggregator
 		),
 		{new LongestFragmentFitness()},
-		new LongestFragmentToString,
+		new LongestFragmentToString(
+			HierarchicalToString::printPlaceholders
+		),
 		{new IterationCountEnd(100)},
 		"M1",
 		new GA(
