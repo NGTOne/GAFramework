@@ -18,7 +18,6 @@ class DelegatedPopulationLocus: public PopulationLocus {
 
 	virtual void registerInternalObjects();
 
-	virtual std::string flatten(Gene* index);
 	virtual boost::any getIndex(Gene* index);
 };
 
