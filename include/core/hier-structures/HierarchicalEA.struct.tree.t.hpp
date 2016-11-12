@@ -5,9 +5,8 @@
 #include "../utils/HierGC.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
 #include "../../exception/ValueOutOfRangeException.hpp"
-#include "../../loci/PopulationLocus.hpp"
 
-template <typename NodeType, typename... params>
+template <typename NodeType, typename ConstructiveLocusType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula* formula,
 	std::vector<std::vector<Locus*>> contextLoci,
@@ -18,7 +17,7 @@ void HierarchicalEA::addConstructiveTree(
 	std::vector<bool> end,
 	params... as
 ) {
-	this->addConstructiveTree<NodeType>(
+	this->addConstructiveTree<NodeType, ConstructiveLocusType>(
 		formula,
 		contextLoci,
 		std::vector<std::vector<ObjectiveFunction*>>(
@@ -34,7 +33,7 @@ void HierarchicalEA::addConstructiveTree(
 	);
 }
 
-template <typename NodeType, typename... params>
+template <typename NodeType, typename ConstructiveLocusType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula* formula,
 	std::vector<std::vector<Locus*>> contextLoci,
@@ -46,7 +45,7 @@ void HierarchicalEA::addConstructiveTree(
 	std::vector<bool> end,
 	params... as
 ) {
-	this->addConstructiveTree<NodeType>(
+	this->addConstructiveTree<NodeType, ConstructiveLocusType>(
 		formula,
 		contextLoci,
 		std::vector<std::vector<ObjectiveFunction*>>(
@@ -62,7 +61,7 @@ void HierarchicalEA::addConstructiveTree(
 	);
 }
 
-template <typename NodeType, typename... params>
+template <typename NodeType, typename ConstructiveLocusType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula* formula,
 	std::vector<std::vector<Locus*>> contextLoci,
@@ -76,7 +75,7 @@ void HierarchicalEA::addConstructiveTree(
 ) {
 	std::vector<unsigned int> counts = treeSpec.getLevelSizes();
 
-	this->addConstructiveTree<NodeType>(
+	this->addConstructiveTree<NodeType, ConstructiveLocusType>(
 		formula,
 		this->wrapForPass(contextLoci, counts),
 		this->wrapForPass(objectives, counts),
@@ -89,7 +88,7 @@ void HierarchicalEA::addConstructiveTree(
 	);
 }
 
-template <typename NodeType, typename... params>
+template <typename NodeType, typename ConstructiveLocusType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula* formula,
 	std::vector<std::vector<Locus*>> contextLoci,
@@ -105,7 +104,7 @@ void HierarchicalEA::addConstructiveTree(
 ) {
 	std::vector<unsigned int> counts = treeSpec.getLevelSizes();
 
-	this->addConstructiveTree<NodeType>(
+	this->addConstructiveTree<NodeType, ConstructiveLocusType>(
 		formula,
 		this->wrapForPass(contextLoci, counts),
 		topObjectives,
@@ -121,7 +120,7 @@ void HierarchicalEA::addConstructiveTree(
 	);
 }
 
-template <typename NodeType, typename... params>
+template <typename NodeType, typename ConstructiveLocusType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula* formula,
 	std::vector<std::vector<Locus*>> contextLoci,
@@ -138,7 +137,7 @@ void HierarchicalEA::addConstructiveTree(
 ) {
 	std::vector<unsigned int> counts = treeSpec.getLevelSizes();
 
-	this->addConstructiveTree<NodeType>(
+	this->addConstructiveTree<NodeType, ConstructiveLocusType>(
 		formula,
 		this->wrapForPass(contextLoci, counts),
 		topObjectives,
@@ -154,7 +153,7 @@ void HierarchicalEA::addConstructiveTree(
 	);
 }
 
-template <typename NodeType, typename... params>
+template <typename NodeType, typename ConstructiveLocusType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula* formula,
 	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
@@ -168,7 +167,7 @@ void HierarchicalEA::addConstructiveTree(
 ) {
 	std::vector<unsigned int> counts = treeSpec.getLevelSizes();
 
-	this->addConstructiveTree<NodeType>(
+	this->addConstructiveTree<NodeType, ConstructiveLocusType>(
 		formula,
 		contextLoci,
 		objectives,
@@ -184,7 +183,7 @@ void HierarchicalEA::addConstructiveTree(
 	);
 }
 
-template <typename NodeType, typename... params>
+template <typename NodeType, typename ConstructiveLocusType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula* formula,
 	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
@@ -209,7 +208,7 @@ void HierarchicalEA::addConstructiveTree(
 
 	objectives[0] = {topObjectives};
 
-	this->addConstructiveTree<NodeType>(
+	this->addConstructiveTree<NodeType, ConstructiveLocusType>(
 		formula,
 		contextLoci,
 		objectives,
@@ -225,7 +224,7 @@ void HierarchicalEA::addConstructiveTree(
 	);
 }
 
-template <typename NodeType, typename... params>
+template <typename NodeType, typename ConstructiveLocusType, typename... params>
 void HierarchicalEA::addConstructiveTree(
 	PopulationFormula* formula,
 	std::vector<std::vector<std::vector<Locus*>>> contextLoci,
@@ -278,7 +277,7 @@ void HierarchicalEA::addConstructiveTree(
 		for (unsigned int k = 0; k < names.size(); k++) {
 			nodeLoci.clear();
 			for (unsigned int c = 0; c < counts[k]; c++)
-				nodeLoci.push_back(new PopulationLocus(
+				nodeLoci.push_back(new ConstructiveLocusType(
 					previousLevelNodes[currentOffset++]
 				));
 			nodeLoci.insert(

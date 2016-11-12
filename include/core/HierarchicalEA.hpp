@@ -324,8 +324,11 @@ class HierarchicalEA {
 		params... as
 	);
 
-	template <typename NodeType, typename... params>
-	void addConstructiveTree(
+	template <
+		typename NodeType,
+		typename ConstructiveLocusType,
+		typename... params
+	> void addConstructiveTree(
 		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<ToStringFunction*> toStrings,
@@ -336,8 +339,11 @@ class HierarchicalEA {
 		params... as
 	);
 
-	template <typename NodeType, typename... params>
-	void addConstructiveTree(
+	template <
+		typename NodeType,
+		typename ConstructiveLocusType,
+		typename... params
+	> void addConstructiveTree(
 		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		ObjectiveFunction* globalObjective,
@@ -349,8 +355,11 @@ class HierarchicalEA {
 		params... as
 	);
 
-	template <typename NodeType, typename... params>
-	void addConstructiveTree(
+	template <
+		typename NodeType,
+		typename ConstructiveLocusType,
+		typename... params
+	> void addConstructiveTree(
 		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<std::vector<ObjectiveFunction*>> objectives,
@@ -362,8 +371,11 @@ class HierarchicalEA {
 		params... as
 	);
 
-	template <typename NodeType, typename... params>
-	void addConstructiveTree(
+	template <
+		typename NodeType,
+		typename ConstructiveLocusType,
+		typename... params
+	> void addConstructiveTree(
 		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<ObjectiveFunction*> topObjectives,
@@ -378,8 +390,11 @@ class HierarchicalEA {
 		params... as
 	);
 
-	template <typename NodeType, typename... params>
-	void addConstructiveTree(
+	template <
+		typename NodeType,
+		typename ConstructiveLocusType,
+		typename... params
+	> void addConstructiveTree(
 		PopulationFormula* formula,
 		std::vector<std::vector<Locus*>> contextLoci,
 		std::vector<ObjectiveFunction*> topObjectives,
@@ -395,8 +410,11 @@ class HierarchicalEA {
 		params... as
 	);
 
-	template <typename NodeType, typename... params>
-	void addConstructiveTree(
+	template <
+		typename NodeType,
+		typename ConstructiveLocusType,
+		typename... params
+	> void addConstructiveTree(
 		PopulationFormula* formula,
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 		std::vector<std::vector<std::vector<ObjectiveFunction*>>>
@@ -410,8 +428,11 @@ class HierarchicalEA {
 		params... as
 	);
 
-	template <typename NodeType, typename... params>
-	void addConstructiveTree(
+	template <
+		typename NodeType,
+		typename ConstructiveLocusType,
+		typename... params
+	> void addConstructiveTree(
 		PopulationFormula* formula,
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 		std::vector<ObjectiveFunction*> topObjectives,
@@ -429,8 +450,11 @@ class HierarchicalEA {
 		params... as
 	);
 
-	template <typename NodeType, typename... params>
-	void addConstructiveTree(
+	template <
+		typename NodeType,
+		typename ConstructiveLocusType,
+		typename... params
+	> void addConstructiveTree(
 		PopulationFormula* formula,
 		std::vector<std::vector<std::vector<Locus*>>> contextLoci,
 		std::vector<std::vector<std::vector<ObjectiveFunction*>>>
