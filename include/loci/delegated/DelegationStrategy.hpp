@@ -2,6 +2,7 @@
 #define LOCI_DELEGATED_DelegationStrategy
 
 #include "../../core/EABehaviourObject.hpp"
+#include "../../core/PopulationNode.hpp"
 
 class DelegationStrategy: public EABehaviourObject {
 	private:
