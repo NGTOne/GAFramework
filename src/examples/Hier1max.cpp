@@ -9,7 +9,7 @@ using namespace std;
 int main(void) {
 	HierarchicalEA ea(100);
 
-	ea.addConstructiveTree<EANode>(
+	ea.addConstructiveTree<EANode, PopulationLocus>(
 		new LocusMultiplierPopFormula(2),
 		{{}, vector<Locus*>(
 			8,
