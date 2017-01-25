@@ -61,7 +61,6 @@ class MetaPopulationFactory {
 		ToStringFunction * flattenedToString,
 		std::vector<EndCondition*> conditions,
 		std::string metaNodeName,
-		unsigned int accelerationFactor,
 		params... as
 	);
 };
@@ -79,7 +78,6 @@ PopulationNode * MetaPopulationFactory::createMeta(
 	ToStringFunction * flattenedToString,
 	std::vector<EndCondition*> conditions,
 	std::string metaNodeName,
-	unsigned int accelerationFactor,
 	params... as
 ) {
 	if (!MetaPopulationFactory::isValidBlanket(nodes))
@@ -101,7 +99,6 @@ PopulationNode * MetaPopulationFactory::createMeta(
 		new MetaPopulationToString(flattenedToString),
 		conditions,
 		metaNodeName,
-		accelerationFactor,
 		as...
 	);
 

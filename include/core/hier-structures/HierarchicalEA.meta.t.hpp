@@ -79,7 +79,6 @@ void HierarchicalEA::addMetaPopulation(
 			flattenedToString,
 			conditions,
 			metaNodeName,
-			1,
 			as...
 		),
 		false,
