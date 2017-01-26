@@ -126,7 +126,7 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 	std::vector<ApportionmentFunction*> apportionments;
 	std::vector<AggregationFunction*> aggregators;
 
-	for (unsigned int i = 0; i < coopNodes.size(); i++) {
+	for (unsigned int i = 0; i < coopNodes.size() - 1; i++) {
 		Apportionment* apportionment =
 			((Apportionment*)this->getNodeByName(coopNodes[i])
 			->getObjectives()[0]);

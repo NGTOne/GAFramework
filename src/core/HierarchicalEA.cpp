@@ -486,7 +486,7 @@ PopulationNode * HierarchicalEA::findCoevRootNode(
 				break;
 			}
 			PopulationNode * locusNode =
-				((PopulationLocus*)coevRootLoci[i])->getNode();
+				((PopulationLocus*)coevRootLoci[k])->getNode();
 
 			if (std::find(
 				realCoevNodes.begin(),
