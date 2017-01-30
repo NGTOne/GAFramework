@@ -137,6 +137,7 @@ class HierarchicalEA {
 	void setNodesToPrint(std::vector<std::string> names);
 	void setEvolutionOrder(std::vector<std::string> names);
 	void setEndConditionDictatorNodes(std::vector<std::string> names);
+	void appendToEvolutionOrder(std::vector<std::string> names);
 	PopulationNode* getNodeByName(std::string name);
 	std::vector<std::string> getNodeNames();
 

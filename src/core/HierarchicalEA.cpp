@@ -135,6 +135,12 @@ void HierarchicalEA::setEvolutionOrder(std::vector<std::string> names) {
 	this->evolutionOrder = names;
 }
 
+void HierarchicalEA::appendToEvolutionOrder(std::vector<std::string> names) {
+	this->checkNodesExist(names);
+	for (unsigned int i = 0; i < names.size(); i++)
+		this->evolutionOrder.push_back(names[i]);
+}
+
 void HierarchicalEA::setEndConditionDictatorNodes(
 	std::vector<std::string> names
 ) {
