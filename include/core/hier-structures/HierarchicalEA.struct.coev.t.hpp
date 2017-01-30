@@ -122,11 +122,10 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 	params... as
 ) {
 	PopulationNode* coevRoot = this->findCoevRootNode(coopNodes);
-	coopNodes.push_back(coevRoot->name());
 	std::vector<ApportionmentFunction*> apportionments;
 	std::vector<AggregationFunction*> aggregators;
 
-	for (unsigned int i = 0; i < coopNodes.size() - 1; i++) {
+	for (unsigned int i = 0; i < coopNodes.size(); i++) {
 		Apportionment* apportionment =
 			((Apportionment*)this->getNodeByName(coopNodes[i])
 			->getObjectives()[0]);
@@ -142,7 +141,7 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 		AggregationFunction*
 	>> blanketNodes;
 
-	for (unsigned int i = 0; i < coopNodes.size() - 1; i++)
+	for (unsigned int i = 0; i < coopNodes.size(); i++)
 		blanketNodes.push_back(std::make_tuple(
 			coopNodes[i],
 			apportionments[i],
@@ -150,7 +149,7 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 		));
 
 	blanketNodes.push_back(std::make_tuple(
-		coopNodes[coopNodes.size() - 1],
+		coevRoot->name(),
 		(ApportionmentFunction*)NULL,
 		(AggregationFunction*)NULL
 	));
