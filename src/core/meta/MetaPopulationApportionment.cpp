@@ -13,16 +13,16 @@ Genome * MetaPopulationApportionment::getOperableGenome(Genome * genome) {
 }
 
 std::vector<unsigned int> MetaPopulationApportionment::getComponentIndices(
-	Genome * upper,
-	Genome * target
+	Genome* upper,
+	Genome* target
 ) {
-	Genome * head = upper->getIndex<Genome*>(
+	Genome* head = upper->getIndex<Genome*>(
 		BlanketResolver::findHeadIndex(upper)
 	);
 
 	if (head == target) {
 		// The graph's root node is, by definition, located at index 0
-		return std::vector<unsigned int>(1, 0);
+		return std::vector<unsigned int>{0};
 	} else {
 		std::vector<unsigned int> rawIndices =
 			head->getFlattenedSpeciesIndices(target);

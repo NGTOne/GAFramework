@@ -28,7 +28,10 @@ unsigned int BlanketResolver::findHeadIndex(Genome* blanket) {
 
 	for (unsigned int i = 0; i < blanketGenomes.size(); i++)
 		for (unsigned int k = 0; k < nodes.size(); k++)
-			if (nodes[k]->contains(blanketGenomes[i])) {
+			if (
+				nodes[k]->name() ==
+				blanketGenomes[i]->getSpeciesNode()
+			) {
 				matched[i] = true;
 				break;
 			}
