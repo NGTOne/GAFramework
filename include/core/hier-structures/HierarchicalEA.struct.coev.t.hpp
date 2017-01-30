@@ -109,6 +109,10 @@ void HierarchicalEA::addCooperativeCoevolution(
 				1
 			)
 		);
+
+	std::vector<std::string> evoOrder = nodeNames;
+	evoOrder.push_back(coevNodeName);
+	this->setEvolutionOrder(evoOrder);
 }
 
 template <typename MetaNodeType, typename... params>
@@ -154,6 +158,9 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 		(AggregationFunction*)NULL
 	));
 
+	std::vector<std::string> evoOrder = this->evolutionOrder;
+	evoOrder.insert(evoOrder.begin(), metaNodeName);
+
 	this->addMetaPopulation<MetaNodeType>(
 		true,
 		numThreads,
@@ -164,6 +171,8 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 		metaNodeName,
 		as...
 	);
+
+	this->setEvolutionOrder(evoOrder);
 }
 
 #endif
