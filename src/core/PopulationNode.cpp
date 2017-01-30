@@ -1,7 +1,6 @@
 #include "core/PopulationNode.hpp"
 #include "core/utils/HierGC.hpp"
 #include <sstream>
-#include <iostream>
 
 PopulationNode::PopulationNode(
 	unsigned int populationSize,

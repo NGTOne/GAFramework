@@ -60,8 +60,6 @@ unsigned int BlanketResolver::findMetaComponentIndex(
 	throw InvalidBlanketException();
 }
 
-#include <iostream>
-
 std::vector<unsigned int> BlanketResolver::getIndices(
 	Genome* blanket,
 	Genome* target
