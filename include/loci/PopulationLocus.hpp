@@ -25,14 +25,6 @@ class PopulationLocus: public Locus {
 		unsigned int bottomIndex,
 		unsigned int topIndex
 	);
-	PopulationLocus(
-		PopulationNode* node,
-		std::vector<unsigned int> validIndices
-	);
-	PopulationLocus(
-		PopulationNode* node,
-		std::vector<std::tuple<unsigned int, unsigned int>> ranges
-	);
 	~PopulationLocus();
 
 	Gene* getGene();

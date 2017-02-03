@@ -4,12 +4,35 @@
 #include "core/utils/HierRNG.hpp"
 #include <boost/any.hpp>
 #include <sstream>
+#include <algorithm>
 
 PopulationLocus::PopulationLocus(PopulationNode* node) {
-	this->node = node;
+	std::vector<unsigned int> validIndices(node->populationSize());
+	std::iota(validIndices.begin(), validIndices.end(), 0);
+	this->init(node, validIndices);
+}
+
+PopulationLocus::PopulationLocus(
+	PopulationNode* node,
+	unsigned int bottomIndex,
+	unsigned int topIndex
+) {
+	if (topIndex >= node->populationSize())
+		throw ValueOutOfRangeException("Top index value cannot be greater than the population size!");
+	std::vector<unsigned int> validIndices(topIndex-bottomIndex);
+	std::iota(validIndices.begin(), validIndices.end(), bottomIndex);
+	this->init(node, validIndices);
 }
 
 PopulationLocus::~PopulationLocus() {}
+
+void PopulationLocus::init(
+	PopulationNode* node,
+	std::vector<unsigned int> validIndices
+) {
+	this->node = node;
+	this->validIndices = validIndices;
+}
 
 Gene* PopulationLocus::getGene() {
 	return new DiscreteGene(this, this->randomIndex());
@@ -20,18 +43,15 @@ Gene* PopulationLocus::getGene(double index) {
 }
 
 double PopulationLocus::randomIndex() {
-	return HierRNG::uniform<unsigned int>(
-		this->bottomIndex(),
-		this->topIndex()
-	);
+	return HierRNG::uniform(this->validIndices);
 }
 
 double PopulationLocus::topIndex() {
-	return this->node->populationSize() - 1;
+	return (*this->validIndices.end())-1;
 }
 
 double PopulationLocus::bottomIndex() {
-	return 0;
+	return (*this->validIndices.begin());
 }
 
 double PopulationLocus::closestIndex(double index) {
@@ -85,4 +105,3 @@ boost::any PopulationLocus::getIndex(Gene* index) {
 PopulationNode * PopulationLocus::getNode() {
 	return this->node;
 }
-
