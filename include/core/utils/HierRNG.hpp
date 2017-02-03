@@ -32,9 +32,18 @@ class HierRNG {
 	static T uniform(T lower, T upper);
 
 	template <typename T>
+	static T uniform(std::vector<T> values);
+
+	template <typename T>
 	static std::vector<T> uniformVector(
 		T lower,
 		T upper,
+		unsigned int count
+	);
+
+	template <typename T>
+	static std::vector<T> uniformVector(
+		std::vector<T> values,
 		unsigned int count
 	);
 
@@ -75,12 +84,26 @@ T HierRNG::uniform(T lower, T upper) {
 }
 
 template <typename T>
+T HierRNG::uniform(std::vector<T> values) {
+	autoUniformDist<unsigned int> dist(0, values.size() - 1);
+	return values[dist(HierRNG::generator)];
+}
+
+template <typename T>
 std::vector<T> HierRNG::uniformVector(
 	T lower,
 	T upper,
 	unsigned int count
 ) {
-	return std::vector<T>(HierRNG::uniform<T>(lower, upper), count);
+	return std::vector<T>(count, HierRNG::uniform<T>(lower, upper));
+}
+
+template <typename T>
+std::vector<T> HierRNG::uniformVector(
+	std::vector<T> values,
+	unsigned int count
+) {
+	return std::vector<T>(count, HierRNG::uniform(values));
 }
 
 template <typename T>
