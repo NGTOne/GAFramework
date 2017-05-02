@@ -5,6 +5,7 @@
 #include "../../nodes/NonOptimizingNode.hpp"
 #include "../../exception/MismatchedCountsException.hpp"
 #include "../../loci/PopulationLocus.hpp"
+#include "../eval/Apportionment.hpp"
 
 template <typename NodeType, typename... params>
 void HierarchicalEA::addCooperativeCoevolution(
