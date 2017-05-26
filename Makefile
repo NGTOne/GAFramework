@@ -48,19 +48,22 @@ obj/%.o: src/%.cpp
 	mkdir -p $$(echo $@ | sed 's/\/[^\/]\+\.o//g')
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ $<
 
+obj/examples/%.o: src/examples/%.cpp
+	# We want to create the directory in /obj if it doesn't exist already
+	mkdir -p $$(echo $@ | sed 's/\/[^\/]\+\.o//g')
+	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) -o $@ $<
+
 library: all-header $(LIB_OBJS)
 	$(CXX) -shared -o libs/$(LIBNAME) $(LIB_OBJS)
 
 # Examples
 # TODO: Refactor this lot of crap
-examples: example-fitnesses
-	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) src/examples/1max.cpp -o obj/examples/1max.o
-	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) src/examples/Sphere.cpp -o obj/examples/Sphere.o
-	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) src/examples/Hier1max.cpp -o obj/examples/Hier1max.o
-	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) src/examples/LongestFragment.cpp -o obj/examples/LongestFragment.o
-	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) src/examples/HierLongestFragment.cpp -o obj/examples/HierLongestFragment.o
-	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) src/examples/ApportioningHierLF.cpp -o obj/examples/ApportioningHierLF.o
-	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) src/examples/MetaHierLF.cpp -o obj/examples/MetaHierLF.o
+examples: obj/examples/1max.o obj/examples/Sphere.o obj/examples/Hier1max.o \
+	obj/examples/LongestFragment.o obj/examples/HierLongestFragment.o \
+	obj/examples/ApportioningHierLF.o obj/examples/MetaHierLF.o \
+	obj/examples/fitnesses/1maxFitness.o \
+	obj/examples/fitnesses/SphereFitness.o \
+	obj/examples/fitnesses/LongestFragmentFitness.o
 	$(CXX) -o examples/1max obj/examples/1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
 	$(CXX) -o examples/Sphere obj/examples/Sphere.o obj/examples/fitnesses/SphereFitness.o $(SHAREDLIB)
 	$(CXX) -o examples/Hier1max obj/examples/Hier1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
@@ -68,12 +71,6 @@ examples: example-fitnesses
 	$(CXX) -o examples/HierLongestFragment obj/examples/HierLongestFragment.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
 	$(CXX) -o examples/ApportioningHierLF obj/examples/ApportioningHierLF.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
 	$(CXX) -o examples/MetaHierLF obj/examples/MetaHierLF.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
-
-example-fitnesses:
-	mkdir -p obj/examples/fitnesses
-	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) src/examples/fitnesses/1maxFitness.cpp -o obj/examples/fitnesses/1maxFitness.o
-	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) src/examples/fitnesses/SphereFitness.cpp -o obj/examples/fitnesses/SphereFitness.o
-	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) src/examples/fitnesses/LongestFragmentFitness.cpp -o obj/examples/fitnesses/LongestFragmentFitness.o
 
 clean:
 	find obj -name *.o | xargs rm -f
