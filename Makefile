@@ -20,6 +20,8 @@ INCLUDE = -Iinclude -I/usr/local/include $(EIGEN)
 EXAMPLEINCLUDE = -I/usr/local/include -Isrc/examples/include $(EIGEN)
 LIB_SOURCE := $(shell find src -name *.cpp | grep -v examples)
 LIB_OBJS := $(patsubst src/%.cpp,obj/%.o,$(LIB_SOURCE))
+EXAMPLE_SOURCE := $(shell find src/examples -name *.cpp)
+EXAMPLE_OBJS := $(patsubst src/%.cpp,obj/%.o,$(EXAMPLE_SOURCE))
 
 all: library
 
@@ -56,14 +58,7 @@ obj/examples/%.o: src/examples/%.cpp
 library: all-header $(LIB_OBJS)
 	$(CXX) -shared -o libs/$(LIBNAME) $(LIB_OBJS)
 
-# Examples
-# TODO: Refactor this lot of crap
-examples: obj/examples/1max.o obj/examples/Sphere.o obj/examples/Hier1max.o \
-	obj/examples/LongestFragment.o obj/examples/HierLongestFragment.o \
-	obj/examples/ApportioningHierLF.o obj/examples/MetaHierLF.o \
-	obj/examples/fitnesses/1maxFitness.o \
-	obj/examples/fitnesses/SphereFitness.o \
-	obj/examples/fitnesses/LongestFragmentFitness.o
+examples: $(EXAMPLE_OBJS)
 	$(CXX) -o examples/1max obj/examples/1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
 	$(CXX) -o examples/Sphere obj/examples/Sphere.o obj/examples/fitnesses/SphereFitness.o $(SHAREDLIB)
 	$(CXX) -o examples/Hier1max obj/examples/Hier1max.o obj/examples/fitnesses/1maxFitness.o $(SHAREDLIB)
