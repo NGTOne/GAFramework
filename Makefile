@@ -68,7 +68,6 @@ examples: $(EXAMPLE_OBJS)
 	$(CXX) -o examples/MetaHierLF obj/examples/MetaHierLF.o obj/examples/fitnesses/LongestFragmentFitness.o $(SHAREDLIB)
 
 clean:
-	find obj -name *.o | xargs rm -f
+	rm -rf obj/*
 	rm -f libs/*
-	cd examples; ls | xargs rm -f
-	rm -f /usr/libs/libHierGA.so*
+	rm -f examples/*
