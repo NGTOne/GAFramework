@@ -11,18 +11,19 @@ class Apportionment : public ObjectiveFunction {
 
 	protected:
 	ApportionmentFunction * apportionment;
-	AggregationFunction * aggregator;
 	PopulationNode * upperNode;
 	unsigned int tryOns;
 
 	void init(
 		PopulationNode * upperNode,
 		ApportionmentFunction * apportionment,
-		AggregationFunction * aggregator,
 		unsigned int tryOns
 	);
 
-	float aggregateFitnesses(std::vector<float> apportionedFitnesses);
+	virtual std::vector<double> postProcessFitnesses(
+		std::vector<double> apportionedFitnesses
+	);
+
 	virtual Genome * getOperableGenome(Genome * genome);
 	virtual std::vector<unsigned int> getComponentIndices(
 		Genome * upper,
@@ -38,33 +39,30 @@ class Apportionment : public ObjectiveFunction {
 	);
 
 	void evaluatePair(
-		Genome * upper,
-		Genome * target,
-		float upperFitness,
-		std::vector<float> & apportionedFitnesses
+		Genome* upper,
+		Genome* target,
+		Fitness upperFitness,
+		std::vector<double>& apportionedFitnesses
 	);
 
 	public:
 	Apportionment(
 		PopulationNode * upperNode,
-		ApportionmentFunction * apportionment,
-		AggregationFunction * aggregator
+		ApportionmentFunction * apportionment
 	);
 	Apportionment(
 		PopulationNode * upperNode,
 		ApportionmentFunction * apportionment,
-		AggregationFunction * aggregator,
 		unsigned int tryOns
 	);
 
 	virtual ~Apportionment();
 	virtual void registerInternalObjects();
 
-	float checkFitness(Genome * genome);
+	Fitness checkFitness(Genome* genome);
 
 	bool isApportioning();
 	ApportionmentFunction * getApportionmentFunction();
-	AggregationFunction * getAggregationFunction();
 };
 
 #endif

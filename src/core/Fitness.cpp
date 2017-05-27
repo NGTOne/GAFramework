@@ -19,6 +19,14 @@ Fitness::Fitness(std::initializer_list<double> initial) {
 	);
 }
 
+Fitness::Fitness(std::vector<double> initial) {
+	this->components.insert(
+		this->components.end(),
+		initial.begin(),
+		initial.end()
+	);
+}
+
 void Fitness::drop() {
 	this->drop(this->components.size() - 1);
 }

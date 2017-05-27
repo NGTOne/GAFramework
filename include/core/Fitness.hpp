@@ -15,6 +15,7 @@ class Fitness {
 	Fitness();
 	Fitness(double initial);
 	Fitness(std::initializer_list<double> initial);
+	Fitness(std::vector<double> initial);
 
 	void drop();
 	void drop(unsigned int index);

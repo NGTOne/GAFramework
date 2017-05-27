@@ -5,14 +5,12 @@
 
 Apportionment::Apportionment(
 	PopulationNode * upperNode,
-	ApportionmentFunction * apportionment,
-	AggregationFunction * aggregator
+	ApportionmentFunction * apportionment
 ) {
 	// TODO: Empirically determine a sane default for try-on count
 	this->init(
 		upperNode,
 		apportionment,
-		aggregator,
 		upperNode->populationSize()
 	);
 }
@@ -20,10 +18,9 @@ Apportionment::Apportionment(
 Apportionment::Apportionment(
 	PopulationNode * upperNode,
 	ApportionmentFunction * apportionment,
-	AggregationFunction * aggregator,
 	unsigned int tryOns
 ) {
-	this->init(upperNode, apportionment, aggregator, tryOns);
+	this->init(upperNode, apportionment, tryOns);
 }
 
 Apportionment::~Apportionment() {}
@@ -31,18 +28,15 @@ Apportionment::~Apportionment() {}
 void Apportionment::registerInternalObjects() {
 	ObjectiveFunction::registerInternalObjects();
 	HierGC::registerObject(this->apportionment);
-	HierGC::registerObject(this->aggregator);
 }
 
 void Apportionment::init(
 	PopulationNode * upperNode,
 	ApportionmentFunction * apportionment,
-	AggregationFunction * aggregator,
 	unsigned int tryOns
 ) {
 	this->upperNode = upperNode;
 	this->apportionment = apportionment;
-	this->aggregator = aggregator;
 	this->tryOns = tryOns;
 }
 
@@ -70,10 +64,10 @@ std::vector<unsigned int> Apportionment::getRelevantIndices(
 }
 
 void Apportionment::evaluatePair(
-	Genome * upper,
-	Genome * target,
-	float upperFitness,
-	std::vector<float> & apportionedFitnesses
+	Genome* upper,
+	Genome* target,
+	Fitness upperFitness,
+	std::vector<double>& apportionedFitnesses
 ) {
 	std::vector<unsigned int> componentIndices =
 		this->getComponentIndices(upper, target);
@@ -104,8 +98,8 @@ bool Apportionment::upperGenomeUsesComponent(
 }
 
 // TODO: Refactor this function
-float Apportionment::checkFitness(Genome * genome) {
-	std::vector<float> apportionedFitnesses;
+Fitness Apportionment::checkFitness(Genome* genome) {
+	std::vector<double> apportionedFitnesses;
 	std::vector<bool> tried(this->upperNode->populationSize(), false);
 	unsigned int triedOn = 0;
 
@@ -150,13 +144,7 @@ float Apportionment::checkFitness(Genome * genome) {
 		triedOn++;
 	}
 
-	return this->aggregateFitnesses(apportionedFitnesses);
-}
-
-float Apportionment::aggregateFitnesses(
-	std::vector<float> apportionedFitnesses
-) {
-	return this->aggregator->aggregateFitnesses(apportionedFitnesses);
+	return Fitness(this->postProcessFitnesses(apportionedFitnesses));
 }
 
 bool Apportionment::isApportioning() {
@@ -165,8 +153,4 @@ bool Apportionment::isApportioning() {
 
 ApportionmentFunction * Apportionment::getApportionmentFunction() {
 	return this->apportionment;
-}
-
-AggregationFunction * Apportionment::getAggregationFunction() {
-	return this->aggregator;
 }

@@ -12,7 +12,7 @@ class AggregationFunction : public EABehaviourObject {
 	public:
 	virtual ~AggregationFunction();
 
-	virtual float aggregateFitnesses(std::vector<float> fitnesses)=0;
+	virtual double aggregateFitnesses(std::vector<double> fitnesses)=0;
 };
 
 #endif

@@ -14,11 +14,11 @@ class ApportionmentFunction : public EABehaviourObject {
 	virtual ~ApportionmentFunction();
 
 	virtual float apportionFitness(
-		Genome * recipient,
-		Genome * provider,
+		Genome* recipient,
+		Genome* provider,
 		unsigned int recipientStartIndex,
 		std::vector<unsigned int> relevantRecipientIndices,
-		float providerFitness
+		Fitness providerFitness
 	)=0;
 };
 
