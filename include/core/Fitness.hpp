@@ -17,6 +17,7 @@ class Fitness {
 
 	void drop();
 	void drop(unsigned int index);
+	void drop(unsigned int start, unsigned int end);
 	void drop(std::initializer_list<unsigned int> indices);
 
 	void add(double component);
