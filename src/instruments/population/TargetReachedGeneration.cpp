@@ -11,7 +11,7 @@ TargetReachedGeneration::TargetReachedGeneration(
 ) : CSVInstrument(target, outFile) {
 	this->bestGeneration = 0;
 	this->numAppearances = 0;
-	this->bestFitness = Fitness(std::numeric_limits<double>::lowest());
+	this->bestFitness = Fitness::lowestPossible();
 	this->targetFitness = targetFitness;
 	this->epsilon = std::abs(epsilon);
 	this->targetReachedGeneration = 0;
@@ -70,7 +70,7 @@ void TargetReachedGeneration::endReport() {
 TargetReachedGeneration::GenerationInfo
 	TargetReachedGeneration::evaluateNode()
 {
-	Fitness bestFitness = Fitness(std::numeric_limits<double>::lowest());
+	Fitness bestFitness = Fitness::lowestPossible();
 	unsigned int numAppearances = 0;
 	std::vector<Fitness> fitnesses = this->target->getFitnesses();
 

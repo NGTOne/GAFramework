@@ -9,7 +9,7 @@ GenerationBestFitnessCSV::GenerationBestFitnessCSV(
 
 void GenerationBestFitnessCSV::report() {
 	std::vector<Fitness> fitnesses = this->target->getFitnesses();
-	Fitness bestFitness = Fitness(std::numeric_limits<double>::lowest());
+	Fitness bestFitness = Fitness::lowestPossible();
 
 	for (Fitness fitness: fitnesses)
 		if (fitness > bestFitness) bestFitness = fitness;

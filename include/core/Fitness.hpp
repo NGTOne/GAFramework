@@ -46,6 +46,8 @@ class Fitness {
 	virtual bool operator<(const Fitness& rhs) const;
 	virtual bool operator>=(const Fitness& rhs) const;
 	virtual bool operator<=(const Fitness& rhs) const;
+
+	static Fitness lowestPossible();
 };
 
 std::ostream& operator<<(std::ostream& os, const Fitness& fitness);

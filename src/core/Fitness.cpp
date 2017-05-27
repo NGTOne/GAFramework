@@ -2,6 +2,7 @@
 #include "exception/ValueOutOfRangeException.hpp"
 #include <algorithm>
 #include <vector>
+#include <limits>
 
 Fitness::Fitness() {
 	this->components = {};
@@ -155,6 +156,10 @@ bool Fitness::operator>=(const Fitness& rhs) const {
 
 bool Fitness::operator<=(const Fitness& rhs) const {
 	return !(*this > rhs);
+}
+
+Fitness Fitness::lowestPossible() {
+	return Fitness(std::numeric_limits<double>::lowest());
 }
 
 std::ostream& operator<<(std::ostream& os, const Fitness& fitness) {
