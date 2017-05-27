@@ -8,14 +8,14 @@ using namespace std;
 
 SphereFitness::SphereFitness() : ObjectiveFunction() {}
 
-float SphereFitness::checkFitness(Genome * genome) {
+Fitness SphereFitness::checkFitness(Genome * genome) {
 	double total = 0;
 	Genome flattened = genome->flattenGenome();
 
 	for (unsigned int i = 0; i < 32; i++)
 		total += pow(flattened.getIndex<double>(i), 2);
 
-	return -total;
+	return Fitness(-total);
 }
 
 string SphereToString::toString(Genome * genome) {

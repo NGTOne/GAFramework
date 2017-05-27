@@ -9,7 +9,7 @@ class SphereFitness : public ObjectiveFunction {
 
 	public:
 	SphereFitness();
-	float checkFitness(Genome * genome);
+	Fitness checkFitness(Genome* genome);
 };
 
 class SphereToString : public ToStringFunction {

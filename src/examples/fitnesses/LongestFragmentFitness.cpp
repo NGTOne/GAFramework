@@ -38,9 +38,9 @@ unsigned int findLongestPath(
 
 LongestFragmentFitness::LongestFragmentFitness() : ObjectiveFunction() {}
 
-float LongestFragmentFitness::checkFitness(Genome * genome) {
+Fitness LongestFragmentFitness::checkFitness(Genome* genome) {
 	unsigned int bitBucket;
-	return findLongestPath(genome, bitBucket);
+	return Fitness(findLongestPath(genome, bitBucket));
 }
 
 LongestFragmentToString::LongestFragmentToString(
@@ -58,12 +58,12 @@ std::string LongestFragmentToString::stringifySegment(
 	return ss.str();
 }
 
-float LongestFragmentApportionment::apportionFitness(
-	Genome * recipient,
-	Genome * provider,
+double LongestFragmentApportionment::apportionFitness(
+	Genome* recipient,
+	Genome* provider,
 	unsigned int recipientStartIndex,
 	std::vector<unsigned int> relevantRecipientIndices,
-	float providerFitness
+	Fitness providerFitness
 ) {
 	unsigned int longestPathLocation;
 	unsigned int longestPathLength =

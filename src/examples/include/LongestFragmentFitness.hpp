@@ -9,7 +9,7 @@ class LongestFragmentFitness : public ObjectiveFunction {
 
 	public:
 	LongestFragmentFitness();
-	float checkFitness(Genome * target);
+	Fitness checkFitness(Genome* target);
 };
 
 class LongestFragmentToString : public HierarchicalToString {
@@ -31,11 +31,11 @@ class LongestFragmentApportionment : public ApportionmentFunction {
 	protected:
 
 	public:
-	float apportionFitness(
-		Genome * recipient,
-		Genome * provider,
+	double apportionFitness(
+		Genome* recipient,
+		Genome* provider,
 		unsigned int recipientStartIndex,
 		std::vector<unsigned int> relevantRecipientIndices,
-		float providerFitness
+		Fitness providerFitness
 	);
 };

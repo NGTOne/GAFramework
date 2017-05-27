@@ -7,14 +7,14 @@ using namespace std;
 
 OneMaxFitness::OneMaxFitness() : ObjectiveFunction() {}
 
-float OneMaxFitness::checkFitness(Genome * genome) {
+Fitness OneMaxFitness::checkFitness(Genome* genome) {
 	unsigned total = 0;
 	Genome flattened = genome->flattenGenome();
 
 	for (unsigned int i = 0; i < flattened.genomeLength(); i++)
 		total += flattened.getIndex<int>(i);
 
-	return total;
+	return Fitness(total);
 }
 
 OneMaxToString::OneMaxToString(
