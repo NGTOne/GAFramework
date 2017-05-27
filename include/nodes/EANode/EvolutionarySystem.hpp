@@ -26,7 +26,7 @@ class EvolutionarySystem : public EABehaviourObject {
 	);
 	void sortPopulation(
 		std::vector<Genome*> & population,
-		std::vector<float> & fitnesses
+		std::vector<Fitness>& fitnesses
 	);
 	Fitness evaluateFitness(
 		Genome* target,
@@ -35,7 +35,7 @@ class EvolutionarySystem : public EABehaviourObject {
 
 	virtual unsigned int getParent(
 		std::vector<Genome*> population,
-		std::vector<float> fitnesses
+		std::vector<Fitness> fitnesses
 	);
 
 	std::vector<Genome*> produceChildren(
@@ -54,7 +54,7 @@ class EvolutionarySystem : public EABehaviourObject {
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
-		std::vector<float> & populationFitnesses,
+		std::vector<Fitness>& populationFitnesses,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	)=0;

@@ -1,8 +1,9 @@
 #ifndef NODES_EANODE_SelectionStrategy
 #define NODES_EANODE_SelectionStrategy
 
-#include "../../core/Genome.hpp"
-#include "../../core/EABehaviourObject.hpp"
+#include "core/Genome.hpp"
+#include "core/EABehaviourObject.hpp"
+#include "core/Fitness.hpp"
 #include <string>
 #include <vector>
 
@@ -27,13 +28,13 @@ class SelectionStrategy : public EABehaviourObject {
 
 	std::vector<Genome*> chooseParents(
 		std::vector<Genome*> population,
-		std::vector<float> fitnesses,
+		std::vector<Fitness> fitnesses,
 		unsigned int count
 	);
 
 	virtual unsigned int getParent(
 		std::vector<Genome*> population,
-		std::vector<float> fitnesses
+		std::vector<Fitness> fitnesses
 	)=0;
 
 	virtual std::string toString();

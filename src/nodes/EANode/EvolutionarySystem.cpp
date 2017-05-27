@@ -37,12 +37,12 @@ void EvolutionarySystem::init(
 
 void EvolutionarySystem::sortPopulation(
 	std::vector<Genome*>& population,
-	std::vector<float>& fitnesses
+	std::vector<Fitness>& fitnesses
 ) {
 	for (unsigned int i = 0; i < population.size(); i++)
 		for (unsigned int k = 0; k < population.size(); k++)
 			if (fitnesses[i] > fitnesses[k]) {
-				float tempFitness = fitnesses[i];
+				Fitness tempFitness = fitnesses[i];
 				Genome* tempSolution = population[i];
 				fitnesses[i] = fitnesses[k];
 				population[i] = population[k];
@@ -63,7 +63,7 @@ Fitness EvolutionarySystem::evaluateFitness(
 
 unsigned int EvolutionarySystem::getParent(
 	std::vector<Genome*> population,
-	std::vector<float> fitnesses
+	std::vector<Fitness> fitnesses
 ) {
 	return this->strategy->getParent(population, fitnesses);
 }

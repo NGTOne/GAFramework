@@ -27,7 +27,7 @@ void SelectionStrategy::init(
 
 std::vector<Genome*> SelectionStrategy::chooseParents(
 	std::vector<Genome*> population,
-	std::vector<float> fitnesses,
+	std::vector<Fitness> fitnesses,
 	unsigned int count
 ) {
 	if (count >= population.size()) return population;
