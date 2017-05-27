@@ -20,12 +20,12 @@ StrongIterativeReplacingGA::StrongIterativeReplacingGA(
 }
 
 void StrongIterativeReplacingGA::scramblePopulation(
-	std::vector<Genome*> & population,
-	std::vector<float> & fitnesses
+	std::vector<Genome*>& population,
+	std::vector<Fitness>& fitnesses
 ) {
 	Genome* temp;
 	unsigned int index;
-	float tempFitness;
+	Fitness tempFitness;
 
 	for (unsigned int i = 0; i < population.size(); i++) {
 		index = HierRNG::index(population.size() - 1);
@@ -40,7 +40,7 @@ void StrongIterativeReplacingGA::scramblePopulation(
 
 std::vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 	std::vector<Genome*> initialPopulation,
-	std::vector<float>& populationFitnesses,
+	std::vector<Fitness>& populationFitnesses,
 	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
@@ -64,7 +64,7 @@ std::vector<Genome*> StrongIterativeReplacingGA::breedMutateSelect(
 		children = this->produceChildren(parents, speciesNode);
 
 		for (unsigned int k = 0; k < children.size(); k++) {
-			float childFitness = this->evaluateFitness(
+			Fitness childFitness = this->evaluateFitness(
 				children[k],
 				objectives
 			);

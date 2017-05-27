@@ -21,20 +21,20 @@ class ReplacingGA : public EvolutionarySystem {
 	);
 
 	bool inPopulation(
-		Genome * target,
+		Genome* target,
 		std::vector<Genome*> population
 	);
 
 	public:
 	ReplacingGA(
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation
+		SelectionStrategy* strategy,
+		CrossoverOperation* cross,
+		MutationOperation* mutation
 	);
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
-		std::vector<float> & populationFitnesses,
+		std::vector<Fitness>& populationFitnesses,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);

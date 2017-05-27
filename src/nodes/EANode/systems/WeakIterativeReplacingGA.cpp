@@ -10,7 +10,7 @@ WeakIterativeReplacingGA::WeakIterativeReplacingGA(
 
 std::vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 	std::vector<Genome*> initialPopulation,
-	std::vector<float>& populationFitnesses,
+	std::vector<Fitness>& populationFitnesses,
 	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
@@ -19,7 +19,10 @@ std::vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 		std::vector<Genome*>()
 	);
 	std::vector<Genome*> newPopulation(initialPopulation.size(), NULL);
-	std::vector<float> newFitnesses(initialPopulation.size(), 0);
+	std::vector<Fitness> newFitnesses(
+		initialPopulation.size(),
+		Fitness()
+	);
 
 	for (unsigned int i = 0; i < initialPopulation.size(); i++) {
 		std::vector<unsigned int> parentIndices;
@@ -43,7 +46,7 @@ std::vector<Genome*> WeakIterativeReplacingGA::breedMutateSelect(
 
 	for (unsigned int i = 0; i < initialPopulation.size(); i++) {
 		Genome* child = HierRNG::choose(possibleContenders[i]);
-		float childFitness = this->evaluateFitness(child, objectives);
+		Fitness childFitness = this->evaluateFitness(child, objectives);
 
 		if (childFitness > populationFitnesses[i]) {
 			newPopulation[i] = new Genome(child);
