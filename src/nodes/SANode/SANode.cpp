@@ -1,5 +1,6 @@
 #include "nodes/SANode/SANode.hpp"
 #include "core/Locus.hpp"
+#include "core/Fitness.hpp"
 #include "core/utils/HierRNG.hpp"
 #include "core/utils/HierGC.hpp"
 #include <string>
@@ -172,8 +173,8 @@ Genome* SANode::getNeighbour(Genome* target) {
 	for (unsigned int i = 0; i < neighbours.size(); i++)
 		if (neighbours[i] != neighbour) delete(neighbours[i]);
 
-	float neighbourFitness = this->evaluateFitness(neighbour);
-	float targetFitness = this->evaluateFitness(target);
+	Fitness neighbourFitness = this->evaluateFitness(neighbour);
+	Fitness targetFitness = this->evaluateFitness(target);
 
 	if ((this->maximize && targetFitness < neighbourFitness) ||
 		(!this->maximize && targetFitness > neighbourFitness)) {
