@@ -11,7 +11,7 @@ TargetReachedGeneration::TargetReachedGeneration(
 ) : CSVInstrument(target, outFile) {
 	this->bestGeneration = 0;
 	this->numAppearances = 0;
-	this->bestFitness = std::numeric_limits<double>::lowest();
+	this->bestFitness = Fitness(std::numeric_limits<double>::lowest());
 	this->targetFitness = targetFitness;
 	this->epsilon = std::abs(epsilon);
 	this->targetReachedGeneration = 0;
@@ -70,11 +70,11 @@ void TargetReachedGeneration::endReport() {
 TargetReachedGeneration::GenerationInfo
 	TargetReachedGeneration::evaluateNode()
 {
-	double bestFitness = std::numeric_limits<double>::lowest();
+	Fitness bestFitness = Fitness(std::numeric_limits<double>::lowest());
 	unsigned int numAppearances = 0;
-	std::vector<float> fitnesses = this->target->getFitnesses();
+	std::vector<Fitness> fitnesses = this->target->getFitnesses();
 
-	for (float fitness: fitnesses) {
+	for (Fitness fitness: fitnesses) {
 		if (fitness > bestFitness) {
 			bestFitness = fitness;
 			numAppearances = 1;
@@ -101,7 +101,7 @@ void TargetReachedGeneration::checkTargetReached(GenerationInfo info) {
 
 TargetReachedGeneration::GenerationInfo::GenerationInfo(
 	unsigned int numAppearances,
-	double bestFitness
+	Fitness bestFitness
 ) {
 	this->numAppearances = numAppearances;
 	this->bestFitness = bestFitness;
@@ -111,6 +111,6 @@ unsigned int TargetReachedGeneration::GenerationInfo::getAppearances() {
 	return this->numAppearances;
 }
 
-double TargetReachedGeneration::GenerationInfo::getBest() {
+Fitness TargetReachedGeneration::GenerationInfo::getBest() {
 	return this->bestFitness;
 }

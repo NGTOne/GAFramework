@@ -9,19 +9,19 @@ class GenerationFitnessCSV: public GenerationalCSVInstrument {
 	private:
 
 	protected:
-	std::vector<float> buckets;
-	float resolution;
+	std::vector<double> buckets;
+	double resolution;
 
-	float bucket(float actual);
+	double bucket(Fitness actual);
 	void report();
 
 	public:
 	GenerationFitnessCSV(
 		PopulationNode* target,
 		std::string outFile,
-		float bottomFitness,
-		float topFitness,
-		float resolution = 1
+		double bottomFitness,
+		double topFitness,
+		double resolution = 1
 	);
 };
 

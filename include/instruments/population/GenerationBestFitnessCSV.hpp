@@ -9,7 +9,7 @@ class GenerationBestFitnessCSV: public GenerationalCSVInstrument {
 	private:
 
 	protected:
-	std::vector<float> fitnesses;
+	std::vector<double> fitnesses;
 	void report();
 
 	public:

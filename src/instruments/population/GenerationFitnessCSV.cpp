@@ -5,12 +5,12 @@
 GenerationFitnessCSV::GenerationFitnessCSV(
 	PopulationNode* target,
 	std::string outFile,
-	float bottomFitness,
-	float topFitness,
-	float resolution
+	double bottomFitness,
+	double topFitness,
+	double resolution
 ) : GenerationalCSVInstrument(target, outFile) {
-	std::vector<float> buckets;
-	for (float i = bottomFitness; i <= topFitness; i+= resolution)
+	std::vector<double> buckets;
+	for (double i = bottomFitness; i <= topFitness; i+= resolution)
 		buckets.push_back(i);
 
 	this->buckets = buckets;
@@ -19,15 +19,16 @@ GenerationFitnessCSV::GenerationFitnessCSV(
 	this->addToHeader(buckets);
 }
 
-float GenerationFitnessCSV::bucket(float actual) {
-	if (actual < this->buckets[0]) return this->buckets[0];
-	if (actual > this->buckets[this->buckets.size() - 1])
+double GenerationFitnessCSV::bucket(Fitness actual) {
+	double collapsed = actual.collapse();
+	if (collapsed < this->buckets[0]) return this->buckets[0];
+	if (collapsed > this->buckets[this->buckets.size() - 1])
 		return this->buckets[this->buckets.size() - 1];
 
-	float mod = fmod(actual, this->resolution);
+	double mod = fmod(collapsed, this->resolution);
 
 	return (mod < this->resolution/2 ?
-		actual - mod : actual - mod + resolution);
+		collapsed - mod : collapsed - mod + resolution);
 }
 
 void GenerationFitnessCSV::report() {

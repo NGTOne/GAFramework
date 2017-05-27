@@ -10,18 +10,21 @@ class TargetReachedGeneration: public CSVInstrument {
 
 		protected:
 		unsigned int numAppearances;
-		double bestFitness;
+		Fitness bestFitness;
 
 		public:
-		GenerationInfo(unsigned int numAppearances, double bestFitness);
+		GenerationInfo(
+			unsigned int numAppearances,
+			Fitness bestFitness
+		);
 		unsigned int getAppearances();
-		double getBest();
+		Fitness getBest();
 	};
 
 	protected:
 	unsigned int bestGeneration;
 	unsigned int numAppearances;
-	double bestFitness;
+	Fitness bestFitness;
 
 	double targetFitness;
 	double epsilon;

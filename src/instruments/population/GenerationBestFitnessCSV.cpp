@@ -8,13 +8,13 @@ GenerationBestFitnessCSV::GenerationBestFitnessCSV(
 ) : GenerationalCSVInstrument(target, outFile) {}
 
 void GenerationBestFitnessCSV::report() {
-	std::vector<float> fitnesses = this->target->getFitnesses();
-	float bestFitness = std::numeric_limits<float>::lowest();
+	std::vector<Fitness> fitnesses = this->target->getFitnesses();
+	Fitness bestFitness = Fitness(std::numeric_limits<double>::lowest());
 
-	for (float fitness: fitnesses)
+	for (Fitness fitness: fitnesses)
 		if (fitness > bestFitness) bestFitness = fitness;
 
-	this->fitnesses.push_back(bestFitness);
+	this->fitnesses.push_back(bestFitness.collapse());
 }
 
 void GenerationBestFitnessCSV::endReport() {
@@ -28,5 +28,5 @@ void GenerationBestFitnessCSV::endReport() {
 	}
 
 	this->setHeader(headers);
-	this->write(this->fitnesses, std::numeric_limits<float>::lowest());
+	this->write(this->fitnesses, std::numeric_limits<double>::lowest());
 }
