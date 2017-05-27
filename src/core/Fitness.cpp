@@ -54,6 +54,15 @@ void Fitness::add(std::initializer_list<double> components) {
 		this->add(component);
 }
 
+void Fitness::add(std::vector<double> components) {
+	for (auto component:components)
+		this->add(component);
+}
+
+void Fitness::add(Fitness target) {
+	this->add(target.getComponents());
+}
+
 double Fitness::collapse() const {
 	return std::accumulate(
 		this->components.begin(),
