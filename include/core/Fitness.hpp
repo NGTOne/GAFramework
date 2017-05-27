@@ -23,6 +23,8 @@ class Fitness {
 	void add(double component);
 	void add(std::initializer_list<double> components);
 
+	// Obviously there's lots of possible different ways to do this
+	// We'll default to just summing up the components
 	virtual double collapse();
 	std::vector<double> getComponents();
 
