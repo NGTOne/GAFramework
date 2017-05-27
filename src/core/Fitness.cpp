@@ -44,3 +44,12 @@ void Fitness::drop(std::initializer_list<unsigned int> indices) {
 	for (auto index: sortedIndices)
 		this->components.erase(this->components.begin() + index);
 }
+
+void Fitness::add(double component) {
+	this->components.push_back(component);
+}
+
+void Fitness::add(std::initializer_list<double> components) {
+	for (auto component: components)
+		this->add(component);
+}
