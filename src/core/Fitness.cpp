@@ -87,6 +87,8 @@ bool Fitness::operator<(const Fitness& rhs) const {
 	return rhs > *this;
 }
 
+// TODO: Determine whether these implementations of >= and <= make the most
+// sense
 bool Fitness::operator>=(const Fitness& rhs) const {
 	return !(*this < rhs);
 }
