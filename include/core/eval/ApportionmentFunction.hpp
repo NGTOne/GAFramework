@@ -1,8 +1,9 @@
 #ifndef CORE_EVAL_ApportionmentFunction
 #define CORE_EVAL_ApportionmentFunction
 
-#include "../Genome.hpp"
-#include "../EABehaviourObject.hpp"
+#include "core/Genome.hpp"
+#include "core/EABehaviourObject.hpp"
+#include "core/Fitness.hpp"
 #include <vector>
 
 class ApportionmentFunction : public EABehaviourObject {
