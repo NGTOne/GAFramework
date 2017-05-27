@@ -16,7 +16,6 @@ void HierarchicalEA::addCooperativeCoevolution(
 	unsigned int populationSize,
 	std::vector<Locus*> loci,
 	ApportionmentFunction* apportionment,
-	AggregationFunction* aggregator,
 	ToStringFunction* toString,
 	std::vector<EndCondition*> conditions,
 	std::vector<std::string> nodeNames,
@@ -34,7 +33,6 @@ void HierarchicalEA::addCooperativeCoevolution(
 		this->wrapForPass(populationSize, count),
 		this->wrapForPass(loci, count),
 		this->wrapForPass(apportionment, count),
-		this->wrapForPass(aggregator, count),
 		this->wrapForPass(toString, count),
 		this->wrapForPass(conditions, count),
 		nodeNames,
@@ -53,7 +51,6 @@ void HierarchicalEA::addCooperativeCoevolution(
 	std::vector<unsigned int> populationSizes,
 	std::vector<std::vector<Locus*>> loci,
 	std::vector<ApportionmentFunction*> apportionments,
-	std::vector<AggregationFunction*> aggregators,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,
 	std::vector<std::string> nodeNames,
@@ -62,7 +59,7 @@ void HierarchicalEA::addCooperativeCoevolution(
 	params... as
 ) {
 	if (!this->compareVectorLengths(
-		populationSizes, loci, apportionments, aggregators, toStrings,
+		populationSizes, loci, apportionments, toStrings,
 		conditions, nodeNames, print, end
 	)) throw MismatchedCountsException();
 
@@ -106,7 +103,6 @@ void HierarchicalEA::addCooperativeCoevolution(
 			new Apportionment(
 				this->getNodeByName(coevNodeName),
 				apportionments[i],
-				aggregators[i],
 				1
 			)
 		);
@@ -128,7 +124,6 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 ) {
 	PopulationNode* coevRoot = this->findCoevRootNode(coopNodes);
 	std::vector<ApportionmentFunction*> apportionments;
-	std::vector<AggregationFunction*> aggregators;
 
 	for (unsigned int i = 0; i < coopNodes.size(); i++) {
 		Apportionment* apportionment =
@@ -137,26 +132,22 @@ void HierarchicalEA::addCooperativeCoevMetaNode(
 		apportionments.push_back(
 			apportionment->getApportionmentFunction()
 		);
-		aggregators.push_back(apportionment->getAggregationFunction());
 	}
 
 	std::vector<std::tuple<
 		std::string,
-		ApportionmentFunction*,
-		AggregationFunction*
+		ApportionmentFunction*
 	>> blanketNodes;
 
 	for (unsigned int i = 0; i < coopNodes.size(); i++)
 		blanketNodes.push_back(std::make_tuple(
 			coopNodes[i],
-			apportionments[i],
-			aggregators[i]
+			apportionments[i]
 		));
 
 	blanketNodes.push_back(std::make_tuple(
 		coevRoot->name(),
-		(ApportionmentFunction*)NULL,
-		(AggregationFunction*)NULL
+		(ApportionmentFunction*)NULL
 	));
 
 	std::vector<std::string> evoOrder = this->evolutionOrder;

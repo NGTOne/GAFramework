@@ -95,7 +95,6 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<std::vector<Locus*>> contextLoci,
 	std::vector<ObjectiveFunction*> topObjectives,
 	std::vector<std::vector<ApportionmentFunction*>> apportionments,
-	std::vector<std::vector<AggregationFunction*>> aggregators,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,
 	LatticeBuilder latticeSpec,
@@ -110,7 +109,6 @@ void HierarchicalEA::addConstructiveLattice(
 		this->wrapForPass(contextLoci, counts),
 		topObjectives,
 		this->wrapForPass(apportionments, counts, 1),
-		this->wrapForPass(aggregators, counts, 1),
 		this->getNestedEmptyVector<unsigned int>(counts, 1),
 		this->wrapForPass(toStrings, counts),
 		this->wrapForPass(conditions, counts),
@@ -127,7 +125,6 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<std::vector<Locus*>> contextLoci,
 	std::vector<ObjectiveFunction*> topObjectives,
 	std::vector<std::vector<ApportionmentFunction*>> apportionments,
-	std::vector<std::vector<AggregationFunction*>> aggregators,
 	std::vector<std::vector<unsigned int>> tryOns,
 	std::vector<ToStringFunction*> toStrings,
 	std::vector<std::vector<EndCondition*>> conditions,
@@ -143,7 +140,6 @@ void HierarchicalEA::addConstructiveLattice(
 		this->wrapForPass(contextLoci, counts),
 		topObjectives,
 		this->wrapForPass(apportionments, counts, 1),
-		this->wrapForPass(aggregators, counts, 1),
 		this->wrapForPass(tryOns, counts, 1),
 		this->wrapForPass(toStrings, counts),
 		this->wrapForPass(conditions, counts),
@@ -191,8 +187,6 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<ObjectiveFunction*> topObjectives,
 	std::vector<std::vector<std::vector<ApportionmentFunction*>>>
 		apportionments,
-	std::vector<std::vector<std::vector<AggregationFunction*>>>
-		aggregators,
 	std::vector<std::vector<std::vector<unsigned int>>> tryOns,
 	std::vector<std::vector<ToStringFunction*>> toStrings,
 	std::vector<std::vector<std::vector<EndCondition*>>> conditions,
@@ -217,7 +211,6 @@ void HierarchicalEA::addConstructiveLattice(
 		contextLoci,
 		objectives,
 		apportionments,
-		aggregators,
 		tryOns,
 		toStrings,
 		conditions,
@@ -235,8 +228,6 @@ void HierarchicalEA::addConstructiveLattice(
 	std::vector<std::vector<std::vector<ObjectiveFunction*>>> objectives,
 	std::vector<std::vector<std::vector<ApportionmentFunction*>>>
 		apportionments,
-	std::vector<std::vector<std::vector<AggregationFunction*>>>
-		aggregators,
 	std::vector<std::vector<std::vector<unsigned int>>> tryOns,
 	std::vector<std::vector<ToStringFunction*>> toStrings,
 	std::vector<std::vector<std::vector<EndCondition*>>> conditions,
@@ -248,8 +239,7 @@ void HierarchicalEA::addConstructiveLattice(
 	if (
 		!this->compareVectorLengths(contextLoci, objectives, toStrings,
 			conditions, print, end)
-		|| !this->compareVectorLengths(apportionments, aggregators,
-			tryOns)
+		|| !this->compareVectorLengths(apportionments, tryOns)
 		|| apportionments.size() != latticeSpec.numLevels() - 1
 		|| contextLoci.size() != latticeSpec.numLevels()
 	) throw MismatchedCountsException();
@@ -312,7 +302,6 @@ void HierarchicalEA::addConstructiveLattice(
 				currentLevelNodes,
 				previousLevelNodes,
 				apportionments[i],
-				aggregators[i],
 				tryOns[i]
 			);
 

@@ -384,19 +384,14 @@ void HierarchicalEA::addMigratoryRing(
 std::vector<ObjectiveFunction*> HierarchicalEA::makeApportionments(
 	PopulationNode* upperNode,
 	std::vector<ApportionmentFunction*> apportionments,
-	std::vector<AggregationFunction*> aggregators,
 	std::vector<unsigned int> tryOns
 ) {
-	if (!this->compareVectorLengths(apportionments, aggregators))
-		throw MismatchedCountsException();
-
 	std::vector<ObjectiveFunction*> finished;
 	unsigned int backupTryOns = upperNode->populationSize();
 	for (unsigned int i = 0; i < apportionments.size(); i++)
 		finished.push_back(new Apportionment(
 			upperNode,
 			apportionments[i],
-			aggregators[i],
 			(tryOns.empty() ? backupTryOns : tryOns[i])
 		));
 
@@ -407,12 +402,10 @@ void HierarchicalEA::addApportionments(
 	std::vector<PopulationNode*> upperNodes,
 	std::vector<PopulationNode*> lowerNodes,
 	std::vector<std::vector<ApportionmentFunction*>> apportionments,
-	std::vector<std::vector<AggregationFunction*>> aggregators,
 	std::vector<std::vector<unsigned int>> tryOns
 ) {
 	if (!this->compareVectorLengths(
 		apportionments,
-		aggregators,
 		tryOns,
 		lowerNodes
 	)) throw MismatchedCountsException();
@@ -420,7 +413,6 @@ void HierarchicalEA::addApportionments(
 	for (unsigned int i = 0; i < lowerNodes.size(); i++) {
 		if (!this->compareVectorLengths(
 			apportionments[i],
-			aggregators[i],
 			tryOns[i],
 			upperNodes
 		)) throw MismatchedCountsException();
@@ -429,7 +421,6 @@ void HierarchicalEA::addApportionments(
 			lowerNodes[i]->addObjective(new Apportionment(
 				upperNodes[k],
 				apportionments[i][k],
-				aggregators[i][k],
 				tryOns[i][k]
 			));
 		}
@@ -441,10 +432,9 @@ void HierarchicalEA::addApportionments(
 	std::vector<PopulationNode*> lowerNodes,
 	std::vector<unsigned int> counts,
 	std::vector<std::vector<ApportionmentFunction*>> apportionments,
-	std::vector<std::vector<AggregationFunction*>> aggregators,
 	std::vector<std::vector<unsigned int>> tryOns
 ) {
-	if (!this->compareVectorLengths(apportionments, aggregators, tryOns))
+	if (!this->compareVectorLengths(apportionments, tryOns))
 		throw MismatchedCountsException();
 
 	unsigned int currentOffset = 0;
@@ -454,7 +444,6 @@ void HierarchicalEA::addApportionments(
 				this->makeApportionments(
 					upperNodes[i],
 					apportionments[currentOffset],
-					aggregators[currentOffset],
 					tryOns[currentOffset]
 				)
 			);

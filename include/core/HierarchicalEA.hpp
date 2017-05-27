@@ -6,7 +6,6 @@
 #include "migration/MigratoryRelationship.hpp"
 #include "migration/TranslationFunction.hpp"
 #include "eval/ApportionmentFunction.hpp"
-#include "eval/AggregationFunction.hpp"
 #include "eval/ObjectiveFunction.hpp"
 #include "eval/ToStringFunction.hpp"
 #include "builders/TreeBuilder.hpp"
@@ -77,7 +76,6 @@ class HierarchicalEA {
 	std::vector<ObjectiveFunction*> makeApportionments(
 		PopulationNode* upperNode,
 		std::vector<ApportionmentFunction*> functions,
-		std::vector<AggregationFunction*> aggregators,
 		std::vector<unsigned int> tryOns
 	);
 
@@ -86,7 +84,6 @@ class HierarchicalEA {
 		std::vector<PopulationNode*> lowerNodes,
 		std::vector<std::vector<ApportionmentFunction*>>
 			apportionments,
-		std::vector<std::vector<AggregationFunction*>> aggregators,
 		std::vector<std::vector<unsigned int>> tryOns
 	);
 
@@ -96,7 +93,6 @@ class HierarchicalEA {
 		std::vector<unsigned int> counts,
 		std::vector<std::vector<ApportionmentFunction*>>
 			apportionments,
-		std::vector<std::vector<AggregationFunction*>> aggregators,
 		std::vector<std::vector<unsigned int>> tryOns
 	);
 
@@ -186,8 +182,7 @@ class HierarchicalEA {
 		unsigned int populationSize,
 		std::tuple<
 			std::vector<std::string>,
-			ApportionmentFunction*,
-			AggregationFunction*
+			ApportionmentFunction*
 		> nodes,
 		std::vector<ObjectiveFunction*> flattenedObjectives,
 		ToStringFunction* flattenedToString,
@@ -202,8 +197,7 @@ class HierarchicalEA {
 		unsigned int populationSize,
 		std::vector<std::tuple<
 			std::string,
-			ApportionmentFunction*,
-			AggregationFunction*
+			ApportionmentFunction*
 		>> nodes,
 		std::vector<ObjectiveFunction*> flattenedObjectives,
 		ToStringFunction* flattenedToString,
@@ -287,7 +281,6 @@ class HierarchicalEA {
 		unsigned int populationSize,
 		std::vector<Locus*> loci,
 		ApportionmentFunction* apportionment,
-		AggregationFunction* aggregator,
 		ToStringFunction* toString,
 		std::vector<EndCondition*> conditions,
 		std::vector<std::string> nodeNames,
@@ -305,7 +298,6 @@ class HierarchicalEA {
 		std::vector<unsigned int> populationSizes,
 		std::vector<std::vector<Locus*>> loci,
 		std::vector<ApportionmentFunction*> apportionments,
-		std::vector<AggregationFunction*> aggregators,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
 		std::vector<std::string> nodeNames,
@@ -382,7 +374,6 @@ class HierarchicalEA {
 		std::vector<ObjectiveFunction*> topObjectives,
 		std::vector<std::vector<ApportionmentFunction*>>
 			apportionments,
-		std::vector<std::vector<AggregationFunction*>> aggregators,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
 		TreeBuilder treeSpec,
@@ -401,7 +392,6 @@ class HierarchicalEA {
 		std::vector<ObjectiveFunction*> topObjectives,
 		std::vector<std::vector<ApportionmentFunction*>>
 			apportionments,
-		std::vector<std::vector<AggregationFunction*>> aggregators,
 		std::vector<std::vector<unsigned int>> tryOns,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
@@ -439,8 +429,6 @@ class HierarchicalEA {
 		std::vector<ObjectiveFunction*> topObjectives,
 		std::vector<std::vector<std::vector<ApportionmentFunction*>>>
 			apportionments,
-		std::vector<std::vector<std::vector<AggregationFunction*>>>
-			aggregators,
 		std::vector<std::vector<std::vector<unsigned int>>> tryOns,
 		std::vector<std::vector<ToStringFunction*>> toStrings,
 		std::vector<std::vector<std::vector<EndCondition*>>>
@@ -462,8 +450,6 @@ class HierarchicalEA {
 			objectives,
 		std::vector<std::vector<std::vector<ApportionmentFunction*>>>
 			apportionments,
-		std::vector<std::vector<std::vector<AggregationFunction*>>>
-			aggregators,
 		std::vector<std::vector<std::vector<unsigned int>>> tryOns,
 		std::vector<std::vector<ToStringFunction*>> toStrings,
 		std::vector<std::vector<std::vector<EndCondition*>>>
@@ -519,7 +505,6 @@ class HierarchicalEA {
 		std::vector<ObjectiveFunction*> topObjectives,
 		std::vector<std::vector<ApportionmentFunction*>>
 			apportionments,
-		std::vector<std::vector<AggregationFunction*>> aggregators,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
 		LatticeBuilder latticeSpec,
@@ -535,7 +520,6 @@ class HierarchicalEA {
 		std::vector<ObjectiveFunction *> topObjectives,
 		std::vector<std::vector<ApportionmentFunction*>>
 			apportionments,
-		std::vector<std::vector<AggregationFunction*>> aggregators,
 		std::vector<std::vector<unsigned int>> tryOns,
 		std::vector<ToStringFunction*> toStrings,
 		std::vector<std::vector<EndCondition*>> conditions,
@@ -567,8 +551,6 @@ class HierarchicalEA {
 		std::vector<ObjectiveFunction *> topObjectives,
 		std::vector<std::vector<std::vector<ApportionmentFunction*>>>
 			apportionments,
-		std::vector<std::vector<std::vector<AggregationFunction*>>>
-			aggregators,
 		std::vector<std::vector<std::vector<unsigned int>>> tryOns,
 		std::vector<std::vector<ToStringFunction*>> toStrings,
 		std::vector<std::vector<std::vector<EndCondition*>>>
@@ -587,8 +569,6 @@ class HierarchicalEA {
 			objectives,
 		std::vector<std::vector<std::vector<ApportionmentFunction*>>>
 			apportionments,
-		std::vector<std::vector<std::vector<AggregationFunction*>>>
-			aggregators,
 		std::vector<std::vector<std::vector<unsigned int>>> tryOns,
 		std::vector<std::vector<ToStringFunction*>> toStrings,
 		std::vector<std::vector<std::vector<EndCondition*>>>
