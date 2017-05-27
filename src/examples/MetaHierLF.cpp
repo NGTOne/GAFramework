@@ -47,8 +47,7 @@ int main(void) {
 			std::vector<std::string>(
 				{"P1", "P2", "P3", "P4", "P5"}
 			),
-			new LongestFragmentApportionment,
-			new BestOfAggregator
+			new LongestFragmentApportionment
 		),
 		{new LongestFragmentFitness()},
 		new LongestFragmentToString(

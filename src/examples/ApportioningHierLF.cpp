@@ -17,7 +17,6 @@ int main(void) {
 		)},
 		{new LongestFragmentFitness()},
 		{{new LongestFragmentApportionment()}},
-		{{new BestOfAggregator()}},
 		{new LongestFragmentToString(), new LongestFragmentToString()},
 		{{new IterationCountEnd(100)}, {new IterationCountEnd(100)}},
 		TreeBuilder("P1").addSubNodes("P1", {"P2", "P3", "P4", "P5"}),
