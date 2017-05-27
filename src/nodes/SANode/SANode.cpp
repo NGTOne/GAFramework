@@ -180,7 +180,7 @@ Genome* SANode::getNeighbour(Genome* target) {
 		(!this->maximize && targetFitness > neighbourFitness)) {
 		return neighbour;
 	} else {
-		float currentTemp = this->schedule->currentTemp(
+		double currentTemp = this->schedule->currentTemp(
 			currentIteration
 		);
 
@@ -189,10 +189,10 @@ Genome* SANode::getNeighbour(Genome* target) {
 			return new Genome(target);
 		}
 
-		float delta = this->maximize ? neighbourFitness - targetFitness
+		Fitness delta = this->maximize ? neighbourFitness - targetFitness
 			: targetFitness - neighbourFitness;
 
-		float probability = exp(delta/currentTemp);
+		double probability = exp(delta.collapse()/currentTemp);
 
 		if (HierRNG::zeroOne<double>() < probability) {
 			return neighbour;
