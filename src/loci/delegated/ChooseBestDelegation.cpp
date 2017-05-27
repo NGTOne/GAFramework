@@ -6,8 +6,8 @@ ChooseBestDelegation::ChooseBestDelegation() {}
 ChooseBestDelegation::~ChooseBestDelegation() {}
 
 double ChooseBestDelegation::getBestIndex(PopulationNode* node) {
-	std::vector<float> fitnesses = node->getFitnesses();
-	float bestFitness = std::numeric_limits<float>::lowest();
+	std::vector<Fitness> fitnesses = node->getFitnesses();
+	Fitness bestFitness = Fitness::lowestPossible();
 	unsigned int bestIndex;
 	for (unsigned int i = 0; i < fitnesses.size(); i++)
 		if (fitnesses[i] > bestFitness) {
