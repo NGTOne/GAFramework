@@ -74,15 +74,15 @@ void PopulationNode::init(
 	this->createLoci(loci);
 }
 
-float PopulationNode::evaluateFitness(Genome* target) {
-	float total = 0;
+Fitness PopulationNode::evaluateFitness(Genome* target) {
+	Fitness total;
 	for (unsigned int i = 0; i < this->objectives.size(); i++)
-		total += this->objectives[i]->checkFitness(target);
+		total.add(this->objectives[i]->checkFitness(target));
 
 	return total;
 }
 
-float PopulationNode::evaluateFitness(unsigned int solutionIndex) {
+Fitness PopulationNode::evaluateFitness(unsigned int solutionIndex) {
 	Genome* genome = this->getIndex(solutionIndex);
 	return this->evaluateFitness(genome);
 }
@@ -91,7 +91,10 @@ void PopulationNode::createLoci(std::vector<Locus*> loci) {
 	for (unsigned int i = 0; i < this->population.size(); i++) 
 		delete(this->population[i]);
 	this->population.clear();
-	this->fitnesses = std::vector<float>(this->initialPopulationSize, 0);
+	this->fitnesses = std::vector<Fitness>(
+		this->initialPopulationSize,
+		Fitness()
+	);
 
 	for (unsigned int i = 0; i < this->initialPopulationSize; i++)
 		this->population.push_back(new Genome(loci, this->nodeName));
@@ -196,7 +199,7 @@ void PopulationNode::sortPopulation() {
 	for (unsigned int i = 0; i < this->population.size(); i++) {
 		for (unsigned int k = 0; k < this->population.size(); k++) {
 			if (this->fitnesses[i] > this->fitnesses[k]) {
-				float tempFitness = fitnesses[i];
+				Fitness tempFitness = fitnesses[i];
 				Genome* tempSolution = population[i];
 
 				this->fitnesses[i] = this->fitnesses[k];
@@ -291,11 +294,11 @@ ToStringFunction * PopulationNode::getToString() {
 	return this->populationToString;
 }
 
-float PopulationNode::getFitnessAtIndex(unsigned int index) {
+Fitness PopulationNode::getFitnessAtIndex(unsigned int index) {
 	return this->fitnesses[index];
 }
 
-std::vector<float> PopulationNode::getFitnesses() {
+std::vector<Fitness> PopulationNode::getFitnesses() {
 	return this->fitnesses;
 }
 

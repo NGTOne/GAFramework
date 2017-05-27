@@ -7,6 +7,7 @@
 #include "eval/ToStringFunction.hpp"
 #include "Locus.hpp"
 #include "EABehaviourObject.hpp"
+#include "Fitness.hpp"
 #include <vector>
 #include <set>
 
@@ -17,7 +18,7 @@ class PopulationNode : public EABehaviourObject {
 
 	protected:
 	std::vector<Genome*> population;
-	std::vector<float> fitnesses;
+	std::vector<Fitness> fitnesses;
 	std::string nodeName;
 
 	unsigned int currentIteration;
@@ -42,7 +43,7 @@ class PopulationNode : public EABehaviourObject {
 		unsigned int accelerationFactor
 	);
 
-	float evaluateFitness(unsigned int solutionIndex);
+	Fitness evaluateFitness(unsigned int solutionIndex);
 	void createLoci(std::vector<Locus*> loci);
 	void replacePopulation();
 
@@ -91,7 +92,7 @@ class PopulationNode : public EABehaviourObject {
 
 	virtual void sortPopulation();
 	void evaluateFitnesses();
-	float evaluateFitness(Genome * target);
+	Fitness evaluateFitness(Genome* target);
 
 	// For migration
 	virtual void insert(unsigned int index, Genome * target);
@@ -113,8 +114,8 @@ class PopulationNode : public EABehaviourObject {
 	std::vector<EndCondition*> getConditions();
 	std::vector<ObjectiveFunction*> getObjectives();
 	ToStringFunction * getToString();
-	float getFitnessAtIndex(unsigned int index);
-	std::vector<float> getFitnesses();
+	Fitness getFitnessAtIndex(unsigned int index);
+	std::vector<Fitness> getFitnesses();
 
 	virtual PopulationNode * duplicate(std::string newNodeName)=0;
 };
