@@ -14,7 +14,7 @@ class ApportionmentFunction : public EABehaviourObject {
 	public:
 	virtual ~ApportionmentFunction();
 
-	virtual float apportionFitness(
+	virtual double apportionFitness(
 		Genome* recipient,
 		Genome* provider,
 		unsigned int recipientStartIndex,
