@@ -7,7 +7,7 @@ RandomSelection::RandomSelection() : SelectionStrategy(0, "Random") {}
 
 unsigned int RandomSelection::getParent(
 	std::vector<Genome*> population,
-	std::vector<float> fitnesses
+	std::vector<Fitness> fitnesses
 ) {
 	return HierRNG::index(population.size() - 1);
 }

@@ -3,11 +3,11 @@
 std::vector<Genome*> MuPlusLambdaES::doReplacement(
 	std::vector<Genome*> parents,
 	std::vector<Genome*> offspring,
-	std::vector<float>& populationFitnesses,
+	std::vector<Fitness>& populationFitnesses,
 	std::vector<ObjectiveFunction*> objectives
 ) {
 	std::vector<Genome*> result, combined(parents);
-	std::vector<float> combinedFitnesses(populationFitnesses);
+	std::vector<Fitness> combinedFitnesses(populationFitnesses);
 	combined.insert(combined.end(), offspring.begin(), offspring.end());
 	for (unsigned int i = 0; i < offspring.size(); i++)
 		combinedFitnesses.push_back(this->evaluateFitness(

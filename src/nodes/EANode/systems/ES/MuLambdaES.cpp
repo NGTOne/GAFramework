@@ -81,7 +81,7 @@ void MuLambdaES::init(unsigned int lambda, unsigned int rho) {
 
 std::vector<Genome*> MuLambdaES::getOffspring(
 	std::vector<Genome*> parents,
-	std::vector<float> parentFitnesses,
+	std::vector<Fitness> parentFitnesses,
 	std::string speciesNode
 ) {
 	std::vector<Genome*> offspring;

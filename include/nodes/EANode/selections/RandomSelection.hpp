@@ -15,7 +15,7 @@ class RandomSelection : public SelectionStrategy {
         
 	unsigned int getParent(
 		std::vector<Genome*> population,
-		std::vector<float> fitnesses
+		std::vector<Fitness> fitnesses
 	);
 	std::string toString();
 };

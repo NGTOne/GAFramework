@@ -1,10 +1,10 @@
 #ifndef NODES_EANODE_SYSTEMS_ES_MuLambdaES
 #define NODES_EANODE_SYSTEMS_ES_MuLambdaES
 
-#include "../../MutationOperation.hpp"
-#include "../../CrossoverOperation.hpp"
-#include "../../SelectionStrategy.hpp"
-#include "../ES.hpp"
+#include "nodes/EANode/MutationOperation.hpp"
+#include "nodes/EANode/CrossoverOperation.hpp"
+#include "nodes/EANode/SelectionStrategy.hpp"
+#include "nodes/EANode/systems/ES.hpp"
 #include <vector>
 #include <map>
 
@@ -55,7 +55,7 @@ class MuLambdaES: public ES {
 
 	virtual std::vector<Genome*> getOffspring(
 		std::vector<Genome*> parents,
-		std::vector<float> parentFitnesses,
+		std::vector<Fitness> parentFitnesses,
 		std::string speciesNode
 	);
 };

@@ -14,7 +14,7 @@ class MuCommaLambdaES: public MuLambdaES {
 	std::vector<Genome*> doReplacement(
 		std::vector<Genome*> parents,
 		std::vector<Genome*> offspring,
-		std::vector<float>& populationFitnesses,
+		std::vector<Fitness>& populationFitnesses,
 		std::vector<ObjectiveFunction*> objectives
 	);
 

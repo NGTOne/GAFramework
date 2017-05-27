@@ -19,20 +19,20 @@ class ES : public EvolutionarySystem {
 
 	virtual std::vector<Genome*> getOffspring(
 		std::vector<Genome*> parents,
-		std::vector<float> parentFitnesses,
+		std::vector<Fitness> parentFitnesses,
 		std::string speciesNode
 	)=0;
 	virtual std::vector<Genome*> doReplacement(
 		std::vector<Genome*> parents,
 		std::vector<Genome*> offspring,
-		std::vector<float>& populationFitnesses,
+		std::vector<Fitness>& populationFitnesses,
 		std::vector<ObjectiveFunction*> objectives
 	)=0;
 
 	public:
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
-		std::vector<float>& populationFitnesses,
+		std::vector<Fitness>& populationFitnesses,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);
