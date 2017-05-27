@@ -32,9 +32,9 @@ void GA::init(unsigned int numElites, bool randomElitePlacement) {
 
 void GA::placeElites(
 	std::vector<Genome*> initialPopulation,
-	std::vector<float> initialPopulationFitnesses,
+	std::vector<Fitness> initialPopulationFitnesses,
 	std::vector<Genome*>& newPopulation,
-	std::vector<float>& newPopulationFitnesses
+	std::vector<Fitness>& newPopulationFitnesses
 ) {
 	std::vector<unsigned int> eliteLocations = this->findElites(
 		initialPopulationFitnesses
@@ -64,16 +64,17 @@ void GA::placeElites(
 	}
 }
 
-std::vector<unsigned int> GA::findElites(std::vector<float> fitnesses) {
+std::vector<unsigned int> GA::findElites(std::vector<Fitness> fitnesses) {
 	unsigned int populationSize = fitnesses.size(), bestFitnessIndex = 0;
-	float bestFitness;
+	Fitness bestFitness;
 	std::vector<bool> eliteLocations(populationSize, false);
 	std::vector<unsigned int> eliteIndexes;
 	unsigned int trueNumElites = this->numElites >= fitnesses.size() ?
 		fitnesses.size()/2 : this->numElites;
 
 	for (unsigned int i = 0; i < trueNumElites; i++) {
-		bestFitness = std::numeric_limits<float>::lowest();
+		// Still a dirty ugly hack, but it works
+		bestFitness = Fitness(std::numeric_limits<double>::lowest());
 		for (unsigned int k = 0; k < populationSize; k++) {
 			if (
 				fitnesses[k] > bestFitness
@@ -93,12 +94,15 @@ std::vector<unsigned int> GA::findElites(std::vector<float> fitnesses) {
 
 std::vector<Genome*> GA::breedMutateSelect(
 	std::vector<Genome*> initialPopulation,
-	std::vector<float>& populationFitnesses,
+	std::vector<Fitness>& populationFitnesses,
 	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
 	std::vector<Genome*> newPopulation(initialPopulation.size(), NULL);
-	std::vector<float> newFitnesses(initialPopulation.size(), 0);
+	std::vector<Fitness> newFitnesses(
+		initialPopulation.size(),
+		Fitness()
+	);
 
 	this->placeElites(
 		initialPopulation,

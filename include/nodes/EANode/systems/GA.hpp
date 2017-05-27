@@ -1,7 +1,8 @@
 #ifndef NODES_EANODE_SYSTEMS_GA
 #define NODES_EANODE_SYSTEMS_GA
 
-#include "../EvolutionarySystem.hpp"
+#include "nodes/EANode/EvolutionarySystem.hpp"
+#include "core/Fitness.hpp"
 #include <string>
 #include <vector>
 
@@ -25,14 +26,13 @@ class GA : public EvolutionarySystem {
 	void init(unsigned int numElites, bool randomElitePlacement);
 	void placeElites(
 		std::vector<Genome*> initialPopulation,
-		std::vector<float> initialPopulationFitnesses,
-		std::vector<Genome*> & newPopulation,
-		std::vector<float> & newPopulationFitnesses
+		std::vector<Fitness> initialPopulationFitnesses,
+		std::vector<Genome*>& newPopulation,
+		std::vector<Fitness>& newPopulationFitnesses
 	);
-	std::vector<unsigned int> findElites(std::vector<float> fitnesses);
+	std::vector<unsigned int> findElites(std::vector<Fitness> fitnesses);
 
 	public:
-
 	GA(
 		unsigned int numElites,
 		bool randomElitePlacement,
@@ -49,7 +49,7 @@ class GA : public EvolutionarySystem {
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
-		std::vector<float> & populationFitnesses,
+		std::vector<Fitness>& populationFitnesses,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);
