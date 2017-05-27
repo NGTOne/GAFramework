@@ -4,9 +4,14 @@
 #include <vector>
 #include <initializer_list>
 #include <ostream>
+#include <functional>
 
 class Fitness {
 	private:
+	Fitness mathOperation(
+		const Fitness& rhs,
+		std::function<double(double, double)> op
+	) const;
 
 	protected:
 	std::vector<double> components;
@@ -31,6 +36,9 @@ class Fitness {
 	// We'll default to just summing up the components
 	virtual double collapse() const;
 	std::vector<double> getComponents() const;
+
+	virtual Fitness operator+(const Fitness& rhs) const;
+	virtual Fitness operator-(const Fitness& rhs) const;
 
 	virtual bool operator==(const Fitness& rhs) const;
 	virtual bool operator!=(const Fitness& rhs) const;

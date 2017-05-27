@@ -83,6 +83,49 @@ std::vector<double> Fitness::getComponents() const {
 	return this->components;
 }
 
+// It's generally a safe assumption that two Fitness objects will have the
+// same "sources" of fitness, in the same order
+// Therefore we operate on them mathematically, in order
+// This preserves "relative" value - e.g. after subtraction the overall value
+// will still be positive if the first operand is larger (has higher fitness)
+Fitness Fitness::mathOperation(
+	const Fitness& rhs,
+	std::function<double(double, double)> op
+) const {
+	std::vector<double> lhsComponents = this->getComponents();
+	std::vector<double> rhsComponents = rhs.getComponents();
+	std::vector<double> components;
+
+	// In case one gets more values than another - can happen with
+	// apportionment
+	unsigned int overallLen = std::max(
+		lhsComponents.size(),
+		rhsComponents.size()
+	);
+
+	for (unsigned int i = 0; i < overallLen; i++) {
+		if (i < lhsComponents.size() and i < rhsComponents.size()) {
+			components.push_back(
+				op(lhsComponents[i], rhsComponents[i])
+			);
+		} else if (i < lhsComponents.size()) {
+			components.push_back(lhsComponents[i]);
+		} else if (i < rhsComponents.size()) {
+			components.push_back(rhsComponents[i]);
+		}
+	}
+
+	return Fitness(components);
+}
+
+Fitness Fitness::operator+(const Fitness& rhs) const {
+	return this->mathOperation(rhs, std::plus<double>());
+}
+
+Fitness Fitness::operator-(const Fitness& rhs) const {
+	return this->mathOperation(rhs, std::minus<double>());
+}
+
 bool Fitness::operator==(const Fitness& rhs) const {
 	std::vector<double> rhsComponents = rhs.getComponents();
 	if (rhsComponents.size() != this->components.size()) return false;
