@@ -9,7 +9,7 @@ class NestedObjective: public ObjectiveFunction {
 
 	protected:
 	ObjectiveFunction * innerObjective;
-	float checkInnerFitness(Genome * target);
+	Fitness checkInnerFitness(Genome* target);
 
 	public:
 	NestedObjective(ObjectiveFunction * innerObjective);

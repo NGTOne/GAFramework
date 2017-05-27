@@ -14,7 +14,7 @@ bool NestedObjective::isNested() {
 	return true;
 }
 
-float NestedObjective::checkInnerFitness(Genome * target) {
+Fitness NestedObjective::checkInnerFitness(Genome* target) {
 	return this->innerObjective->checkFitness(target);
 }
 

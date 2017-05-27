@@ -3,6 +3,7 @@
 
 #include <string>
 #include "../Genome.hpp"
+#include "../Fitness.hpp"
 #include "../EABehaviourObject.hpp"
 
 class ObjectiveFunction : public EABehaviourObject {
@@ -12,7 +13,7 @@ class ObjectiveFunction : public EABehaviourObject {
 
 	public:
 	virtual ~ObjectiveFunction();
-	virtual float checkFitness(Genome * genome)=0;
+	virtual Fitness checkFitness(Genome * genome)=0;
 	virtual bool isApportioning();
 	virtual bool isNested();
 };
