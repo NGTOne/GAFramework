@@ -44,7 +44,7 @@ Genome NoisyObjective::addNoise(Genome * target) {
 	return this->geneticSource->addNoise(target);
 }
 
-float NoisyObjective::checkFitness(Genome * genome) {
+Fitness NoisyObjective::checkFitness(Genome* genome) {
 	Genome noisy = this->addNoise(genome);
 	return this->fitnessSource->addNoise(this->checkInnerFitness(&noisy));
 }

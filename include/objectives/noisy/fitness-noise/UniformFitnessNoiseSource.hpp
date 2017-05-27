@@ -1,8 +1,8 @@
 #ifndef OBJECTIVES_NOISY_FITNESS_NOISE_UniformFitnessNoiseSource
 #define OBJECTIVES_NOISY_FITNESS_NOISE_UniformFitnessNoiseSource
 
-#include "FitnessNoiseSource.hpp"
-#include "../../../core/utils/HierRNG.hpp"
+#include "objectives/noisy/fitness-noise/FitnessNoiseSource.hpp"
+#include "core/utils/HierRNG.hpp"
 
 template <typename T>
 class UniformFitnessNoiseSource: public FitnessNoiseSource {
@@ -14,8 +14,7 @@ class UniformFitnessNoiseSource: public FitnessNoiseSource {
 
 	public:
 	UniformFitnessNoiseSource(T low, T high);
-
-	float addNoise(float cleanFitness);
+	Fitness addNoise(Fitness cleanFitness);
 };
 
 template <typename T>
@@ -28,8 +27,10 @@ UniformFitnessNoiseSource<T>::UniformFitnessNoiseSource(
 }
 
 template <typename T>
-float UniformFitnessNoiseSource<T>::addNoise(float cleanFitness) {
-	return cleanFitness + HierRNG::uniform<T>(this->low, this->high);
+Fitness UniformFitnessNoiseSource<T>::addNoise(Fitness cleanFitness) {
+	return this->noisify(cleanFitness, [this](double component) -> double {
+		return component + HierRNG::uniform<T>(this->low, this->high);
+	});
 }
 
 #endif

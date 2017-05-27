@@ -10,34 +10,34 @@ class NoisyObjective: public NestedObjective {
 	private:
 
 	protected:
-	GeneticNoiseSource * geneticSource;
-	FitnessNoiseSource * fitnessSource;
+	GeneticNoiseSource* geneticSource;
+	FitnessNoiseSource* fitnessSource;
 
-	float addNoise(float cleanFitness);
-	Genome addNoise(Genome * target);
+	Fitness addNoise(Fitness cleanFitness);
+	Genome addNoise(Genome* target);
 
 	void init(
-		GeneticNoiseSource * geneticSource,
-		FitnessNoiseSource * fitnessSource
+		GeneticNoiseSource* geneticSource,
+		FitnessNoiseSource* fitnessSource
 	);
 
 	public:
 	NoisyObjective(
-		ObjectiveFunction * cleanObjective,
-		GeneticNoiseSource * geneticSource
+		ObjectiveFunction* cleanObjective,
+		GeneticNoiseSource* geneticSource
 	);
 	NoisyObjective(
-		ObjectiveFunction * cleanObjective,
-		FitnessNoiseSource * fitnessSource
+		ObjectiveFunction* cleanObjective,
+		FitnessNoiseSource* fitnessSource
 	);
 	NoisyObjective(
-		ObjectiveFunction * cleanObjective,
-		GeneticNoiseSource * geneticSource,
-		FitnessNoiseSource * fitnessSource
+		ObjectiveFunction* cleanObjective,
+		GeneticNoiseSource* geneticSource,
+		FitnessNoiseSource* fitnessSource
 	);
 	virtual void registerInternalObjects();
 
-	float checkFitness(Genome * genome);
+	Fitness checkFitness(Genome* genome);
 };
 
 #endif

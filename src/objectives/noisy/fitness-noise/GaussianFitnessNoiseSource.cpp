@@ -19,6 +19,8 @@ void GaussianFitnessNoiseSource::init(double mean, double stdDev) {
 	this->stdDev = stdDev;
 }
 
-float GaussianFitnessNoiseSource::addNoise(float cleanFitness) {
-	return cleanFitness + HierRNG::gaussian(this->mean, this->stdDev);
+Fitness GaussianFitnessNoiseSource::addNoise(Fitness cleanFitness) {
+	return this->noisify(cleanFitness, [this](double component) -> double {
+		return component + HierRNG::gaussian(this->mean, this->stdDev);
+	});
 }

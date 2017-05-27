@@ -8,13 +8,12 @@ class ZeroingFitnessNoiseSource: public FitnessNoiseSource {
 
 	protected:
 	double zeroChance;
-
 	void init(double zeroChance);
 
 	public:
 	ZeroingFitnessNoiseSource(double zeroChance);
 
-	float addNoise(float cleanFitness);
+	Fitness addNoise(Fitness cleanFitness);
 };
 
 #endif

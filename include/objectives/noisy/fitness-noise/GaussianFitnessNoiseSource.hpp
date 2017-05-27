@@ -16,7 +16,7 @@ class GaussianFitnessNoiseSource: public FitnessNoiseSource {
 	GaussianFitnessNoiseSource(double stdDev);
 	GaussianFitnessNoiseSource(double mean, double stdDev);
 
-	float addNoise(float cleanFitness);
+	Fitness addNoise(Fitness cleanFitness);
 };
 
 #endif

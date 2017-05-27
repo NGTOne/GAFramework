@@ -2,6 +2,6 @@
 
 NonNoisyFitnessSource::NonNoisyFitnessSource() : FitnessNoiseSource() {}
 
-float NonNoisyFitnessSource::addNoise(float cleanFitness) {
+Fitness NonNoisyFitnessSource::addNoise(Fitness cleanFitness) {
 	return cleanFitness;
 }

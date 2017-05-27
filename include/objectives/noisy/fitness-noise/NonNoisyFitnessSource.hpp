@@ -11,7 +11,7 @@ class NonNoisyFitnessSource: public FitnessNoiseSource {
 	public:
 	NonNoisyFitnessSource();
 
-	float addNoise(float cleanFitness);
+	Fitness addNoise(Fitness cleanFitness);
 };
 
 #endif
