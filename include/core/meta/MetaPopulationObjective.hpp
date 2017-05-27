@@ -9,8 +9,8 @@ class MetaPopulationObjective : public NestedObjective {
 	protected:
 
 	public:
-	MetaPopulationObjective(ObjectiveFunction * flattenedObjective);
-	float checkFitness(Genome * genome);
+	MetaPopulationObjective(ObjectiveFunction* flattenedObjective);
+	Fitness checkFitness(Genome* genome);
 };
 
 #endif
