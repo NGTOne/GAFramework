@@ -29,10 +29,10 @@ void TournamentSelection::init(unsigned int tournamentSize) {
 
 void TournamentSelection::sortByFitness(
 	std::vector<unsigned int>& indexes,
-	std::vector<float>& fitnesses
+	std::vector<Fitness>& fitnesses
 ) {
 	unsigned int tempIndex;
-	float tempFitness;
+	Fitness tempFitness;
 	for (unsigned int i = 0; i < indexes.size(); i++)
 		for (unsigned int k = 0; k < indexes.size(); k++)
 			if (fitnesses[i] > fitnesses[k]) {
@@ -47,14 +47,14 @@ void TournamentSelection::sortByFitness(
 
 unsigned int TournamentSelection::getParent(
 	std::vector<Genome*> population,
-	std::vector<float> fitnesses
+	std::vector<Fitness> fitnesses
 ) {
 	unsigned int populationSize = fitnesses.size();
 	unsigned int tournamentSize = std::min(
 		this->tournamentSize,
 		populationSize
 	);
-	std::vector<float> tempFitnesses;
+	std::vector<Fitness> tempFitnesses;
 	std::vector<unsigned int> indexes;
 	unsigned int index;
 
