@@ -7,7 +7,7 @@ class SummingAggregator : public AggregationFunction {
 	private:
 
 	protected:
-	float aggregateFitnesses(std::vector<float> apportionedFitnesses);
+	double aggregateFitnesses(std::vector<double> apportionedFitnesses);
 
 	public:
 };

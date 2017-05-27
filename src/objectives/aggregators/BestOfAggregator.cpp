@@ -1,9 +1,9 @@
 #include "objectives/aggregators/BestOfAggregator.hpp"
 
-float BestOfAggregator::aggregateFitnesses(
-	std::vector<float> apportionedFitnesses
+double BestOfAggregator::aggregateFitnesses(
+	std::vector<double> apportionedFitnesses
 ) {
-	float bestFitness = 0;
+	double bestFitness = 0;
 	for (unsigned int i = 0; i < apportionedFitnesses.size(); i++)
 		if (apportionedFitnesses[i] > bestFitness)
 			bestFitness = apportionedFitnesses[i];

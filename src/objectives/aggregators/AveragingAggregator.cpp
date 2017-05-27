@@ -1,9 +1,9 @@
 #include "objectives/aggregators/AveragingAggregator.hpp"
 
-float AveragingAggregator::aggregateFitnesses(
-	std::vector<float> apportionedFitnesses
+double AveragingAggregator::aggregateFitnesses(
+	std::vector<double> apportionedFitnesses
 ) {
-	float total = 0;
+	double total = 0;
 	for (unsigned int i = 0; i < apportionedFitnesses.size(); i++)
 		total += apportionedFitnesses[i];
 
