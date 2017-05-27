@@ -2,12 +2,11 @@
 #include "core/meta/BlanketResolver.hpp"
 
 MetaPopulationApportionment::MetaPopulationApportionment(
-	PopulationNode * metaNode,
-	ApportionmentFunction * apportionment,
-	AggregationFunction * aggregation
-) : Apportionment(metaNode, apportionment, aggregation) {}
+	PopulationNode* metaNode,
+	ApportionmentFunction* apportionment
+) : Apportionment(metaNode, apportionment) {}
 
-Genome * MetaPopulationApportionment::getOperableGenome(Genome * genome) {
+Genome* MetaPopulationApportionment::getOperableGenome(Genome* genome) {
 	Genome resolved = BlanketResolver::resolveBlanket(genome);
 	return new Genome(&resolved);
 }

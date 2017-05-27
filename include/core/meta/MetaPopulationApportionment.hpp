@@ -8,22 +8,21 @@ class MetaPopulationApportionment : public Apportionment {
 	private:
 
 	protected:
-	Genome * getOperableGenome(Genome * genome);
+	Genome * getOperableGenome(Genome* genome);
 	std::vector<unsigned int> getComponentIndices(
-		Genome * upper,
-		Genome * target
+		Genome* upper,
+		Genome* target
 	);
 	std::vector<unsigned int> getRelevantIndices(
-		Genome * target,
+		Genome* target,
 		unsigned int targetIndex
 	);
-	bool upperGenomeUsesComponent(Genome * upper, Genome * target);
+	bool upperGenomeUsesComponent(Genome* upper, Genome* target);
 
 	public:
 	MetaPopulationApportionment(
-		PopulationNode * metaNode,
-		ApportionmentFunction * apportionment,
-		AggregationFunction * aggregation
+		PopulationNode* metaNode,
+		ApportionmentFunction* apportionment
 	);
 };
 
