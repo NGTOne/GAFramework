@@ -1,8 +1,8 @@
 #ifndef NODES_EANODE_SYSTEMS_GA
 #define NODES_EANODE_SYSTEMS_GA
 
-#include "nodes/EANode/EvolutionarySystem.hpp"
-#include "core/Fitness.hpp"
+#include "../EvolutionarySystem.hpp"
+#include "../../../core/Fitness.hpp"
 #include <string>
 #include <vector>
 

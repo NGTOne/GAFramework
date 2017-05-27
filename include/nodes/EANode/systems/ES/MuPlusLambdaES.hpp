@@ -1,9 +1,9 @@
 #ifndef NODES_EANODE_SYSTEMS_ES_MuPlusLambdaES
 #define NODES_EANODE_SYSTEMS_ES_MuPlusLambdaES
 
-#include "nodes/EANode/MutationOperation.hpp"
-#include "nodes/EANode/CrossoverOperation.hpp"
-#include "nodes/EANode/SelectionStrategy.hpp"
+#include "../../MutationOperation.hpp"
+#include "../../CrossoverOperation.hpp"
+#include "../../SelectionStrategy.hpp"
 #include "MuLambdaES.hpp"
 #include <vector>
 

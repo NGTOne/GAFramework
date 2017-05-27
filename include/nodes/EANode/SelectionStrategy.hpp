@@ -1,9 +1,9 @@
 #ifndef NODES_EANODE_SelectionStrategy
 #define NODES_EANODE_SelectionStrategy
 
-#include "core/Genome.hpp"
-#include "core/EABehaviourObject.hpp"
-#include "core/Fitness.hpp"
+#include "../../core/Genome.hpp"
+#include "../../core/EABehaviourObject.hpp"
+#include "../../core/Fitness.hpp"
 #include <string>
 #include <vector>
 

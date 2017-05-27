@@ -1,8 +1,8 @@
 #ifndef OBJECTIVES_NOISY_FITNESS_NOISE_UniformFitnessNoiseSource
 #define OBJECTIVES_NOISY_FITNESS_NOISE_UniformFitnessNoiseSource
 
-#include "objectives/noisy/fitness-noise/FitnessNoiseSource.hpp"
-#include "core/utils/HierRNG.hpp"
+#include "FitnessNoiseSource.hpp"
+#include "../../../core/utils/HierRNG.hpp"
 
 template <typename T>
 class UniformFitnessNoiseSource: public FitnessNoiseSource {
