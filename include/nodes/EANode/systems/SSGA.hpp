@@ -18,32 +18,32 @@ class SSGA : public EvolutionarySystem {
 	private:
 
 	protected:
-	NichingStrategy * niching;
+	NichingStrategy* niching;
 
 	public:
 	SSGA(
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation
+		SelectionStrategy* strategy,
+		CrossoverOperation* cross,
+		MutationOperation* mutation
 	);
 	SSGA(
-		SelectionStrategy * strategy,
-		CrossoverOperation * cross,
-		MutationOperation * mutation,
-		NichingStrategy * niching
+		SelectionStrategy* strategy,
+		CrossoverOperation* cross,
+		MutationOperation* mutation,
+		NichingStrategy* niching
 	);
 
 	virtual void registerInternalObjects();
 
 	virtual std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
-		std::vector<float> & populationFitnesses,
+		std::vector<Fitness>& populationFitnesses,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);
 
 	bool hasNiching();
-	NichingStrategy * getNiching();
+	NichingStrategy* getNiching();
 };
 
 #endif

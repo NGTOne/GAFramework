@@ -27,7 +27,7 @@ void SSGA::registerInternalObjects() {
 
 std::vector<Genome*> SSGA::breedMutateSelect(
 	std::vector<Genome*> initialPopulation,
-	std::vector<float>& populationFitnesses,
+	std::vector<Fitness>& populationFitnesses,
 	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
@@ -52,7 +52,7 @@ std::vector<Genome*> SSGA::breedMutateSelect(
 			children
 		);
 
-	std::vector<float> newFitnesses;
+	std::vector<Fitness> newFitnesses;
 
 	for (unsigned int i = 0; i < children.size(); i++) {
 		newFitnesses.push_back(this->evaluateFitness(

@@ -16,7 +16,7 @@ VEDA_GA::VEDA_GA(
 
 std::vector<Genome*> VEDA_GA::breedMutateSelect(
 	std::vector<Genome*> initialPopulation,
-	std::vector<float>& populationFitnesses,
+	std::vector<Fitness>& populationFitnesses,
 	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
