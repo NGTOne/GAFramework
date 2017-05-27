@@ -19,7 +19,7 @@ class VEDA_ES: public MuPlusLambdaES {
 
 	std::vector<Genome*> breedMutateSelect(
 		std::vector<Genome*> initialPopulation,
-		std::vector<float>& populationFitnesses,
+		std::vector<Fitness>& populationFitnesses,
 		std::vector<ObjectiveFunction*> objectives,
 		std::string speciesNode
 	);

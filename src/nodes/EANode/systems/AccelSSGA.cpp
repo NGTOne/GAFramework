@@ -15,7 +15,7 @@ AccelSSGA::AccelSSGA(
 
 std::vector<Genome*> AccelSSGA::breedMutateSelect(
 	std::vector<Genome*> initialPopulation,
-	std::vector<float>& populationFitnesses,
+	std::vector<Fitness>& populationFitnesses,
 	std::vector<ObjectiveFunction*> objectives,
 	std::string speciesNode
 ) {
