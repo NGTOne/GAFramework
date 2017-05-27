@@ -1,16 +1,16 @@
 #include "endconditions/FitnessMatchEnd.hpp"
 
-FitnessMatchEnd::FitnessMatchEnd(float minimumFitness) {
+FitnessMatchEnd::FitnessMatchEnd(double minimumFitness) {
 	this->minimumFitness = minimumFitness;
 }
 
-bool FitnessMatchEnd::checkSolution(Genome* target, float targetFitness) {
-	return targetFitness > this->minimumFitness;
+bool FitnessMatchEnd::checkSolution(Genome* target, Fitness targetFitness) {
+	return targetFitness.collapse() > this->minimumFitness;
 }
 
 bool FitnessMatchEnd::checkCondition(
 	std::vector<Genome*> genomes,
-	std::vector<float> fitnesses,
+	std::vector<Fitness> fitnesses,
 	unsigned int currentIteration
 ) {
 	for (unsigned int i = 0; i < genomes.size(); i++)
