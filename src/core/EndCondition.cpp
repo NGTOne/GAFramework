@@ -4,6 +4,6 @@ EndCondition::EndCondition() {}
 
 EndCondition::~EndCondition() {}
 
-bool EndCondition::checkSolution(Genome * target, float targetFitness) {
+bool EndCondition::checkSolution(Genome * target, Fitness targetFitness) {
 	return false;
 }

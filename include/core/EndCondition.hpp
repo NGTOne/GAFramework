@@ -2,6 +2,7 @@
 #define CORE_EndCondition
 
 #include "Genome.hpp"
+#include "Fitness.hpp"
 #include "EABehaviourObject.hpp"
 #include <vector>
 
@@ -9,7 +10,7 @@ class EndCondition : public EABehaviourObject {
 	private:
 
 	protected:
-	virtual bool checkSolution(Genome * target, float targetFitness);
+	virtual bool checkSolution(Genome * target, Fitness targetFitness);
 	
 	public:
 	EndCondition();
@@ -17,7 +18,7 @@ class EndCondition : public EABehaviourObject {
 
 	virtual bool checkCondition(
 		std::vector<Genome*> genomes,
-		std::vector<float> fitnesses,
+		std::vector<Fitness> fitnesses,
 		unsigned int currentIteration
 	)=0;
 };
