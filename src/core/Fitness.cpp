@@ -54,7 +54,7 @@ void Fitness::add(std::initializer_list<double> components) {
 		this->add(component);
 }
 
-double Fitness::collapse() {
+double Fitness::collapse() const {
 	return std::accumulate(
 		this->components.begin(),
 		this->components.end(),
@@ -62,6 +62,35 @@ double Fitness::collapse() {
 	);
 }
 
-std::vector<double> Fitness::getComponents() {
+std::vector<double> Fitness::getComponents() const {
 	return this->components;
+}
+
+bool Fitness::operator==(const Fitness& rhs) const {
+	std::vector<double> rhsComponents = rhs.getComponents();
+	if (rhsComponents.size() != this->components.size()) return false;
+	for (unsigned int i = 0; i < this->components.size(); i++)
+		if (rhsComponents[i] != this->components[i]) return false;
+
+	return true;
+}
+
+bool Fitness::operator!=(const Fitness& rhs) const {
+	return !(*this == rhs);
+}
+
+bool Fitness::operator>(const Fitness& rhs) const {
+	return this->collapse() > rhs.collapse();
+}
+
+bool Fitness::operator<(const Fitness& rhs) const {
+	return rhs > *this;
+}
+
+bool Fitness::operator>=(const Fitness& rhs) const {
+	return !(*this < rhs);
+}
+
+bool Fitness::operator<=(const Fitness& rhs) const {
+	return !(*this > rhs);
 }

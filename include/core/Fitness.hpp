@@ -25,15 +25,15 @@ class Fitness {
 
 	// Obviously there's lots of possible different ways to do this
 	// We'll default to just summing up the components
-	virtual double collapse();
-	std::vector<double> getComponents();
+	virtual double collapse() const;
+	std::vector<double> getComponents() const;
 
-	virtual bool operator==(const Fitness& rhs);
-	virtual bool operator!=(const Fitness& rhs);
-	virtual bool operator>(const Fitness& rhs);
-	virtual bool operator<(const Fitness& rhs);
-	virtual bool operator>=(const Fitness& rhs);
-	virtual bool operator<=(const Fitness& rhs);
+	virtual bool operator==(const Fitness& rhs) const;
+	virtual bool operator!=(const Fitness& rhs) const;
+	virtual bool operator>(const Fitness& rhs) const;
+	virtual bool operator<(const Fitness& rhs) const;
+	virtual bool operator>=(const Fitness& rhs) const;
+	virtual bool operator<=(const Fitness& rhs) const;
 };
 
 #endif
