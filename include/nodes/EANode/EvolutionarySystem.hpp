@@ -28,8 +28,8 @@ class EvolutionarySystem : public EABehaviourObject {
 		std::vector<Genome*> & population,
 		std::vector<float> & fitnesses
 	);
-	float evaluateFitness(
-		Genome * target,
+	Fitness evaluateFitness(
+		Genome* target,
 		std::vector<ObjectiveFunction*> objectives
 	);
 

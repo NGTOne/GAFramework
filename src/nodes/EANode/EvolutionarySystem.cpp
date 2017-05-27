@@ -51,13 +51,13 @@ void EvolutionarySystem::sortPopulation(
 			}
 }
 
-float EvolutionarySystem::evaluateFitness(
+Fitness EvolutionarySystem::evaluateFitness(
 	Genome* target,
 	std::vector<ObjectiveFunction*> objectives
 ) {
-	float finalFitness = 0;
+	Fitness finalFitness;
 	for (unsigned int i = 0; i < objectives.size(); i++)
-		finalFitness += objectives[i]->checkFitness(target);
+		finalFitness.add(objectives[i]->checkFitness(target));
 	return finalFitness;
 }
 
