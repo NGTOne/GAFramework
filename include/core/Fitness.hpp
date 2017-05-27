@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <initializer_list>
+#include <ostream>
 
 class Fitness {
 	private:
@@ -35,5 +36,7 @@ class Fitness {
 	virtual bool operator>=(const Fitness& rhs) const;
 	virtual bool operator<=(const Fitness& rhs) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const Fitness& fitness);
 
 #endif

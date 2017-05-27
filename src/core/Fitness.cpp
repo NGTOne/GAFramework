@@ -96,3 +96,12 @@ bool Fitness::operator>=(const Fitness& rhs) const {
 bool Fitness::operator<=(const Fitness& rhs) const {
 	return !(*this > rhs);
 }
+
+std::ostream& operator<<(std::ostream& os, const Fitness& fitness) {
+	std::vector<double> components = fitness.getComponents();
+	os << "{";
+	for (unsigned int i = 0; i < components.size(); i++)
+		os << components[i] << (i < components.size() - 1 ? ", " : "");
+	os << "}";
+	return os;
+}
