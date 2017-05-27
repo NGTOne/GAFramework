@@ -58,8 +58,7 @@ bool MetaPopulationFactory::isCompleteBlanket(
 bool MetaPopulationFactory::isValidBlanket(
 	std::vector<std::tuple<
 		PopulationNode*,
-		ApportionmentFunction *,
-		AggregationFunction *
+		ApportionmentFunction *
 	>> nodes
 ) {
 	std::vector<PopulationNode*> actualNodes;
@@ -74,8 +73,7 @@ bool MetaPopulationFactory::isValidBlanket(
 std::vector<Locus*> MetaPopulationFactory::createLoci(
 	std::vector<std::tuple<
 		PopulationNode*,
-		ApportionmentFunction *,
-		AggregationFunction *
+		ApportionmentFunction *
 	>> nodes
 ) {
 	std::vector<Locus*> loci;
@@ -89,22 +87,17 @@ void MetaPopulationFactory::addMetaApportionments(
 	PopulationNode * metaNode,
 	std::vector<std::tuple<
 		PopulationNode*,
-		ApportionmentFunction *,
-		AggregationFunction *
+		ApportionmentFunction *
 	>> nodes,
 	bool clobberExistingObjectives
 ) {
 	for (unsigned int i = 0; i < nodes.size(); i++) {
-		if (
-			std::get<1>(nodes[i]) == NULL
-			|| std::get<2>(nodes[i]) == NULL
-		) continue;
+		if (std::get<1>(nodes[i]) == NULL) continue;
 
 		ObjectiveFunction * apportion =
 			new MetaPopulationApportionment(
 				metaNode,
-				std::get<1>(nodes[i]),
-				std::get<2>(nodes[i])
+				std::get<1>(nodes[i])
 			);
 
 		if (clobberExistingObjectives) {

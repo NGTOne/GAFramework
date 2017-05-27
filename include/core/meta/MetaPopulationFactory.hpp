@@ -23,17 +23,15 @@ class MetaPopulationFactory {
 	static bool isCompleteBlanket(std::vector<PopulationNode*> nodes);
 	static bool isValidBlanket(
 		std::vector<std::tuple<
-			PopulationNode *,
-			ApportionmentFunction *,
-			AggregationFunction *
+			PopulationNode*,
+			ApportionmentFunction*
 		>> nodes
 	);
 
 	static std::vector<Locus*> createLoci(
 		std::vector<std::tuple<
-			PopulationNode *,
-			ApportionmentFunction *,
-			AggregationFunction *
+			PopulationNode*,
+			ApportionmentFunction*
 		>> nodes
 	);
 
@@ -41,23 +39,21 @@ class MetaPopulationFactory {
 		PopulationNode * metaNode,
 		std::vector<std::tuple<
 			PopulationNode *,
-			ApportionmentFunction *,
-			AggregationFunction *
+			ApportionmentFunction*
 		>> nodes,
 		bool clobberExistingObjectives
 	);
 
 	public:
 	template<typename MetaNodeType, typename... params>
-	static PopulationNode * createMeta(
+	static PopulationNode* createMeta(
 		bool clobberExistingObjectives,
 		unsigned int populationSize,
 		std::vector<std::tuple<
-			PopulationNode *,
-			ApportionmentFunction *,
-			AggregationFunction *
+			PopulationNode*,
+			ApportionmentFunction*
 		>> nodes,
-		std::vector<ObjectiveFunction *> flattenedObjectives,
+		std::vector<ObjectiveFunction*> flattenedObjectives,
 		ToStringFunction * flattenedToString,
 		std::vector<EndCondition*> conditions,
 		std::string metaNodeName,
@@ -66,16 +62,15 @@ class MetaPopulationFactory {
 };
 
 template<typename MetaNodeType, typename... params>
-PopulationNode * MetaPopulationFactory::createMeta(
+PopulationNode* MetaPopulationFactory::createMeta(
 	bool clobberExistingObjectives,
 	unsigned int populationSize,
 	std::vector<std::tuple<
-		PopulationNode *,
-		ApportionmentFunction *,
-		AggregationFunction *
+		PopulationNode*,
+		ApportionmentFunction*
 	>> nodes,
-	std::vector<ObjectiveFunction *> flattenedObjectives,
-	ToStringFunction * flattenedToString,
+	std::vector<ObjectiveFunction*> flattenedObjectives,
+	ToStringFunction* flattenedToString,
 	std::vector<EndCondition*> conditions,
 	std::string metaNodeName,
 	params... as
