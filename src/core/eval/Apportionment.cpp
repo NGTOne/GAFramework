@@ -147,6 +147,12 @@ Fitness Apportionment::checkFitness(Genome* genome) {
 	return Fitness(this->postProcessFitnesses(apportionedFitnesses));
 }
 
+std::vector<double> Apportionment::postProcessFitnesses(
+	std::vector<double> apportionedFitnesses
+) {
+	return apportionedFitnesses;
+}
+
 bool Apportionment::isApportioning() {
 	return true;
 }
