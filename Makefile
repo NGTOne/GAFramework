@@ -46,13 +46,13 @@ uninstall:
 	if [[ "$$(uname -s)" == "Linux" ]]; then sudo ldconfig; fi
 
 obj/%.o: src/%.cpp
-	# We want to create the directory in /obj if it doesn't exist already
-	mkdir -p $$(echo $@ | sed 's/\/[^\/]\+\.o//g')
+	@# We want to create the directory in /obj if it doesn't exist already
+	@mkdir -p $$(echo $@ | sed 's/\/[^\/]\+\.o//g')
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ $<
 
 obj/examples/%.o: src/examples/%.cpp
-	# We want to create the directory in /obj if it doesn't exist already
-	mkdir -p $$(echo $@ | sed 's/\/[^\/]\+\.o//g')
+	@# We want to create the directory in /obj if it doesn't exist already
+	@mkdir -p $$(echo $@ | sed 's/\/[^\/]\+\.o//g')
 	$(CXX) $(CXXFLAGS) $(EXAMPLEINCLUDE) -o $@ $<
 
 library: all-header $(LIB_OBJS)
