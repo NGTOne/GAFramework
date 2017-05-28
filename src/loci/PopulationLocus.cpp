@@ -47,11 +47,11 @@ double PopulationLocus::randomIndex() {
 }
 
 double PopulationLocus::topIndex() {
-	return (*this->validIndices.end())-1;
+	return *(this->validIndices.end()-1);
 }
 
 double PopulationLocus::bottomIndex() {
-	return (*this->validIndices.begin());
+	return *(this->validIndices.begin());
 }
 
 double PopulationLocus::closestIndex(double index) {
