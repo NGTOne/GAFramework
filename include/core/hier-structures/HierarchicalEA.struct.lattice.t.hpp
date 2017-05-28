@@ -169,7 +169,6 @@ void HierarchicalEA::addConstructiveLattice(
 		contextLoci,
 		objectives,
 		this->getNestedEmptyVector<ApportionmentFunction*>(counts, 1),
-		this->getNestedEmptyVector<AggregationFunction*>(counts, 1),
 		this->getNestedEmptyVector<unsigned int>(counts, 1),
 		toStrings,
 		conditions,
