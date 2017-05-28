@@ -14,7 +14,7 @@ Fitness OneMaxFitness::checkFitness(Genome* genome) {
 	for (unsigned int i = 0; i < flattened.genomeLength(); i++)
 		total += flattened.getIndex<int>(i);
 
-	return Fitness(total);
+	return Fitness(total, FitnessSource(this));
 }
 
 OneMaxToString::OneMaxToString(

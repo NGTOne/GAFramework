@@ -40,7 +40,10 @@ LongestFragmentFitness::LongestFragmentFitness() : ObjectiveFunction() {}
 
 Fitness LongestFragmentFitness::checkFitness(Genome* genome) {
 	unsigned int bitBucket;
-	return Fitness(findLongestPath(genome, bitBucket));
+	return Fitness(
+		findLongestPath(genome, bitBucket),
+		FitnessSource(this)
+	);
 }
 
 LongestFragmentToString::LongestFragmentToString(

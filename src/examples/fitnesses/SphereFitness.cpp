@@ -15,7 +15,7 @@ Fitness SphereFitness::checkFitness(Genome * genome) {
 	for (unsigned int i = 0; i < 32; i++)
 		total += pow(flattened.getIndex<double>(i), 2);
 
-	return Fitness(-total);
+	return Fitness(-total, FitnessSource(this));
 }
 
 string SphereToString::toString(Genome * genome) {
