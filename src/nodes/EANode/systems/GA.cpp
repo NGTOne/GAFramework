@@ -73,8 +73,7 @@ std::vector<unsigned int> GA::findElites(std::vector<Fitness> fitnesses) {
 		fitnesses.size()/2 : this->numElites;
 
 	for (unsigned int i = 0; i < trueNumElites; i++) {
-		// Still a dirty ugly hack, but it works
-		bestFitness = Fitness(std::numeric_limits<double>::lowest());
+		bestFitness = Fitness::lowestPossible();
 		for (unsigned int k = 0; k < populationSize; k++) {
 			if (
 				fitnesses[k] > bestFitness
