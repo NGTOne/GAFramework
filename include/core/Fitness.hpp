@@ -58,6 +58,13 @@ class Fitness {
 	virtual bool operator>=(const Fitness& rhs) const;
 	virtual bool operator<=(const Fitness& rhs) const;
 
+	virtual bool operator==(const double& rhs) const;
+	virtual bool operator!=(const double& rhs) const;
+	virtual bool operator>(const double& rhs) const;
+	virtual bool operator<(const double& rhs) const;
+	virtual bool operator>=(const double& rhs) const;
+	virtual bool operator<=(const double& rhs) const;
+
 	static Fitness lowestPossible();
 };
 

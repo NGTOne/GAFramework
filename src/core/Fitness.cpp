@@ -191,6 +191,30 @@ bool Fitness::operator<=(const Fitness& rhs) const {
 	return !(*this > rhs);
 }
 
+bool Fitness::operator==(const double& rhs) const {
+	return this->collapse() == rhs;
+}
+
+bool Fitness::operator!=(const double& rhs) const {
+	return !(*this == rhs);
+}
+
+bool Fitness::operator>(const double& rhs) const {
+	return this->collapse() > rhs;
+}
+
+bool Fitness::operator<(const double& rhs) const {
+	return this->collapse() < rhs;
+}
+
+bool Fitness::operator>=(const double& rhs) const {
+	return !(*this < rhs);
+}
+
+bool Fitness::operator<=(const double& rhs) const {
+	return !(*this > rhs);
+}
+
 Fitness Fitness::lowestPossible() {
 	return Fitness(
 		std::numeric_limits<double>::lowest(),
