@@ -6,6 +6,8 @@
 #include "../Fitness.hpp"
 #include "../EABehaviourObject.hpp"
 
+class Fitness;
+
 class ObjectiveFunction : public EABehaviourObject {
 	private:
 

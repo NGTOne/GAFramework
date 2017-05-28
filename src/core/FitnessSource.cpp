@@ -1,5 +1,11 @@
 #include "core/FitnessSource.hpp"
 
+FitnessSource::FitnessSource() {
+	this->source = boost::variant<ObjectiveFunction*, Genome*>(
+		(Genome*)NULL
+	);
+}
+
 FitnessSource::FitnessSource(
 	boost::variant<ObjectiveFunction*, Genome*> source
 ) {

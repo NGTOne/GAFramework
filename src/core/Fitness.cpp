@@ -8,11 +8,11 @@ Fitness::Fitness() {
 	this->components = {};
 }
 
-Fitness::Fitness(double initial) {
-	this->components.push_back(initial);
+Fitness::Fitness(double initial, FitnessSource source) {
+	this->components.push_back(std::make_tuple(initial, source));
 }
 
-Fitness::Fitness(std::initializer_list<double> initial) {
+Fitness::Fitness(std::initializer_list<FitnessPair> initial) {
 	this->components.insert(
 		this->components.end(),
 		initial.begin(),
@@ -20,7 +20,7 @@ Fitness::Fitness(std::initializer_list<double> initial) {
 	);
 }
 
-Fitness::Fitness(std::vector<double> initial) {
+Fitness::Fitness(std::vector<FitnessPair> initial) {
 	this->components.insert(
 		this->components.end(),
 		initial.begin(),
@@ -54,16 +54,20 @@ void Fitness::drop(std::initializer_list<unsigned int> indices) {
 		this->components.erase(this->components.begin() + index);
 }
 
-void Fitness::add(double component) {
+void Fitness::add(double component, FitnessSource source) {
+	this->add(std::make_tuple(component, source));
+}
+
+void Fitness::add(FitnessPair component) {
 	this->components.push_back(component);
 }
 
-void Fitness::add(std::initializer_list<double> components) {
+void Fitness::add(std::initializer_list<FitnessPair> components) {
 	for (auto component: components)
 		this->add(component);
 }
 
-void Fitness::add(std::vector<double> components) {
+void Fitness::add(std::vector<FitnessPair> components) {
 	for (auto component:components)
 		this->add(component);
 }
@@ -76,26 +80,48 @@ double Fitness::collapse() const {
 	return std::accumulate(
 		this->components.begin(),
 		this->components.end(),
-		0.0
+		0.0,
+		[] (double first, FitnessPair second) -> double {
+			return first + std::get<0>(second);
+		}
 	);
 }
 
-std::vector<double> Fitness::getComponents() const {
+std::vector<FitnessPair> Fitness::getComponents() const {
 	return this->components;
 }
 
-// It's generally a safe assumption that two Fitness objects will have the
-// same "sources" of fitness, in the same order
-// Therefore we operate on them mathematically, in order
-// This preserves "relative" value - e.g. after subtraction the overall value
-// will still be positive if the first operand is larger (has higher fitness)
+// Yes, I KNOW it's O(n^2)
+// It's not likely to be too big a deal here
+std::vector<FitnessPair> Fitness::matchComponentsBySource(
+	std::vector<FitnessPair> toMatch
+) const {
+	std::vector<FitnessPair> matched = toMatch;
+
+	for (unsigned int i = 0; i < this->components.size(); i++) {
+		FitnessSource lhs = std::get<1>(this->components[i]);
+		for (unsigned int k = 0; k < matched.size(); k++) {
+			FitnessSource rhs = std::get<1>(matched[k]);
+			if (lhs == rhs) {
+				FitnessPair temp = matched[i];
+				matched[i] = matched[k];
+				matched[k] = temp;
+			}
+		}
+	}
+
+	return matched;
+}
+
 Fitness Fitness::mathOperation(
 	const Fitness& rhs,
 	std::function<double(double, double)> op
 ) const {
-	std::vector<double> lhsComponents = this->getComponents();
-	std::vector<double> rhsComponents = rhs.getComponents();
-	std::vector<double> components;
+	std::vector<FitnessPair> lhsComponents = this->getComponents();
+	// This way, they're guaranteed to be in the same order
+	std::vector<FitnessPair> rhsComponents =
+		this->matchComponentsBySource(rhs.getComponents());
+	std::vector<FitnessPair> newComponents;
 
 	// In case one gets more values than another - can happen with
 	// apportionment
@@ -106,17 +132,21 @@ Fitness Fitness::mathOperation(
 
 	for (unsigned int i = 0; i < overallLen; i++) {
 		if (i < lhsComponents.size() and i < rhsComponents.size()) {
-			components.push_back(
-				op(lhsComponents[i], rhsComponents[i])
-			);
+			newComponents.push_back(std::make_tuple(
+				op(
+					std::get<0>(lhsComponents[i]),
+					std::get<0>(rhsComponents[i])
+				),
+				std::get<1>(lhsComponents[i])
+			));
 		} else if (i < lhsComponents.size()) {
-			components.push_back(lhsComponents[i]);
+			newComponents.push_back(lhsComponents[i]);
 		} else if (i < rhsComponents.size()) {
-			components.push_back(rhsComponents[i]);
+			newComponents.push_back(rhsComponents[i]);
 		}
 	}
 
-	return Fitness(components);
+	return Fitness(newComponents);
 }
 
 Fitness Fitness::operator+(const Fitness& rhs) const {
@@ -128,10 +158,13 @@ Fitness Fitness::operator-(const Fitness& rhs) const {
 }
 
 bool Fitness::operator==(const Fitness& rhs) const {
-	std::vector<double> rhsComponents = rhs.getComponents();
+	std::vector<FitnessPair> rhsComponents = rhs.getComponents();
 	if (rhsComponents.size() != this->components.size()) return false;
+
+	rhsComponents = this->matchComponentsBySource(rhsComponents);
 	for (unsigned int i = 0; i < this->components.size(); i++)
-		if (rhsComponents[i] != this->components[i]) return false;
+		if (std::get<0>(rhsComponents[i]) !=
+			std::get<0>(this->components[i])) return false;
 
 	return true;
 }
@@ -159,14 +192,18 @@ bool Fitness::operator<=(const Fitness& rhs) const {
 }
 
 Fitness Fitness::lowestPossible() {
-	return Fitness(std::numeric_limits<double>::lowest());
+	return Fitness(
+		std::numeric_limits<double>::lowest(),
+		FitnessSource()
+	);
 }
 
 std::ostream& operator<<(std::ostream& os, const Fitness& fitness) {
-	std::vector<double> components = fitness.getComponents();
+	std::vector<FitnessPair> components = fitness.getComponents();
 	os << "{";
 	for (unsigned int i = 0; i < components.size(); i++)
-		os << components[i] << (i < components.size() - 1 ? ", " : "");
+		os << std::get<0>(components[i])
+			<< (i < components.size() - 1 ? ", " : "");
 	os << "}";
 	return os;
 }

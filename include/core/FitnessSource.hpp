@@ -5,6 +5,9 @@
 #include "eval/ObjectiveFunction.hpp"
 #include "Genome.hpp"
 
+class ObjectiveFunction;
+class Genome;
+
 class FitnessSource {
 	private:
 
@@ -12,6 +15,7 @@ class FitnessSource {
 	boost::variant<ObjectiveFunction*, Genome*> source;
 
 	public:
+	FitnessSource();
 	FitnessSource(boost::variant<ObjectiveFunction*, Genome*> source);
 	const boost::variant<ObjectiveFunction*, Genome*> getSource() const;
 
