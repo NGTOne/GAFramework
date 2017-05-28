@@ -65,17 +65,18 @@ std::vector<unsigned int> Apportionment::getRelevantIndices(
 
 void Apportionment::evaluatePair(
 	Genome* upper,
+	Genome* rawUpper,
 	Genome* target,
 	Fitness upperFitness,
-	std::vector<double>& apportionedFitnesses
+	std::vector<FitnessPair>& apportionedFitnesses
 ) {
 	std::vector<unsigned int> componentIndices =
 		this->getComponentIndices(upper, target);
 
-	Genome * provider = this->getOperableGenome(upper);
+	Genome* provider = this->getOperableGenome(upper);
 	Genome flattened = target->flattenGenome();
 	for (unsigned int i = 0; i < componentIndices.size(); i++)
-		apportionedFitnesses.push_back(
+		apportionedFitnesses.push_back(std::make_tuple(
 			this->apportionment->apportionFitness(
 				&flattened,
 				provider,
@@ -85,8 +86,9 @@ void Apportionment::evaluatePair(
 					componentIndices[i]
 				),
 				upperFitness
-			)
-		);
+			),
+			FitnessSource(rawUpper)
+		));
 	delete(provider);
 }
 
@@ -99,14 +101,15 @@ bool Apportionment::upperGenomeUsesComponent(
 
 // TODO: Refactor this function
 Fitness Apportionment::checkFitness(Genome* genome) {
-	std::vector<double> apportionedFitnesses;
+	std::vector<FitnessPair> apportionedFitnesses;
 	std::vector<bool> tried(this->upperNode->populationSize(), false);
 	unsigned int triedOn = 0;
 
 	for (unsigned int i = 0; i < this->upperNode->populationSize(); i++) {
-		Genome * upper = this->upperNode->getIndex(i);
+		Genome* upper = this->upperNode->getIndex(i);
 		if (this->upperGenomeUsesComponent(upper, genome)) {
 			this->evaluatePair(
+				upper,
 				upper,
 				genome,
 				this->upperNode->getFitnessAtIndex(i),
@@ -130,11 +133,12 @@ Fitness Apportionment::checkFitness(Genome* genome) {
 	while (triedOn < realTryOns) {
 		index = HierRNG::index(untriedIndices.size() - 1);
 
-		Genome * provider = this->upperNode
-			->getIndex(untriedIndices[index])
-			->replaceComponent(genome);
+		Genome* upper = this->upperNode
+			->getIndex(untriedIndices[index]);
+		Genome* provider = upper->replaceComponent(genome);
 		this->evaluatePair(
 			provider,
+			upper,
 			genome,
 			this->upperNode->evaluateFitness(provider),
 			apportionedFitnesses
@@ -147,8 +151,8 @@ Fitness Apportionment::checkFitness(Genome* genome) {
 	return Fitness(this->postProcessFitnesses(apportionedFitnesses));
 }
 
-std::vector<double> Apportionment::postProcessFitnesses(
-	std::vector<double> apportionedFitnesses
+std::vector<FitnessPair> Apportionment::postProcessFitnesses(
+	std::vector<FitnessPair> apportionedFitnesses
 ) {
 	return apportionedFitnesses;
 }

@@ -3,7 +3,6 @@
 
 #include "ObjectiveFunction.hpp"
 #include "ApportionmentFunction.hpp"
-#include "AggregationFunction.hpp"
 #include "../PopulationNode.hpp"
 
 class Apportionment : public ObjectiveFunction {
@@ -20,8 +19,8 @@ class Apportionment : public ObjectiveFunction {
 		unsigned int tryOns
 	);
 
-	virtual std::vector<double> postProcessFitnesses(
-		std::vector<double> apportionedFitnesses
+	virtual std::vector<FitnessPair> postProcessFitnesses(
+		std::vector<FitnessPair> apportionedFitnesses
 	);
 
 	virtual Genome * getOperableGenome(Genome * genome);
@@ -40,9 +39,10 @@ class Apportionment : public ObjectiveFunction {
 
 	void evaluatePair(
 		Genome* upper,
+		Genome* rawUpper,
 		Genome* target,
 		Fitness upperFitness,
-		std::vector<double>& apportionedFitnesses
+		std::vector<FitnessPair>& apportionedFitnesses
 	);
 
 	public:
