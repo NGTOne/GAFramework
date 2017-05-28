@@ -23,16 +23,22 @@ void AggregatingApportionment::registerInternalObjects() {
 	HierGC::registerObject(this->aggregator);
 }
 
-std::vector<double> AggregatingApportionment::postProcessFitnesses(
-	std::vector<double> apportionedFitnesses
+std::vector<FitnessPair> AggregatingApportionment::postProcessFitnesses(
+	std::vector<FitnessPair> apportionedFitnesses
 ) {
-	return {this->aggregateFitnesses(apportionedFitnesses)};
+	return {std::make_tuple(
+		this->aggregateFitnesses(apportionedFitnesses),
+		FitnessSource(this)
+	)};
 }
 
 double AggregatingApportionment::aggregateFitnesses(
-	std::vector<double> apportionedFitnesses
+	std::vector<FitnessPair> apportionedFitnesses
 ) {
-	return this->aggregator->aggregateFitnesses(apportionedFitnesses);
+	std::vector<double> fitnessValues;
+	for (auto pair: apportionedFitnesses)
+		fitnessValues.push_back(std::get<0>(pair));
+	return this->aggregator->aggregateFitnesses(fitnessValues);
 }
 
 AggregationFunction* AggregatingApportionment::getAggregationFunction() {

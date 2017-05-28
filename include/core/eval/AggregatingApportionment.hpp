@@ -9,9 +9,11 @@ class AggregatingApportionment : public Apportionment {
 
 	protected:
 	AggregationFunction* aggregator;
-	double aggregateFitnesses(std::vector<double> apportionedFitnesses);
-	virtual std::vector<double> postProcessFitnesses(
-		std::vector<double> apportionedFitnesses
+	double aggregateFitnesses(
+		std::vector<FitnessPair> apportionedFitnesses
+	);
+	virtual std::vector<FitnessPair> postProcessFitnesses(
+		std::vector<FitnessPair> apportionedFitnesses
 	);
 
 	public:
