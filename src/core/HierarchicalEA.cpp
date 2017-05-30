@@ -99,22 +99,14 @@ void HierarchicalEA::duplicateNode(
 		);
 }
 
-// TODO: Refactor this a bit
 void HierarchicalEA::removeNode(std::string name) {
 	PopulationNode* node = this->getNodeByName(name);
-	for (unsigned int i = 0; i < this->nodes.size(); i++)
-		if (node == this->nodes[i]) {
-			this->nodes.erase(this->nodes.begin()+i);
-			break;
-		}
-
-	for (unsigned int i = 0; i < this->nodesToPrint.size(); i++)
-		if (this->nodesToPrint[i] == name)
-			this->nodesToPrint.erase(this->nodesToPrint.begin()+i);
-
-	for (unsigned int i = 0; i < this->endDictators.size(); i++)
-		if (this->endDictators[i] == name)
-			this->endDictators.erase(this->endDictators.begin()+i);
+	this->dropFromList(name, this->evolutionOrder);
+	this->dropFromList(name, this->nodesToPrint);
+	this->dropFromList(name, this->endDictators);
+	this->dropFromList(node, this->nodes);
+	this->dropFromList(node, this->printNodes);
+	this->dropFromList(node, this->endConditionDictatorNodes);
 }
 
 void HierarchicalEA::checkNodesExist(std::vector<std::string> names) {

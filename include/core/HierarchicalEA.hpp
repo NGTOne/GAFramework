@@ -66,6 +66,9 @@ class HierarchicalEA {
 	template <typename T>
 	std::vector<T> wrapForPass(T original, unsigned int count);
 
+	template <typename T>
+	void dropFromList(T target, std::vector<T>& list);
+
 	template<typename vec>
 	std::vector<vec> wrapForPass(
 		vec original,
@@ -620,6 +623,14 @@ bool HierarchicalEA::compareVectorLengths(
 template <typename vec, typename vec2>
 bool HierarchicalEA::compareVectorLengths(vec initial, vec2 compare) {
 	return initial.size() == compare.size();
+}
+
+template <typename T>
+void HierarchicalEA::dropFromList(T target, std::vector<T>& list) {
+	for (unsigned int i = 0; i < list.size(); i++)
+		if (list[i] == target) {
+			list.erase(list.begin() + i);
+		}
 }
 
 template <typename T>
