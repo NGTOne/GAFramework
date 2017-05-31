@@ -22,3 +22,13 @@ Gene* DiscreteGene::copy(double newIndex) {
 		this->target->closestIndex(newIndex)
 	);
 }
+
+Gene* DiscreteGene::increment() {
+	this->add(1);
+	return this;
+}
+
+Gene* DiscreteGene:: decrement() {
+	this->add(-1);
+	return this;
+}
