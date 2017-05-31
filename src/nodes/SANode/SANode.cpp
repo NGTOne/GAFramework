@@ -107,7 +107,6 @@ int SANode::compareNeighbourliness(GenomeTemplate base, GenomeTemplate target) {
 	return flattenedBase.difference(&flattenedTarget);
 }
 
-// TODO: Generalize for real-valued genomes
 std::vector<Genome*> SANode::getLocusNeighbours(
 	Genome* target,
 	unsigned int index
@@ -117,22 +116,20 @@ std::vector<Genome*> SANode::getLocusNeighbours(
 
 	Gene* gene = templ.getGene(index);
 	if (!gene->isConstructive()) {
-		if (gene->getIndex() < gene->getLocus()->topIndex() - 1)
-			neighbours.push_back(new Genome(
-				GenomeTemplate(templ).set(
-					gene->copy(gene->getIndex() + 1),
-					index
-				),
-				target->getSpeciesNode()
-			));
-		if (gene->getIndex() > gene->getLocus()->bottomIndex() + 1)
-			neighbours.push_back(new Genome(
-				GenomeTemplate(templ).set(
-					gene->copy(gene->getIndex() - 1),
-					index
-				),
-				target->getSpeciesNode()
-			));
+		neighbours.push_back(new Genome(
+			GenomeTemplate(templ).set(
+				gene->copy()->increment(),
+				index
+			),
+			target->getSpeciesNode()
+		));
+		neighbours.push_back(new Genome(
+			GenomeTemplate(templ).set(
+				gene->copy()->decrement(),
+				index
+			),
+			target->getSpeciesNode()
+		));
 	} else {
 		Genome* nearestKnownNeighbour;
 		double bottom = templ.getLocus(index)->bottomIndex();
