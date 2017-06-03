@@ -229,20 +229,24 @@ bool HierarchicalEA::isNodeEndDictator(std::string node) {
 	) != this->endDictators.end();
 }
 
-// TODO: Make verbosity option actually mean something
+void HierarchicalEA::print(unsigned int epoch) {
+	if (epoch == 0)
+		std::cout << "Before:\n";
+	else
+		std::cout << "After epoch " << epoch << ":\n";
+	std::cout << std::string(80, '=') << "\n";
+	for (unsigned int i = 0; i < this->printNodes.size(); i++) {
+		std::cout << "Node " << this->nodesToPrint[i] << ":\n";
+		std::cout << this->printNodes[i]->toString();
+		std::cout << std::string(80, '-') << "\n";
+	}
+}
+
 void HierarchicalEA::run(bool verbose) {
 	this->buildEvolutionNodes();
 	this->buildPrintNodes();
 	this->buildEndDictators();
-	if (verbose) {
-		std::cout << "Before:\n";
-		std::cout << std::string(80, '=') << "\n";
-		for (unsigned int i = 0; i < this->printNodes.size(); i++) {
-			std::cout << "Node " << this->nodesToPrint[i] << ":\n";
-			std::cout << this->printNodes[i]->toString();
-			std::cout << std::string(80, '-') << "\n";
-		}
-	}
+	this->print(0);
 	this->instruments.runInitial();
 
 	for (unsigned int i = 0; i < this->maxEpochs; i++) {
@@ -258,26 +262,16 @@ void HierarchicalEA::run(bool verbose) {
 
 		this->migrate();
 
-		if (verbose) {
-			// Because humans count from 1, we add 1 to our epoch
-			// counter
-			std::cout << "After epoch " << i+1 << ":\n";
-			std::cout << std::string(80, '=') << "\n";
-			for (
-				unsigned int k = 0;
-				k < this->printNodes.size();
-				k++
-			) {
-				std::cout << "Node "
-					<< this->nodesToPrint[k] << ":\n";
-				std::cout << this->printNodes[k]->toString();
-				std::cout << std::string(80, '-') << "\n";
-			}
-		}
+		// Because humans count from 1, we add 1 to our epoch counter
+		if (verbose) this->print(i + 1);
 		this->instruments.runRuntime();
 
 		if (this->done(i)) break;
 	}
+
+	// We just want to print the end state if low verbosity is specified
+	if (!verbose) this->print(this->maxEpochs);
+
 	this->instruments.runEnd();
 }
 

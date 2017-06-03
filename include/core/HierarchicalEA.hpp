@@ -43,6 +43,7 @@ class HierarchicalEA {
 	void buildPrintNodes();
 	void buildEndDictators();
 	void migrate();
+	void print(unsigned int epoch);
 
 	void checkNodesExist(std::vector<std::string> names);
 	bool done(unsigned int currentEpoch);
