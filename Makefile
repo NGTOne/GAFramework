@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -c -g -std=gnu++0x -fPIC -Wall -Werror -pedantic-errors
+CXXFLAGS = -c -g -std=c++14 -fPIC -Wall -Werror -pedantic-errors
 OBJ = obj
 SRC = src
 
